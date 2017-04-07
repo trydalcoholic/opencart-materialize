@@ -125,27 +125,27 @@
 									<div class="rating">
 										<hr>
 										<div>
+											<?php if ($review_status) { ?>
 											<span class="white">
-												<?php if ($review_status) { ?>
-													<?php for ($i = 1; $i <= 5; $i++) { ?>
-														<?php if ($rating < $i) { ?>
-															<i class="material-icons">star_border</i>
-														<?php } else { ?>
-															<i class="material-icons">star</i>
-														<?php } ?>
-													<?php } ?>
-													<?php $reviewCount = preg_replace('~\D+~','',$reviews); ?>
-													<?php if ($rating > 0) { ?>
-														<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="hide">
-															<meta itemprop="reviewCount" content="<?php echo $reviewCount; ?>">
-															<meta itemprop="ratingValue" content="<?php echo $rating; ?>">
-															<meta itemprop="worstRating" content="1">
-															<meta itemprop="bestRating" content="5">
-															<meta itemprop="itemreviewed" content="<?php echo $heading_title; ?>">
-														</div>
+												<?php for ($i = 1; $i <= 5; $i++) { ?>
+													<?php if ($rating < $i) { ?>
+														<i class="material-icons">star_border</i>
+													<?php } else { ?>
+														<i class="material-icons">star</i>
 													<?php } ?>
 												<?php } ?>
 											</span>
+												<?php $reviewCount = preg_replace('~\D+~','',$reviews); ?>
+												<?php if ($rating > 0) { ?>
+													<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="hide">
+														<meta itemprop="reviewCount" content="<?php echo $reviewCount; ?>">
+														<meta itemprop="ratingValue" content="<?php echo $rating; ?>">
+														<meta itemprop="worstRating" content="1">
+														<meta itemprop="bestRating" content="5">
+														<meta itemprop="itemreviewed" content="<?php echo $heading_title; ?>">
+													</div>
+												<?php } ?>
+											<?php } ?>
 											<br>
 											<a class="blue-grey-text text-darken-3 text-bold" href="#" onclick="$('a[href=\'#tab-review\']').trigger('click');$('html, body').animate({scrollTop:$('a[href=\'#tab-review\']').offset().top-50},1150);return false;" rel="nofollow"><?php echo $reviews; ?></a>
 										</div>
