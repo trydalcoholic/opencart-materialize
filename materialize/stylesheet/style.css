@@ -129,13 +129,8 @@ iframe {border:none;}
 .old-price {font-size:1.3em !important;text-decoration:line-through;}
 .add-cart {
 	position: absolute;
-	top: 0;
-	left: 0;
-	-moz-transform: translateY(-50%) translateX(35%);
-	-ms-transform: translateY(-50%) translateX(35%);
-	-webkit-transform: translateY(-50%) translateX(35%);
-	-o-transform: translateY(-50%) translateX(35%);
-	transform: translateY(-50%) translateX(35%);
+	top: -28px;
+	right: 28px;
 }
 .card .card-action {padding-top:10px;}
 .card .card-image img {width:inherit;margin:0 auto;border-radius:0;}
