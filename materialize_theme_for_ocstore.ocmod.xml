@@ -1740,12 +1740,6 @@
 	</file>
 	<file path="catalog/language/en-gb/checkout/cart.php">
 		<operation error="skip">
-			<search><![CDATA[$_['text_success']             = 'Товар <a href="%s">%s</a> добавлен в вашу <a href="%s">корзину</a>!';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['text_success']             = 'Товар&nbsp;<a href="%s">%s</a>&nbsp;добавлен в вашу&nbsp;<a href="%s">корзину</a>!';
-			]]></add>
-		</operation>
-		<operation error="skip">
 			<search><![CDATA[$_['text_items']               = '%s item(s) - %s';]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$_['text_items']               = '%s';
