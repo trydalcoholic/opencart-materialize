@@ -84,7 +84,7 @@
 											<tr>
 												<td>
 													<?php if ($product['thumb']) { ?>
-													<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>
+													<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>
 													<?php } ?>
 												</td>
 												<td>

@@ -1,14 +1,14 @@
 <?php if (count($currencies) > 1) { ?>
 	<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-currency">
-		<a class="dropdown-button" data-activates="currency" rel="nofollow">
+		<a class="dropdown-button" data-activates="currency" data-beloworigin="true" data-constrainWidth="false" rel="nofollow">
+			<span class="hide-on-med-and-down" style="pointer-events:none;"><?php echo $text_currency; ?>:</span>
 			<?php foreach ($currencies as $currency) { ?>
 				<?php if ($currency['symbol_left'] && $currency['code'] == $code) { ?>
-				<strong><?php echo $currency['symbol_left']; ?></strong>
+				<strong style="pointer-events:none;"><?php echo $currency['symbol_left']; ?></strong>
 				<?php } elseif ($currency['symbol_right'] && $currency['code'] == $code) { ?>
-				<strong><?php echo $currency['symbol_right']; ?></strong>
+				<strong style="pointer-events:none;"><?php echo $currency['symbol_right']; ?></strong>
 				<?php } ?>
 			<?php } ?>
-			<span class="hide-on-med-and-down"><?php echo $text_currency; ?><i class="material-icons right">arrow_drop_down</i></span>
 		</a>
 		<ul id="currency" class="dropdown-content">
 		<?php foreach ($currencies as $currency) { ?>

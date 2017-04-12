@@ -4,16 +4,16 @@
 		<?php foreach ($products as $product) { ?>
 		<div class="col s12 m6 xl4">
 			<div class="card sticky-action large z-depth-3 hoverable">
-				<?php if ($product['special']) { ?><span class="white-text badge red lighten-1 percent">Скидка <?php echo $product['percent_discount']; ?>%</span><?php } ?>
+				<?php if ($product['special']) { ?><span class="white-text badge red lighten-1 percent"><?php echo $text_percent; ?> <?php echo $product['percent_discount']; ?>%</span><?php } ?>
 				<div class="card-image">
 					<span><i class="material-icons small right activator">more_vert</i></span>
-					<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>
+					<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>
 				</div>
 				<div class="card-content center-align">
 					<span class="card-title"><a href="<?php echo $product['href']; ?>" class="grey-text text-darken-4"><?php echo $product['name']; ?></a></span>
 				</div>
 				<div class="card-action center-align grey lighten-5">
-					<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="Добавить в корзину" onclick="cart.add('<?php echo $product['product_id']; ?>');"><i class="material-icons">add_shopping_cart</i></button>
+					<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="<?php echo $button_cart; ?>" onclick="cart.add('<?php echo $product['product_id']; ?>');"><i class="material-icons">add_shopping_cart</i></button>
 					<?php if ($product['price']) { ?>
 						<?php if (!$product['special']) { ?>
 							<span class="card-price"><?php echo $product['price']; ?></span>
@@ -46,7 +46,7 @@
 							<?php endif ?>
 						</span>
 					</div>
-					<a href="<?php echo $product['href']; ?>" class="btn waves-effect waves-light red">Подробнее</a>
+					<a href="<?php echo $product['href']; ?>" class="btn waves-effect waves-light red"><?php echo $text_more_detailed; ?></a>
 				</div>
 				<div class="card-reveal">
 					<span class="card-title"><a href="<?php echo $product['href']; ?>" class="grey-text text-darken-4"><?php echo $product['name']; ?></a><i class="material-icons">close</i></span>

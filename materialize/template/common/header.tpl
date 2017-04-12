@@ -62,10 +62,14 @@
 		<div class="row blue-grey darken-4 hide-on-small-only">
 			<nav class="container blue-grey darken-4 z-depth-0 top-menu">
 				<div class="nav-wrapper">
+					<ul class="left">
+						<li><?php echo $language; ?></li>
+						<li><?php echo $currency; ?></li>
+					</ul>
 					<ul class="right">
-						<li><a href="/index.php?route=information/information&information_id=6">Доставка</a></li>
-						<li><a href="<?php echo $contact; ?>">Контакты</a></li>
-						<li><a href="/index.php?route=information/information&information_id=4">О нас</a></li>
+						<li><a href="/index.php?route=information/information&information_id=6"><?php echo $text_delivery; ?></a></li>
+						<li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
+						<li><a href="/index.php?route=information/information&information_id=4"><?php echo $text_about; ?></a></li>
 						<li>
 							<a class="dropdown-button" href="<?php echo $account; ?>" data-activates="dropdown-top-lk" data-beloworigin="true" data-constrainwidth="false" data-hover="true" rel="nofollow"><?php echo $text_account; ?></a>
 							<ul id="dropdown-top-lk" class="dropdown-content">
@@ -96,7 +100,7 @@
 					<div class="col s12 m4">
 						<a href="#" data-activates="slide-out" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light blue-grey darken-2 z-depth-4 btn-side-menu" rel="nofollow"><i class="material-icons white-text">menu</i></a>
 						<?php if ($logo) { ?>
-						<a href="<?php echo $home; ?>"><img class="responsive-img" src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>"></a>
+						<a href="<?php echo $home; ?>"><img class="responsive-img lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>"></a>
 						<?php } else { ?>
 							<strong><a href="<?php echo $home; ?>"><?php echo $name; ?></a></strong>
 						<?php } ?>
@@ -107,7 +111,7 @@
 						<div class="right-align">
 							<ul class="right text-medium contact-info">
 								<li><a href="mailto:<?php echo $email; ?>" class="blue-grey-text text-lighten-5"><?php echo $email; ?><i class="material-icons left">email</i></a></li>
-								<li><a class="blue-grey-text text-lighten-5" href="#modal-call-back" rel="nofollow">Звонок с сайта<i class="material-icons left">phone</i></a></li>
+								<li><a class="blue-grey-text text-lighten-5" href="#modal-call-back" rel="nofollow"><?php echo $text_call_back; ?><i class="material-icons left">phone</i></a></li>
 								<li><span>Будни с 09:00 до 18:00<i class="material-icons left">access_time</i></span></li>
 							</ul>
 						</div>
@@ -162,7 +166,7 @@
 					<div class="userView">
 						<div class="background blue-grey darken-2"></div>
 						<?php if ($logo) { ?>
-						<img class="responsive-img" src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="230" height="75">
+						<img class="responsive-img lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="230" height="75">
 						<?php } else { ?>
 						<strong><a href="<?php echo $home; ?>"><?php echo $name; ?></a></strong>
 						<?php } ?>
@@ -179,7 +183,7 @@
 						<a href="mailto:<?php echo $email; ?>" rel="nofollow"><span class="white-text"><?php echo $email; ?></span></a>
 					</div>
 				</li>
-				<li class="grey lighten-4"><a class="waves-effect waves-default" href="#modal-call-back" rel="nofollow"><i class="material-icons">phone</i>Обратный звонок</a></li>
+				<li class="grey lighten-4"><a class="waves-effect waves-default" href="#modal-call-back" rel="nofollow"><i class="material-icons">phone</i><?php echo $text_call_back; ?></a></li>
 				<li>
 					<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
 					<?php if ($categories) { ?>
@@ -205,13 +209,13 @@
 					</ul>
 				</li>
 				<li class="divider"></li>
-				<li><a href="/index.php?route=information/information&information_id=6" rel="nofollow">Доставка<i class="material-icons">local_shipping</i></a></li>
-				<li><a href="<?php echo $contact; ?>" rel="nofollow">Контакты<i class="material-icons">email</i></a></li>
-				<li><a href="/index.php?route=information/information&information_id=4" rel="nofollow">О нас<i class="material-icons">store</i></a></li>
+				<li><a href="/index.php?route=information/information&information_id=6" rel="nofollow"><?php echo $text_delivery; ?><i class="material-icons">local_shipping</i></a></li>
+				<li><a href="<?php echo $contact; ?>" rel="nofollow"><?php echo $text_contact; ?><i class="material-icons">email</i></a></li>
+				<li><a href="/index.php?route=information/information&information_id=4" rel="nofollow"><?php echo $text_about; ?><i class="material-icons">store</i></a></li>
 				<li>
 					<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
 						<li class="bold">
-							<a href="<?php echo $account; ?>" class="collapsible-header waves-effect waves-default" onclick="return false;" rel="nofollow">Личный кабинет<i class="material-icons">account_circle</i></a>
+							<a href="<?php echo $account; ?>" class="collapsible-header waves-effect waves-default" onclick="return false;" rel="nofollow"><?php echo $text_account; ?><i class="material-icons">account_circle</i></a>
 							<div class="collapsible-body no-padding">
 								<ul>
 									<?php if ($logged) { ?>

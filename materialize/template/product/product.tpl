@@ -64,13 +64,16 @@
 				<?php echo $column_left; ?>
 				<div class="col <?php echo $main; ?>" itemscope itemtype="http://schema.org/Product">
 					<meta itemprop="url" content="<?php echo getUrl(); ?>">
+					<?php if ($thumb_small) { ?>
+					<meta itemprop="image" content="<?php echo $popup; ?>">
+					<?php } ?>
 					<?php echo $content_top; ?>
 					<div class="row">
 						<div class="row">
 							<div class="col <?php echo $image; ?>">
 								<div class="card-panel img-block">
 								<?php if ($special) { ?>
-								<span class="white-text badge red lighten-1 product-card__badge_percent z-depth-1">Скидка <b><?php echo $percent_discount; ?>%</b></span>
+								<span class="white-text badge red lighten-1 product-card__badge_percent z-depth-1"><?php echo $text_percent; ?> <b><?php echo $percent_discount; ?>%</b></span>
 								<?php } ?>
 								<span class="<?php echo $stock_color ?> white-text badge availability"><?php echo $stock; ?></span>
 								<?php if ($thumb || $images) { ?>
@@ -78,7 +81,7 @@
 										<?php if ($thumb_small) { ?>
 											<figure class="waves-effect waves-light" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 												<a href="<?php echo $popup; ?>" itemprop="contentUrl" data-size="<?php echo $popup_size; ?>">
-													<img class="responsive-img lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="catalog/view/theme/materialize/image/ajax-loader.gif" data-lazy="<?php echo str_replace($thumb_small_size, $thumb_size, $thumb_small); ?>" itemprop="thumbnail" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
+													<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo str_replace($thumb_small_size, $thumb_size, $thumb_small); ?>" itemprop="thumbnail" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
 												</a>
 												<figcaption class="center" itemprop="caption description"><?php echo $heading_title; ?></figcaption>
 											</figure>
@@ -87,7 +90,7 @@
 											<?php foreach ($images as $image) { ?>
 											<figure class="waves-effect waves-light" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 												<a href="<?php echo $image['popup']; ?>" itemprop="contentUrl" data-size="<?php echo $popup_size; ?>">
-													<img class="responsive-img lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="catalog/view/theme/materialize/image/ajax-loader.gif" data-lazy="<?php echo str_replace($thumb_small_size, $thumb_size, $image['thumb']); ?>" itemprop="thumbnail" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
+													<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo str_replace($thumb_small_size, $thumb_size, $image['thumb']); ?>" itemprop="thumbnail" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
 												</a>
 												<figcaption class="center" itemprop="caption description"><?php echo $heading_title; ?></figcaption>
 											</figure>
@@ -97,10 +100,10 @@
 										<?php if ($images) { ?>
 										<div class="slider-nav">
 											<?php if ($thumb_small) { ?>
-											<img class="responsive-img lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="<?php echo $thumb_small; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
+											<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb_small; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
 											<?php } ?>
 											<?php foreach ($images as $image) { ?>
-											<img class="responsive-img lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
+											<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $image['thumb']; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
 											<?php } ?>
 										</div>
 										<?php } ?>
@@ -167,14 +170,14 @@
 											</div>
 											<div class="col s4 center">
 												<?php if($manufacturers_img) { ?>
-												<a href="<?php echo $manufacturers; ?>" target="_blank"><?php echo ($manufacturers_img) ? '<img class="responsive-img lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="'.$manufacturers_img.'" title="'.$manufacturer.'" alt="'.$manufacturer.'">' : '' ;?></a>
+												<a href="<?php echo $manufacturers; ?>" target="_blank"><?php echo ($manufacturers_img) ? '<img class="responsive-img lazyload" src="'.$img_loader.'" data-src="'.$manufacturers_img.'" title="'.$manufacturer.'" alt="'.$manufacturer.'">' : '' ;?></a>
 												<?php } ?>
 											</div>
 										</div>
 										<div class="col s12">
 											<?php if ($product_spec && $product_spec != '0000-00-00') { ?>
 											<div class="section center grey lighten-3 end-promotion">
-												<span class="text-medium"><i class="material-icons left">info</i>Акция закончится
+												<span class="text-medium"><i class="material-icons left">info</i><?php echo $text_end_promotion; ?>
 												<span class="text-bold">
 												<?php
 													$product_spec = date_create($product_spec);
@@ -197,7 +200,7 @@
 													<?php } ?>
 													<?php if ($category_products) { ?>
 													<li>
-														<span class="bold">Категория:</span>
+														<span class="bold"><?php echo $text_category; ?></span>
 														<a href="<?php echo $category_products[0]['href']; ?>"><span itemprop="category"><?php echo $category_products[0]['name']; ?></span></a>
 													</li>
 													<?php } ?>
@@ -223,19 +226,19 @@
 												<?php if ($price) { ?>
 													<?php if ($special) { ?>
 													<li class="collection-item">
-														<span><i class="material-icons blue-grey-text text-darken-4 left">local_offer</i><span class="deep-orange-text text-accent-3 text-bold"><?php echo $percent_discount; ?>%</span> скидка</span>
+														<span><i class="material-icons blue-grey-text text-darken-4 left">local_offer</i><?php echo $text_percent; ?> <span class="deep-orange-text text-accent-3 text-bold"><?php echo $percent_discount; ?>%</span></span>
 													</li>
 													<?php } ?>
 													<?php if ($reward) { ?>
 													<li class="collection-item">
-														<span><i class="material-icons blue-grey-text text-darken-4 left">account_balance_wallet</i><span class="deep-orange-text text-accent-3 text-bold"><?php echo $reward; ?></span> бонусных баллов за покупку</span>
+														<span><i class="material-icons blue-grey-text text-darken-4 left">account_balance_wallet</i><span class="deep-orange-text text-accent-3 text-bold"><?php echo $reward; ?></span> <?php echo $text_bonus_points; ?></span>
 													</li>
 													<?php } ?>
 												<?php } ?>
 											</ul>
 											<div class="section">
-												<h6 class="center text-medium">Оплата наличными и банковскими картами</h6>
-												<img class="responsive-img center-block lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="catalog/view/theme/materialize/image/payments.jpg" alt="Оплата наличными и банковскими картами">
+												<h6 class="center text-medium"><?php echo $text_payment_method; ?></h6>
+												<img class="responsive-img center-block lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/payments.jpg" alt="Оплата наличными и банковскими картами">
 											</div>
 										</div>
 									</div>
@@ -254,7 +257,7 @@
 																	<?php foreach ($option['product_option_value'] as $option_value) { ?>
 																	<li>
 																		<?php if ($option_value['image']) { ?>
-																			<img src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img">
+																			<img src="<?php echo $img_loader; ?>" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img">
 																		<?php } ?>
 																		<input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>"  class="with-gap">
 																		<label for="<?php echo $option_value['product_option_value_id']; ?>">
@@ -274,7 +277,7 @@
 																	<?php foreach ($option['product_option_value'] as $option_value) { ?>
 																	<li>
 																		<?php if ($option_value['image']) { ?>
-																		<img src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img lazyload">
+																		<img src="<?php echo $img_loader; ?>" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img lazyload">
 																		<?php } ?>
 																		<input type="checkbox" name="option[<?php echo $option['product_option_id']; ?>][]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>" class="filled-in">
 																		<label for="<?php echo $option_value['product_option_value_id']; ?>">
@@ -510,15 +513,16 @@
 							<?php foreach ($products as $product) { ?>
 							<div class="col">
 								<div class="card sticky-action large z-depth-3 hoverable href-underline">
+								<?php if ($product['special']) { ?><span class="white-text badge red lighten-1 percent"><?php echo $text_percent; ?> <?php echo $product['percent_discount']; ?>%</span><?php } ?>
 									<div class="card-image">
 										<span><i class="material-icons small right activator">more_vert</i></span>
-										<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>
+										<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>
 									</div>
 									<div class="card-content center-align">
 										<span class="card-title"><a href="<?php echo $product['href']; ?>" class="grey-text text-darken-4"><?php echo $product['name']; ?></a></span>
 									</div>
 									<div class="card-action center-align grey lighten-5">
-										<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="Добавить в корзину" onclick="cart.add('<?php echo $product['product_id']; ?>');"><i class="material-icons">add_shopping_cart</i></button>
+										<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="<?php echo $button_cart; ?>" onclick="cart.add('<?php echo $product['product_id']; ?>');"><i class="material-icons">add_shopping_cart</i></button>
 										<?php if ($product['price']) { ?>
 											<?php if (!$product['special']) { ?>
 												<span class="card-price"><?php echo $product['price']; ?></span>
@@ -551,7 +555,7 @@
 												<?php endif ?>
 											</span>
 										</div>
-										<a href="<?php echo $product['href']; ?>" class="btn waves-effect waves-light red">Подробнее</a>
+										<a href="<?php echo $product['href']; ?>" class="btn waves-effect waves-light red"><?php echo $text_more_detailed; ?></a>
 									</div>
 									<div class="card-reveal">
 										<span class="card-title"><a href="<?php echo $product['href']; ?>" class="grey-text text-darken-4"><?php echo $product['name']; ?></a><i class="material-icons">close</i></span>

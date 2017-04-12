@@ -52,7 +52,7 @@
 									<?php foreach ($products as $product) { ?>
 									<td>
 									<?php if ($product['thumb']) { ?>
-										<img src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="responsive-img lazyload">
+										<img src="<?php echo $img_loader; ?>" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="responsive-img lazyload">
 									<?php } ?>
 									</td>
 									<?php } ?>
@@ -164,7 +164,7 @@
 								<?php foreach ($products as $product) { ?>
 								<td>
 									<button type="button" value="<?php echo $button_cart; ?>" class="btn waves-effect waves-light blue" title="<?php echo $button_cart; ?>" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><i class="material-icons">add_shopping_cart</i></button>
-									<a href="<?php echo $product['remove']; ?>" class="btn waves-effect waves-light red" title="Удалить из списка сравнения"><i class="material-icons">delete_sweep</i></a>
+									<a href="<?php echo $product['remove']; ?>" class="btn waves-effect waves-light red" title="<?php echo $button_remove; ?>"><i class="material-icons">delete_sweep</i></a>
 								</td>
 								<?php } ?>
 							</tr>
@@ -173,7 +173,7 @@
 					<?php } else { ?>
 					<div class="card-panel center">
 						<p class="flow-text text-bold"><?php echo $text_empty; ?></p>
-						<img class="responsive-img lazyload" src="catalog/view/theme/materialize/image/ajax-loader.gif" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="Ничего не найдено">
+						<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="Ничего не найдено">
 					</div>
 					<?php } ?>
 					<?php echo $content_bottom; ?>
