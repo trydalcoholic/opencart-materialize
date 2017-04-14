@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme For OCStore</b></font>]]></name>
 	<code>materialize-theme-for-ocstore</code>
-	<version>0.54.1</version>
+	<version>0.55</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Language settings Materialize -->
@@ -19,7 +19,7 @@
 	</file>
 	<file path="catalog/language/en-gb/common/header.php">
 		<operation>
-			<search><![CDATA[$_['text_page']          = 'page';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_contact']      = 'Contact Us';
 				$_['text_about']        = 'About';
@@ -30,7 +30,7 @@
 	</file>
 	<file path="catalog/language/ru-ru/common/header.php">
 		<operation>
-			<search><![CDATA[$_['text_page']          = 'страница';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_contact']      = 'Контакты';
 				$_['text_about']        = 'О нас';
@@ -49,7 +49,7 @@
 	</file>
 	<file path="catalog/language/en-gb/common/cart.php">
 		<operation>
-			<search><![CDATA[$_['text_recurring'] = 'Payment Profile';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_shopping_cart']      = 'Your shopping cart';
 			]]></add>
@@ -57,7 +57,7 @@
 	</file>
 	<file path="catalog/language/ru-ru/common/cart.php">
 		<operation>
-			<search><![CDATA[$_['text_recurring'] = 'Профиль платежа';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_shopping_cart']      = 'Ваша корзина';
 			]]></add>
@@ -79,7 +79,7 @@
 	</file>
 	<file path="catalog/language/en-gb/product/search.php">
 		<operation>
-			<search><![CDATA[$_['text_limit']        = 'Show:';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_searched']      = 'You searched for:';
 				$_['text_refine']        = 'Refine category';
@@ -93,7 +93,7 @@
 	</file>
 	<file path="catalog/language/ru-ru/product/search.php">
 		<operation>
-			<search><![CDATA[$_['text_limit']        = 'Показывать:';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_searched']      = 'Вы искали:';
 				$_['text_refine']        = 'Уточнить категорию';
@@ -119,7 +119,7 @@
 	</file>
 	<file path="catalog/language/en-gb/product/category.php">
 		<operation>
-			<search><![CDATA[$_['text_limit']        = 'Show:';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_sort_short']    = 'Sort';
 				$_['text_percent']       = 'Discount';
@@ -131,7 +131,7 @@
 	</file>
 	<file path="catalog/language/ru-ru/product/category.php">
 		<operation>
-			<search><![CDATA[$_['text_limit']        = 'Показывать:';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_sort_short']    = 'Сортировать';
 				$_['text_percent']       = 'Скидка';
@@ -157,7 +157,7 @@
 	</file>
 	<file path="catalog/language/en-gb/product/product.php">
 		<operation>
-			<search><![CDATA[$_['error_rating']             = 'Warning: Please select a review rating!';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_category']              = 'Category:';
 				$_['text_percent']               = 'Discount';
@@ -171,7 +171,7 @@
 	</file>
 	<file path="catalog/language/ru-ru/product/product.php">
 		<operation>
-			<search><![CDATA[$_['error_rating']                            = 'Пожалуйста поставьте оценку!';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_category']              = 'Категория:';
 				$_['text_percent']               = 'Скидка';
@@ -197,7 +197,7 @@
 	</file>
 	<file path="catalog/language/en-gb/product/manufacturer.php">
 		<operation>
-			<search><![CDATA[$_['text_limit']        = 'Show:';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_manufacturers_starting']              = 'All manufacturers starting with';
 				$_['text_view_all_products']                   = 'View all products';
@@ -209,7 +209,7 @@
 	</file>
 	<file path="catalog/language/ru-ru/product/manufacturer.php">
 		<operation>
-			<search><![CDATA[$_['text_limit']        = 'Показывать:';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_manufacturers_starting']              = 'Все производители, начинающиеся на';
 				$_['text_view_all_products']                   = 'Посмотреть все товары';
@@ -231,7 +231,7 @@
 	</file>
 	<file path="catalog/language/en-gb/product/special.php">
 		<operation>
-			<search><![CDATA[$_['text_limit']        = 'Show:';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_sort_short']                          = 'Sort';
 				$_['text_percent']                             = 'Discount';
@@ -241,7 +241,7 @@
 	</file>
 	<file path="catalog/language/ru-ru/product/special.php">
 		<operation>
-			<search><![CDATA[$_['text_limit']        = 'Показывать:';]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_sort_short']                          = 'Сортировать';
 				$_['text_percent']                             = 'Скидка';
@@ -1179,8 +1179,7 @@
 		<operation error="log">
 			<search><![CDATA[$data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));]]></search>
 			<add position="after"><![CDATA[
-			$this->document->setOgImage($data['thumb']);
-			$data['thumb_size'] = $this->config->get($this->config->get('config_theme') . '_image_thumb_width').'x'.$this->config->get($this->config->get('config_theme') . '_image_thumb_height');
+				$data['thumb_size'] = $this->config->get($this->config->get('config_theme') . '_image_thumb_width').'x'.$this->config->get($this->config->get('config_theme') . '_image_thumb_height');
 			]]>
 			</add>
 		</operation>

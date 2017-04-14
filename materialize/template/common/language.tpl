@@ -3,7 +3,7 @@
 		<a class="dropdown-button" data-activates="language" data-beloworigin="true" data-constrainWidth="false" rel="nofollow">
 			<?php foreach ($languages as $language) { ?>
 			<?php if ($language['code'] == $code) { ?>
-			<img src="catalog/language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" alt="<?php echo $language['name']; ?>" title="<?php echo $language['name']; ?>" style="pointer-events:none;">
+			<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="catalog/language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" alt="<?php echo $language['name']; ?>" title="<?php echo $language['name']; ?>" class="lazyload" style="pointer-events:none;">
 			<?php } ?>
 			<?php } ?>
 		</a>

@@ -23,8 +23,10 @@
 	<?php } ?>
 	<meta property="og:title" content="<?php echo $title; if (isset($_GET['page'])) { echo " - ". ((int) $_GET['page'])." ".$text_page;} ?>">
 	<meta property="og:type" content="website">
+	<?php if (isset($og_url)) { ?>
 	<meta property="og:url" content="<?php echo $og_url; ?>">
-	<?php if ($og_image) { ?>
+	<?php } ?>
+	<?php if (isset($og_image)) { ?>
 	<meta property="og:image" content="<?php echo $og_image; ?>">
 	<?php } else { ?>
 	<meta property="og:image" content="<?php echo $logo; ?>">
@@ -35,12 +37,14 @@
 	<?php } ?>
 	<meta property="og:locale" content="<?php echo $lang; ?>">
 	<meta name="twitter:card" content="summary_large_image">
+	<?php if (isset($og_url)) { ?>
 	<meta name="twitter:url" content="<?php echo $og_url; ?>">
+	<?php } ?>
 	<meta name="twitter:title" content="<?php echo $title; if (isset($_GET['page'])) { echo " - ". ((int) $_GET['page'])." ".$text_page;} ?>">
 	<?php if ($description) { ?>
 	<meta name="twitter:description" content="<?php echo $description; ?>">
 	<?php } ?>
-	<?php if ($og_image) { ?>
+	<?php if (isset($og_image)) { ?>
 	<meta name="twitter:image:src" content="<?php echo $og_image; ?>">
 	<?php } else { ?>
 	<meta name="twitter:image:src" content="<?php echo $logo; ?>">
