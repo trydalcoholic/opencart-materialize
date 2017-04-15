@@ -2,12 +2,12 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme For OCStore</b></font>]]></name>
 	<code>materialize-theme-for-ocstore</code>
-	<version>0.55</version>
+	<version>0.56</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Language settings Materialize -->
 	<file path="catalog/controller/common/header.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_all'] = $this->language->get('text_all');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_contact'] = $this->language->get('text_contact');
@@ -17,8 +17,19 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_contact']      = 'Contact Us';
+				$_['text_about']        = 'About';
+				$_['text_delivery']     = 'Delivery';
+				$_['text_call_back']    = 'Call back me';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/common/header.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_contact']      = 'Contact Us';
@@ -29,7 +40,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/common/header.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_contact']      = 'Контакты';
@@ -40,15 +51,23 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/common/cart.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_shopping_cart'] = $this->language->get('text_shopping_cart');
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/common/cart.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_shopping_cart']      = 'Your shopping cart';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/common/cart.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_shopping_cart']      = 'Your shopping cart';
@@ -56,7 +75,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/common/cart.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_shopping_cart']      = 'Ваша корзина';
@@ -64,7 +83,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/search.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_limit'] = $this->language->get('text_limit');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_searched'] = $this->language->get('text_searched');
@@ -77,8 +96,22 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/product/search.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_searched']      = 'You searched for:';
+				$_['text_refine']        = 'Refine category';
+				$_['text_sort_short']    = 'Sort';
+				$_['text_percent']       = 'Discount';
+				$_['text_yes']           = 'Yes';
+				$_['text_no']            = 'No';
+				$_['text_more_detailed'] = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/product/search.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_searched']      = 'You searched for:';
@@ -92,7 +125,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/product/search.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_searched']      = 'Вы искали:';
@@ -106,7 +139,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/category.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_limit'] = $this->language->get('text_limit');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_sort_short'] = $this->language->get('text_sort_short');
@@ -117,8 +150,20 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/product/category.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_sort_short']    = 'Sort';
+				$_['text_percent']       = 'Discount';
+				$_['text_yes']           = 'Yes';
+				$_['text_no']            = 'No';
+				$_['text_more_detailed'] = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/product/category.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_sort_short']    = 'Sort';
@@ -130,7 +175,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/product/category.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_sort_short']    = 'Сортировать';
@@ -142,7 +187,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_category'] = $this->language->get('text_category');
@@ -155,8 +200,22 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_category']              = 'Category:';
+				$_['text_percent']               = 'Discount';
+				$_['text_bonus_points']          = 'bonus points for purchase';
+				$_['text_end_promotion']         = 'The offer will expire on';
+				$_['text_payment_method']        = 'Payment by cash and bank cards';
+				$_['text_percent']               = 'Discount';
+				$_['text_more_detailed']         = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/product/product.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_category']              = 'Category:';
@@ -170,7 +229,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/product/product.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_category']              = 'Категория:';
@@ -184,7 +243,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/manufacturer.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_empty'] = $this->language->get('text_empty');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_manufacturers_starting'] = $this->language->get('text_manufacturers_starting');
@@ -195,8 +254,20 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/product/manufacturer.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_manufacturers_starting']              = 'All manufacturers starting with';
+				$_['text_view_all_products']                   = 'View all products';
+				$_['text_sort_short']                          = 'Sort';
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/product/manufacturer.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_manufacturers_starting']              = 'All manufacturers starting with';
@@ -208,7 +279,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/product/manufacturer.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_manufacturers_starting']              = 'Все производители, начинающиеся на';
@@ -220,7 +291,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/special.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_limit'] = $this->language->get('text_limit');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_sort_short'] = $this->language->get('text_sort_short');
@@ -229,8 +300,18 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/product/special.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_sort_short']                          = 'Sort';
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/product/special.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_sort_short']                          = 'Sort';
@@ -240,7 +321,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/product/special.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_sort_short']                          = 'Сортировать';
@@ -250,7 +331,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/latest.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_percent'] = $this->language->get('text_percent');
@@ -258,8 +339,17 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/extension/module/latest.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/extension/module/latest.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'Discount';
@@ -268,7 +358,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/extension/module/latest.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'Скидка';
@@ -277,7 +367,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/bestseller.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_percent'] = $this->language->get('text_percent');
@@ -285,8 +375,17 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/extension/module/bestseller.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/extension/module/bestseller.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'Discount';
@@ -295,7 +394,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/extension/module/bestseller.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'Скидка';
@@ -304,7 +403,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/featured.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_percent'] = $this->language->get('text_percent');
@@ -312,8 +411,17 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/extension/module/featured.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/extension/module/featured.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'Discount';
@@ -322,7 +430,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/extension/module/featured.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'Скидка';
@@ -331,7 +439,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/special.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_percent'] = $this->language->get('text_percent');
@@ -339,8 +447,17 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/extension/module/special.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/extension/module/special.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'Discount';
@@ -349,7 +466,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/extension/module/special.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'Скидка';
@@ -359,7 +476,7 @@
 	</file>
 	<!-- Add base64 loader -->
 	<file path="catalog/controller/common/cart.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -367,7 +484,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/category.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -375,7 +492,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/compare.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -383,13 +500,13 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/manufacturer.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function info() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -397,13 +514,13 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function review() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -411,7 +528,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/search.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -419,7 +536,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/special.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -427,7 +544,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/latest.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -435,7 +552,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/carousel.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -443,7 +560,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/banner.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -451,7 +568,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/bestseller.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -459,7 +576,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/featured.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -467,7 +584,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/special.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -475,7 +592,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/checkout/cart.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['img_loader'] = 'data:image/gif;base64,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';
@@ -484,7 +601,7 @@
 	</file>
 	<!-- Add category in product card -->
 	<file path="catalog/controller/product/product.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$this->document->setDescription($product_info['meta_description']);]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$this->document->setDescription($product_info['meta_description']);
@@ -505,7 +622,7 @@
 	</file>
 	<!-- End of promotion -->
 	<file path="catalog/model/catalog/product.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function getProducts($data = array()) {]]></search>
 			<add position="before" trim="true"><![CDATA[
 				public function getProductSpec($product_id) {
@@ -520,7 +637,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$product_info = $this->model_catalog_product->getProduct($product_id);]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['product_spec'] = $this->model_catalog_product->getProductSpec($product_id);
@@ -529,7 +646,7 @@
 	</file>
 	<!-- Add compare -->
 	<file path="catalog/controller/common/header.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['home'] = $this->url->link('common/home');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['compare'] = $this->url->link('product/compare');
@@ -539,7 +656,7 @@
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/product/compare.php">
-		<operation>
+		<operation error="skip">
 			<search><![CDATA[$_['text_compare']      = 'Сравнение товаров (%s)';]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$_['text_compare']      = '%s';
@@ -547,7 +664,15 @@
 		</operation>
 	</file>
 	<file path="catalog/language/en-gb/product/compare.php">
-		<operation>
+		<operation error="skip">
+			<search><![CDATA[$_['text_compare']      = 'Product Compare (%s)';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				$_['text_compare']      = '%s';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/*/product/compare.php">
+		<operation error="skip">
 			<search><![CDATA[$_['text_compare']      = 'Product Compare (%s)';]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$_['text_compare']      = '%s';
@@ -556,25 +681,25 @@
 	</file>
 	<!-- Sort by availability -->
 	<file path="catalog/model/catalog/product.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY LCASE(" . $data['sort'] . ")";]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$sql .= " ORDER BY (p.quantity>0) DESC, LCASE(" . $data['sort'] . ")";
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$sql .= " ORDER BY (p.quantity>0) DESC, (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY " . $data['sort'];]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$sql .= " ORDER BY (p.quantity>0) DESC," . $data['sort'];
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY p.sort_order";]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$sql .= " ORDER BY (p.quantity>0) DESC, p.sort_order";
@@ -583,7 +708,7 @@
 	</file>
 	<!-- Instock on category page -->
 	<file path="catalog/controller/product/category.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['breadcrumbs'] = array();]]></search>
 			<add position="before" trim="true"><![CDATA[
 				if (isset($this->request->get['instock'])) {
@@ -593,19 +718,19 @@
 				}
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['button_cart'] = $this->language->get('button_cart');]]></search>
 			<add position="before" trim="true"><![CDATA[
 				$data['entry_instock'] = $this->language->get('entry_instock');
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$filter,]]></search>
 			<add position="after" trim="true"><![CDATA[
 				'filter_instock'     => $instock,
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['limit'] = $limit;]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['url'] = html_entity_decode($this->url->link('product/category', 'path=' . $this->request->get['path'] . $url), ENT_QUOTES, 'UTF-8');
@@ -613,24 +738,32 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/product/category.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['entry_instock']       = 'Show only in stock';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/product/category.php">
-		<operation>
-			<search><![CDATA[$_['text_refine']]]></search>
-			<add position="before" trim="true"><![CDATA[
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
 				$_['entry_instock']       = 'Show only in stock';
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/product/category.php">
-		<operation>
-			<search><![CDATA[$_['text_refine']]]></search>
-			<add position="before" trim="true"><![CDATA[
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
 				$_['entry_instock']       = 'Показывать только в наличии';
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/model/catalog/product.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[if (!empty($data['filter_name']) || !empty($data['filter_tag'])) {]]></search>
 			<add position="before" trim="true"><![CDATA[
 				if (!empty($data['filter_instock'])) {
@@ -689,17 +822,25 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+			$_['text_weight']              = 'Weight:';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/en-gb/product/product.php">
-		<operation error="log">
-			<search><![CDATA[$_['text_error']               = 'Product not found!';]]></search>
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 			$_['text_weight']              = 'Weight:';
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/product/product.php">
-		<operation error="log">
-			<search><![CDATA[$_['text_error']                              = 'Товар не найден!';]]></search>
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 			$_['text_weight']                             = 'Вес:';
 			]]></add>
@@ -770,18 +911,26 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="admin/language/*/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+			$_['entry_cart']             = 'Button cart';
+			]]></add>
+		</operation>
+	</file>
 	<file path="admin/language/en-gb/catalog/product.php">
-		<operation error="log">
-			<search><![CDATA[$_['entry_status']]]></search>
-			<add position="before" trim="true"><![CDATA[
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
 			$_['entry_cart']             = 'Button cart';
 			]]></add>
 		</operation>
 	</file>
 	<file path="admin/language/ru-ru/catalog/product.php">
-		<operation error="log">
-			<search><![CDATA[$_['entry_status']]]></search>
-			<add position="before" trim="true"><![CDATA[
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
 			$_['entry_cart']          	    = 'Кнопка корзины';
 			]]></add>
 		</operation>
@@ -1253,9 +1402,19 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="admin/language/*/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+			$_['entry_title']            = 'Tab Title';
+			$_['button_customtab_add']   = 'Add tab';
+			$_['tab_customtab']          = 'Custom Tab';
+			]]></add>
+		</operation>
+	</file>
 	<file path="admin/language/en-gb/catalog/product.php">
 		<operation error="skip">
-			<search><![CDATA[// text]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 			$_['entry_title']            = 'Tab Title';
 			$_['button_customtab_add']   = 'Add tab';
@@ -1265,7 +1424,7 @@
 	</file>
 	<file path="admin/language/ru-ru/catalog/product.php">
 		<operation error="skip">
-			<search><![CDATA[// text]]></search>
+			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['entry_title']               = 'Название вкладки';
 				$_['button_customtab_add']      = 'Добавить вкладку';
@@ -1703,17 +1862,19 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/*/common/cart.php">
+		<operation error="skip">
+			<search><![CDATA[$_['text_items']     = '%s item(s) - %s';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+			$_['text_items']     = '%s';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/ru-ru/extension/module/latest.php">
 		<operation error="skip">
 			<search><![CDATA[$_['heading_title'] = 'Последние';]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$_['heading_title'] = 'Новые поступления';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['error_required']           = '%s необходим!';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['error_required']           = '%s необходимо выбрать!';
 			]]></add>
 		</operation>
 	</file>
@@ -1738,6 +1899,14 @@
 		</operation>
 	</file>
 	<file path="catalog/language/en-gb/checkout/cart.php">
+		<operation error="skip">
+			<search><![CDATA[$_['text_items']               = '%s item(s) - %s';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				$_['text_items']               = '%s';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/*/checkout/cart.php">
 		<operation error="skip">
 			<search><![CDATA[$_['text_items']               = '%s item(s) - %s';]]></search>
 			<add position="replace" trim="true"><![CDATA[

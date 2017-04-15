@@ -158,7 +158,7 @@
 						<div class="row">
 							<?php echo $pagination; ?>
 						</div>
-						<?php if ($description) { ?>
+						<?php if (isset($description)) { ?>
 						<div class="card-panel z-depth-1">
 							<div class="row valign-wrapper section">
 								<div class="col s4 m2 center">
@@ -167,7 +167,7 @@
 								<?php } ?>
 								</div>
 								<div class="col s8 m10">
-									<?php if ($description) { ?>
+									<?php if (isset($description)) { ?>
 										<?php echo $description; ?>
 									<?php } ?>
 								</div>
