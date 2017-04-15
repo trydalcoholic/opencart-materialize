@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme For OCStore</b></font>]]></name>
 	<code>materialize-theme-for-ocstore</code>
-	<version>0.56</version>
+	<version>0.56.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Language settings Materialize -->
@@ -17,7 +17,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/common/header.php">
+	<!-- <file path="catalog/language/*/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -27,7 +27,7 @@
 				$_['text_call_back']    = 'Call back me';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -58,14 +58,14 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/common/cart.php">
+	<!-- <file path="catalog/language/*/common/cart.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_shopping_cart']      = 'Your shopping cart';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/common/cart.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -96,7 +96,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/product/search.php">
+	<!-- <file path="catalog/language/*/product/search.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -109,7 +109,7 @@
 				$_['text_more_detailed'] = 'More detailed';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/product/search.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -150,7 +150,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/product/category.php">
+	<!-- <file path="catalog/language/*/product/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -161,7 +161,7 @@
 				$_['text_more_detailed'] = 'More detailed';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/product/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -200,7 +200,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/product/product.php">
+	<!-- <file path="catalog/language/*/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -213,7 +213,7 @@
 				$_['text_more_detailed']         = 'More detailed';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -254,7 +254,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/product/manufacturer.php">
+	<!-- <file path="catalog/language/*/product/manufacturer.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -265,7 +265,7 @@
 				$_['text_more_detailed']                       = 'More detailed';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/product/manufacturer.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -300,7 +300,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/product/special.php">
+	<!-- <file path="catalog/language/*/product/special.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -309,7 +309,7 @@
 				$_['text_more_detailed']                       = 'More detailed';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/product/special.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -339,7 +339,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/extension/module/latest.php">
+	<!-- <file path="catalog/language/*/extension/module/latest.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -347,7 +347,7 @@
 				$_['text_more_detailed']                       = 'More detailed';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/extension/module/latest.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -375,7 +375,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/extension/module/bestseller.php">
+	<!-- <file path="catalog/language/*/extension/module/bestseller.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -383,7 +383,7 @@
 				$_['text_more_detailed']                       = 'More detailed';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/extension/module/bestseller.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -411,7 +411,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/extension/module/featured.php">
+	<!-- <file path="catalog/language/*/extension/module/featured.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -419,7 +419,7 @@
 				$_['text_more_detailed']                       = 'More detailed';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/extension/module/featured.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -447,7 +447,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/extension/module/special.php">
+	<!-- <file path="catalog/language/*/extension/module/special.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -455,7 +455,7 @@
 				$_['text_more_detailed']                       = 'More detailed';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/extension/module/special.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -671,14 +671,14 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/product/compare.php">
+	<!-- <file path="catalog/language/*/product/compare.php">
 		<operation error="skip">
 			<search><![CDATA[$_['text_compare']      = 'Product Compare (%s)';]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$_['text_compare']      = '%s';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<!-- Sort by availability -->
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
@@ -738,14 +738,14 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/product/category.php">
+	<!-- <file path="catalog/language/*/product/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['entry_instock']       = 'Show only in stock';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/product/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -822,14 +822,14 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/product/product.php">
+	<!-- <file path="catalog/language/*/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 			$_['text_weight']              = 'Weight:';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/en-gb/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -911,14 +911,14 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="admin/language/*/catalog/product.php">
+	<!-- <file path="admin/language/*/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 			$_['entry_cart']             = 'Button cart';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="admin/language/en-gb/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -1402,7 +1402,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="admin/language/*/catalog/product.php">
+	<!-- <file path="admin/language/*/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -1411,7 +1411,7 @@
 			$_['tab_customtab']          = 'Custom Tab';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="admin/language/en-gb/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
@@ -1862,14 +1862,14 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/common/cart.php">
+	<!-- <file path="catalog/language/*/common/cart.php">
 		<operation error="skip">
 			<search><![CDATA[$_['text_items']     = '%s item(s) - %s';]]></search>
 			<add position="replace" trim="true"><![CDATA[
 			$_['text_items']     = '%s';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/ru-ru/extension/module/latest.php">
 		<operation error="skip">
 			<search><![CDATA[$_['heading_title'] = 'Последние';]]></search>
@@ -1906,14 +1906,14 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/*/checkout/cart.php">
+	<!-- <file path="catalog/language/*/checkout/cart.php">
 		<operation error="skip">
 			<search><![CDATA[$_['text_items']               = '%s item(s) - %s';]]></search>
 			<add position="replace" trim="true"><![CDATA[
 				$_['text_items']               = '%s';
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<file path="catalog/language/ru-ru/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[$_['text_instock']                            = 'На складе';]]></search>
