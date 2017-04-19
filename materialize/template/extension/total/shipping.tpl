@@ -70,6 +70,7 @@
 					}
 
 					if (json['shipping_method']) {
+						$('#modal-shipping').remove();
 
 						html  = '<div id="modal-shipping" class="modal">';
 						html += '	<div class="modal-content">';

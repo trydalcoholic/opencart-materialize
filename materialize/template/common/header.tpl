@@ -115,7 +115,7 @@
 						<div class="right-align">
 							<ul class="right text-medium contact-info">
 								<li><a href="mailto:<?php echo $email; ?>" class="blue-grey-text text-lighten-5"><?php echo $email; ?><i class="material-icons left">email</i></a></li>
-								<li><a class="blue-grey-text text-lighten-5" href="#modal-call-back" rel="nofollow"><?php echo $text_call_back; ?><i class="material-icons left">phone</i></a></li>
+								<li><a class="blue-grey-text text-lighten-5 modal-call-back-btn activator" rel="nofollow"><?php echo $text_call_back; ?><i class="material-icons left">phone</i></a></li>
 								<li><span>Будни с 09:00 до 18:00<i class="material-icons left">access_time</i></span></li>
 							</ul>
 						</div>
@@ -183,7 +183,7 @@
 								</div>
 							</div>
 						</nav>
-						<a href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>" rel="nofollow"><span class="white-text "><?php echo $telephone; ?></span></a>
+						<a href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>" rel="nofollow"><span class="white-text"><?php echo $telephone; ?></span></a>
 						<a href="mailto:<?php echo $email; ?>" rel="nofollow"><span class="white-text"><?php echo $email; ?></span></a>
 					</div>
 				</li>

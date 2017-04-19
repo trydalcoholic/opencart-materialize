@@ -618,19 +618,4 @@ $(document).ready(function() {
 			}, 500);
 		});
 		// Обратный звонок
-		$('#modal-call-back').submit(function() {
-			$.ajax({
-				url: 'catalog/view/theme/materialize/call_back.php',
-				type: 'post',
-				data: $(this).serialize(),
-				success: function() {
-					Materialize.toast('<span><i class="material-icons left">check</i>Ваша заявка успешно отправлена!</span>',7000,'toast-success rounded');
-					$(".modal-close").click();
-				},
-				error: function(xhr, ajaxOptions, thrownError) {
-					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-				}
-			});
-			return false;
-		});
 });

@@ -55,30 +55,57 @@
 		</div>
 	</footer>
 	<aside>
-		<form id="modal-call-back" class="modal">
-			<div class="modal-content">
-				<i class="material-icons modal-action modal-close right">close</i>
-				<h4>Заказать звонок</h4>
-				<div class="row">
-					<div class="input-field">
-						<i class="material-icons prefix">account_circle</i>
-						<input id="cb-name" name="name" type="text" class="validate" required>
-						<label for="cb-name">Как вас зовут</label>
-					</div>
-					<div class="input-field">
-						<i class="material-icons prefix">phone</i>
-						<input id="cb-telephone" name="tel" type="tel" class="validate" data-inputmask="'mask':'8 (999) 999-99-99'" required>
-						<label for="cb-telephone">Ваш номер телефона</label>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer href-underline">
-				<input type="hidden" name="admin_email" value="<?php echo $email; ?>">
-				<input type="submit" class="btn modal-action red right" value="Заказать звонок">
-			</div>
-		</form>
 		<div class="preloader z-depth-3"><div class="preloader-wrapper small active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div>
 	</aside>
 	<script defer src="catalog/view/theme/materialize/js/script.js"></script>
+	<script>
+		<?php define('CALL_BACK', true); ?>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			$(".modal-call-back-btn").click(function() {
+				$('#modal-call-back').remove();
+				html  = '<form id="modal-call-back" class="modal">';
+				html += 	'<div class="modal-content">';
+				html += 		'<i class="material-icons modal-action modal-close right">close</i>';
+				html += 		'<h4>Заказать звонок</h4>';
+				html += 		'<div class="row">';
+				html += 			'<div class="input-field">';
+				html += 				'<i class="material-icons prefix">account_circle</i>';
+				html += 				'<input id="cb-name" name="name" type="text" class="validate" required>';
+				html += 				'<label for="cb-name">Как вас зовут</label>';
+				html += 			'</div>';
+				html += 			'<div class="input-field">';
+				html += 				'<i class="material-icons prefix">phone</i>';
+				html += 				'<input id="cb-telephone" name="tel" type="tel" class="validate" data-inputmask="\'mask\':\'8 (999) 999-99-99\'" required>';
+				html += 				'<label for="cb-telephone">Ваш номер телефона</label>';
+				html += 			'</div>';
+				html += 		'</div>';
+				html += 	'</div>';
+				html += 	'<div class="modal-footer href-underline">';
+				html += 		'<input type="hidden" name="admin_email" value="<?php echo $email; ?>">';
+				html += 		'<input type="submit" class="btn modal-action red right" value="Заказать звонок">';
+				html += 	'</div>';
+				html += '</form>';
+				$('body').append(html);
+				$('#modal-call-back').modal();
+				$('#modal-call-back').modal('open');
+				$(":input").inputmask();
+				$('#modal-call-back').submit(function() {
+					$.ajax({
+						url: 'catalog/view/theme/materialize/call_back.php',
+						type: 'post',
+						data: $(this).serialize(),
+						success: function() {
+							Materialize.toast('<span><i class="material-icons left">check</i>Ваша заявка успешно отправлена!</span>',7000,'toast-success rounded');
+							$(".modal-close").click();
+						},
+						error: function(xhr, ajaxOptions, thrownError) {
+							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						}
+					});
+					return false;
+				});
+			});
+		});
+	</script>
 </body>
 </html>
