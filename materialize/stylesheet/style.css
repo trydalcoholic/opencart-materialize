@@ -115,6 +115,22 @@ iframe {border:none;}
 .side-nav .userView span {display:block;margin-top:16px;font-weight:medium;font-size:14px;line-height:24px;}
 .side-nav .userView a:last-child {padding-bottom:16px;}
 .side-nav li>a {padding:0 16px;}
+.with-subcat {position:relative;}
+.with-subcat:after {
+	font-family: 'Material Icons';
+	content: '\E313';
+	position: absolute;
+	font-size: 1.6rem;
+	height: 48px;
+	width: 24px;
+	top: 0;
+	right: 32px;
+	line-height: 48px;
+}
+.with-subcat.active:after {
+	font-family: 'Material Icons';
+	content: '\E316';
+}
 
 /*========== Фиксированное меню ==========*/
 .btn-side-menu {position:fixed;top:20px;right:25px;z-index:100;}

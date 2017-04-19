@@ -102,7 +102,7 @@
 			<div class="container">
 				<div class="valign-wrapper">
 					<div class="col s12 m4">
-						<a href="#" data-activates="slide-out" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light blue-grey darken-2 z-depth-4 btn-side-menu" rel="nofollow"><i class="material-icons white-text">menu</i></a>
+						<a data-activates="slide-out" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light blue-grey darken-2 z-depth-4 btn-side-menu" rel="nofollow"><i class="material-icons white-text">menu</i></a>
 						<?php if ($logo) { ?>
 						<a href="<?php echo $home; ?>"><img class="responsive-img lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>"></a>
 						<?php } else { ?>
@@ -170,7 +170,7 @@
 					<div class="userView">
 						<div class="background blue-grey darken-2"></div>
 						<?php if ($logo) { ?>
-						<img class="responsive-img lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="230" height="75">
+						<img class="responsive-img lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>">
 						<?php } else { ?>
 						<strong><a href="<?php echo $home; ?>"><?php echo $name; ?></a></strong>
 						<?php } ?>
@@ -183,7 +183,7 @@
 								</div>
 							</div>
 						</nav>
-						<a href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>" rel="nofollow"><span class="white-text"><?php echo $telephone; ?></span></a>
+						<a href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>" rel="nofollow"><span class="white-text "><?php echo $telephone; ?></span></a>
 						<a href="mailto:<?php echo $email; ?>" rel="nofollow"><span class="white-text"><?php echo $email; ?></span></a>
 					</div>
 				</li>
@@ -193,8 +193,8 @@
 					<?php if ($categories) { ?>
 						<?php foreach ($categories as $category) { ?>
 							<?php if ($category['children']) { ?>
-								<li class="bold">
-									<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect waves-default" onclick="return false;" rel="nofollow"><?php echo $category['name']; ?><i class="material-icons right">arrow_drop_down</i></a>
+								<li class="with-subcat">
+									<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect waves-default text-bold" onclick="return false;" rel="nofollow"><?php echo $category['name']; ?></a>
 									<?php foreach (array($category['children']) as $children) { ?>
 									<div class="collapsible-body no-padding">
 										<ul>
@@ -206,7 +206,7 @@
 									<?php } ?>
 								</li>
 							<?php } else { ?>
-								<li class="bold"><a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect waves-default" rel="nofollow"><?php echo $category['name']; ?></a></li>
+								<li><a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect waves-default text-bold" rel="nofollow"><?php echo $category['name']; ?></a></li>
 							<?php } ?>
 						<?php } ?>
 					<?php } ?>
