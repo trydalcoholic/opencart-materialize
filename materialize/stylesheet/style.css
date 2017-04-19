@@ -32,6 +32,7 @@ iframe {border:none;}
 .text-uppercase {text-transform:uppercase !important;}
 .text-underline {text-decoration:underline !important;}
 .text-dotted-white {border-bottom: 1px dashed #fff;}
+.no-border {border:none !important;}
 .block {display:block !important;}
 .activator {cursor:pointer !important;}
 .cursor-default {cursor:default !important;}
@@ -468,7 +469,8 @@ iframe {border:none;}
 	.picker__weekday-display {background-color:#37474f;}
 	.picker__day.picker__day--today {color:#f44336;font-weight:bold;}
 	.picker__close,.picker__today {color:#000000;font-weight:bold;}
-	/* Поиск на Яндекс Карте */
+	/* Яндекс Карта */
+	#map {position:relative;min-height:360px;}
 	.ymaps-2-1-45-input__control {margin:0 !important;}
 	/* Анимация */
 	.collapsible-body {will-change:width,height;}

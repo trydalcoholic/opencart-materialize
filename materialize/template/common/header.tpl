@@ -213,24 +213,24 @@
 					</ul>
 				</li>
 				<li class="divider"></li>
-				<li><a href="/index.php?route=information/information&information_id=6" rel="nofollow"><?php echo $text_delivery; ?><i class="material-icons">local_shipping</i></a></li>
-				<li><a href="<?php echo $contact; ?>" rel="nofollow"><?php echo $text_contact; ?><i class="material-icons">email</i></a></li>
-				<li><a href="/index.php?route=information/information&information_id=4" rel="nofollow"><?php echo $text_about; ?><i class="material-icons">store</i></a></li>
+				<li><a class="waves-effect waves-default" href="/index.php?route=information/information&information_id=6" rel="nofollow"><?php echo $text_delivery; ?><i class="material-icons">local_shipping</i></a></li>
+				<li><a class="waves-effect waves-default" href="<?php echo $contact; ?>" rel="nofollow"><?php echo $text_contact; ?><i class="material-icons">email</i></a></li>
+				<li><a class="waves-effect waves-default" href="/index.php?route=information/information&information_id=4" rel="nofollow"><?php echo $text_about; ?><i class="material-icons">store</i></a></li>
 				<li>
 					<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
 						<li class="bold">
-							<a href="<?php echo $account; ?>" class="collapsible-header waves-effect waves-default" onclick="return false;" rel="nofollow"><?php echo $text_account; ?><i class="material-icons">account_circle</i></a>
+							<a href="<?php echo $account; ?>" class="collapsible-header waves-effect waves-default with-subcat" onclick="return false;" rel="nofollow"><?php echo $text_account; ?><i class="material-icons">account_circle</i></a>
 							<div class="collapsible-body no-padding">
 								<ul>
 									<?php if ($logged) { ?>
-									<li><a href="<?php echo $account; ?>" rel="nofollow"><?php echo $text_account; ?></a></li>
-									<li><a href="<?php echo $order; ?>" rel="nofollow"><?php echo $text_order; ?></a></li>
-									<li><a href="<?php echo $transaction; ?>" rel="nofollow"><?php echo $text_transaction; ?></a></li>
-									<li><a href="<?php echo $download; ?>" rel="nofollow"><?php echo $text_download; ?></a></li>
-									<li><a href="<?php echo $logout; ?>" rel="nofollow"><?php echo $text_logout; ?></a></li>
+									<li><a class="waves-effect waves-default" href="<?php echo $account; ?>" rel="nofollow"><?php echo $text_account; ?></a></li>
+									<li><a class="waves-effect waves-default" href="<?php echo $order; ?>" rel="nofollow"><?php echo $text_order; ?></a></li>
+									<li><a class="waves-effect waves-default" href="<?php echo $transaction; ?>" rel="nofollow"><?php echo $text_transaction; ?></a></li>
+									<li><a class="waves-effect waves-default" href="<?php echo $download; ?>" rel="nofollow"><?php echo $text_download; ?></a></li>
+									<li><a class="waves-effect waves-default" href="<?php echo $logout; ?>" rel="nofollow"><?php echo $text_logout; ?></a></li>
 									<?php } else { ?>
-									<li><a href="<?php echo $register; ?>" rel="nofollow"><?php echo $text_register; ?></a></li>
-									<li><a href="<?php echo $login; ?>" rel="nofollow"><?php echo $text_login; ?></a></li>
+									<li><a class="waves-effect waves-default" href="<?php echo $register; ?>" rel="nofollow"><?php echo $text_register; ?></a></li>
+									<li><a class="waves-effect waves-default" href="<?php echo $login; ?>" rel="nofollow"><?php echo $text_login; ?></a></li>
 									<?php } ?>
 								</ul>
 							</div>
