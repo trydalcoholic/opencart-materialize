@@ -1,5 +1,4 @@
 <?php
-	if(!defined('CALL_BACK')) die('Entrance only for employees.');
 	if (count($_POST) > 0) {
 		$name = trim($_POST['name']);
 		$tel = trim($_POST['tel']);

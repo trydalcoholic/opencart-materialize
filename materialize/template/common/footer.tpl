@@ -59,7 +59,6 @@
 	</aside>
 	<script defer src="catalog/view/theme/materialize/js/script.js"></script>
 	<script>
-		<?php define('CALL_BACK', true); ?>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			$(".modal-call-back-btn").click(function() {
 				$('#modal-call-back').remove();

@@ -187,7 +187,7 @@
 						<a href="mailto:<?php echo $email; ?>" rel="nofollow"><span class="white-text"><?php echo $email; ?></span></a>
 					</div>
 				</li>
-				<li class="grey lighten-4"><a class="waves-effect waves-default" href="#modal-call-back" rel="nofollow"><i class="material-icons">phone</i><?php echo $text_call_back; ?></a></li>
+				<li class="grey lighten-4"><a class="waves-effect waves-default modal-call-back-btn activator" rel="nofollow"><i class="material-icons">phone</i><?php echo $text_call_back; ?></a></li>
 				<li>
 					<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
 					<?php if ($categories) { ?>
