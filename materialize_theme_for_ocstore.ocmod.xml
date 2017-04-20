@@ -2,18 +2,26 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme For OCStore</b></font>]]></name>
 	<code>materialize-theme-for-ocstore</code>
-	<version>0.56.1</version>
+	<version>0.56.3</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Language settings Materialize -->
 	<file path="catalog/controller/common/header.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_all'] = $this->language->get('text_all');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_contact'] = $this->language->get('text_contact');
 				$data['text_about'] = $this->language->get('text_about');
 				$data['text_delivery'] = $this->language->get('text_delivery');
 				$data['text_call_back'] = $this->language->get('text_call_back');
+				$data['text_call_free'] = $this->language->get('text_call_free');
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[$data['name'] = $this->config->get('config_name');]]></search>
+			<add position="after" trim="true"><![CDATA[
+			$data['email'] = $this->config->get('config_email');
+			$data['open'] = nl2br($this->config->get('config_open'));
 			]]></add>
 		</operation>
 	</file>
@@ -25,6 +33,7 @@
 				$_['text_about']        = 'About';
 				$_['text_delivery']     = 'Delivery';
 				$_['text_call_back']    = 'Call back me';
+				$_['text_call_free']    = 'The call is free';
 			]]></add>
 		</operation>
 	</file> -->
@@ -36,6 +45,7 @@
 				$_['text_about']        = 'About';
 				$_['text_delivery']     = 'Delivery';
 				$_['text_call_back']    = 'Call back me';
+				$_['text_call_free']    = 'The call is free';
 			]]></add>
 		</operation>
 	</file>
@@ -47,11 +57,50 @@
 				$_['text_about']        = 'О нас';
 				$_['text_delivery']     = 'Доставка';
 				$_['text_call_back']    = 'Звонок с сайта';
+				$_['text_call_free']    = 'Звонок бесплатный';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/footer.php">
+		<operation error="skip">
+			<search><![CDATA[$data['text_newsletter'] = $this->language->get('text_newsletter');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['text_social_network'] = $this->language->get('text_social_network');
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[$data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));]]></search>
+			<add position="after" trim="true"><![CDATA[
+			$data['email'] = $this->config->get('config_email');
+			]]></add>
+		</operation>
+	</file>
+	<!-- <file path="catalog/language/*/common/footer.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_social_network']      = 'We are in social networks';
+			]]></add>
+		</operation>
+	</file> -->
+	<file path="catalog/language/en-gb/common/footer.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_social_network']      = 'We are in social networks';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/common/footer.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_social_network']      = 'Мы в соцсетях';
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/common/cart.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_shopping_cart'] = $this->language->get('text_shopping_cart');
@@ -83,7 +132,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/search.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_limit'] = $this->language->get('text_limit');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_searched'] = $this->language->get('text_searched');
@@ -139,7 +188,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/category.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_limit'] = $this->language->get('text_limit');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_sort_short'] = $this->language->get('text_sort_short');
@@ -187,7 +236,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_category'] = $this->language->get('text_category');
@@ -243,7 +292,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/manufacturer.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_empty'] = $this->language->get('text_empty');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_manufacturers_starting'] = $this->language->get('text_manufacturers_starting');
@@ -291,7 +340,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/special.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_limit'] = $this->language->get('text_limit');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_sort_short'] = $this->language->get('text_sort_short');
@@ -331,7 +380,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/latest.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_percent'] = $this->language->get('text_percent');
@@ -367,7 +416,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/bestseller.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_percent'] = $this->language->get('text_percent');
@@ -403,7 +452,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/featured.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_percent'] = $this->language->get('text_percent');
@@ -439,7 +488,7 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/special.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_percent'] = $this->language->get('text_percent');
@@ -1824,24 +1873,6 @@
 				   e.preventDefault();
 				};
 				//--></script>
-			]]></add>
-		</operation>
-	</file>
-	<!-- Header -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="skip">
-			<search><![CDATA[$data['name'] = $this->config->get('config_name');]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$data['email'] = $this->config->get('config_email');
-			]]></add>
-		</operation>
-	</file>
-	<!-- Footer -->
-	<file path="catalog/controller/common/footer.php">
-		<operation error="skip">
-			<search><![CDATA[$data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$data['email'] = $this->config->get('config_email');
 			]]></add>
 		</operation>
 	</file>

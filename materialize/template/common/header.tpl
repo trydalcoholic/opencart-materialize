@@ -111,12 +111,14 @@
 					</div>
 					<div class="col m8 right-align hide-on-small-only blue-grey-text text-lighten-5">
 						<span class="flow-text block"><a class="href-underline inherit-text text-bold" href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>"><?php echo $telephone; ?></a><sup>*</sup></span>
-						<small class="block">*Звонок бесплатный</small>
+						<small class="block">*<?php echo $text_call_free; ?></small>
 						<div class="right-align">
 							<ul class="right text-medium contact-info">
 								<li><a href="mailto:<?php echo $email; ?>" class="blue-grey-text text-lighten-5"><?php echo $email; ?><i class="material-icons left">email</i></a></li>
 								<li><a class="blue-grey-text text-lighten-5 modal-call-back-btn activator" rel="nofollow"><?php echo $text_call_back; ?><i class="material-icons left">phone</i></a></li>
-								<li><span>Будни с 09:00 до 18:00<i class="material-icons left">access_time</i></span></li>
+								<?php if ($open) { ?>
+								<li><span><?php echo $open; ?><i class="material-icons left">access_time</i></span></li>
+								<?php } ?>
 							</ul>
 						</div>
 					</div>
@@ -130,7 +132,7 @@
 						<ul>
 							<li class="col m3">
 								<?php if ($categories) { ?>
-									<a id="main-dd-nav" class="dropdown-button text-medium text-uppercase" href="#" data-activates="dropdown-nav-top" onclick="return false;" rel="nofollow"><?php echo $text_category; ?></a>
+									<a id="main-dd-nav" class="dropdown-button text-medium text-uppercase" data-activates="dropdown-nav-top" rel="nofollow"><?php echo $text_category; ?></a>
 									<ul id="dropdown-nav-top" class="dropdown-content z-depth-5 dropdown-parent" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
 									<?php foreach ($categories as $category) { ?>
 										<?php if ($category['children']) { ?>

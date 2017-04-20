@@ -41,7 +41,7 @@
 							</ul>
 						</section>
 						<section class="col s6">
-							<h5 class="white-text text-bold">Мы в соцсетях</h5>
+							<h5 class="white-text text-bold"><?php echo $text_social_network; ?></h5>
 						</section>
 					</div>
 				</div>
@@ -65,17 +65,17 @@
 				html  = '<form id="modal-call-back" class="modal">';
 				html += 	'<div class="modal-content">';
 				html += 		'<i class="material-icons modal-action modal-close right">close</i>';
-				html += 		'<h4>Заказать звонок</h4>';
+				html += 		'<div class="row"><h4>Заказать звонок</h4></div>';
 				html += 		'<div class="row">';
 				html += 			'<div class="input-field">';
 				html += 				'<i class="material-icons prefix">account_circle</i>';
-				html += 				'<input id="cb-name" name="name" type="text" class="validate" required>';
-				html += 				'<label for="cb-name">Как вас зовут</label>';
+				html += 				'<input id="cb-name" name="name" placeholder="Ваше имя" type="text" class="validate" required>';
+				html += 				'<label class="active" for="cb-name">Как вас зовут</label>';
 				html += 			'</div>';
 				html += 			'<div class="input-field">';
 				html += 				'<i class="material-icons prefix">phone</i>';
-				html += 				'<input id="cb-telephone" name="tel" type="tel" class="validate" data-inputmask="\'mask\':\'8 (999) 999-99-99\'" required>';
-				html += 				'<label for="cb-telephone">Ваш номер телефона</label>';
+				html += 				'<input id="cb-telephone" name="tel" type="tel" class="validate" placeholder="8 (999) 999-99-99" data-inputmask="\'mask\':\'8 (999) 999-99-99\'" required>';
+				html += 				'<label class="active" for="cb-telephone">Ваш номер телефона</label>';
 				html += 			'</div>';
 				html += 		'</div>';
 				html += 	'</div>';
