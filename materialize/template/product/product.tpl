@@ -512,7 +512,7 @@
 						<div class="row slick-goods">
 							<?php foreach ($products as $product) { ?>
 							<div class="col">
-								<div class="card sticky-action large z-depth-3 hoverable href-underline">
+								<div class="card sticky-action large hoverable href-underline">
 								<?php if ($product['special']) { ?><span class="white-text badge red lighten-1 percent"><?php echo $text_percent; ?> <?php echo $product['percent_discount']; ?>%</span><?php } ?>
 									<div class="card-image">
 										<span><i class="material-icons small right activator">more_vert</i></span>

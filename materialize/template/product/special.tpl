@@ -102,7 +102,7 @@
 						<div class="row">
 							<?php foreach ($products as $product) { ?>
 							<div class="col <?php echo $goods; ?>">
-								<div class="card sticky-action large z-depth-3 hoverable">
+								<div class="card sticky-action large hoverable">
 									<span class="white-text badge red lighten-1 percent"><?php echo $text_percent; ?> <?php echo $product['percent_discount']; ?>%</span>
 									<div class="card-image">
 										<span><i class="material-icons small right activator">more_vert</i></span>

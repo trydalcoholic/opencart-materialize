@@ -3,7 +3,7 @@
 		<h2 class="col s12"><?php echo $heading_title; ?></h2>
 		<?php foreach ($products as $product) { ?>
 		<div class="col s12 m6 xl4">
-			<div class="card sticky-action large z-depth-3 hoverable">
+			<div class="card sticky-action large hoverable">
 				<?php if ($product['special']) { ?><span class="white-text badge red lighten-1 percent"><?php echo $text_percent; ?> <?php echo $product['percent_discount']; ?>%</span><?php } ?>
 				<div class="card-image">
 					<span><i class="material-icons small right activator">more_vert</i></span>
