@@ -1,67 +1,120 @@
 <?php echo $header; ?>
-<div class="container">
-  <ul class="breadcrumb">
-    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ul>
-  <div class="row"><?php echo $column_left; ?>
-    <?php if ($column_left && $column_right) { ?>
-    <?php $class = 'col-sm-6'; ?>
-    <?php } elseif ($column_left || $column_right) { ?>
-    <?php $class = 'col-sm-9'; ?>
-    <?php } else { ?>
-    <?php $class = 'col-sm-12'; ?>
-    <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <h1><?php echo $heading_title; ?></h1>
-      <p><?php echo $text_description; ?></p>
-      <form class="form-horizontal">
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="input-code"><?php echo $entry_code; ?></label>
-          <div class="col-sm-10">
-            <textarea cols="40" rows="5" placeholder="<?php echo $entry_code; ?>" id="input-code" class="form-control"><?php echo $code; ?></textarea>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="input-generator"><span data-toggle="tooltip" title="<?php echo $help_generator; ?>"><?php echo $entry_generator; ?></span></label>
-          <div class="col-sm-10">
-            <input type="text" name="product" value="" placeholder="<?php echo $entry_generator; ?>" id="input-generator" class="form-control" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="input-link"><?php echo $entry_link; ?></label>
-          <div class="col-sm-10">
-            <textarea name="link" cols="40" rows="5" placeholder="<?php echo $entry_link; ?>" id="input-link" class="form-control"></textarea>
-          </div>
-        </div>
-      </form>
-      <div class="buttons clearfix">
-        <div class="pull-right"><a href="<?php echo $continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
-      </div>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
-<script type="text/javascript"><!--
-$('input[name=\'product\']').autocomplete({
-	'source': function(request, response) {
-		$.ajax({
-			url: 'index.php?route=affiliate/tracking/autocomplete&filter_name=' +  encodeURIComponent(request),
-			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
-					return {
-						label: item['name'],
-						value: item['link']
-					}
-				}));
+<script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type": "BreadcrumbList",
+		"itemListElement": [
+			<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+			<?php $i++ ?>
+			<?php if ($i < count($breadcrumbs)) { ?>
+			<?php if ($i == 1) {?>
+			<?php } else {?>
+			{
+				"@type": "ListItem",
+				"position": <?php echo ($i-1); ?>,
+				"item": {
+					"@id": "<?php echo $breadcrumb['href']; ?>",
+					"name": "<?php echo $breadcrumb['text']; ?>"
+				}
+			},
+			<?php }?>
+			<?php } else { ?>
+			{
+				"@type": "ListItem",
+				"position": <?php echo ($i-1); ?>,
+				"item": {
+					"@id": "<?php echo $breadcrumb['href']; ?>",
+					"name": "<?php echo $breadcrumb['text']; ?>"
+				}
 			}
-		});
-	},
-	'select': function(item) {
-		$('input[name=\'product\']').val(item['label']);
-		$('textarea[name=\'link\']').val(item['value']);
+			<?php }}?>
+		]
 	}
-});
-//--></script>
+</script>
+	<main>
+		<div class="row">
+			<div class="container">
+				<nav class="breadcrumb-wrapper transparent z-depth-0">
+					<div class="nav-wrapper">
+						<div class="col s12">
+						<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+						<?php $i++ ?>
+						<?php if ($i < count($breadcrumbs)) { ?>
+						<?php if ($i == 1) {?>
+							<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						<?php } else {?>
+							<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
+						<?php }?>
+						<?php } else { ?>
+							<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
+						<?php }}?>
+						</div>
+					</div>
+				</nav>
+				<h1 class="col s12"><?php echo $heading_title; ?></h1>
+				<?php if ($column_left && $column_right) { ?>
+					<?php $main = 's12 l6'; ?>
+				<?php } elseif ($column_left || $column_right) { ?>
+					<?php $main = 's12 l9'; ?>
+				<?php } else { ?>
+					<?php $main = 's12'; ?>
+				<?php } ?>
+				<?php echo $column_left; ?>
+				<div id="content" class="col <?php echo $main; ?>">
+					<?php echo $content_top; ?>
+						<div class="card-panel">
+							<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+								<p><?php echo $text_description; ?></p>
+								<div class="section">
+									<div class="input-field">
+										<textarea id="input-code" placeholder="<?php echo $entry_code; ?>" class="materialize-textarea"><?php echo $code; ?></textarea>
+										<label class="text-bold" for="input-code"><?php echo $entry_code; ?></label>
+									</div>
+									<div class="input-field">
+										<input type="text" name="product" value="" placeholder="<?php echo $entry_generator; ?>" id="input-generator" class="autocomplete">
+										<label class="text-bold tooltipped" for="input-generator" data-position="top" data-tooltip="<?php echo $help_generator; ?>"><?php echo $entry_generator; ?></label>
+									</div>
+									<div class="input-field">
+										<textarea id="input-link" name="link" placeholder="<?php echo $entry_link; ?>" class="materialize-textarea"></textarea>
+										<label class="text-bold" for="input-link"><?php echo $entry_link; ?></label>
+									</div>
+								</div>
+							</form>
+							<div class="flex-reverse href-underline">
+								<a href="<?php echo $continue; ?>" class="btn waves-effect waves-light blue white-text"><?php echo $button_continue; ?></a>
+							</div>
+						</div>
+					</div>
+					<?php echo $content_bottom; ?>
+				</div>
+				<?php echo $column_right; ?>
+			</div>
+		</div>
+	</main>
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			$(document).ready(function() {
+				$('input.autocomplete').autocomplete({
+					'source': function(request, response) {
+						$.ajax({
+							url: 'index.php?route=affiliate/tracking/autocomplete&filter_name=' +  encodeURIComponent(request),
+							dataType: 'json',
+							success: function(json) {
+								response($.map(json, function(item) {
+									return {
+										label: item['name'],
+										value: item['link']
+									}
+								}));
+							}
+						});
+					},
+					'select': function(item) {
+						$('input[name=\'product\']').val(item['label']);
+						$('textarea[name=\'link\']').val(item['value']);
+					}
+				});
+			});
+		});
+	</script>
 <?php echo $footer; ?>

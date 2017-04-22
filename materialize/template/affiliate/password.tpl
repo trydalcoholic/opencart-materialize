@@ -1,50 +1,112 @@
 <?php echo $header; ?>
-<div class="container">
-  <ul class="breadcrumb">
-    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ul>
-  <div class="row"><?php echo $column_left; ?>
-    <?php if ($column_left && $column_right) { ?>
-    <?php $class = 'col-sm-6'; ?>
-    <?php } elseif ($column_left || $column_right) { ?>
-    <?php $class = 'col-sm-9'; ?>
-    <?php } else { ?>
-    <?php $class = 'col-sm-12'; ?>
-    <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <h1><?php echo $heading_title; ?></h1>
-      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
-        <fieldset>
-          <legend><?php echo $text_password; ?></legend>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-password"><?php echo $entry_password; ?></label>
-            <div class="col-sm-10">
-              <input type="password" name="password" value="<?php echo $password; ?>" placeholder="<?php echo $entry_password; ?>" id="input-password" class="form-control" />
-              <?php if ($error_password) { ?>
-              <div class="text-danger"><?php echo $error_password; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-confirm"><?php echo $entry_confirm; ?></label>
-            <div class="col-sm-10">
-              <input type="password" name="confirm" value="<?php echo $confirm; ?>" placeholder="<?php echo $entry_confirm; ?>" id="input-confirm" class="form-control" />
-              <?php if ($error_confirm) { ?>
-              <div class="text-danger"><?php echo $error_confirm; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-        </fieldset>
-        <div class="buttons clearfix">
-          <div class="pull-left"><a href="<?php echo $back; ?>" class="btn btn-default"><?php echo $button_back; ?></a></div>
-          <div class="pull-right">
-            <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
-          </div>
-        </div>
-      </form>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
+<script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type": "BreadcrumbList",
+		"itemListElement": [
+			<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+			<?php $i++ ?>
+			<?php if ($i < count($breadcrumbs)) { ?>
+			<?php if ($i == 1) {?>
+			<?php } else {?>
+			{
+				"@type": "ListItem",
+				"position": <?php echo ($i-1); ?>,
+				"item": {
+					"@id": "<?php echo $breadcrumb['href']; ?>",
+					"name": "<?php echo $breadcrumb['text']; ?>"
+				}
+			},
+			<?php }?>
+			<?php } else { ?>
+			{
+				"@type": "ListItem",
+				"position": <?php echo ($i-1); ?>,
+				"item": {
+					"@id": "<?php echo $breadcrumb['href']; ?>",
+					"name": "<?php echo $breadcrumb['text']; ?>"
+				}
+			}
+			<?php }}?>
+		]
+	}
+</script>
+	<main>
+		<div class="row">
+			<div class="container">
+				<nav class="breadcrumb-wrapper transparent z-depth-0">
+					<div class="nav-wrapper">
+						<div class="col s12">
+						<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+						<?php $i++ ?>
+						<?php if ($i < count($breadcrumbs)) { ?>
+						<?php if ($i == 1) {?>
+							<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						<?php } else {?>
+							<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
+						<?php }?>
+						<?php } else { ?>
+							<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
+						<?php }}?>
+						</div>
+					</div>
+				</nav>
+				<h1 class="col s12"><?php echo $heading_title; ?></h1>
+				<?php if ($column_left && $column_right) { ?>
+					<?php $main = 's12 l6'; ?>
+				<?php } elseif ($column_left || $column_right) { ?>
+					<?php $main = 's12 l9'; ?>
+				<?php } else { ?>
+					<?php $main = 's12'; ?>
+				<?php } ?>
+				<?php echo $column_left; ?>
+				<div id="content" class="col <?php echo $main; ?>">
+					<?php echo $content_top; ?>
+					<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+						<div class="card-panel">
+							<div class="row">
+								<div class="col s12">
+									<div id="account">
+										<h2><?php echo $text_password; ?></h2>
+										<div class="section">
+											<div class="input-field">
+												<input type="password" name="password" value="<?php echo $password; ?>" id="input-password" class="validate">
+												<label for="input-password" class="required"><?php echo $entry_password; ?></label>
+											</div>
+											<div class="input-field">
+												<input type="password" name="confirm" value="<?php echo $confirm; ?>" id="input-confirm" class="validate">
+												<label for="input-confirm" class="required"><?php echo $entry_confirm; ?></label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col s6">
+									<div class="href-underline">
+										<a class="btn btn-flat waves-effect waves-default" href="<?php echo $back; ?>"><?php echo $button_back; ?></a>
+									</div>
+								</div>
+								<div class="col s6">
+									<div class="flex-reverse">
+										<input type="submit" class="btn waves-effect waves-light blue white-text" value="<?php echo $button_continue; ?>">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<?php echo $content_bottom; ?>
+				</div>
+				<?php echo $column_right; ?>
+			</div>
+		</div>
+	</main>
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			<?php if ($error_password) { ?>
+				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_password; ?>',7000,'toast-warning rounded')
+			<?php } ?>
+			<?php if ($error_confirm) { ?>
+				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_confirm; ?>',7000,'toast-warning rounded')
+			<?php } ?>
+		});
+	</script>
 <?php echo $footer; ?>

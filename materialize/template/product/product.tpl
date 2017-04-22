@@ -618,7 +618,7 @@
 					data: 'name=' + encodeURIComponent($('input[name=\'name\']').val()) + '&text=' + encodeURIComponent($('textarea[name=\'text\']').val()) + '&rating=' + encodeURIComponent($('input[name=\'rating\']:checked').val() ? $('input[name=\'rating\']:checked').val() : '') + '&captcha=' + encodeURIComponent($('input[name=\'captcha\']').val()),
 					success: function(json) {
 						if (json['error']) {
-							Materialize.toast('<i class="material-icons left">check</i>'+json['error'],7000,'toast-warning rounded');
+							Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning rounded');
 						}
 						if (json['success']) {
 							Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success rounded');

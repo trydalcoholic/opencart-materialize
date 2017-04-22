@@ -1,4 +1,4 @@
-<div class="collection href-underline">
+<div class="collection href-underline z-depth-1">
 	<?php if (!$logged) { ?>
 	<a href="<?php echo $login; ?>" class="collection-item blue-grey-text text-darken-4"><?php echo $text_login; ?></a>
 	<a href="<?php echo $register; ?>" class="collection-item blue-grey-text text-darken-4"><?php echo $text_register; ?></a>

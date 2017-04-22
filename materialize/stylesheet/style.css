@@ -27,7 +27,7 @@ iframe {border:none;}
 .text-light {font-weight:300 !important;}
 .text-normal {font-weight:400 !important;}
 .text-medium {font-weight:500 !important;}
-.text-bold,.bold {font-weight:600 !important;}
+.text-bold,.bold,strong {font-weight:600 !important;}
 .text-justify {text-align:justify !important;}
 .text-uppercase {text-transform:uppercase !important;}
 .text-underline {text-decoration:underline !important;}
