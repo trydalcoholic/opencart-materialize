@@ -20,7 +20,7 @@ In this theme used the same [Materialize](https://github.com/Dogfalo/materialize
 * Added structured data (Schema.org). Example: 
 [Product card](https://search.google.com/structured-data/testing-tool/u/0/#url=https%3A%2F%2Fmaterialize.myefforts.ru%2Fsmartphones%2Fiphone-smart%2Fiphone-7-plus-red-special-edition-256gb)
 * The site is quickly loaded. Check the various pages of the site:
-  - [Google PageSpeed](https://developers.google.com/speed/pagespeed/)
+  - [Google PageSpeed](https://developers.google.com/speed/pagespeed/insights/)
   - [Pingdom Website Speed Test](https://tools.pingdom.com/)
   - [GTmetrix](https://gtmetrix.com/)
 * Check out some other site tests:
