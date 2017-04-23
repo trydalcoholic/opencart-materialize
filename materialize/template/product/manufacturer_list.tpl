@@ -87,8 +87,8 @@
 												<?php if ($manufacturer['logo']) { ?>
 												<a class="waves-effect waves-light" href="<?php echo $manufacturer['href']; ?>"><img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $manufacturer['logo']; ?>" alt="<?php echo $manufacturer['name']; ?>"></a>
 												<br>
-												<a class="grey-text text-darken-4 text-medium" href="<?php echo $manufacturer['href']; ?>"><?php echo $manufacturer['name']; ?></a>
 												<?php } ?>
+												<a class="grey-text text-darken-4 text-medium" href="<?php echo $manufacturer['href']; ?>"><?php echo $manufacturer['name']; ?></a>
 												</div>
 											</div>
 										<?php } ?>
