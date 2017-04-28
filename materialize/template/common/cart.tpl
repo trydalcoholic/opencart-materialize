@@ -3,7 +3,7 @@
 	<small id="cart-total" class="light-blue darken-1 btn-floating z-depth-1"><?php echo $text_items; ?></small>
 </a>
 <div id="modal-cart" class="modal bottom-sheet modal-fixed-footer">
-	<div class="modal-content">
+	<div id="modal-cart-content" class="modal-content">
 		<div class="container">
 			<h4 class="flow-text text-bold"><?php echo $text_shopping_cart; ?></h4>
 			<?php if ($products) { ?>

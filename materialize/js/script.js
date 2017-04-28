@@ -76,7 +76,7 @@ var cart = {
 					}, 100);
 					$('#cart').addClass('pulse');
 					$('#cart-total').addClass('pulse');
-					$('.modal-content').load('index.php?route=common/cart/info .modal-content .container');
+					$('#modal-cart-content').load('index.php?route=common/cart/info .modal-content .container');
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
@@ -94,7 +94,7 @@ var cart = {
 				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
-					$('.modal-content').load('index.php?route=common/cart/info .modal-content .container');
+					$('#modal-cart-content').load('index.php?route=common/cart/info .modal-content .container');
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
@@ -116,7 +116,7 @@ var cart = {
 				if ((now_location == '/cart/') || (now_location == '/checkout/') || (getURLVar('route') == 'checkout/cart') || (getURLVar('route') == 'checkout/checkout')) {
 					location = 'index.php?route=checkout/cart';
 				} else {
-					$('.modal-content').load('index.php?route=common/cart/info .modal-content .container');
+					$('#modal-cart-content').load('index.php?route=common/cart/info .modal-content .container');
 				}
 				if (json['total'] == 0) {
 					$('#cart').removeClass('pulse');

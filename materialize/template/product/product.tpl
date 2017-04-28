@@ -107,17 +107,12 @@
 						</div>
 						<div class="col <?php echo $product_info; ?>">
 							<div class="card-panel product-info">
-								<ul class="user-btn">
-									<li><button type="button" class="btn-flat no-padding red-text text-lighten-1" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');" rel="nofollow"><i class="material-icons activator">favorite</i></button></li>
-									<li><button type="button" class="btn-flat no-padding blue-grey-text text-darken-4" onclick="compare.add('<?php echo $product_id; ?>');" title="<?php echo $button_compare; ?>" rel="nofollow"><i class="material-icons activator dropdown-button">compare_arrows</i></button></li>
-								</ul>
-								<i class="material-icons activator dropdown-button share-btn" data-activates="dropdown-share" data-constrainwidth="false">share</i>
 								<div class="row">
-									<div id="dropdown-share" class="dropdown-content col s10 m8 z-depth-5">
-										<blockquote class="blockquote-note blue-grey lighten-5 center dropdown-content-share">
-											<p>Поделись ссылкой со своими друзьями или сохрани у себя на страничке в твоей любимой социальной сети :)</p>
-										</blockquote>
-									</div>
+									<ul class="user-btn">
+										<li><button type="button" class="btn-flat no-padding red-text text-lighten-1" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="material-icons activator">favorite</i></button></li>
+										<li><button type="button" class="btn-flat no-padding blue-grey-text text-darken-4" onclick="compare.add('<?php echo $product_id; ?>');" title="<?php echo $button_compare; ?>"><i class="material-icons activator dropdown-button">compare_arrows</i></button></li>
+									</ul>
+									<button type="button" class="btn-flat no-padding blue-grey-text text-darken-4 share-btn" data-target="modal-share"><i class="material-icons">share</i></button>
 								</div>
 								<h1 class="center" itemprop="name"><?php echo $heading_title; ?></h1>
 								<div class="rating">
@@ -234,105 +229,105 @@
 									<img class="responsive-img center-block lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/payments.jpg" alt="Оплата наличными и банковскими картами">
 								</div>
 								<div id="product">
-								<?php if ($options) { ?>
-									<h3><?php echo $text_option; ?></h3>
-									<br>
-									<?php foreach ($options as $option) { ?>
-										<?php if ($option['type'] == 'radio') { ?>
-										<div id="input-option<?php echo $option['product_option_id']; ?>">
-											<div class="section">
-												<label<?php echo ($option['required'] ? ' class="required"' : ''); ?>><?php echo $option['name']; ?></label>
-												<ul class="product-option">
-													<?php foreach ($option['product_option_value'] as $option_value) { ?>
-													<li>
-														<?php if ($option_value['image']) { ?>
-															<img src="<?php echo $img_loader; ?>" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img">
+									<?php if ($options) { ?>
+										<h3><?php echo $text_option; ?></h3>
+										<br>
+										<?php foreach ($options as $option) { ?>
+											<?php if ($option['type'] == 'radio') { ?>
+											<div id="input-option<?php echo $option['product_option_id']; ?>">
+												<div class="section">
+													<label<?php echo ($option['required'] ? ' class="required"' : ''); ?>><?php echo $option['name']; ?></label>
+													<ul class="product-option">
+														<?php foreach ($option['product_option_value'] as $option_value) { ?>
+														<li>
+															<?php if ($option_value['image']) { ?>
+																<img src="<?php echo $img_loader; ?>" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img">
+															<?php } ?>
+															<input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>"  class="with-gap">
+															<label for="<?php echo $option_value['product_option_value_id']; ?>">
+																<?php echo $option_value['name']; ?> <?php if ($option_value['price']) { ?>(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?>
+															</label>
+														</li>
 														<?php } ?>
-														<input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>"  class="with-gap">
-														<label for="<?php echo $option_value['product_option_value_id']; ?>">
-															<?php echo $option_value['name']; ?> <?php if ($option_value['price']) { ?>(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?>
-														</label>
-													</li>
-													<?php } ?>
-												</ul>
-											</div>
-										</div>
-										<?php } ?>
-										<?php if ($option['type'] == 'checkbox') { ?>
-										<div id="input-option<?php echo $option['product_option_id']; ?>">
-											<div class="section">
-												<label<?php echo ($option['required'] ? ' class="required"' : ''); ?>><?php echo $option['name']; ?></label>
-												<ul class="product-option">
-													<?php foreach ($option['product_option_value'] as $option_value) { ?>
-													<li>
-														<?php if ($option_value['image']) { ?>
-														<img src="<?php echo $img_loader; ?>" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img lazyload">
-														<?php } ?>
-														<input type="checkbox" name="option[<?php echo $option['product_option_id']; ?>][]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>" class="filled-in">
-														<label for="<?php echo $option_value['product_option_value_id']; ?>">
-															<?php echo $option_value['name']; ?> <?php if ($option_value['price']) { ?>(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?>
-														</label>
-														<?php } ?>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<?php } ?>
-										<?php if ($option['type'] == 'select') { ?>
-										<div class="input-field">
-											<select name="option[<?php echo $option['product_option_id']; ?>]" id="input-option<?php echo $option['product_option_id']; ?>" class="icons">
-												<?php foreach ($option['product_option_value'] as $option_value) { ?>
-												<option value="<?php echo $option_value['product_option_value_id']; ?>"<?php if($option_value['image']){ ?> class="left circle" data-icon="<?php echo $option_value['image']; ?>"<?php } ?>><?php echo $option_value['name']; ?><?php if ($option_value['price']) { ?>&nbsp;(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?>
-												</option>
-												<?php } ?>
-											</select>
-											<label for="input-option<?php echo $option['product_option_id']; ?>"<?php echo ($option['required'] ? ' class="required"' : ''); ?>><?php echo $option['name']; ?></label>
-										</div>
-										<?php } ?>
-										<?php if ($option['type'] == 'text') { ?>
-										<div class="input-field">
-											<div class="section">
-												<i class="material-icons prefix">textsms</i>
-												<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-												<input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="" placeholder="<?php echo $option['name']; ?>" id="input-option<?php echo $option['product_option_id']; ?>">
-											</div>
-										</div>
-										<?php } ?>
-										<?php if ($option['type'] == 'textarea') { ?>
-										<div class="input-field">
-											<div class="section">
-												<i class="material-icons prefix">message</i>
-												<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-												<textarea name="option[<?php echo $option['product_option_id']; ?>]" rows="5" placeholder="<?php echo $option['name']; ?>" id="input-option<?php echo $option['product_option_id']; ?>" class="materialize-textarea"></textarea>
-											</div>
-										</div>
-										<?php } ?>
-										<?php if ($option['type'] == 'file') { ?>
-										<div class="file-field input-field">
-											<div class="section">
-												<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-												<br>
-												<button type="button" id="button-upload<?php echo $option['product_option_id']; ?>" class="btn blue-grey lighten-1">
-													<i class="material-icons left">cloud_upload</i>
-													<span><?php echo $button_upload; ?></span>
-													<input type="hidden" name="option[<?php echo $option['product_option_id']; ?>]" value="" id="input-option<?php echo $option['product_option_id']; ?>">
-												</button>
-												<div class="file-path-wrapper">
-													<input class="file-path validate" type="text" placeholder="<?php echo $option['name']; ?>">
+													</ul>
 												</div>
-												<br><br>
 											</div>
-										</div>
-										<?php } ?>
-										<?php if ($option['type'] == 'date') { ?>
-										<div class="input-field section">
-											<i class="material-icons prefix">event</i>
-											<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-											<input type="date" name="option[<?php echo $option['product_option_id']; ?>]" placeholder="<?php echo date('d.m.Y'); ?>" value="" id="input-option<?php echo $option['product_option_id']; ?>" class="datepicker">
-										</div>
+											<?php } ?>
+											<?php if ($option['type'] == 'checkbox') { ?>
+											<div id="input-option<?php echo $option['product_option_id']; ?>">
+												<div class="section">
+													<label<?php echo ($option['required'] ? ' class="required"' : ''); ?>><?php echo $option['name']; ?></label>
+													<ul class="product-option">
+														<?php foreach ($option['product_option_value'] as $option_value) { ?>
+														<li>
+															<?php if ($option_value['image']) { ?>
+															<img src="<?php echo $img_loader; ?>" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img lazyload">
+															<?php } ?>
+															<input type="checkbox" name="option[<?php echo $option['product_option_id']; ?>][]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>" class="filled-in">
+															<label for="<?php echo $option_value['product_option_value_id']; ?>">
+																<?php echo $option_value['name']; ?> <?php if ($option_value['price']) { ?>(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?>
+															</label>
+															<?php } ?>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<?php } ?>
+											<?php if ($option['type'] == 'select') { ?>
+											<div class="input-field">
+												<select name="option[<?php echo $option['product_option_id']; ?>]" id="input-option<?php echo $option['product_option_id']; ?>" class="icons">
+													<?php foreach ($option['product_option_value'] as $option_value) { ?>
+													<option value="<?php echo $option_value['product_option_value_id']; ?>"<?php if($option_value['image']){ ?> class="left circle" data-icon="<?php echo $option_value['image']; ?>"<?php } ?>><?php echo $option_value['name']; ?><?php if ($option_value['price']) { ?>&nbsp;(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?>
+													</option>
+													<?php } ?>
+												</select>
+												<label for="input-option<?php echo $option['product_option_id']; ?>"<?php echo ($option['required'] ? ' class="required"' : ''); ?>><?php echo $option['name']; ?></label>
+											</div>
+											<?php } ?>
+											<?php if ($option['type'] == 'text') { ?>
+											<div class="input-field">
+												<div class="section">
+													<i class="material-icons prefix">textsms</i>
+													<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+													<input type="text" name="option[<?php echo $option['product_option_id']; ?>]" value="" placeholder="<?php echo $option['name']; ?>" id="input-option<?php echo $option['product_option_id']; ?>">
+												</div>
+											</div>
+											<?php } ?>
+											<?php if ($option['type'] == 'textarea') { ?>
+											<div class="input-field">
+												<div class="section">
+													<i class="material-icons prefix">message</i>
+													<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+													<textarea name="option[<?php echo $option['product_option_id']; ?>]" rows="5" placeholder="<?php echo $option['name']; ?>" id="input-option<?php echo $option['product_option_id']; ?>" class="materialize-textarea"></textarea>
+												</div>
+											</div>
+											<?php } ?>
+											<?php if ($option['type'] == 'file') { ?>
+											<div class="file-field input-field">
+												<div class="section">
+													<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+													<br>
+													<button type="button" id="button-upload<?php echo $option['product_option_id']; ?>" class="btn blue-grey lighten-1">
+														<i class="material-icons left">cloud_upload</i>
+														<span><?php echo $button_upload; ?></span>
+														<input type="hidden" name="option[<?php echo $option['product_option_id']; ?>]" value="" id="input-option<?php echo $option['product_option_id']; ?>">
+													</button>
+													<div class="file-path-wrapper">
+														<input class="file-path validate" type="text" placeholder="<?php echo $option['name']; ?>">
+													</div>
+													<br><br>
+												</div>
+											</div>
+											<?php } ?>
+											<?php if ($option['type'] == 'date') { ?>
+											<div class="input-field section">
+												<i class="material-icons prefix">event</i>
+												<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+												<input type="date" name="option[<?php echo $option['product_option_id']; ?>]" placeholder="<?php echo date('d.m.Y'); ?>" value="" id="input-option<?php echo $option['product_option_id']; ?>" class="datepicker">
+											</div>
+											<?php } ?>
 										<?php } ?>
 									<?php } ?>
-								<?php } ?>
 									<div class="section">
 										<label for="input-quantity"><?php echo $entry_qty; ?></label>
 										<div class="input-number">
@@ -540,6 +535,22 @@
 		</div>
 	</main>
 	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"><div class="pswp__bg"></div><div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Закрыть (Esc)"></button><button class="pswp__button pswp__button--share" title="Поделиться"></button><button class="pswp__button pswp__button--fs" title="Включить полноэкранный режим"></button><button class="pswp__button pswp__button--zoom" title="Увеличить/уменьшить"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" title="Предыдущая (стрелка влево)"></button><button class="pswp__button pswp__button--arrow--right" title="Следующая (стрелка вправо)"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div></div>
+	<div id="modal-share" class="modal bottom-sheet">
+		<div id="modal-share-content" class="modal-content white">
+			<div class="container center">
+				<h4><?php echo $heading_title; ?></h4>
+				<div class="row">
+					<div class="col s3 l2 center">
+						<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb_small; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
+					</div>
+					<div class="col s9 l10 grey lighten-3 z-depth-1 comment-body">
+						<p>Поделись ссылкой со своими друзьями или сохрани у себя на страничке в твоей любимой социальной сети :)</p>
+						<p><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,gplus,twitter,viber,whatsapp,skype,telegram"></div></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			// Отзывы
@@ -630,7 +641,7 @@
 								$('#cart').html('<i class="material-icons left">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating pulse z-depth-1">'+json['total']+'</small>');
 							}, 100);
 							$('#cart').addClass('pulse');
-							$('.modal-content').load('index.php?route=common/cart/info .modal-content .container');
+							$('#modal-cart-content').load('index.php?route=common/cart/info .modal-content .container');
 						}
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
@@ -640,4 +651,5 @@
 			});
 		});
 	</script>
+	<script async src="//yastatic.net/share2/share.js"></script>
 <?php echo $footer; ?>

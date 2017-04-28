@@ -193,7 +193,8 @@ iframe {border:none;}
 	.product-info {position:relative;padding-bottom:0;}
 	.product-info h1 {margin-top:0;}
 	/* Share */
-	.share-btn {position:absolute;top:15px;right:15px;font-size:1.5rem !important;}
+	.share-btn {position:absolute;top:7px;right:15px;font-size:1.5rem !important;}
+	.share-btn:hover {background-color:inherit;}
 	.dropdown-content-share {margin-top:10px 0 !important;margin-right:-2px !important;padding-top:0 !important;}
 	#dropdown-share {white-space:normal !important;}
 	/* User btn */
@@ -482,6 +483,8 @@ iframe {border:none;}
 	/* Яндекс Карта */
 	#map {position:relative;min-height:360px;}
 	.ymaps-2-1-45-input__control {margin:0 !important;}
+	/* Yandex share */
+	.ya-share2__list_direction_horizontal > .ya-share2__item {margin-bottom:5px !important;}
 	/* Анимация */
 	.collapsible-body {will-change:width,height;}
 	/* Списки категорий */
