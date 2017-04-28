@@ -14,37 +14,30 @@ In this theme used the same [Materialize](https://github.com/Dogfalo/materialize
 ### Store front
 * No Bootstrap, only Materialize
 * Added "Call back me"
-* Quite a lot of small changes that make up the overall distinctive site, it's easier to compare product cards 
-[Materialize Theme](https://materialize.myefforts.ru/smartphones/iphone-smart/iphone-7-plus-red-special-edition-256gb) and 
-[Default Theme](https://demo.opencart.com/index.php?route=product/product&product_id=40) :)
-* Added structured data (Schema.org). Example: 
-[Product card](https://search.google.com/structured-data/testing-tool/u/0/#url=https%3A%2F%2Fmaterialize.myefforts.ru%2Fsmartphones%2Fiphone-smart%2Fiphone-7-plus-red-special-edition-256gb)
+* Quite a lot of small changes that make up the overall distinctive site, it's easier to compare product cards
+[Materialize Theme](https://materialize.myefforts.ru/smartphones/iphone-smart/iphone-7-plus-red-special-edition-256gb) and [Default Theme](https://demo.opencart.com/index.php?route=product/product&product_id=40) :)
+* Added structured data (Schema.org). Example: [Product card](https://search.google.com/structured-data/testing-tool/u/0/#url=https%3A%2F%2Fmaterialize.myefforts.ru%2Fsmartphones%2Fiphone-smart%2Fiphone-7-plus-red-special-edition-256gb)
 * The site is quickly loaded. Check the various pages of the site:
   - [Google PageSpeed](https://developers.google.com/speed/pagespeed/insights/)
   - [Pingdom Website Speed Test](https://tools.pingdom.com/)
   - [GTmetrix](https://gtmetrix.com/)
 * Check out some other site tests:
-  - Markup Validation Service: [main page](https://validator.w3.org/nu/?doc=https%3A%2F%2Fmaterialize.myefforts.ru%2F) and 
-  [product card](https://validator.w3.org/nu/?doc=https%3A%2F%2Fmaterialize.myefforts.ru%2Fsmartphones%2Fiphone-smart%2Fiphone-7-plus-red-special-edition-256gb)
-  - Google Mobile-Friendly Test: [main page](https://search.google.com/search-console/mobile-friendly?id=aWnZIZ8aLvbIVq4R2tpuPQ) and 
-  [product card](https://search.google.com/search-console/mobile-friendly?id=zIJ0V8Q2y1WuyUJhOpN91w)
+  - Markup Validation Service: [main page](https://validator.w3.org/nu/?doc=https%3A%2F%2Fmaterialize.myefforts.ru%2F) and [product card](https://validator.w3.org/nu/?doc=https%3A%2F%2Fmaterialize.myefforts.ru%2Fsmartphones%2Fiphone-smart%2Fiphone-7-plus-red-special-edition-256gb)
+  - Google Mobile-Friendly Test: [main page](https://search.google.com/search-console/mobile-friendly?id=aWnZIZ8aLvbIVq4R2tpuPQ) and [product card](https://search.google.com/search-console/mobile-friendly?id=zIJ0V8Q2y1WuyUJhOpN91w)
 ## Installation and removal
-For a secure installation, you use the local theme folder and 2 installer files (OCMod.xml and SQL), 
-which allows you to rollback changes in the event of conflict situations. 
-In order to avoid unforeseen errors, make sure you back up the site.
+For a secure installation, you use the local theme folder and 2 installer files (OCMod.xml and SQL), which allows you to rollback changes in the event of conflict ituations. In order to avoid unforeseen errors, make sure you back up the site.
 ### Install
 1.  Copy the materialize folder to the folder at: /catalog/view/theme;
-2.  Import the file into the materialize_theme_for_ocstore.ocmod.sql in phpMyAdmin;
-3.  In the Admin panel open Extensions -> Extension Installer -> Upload File and select materialize_theme_for_ocstore.ocmod.xml;
+2.  Import the file into the sql_install_materialize_theme.ocmod.sql in phpMyAdmin;
+3.  In the Admin panel open Extensions -> Extension Installer -> Upload File and select materialize_theme.ocmod.xml;
 4.  Open Extensions -> Modifications;
 5.  Click on the refresh button;
 6.  Open Extensions -> Extensions -> Choose the extension type -> Choose -> Themes;
 7.  Default Store Theme -> Edit;
 8.  Theme Directory -> Materialize.
 ### Uninstalling
-1.  Extensions -> Modifications: select Materialize Theme For OCStore and click on the delete button. 
-On the same page, click the refresh button;
-2.  Import the file into the delete_materialize_theme_for_ocstore.ocmod.sql in phpMyAdmin;
+1.  Extensions -> Modifications: select Materialize Theme For OCStore and click on the delete button. On the same page, click the refresh button;
+2.  Import the file into the sql_uninstall_materialize_theme.ocmod.sql in phpMyAdmin;
 3.  Open Extensions -> Extensions -> Choose the extension type -> Choose -> Themes;
 4.  Default Store Theme -> Edit;
 5.  Theme Directory -> Default;

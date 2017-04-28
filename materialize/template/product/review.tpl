@@ -1,9 +1,9 @@
 <?php if ($reviews) { ?>
 <?php foreach ($reviews as $review) { ?>
-<div class="card-panel z-depth-1">
+<div class="card-panel">
 	<div class="row valign-wrapper">
 		<div class="col s4 m3 l2 center">
-			<span class="flow-text text-medium"><?php echo $review['author']; ?></span>
+			<span class="flow-text text-bold"><?php echo $review['author']; ?></span>
 		</div>
 		<div class="col s8 m9 l10">
 			<div class="rating">
@@ -33,7 +33,11 @@
 	</div>
 </div>
 <?php } ?>
-<div class="row"><?php echo $pagination; ?></div>
+<?php if ($pagination) { ?>
+<div class="row">
+<?php echo $pagination; ?>
+</div>
+<?php } ?>
 <?php } else { ?>
 <div class="card-panel center">
 	<p class="flow-text text-bold"><?php echo $text_no_reviews; ?></p>

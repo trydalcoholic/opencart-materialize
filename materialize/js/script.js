@@ -72,7 +72,7 @@ var cart = {
 				if (json['success']) {
 					Materialize.toast('<span><i class="material-icons left">check</i>'+json['success']+'</span>',7000,'toast-success rounded');
 					setTimeout(function () {
-						$('#cart').html('<i class="material-icons left">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating pulse z-depth-1 text-medium">'+json['total']+'</small>');
+						$('#cart').html('<i class="material-icons left">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating pulse z-depth-1">'+json['total']+'</small>');
 					}, 100);
 					$('#cart').addClass('pulse');
 					$('#cart-total').addClass('pulse');
@@ -110,7 +110,7 @@ var cart = {
 			dataType: 'json',
 			success: function(json) {
 				setTimeout(function () {
-					$('#cart').html('<i class="material-icons left">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating z-depth-1 text-medium">'+json['total']+'</small>');
+					$('#cart').html('<i class="material-icons left">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating z-depth-1">'+json['total']+'</small>');
 				}, 100);
 				var now_location = String(document.location.pathname);
 				if ((now_location == '/cart/') || (now_location == '/checkout/') || (getURLVar('route') == 'checkout/cart') || (getURLVar('route') == 'checkout/checkout')) {
@@ -327,7 +327,9 @@ $(document).ready(function() {
 			secondaryNavigation = $('.fixed-nav'),
 			headerHeight = (mainHeader.height() - 64),
 			mainBlock = $('main');
+			mainHeader.css('position','fixed');
 			mainBlock.css('margin-top',''+mainHeader.height()+'px');
+			$('#logo-img').addClass('responsive-img');
 
 		var scrolling = false,
 			previousTop = 0,

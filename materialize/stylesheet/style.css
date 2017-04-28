@@ -27,18 +27,16 @@ iframe {border:none;}
 .text-light {font-weight:300 !important;}
 .text-normal {font-weight:400 !important;}
 .text-medium {font-weight:500 !important;}
-.text-bold,.bold,strong {font-weight:600 !important;}
+.text-bold,strong {font-weight:600 !important;}
 .text-justify {text-align:justify !important;}
 .text-uppercase {text-transform:uppercase !important;}
 .text-underline {text-decoration:underline !important;}
-.text-dotted-white {border-bottom: 1px dashed #fff;}
 .no-border {border:none !important;}
 .block {display:block !important;}
 .activator {cursor:pointer !important;}
 .cursor-default {cursor:default !important;}
 .width-max {width:100% !important;}
-.flex-reverse {display:flex;flex-direction:row-reverse;}
-.scale:hover {-webkit-transform:scale(1.1);-moz-transform:scale(1.1);-ms-transform:scale(1.1);-o-transform:scale(1.1);transform:scale(1.1);}
+.flex-reverse {display:flex;flex-direction:row-reverse;padding:1rem 0;}
 .transition {
 	-webkit-transition: -webkit-transform 0.3s ease-in-out;
 	transition: -webkit-transform 0.3s ease-in-out;
@@ -97,12 +95,12 @@ iframe {border:none;}
 		font-family: 'Material Icons';
 		content: '\E5D2';
 		position: absolute;
-		top: -1px;
+		top: 0;
 		left: 10px;
 		height: 64px;
 		line-height: 64px;
 		display: block;
-		font-size: 24px;
+		font-size: 1.5rem;
 	}
 	/* Иконка для главного выпадающего меню */
 	.dropdown-child {position:relative;padding-right:45px !important;}
@@ -209,7 +207,7 @@ iframe {border:none;}
 	.img-block .badge {position:absolute;margin:0;z-index:1;}
 		.status,.percent {top:0;left:0;}
 		.availability {top:0;right:0;}
-	.product-card__badge_percent {bottom:0;left:0;right:0;}
+	.product-card-badge-percent {bottom:0;left:0;width:100%;}
 	/* Увеличить фотографию */
 	.slider-for figure {position:relative;}
 	.slider-for figure:after {
@@ -322,7 +320,7 @@ iframe {border:none;}
 	.rating-input [type="radio"]:not(:checked)+label, .rating-input [type="radio"]:checked+label {padding-left:0;}
 	.rating-input-active,.rating-input-checked {color:#FC0 !important;}
 	/* Обязательно к выбору */
-	.required:before {content:'* ';color:#e53935;font-weight:bold;}
+	.required:after {content:' *';color:#e53935;font-weight:bold;}
 	/* Успешное добавление в корзину */
 	.toast.rounded p {text-align:left;padding:0;margin:0;}
 	#cart-total,#compare-total {position:absolute;top:0;right:0;width:20px;height:20px;line-height:20px;font-size:.7rem;}
@@ -417,23 +415,13 @@ iframe {border:none;}
 */
 @media screen and (max-width:600px) {
 	h1,h2,h3,h4{text-align:center;}
+	header {position:relative !important;}
 }
-@media (max-width:767px) {
-	/* Table responsive from Bootstrap */
-	.table-responsive {
-		width: 100%;
-		margin-bottom: 15px;
-		overflow-y: hidden;
-		overflow-x: scroll;
-		-ms-overflow-style: -ms-autohiding-scrollbar;
-		border: 1px solid #ddd;
-		-webkit-overflow-scrolling: touch;
-	}
+@media (max-width:992px) {
+	table.responsive-table.product-cart th,table.responsive-table.product-cart td {height:80px;}
 }
 @media screen and (min-width:601px) {
-	main{margin-top:200px;}
 	header {
-		position: fixed;
 		z-index: 1000;
 		top: 0;
 		left: 0;
@@ -461,7 +449,7 @@ iframe {border:none;}
 	/* Fix label */
 	blockquote {overflow:auto;}
 	/* Fix label */
-	.select-wrapper+label {top:-22px;}
+	.select-wrapper+label {top:-25px;}
 	/* Shadow for dropdown select */
 	.dropdown-content.select-dropdown.active {box-shadow:0 16px 24px 2px rgba(0,0,0,0.14),0 6px 30px 5px rgba(0,0,0,0.12),0 8px 10px -5px rgba(0,0,0,0.3);}
 	/* Поиск */
@@ -474,13 +462,11 @@ iframe {border:none;}
 	.switch label input[type=checkbox]:checked+.lever:after {background:#03a9f4 !important;}
 	/* Пагинация */
 	.pagination li span {color:#fff;display:inline-block;font-size:1.2rem;padding:0 10px;line-height:30px;}
-	/* Обязательно к выбору */
-	.required:before {content:'* ';color:#e53935;font-weight:bold;}
 	/* Хлебные крошки */
 	.breadcrumb-wrapper {height:42px;line-height:42px;}
 	.breadcrumb {font-size:14px;}
 	.breadcrumb:before {color:inherit;font-size:18px;margin:0 8px 0 6px;}
-	.breadcrumb i {position:relative;top:-1px;left:5px;font-size:18px;height:42px !important;line-height:42px !important;}
+	.breadcrumb i {position:relative;top:-1px;left:0;font-size:18px;height:42px !important;line-height:42px !important;}
 	/* Выпадающий список для autocomplete */
 	.autocomplete-content.dropdown-content {position:absolute;width:100%;z-index:100;}
 	/* Цвет чекбоксов */

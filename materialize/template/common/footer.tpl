@@ -2,12 +2,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
-					<div class="col s12">
-						<h5 class="white-text text-bold">MyEfforts — интернет магазин спортивного питания</h5>
-						<p class="grey-text text-lighten-4">Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Которой заглавных курсивных сих над последний скатился! Парадигматическая деревни взобравшись страну рыбного, курсивных последний одна над раз инициал встретил ipsum о, алфавит!</p>
-					</div>
+					<h5 class="white-text text-bold">MyEfforts — интернет магазин спортивного питания</h5>
+					<p class="grey-text text-lighten-4">Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Которой заглавных курсивных сих над последний скатился! Парадигматическая деревни взобравшись страну рыбного, курсивных последний одна над раз инициал встретил ipsum о, алфавит!</p>
 				</div>
-				<div class="col l4 offset-l2 s12">
+				<div class="col l5 offset-l1 s12">
 					<div class="row">
 						<?php if ($informations) { ?>
 						<section class="col s6">
@@ -50,7 +48,7 @@
 		<div class="footer-copyright">
 			<div class="container">
 				<?php echo $powered; ?>
-				<a class="grey-text text-lighten-4 right" href="https://github.com/trydalcoholic" target="_blank">Created by Trydalcoholic</a>
+				<a class="grey-text text-lighten-4 right" href="https://github.com/trydalcoholic/opencart-materialize" target="_blank">Materialize Template</a>
 			</div>
 		</div>
 	</footer>

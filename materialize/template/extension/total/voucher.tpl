@@ -1,11 +1,11 @@
 <li>
-	<div class="collapsible-header grey lighten-5 text-medium"><i class="material-icons">card_giftcard</i><span><?php echo $heading_title; ?></span></div>
+	<div class="collapsible-header grey lighten-5"><i class="material-icons">card_giftcard</i><span><?php echo $heading_title; ?></span></div>
 	<div class="collapsible-body">
 		<div class="input-field">
 			<input type="text" name="voucher" value="<?php echo $voucher; ?>" id="input-voucher" class="validate">
 			<label for="input-voucher"><?php echo $entry_voucher; ?></label>
 		</div>
-		<div class="section">
+		<div class="flex-reverse">
 			<button type="button" value="<?php echo $button_voucher; ?>" id="button-voucher" class="btn blue waves-effect waves-light right"><?php echo $button_voucher; ?></button>
 		</div>
 	</div>

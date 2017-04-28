@@ -1,5 +1,5 @@
+<?php if ($addresses) { ?>
 <p>
-	<?php if ($addresses) { ?>
 	<input type="radio" name="payment_address" value="existing" checked="checked" id="existing_payment_address" class="with-gap">
 	<label for="existing_payment_address"><?php echo $text_address_existing; ?></label>
 	<div id="payment-existing" class="input-field">
@@ -16,64 +16,58 @@
 	<br>
 	<input type="radio" name="payment_address" value="new" id="new_payment_address" class="with-gap">
 	<label for="new_payment_address"><?php echo $text_address_new; ?></label>
-	<?php } ?>
 </p>
+<?php } ?>
 <div id="payment-new" style="display: <?php echo ($addresses ? 'none' : 'block'); ?>;" class="section">
-	<div class="row">
-		<div class="input-field col s12">
-			<input type="text" name="firstname" value="" id="input-payment-firstname" class="validate">
-			<label for="input-payment-firstname" class="active text-medium required"><?php echo $entry_firstname; ?></label>
-		</div>
-		<div class="input-field col s12">
-			<input type="text" name="lastname" value="" id="input-payment-lastname" class="validate">
-			<label for="input-payment-lastname" class="active text-medium required"><?php echo $entry_lastname; ?></label>
-		</div>
-		<div class="input-field col s12">
-			<input type="text" name="company" value="" placeholder="<?php echo $entry_company; ?>" id="input-payment-company" class="validate">
-			<label for="input-payment-company"><?php echo $entry_company; ?></label>
-		</div>
-		<div class="input-field col s12">
-			<input type="text" name="address_1" value="" id="input-payment-address-1" class="validate">
-			<label for="input-payment-address-1" class="text-medium required"><?php echo $entry_address_1; ?></label>
-		</div>
-		<div class="input-field col s12">
-			<input type="text" name="address_2" value="" id="input-payment-address-2" class="validate">
-			<label for="input-payment-address-2"><?php echo $entry_address_2; ?></label>
-		</div>
-		<div class="input-field col s12">
-			<input type="text" name="city" value="" id="input-payment-city" class="validate">
-			<label for="input-payment-city" class="text-medium required"><?php echo $entry_city; ?></label>
-		</div>
-		<div class="input-field col s12">
-			<input type="text" name="postcode" value="" id="input-payment-postcode" class="validate">
-			<label for="input-payment-postcode" class="required"><?php echo $entry_postcode; ?></label>
-		</div>
-		<div class="input-field col s12">
-			<select name="country_id" id="input-payment-country">
-				<option value="" disabled selected><?php echo $text_select; ?></option>
-				<?php foreach ($countries as $country) { ?>
-				<?php if ($country['country_id'] == $country_id) { ?>
-				<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
-				<?php } else { ?>
-				<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
-				<?php } ?>
-				<?php } ?>
-			</select>
-			<label for="input-payment-country" class="text-medium required"><?php echo $entry_country; ?></label>
-		</div>
-		<div class="col s12">
-			<label for="input-payment-zone" class="text-medium required"><?php echo $entry_zone; ?></label>
-			<select name="zone_id" id="input-payment-zone" class="browser-default">
-			</select>
-		</div>
+	<div class="input-field">
+		<input type="text" name="firstname" value="" id="input-payment-firstname" class="validate">
+		<label for="input-payment-firstname" class="active required"><?php echo $entry_firstname; ?></label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="lastname" value="" id="input-payment-lastname" class="validate">
+		<label for="input-payment-lastname" class="active required"><?php echo $entry_lastname; ?></label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="company" value="" placeholder="<?php echo $entry_company; ?>" id="input-payment-company" class="validate">
+		<label for="input-payment-company"><?php echo $entry_company; ?></label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="address_1" value="" id="input-payment-address-1" class="validate">
+		<label for="input-payment-address-1" class="required"><?php echo $entry_address_1; ?></label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="address_2" value="" id="input-payment-address-2" class="validate">
+		<label for="input-payment-address-2"><?php echo $entry_address_2; ?></label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="city" value="" id="input-payment-city" class="validate">
+		<label for="input-payment-city" class="required"><?php echo $entry_city; ?></label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="postcode" value="" id="input-payment-postcode" class="validate">
+		<label for="input-payment-postcode" class="required"><?php echo $entry_postcode; ?></label>
+	</div>
+	<div class="input-field">
+		<select name="country_id" id="input-payment-country">
+			<option value="" disabled selected><?php echo $text_select; ?></option>
+			<?php foreach ($countries as $country) { ?>
+			<?php if ($country['country_id'] == $country_id) { ?>
+			<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
+			<?php } else { ?>
+			<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+			<?php } ?>
+			<?php } ?>
+		</select>
+		<label for="input-payment-country" class="required"><?php echo $entry_country; ?></label>
+	</div>
+	<div class="col s12">
+		<label for="input-payment-zone" class="required"><?php echo $entry_zone; ?></label>
+		<select name="zone_id" id="input-payment-zone" class="browser-default">
+		</select>
 	</div>
 </div>
-<div class="row">
-	<div class="col s12">
-		<div class="section">
-			<input type="button" value="<?php echo $button_continue; ?>" id="button-payment-address" class="btn waves-effect waves-light red right">
-		</div>
-	</div>
+<div class="flex-reverse">
+	<input type="button" value="<?php echo $button_continue; ?>" id="button-payment-address" class="btn waves-effect waves-light red right">
 </div>
 <script>
 $('input[name=\'payment_address\']').on('change', function() {

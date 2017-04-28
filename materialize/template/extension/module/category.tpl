@@ -1,5 +1,5 @@
 <ul class="collapsible collapsible-accordion collection with-header z-depth-1" data-collapsible="accordion">
-	<li class="collection-header blue-grey white-text"><h5 class="text-medium"><?php echo $heading_title; ?></h5></li>
+	<li class="collection-header blue-grey white-text"><h5><?php echo $heading_title; ?></h5></li>
 	<?php foreach ($categories as $category) { ?>
 		<?php if ($category['category_id'] == $category_id) { ?>
 		<li>

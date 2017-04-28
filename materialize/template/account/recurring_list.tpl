@@ -32,35 +32,31 @@
 	}
 </script>
 	<main>
-		<div class="row">
-			<div class="container">
-				<nav class="breadcrumb-wrapper transparent z-depth-0">
-					<div class="nav-wrapper">
-						<div class="row">
-							<div class="col s12">
-							<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
-							<?php $i++ ?>
-							<?php if ($i < count($breadcrumbs)) { ?>
-							<?php if ($i == 1) {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
-							<?php } else {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
-							<?php }?>
-							<?php } else { ?>
-								<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
-							<?php }}?>
-							</div>
-						</div>
-					</div>
-				</nav>
-				<h1 class="col s12"><?php echo $heading_title; ?></h1>
-				<?php if ($column_left && $column_right) { ?>
-					<?php $main = 's12 l6'; ?>
-				<?php } elseif ($column_left || $column_right) { ?>
-					<?php $main = 's12 l9'; ?>
-				<?php } else { ?>
-					<?php $main = 's12'; ?>
-				<?php } ?>
+		<div class="container">
+			<nav class="breadcrumb-wrapper transparent z-depth-0">
+				<div class="nav-wrapper">
+					<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+					<?php $i++ ?>
+					<?php if ($i < count($breadcrumbs)) { ?>
+					<?php if ($i == 1) {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+					<?php } else {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
+					<?php }?>
+					<?php } else { ?>
+						<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
+					<?php }}?>
+				</div>
+			</nav>
+			<h1><?php echo $heading_title; ?></h1>
+			<?php if ($column_left && $column_right) { ?>
+				<?php $main = 's12 l6'; ?>
+			<?php } elseif ($column_left || $column_right) { ?>
+				<?php $main = 's12 l9'; ?>
+			<?php } else { ?>
+				<?php $main = 's12'; ?>
+			<?php } ?>
+			<div class="row">
 				<?php echo $column_left; ?>
 				<div id="content" class="col <?php echo $main; ?>">
 					<?php echo $content_top; ?>
@@ -90,19 +86,14 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="row">
-							<div class="col s12"><?php echo $pagination; ?></div>
-							<div class="col s12"><?php echo $results; ?></div>
-						</div>
+						<?php echo $pagination; ?>
+						<br>
+						<?php echo $results; ?>
 						<?php } else { ?>
 							<p><?php echo $text_empty; ?></p>
 						<?php } ?>
-						<div class="row">
-							<div class="col s12">
-								<div class="section">
-									<a href="<?php echo $continue; ?>" class="btn waves-effect waves-light red right href-underline"><?php echo $button_continue; ?></a>
-								</div>
-							</div>
+						<div class="flex-reverse">
+							<a href="<?php echo $continue; ?>" class="btn waves-effect waves-light red right href-underline"><?php echo $button_continue; ?></a>
 						</div>
 					</div>
 					<?php echo $content_bottom; ?>

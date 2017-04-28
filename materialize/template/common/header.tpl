@@ -104,7 +104,9 @@
 					<div class="col s12 m4">
 						<a data-activates="slide-out" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light blue-grey darken-2 z-depth-4 btn-side-menu" rel="nofollow"><i class="material-icons white-text">menu</i></a>
 						<?php if ($logo) { ?>
-						<a href="<?php echo $home; ?>"><img class="responsive-img lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>"></a>
+						<a href="<?php echo $home; ?>">
+							<img id="logo-img" src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="<?php echo $logo_width; ?>" height="<?php echo $logo_height; ?>">
+						</a>
 						<?php } else { ?>
 							<strong><a href="<?php echo $home; ?>"><?php echo $name; ?></a></strong>
 						<?php } ?>
@@ -113,7 +115,7 @@
 						<span class="flow-text block"><a class="href-underline inherit-text text-bold" href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>"><?php echo $telephone; ?></a><sup>*</sup></span>
 						<small class="block">*<?php echo $text_call_free; ?></small>
 						<div class="right-align">
-							<ul class="right text-medium contact-info">
+							<ul class="right contact-info">
 								<li><a href="mailto:<?php echo $email; ?>" class="blue-grey-text text-lighten-5"><?php echo $email; ?><i class="material-icons left">email</i></a></li>
 								<li><a class="blue-grey-text text-lighten-5 modal-call-back-btn activator" rel="nofollow"><?php echo $text_call_back; ?><i class="material-icons left">phone</i></a></li>
 								<?php if ($open) { ?>
@@ -125,14 +127,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="row fixed-nav">
+		<div class="fixed-nav">
 			<nav class="blue-grey darken-2 hide-on-small-only header-navigation">
 				<div class="nav-wrapper container">
 					<div class="row">
 						<ul>
 							<li class="col m3">
 								<?php if ($categories) { ?>
-									<a id="main-dd-nav" class="dropdown-button text-medium text-uppercase" data-activates="dropdown-nav-top" rel="nofollow"><?php echo $text_category; ?></a>
+									<a id="main-dd-nav" class="dropdown-button text-uppercase" data-activates="dropdown-nav-top" rel="nofollow"><?php echo $text_category; ?></a>
 									<ul id="dropdown-nav-top" class="dropdown-content z-depth-5 dropdown-parent" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
 									<?php foreach ($categories as $category) { ?>
 										<?php if ($category['children']) { ?>
@@ -220,7 +222,7 @@
 				<li><a class="waves-effect waves-default" href="/index.php?route=information/information&information_id=4" rel="nofollow"><?php echo $text_about; ?><i class="material-icons">store</i></a></li>
 				<li>
 					<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
-						<li class="bold">
+						<li class="text-bold">
 							<a href="<?php echo $account; ?>" class="collapsible-header waves-effect waves-default with-subcat" onclick="return false;" rel="nofollow"><?php echo $text_account; ?><i class="material-icons">account_circle</i></a>
 							<div class="collapsible-body no-padding">
 								<ul>
@@ -245,5 +247,5 @@
 	<?php echo $cart; ?>
 	<a id="compare-btn" href="<?php echo $compare; ?>" class="btn-floating btn-large blue z-depth-4 scale-transition pulse <?php if ($text_compare==0) {echo 'scale-out';} ?>" title="Список сравнения" rel="nofollow">
 		<i class="material-icons">compare_arrows</i>
-		<small id="compare-total" class="light-blue darken-2 btn-floating z-depth-1 text-medium pulse"><?php echo $text_compare; ?></small>
+		<small id="compare-total" class="light-blue darken-2 btn-floating z-depth-1 pulse"><?php echo $text_compare; ?></small>
 	</a>

@@ -1,47 +1,37 @@
 <li>
-	<div class="collapsible-header grey lighten-5 text-medium"><i class="material-icons">local_shipping</i><span><?php echo $heading_title; ?></span></div>
+	<div class="collapsible-header grey lighten-5"><i class="material-icons">local_shipping</i><span><?php echo $heading_title; ?></span></div>
 	<div class="collapsible-body">
-		<div class="row">
-			<div class="col s12">
-				<p><?php echo $text_shipping; ?></p>
-				<div class="section">
-					<div class="input-field">
-						<select name="country_id" id="input-country">
-							<option value=""><?php echo $text_select; ?></option>
-							<?php foreach ($countries as $country) { ?>
-							<?php if ($country['country_id'] == $country_id) { ?>
-							<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
-							<?php } else { ?>
-							<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
-							<?php } ?>
-							<?php } ?>
-						</select>
-						<label for="input-country" class="required"><?php echo $entry_country; ?></label>
-					</div>
-				</div>
+		<p><?php echo $text_shipping; ?></p>
+		<div class="section">
+			<div class="input-field">
+				<select name="country_id" id="input-country">
+					<option value=""><?php echo $text_select; ?></option>
+					<?php foreach ($countries as $country) { ?>
+					<?php if ($country['country_id'] == $country_id) { ?>
+					<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
+					<?php } else { ?>
+					<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+					<?php } ?>
+					<?php } ?>
+				</select>
+				<label for="input-country" class="required"><?php echo $entry_country; ?></label>
 			</div>
-			<div class="col s12">
-				<div class="section">
-					<div class="input-field">
-						<select name="zone_id" id="input-zone">
-						</select>
-						<label for="input-zone" class="required"><?php echo $entry_zone; ?></label>
-					</div>
-				</div>
+		</div>
+		<div class="section">
+			<div class="input-field">
+				<select name="zone_id" id="input-zone">
+				</select>
+				<label for="input-zone" class="required"><?php echo $entry_zone; ?></label>
 			</div>
-			<div class="col s12">
-				<div class="section">
-					<div class="input-field">
-						<input type="text" name="postcode" value="<?php echo $postcode; ?>" id="input-postcode" class="validate">
-						<label for="input-postcode"><?php echo $entry_postcode; ?></label>
-					</div>
-				</div>
+		</div>
+		<div class="section">
+			<div class="input-field">
+				<input type="text" name="postcode" value="<?php echo $postcode; ?>" id="input-postcode" class="validate">
+				<label for="input-postcode"><?php echo $entry_postcode; ?></label>
 			</div>
-			<div class="col s12">
-				<div class="section">
-					<button type="button" id="button-quote" class="btn blue waves-effect waves-light right"><?php echo $button_quote; ?></button>
-				</div>
-			</div>
+		</div>
+		<div class="flex-reverse">
+			<button type="button" id="button-quote" class="btn blue waves-effect waves-light right"><?php echo $button_quote; ?></button>
 		</div>
 	</div>
 </li>
@@ -74,7 +64,7 @@
 
 						html  = '<div id="modal-shipping" class="modal">';
 						html += '	<div class="modal-content">';
-						html += '		<h4 class="text-medium"><?php echo $text_shipping_method; ?></h4>';
+						html += '		<h4 class="text-bold"><?php echo $text_shipping_method; ?></h4>';
 
 						for (i in json['shipping_method']) {
 							html += '<p><strong>' + json['shipping_method'][i]['title'] + '</strong></p>';

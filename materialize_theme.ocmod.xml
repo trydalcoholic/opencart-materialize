@@ -2,9 +2,20 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme For OCStore</b></font>]]></name>
 	<code>materialize-theme-for-ocstore</code>
-	<version>0.56.3</version>
+	<version>0.57</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Getting the size of the logo -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$data['logo'] = $server . 'image/' . $this->config->get('config_logo');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				list($logo_width, $logo_height) = getimagesize($data['logo']);
+				$data['logo_height'] = $logo_height;
+				$data['logo_width'] = $logo_width;
+			]]></add>
+		</operation>
+	</file>
 	<!-- Language settings Materialize -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="skip">
@@ -2022,14 +2033,6 @@
 			<search><![CDATA[$_['text_account']				   = 'Личный rабинет';]]></search>
 			<add position="replace" trim="true"><![CDATA[
 			$_['text_account']				   = 'Личный кабинет';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/common/footer.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_powered']      = 'Работает на <a target="_blank" href="http://myopencart.com/">ocStore</a><br /> %s &copy; %s';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_powered']      = 'Работает на <a class="grey-text text-lighten-4" target="_blank" href="http://myopencart.com/">ocStore</a><a class="grey-text text-lighten-4 right" href="https://github.com/trydalcoholic" target="_blank">Materialize Template</a><br> %s &copy; %s';
 			]]></add>
 		</operation>
 	</file>

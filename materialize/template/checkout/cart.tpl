@@ -32,105 +32,97 @@
 	}
 </script>
 	<main>
-		<div class="row">
-			<div class="container">
-				<nav class="breadcrumb-wrapper transparent z-depth-0">
-					<div class="nav-wrapper">
-						<div class="row">
-							<div class="col s12">
-							<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
-							<?php $i++ ?>
-							<?php if ($i < count($breadcrumbs)) { ?>
-							<?php if ($i == 1) {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
-							<?php } else {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
-							<?php }?>
-							<?php } else { ?>
-								<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
-							<?php }}?>
-							</div>
-						</div>
-					</div>
-				</nav>
-				<?php if ($column_left && $column_right) { ?>
-					<?php $main = 's12 l6'; ?>
-				<?php } elseif ($column_left || $column_right) { ?>
-					<?php $main = 's12 l9'; ?>
-				<?php } else { ?>
-					<?php $main = 's12'; ?>
-				<?php } ?>
+		<div class="container">
+			<nav class="breadcrumb-wrapper transparent z-depth-0">
+				<div class="nav-wrapper">
+					<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+					<?php $i++ ?>
+					<?php if ($i < count($breadcrumbs)) { ?>
+					<?php if ($i == 1) {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+					<?php } else {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
+					<?php }?>
+					<?php } else { ?>
+						<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
+					<?php }}?>
+				</div>
+			</nav>
+			<?php if ($column_left && $column_right) { ?>
+				<?php $main = 's12 l6'; ?>
+			<?php } elseif ($column_left || $column_right) { ?>
+				<?php $main = 's12 l9'; ?>
+			<?php } else { ?>
+				<?php $main = 's12'; ?>
+			<?php } ?>
+			<div class="row">
 				<?php echo $column_left; ?>
 				<div class="col <?php echo $main; ?> section href-underline">
 					<?php echo $content_top; ?>
 					<h1><?php echo $heading_title; ?><?php if ($weight) { ?>&nbsp;(<?php echo $weight; ?>)<?php } ?></h1>
 					<div class="card-panel">
-						<div class="row">
-							<div class="col s12">
-								<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="table-responsive">
-									<table class="bordered centered z-depth-1">
-										<thead class="grey lighten-4">
-											<tr>
-												<th><small><?php echo $column_image; ?></small></th>
-												<th><small><?php echo $column_name; ?></small></th>
-												<th><small><?php echo $column_model; ?></small></th>
-												<th><small><?php echo $column_price; ?></small></th>
-												<th><small><?php echo $column_total; ?></small></th>
-												<th colpsan="3"><small><?php echo $column_quantity; ?></small></th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php foreach ($products as $product) { ?>
-											<tr>
-												<td>
-													<?php if ($product['thumb']) { ?>
-													<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>
-													<?php } ?>
-												</td>
-												<td>
-													<a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
-													<?php if (!$product['stock']) { ?>
-														<span class="red-text">***</span>
-													<?php } ?>
-													<?php if ($product['reward']) { ?>
-														<br>
-														<small><?php echo $product['reward']; ?></small>
-													<?php } ?>
-													<?php if ($product['recurring']) { ?>
-														<br>
-														<span class="label label-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring']; ?></small>
-													<?php } ?>
-												</td>
-												<td>
-													<?php echo $product['model']; ?>
-												</td>
-												<td>
-													<?php echo $product['price']; ?>
-												</td>
-												<td>
-													<?php echo $product['total']; ?>
-												</td>
-												<td style="min-width:200px;">
-													<input class="center" type="text" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" style="max-width:100px;">
-													<button type="submit" title="<?php echo $button_update; ?>" class="btn-flat no-padding"><i class="material-icons">refresh</i></button>
-													<button type="button" title="<?php echo $button_remove; ?>" class="btn-flat no-padding" onclick="cart.remove('<?php echo $product['cart_id']; ?>');"><i class="material-icons">remove_shopping_cart</i></button>
-												</td>
-											</tr>
+						<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+							<table class="bordered centered responsive-table product-cart z-depth-1">
+								<thead class="grey lighten-4">
+									<tr>
+										<th><small><?php echo $column_image; ?></small></th>
+										<th><small><?php echo $column_name; ?></small></th>
+										<th><small><?php echo $column_model; ?></small></th>
+										<th><small><?php echo $column_price; ?></small></th>
+										<th><small><?php echo $column_total; ?></small></th>
+										<th colpsan="3"><small><?php echo $column_quantity; ?></small></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach ($products as $product) { ?>
+									<tr>
+										<td>
+											<?php if ($product['thumb']) { ?>
+											<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>
 											<?php } ?>
-										</tbody>
-									</table>
-								</form>
-								<?php if ($modules) { ?>
-									<h2><?php echo $text_next; ?></h2>
-									<p><?php echo $text_next_choice; ?></p>
-									<ul class="collapsible collapsible-modules" data-collapsible="accordion">
-										<?php foreach ($modules as $module) { ?>
-											<?php echo $module; ?>
-										<?php } ?>
-									</ul>
+										</td>
+										<td>
+											<a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
+											<?php if (!$product['stock']) { ?>
+												<span class="red-text">***</span>
+											<?php } ?>
+											<?php if ($product['reward']) { ?>
+												<br>
+												<small><?php echo $product['reward']; ?></small>
+											<?php } ?>
+											<?php if ($product['recurring']) { ?>
+												<br>
+												<span class="label label-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring']; ?></small>
+											<?php } ?>
+										</td>
+										<td>
+											<?php echo $product['model']; ?>
+										</td>
+										<td>
+											<?php echo $product['price']; ?>
+										</td>
+										<td>
+											<?php echo $product['total']; ?>
+										</td>
+										<td style="min-width:200px;">
+											<input class="center" type="text" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" style="max-width:100px;">
+											<button type="submit" title="<?php echo $button_update; ?>" class="btn-flat no-padding"><i class="material-icons">refresh</i></button>
+											<button type="button" title="<?php echo $button_remove; ?>" class="btn-flat no-padding" onclick="cart.remove('<?php echo $product['cart_id']; ?>');"><i class="material-icons">remove_shopping_cart</i></button>
+										</td>
+									</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</form>
+						<?php if ($modules) { ?>
+							<h2><?php echo $text_next; ?></h2>
+							<p><?php echo $text_next_choice; ?></p>
+							<ul class="collapsible collapsible-modules" data-collapsible="accordion">
+								<?php foreach ($modules as $module) { ?>
+									<?php echo $module; ?>
 								<?php } ?>
-							</div>
-						</div>
+							</ul>
+						<?php } ?>
 						<div class="row">
 							<div class="col s12 m6 offset-m6 l5 offset-l7">
 								<div class="table-responsive">
@@ -145,10 +137,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col s12">
-								<a href="<?php echo $checkout; ?>" class="btn waves-effect waves-light red right"><?php echo $button_checkout; ?></a>
-							</div>
+						<div class="flex-reverse">
+							<a href="<?php echo $checkout; ?>" class="btn waves-effect waves-light red right"><?php echo $button_checkout; ?></a>
 						</div>
 					</div>
 					<?php echo $content_bottom; ?>

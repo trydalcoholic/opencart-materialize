@@ -32,33 +32,31 @@
 	}
 </script>
 	<main>
-		<div class="row">
-			<div class="container">
-				<nav class="breadcrumb-wrapper transparent z-depth-0">
-					<div class="nav-wrapper">
-						<div class="col s12">
-						<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
-						<?php $i++ ?>
-						<?php if ($i < count($breadcrumbs)) { ?>
-						<?php if ($i == 1) {?>
-							<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
-						<?php } else {?>
-							<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
-						<?php }?>
-						<?php } else { ?>
-							<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
-						<?php }}?>
-						</div>
-					</div>
-				</nav>
-				<h1 class="col s12"><?php echo $heading_title; ?></h1>
-				<?php if ($column_left && $column_right) { ?>
-					<?php $main = 's12 l6'; ?>
-				<?php } elseif ($column_left || $column_right) { ?>
-					<?php $main = 's12 l9'; ?>
-				<?php } else { ?>
-					<?php $main = 's12'; ?>
-				<?php } ?>
+		<div class="container">
+			<nav class="breadcrumb-wrapper transparent z-depth-0">
+				<div class="nav-wrapper">
+					<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+					<?php $i++ ?>
+					<?php if ($i < count($breadcrumbs)) { ?>
+					<?php if ($i == 1) {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+					<?php } else {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
+					<?php }?>
+					<?php } else { ?>
+						<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
+					<?php }}?>
+				</div>
+			</nav>
+			<h1><?php echo $heading_title; ?></h1>
+			<?php if ($column_left && $column_right) { ?>
+				<?php $main = 's12 l6'; ?>
+			<?php } elseif ($column_left || $column_right) { ?>
+				<?php $main = 's12 l9'; ?>
+			<?php } else { ?>
+				<?php $main = 's12'; ?>
+			<?php } ?>
+			<div class="row">
 				<?php echo $column_left; ?>
 				<div id="content" class="col <?php echo $main; ?>">
 					<?php echo $content_top; ?>
@@ -102,27 +100,27 @@
 									<h2><?php echo $text_your_address; ?></h2>
 									<div class="input-field">
 										<input type="text" name="company" value="<?php echo $company; ?>" id="input-company" class="validate">
-										<label for="input-company" class="text-medium"><?php echo $entry_company; ?></label>
+										<label for="input-company"><?php echo $entry_company; ?></label>
 									</div>
 									<div class="input-field">
 										<input type="text" name="website" value="<?php echo $website; ?>" id="input-website" class="validate">
-										<label for="input-website" class="text-medium"><?php echo $entry_website; ?></label>
+										<label for="input-website"><?php echo $entry_website; ?></label>
 									</div>
 									<div class="input-field">
 										<input type="text" name="address_1" value="<?php echo $address_1; ?>" id="input-address-1" class="validate">
-										<label for="input-address-1" class="text-medium required"><?php echo $entry_address_1; ?></label>
+										<label for="input-address-1" class="required"><?php echo $entry_address_1; ?></label>
 									</div>
 									<div class="input-field">
 										<input type="text" name="address_2" value="<?php echo $address_2; ?>" id="input-address-2" class="validate">
-										<label for="input-address-2" class="text-medium"><?php echo $entry_address_2; ?></label>
+										<label for="input-address-2"><?php echo $entry_address_2; ?></label>
 									</div>
 									<div class="input-field">
 										<input type="text" name="city" value="<?php echo $city; ?>" id="input-city" class="validate">
-										<label for="input-city" class="text-medium required"><?php echo $entry_city; ?></label>
+										<label for="input-city" class="required"><?php echo $entry_city; ?></label>
 									</div>
 									<div class="input-field">
 										<input type="text" name="postcode" value="<?php echo $postcode; ?>" id="input-postcode" class="validate">
-										<label for="input-postcode" class="text-medium"><?php echo $entry_postcode; ?></label>
+										<label for="input-postcode"><?php echo $entry_postcode; ?></label>
 									</div>
 									<div class="section">
 										<div class="input-field">
@@ -136,14 +134,14 @@
 												<?php } ?>
 												<?php } ?>
 											</select>
-											<label for="input-country" class="text-medium required"><?php echo $entry_country; ?></label>
+											<label for="input-country" class="required"><?php echo $entry_country; ?></label>
 										</div>
 									</div>
 									<div class="section">
 										<div class="input-field">
 											<select name="zone_id" id="input-zone">
 											</select>
-											<label for="input-zone" class="text-medium required"><?php echo $entry_zone; ?></label>
+											<label for="input-zone" class="required"><?php echo $entry_zone; ?></label>
 										</div>
 									</div>
 								</div>

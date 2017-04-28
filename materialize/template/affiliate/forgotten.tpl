@@ -36,7 +36,6 @@
 			<div class="container">
 				<nav class="breadcrumb-wrapper transparent z-depth-0">
 					<div class="nav-wrapper">
-						<div class="col s12">
 						<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
 						<?php $i++ ?>
 						<?php if ($i < count($breadcrumbs)) { ?>
@@ -48,10 +47,9 @@
 						<?php } else { ?>
 							<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
 						<?php }}?>
-						</div>
 					</div>
 				</nav>
-				<h1 class="col s12"><?php echo $heading_title; ?></h1>
+				<h1><?php echo $heading_title; ?></h1>
 				<?php if ($column_left && $column_right) { ?>
 					<?php $main = 's12 l6'; ?>
 				<?php } elseif ($column_left || $column_right) { ?>
@@ -59,40 +57,40 @@
 				<?php } else { ?>
 					<?php $main = 's12'; ?>
 				<?php } ?>
-				<?php echo $column_left; ?>
-				<div id="content" class="col <?php echo $main; ?>">
-					<?php echo $content_top; ?>
-					<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-						<div class="card-panel">
-							<div class="row">
-								<div class="col s12">
-									<div id="account">
-										<h2><?php echo $text_your_email; ?></h2>
-										<p><?php echo $text_email; ?></p>
-										<div class="section">
-											<div class="input-field">
-												<input type="email" name="email" value="" id="input-email" class="validate">
-												<label for="input-email" class="required"><?php echo $entry_email; ?></label>
-											</div>
+				<div class="row">
+					<?php echo $column_left; ?>
+					<div id="content" class="col <?php echo $main; ?>">
+						<?php echo $content_top; ?>
+						<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+							<div class="card-panel">
+								<div id="account">
+									<h2><?php echo $text_your_email; ?></h2>
+									<p><?php echo $text_email; ?></p>
+									<div class="section">
+										<div class="input-field">
+											<input type="email" name="email" value="" id="input-email" class="validate">
+											<label for="input-email" class="required"><?php echo $entry_email; ?></label>
 										</div>
 									</div>
 								</div>
-								<div class="col s6">
-									<div class="href-underline">
-										<a class="btn btn-flat waves-effect waves-default" href="<?php echo $back; ?>"><?php echo $button_back; ?></a>
+								<div class="row">
+									<div class="col s6">
+										<div class="href-underline">
+											<a class="btn btn-flat waves-effect waves-default" href="<?php echo $back; ?>"><?php echo $button_back; ?></a>
+										</div>
 									</div>
-								</div>
-								<div class="col s6">
-									<div class="flex-reverse">
-										<input type="submit" class="btn waves-effect waves-light blue white-text" value="<?php echo $button_continue; ?>">
+									<div class="col s6">
+										<div class="flex-reverse no-padding">
+											<input type="submit" class="btn waves-effect waves-light blue white-text" value="<?php echo $button_continue; ?>">
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</form>
-					<?php echo $content_bottom; ?>
+						</form>
+						<?php echo $content_bottom; ?>
+					</div>
+					<?php echo $column_right; ?>
 				</div>
-				<?php echo $column_right; ?>
 			</div>
 		</div>
 	</main>

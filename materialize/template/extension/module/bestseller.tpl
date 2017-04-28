@@ -1,6 +1,6 @@
-<div class="section href-underline">
-	<section class="row">
-		<h2 class="col s12"><?php echo $heading_title; ?></h2>
+<section class="section href-underline">
+	<h2><?php echo $heading_title; ?></h2>
+	<div class="row">
 		<?php foreach ($products as $product) { ?>
 		<div class="col s12 m6 xl4">
 			<div class="card sticky-action large hoverable">
@@ -55,5 +55,5 @@
 			</div>
 		</div>
 		<?php } ?>
-	</section>
-</div>
+	</div>
+</section>

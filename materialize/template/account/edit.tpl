@@ -32,65 +32,63 @@
 	}
 </script>
 	<main>
-		<div class="row">
-			<div class="container">
-				<nav class="breadcrumb-wrapper transparent z-depth-0">
-					<div class="nav-wrapper">
-						<div class="row">
-							<div class="col s12">
-							<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
-							<?php $i++ ?>
-							<?php if ($i < count($breadcrumbs)) { ?>
-							<?php if ($i == 1) {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
-							<?php } else {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
-							<?php }?>
-							<?php } else { ?>
-								<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
-							<?php }}?>
-							</div>
-						</div>
-					</div>
-				</nav>
-				<h1 class="col s12"><?php echo $heading_title; ?></h1>
-				<?php if ($column_left && $column_right) { ?>
-					<?php $main = 's12 l6'; ?>
-				<?php } elseif ($column_left || $column_right) { ?>
-					<?php $main = 's12 l9'; ?>
-				<?php } else { ?>
-					<?php $main = 's12'; ?>
-				<?php } ?>
+		<div class="container">
+			<nav class="breadcrumb-wrapper transparent z-depth-0">
+				<div class="nav-wrapper">
+					<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+					<?php $i++ ?>
+					<?php if ($i < count($breadcrumbs)) { ?>
+					<?php if ($i == 1) {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+					<?php } else {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
+					<?php }?>
+					<?php } else { ?>
+						<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
+					<?php }}?>
+				</div>
+			</nav>
+			<h1><?php echo $heading_title; ?></h1>
+			<?php if ($column_left && $column_right) { ?>
+				<?php $main = 's12 l6'; ?>
+			<?php } elseif ($column_left || $column_right) { ?>
+				<?php $main = 's12 l9'; ?>
+			<?php } else { ?>
+				<?php $main = 's12'; ?>
+			<?php } ?>
+			<div class="row">
 				<?php echo $column_left; ?>
 				<div id="content" class="col <?php echo $main; ?>">
 					<?php echo $content_top; ?>
 					<div class="card-panel">
 						<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+							<div class="input-field">
+								<input type="text" name="firstname" value="<?php echo $firstname; ?>" id="input-firstname" class="validate">
+								<label for="input-firstname" class="required"><?php echo $entry_firstname; ?></label>
+							</div>
+							<div class="input-field">
+								<input type="text" name="lastname" value="<?php echo $lastname; ?>" id="input-lastname" class="validate">
+								<label for="input-lastname" class="required"><?php echo $entry_lastname; ?></label>
+							</div>
+							<div class="input-field">
+								<input type="email" name="email" value="<?php echo $email; ?>" id="input-email" class="validate">
+								<label for="input-email" class="required"><?php echo $entry_email; ?></label>
+							</div>
+							<div class="input-field">
+								<input type="tel" name="telephone" value="<?php echo $telephone; ?>" id="input-telephone" class="validate" data-inputmask="'mask':'8 (999) 999-99-99'">
+								<label for="input-telephone" class="required"><?php echo $entry_telephone; ?></label>
+							</div>
+							<div class="input-field">
+								<input type="text" name="fax" value="<?php echo $fax; ?>" id="input-fax" class="validate">
+								<label for="input-fax"><?php echo $entry_fax; ?></label>
+							</div>
 							<div class="row">
-								<div class="input-field col s12">
-									<input type="text" name="firstname" value="<?php echo $firstname; ?>" id="input-firstname" class="validate">
-									<label for="input-firstname" class="text-medium required"><?php echo $entry_firstname; ?></label>
+								<div class="col s6">
+									<a href="<?php echo $back; ?>" class="btn-flat waves-effect waves-light href-underline"><?php echo $button_back; ?></a>
 								</div>
-								<div class="input-field col s12">
-									<input type="text" name="lastname" value="<?php echo $lastname; ?>" id="input-lastname" class="validate">
-									<label for="input-lastname" class="text-medium required"><?php echo $entry_lastname; ?></label>
-								</div>
-								<div class="input-field col s12">
-									<input type="email" name="email" value="<?php echo $email; ?>" id="input-email" class="validate">
-									<label for="input-email" class="text-medium required"><?php echo $entry_email; ?></label>
-								</div>
-								<div class="input-field col s12">
-									<input type="tel" name="telephone" value="<?php echo $telephone; ?>" id="input-telephone" class="validate" data-inputmask="'mask':'8 (999) 999-99-99'">
-									<label for="input-telephone" class="text-medium required"><?php echo $entry_telephone; ?></label>
-								</div>
-								<div class="input-field col s12">
-									<input type="text" name="fax" value="<?php echo $fax; ?>" id="input-fax" class="validate">
-									<label for="input-fax" class="text-medium"><?php echo $entry_fax; ?></label>
-								</div>
-								<div class="col s12">
-									<div class="section">
-										<a href="<?php echo $back; ?>" class="btn-flat waves-effect waves-light left href-underline"><?php echo $button_back; ?></a>
-										<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red right">
+								<div class="col s6">
+									<div class="flex-reverse no-padding">
+										<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red">
 									</div>
 								</div>
 							</div>

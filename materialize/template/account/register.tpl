@@ -32,35 +32,31 @@
 	}
 </script>
 	<main>
-		<div class="row">
-			<div class="container">
-				<nav class="breadcrumb-wrapper transparent z-depth-0">
-					<div class="nav-wrapper">
-						<div class="row">
-							<div class="col s12">
-							<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
-							<?php $i++ ?>
-							<?php if ($i < count($breadcrumbs)) { ?>
-							<?php if ($i == 1) {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
-							<?php } else {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
-							<?php }?>
-							<?php } else { ?>
-								<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
-							<?php }}?>
-							</div>
-						</div>
-					</div>
-				</nav>
-				<h1 class="col s12"><?php echo $heading_title; ?></h1>
-				<?php if ($column_left && $column_right) { ?>
-					<?php $main = 's12 l6'; ?>
-				<?php } elseif ($column_left || $column_right) { ?>
-					<?php $main = 's12 l9'; ?>
-				<?php } else { ?>
-					<?php $main = 's12'; ?>
-				<?php } ?>
+		<div class="container">
+			<nav class="breadcrumb-wrapper transparent z-depth-0">
+				<div class="nav-wrapper">
+					<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+					<?php $i++ ?>
+					<?php if ($i < count($breadcrumbs)) { ?>
+					<?php if ($i == 1) {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+					<?php } else {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
+					<?php }?>
+					<?php } else { ?>
+						<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
+					<?php }}?>
+				</div>
+			</nav>
+			<h1><?php echo $heading_title; ?></h1>
+			<?php if ($column_left && $column_right) { ?>
+				<?php $main = 's12 l6'; ?>
+			<?php } elseif ($column_left || $column_right) { ?>
+				<?php $main = 's12 l9'; ?>
+			<?php } else { ?>
+				<?php $main = 's12'; ?>
+			<?php } ?>
+			<div class="row">
 				<?php echo $column_left; ?>
 				<div id="content" class="col <?php echo $main; ?>">
 					<?php echo $content_top; ?>
@@ -70,133 +66,112 @@
 							<div class="row">
 								<div class="col s12 l6">
 									<div id="account" class="card-panel">
-										<div class="row">
-											<h2 class="col s12"><?php echo $text_your_details; ?></h2>
-											<div class="input-field col s12">
-												<input type="text" name="firstname" value="<?php echo $firstname; ?>" id="input-firstname" class="validate">
-												<label for="input-firstname" class="text-medium required"><?php echo $entry_firstname; ?></label>
-											</div>
-											<div class="input-field col s12">
-												<input type="text" name="lastname" value="<?php echo $lastname; ?>" id="input-lastname" class="validate">
-												<label for="input-lastname" class="text-medium required"><?php echo $entry_lastname; ?></label>
-											</div>
-											<div class="input-field col s12">
-												<input type="email" name="email" value="<?php echo $email; ?>" id="input-email" class="validate">
-												<label for="input-email" class="text-medium required"><?php echo $entry_email; ?></label>
-											</div>
-											<div class="input-field col s12">
-												<input type="tel" name="telephone" value="<?php echo $telephone; ?>" id="input-telephone" class="validate" data-inputmask="'mask':'8 (999) 999-99-99'">
-												<label for="input-telephone" class="text-medium required"><?php echo $entry_telephone; ?></label>
-											</div>
-											<div class="input-field col s12">
-												<input type="text" name="fax" value="<?php echo $fax; ?>" id="input-fax" class="validate">
-												<label for="input-fax" class="text-medium"><?php echo $entry_fax; ?></label>
-											</div>
+										<h2><?php echo $text_your_details; ?></h2>
+										<div class="input-field">
+											<input type="text" name="firstname" value="<?php echo $firstname; ?>" id="input-firstname" class="validate">
+											<label for="input-firstname" class="required"><?php echo $entry_firstname; ?></label>
 										</div>
-										<div class="row">
-											<h2 class="col s12"><?php echo $text_your_password; ?></h2>
-											<div class="input-field col s12">
-												<input type="password" name="password" value="<?php echo $password; ?>" id="input-password" class="validate">
-												<label for="input-password" class="text-medium required"><?php echo $entry_password; ?></label>
-											</div>
-											<div class="input-field col s12">
-												<input type="password" name="confirm" value="<?php echo $confirm; ?>" id="input-confirm" class="validate">
-												<label for="input-confirm" class="text-medium required"><?php echo $entry_confirm; ?></label>
-											</div>
+										<div class="input-field">
+											<input type="text" name="lastname" value="<?php echo $lastname; ?>" id="input-lastname" class="validate">
+											<label for="input-lastname" class="required"><?php echo $entry_lastname; ?></label>
+										</div>
+										<div class="input-field">
+											<input type="email" name="email" value="<?php echo $email; ?>" id="input-email" class="validate">
+											<label for="input-email" class="required"><?php echo $entry_email; ?></label>
+										</div>
+										<div class="input-field">
+											<input type="tel" name="telephone" value="<?php echo $telephone; ?>" id="input-telephone" class="validate" data-inputmask="'mask':'8 (999) 999-99-99'">
+											<label for="input-telephone" class="required"><?php echo $entry_telephone; ?></label>
+										</div>
+										<div class="input-field">
+											<input type="text" name="fax" value="<?php echo $fax; ?>" id="input-fax" class="validate">
+											<label for="input-fax"><?php echo $entry_fax; ?></label>
+										</div>
+										<h2><?php echo $text_your_password; ?></h2>
+										<div class="input-field">
+											<input type="password" name="password" value="<?php echo $password; ?>" id="input-password" class="validate">
+											<label for="input-password" class="required"><?php echo $entry_password; ?></label>
+										</div>
+										<div class="input-field">
+											<input type="password" name="confirm" value="<?php echo $confirm; ?>" id="input-confirm" class="validate">
+											<label for="input-confirm" class="required"><?php echo $entry_confirm; ?></label>
 										</div>
 									</div>
 								</div>
 								<div class="col s12 l6">
 									<div id="address" class="card-panel">
-										<div class="row">
-											<h2 class="col s12"><?php echo $text_your_address; ?></h2>
-											<div class="input-field col s12">
-												<input type="text" name="company" value="<?php echo $company; ?>" id="input-company" class="validate">
-												<label for="input-company" class="text-medium"><?php echo $entry_company; ?></label>
-											</div>
-											<div class="input-field col s12">
-												<input type="text" name="address_1" value="<?php echo $address_1; ?>" id="input-address-1" class="validate">
-												<label for="input-address-1" class="text-medium required"><?php echo $entry_address_1; ?></label>
-											</div>
-											<div class="input-field col s12">
-												<input type="text" name="address_2" value="<?php echo $address_2; ?>" id="input-address-2" class="validate">
-												<label for="input-address-2" class="text-medium"><?php echo $entry_address_2; ?></label>
-											</div>
-											<div class="input-field col s12">
-												<input type="text" name="city" value="<?php echo $city; ?>" id="input-city" class="validate">
-												<label for="input-city" class="text-medium required"><?php echo $entry_city; ?></label>
-											</div>
-											<div class="input-field col s12">
-												<input type="text" name="postcode" value="<?php echo $postcode; ?>" id="input-postcode" class="validate">
-												<label for="input-postcode" class="text-medium required"><?php echo $entry_postcode; ?></label>
-											</div>
-											<div class="col s12">
-												<label for="input-country" class="text-medium required"><?php echo $entry_country; ?></label>
-												<select name="country_id" id="input-country" class="browser-default">
-													<option value="" disabled selected><?php echo $text_select; ?></option>
-													<?php foreach ($countries as $country) { ?>
-													<?php if ($country['country_id'] == $country_id) { ?>
-													<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
-													<?php } else { ?>
-													<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
-													<?php } ?>
-													<?php } ?>
-												</select>
-												<br>
-											</div>
-											<div class="col s12">
-												<label for="input-zone" class="text-medium required"><?php echo $entry_zone; ?></label>
-												<select name="zone_id" id="input-zone" class="browser-default">
-												</select>
-											</div>
+										<h2><?php echo $text_your_address; ?></h2>
+										<div class="input-field">
+											<input type="text" name="company" value="<?php echo $company; ?>" id="input-company" class="validate">
+											<label for="input-company"><?php echo $entry_company; ?></label>
 										</div>
-										<div class="row">
-											<h2 class="col s12"><?php echo $text_newsletter; ?></h2>
-											<div class="col s12">
-												<?php if ($newsletter) { ?>
-													<input type="radio" name="newsletter" value="1" checked="checked" id="newsletter-yes" class="with-gap">
-													<label for="newsletter-yes"><?php echo $text_yes; ?></label>
-
-													<input type="radio" name="newsletter" value="0" id="newsletter-no" class="with-gap">
-													<label for="newsletter-no"><?php echo $text_no; ?></label>
+										<div class="input-field">
+											<input type="text" name="address_1" value="<?php echo $address_1; ?>" id="input-address-1" class="validate">
+											<label for="input-address-1" class="required"><?php echo $entry_address_1; ?></label>
+										</div>
+										<div class="input-field">
+											<input type="text" name="address_2" value="<?php echo $address_2; ?>" id="input-address-2" class="validate">
+											<label for="input-address-2"><?php echo $entry_address_2; ?></label>
+										</div>
+										<div class="input-field">
+											<input type="text" name="city" value="<?php echo $city; ?>" id="input-city" class="validate">
+											<label for="input-city" class="required"><?php echo $entry_city; ?></label>
+										</div>
+										<div class="input-field">
+											<input type="text" name="postcode" value="<?php echo $postcode; ?>" id="input-postcode" class="validate">
+											<label for="input-postcode" class="required"><?php echo $entry_postcode; ?></label>
+										</div>
+										<div class="input-field">
+											<select name="country_id" id="input-country">
+												<option value="" disabled selected><?php echo $text_select; ?></option>
+												<?php foreach ($countries as $country) { ?>
+												<?php if ($country['country_id'] == $country_id) { ?>
+												<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
 												<?php } else { ?>
-													<input type="radio" name="newsletter" value="1" id="newsletter-yes" class="with-gap">
-													<label for="newsletter-yes"><?php echo $text_yes; ?></label>
-
-													<input type="radio" name="newsletter" value="0" checked="checked" id="newsletter-no" class="with-gap">
-													<label for="newsletter-no"><?php echo $text_no; ?></label>
+												<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
 												<?php } ?>
-											</div>
+												<?php } ?>
+											</select>
+											<label for="input-country" class="required"><?php echo $entry_country; ?></label>
 										</div>
+										<label for="input-zone" class="required"><?php echo $entry_zone; ?></label>
+										<select name="zone_id" id="input-zone" class="browser-default">
+										</select>
+										<h2><?php echo $text_newsletter; ?></h2>
+										<?php if ($newsletter) { ?>
+											<input type="radio" name="newsletter" value="1" checked="checked" id="newsletter-yes" class="with-gap">
+											<label for="newsletter-yes"><?php echo $text_yes; ?></label>
+
+											<input type="radio" name="newsletter" value="0" id="newsletter-no" class="with-gap">
+											<label for="newsletter-no"><?php echo $text_no; ?></label>
+										<?php } else { ?>
+											<input type="radio" name="newsletter" value="1" id="newsletter-yes" class="with-gap">
+											<label for="newsletter-yes"><?php echo $text_yes; ?></label>
+
+											<input type="radio" name="newsletter" value="0" checked="checked" id="newsletter-no" class="with-gap">
+											<label for="newsletter-no"><?php echo $text_no; ?></label>
+										<?php } ?>
 									</div>
 								</div>
 								<div class="col s12">
-									<div class="section">
-										<?php echo $captcha; ?>
-									</div>
+									<?php echo $captcha; ?>
 								</div>
 								<div class="col s12">
-									<div class="section">
-										<?php if ($text_agree) { ?>
-										<?php if ($agree) { ?>
-										<input type="checkbox" name="agree" value="1" checked="checked" id="agreement" class="filled-in">
-										<?php } else { ?>
-										<input type="checkbox" name="agree" value="1" id="agreement" class="filled-in">
-										<?php } ?>
-										<label for="agreement"><?php echo $text_agree; ?></label>
-										<div class="col s12">
-											<div class="section">
-												<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red right">
-											</div>
-										</div>
-										<?php } else { ?>
-										<div class="col s12">
-											<div class="section">
-												<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red right">
-											</div>
-										</div>
-										<?php } ?>
+									<?php if ($text_agree) { ?>
+									<?php if ($agree) { ?>
+									<input type="checkbox" name="agree" value="1" checked="checked" id="agreement" class="filled-in">
+									<?php } else { ?>
+									<input type="checkbox" name="agree" value="1" id="agreement" class="filled-in">
+									<?php } ?>
+									<label for="agreement"><?php echo $text_agree; ?></label>
+									<div class="flex-reverse">
+										<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red">
 									</div>
+									<?php } else { ?>
+									<div class="flex-reverse">
+										<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red">
+									</div>
+									<?php } ?>
 								</div>
 							</div>
 						</form>

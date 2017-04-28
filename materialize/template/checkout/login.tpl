@@ -26,21 +26,19 @@
 			<h2><?php echo $text_returning_customer; ?></h2>
 			<strong><?php echo $text_i_am_returning_customer; ?></strong>
 			<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-				<div class="row">
-					<div class="input-field col s12">
-						<i class="material-icons prefix">&#xE0BE;</i>
-						<input type="email" name="email" value="" id="input-email" id="input-email" class="validate">
-						<label for="input-email" data-error="Ошибка при вводе e-mail" data-success="E-mail введён верно"><?php echo $entry_email; ?></label>
-					</div>
-					<div class="input-field col s12">
-						<i class="material-icons prefix">&#xE897;</i>
-						<input type="password" name="password" value="" id="input-password">
-						<label for="input-password"><?php echo $entry_password; ?></label>
-						<a class="right" href="<?php echo $forgotten; ?>"><?php echo $text_forgotten; ?></a>
-					</div>
-					<div class="col s12">
-						<input type="button" value="<?php echo $button_login; ?>" id="button-login" class="btn waves-effect waves-light red href-underline">
-					</div>
+				<div class="input-field">
+					<i class="material-icons prefix">email</i>
+					<input type="email" name="email" value="" id="input-email" id="input-email" class="validate">
+					<label for="input-email" data-error="Ошибка при вводе e-mail" data-success="E-mail введён верно"><?php echo $entry_email; ?></label>
+				</div>
+				<div class="input-field">
+					<i class="material-icons prefix">lock</i>
+					<input type="password" name="password" value="" id="input-password">
+					<label for="input-password"><?php echo $entry_password; ?></label>
+					<a href="<?php echo $forgotten; ?>"><?php echo $text_forgotten; ?></a>
+				</div>
+				<div class="flex-reverse">
+					<input type="button" value="<?php echo $button_login; ?>" id="button-login" class="btn waves-effect waves-light red">
 				</div>
 			</form>
 		</div>

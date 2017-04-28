@@ -32,122 +32,100 @@
 	}
 </script>
 	<main>
-		<div class="row">
-			<div class="container">
-				<nav class="breadcrumb-wrapper transparent z-depth-0">
-					<div class="nav-wrapper">
-						<div class="row">
-							<div class="col s12">
-							<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
-							<?php $i++ ?>
-							<?php if ($i < count($breadcrumbs)) { ?>
-							<?php if ($i == 1) {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
-							<?php } else {?>
-								<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
-							<?php }?>
-							<?php } else { ?>
-								<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
-							<?php }}?>
-							</div>
-						</div>
-					</div>
-				</nav>
-				<div class="row">
-					<h1 class="col s12"><?php echo $heading_title; ?></h1>
-					<?php if ($column_left && $column_right) { ?>
-						<?php $main = 's12 l6'; ?>
-					<?php } elseif ($column_left || $column_right) { ?>
-						<?php $main = 's12 l9'; ?>
+		<div class="container">
+			<nav class="breadcrumb-wrapper transparent z-depth-0">
+				<div class="nav-wrapper">
+					<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+					<?php $i++ ?>
+					<?php if ($i < count($breadcrumbs)) { ?>
+					<?php if ($i == 1) {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+					<?php } else {?>
+						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></a>
+					<?php }?>
 					<?php } else { ?>
-						<?php $main = 's12'; ?>
-					<?php } ?>
-					<?php echo $column_left; ?>
-					<div class="col <?php echo $main; ?>">
-						<?php echo $content_top; ?>
-						<div class="card-panel">
-							<div class="row">
-								<div id="map">
-									<?php if ($geocode) { ?>
-										<a href="https://maps.google.com/maps?q=<?php echo urlencode($geocode); ?>&hl=<?php echo $geocode_hl; ?>&t=m&z=15" class="btn-floating btn-large halfway-fab waves-effect waves-light blue" title="<?php echo $button_map; ?>" target="_blank"><i class="material-icons">map</i></a>
-									<?php } ?>
+						<span class="breadcrumb black-text"><?php echo $breadcrumb['text']; ?></span>
+					<?php }}?>
+				</div>
+			</nav>
+			<h1><?php echo $heading_title; ?></h1>
+			<?php if ($column_left && $column_right) { ?>
+				<?php $main = 's12 l6'; ?>
+			<?php } elseif ($column_left || $column_right) { ?>
+				<?php $main = 's12 l9'; ?>
+			<?php } else { ?>
+				<?php $main = 's12'; ?>
+			<?php } ?>
+			<div class="row">
+				<?php echo $column_left; ?>
+				<div class="col <?php echo $main; ?>">
+					<?php echo $content_top; ?>
+					<div class="card-panel">
+						<div id="map">
+							<?php if ($geocode) { ?>
+								<a href="https://maps.google.com/maps?q=<?php echo urlencode($geocode); ?>&hl=<?php echo $geocode_hl; ?>&t=m&z=15" class="btn-floating btn-large halfway-fab waves-effect waves-light blue" title="<?php echo $button_map; ?>" target="_blank"><i class="material-icons">map</i></a>
+							<?php } ?>
+						</div>
+						<h2><?php echo $store; ?></h2>
+						<div class="row">
+							<div class="col s12 l6">
+								<div class="card-panel">
+									<ul class="collection no-border">
+										<?php if ($image) { ?>
+										<li class="collection-item no-border">
+											<img src="<?php echo $image; ?>" alt="<?php echo $store; ?>" title="<?php echo $store; ?>" class="responsive-img">
+										</li>
+										<?php } ?>
+										<li class="collection-item no-border">
+											<address><i class="material-icons left">location_on</i><?php echo $address; ?></address>
+										</li>
+										<li class="collection-item no-border">
+											<span><i class="material-icons left">phone</i><?php echo $telephone; ?></span>
+										</li>
+										<?php if ($open) { ?>
+										<li class="collection-item no-border">
+											<p><i class="material-icons left">access_time</i><?php echo $open; ?></p>
+										</li>
+										<?php } ?>
+										<?php if ($comment) { ?>
+										<li class="collection-item no-border">
+											<p><i class="material-icons left">info</i><?php echo $comment; ?></p>
+										</li>
+										<?php } ?>
+									</ul>
 								</div>
 							</div>
-							<div class="row">
-								<h2 class="col s12"><?php echo $store; ?></h2>
-								<div class="col s12 l6">
-									<div class="card-panel">
-										<ul class="collection no-border">
-											<?php if ($image) { ?>
-											<li class="collection-item no-border">
-												<img src="<?php echo $image; ?>" alt="<?php echo $store; ?>" title="<?php echo $store; ?>" class="responsive-img">
-											</li>
-											<?php } ?>
-											<li class="collection-item no-border">
-												<address><i class="material-icons left">location_on</i><?php echo $address; ?></address>
-											</li>
-											<li class="collection-item no-border">
-												<span><i class="material-icons left">phone</i><?php echo $telephone; ?></span>
-											</li>
-											<?php if ($open) { ?>
-											<li class="collection-item no-border">
-												<p><i class="material-icons left">access_time</i><?php echo $open; ?></p>
-											</li>
-											<?php } ?>
-											<?php if ($comment) { ?>
-											<li class="collection-item no-border">
-												<p><i class="material-icons left">info</i><?php echo $comment; ?></p>
-											</li>
-											<?php } ?>
-										</ul>
-									</div>
+							<div class="col s12 l6">
+								<div class="card-panel">
+									<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+										<h3><?php echo $text_contact; ?></h3>
+										<div class="input-field">
+											<i class="material-icons prefix">account_circle</i>
+											<input type="text" name="name" value="<?php echo $name; ?>" id="input-name" class="validate">
+											<label for="input-name"><?php echo $entry_name; ?></label>
+										</div>
+										<div class="input-field">
+											<i class="material-icons prefix">email</i>
+											<input type="email" name="email" value="<?php echo $email; ?>" id="input-email" class="validate">
+											<label for="input-email" data-error="Ошибка при вводе e-mail" data-success="E-mail введён верно"><?php echo $entry_email; ?></label>
+										</div>
+										<div class="input-field">
+											<i class="material-icons prefix">mode_edit</i>
+											<textarea name="enquiry" rows="10" id="input-enquiry" class="materialize-textarea"></textarea>
+											<label for="input-enquiry"><?php echo $entry_enquiry; ?></label>
+										</div>
+										<?php echo $captcha; ?>
+										<div class="flex-reverse">
+											<input class="btn waves-effect waves-light red right" type="submit" value="<?php echo $button_submit; ?>">
+										</div>
+									</form>
 								</div>
-								<div class="col s12 l6">
-									<div class="card-panel">
-										<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-											<div class="row">
-												<h3 class="col s12"><?php echo $text_contact; ?></h3>
-												<div class="input-field col s12">
-													<i class="material-icons prefix">account_circle</i>
-													<input type="text" name="name" value="<?php echo $name; ?>" id="input-name" class="validate">
-													<label for="input-name"><?php echo $entry_name; ?></label>
-												</div>
-												<div class="input-field col s12">
-													<i class="material-icons prefix">email</i>
-													<input type="email" name="email" value="<?php echo $email; ?>" id="input-email" class="validate">
-													<label for="input-email" data-error="Ошибка при вводе e-mail" data-success="E-mail введён верно"><?php echo $entry_email; ?></label>
-												</div>
-												<div class="input-field col s12">
-													<i class="material-icons prefix">mode_edit</i>
-													<textarea name="enquiry" rows="10" id="input-enquiry" class="materialize-textarea"></textarea>
-													<label for="input-enquiry"><?php echo $entry_enquiry; ?></label>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col s12">
-													<?php echo $captcha; ?>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col s12">
-													<input class="btn waves-effect waves-light red right" type="submit" value="<?php echo $button_submit; ?>">
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-							<div class="row">
 							</div>
 						</div>
 					</div>
-					<?php echo $column_right; ?>
-					<?php if($content_bottom) { ?>
-					<div class="col s12">
-						<?php echo $content_bottom; ?>
-					</div>
-					<?php } ?>
+					<?php echo $content_bottom; ?>
 				</div>
+				<?php echo $column_right; ?>
 			</div>
 		</div>
 	</main>
