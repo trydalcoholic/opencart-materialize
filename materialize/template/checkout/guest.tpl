@@ -84,7 +84,7 @@
 	<?php } ?>
 	<div class="col s12">
 		<div class="flex-reverse">
-			<input type="button" value="<?php echo $button_continue; ?>" id="button-guest" class="btn waves-effect waves-light red">
+			<button type="button" value="<?php echo $button_continue; ?>" id="button-guest" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 		</div>
 	</div>
 </div>

@@ -38,7 +38,7 @@
 					<a href="<?php echo $forgotten; ?>"><?php echo $text_forgotten; ?></a>
 				</div>
 				<div class="flex-reverse">
-					<input type="button" value="<?php echo $button_login; ?>" id="button-login" class="btn waves-effect waves-light red">
+					<button type="button" value="<?php echo $button_login; ?>" id="button-login" class="btn waves-effect waves-light red"><?php echo $button_login; ?></button>
 				</div>
 			</form>
 		</div>

@@ -32,11 +32,11 @@
 				<?php } ?>
 				<label for="agreement"><?php echo $text_agree; ?></label>
 				<div class="flex-reverse">
-					<input type="button" value="<?php echo $button_continue; ?>" id="button-payment-method" class="btn waves-effect waves-light red">
+					<button type="button" value="<?php echo $button_continue; ?>" id="button-payment-method" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 				</div>
 				<?php } else { ?>
 				<div class="flex-reverse">
-					<input type="button" value="<?php echo $button_continue; ?>" id="button-payment-method" class="btn waves-effect waves-light red">
+					<button type="button" value="<?php echo $button_continue; ?>" id="button-payment-method" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 				</div>
 				<?php } ?>
 			</div>

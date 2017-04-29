@@ -65,7 +65,7 @@
 	</select>
 </div>
 <div class="flex-reverse">
-	<input type="button" value="<?php echo $button_continue; ?>" id="button-shipping-address" class="btn waves-effect waves-light red">
+	<button type="button" value="<?php echo $button_continue; ?>" id="button-shipping-address" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 </div>
 <script>
 $('input[name=\'shipping_address\']').on('change', function() {

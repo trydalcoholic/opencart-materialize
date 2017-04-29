@@ -50,6 +50,6 @@
 <?php echo $payment; ?>
 <?php } else { ?>
 <script>
-		location = '<?php echo $redirect; ?>';
+	location = '<?php echo $redirect; ?>';
 </script>
 <?php } ?>

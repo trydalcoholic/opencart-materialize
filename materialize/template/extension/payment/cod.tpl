@@ -1,9 +1,5 @@
-<div class="row">
-	<div class="col s12">
-		<div class="section">
-			<input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn red waves-effect waves-light">
-		</div>
-	</div>
+<div class="flex-reverse">
+	<button type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn red waves-effect waves-light"><?php echo $button_confirm; ?></button>
 </div>
 <script>
 $('#button-confirm').on('click', function() {

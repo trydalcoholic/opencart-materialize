@@ -735,4 +735,30 @@ $(document).ready(function() {
 			});
 		}
 
+		$(document).delegate('.agree', 'click', function(e) {
+			e.preventDefault();
+
+			$('#modal-agree').remove();
+
+			var element = this;
+
+			$.ajax({
+				url: $(element).attr('href'),
+				type: 'get',
+				dataType: 'html',
+				success: function(data) {
+					html  = '<div id="modal-agree" class="modal">';
+					html += 	'<div class="modal-content">';
+					html += 		'<i class="material-icons modal-action modal-close right">close</i>';
+					html += 		'<h4>' + $(element).text() + '</h4>';
+					html += 		'<p>' + data + '</p>';
+					html +=		'</div>';
+					html += '</div>';
+					$('body').append(html);
+					$('#modal-agree').modal();
+					$('#modal-agree').modal('open');
+				}
+			});
+		});
+
 });

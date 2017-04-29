@@ -538,7 +538,11 @@
 	<div id="modal-share" class="modal bottom-sheet">
 		<div id="modal-share-content" class="modal-content white">
 			<div class="container center">
-				<h4><?php echo $heading_title; ?></h4>
+				<div class="row">
+					<div class="col s9 offset-s3 l10 offset-l2">
+						<strong class="flow-text"><?php echo $heading_title; ?></strong>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col s3 l2 center">
 						<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb_small; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">

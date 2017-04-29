@@ -60,27 +60,26 @@
 				<?php echo $column_left; ?>
 				<div id="content" class="col <?php echo $main; ?>">
 					<?php echo $content_top; ?>
-						<div class="card-panel">
-							<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-								<p><?php echo $text_description; ?></p>
-								<div class="section">
-									<div class="input-field">
-										<textarea id="input-code" placeholder="<?php echo $entry_code; ?>" class="materialize-textarea"><?php echo $code; ?></textarea>
-										<label class="text-bold" for="input-code"><?php echo $entry_code; ?></label>
-									</div>
-									<div class="input-field">
-										<input type="text" name="product" value="" placeholder="<?php echo $entry_generator; ?>" id="input-generator" class="autocomplete">
-										<label class="text-bold tooltipped" for="input-generator" data-position="top" data-tooltip="<?php echo $help_generator; ?>"><?php echo $entry_generator; ?></label>
-									</div>
-									<div class="input-field">
-										<textarea id="input-link" name="link" placeholder="<?php echo $entry_link; ?>" class="materialize-textarea"></textarea>
-										<label class="text-bold" for="input-link"><?php echo $entry_link; ?></label>
-									</div>
+					<div class="card-panel">
+						<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+							<p><?php echo $text_description; ?></p>
+							<div class="section">
+								<div class="input-field">
+									<textarea id="input-code" placeholder="<?php echo $entry_code; ?>" class="materialize-textarea"><?php echo $code; ?></textarea>
+									<label class="text-bold" for="input-code"><?php echo $entry_code; ?></label>
 								</div>
-							</form>
-							<div class="flex-reverse href-underline">
-								<a href="<?php echo $continue; ?>" class="btn waves-effect waves-light blue white-text"><?php echo $button_continue; ?></a>
+								<div class="input-field">
+									<input type="text" name="product" value="" placeholder="<?php echo $entry_generator; ?>" id="input-generator" class="autocomplete">
+									<label class="text-bold tooltipped" for="input-generator" data-position="top" data-tooltip="<?php echo $help_generator; ?>"><?php echo $entry_generator; ?></label>
+								</div>
+								<div class="input-field">
+									<textarea id="input-link" name="link" placeholder="<?php echo $entry_link; ?>" class="materialize-textarea"></textarea>
+									<label class="text-bold" for="input-link"><?php echo $entry_link; ?></label>
+								</div>
 							</div>
+						</form>
+						<div class="flex-reverse href-underline">
+							<a href="<?php echo $continue; ?>" class="btn waves-effect waves-light blue white-text"><?php echo $button_continue; ?></a>
 						</div>
 					</div>
 					<?php echo $content_bottom; ?>

@@ -140,7 +140,7 @@
 			        dataType: 'html',
 			        success: function(html) {
 						$('#collapse-checkout-option').parent().removeClass('active');
-						$('#collapse-checkout-option').parent().find('.collapsible-header').removeClass('active');
+						$('#collapse-checkout-option').parent().find('.collapsible-header').removeClass('collapsible-header').addClass('collapsible-header-disable');
 						$('#collapse-checkout-option').parent().find('.collapsible-body').css('display','');
 						$('#collapse-payment-address').parent().find('.collapsible-header-disable').removeClass('collapsible-header-disable').addClass('collapsible-header active').html('<?php echo $text_checkout_payment_address; ?>');
 						$('#collapse-payment-address').parent().find('.collapsible-body').css('display','block');

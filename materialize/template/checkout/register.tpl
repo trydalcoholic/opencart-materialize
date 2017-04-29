@@ -96,11 +96,11 @@
 		<input type="checkbox" name="agree" value="1" id="agreement" class="filled-in">
 		<label for="agreement"><?php echo $text_agree; ?></label>
 		<div class="flex-reverse">
-			<input type="button" value="<?php echo $button_continue; ?>" id="button-register" class="btn waves-effect waves-light red">
+			<button type="button" value="<?php echo $button_continue; ?>" id="button-register" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 		</div>
 		<?php } else { ?>
 		<div class="flex-reverse">
-			<input type="button" value="<?php echo $button_continue; ?>" id="button-register" class="btn waves-effect waves-light red">
+			<button type="button" value="<?php echo $button_continue; ?>" id="button-register" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 		</div>
 		<?php } ?>
 	</div>

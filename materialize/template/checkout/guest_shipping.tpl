@@ -46,7 +46,7 @@
 			<select name="zone_id" id="input-shipping-zone" class="browser-default">
 			</select>
 			<div class="flex-reverse">
-				<input type="button" value="<?php echo $button_continue; ?>" id="button-guest-shipping" class="btn waves-effect waves-light red">
+				<button type="button" value="<?php echo $button_continue; ?>" id="button-guest-shipping" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 			</div>
 		</div>
 	</div>

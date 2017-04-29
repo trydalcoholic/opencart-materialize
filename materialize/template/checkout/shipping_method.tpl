@@ -34,7 +34,7 @@
 				<textarea name="comment" rows="8" class="materialize-textarea"></textarea>
 			</div>
 			<div class="flex-reverse">
-				<input type="button" value="<?php echo $button_continue; ?>" id="button-shipping-method" class="btn waves-effect waves-light red">
+				<button type="button" value="<?php echo $button_continue; ?>" id="button-shipping-method" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 			</div>
 		</div>
 	</div>

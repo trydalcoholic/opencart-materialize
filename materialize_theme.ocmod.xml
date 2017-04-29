@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-	<name><![CDATA[<font color="#263238"><b>Materialize Theme For OCStore</b></font>]]></name>
-	<code>materialize-theme-for-ocstore</code>
+	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
+	<code>materialize-theme</code>
 	<version>0.57</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
