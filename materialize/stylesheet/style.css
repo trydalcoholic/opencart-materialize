@@ -146,9 +146,11 @@ iframe {border:none;}
 }
 
 /*========== Fixed button ==========*/
-.btn-side-menu {position:fixed;top:20px;right:25px;z-index:100;}
-.btn-cart {position:fixed;bottom:45px;right:25px;z-index:100;overflow:visible;}
-#compare-btn {position:fixed;bottom:45px;left:25px;z-index:100;overflow:visible;}
+#cart,#btn-side-menu,#compare-btn,#back-to-top {position:fixed;z-index:100;overflow:visible;}
+#cart {top:auto;right:20px;bottom:20px;left:auto;}
+#compare-btn {top:auto;right:90px;bottom:20px;left:auto;}
+#btn-side-menu {top:20px;right:20px;bottom:auto;left:auto;}
+#back-to-top {top:auto;right:auto;bottom:20px;left:20px;}
 
 /*========== Goods cards list ==========*/
 .card .badge {position:absolute;left:0;margin-left:0;z-index:10;}

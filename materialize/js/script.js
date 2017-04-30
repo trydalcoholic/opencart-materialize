@@ -320,6 +320,21 @@ $(document).ready(function() {
 		autoplay: true
 	});
 
+	/*========== Back to top ==========*/
+	var offset = 300,
+		offset_opacity = 1200,
+		scroll_top_duration = 700,
+		$back_to_top = $('#back-to-top');
+
+	$(window).scroll(function(){
+		($(this).scrollTop() > offset) ? $back_to_top.removeClass('scale-out') : $back_to_top.addClass('scale-out');
+	});
+
+	$back_to_top.on('click', function(event){
+		event.preventDefault();
+		$('body,html').animate({scrollTop:0}, scroll_top_duration);
+	});
+
 	/*========== Липкое меню ==========*/
 
 	if(window.matchMedia('(min-width:601px)').matches) {

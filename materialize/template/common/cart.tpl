@@ -1,7 +1,7 @@
-<a id="cart" href="#modal-cart" class="btn-floating btn-large waves-effect waves-light waves-circle modal-trigger red z-depth-4 btn-cart" rel="nofollow">
+<button type="button" id="cart" data-target="modal-cart" class="btn-floating btn-large waves-effect waves-light waves-circle modal-trigger red z-depth-4">
 	<i class="material-icons">shopping_cart</i>
 	<small id="cart-total" class="light-blue darken-1 btn-floating z-depth-1"><?php echo $text_items; ?></small>
-</a>
+</button>
 <div id="modal-cart" class="modal bottom-sheet modal-fixed-footer">
 	<div id="modal-cart-content" class="modal-content">
 		<div class="container">

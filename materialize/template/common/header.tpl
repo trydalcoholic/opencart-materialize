@@ -102,7 +102,7 @@
 			<div class="container">
 				<div class="valign-wrapper">
 					<div class="col s12 m4">
-						<a data-activates="slide-out" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light blue-grey darken-2 z-depth-4 btn-side-menu" rel="nofollow"><i class="material-icons white-text">menu</i></a>
+						<button type="button" data-activates="slide-out" id="btn-side-menu" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light blue-grey darken-2 z-depth-4"><i class="material-icons white-text">menu</i></button>
 						<?php if ($logo) { ?>
 						<a href="<?php echo $home; ?>">
 							<img id="logo-img" src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="<?php echo $logo_width; ?>" height="<?php echo $logo_height; ?>">
@@ -245,7 +245,7 @@
 		</div>
 	</header>
 	<?php echo $cart; ?>
-	<a id="compare-btn" href="<?php echo $compare; ?>" class="btn-floating btn-large blue z-depth-4 scale-transition pulse <?php if ($text_compare==0) {echo 'scale-out';} ?>" title="Список сравнения" rel="nofollow">
+	<a id="compare-btn" href="<?php echo $compare; ?>" class="btn-floating btn-large waves-effect waves-light blue z-depth-4 scale-transition pulse <?php if ($text_compare==0) {echo 'scale-out';} ?>" title="Список сравнения" rel="nofollow">
 		<i class="material-icons">compare_arrows</i>
 		<small id="compare-total" class="light-blue darken-2 btn-floating z-depth-1 pulse"><?php echo $text_compare; ?></small>
 	</a>
