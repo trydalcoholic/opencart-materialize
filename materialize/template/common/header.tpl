@@ -187,8 +187,21 @@
 								</div>
 							</div>
 						</nav>
-						<a href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>" rel="nofollow"><span class="white-text"><?php echo $telephone; ?></span></a>
-						<a href="mailto:<?php echo $email; ?>" rel="nofollow"><span class="white-text"><?php echo $email; ?></span></a>
+						<div class="row">
+							<div class="col s7 side-info no-padding">
+								<a class="white-text" href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>" rel="nofollow"><?php echo $telephone; ?></a>
+								<a class="white-text" href="mailto:<?php echo $email; ?>" rel="nofollow"><?php echo $email; ?></a>
+							</div>
+							<div class="col s5 no-padding">
+								<div id="side-settings" class="btn-floating waves-effect waves-light transparent z-depth-0 dropdown-button" data-activates="dropdown-side-settings" data-alignment="right" data-constrainWidth="false">
+									<i class="material-icons white-text">more_vert</i>
+								</div>
+								<ul id="dropdown-side-settings" class="dropdown-content">
+									<li><?php echo $language; ?></li>
+									<li><?php echo $currency; ?></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</li>
 				<li class="grey lighten-4"><a class="waves-effect waves-default modal-call-back-btn activator" rel="nofollow"><i class="material-icons">phone</i><?php echo $text_call_back; ?></a></li>

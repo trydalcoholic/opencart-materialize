@@ -2,7 +2,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col l6 s12">
-					<h5 class="white-text text-bold">MyEfforts — интернет магазин спортивного питания</h5>
+					<h5 class="white-text text-bold"><?php echo $name; ?></h5>
 					<p class="grey-text text-lighten-4">Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Которой заглавных курсивных сих над последний скатился! Парадигматическая деревни взобравшись страну рыбного, курсивных последний одна над раз инициал встретил ipsum о, алфавит!</p>
 				</div>
 				<div class="col l5 offset-l1 s12">
@@ -73,7 +73,7 @@
 				html += 			'</div>';
 				html += 			'<div class="input-field">';
 				html += 				'<i class="material-icons prefix">phone</i>';
-				html += 				'<input id="cb-telephone" name="tel" type="tel" class="validate" placeholder="8 (999) 999-99-99" data-inputmask="\'mask\':\'8 (999) 999-99-99\'" required>';
+				html += 				'<input id="cb-telephone" name="tel" type="tel" class="validate" placeholder="8 (999) 999-99-99" data-inputmask="\'mask\':\'8 (999) 999-99-99\'" data-inputmask-clearmaskonlostfocus="false" required>';
 				html += 				'<label class="active" for="cb-telephone">Ваш номер телефона</label>';
 				html += 			'</div>';
 				html += 		'</div>';

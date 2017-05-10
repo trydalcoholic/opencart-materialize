@@ -322,7 +322,6 @@ $(document).ready(function() {
 
 	/*========== Back to top ==========*/
 	var offset = 300,
-		offset_opacity = 1200,
 		scroll_top_duration = 700,
 		$back_to_top = $('#back-to-top');
 
@@ -573,18 +572,6 @@ $(document).ready(function() {
 			if (e.keyCode == 13) {
 				$('#search-form-side input[name=\'search\']').parent().find('label').trigger('click');
 			}
-		});
-		// Валюта
-		$('#form-currency .currency-select').on('click', function(e) {
-			e.preventDefault();
-			$('#form-currency input[name=\'code\']').val($(this).attr('id'));
-			$('#form-currency').submit();
-		});
-		// Язык
-		$('#form-language .language-select').on('click', function(e) {
-			e.preventDefault();
-			$('#form-language input[name=\'code\']').val($(this).attr('id'));
-			$('#form-language').submit();
 		});
 		// Checkout
 		$(document).on('keydown', '#collapse-checkout-option input[name=\'email\'], #collapse-checkout-option input[name=\'password\']', function(e) {

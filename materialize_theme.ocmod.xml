@@ -2,9 +2,18 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.57</version>
+	<version>0.58</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Other Materialize Settings -->
+	<file path="catalog/controller/common/footer.php">
+		<operation error="log">
+			<search><![CDATA[$data['contact'] = $this->url->link('information/contact');]]></search>
+			<add position="before" trim="true"><![CDATA[
+				$data['name'] = $this->config->get('config_name');
+			]]></add>
+		</operation>
+	</file>
 	<!-- Getting the size of the logo -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">

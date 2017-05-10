@@ -1,25 +1,37 @@
 <?php if (count($currencies) > 1) { ?>
-	<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-currency">
-		<a class="dropdown-button" data-activates="currency" data-beloworigin="true" data-constrainWidth="false" rel="nofollow">
-			<span class="hide-on-med-and-down" style="pointer-events:none;"><?php echo $text_currency; ?>:</span>
-			<?php foreach ($currencies as $currency) { ?>
-				<?php if ($currency['symbol_left'] && $currency['code'] == $code) { ?>
-				<strong style="pointer-events:none;"><?php echo $currency['symbol_left']; ?></strong>
-				<?php } elseif ($currency['symbol_right'] && $currency['code'] == $code) { ?>
-				<strong style="pointer-events:none;"><?php echo $currency['symbol_right']; ?></strong>
-				<?php } ?>
-			<?php } ?>
-		</a>
-		<ul id="currency" class="dropdown-content">
+	<a class="modal-currency-btn" rel="nofollow">
+		<?php echo $text_currency; ?>:
 		<?php foreach ($currencies as $currency) { ?>
-			<?php if ($currency['symbol_left']) { ?>
-			<li><a id="<?php echo $currency['code']; ?>" class="currency-select" rel="nofollow"><?php echo $currency['symbol_left']; ?> <?php echo $currency['title']; ?></a></li>
-			<?php } else { ?>
-			<li><a id="<?php echo $currency['code']; ?>" class="currency-select" rel="nofollow"><?php echo $currency['symbol_right']; ?> <?php echo $currency['title']; ?></a></li>
+			<?php if ($currency['symbol_left'] && $currency['code'] == $code) { ?>
+				<?php echo $currency['symbol_left']; ?>
+			<?php } elseif ($currency['symbol_right'] && $currency['code'] == $code) { ?>
+				<?php echo $currency['symbol_right']; ?>
 			<?php } ?>
 		<?php } ?>
-		</ul>
-		<input type="hidden" name="code" value="">
-		<input type="hidden" name="redirect" value="<?php echo $redirect; ?>">
-	</form>
+	</a>
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			$(".modal-currency-btn").click(function() {
+				html  = '<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-currency" class="modal">';
+				html += 	'<div class="modal-content">';
+				<?php foreach ($currencies as $currency) { ?>
+					<?php if ($currency['symbol_left']) { ?>
+				html += '<input class="with-gap currency-select" name="<?php echo $currency['code']; ?>" type="radio" id="<?php echo $currency['code']; ?>"><label for="<?php echo $currency['code']; ?>"><?php echo $currency['symbol_left']; ?> <?php echo $currency['title']; ?></label><br>';
+					<?php } else { ?>
+				html += '<input class="with-gap currency-select" name="<?php echo $currency['code']; ?>" type="radio" id="<?php echo $currency['code']; ?>"><label for="<?php echo $currency['code']; ?>"><?php echo $currency['symbol_right']; ?> <?php echo $currency['title']; ?></label><br>';
+					<?php } ?>
+				<?php } ?>
+				html += 	'</div>';
+				html += 	'<input type="hidden" name="code" value=""><input type="hidden" name="redirect" value="<?php echo $redirect; ?>">';
+				html += '</form>';
+				$('body').append(html);
+				$('#form-currency').modal().modal('open');
+				$('#form-currency .currency-select').on('click', function(e) {
+					e.preventDefault();
+					$('#form-currency input[name=\'code\']').val($(this).attr('name'));
+					$('#form-currency').submit();
+				});
+			});
+		});
+	</script>
 <?php } ?>

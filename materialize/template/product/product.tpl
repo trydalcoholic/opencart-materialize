@@ -382,10 +382,9 @@
 									<div class="collapsible-body no-padding">
 										<table class="bordered striped centered">
 											<tbody>
-												<?php $attribute_group['attribute']; ?>
-												<?php foreach ($attribute_group['attribute'] as $i => $attribute) { ?>
+												<?php foreach ($attribute_group['attribute'] as $attribute) { ?>
 												<tr>
-													<td><?php echo $attribute['name']; ?></td>
+													<td><span class="text-bold"><?php echo $attribute['name']; ?></span></td>
 													<td><?php echo $attribute['text']; ?></td>
 												</tr>
 												<?php } ?>
@@ -548,8 +547,10 @@
 						<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb_small; ?>" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
 					</div>
 					<div class="col s9 l10 grey lighten-3 z-depth-1 comment-body">
-						<p>Поделись ссылкой со своими друзьями или сохрани у себя на страничке в твоей любимой социальной сети :)</p>
-						<p><div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,gplus,twitter,viber,whatsapp,skype,telegram"></div></p>
+						<div class="section">
+							<p>Поделись ссылкой со своими друзьями или сохрани у себя на страничке в твоей любимой социальной сети :)</p>
+							<div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,gplus,twitter,viber,whatsapp,skype,telegram"></div>
+						</div>
 					</div>
 				</div>
 			</div>

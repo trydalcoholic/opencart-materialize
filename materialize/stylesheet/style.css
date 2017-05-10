@@ -118,9 +118,10 @@ iframe {border:none;}
 	.dropdown-overflow {overflow-y:auto !important;}
 
 /*========== Side navigation ==========*/
-.side-nav .userView {margin-bottom:0;padding:16px;}
-.side-nav .userView span {display:block;margin-top:16px;font-weight:medium;font-size:14px;line-height:24px;}
-.side-nav .userView a:last-child {padding-bottom:16px;}
+.side-nav .userView {margin-bottom:0;}
+.side-info a {display:block;margin-top:16px;padding:0;font-size:14px;line-height:24px;}
+#side-settings,#dropdown-side-settings {margin-top:16px;float:right;}
+.side-info a:last-child {padding-bottom:16px;}
 .side-nav li>a {padding:0 16px;}
 .with-subcat {position:relative;}
 .with-subcat:after {
