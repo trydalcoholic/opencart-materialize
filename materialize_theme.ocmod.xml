@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.58</version>
+	<version>0.58.3</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Other Materialize Settings -->
@@ -11,6 +11,26 @@
 			<search><![CDATA[$data['contact'] = $this->url->link('information/contact');]]></search>
 			<add position="before" trim="true"><![CDATA[
 				$data['name'] = $this->config->get('config_name');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->language('product/product');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['url_page'] = (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1')) ? HTTPS_SERVER : HTTP_SERVER) . substr($this->request->server['REQUEST_URI'], 1, (strlen($this->request->server['REQUEST_URI'])-1));
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['pricecurrency'] = $this->session->data['currency'];
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['rating'] = (int)$product_info['rating'];]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['reviewCount'] = sprintf((int)$product_info['reviews']);
 			]]></add>
 		</operation>
 	</file>

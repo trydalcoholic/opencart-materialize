@@ -2,10 +2,8 @@
 	if (count($_POST) > 0) {
 		$name = trim($_POST['name']);
 		$tel = trim($_POST['tel']);
-
 		$name = htmlspecialchars($name);
 		$tel = htmlspecialchars($tel);
-
 		if ($name != '' && $tel != '') {
 			$to = $_POST['admin_email'];
 			$subject = 'Обратный звонок';

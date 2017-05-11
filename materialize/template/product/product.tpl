@@ -1,5 +1,4 @@
 <?php echo $header; ?>
-<?php function getUrl() {$url = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] : 'https://'.$_SERVER["SERVER_NAME"];$url .= $_SERVER["REQUEST_URI"];return $url;}?>
 <script type="application/ld+json">
 	{
 		"@context": "http://schema.org",
@@ -59,7 +58,7 @@
 			<div class="row">
 				<?php echo $column_left; ?>
 				<div class="col <?php echo $main; ?>" itemscope itemtype="http://schema.org/Product">
-					<meta itemprop="url" content="<?php echo getUrl(); ?>">
+					<meta itemprop="url" content="<?php echo $url_page; ?>">
 					<?php if ($thumb_small) { ?>
 					<meta itemprop="image" content="<?php echo $popup; ?>">
 					<?php } ?>
@@ -128,7 +127,6 @@
 												<?php } ?>
 											<?php } ?>
 										</span>
-											<?php $reviewCount = preg_replace('~\D+~','',$reviews); ?>
 											<?php if ($rating > 0) { ?>
 												<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="hide">
 													<meta itemprop="reviewCount" content="<?php echo $reviewCount; ?>">
@@ -148,14 +146,14 @@
 										<?php if ($price) { ?>
 											<?php if (!$special) { ?>
 												<span class="card-price"><?php echo $price; ?></span>
-												<meta itemprop="price" content="<?php echo preg_replace('~\D+~','',$price); ?>">
+												<meta itemprop="price" content="<?php echo preg_replace('/[^0-9,.]/','',$price); ?>">
 											<?php } else { ?>
 												<span class="card-price old-price grey-text"><?php echo $price; ?></span>
 												<span class="card-price red-text text-darken-2"><?php echo $special; ?></span>
-												<meta itemprop="price" content="<?php echo preg_replace('~\D+~','',$special); ?>">
+												<meta itemprop="price" content="<?php echo preg_replace('/[^0-9,.]/','',$special); ?>">
 											<?php } ?>
 										<?php } ?>
-										<meta itemprop="pricecurrency" content="RUB">
+										<meta itemprop="pricecurrency" content="<?php echo $pricecurrency;?>">
 									</div>
 									<div class="col s4 center">
 										<?php if($manufacturers_img) { ?>
