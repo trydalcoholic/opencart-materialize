@@ -615,6 +615,51 @@
 				$input.change();
 				return false;
 			});
+			// Загрузка файла
+			$('button[id^=\'button-upload\']').on('click', function() {
+				var node = this;
+				$('#form-upload').remove();
+				$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display:none;"><input type="file" name="file"></form>');
+				$('#form-upload input[name=\'file\']').trigger('click');
+				if (typeof timer != 'undefined') {
+					clearInterval(timer);
+				}
+				timer = setInterval(function() {
+					if ($('#form-upload input[name=\'file\']').val() != '') {
+						clearInterval(timer);
+						$('.preloader').remove();
+						html = '<div class="preloader z-depth-3"><div class="preloader-wrapper small active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div>';
+						$('body').append(html);
+						$.ajax({
+							url: 'index.php?route=tool/upload',
+							type: 'post',
+							dataType: 'json',
+							data: new FormData($('#form-upload')[0]),
+							cache: false,
+							contentType: false,
+							processData: false,
+							beforeSend: function() {
+								$('.preloader').addClass('active');
+							},
+							complete: function() {
+								$('.preloader').removeClass('active');
+							},
+							success: function(json) {
+								if (json['error']) {
+									Materialize.toast('<span><i class="material-icons left">warning</i>'+json["error"]+'</span>',7000,'toast-warning rounded');
+								}
+								if (json['success']) {
+									Materialize.toast('<span><i class="material-icons left">check</i>'+json["success"]+'</span>',7000,'toast-success rounded');
+									$(node).parent().find('input').val(json['code']);
+								}
+							},
+							error: function(xhr, ajaxOptions, thrownError) {
+								alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+							}
+						});
+					}
+				}, 500);
+			});
 			// Добавление в корзину
 			$('#button-cart').on('click', function() {
 				$.ajax({
