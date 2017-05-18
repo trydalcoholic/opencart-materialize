@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.58.3</version>
+	<version>0.59</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Other Materialize Settings -->
@@ -563,6 +563,54 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/language/ru-ru/common/cart.php">
+		<operation error="skip">
+			<search><![CDATA[$_['text_items']     = '%s товар(ов) - %s';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+			$_['text_items']     = '%s';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/common/cart.php">
+		<operation error="skip">
+			<search><![CDATA[$_['text_items']     = '%s item(s) - %s';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+			$_['text_items']     = '%s';
+			]]></add>
+		</operation>
+	</file>
+	<!-- <file path="catalog/language/*/common/cart.php">
+		<operation error="skip">
+			<search><![CDATA[$_['text_items']     = '%s item(s) - %s';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+			$_['text_items']     = '%s';
+			]]></add>
+		</operation>
+	</file> -->
+	<file path="catalog/language/ru-ru/checkout/cart.php">
+		<operation error="skip">
+			<search><![CDATA[$_['text_items']               = '%s товар(ов) - %s';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				$_['text_items']               = '%s';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/checkout/cart.php">
+		<operation error="skip">
+			<search><![CDATA[$_['text_items']               = '%s item(s) - %s';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				$_['text_items']               = '%s';
+			]]></add>
+		</operation>
+	</file>
+	<!-- <file path="catalog/language/*/checkout/cart.php">
+		<operation error="skip">
+			<search><![CDATA[$_['text_items']               = '%s item(s) - %s';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				$_['text_items']               = '%s';
+			]]></add>
+		</operation>
+	</file> -->
 	<!-- Add base64 loader -->
 	<file path="catalog/controller/common/cart.php">
 		<operation error="log">
@@ -1917,30 +1965,6 @@
 		</operation>
 	</file>
 	<!-- Fix language -->
-	<file path="catalog/language/ru-ru/common/cart.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_items']     = '%s товар(ов) - %s';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_items']     = '%s';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/en-gb/common/cart.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_items']     = '%s item(s) - %s';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_items']     = '%s';
-			]]></add>
-		</operation>
-	</file>
-	<!-- <file path="catalog/language/*/common/cart.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_items']     = '%s item(s) - %s';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_items']     = '%s';
-			]]></add>
-		</operation>
-	</file> -->
 	<file path="catalog/language/ru-ru/extension/module/latest.php">
 		<operation error="skip">
 			<search><![CDATA[$_['heading_title'] = 'Последние';]]></search>
@@ -1962,29 +1986,7 @@
 				$_['error_required']           = '%s необходимо выбрать!';
 			]]></add>
 		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['text_items']               = '%s товар(ов) - %s';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['text_items']               = '%s';
-			]]></add>
-		</operation>
 	</file>
-	<file path="catalog/language/en-gb/checkout/cart.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_items']               = '%s item(s) - %s';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['text_items']               = '%s';
-			]]></add>
-		</operation>
-	</file>
-	<!-- <file path="catalog/language/*/checkout/cart.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_items']               = '%s item(s) - %s';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['text_items']               = '%s';
-			]]></add>
-		</operation>
-	</file> -->
 	<file path="catalog/language/ru-ru/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[$_['text_instock']                            = 'На складе';]]></search>
@@ -2070,6 +2072,14 @@
 			<search><![CDATA[$_['button_filter']         = 'Уточнение поиска';]]></search>
 			<add position="replace" trim="true"><![CDATA[
 			$_['button_filter']         = 'Показать';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/common/maintenance.php">
+		<operation error="skip">
+			<search><![CDATA[$_['text_message']     = '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><h1 style="text-align:center;">В настоящее время магазин закрыт на техническое обслуживание. <br/>Пожалуйста, зайдите чуть позже!</h1><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';]]></search>
+			<add position="replace" trim="true"><![CDATA[
+			$_['text_message']     = '<h1 style="text-align:center;">В настоящее время магазин закрыт на техническое обслуживание. <br/>Пожалуйста, зайдите чуть позже!</h1>';
 			]]></add>
 		</operation>
 	</file>

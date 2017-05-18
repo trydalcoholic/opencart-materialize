@@ -1,11 +1,11 @@
 <?php echo $header; ?>
-<div class="row">
-	<div class="col s12">
-		<div class="container">
+<main>
+	<div class="container">
+		<div class="card-panel">
 			<p class="flow-text text-medium">
 				<?php echo $message; ?>
 			</p>
 		</div>
 	</div>
-</div>
+</main>
 <?php echo $footer; ?>
