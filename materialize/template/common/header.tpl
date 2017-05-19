@@ -143,7 +143,7 @@
 											<ul id="dropdown-nav-top-<?php echo $cat; ?>" class="dropdown-content dropdown-overflow z-depth-5">
 											<?php foreach (array($category['children']) as $children) { ?>
 												<?php foreach ($children as $child) { ?>
-													<li><a href="<?php echo $child['href']; ?>"><span><?php echo $child['name']; ?></span></a></li>
+													<li><a href="<?php echo $child['href']; ?>"><span class="truncate"><?php echo $child['name']; ?></span></a></li>
 													<li class="divider"></li>
 												<?php } ?>
 											</ul>
