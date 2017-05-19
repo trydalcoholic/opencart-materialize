@@ -59,7 +59,9 @@
 				<?php echo $column_left; ?>
 				<div class="col <?php echo $main; ?> section href-underline">
 					<?php echo $content_top; ?>
+					<?php if(isset($heading_title)) { ?>
 					<h1><?php echo $heading_title; ?></h1>
+					<?php } ?>
 					<?php if ($products) { ?>
 					<ul class="collapsible" data-collapsible="expandable">
 						<li>
