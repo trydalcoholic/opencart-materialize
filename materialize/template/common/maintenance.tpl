@@ -2,7 +2,7 @@
 <main>
 	<div class="container">
 		<div class="card-panel">
-			<p class="flow-text text-medium">
+			<p class="flow-text">
 				<?php echo $message; ?>
 			</p>
 		</div>

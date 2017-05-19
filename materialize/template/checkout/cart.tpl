@@ -111,6 +111,21 @@
 										</td>
 									</tr>
 									<?php } ?>
+									<?php foreach ($vouchers as $voucher) { ?>
+									<tr>
+										<td>
+											<img src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/cart-voucher.png" class="lazyload" width="42" height="42">
+										</td>
+										<td><?php echo $voucher['description']; ?></td>
+										<td></td>
+										<td></td>
+										<td><?php echo $voucher['amount']; ?></td>
+										<td style="min-width:200px;">
+											<input type="text" name="" value="1" size="1" disabled="disabled" style="max-width:100px;">
+											<button type="button" title="<?php echo $button_remove; ?>" class="btn-flat no-padding" onclick="voucher.remove('<?php echo $voucher['key']; ?>');"><i class="material-icons">remove_shopping_cart</i></button>
+										</td>
+									</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</form>

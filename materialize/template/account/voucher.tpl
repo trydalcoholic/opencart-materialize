@@ -71,7 +71,7 @@
 								</div>
 								<div class="input-field col s12 l6">
 									<i class="material-icons prefix">email</i>
-									<input type="text" name="to_name" value="<?php echo $to_email; ?>" id="input-to-email" class="validate">
+									<input type="text" name="to_email" value="<?php echo $to_email; ?>" id="input-to-email" class="validate">
 									<label for="input-to-email"><?php echo $entry_to_email; ?></label>
 								</div>
 							</div>
@@ -136,23 +136,26 @@
 	</main>
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
+			<?php if ($error_warning) { ?>
+				Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $error_warning; ?></span>',7000,'toast-warning rounded')
+			<?php } ?>
 			<?php if ($error_to_name) { ?>
 				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_to_name; ?></span>',7000,'toast-info rounded')
+			<?php } ?>
+			<?php if ($error_to_email) { ?>
+				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_to_email; ?></span>',7000,'toast-info rounded')
+			<?php } ?>
+			<?php if ($error_from_name) { ?>
+				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_from_name; ?></span>',7000,'toast-info rounded')
+			<?php } ?>
+			<?php if ($error_from_email) { ?>
+				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_from_email; ?></span>',7000,'toast-info rounded')
 			<?php } ?>
 			<?php if ($error_amount) { ?>
 				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_amount; ?></span>',7000,'toast-info rounded')
 			<?php } ?>
 			<?php if ($error_theme) { ?>
 				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_theme; ?></span>',7000,'toast-info rounded')
-			<?php } ?>
-			<?php if ($error_from_email) { ?>
-				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_from_email; ?></span>',7000,'toast-info rounded')
-			<?php } ?>
-			<?php if ($error_from_name) { ?>
-				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_from_name; ?></span>',7000,'toast-info rounded')
-			<?php } ?>
-			<?php if ($error_to_email) { ?>
-				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_to_email; ?></span>',7000,'toast-info rounded')
 			<?php } ?>
 		});
 	</script>

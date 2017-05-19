@@ -6,7 +6,7 @@
 	<div id="modal-cart-content" class="modal-content">
 		<div class="container">
 			<h4 class="flow-text text-bold"><?php echo $text_shopping_cart; ?></h4>
-			<?php if ($products) { ?>
+			<?php if ($products || $vouchers) { ?>
 			<script>
 				document.addEventListener("DOMContentLoaded", function(event) {
 					$('#cart').addClass('pulse');
@@ -35,6 +35,13 @@
 						<?php } ?>
 					</p>
 					<button onclick="cart.remove('<?php echo $product['cart_id']; ?>');" title="<?php echo $button_remove; ?>" class="btn-flat no-padding secondary-content activator black-text"><i class="material-icons">remove_shopping_cart</i></button>
+				</li>
+				<?php } ?>
+				<?php foreach ($vouchers as $voucher) { ?>
+				<li class="collection-item avatar">
+					<img src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/cart-voucher.png" class="circle lazyload" width="42" height="42">
+					<span class="title text-bold"><?php echo $voucher['description']; ?></span>&nbsp;x&nbsp;1
+					<button type="button" onclick="voucher.remove('<?php echo $voucher['key']; ?>');" title="<?php echo $button_remove; ?>" class="btn-flat no-padding secondary-content activator black-text"><i class="material-icons">remove_shopping_cart</i></button>
 				</li>
 				<?php } ?>
 				<li class="collection-item">

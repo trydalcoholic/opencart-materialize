@@ -31,32 +31,22 @@ k.length>e.groupSize)for(var o=new RegExp("([-+]?[\\d?]+)([\\d?]{"+e.groupSize+"
 
 /*========== Инициализация OpenCart ==========*/
 function getURLVar(key) {
-    var value = [];
-    var query = String(document.location).split('?');
-    if (query[1]) {
-        var part = query[1].split('&');
-        for (i = 0; i < part.length; i++) {
-            var data = part[i].split('=');
-
-            if (data[0] && data[1]) {
-                value[data[0]] = data[1];
-            }
-        }
-        if (value[key]) {
-            return value[key];
-        } else {
-            return '';
-        }
-    } else {
-        var query = String(document.location.pathname).split('/');
-        if (query[query.length - 1] == 'cart') value['route'] = 'checkout/cart';
-        if (query[query.length - 1] == 'checkout') value['route'] = 'checkout/checkout';
-        if (value[key]) {
-            return value[key];
-        } else {
-            return '';
-        }
-    }
+	var value = [];
+	var query = String(document.location).split('?');
+	if (query[1]) {
+		var part = query[1].split('&');
+		for (i = 0; i < part.length; i++) {
+			var data = part[i].split('=');
+			if (data[0] && data[1]) {
+				value[data[0]] = data[1];
+			}
+		}
+		if (value[key]) {
+			return value[key];
+		} else {
+			return '';
+		}
+	}
 }
 var cart = {
 	'add': function(product_id, quantity) {
@@ -101,6 +91,37 @@ var cart = {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
+	},
+	'remove': function(key) {
+		$.ajax({
+			url: 'index.php?route=checkout/cart/remove',
+			type: 'post',
+			data: 'key=' + key,
+			dataType: 'json',
+			success: function(json) {
+				setTimeout(function () {
+					$('#cart').html('<i class="material-icons left">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating z-depth-1">'+json['total']+'</small>');
+				}, 100);
+				var now_location = String(document.location.pathname);
+				if ((now_location == '/cart/') || (now_location == '/checkout/') || (getURLVar('route') == 'checkout/cart') || (getURLVar('route') == 'checkout/checkout')) {
+					location = 'index.php?route=checkout/cart';
+				} else {
+					$('#modal-cart-content').load('index.php?route=common/cart/info .modal-content .container');
+				}
+				if (json['total'] == 0) {
+					$('#cart').removeClass('pulse');
+					$('#cart-total').removeClass('pulse');
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	}
+}
+var voucher = {
+	'add': function() {
+
 	},
 	'remove': function(key) {
 		$.ajax({
