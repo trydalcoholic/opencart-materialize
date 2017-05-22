@@ -149,7 +149,7 @@
 					controls: []
 				});
 				ymaps.geocode('<?php echo $address; ?>', {
-					results: 1
+					results: 1,
 				}).then(function (res) {
 					var firstGeoObject = res.geoObjects.get(0),
 					coords = firstGeoObject.geometry.getCoordinates(),

@@ -2,9 +2,28 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.62</version>
+	<version>0.63</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Subcategory chip -->
+	<file path="catalog/controller/product/category.php">
+		<operation error="log">
+			<search><![CDATA[$data['categories'][] = array(]]></search>
+			<add position="replace" offset="3" trim="true"><![CDATA[
+				if ($result['image']) {
+					$image = $this->model_tool_image->resize($result['image'], 32, 32);
+				} else {
+					$image = '';
+				}
+
+				$data['categories'][] = array(
+					'name' => $result['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
+					'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '_' . $result['category_id'] . $url),
+					'thumb' => $image
+				);
+			]]></add>
+		</operation>
+	</file>
 	<!-- Other Materialize Settings -->
 	<file path="catalog/controller/common/footer.php">
 		<operation error="log">

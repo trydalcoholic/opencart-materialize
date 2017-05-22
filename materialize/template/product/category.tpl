@@ -60,6 +60,36 @@
 				<div class="col <?php echo $main; ?> section href-underline">
 					<?php echo $content_top; ?>
 					<h1><?php echo $heading_title; ?></h1>
+					<?php if ($categories) { ?>
+						<h3><?php echo $text_refine; ?></h3>
+						<div class="subcategory-wrap">
+							<?php if (count($categories) <= 5) { ?>
+								<?php foreach ($categories as $category) { ?>
+									<a href="<?php echo $category['href']; ?>">
+										<div class="chip grey lighten-2 waves-effect waves-default z-depth-1 truncate">
+											<?php if ($category['thumb']) { ?>
+											<img class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?php echo $category['thumb']; ?>" alt="<?php echo $category['name']; ?>">
+											<?php } ?>
+											<?php echo $category['name']; ?>
+										</div>
+									</a>
+								<?php } ?>
+							<?php } else { ?>
+								<?php foreach (array_chunk($categories, ceil(count($categories) / 4)) as $categories) { ?>
+									<?php foreach ($categories as $category) { ?>
+										<a href="<?php echo $category['href']; ?>">
+											<div class="chip grey lighten-2 waves-effect waves-default z-depth-1 truncate">
+												<?php if ($category['thumb']) { ?>
+												<img class="lazyload" src="" data-src="<?php echo $category['thumb']; ?>" alt="<?php echo $category['name']; ?>">
+												<?php } ?>
+												<?php echo $category['name']; ?>
+											</div>
+										</a>
+									<?php } ?>
+								<?php } ?>
+							<?php } ?>
+						</div>
+					<?php } ?>
 					<?php if ($products) { ?>
 					<ul class="collapsible" data-collapsible="expandable">
 						<li>
