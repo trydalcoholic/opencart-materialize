@@ -80,7 +80,7 @@
 												<label for="input-email" class="required"><?php echo $entry_email; ?></label>
 											</div>
 											<div class="input-field">
-												<input type="tel" name="telephone" value="<?php echo $telephone; ?>" id="input-telephone" class="validate" data-inputmask="'mask':'8 (999) 999-99-99'">
+												<input type="tel" name="telephone" value="<?php echo $telephone; ?>" id="input-telephone" class="validate" placeholder="+7_(___)___-____" data-inputmask="'alias':'phone'">
 												<label for="input-telephone" class="required"><?php echo $entry_telephone; ?></label>
 											</div>
 											<div class="input-field">

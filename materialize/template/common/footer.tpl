@@ -52,9 +52,7 @@
 			</div>
 		</div>
 	</footer>
-	<aside>
-		<button type="button" id="back-to-top" class="btn-floating btn-large scale-transition scale-out red z-depth-4 waves-effect waves-light"><i class="material-icons">keyboard_arrow_up</i></button>
-	</aside>
+	<button type="button" id="back-to-top" class="btn-floating btn-large scale-transition scale-out red z-depth-4 waves-effect waves-light"><i class="material-icons">keyboard_arrow_up</i></button>
 	<script defer src="catalog/view/theme/materialize/js/script.js"></script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
@@ -63,29 +61,29 @@
 				html  = '<form id="modal-call-back" class="modal">';
 				html += 	'<div class="modal-content">';
 				html += 		'<i class="material-icons modal-action modal-close right">close</i>';
-				html += 		'<div class="row"><h4>Заказать звонок</h4></div>';
+				html += 		'<div class="row"><h4><?php echo $text_cb_title; ?></h4></div>';
 				html += 		'<div class="row">';
 				html += 			'<div class="input-field">';
 				html += 				'<i class="material-icons prefix">account_circle</i>';
-				html += 				'<input id="cb-name" name="name" placeholder="Ваше имя" type="text" class="validate" required>';
-				html += 				'<label class="active" for="cb-name">Как вас зовут</label>';
+				html += 				'<input id="cb-name" name="name" placeholder="<?php echo $text_cb_your_name; ?>" type="text" class="validate" required>';
+				html += 				'<label class="active" for="cb-name"><?php echo $text_cb_your_name; ?></label>';
 				html += 			'</div>';
 				html += 			'<div class="input-field">';
 				html += 				'<i class="material-icons prefix">phone</i>';
-				html += 				'<input id="cb-telephone" name="tel" type="tel" class="validate" placeholder="8 (999) 999-99-99" data-inputmask="\'mask\':\'8 (999) 999-99-99\'" data-inputmask-clearmaskonlostfocus="false" required>';
-				html += 				'<label class="active" for="cb-telephone">Ваш номер телефона</label>';
+				html += 				'<input id="cb-telephone" name="telephone" type="tel" class="validate" placeholder="+7_(___)___-____" data-inputmask="\'alias\':\'phone\'" required>';
+				html += 				'<label class="active" for="cb-telephone"><?php echo $text_cb_your_tel; ?></label>';
 				html += 			'</div>';
 				html += 		'</div>';
 				html += 	'</div>';
 				html += 	'<div class="modal-footer href-underline">';
 				html += 		'<input type="hidden" name="admin_email" value="<?php echo $email; ?>">';
-				html += 		'<input type="submit" class="btn modal-action red right" value="Заказать звонок">';
+				html += 		'<input type="submit" class="btn modal-action red right" value="<?php echo $text_cb_btn; ?>">';
 				html += 	'</div>';
 				html += '</form>';
 				$('body').append(html);
 				$('#modal-call-back').modal();
 				$('#modal-call-back').modal('open');
-				$(":input").inputmask();
+				$(":input[name='telephone']").inputmask();
 				$('#modal-call-back').submit(function() {
 					$.ajax({
 						url: 'catalog/view/theme/materialize/call_back.php',

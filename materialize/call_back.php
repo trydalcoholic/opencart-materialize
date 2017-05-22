@@ -1,7 +1,7 @@
 <?php
 	if (count($_POST) > 0) {
 		$name = trim($_POST['name']);
-		$tel = trim($_POST['tel']);
+		$tel = trim($_POST['telephone']);
 		$name = htmlspecialchars($name);
 		$tel = htmlspecialchars($tel);
 		if ($name != '' && $tel != '') {

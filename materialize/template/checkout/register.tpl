@@ -15,7 +15,7 @@
 				<label for="input-payment-email" class="active required"><?php echo $entry_email; ?></label>
 			</div>
 			<div class="input-field">
-				<input type="text" name="telephone" value="" id="input-payment-telephone" class="validate" data-inputmask="'mask':'8 (999) 999-99-99'">
+				<input type="text" name="telephone" value="" id="input-payment-telephone" class="validate" placeholder="+7_(___)___-____" data-inputmask="'alias':'phone'">
 				<label for="input-payment-telephone" class="active required"><?php echo $entry_telephone; ?></label>
 			</div>
 			<div class="input-field">
@@ -143,6 +143,6 @@ $('#collapse-payment-address select[name=\'country_id\']').on('change', function
 
 $('#collapse-payment-address select[name=\'country_id\']').trigger('change');
 
-$(":input").inputmask();
+$(":input[name='telephone']").inputmask();
 $('select').material_select();
 </script>

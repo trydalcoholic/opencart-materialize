@@ -119,7 +119,7 @@
 								<li><a href="mailto:<?php echo $email; ?>" class="blue-grey-text text-lighten-5"><?php echo $email; ?><i class="material-icons left">email</i></a></li>
 								<li><a class="blue-grey-text text-lighten-5 modal-call-back-btn activator" rel="nofollow"><?php echo $text_call_back; ?><i class="material-icons left">phone</i></a></li>
 								<?php if ($open) { ?>
-								<li><span><?php echo $open; ?><i class="material-icons left">access_time</i></span></li>
+								<li><i class="material-icons left">access_time</i><span><?php echo $open; ?></span></li>
 								<?php } ?>
 							</ul>
 						</div>
