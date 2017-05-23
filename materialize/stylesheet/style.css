@@ -124,6 +124,7 @@ iframe {border:none;}
 .side-info a:last-child {padding-bottom:16px;}
 .side-nav li>a {padding:0 16px;}
 .with-subcat {position:relative;}
+.with-subcat>a {padding-right:5rem !important;}
 .with-subcat:after {
 	font-family: 'Material Icons';
 	content: '\E313';

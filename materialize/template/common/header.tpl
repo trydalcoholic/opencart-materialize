@@ -211,19 +211,19 @@
 						<?php foreach ($categories as $category) { ?>
 							<?php if ($category['children']) { ?>
 								<li class="with-subcat">
-									<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect waves-default text-bold" onclick="return false;" rel="nofollow"><?php echo $category['name']; ?></a>
+									<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect waves-default truncate text-bold" onclick="return false;" rel="nofollow"><?php echo $category['name']; ?></a>
 									<?php foreach (array($category['children']) as $children) { ?>
 									<div class="collapsible-body no-padding">
 										<ul>
 										<?php foreach ($children as $child) { ?>
-											<li><a href="<?php echo $child['href']; ?>" rel="nofollow"><?php echo $child['name']; ?></a></li>
+											<li><a class="truncate" href="<?php echo $child['href']; ?>" rel="nofollow"><?php echo $child['name']; ?></a></li>
 										<?php } ?>
 										</ul>
 									</div>
 									<?php } ?>
 								</li>
 							<?php } else { ?>
-								<li><a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect waves-default text-bold" rel="nofollow"><?php echo $category['name']; ?></a></li>
+								<li><a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect waves-default truncate text-bold" rel="nofollow"><?php echo $category['name']; ?></a></li>
 							<?php } ?>
 						<?php } ?>
 					<?php } ?>
