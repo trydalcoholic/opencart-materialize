@@ -139,17 +139,25 @@
 										</select>
 										<h2><?php echo $text_newsletter; ?></h2>
 										<?php if ($newsletter) { ?>
-											<input type="radio" name="newsletter" value="1" checked="checked" id="newsletter-yes" class="with-gap">
-											<label for="newsletter-yes"><?php echo $text_yes; ?></label>
-
-											<input type="radio" name="newsletter" value="0" id="newsletter-no" class="with-gap">
-											<label for="newsletter-no"><?php echo $text_no; ?></label>
+										<div class="switch">
+											<label>
+											<?php echo $text_no; ?>
+											<input type="checkbox" checked="checked">
+											<span class="lever"></span>
+											<?php echo $text_yes; ?>
+											</label>
+										</div>
+										<input name="newsletter" id="newsletter" value="1" type="hidden">
 										<?php } else { ?>
-											<input type="radio" name="newsletter" value="1" id="newsletter-yes" class="with-gap">
-											<label for="newsletter-yes"><?php echo $text_yes; ?></label>
-
-											<input type="radio" name="newsletter" value="0" checked="checked" id="newsletter-no" class="with-gap">
-											<label for="newsletter-no"><?php echo $text_no; ?></label>
+										<div class="switch">
+											<label>
+											<?php echo $text_no; ?>
+											<input type="checkbox">
+											<span class="lever"></span>
+											<?php echo $text_yes; ?>
+											</label>
+										</div>
+										<input name="newsletter" id="newsletter" value="0" type="hidden">
 										<?php } ?>
 									</div>
 								</div>
@@ -165,11 +173,11 @@
 									<?php } ?>
 									<label for="agreement"><?php echo $text_agree; ?></label>
 									<div class="flex-reverse">
-										<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red">
+										<button type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 									</div>
 									<?php } else { ?>
 									<div class="flex-reverse">
-										<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red">
+										<button type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 									</div>
 									<?php } ?>
 								</div>
@@ -247,6 +255,9 @@
 				});
 			});
 			$('select[name=\'country_id\']').trigger('change');
+			$('.switch input[type="checkbox"]').click(function(){
+				$('#newsletter').attr('value', ($('#newsletter').attr('value')==0) ? '1' : '0');
+			});
 		});
 	</script>
 <?php echo $footer; ?>

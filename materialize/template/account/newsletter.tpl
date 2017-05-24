@@ -63,26 +63,38 @@
 					<div class="card-panel">
 						<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
 							<h2><?php echo $entry_newsletter; ?></h2>
-							<?php if ($newsletter) { ?>
-								<input type="radio" name="newsletter" value="1" checked="checked" id="newsletter-yes" class="with-gap">
-								<label for="newsletter-yes"><?php echo $text_yes; ?></label>
-
-								<input type="radio" name="newsletter" value="0" id="newsletter-no" class="with-gap">
-								<label for="newsletter-no"><?php echo $text_no; ?></label>
-							<?php } else { ?>
-								<input type="radio" name="newsletter" value="1" id="newsletter-yes" class="with-gap">
-								<label for="newsletter-yes"><?php echo $text_yes; ?></label>
-
-								<input type="radio" name="newsletter" value="0" checked="checked" id="newsletter-no" class="with-gap">
-								<label for="newsletter-no"><?php echo $text_no; ?></label>
-							<?php } ?>
+							<div class="row">
+								<div class="col s12">
+									<?php if ($newsletter) { ?>
+									<div class="switch">
+										<label>
+										<?php echo $text_no; ?>
+										<input type="checkbox" checked="checked">
+										<span class="lever"></span>
+										<?php echo $text_yes; ?>
+										</label>
+									</div>
+									<input name="newsletter" id="newsletter" value="1" type="hidden">
+									<?php } else { ?>
+									<div class="switch">
+										<label>
+										<?php echo $text_no; ?>
+										<input type="checkbox">
+										<span class="lever"></span>
+										<?php echo $text_yes; ?>
+										</label>
+									</div>
+									<input name="newsletter" id="newsletter" value="0" type="hidden">
+									<?php } ?>
+								</div>
+							</div>
 							<div class="row">
 								<div class="col s6">
 									<a href="<?php echo $back; ?>" class="btn-flat waves-effect waves-light href-underline"><?php echo $button_back; ?></a>
 								</div>
 								<div class="col s6">
 									<div class="flex-reverse no-padding">
-										<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red">
+										<button type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 									</div>
 								</div>
 							</div>
@@ -94,4 +106,11 @@
 			</div>
 		</div>
 	</main>
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			$('.switch input[type="checkbox"]').click(function(){
+				$('#newsletter').attr('value', ($('#newsletter').attr('value')==0) ? '1' : '0');
+			});
+		});
+	</script>
 <?php echo $footer; ?>
