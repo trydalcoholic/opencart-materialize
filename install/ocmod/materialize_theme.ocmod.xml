@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.63</version>
+	<version>0.63.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Subcategory chip -->
@@ -34,6 +34,12 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['lang'] = $this->language->get('code');
+			]]></add>
+		</operation>
 		<operation error="log">
 			<search><![CDATA[$this->load->language('product/product');]]></search>
 			<add position="after" trim="true"><![CDATA[

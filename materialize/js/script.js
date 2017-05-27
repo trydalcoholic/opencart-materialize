@@ -211,7 +211,31 @@ $(document).ready(function() {
 	$('.tooltipped').tooltip();
 	$('input#input_text, textarea#textarea1').characterCounter();
 	$('.materialboxed').materialbox();
-	$('.datepicker').pickadate({
+	$('.datepicker-ru').pickadate({
+		monthsFull: ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'],
+		monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Нояб', 'Дек'],
+		weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+		weekdaysShort: ['Воск', 'Пон', 'Втор', 'Сре', 'Чет', 'Пят', 'Суб'],
+		firstDay: 1,
+		today: 'Сегодня',
+		clear: '<i class="material-icons">close</i>',
+		close: 'Выбрать',
+		labelMonthNext: 'Следующий месяц',
+		labelMonthPrev: 'Предыдущий месяц',
+		labelMonthSelect: 'Выбрать месяц',
+		labelYearSelect: 'Выбрать год',
+		format: 'dd.mm.yyyy',
+		formatSubmit: 'yyyy-mm-dd',
+		selectYears: true,
+		selectMonths: true,
+		min: [2017,0,1],
+		selectYears: 2,
+		closeOnClear: false,
+	});
+	$('.datepicker-en').pickadate({
+		formatSubmit: 'yyyy-mm-dd'
+	});
+	$('.datepicker-ru').pickadate({
 		monthsFull: ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'],
 		monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Нояб', 'Дек'],
 		weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],

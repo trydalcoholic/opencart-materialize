@@ -321,7 +321,7 @@
 											<div class="input-field section">
 												<i class="material-icons prefix">event</i>
 												<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-												<input type="date" name="option[<?php echo $option['product_option_id']; ?>]" placeholder="<?php echo date('d.m.Y'); ?>" value="" id="input-option<?php echo $option['product_option_id']; ?>" class="datepicker">
+												<input type="date" name="option[<?php echo $option['product_option_id']; ?>]" placeholder="<?php echo date('d.m.Y'); ?>" value="" id="input-option<?php echo $option['product_option_id']; ?>" class="datepicker-<?php echo $lang; ?>">
 											</div>
 											<?php } ?>
 										<?php } ?>
