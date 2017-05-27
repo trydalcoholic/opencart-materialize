@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.63.1</version>
+	<version>0.63.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Subcategory chip -->
@@ -948,6 +948,7 @@
 			<search><![CDATA[$data['stock'] = $product_info['quantity'];]]></search>
 			<add position="after"><![CDATA[
 			$data['stock_color'] = "green";
+			$data['stock_status'] = "http://schema.org/InStock";
 			]]>
 			</add>
 		</operation>
@@ -955,6 +956,7 @@
 			<search><![CDATA[$data['stock'] = $this->language->get('text_instock');]]></search>
 			<add position="after"><![CDATA[
 			$data['stock_color'] = "green";
+			$data['stock_status'] = "http://schema.org/InStock";
 			]]>
 			</add>
 		</operation>
@@ -963,14 +965,19 @@
 			<add position="after"><![CDATA[
 			if($data['stock_status_id'] == 5) {
 				$data['stock_color'] = "red";
+				$data['stock_status'] = "http://schema.org/OutOfStock";
 			} elseif ($data['stock_status_id'] == 8) {
 				$data['stock_color'] = "orange";
+				$data['stock_status'] = "http://schema.org/PreOrder";
 			} elseif ($data['stock_status_id'] == 6) {
 				$data['stock_color'] = "lime";
+				$data['stock_status'] = "http://schema.org/OutOfStock";
 			} elseif ($data['stock_status_id'] == 7) {
 				$data['stock_color'] = "green";
+				$data['stock_status'] = "http://schema.org/InStock";
 			} else {
 				$data['stock_color'] = "grey";
+				$data['stock_status'] = "";
 			}
 			]]>
 			</add>

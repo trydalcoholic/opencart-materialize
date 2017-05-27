@@ -154,6 +154,10 @@
 											<?php } ?>
 										<?php } ?>
 										<meta itemprop="pricecurrency" content="<?php echo $pricecurrency;?>">
+										<link itemprop="availability" href="<?php echo $stock_status; ?>">
+										<?php if ($product_spec && $product_spec != '0000-00-00') { ?>
+										<meta itemprop="priceValidUntil" content="<?php echo $product_spec; ?>">
+										<?php } ?>
 									</div>
 									<div class="col s4 center">
 										<?php if($manufacturers_img) { ?>
@@ -163,14 +167,7 @@
 								</div>
 								<?php if ($product_spec && $product_spec != '0000-00-00') { ?>
 								<div class="section center grey lighten-3 end-promotion">
-									<span><i class="material-icons left">info</i><?php echo $text_end_promotion; ?>
-									<span class="text-bold">
-									<?php
-										$product_spec = date_create($product_spec);
-										echo date_format($product_spec, 'd.m.Y');
-									?>
-									</span>
-									</span>
+									<span><i class="material-icons left">info</i><?php echo $text_end_promotion; ?> <time class="text-bold"><?php $product_spec = date_create($product_spec); echo date_format($product_spec, 'd.m.Y'); ?></time></span>
 								</div>
 								<?php } ?>
 								<blockquote class="blockquote-note blue-grey lighten-5 z-depth-1">
