@@ -241,106 +241,6 @@ $(document).ready(function() {
 	$('ul.pagination > li').addClass('waves-effect');
 	$('ul.pagination > li.active').removeClass('waves-effect').addClass('blue-grey');
 
-	/*========== Инициализация Slick JS ==========*/
-	$('.slider-for').not('.slick-initialized').slick({
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		arrows: true,
-		asNavFor: '.slider-nav'
-	});
-	$('.slider-nav').not('.slick-initialized').slick({
-		slidesToShow: 4,
-		asNavFor: '.slider-for',
-		centerMode: false,
-		arrows: false,
-		infinite: false,
-		focusOnSelect: true
-	});
-	$('.slick-slider').not('.slick-initialized').slick({
-		infinite: true,
-		autoplay: true,
-		autoplaySpeed: 5000,
-		slidesToShow: 1,
-		adaptiveHeight: true,
-		fade: true,
-		cssEase: 'linear',
-		dots: true,
-		arrows: true
-	});
-	$('.slick-goods').not('.slick-initialized').slick({
-		dots: true,
-		infinite: true,
-		speed: 300,
-		autoplay: true,
-		autoplaySpeed: 2000,
-		slidesToShow: 3,
-		slidesToScroll: 3,
-		responsive: [
-			{
-				breakpoint: 921,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2
-				}
-			},
-			{
-				breakpoint: 601,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1
-				}
-			}
-		]
-	});
-	$('.slick-carousel').not('.slick-initialized').slick({
-		infinite: true,
-		slidesToShow: 6,
-		slidesToScroll: 3,
-		dots: true,
-		infinite: true,
-		speed: 300,
-		autoplay: true,
-		lazyLoad: 'ondemand',
-		responsive: [
-			{
-				breakpoint: 460,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1
-				}
-			},
-			{
-				breakpoint: 600,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2
-				}
-			},
-			{
-				breakpoint: 992,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3
-				}
-			},
-			{
-				breakpoint: 1240,
-				settings: {
-					slidesToShow: 4,
-					slidesToScroll: 4
-				}
-			},
-		]
-	});
-	$('.slick-banner').not('.slick-initialized').slick({
-		infinite: true,
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		infinite: true,
-		speed: 300,
-		autoplay: true
-	});
-
 	/*========== Back to top ==========*/
 	var offset = 300,
 		scroll_top_duration = 700,
@@ -356,7 +256,6 @@ $(document).ready(function() {
 	});
 
 	/*========== Липкое меню ==========*/
-
 	if(window.matchMedia('(min-width:601px)').matches) {
 		var mainHeader = $('header'),
 			secondaryNavigation = $('.fixed-nav'),

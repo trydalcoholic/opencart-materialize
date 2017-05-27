@@ -9,3 +9,15 @@
 	</div>
 	<?php } ?>
 </div>
+<script>
+	document.addEventListener("DOMContentLoaded", function(event) {
+		$('.slick-banner').not('.slick-initialized').slick({
+			infinite: true,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			infinite: true,
+			speed: 300,
+			autoplay: true
+		});
+	});
+</script>

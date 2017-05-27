@@ -556,7 +556,48 @@
 	</div>
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
-			// Отзывы
+			// Photo slider
+			$('.slider-for').not('.slick-initialized').slick({
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				arrows: true,
+				asNavFor: '.slider-nav'
+			});
+			$('.slider-nav').not('.slick-initialized').slick({
+				slidesToShow: 4,
+				asNavFor: '.slider-for',
+				centerMode: false,
+				arrows: false,
+				infinite: false,
+				focusOnSelect: true
+			});
+			// Goods slider
+			$('.slick-goods').not('.slick-initialized').slick({
+				dots: true,
+				infinite: true,
+				speed: 300,
+				autoplay: true,
+				autoplaySpeed: 2000,
+				slidesToShow: 3,
+				slidesToScroll: 3,
+				responsive: [
+					{
+						breakpoint: 921,
+						settings: {
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					},
+					{
+						breakpoint: 601,
+						settings: {
+							slidesToShow: 1,
+							slidesToScroll: 1
+						}
+					}
+				]
+			});
+			// Reviews
 			$('#review').delegate('.pagination a', 'click', function(e) {
 				e.preventDefault();
 				$('#review').fadeOut('slow');
@@ -600,7 +641,7 @@
 				});
 				grecaptcha.reset();
 			});
-			// Количество
+			// Quantity
 			$('#quantity-minus').click(function () {
 				var $input = $('#input-quantity');
 				var count = parseInt($input.val()) - 1;
@@ -615,7 +656,7 @@
 				$input.change();
 				return false;
 			});
-			// Загрузка файла
+			// Download file
 			$('button[id^=\'button-upload\']').on('click', function() {
 				var node = this;
 				$('#form-upload').remove();
@@ -658,7 +699,7 @@
 					}
 				}, 500);
 			});
-			// Добавление в корзину
+			// Add to cart
 			$('#button-cart').on('click', function() {
 				$.ajax({
 					url: 'index.php?route=checkout/cart/add',
