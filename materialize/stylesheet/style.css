@@ -116,6 +116,23 @@ iframe {border:none;}
 	}
 	/* Fix scrolling for a large list */
 	.dropdown-overflow {overflow-y:auto !important;}
+	/* New badge */
+	.new-badge {position:relative;}
+	.new-badge[data-badge]:after {
+		content: attr(data-badge);
+		position: absolute;
+		top: -8px;
+		right: -27px;
+		font-weight: 500;
+		line-height: 23px;
+		text-align: center;
+		font-size: 12px;
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		background: #90a4ae;
+		color: #fff;
+	}
 
 /*========== Side navigation ==========*/
 .side-nav .userView {margin-bottom:0;}
