@@ -12,8 +12,9 @@
 			$(".modal-language-btn").click(function() {
 				html  = '<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-language" class="modal">';
 				html += 	'<div class="modal-content">';
+				html += 		'<h4><?php echo $text_language; ?></h4>';
 				<?php foreach ($languages as $language) { ?>
-				html += 		'<input id="<?php echo $language['code']; ?>" class="with-gap language-select" type="radio" name="<?php echo $language['code']; ?>"><label for="<?php echo $language['code']; ?>"><?php echo $language['name']; ?></label><br>';
+				html += 		'<input id="<?php echo $language['code']; ?>" class="with-gap language-select" type="radio" name="<?php echo $language['code']; ?>"<?php if ($language['code'] == $code) { ?> checked="checked"<?php } ?>><label for="<?php echo $language['code']; ?>"><?php echo $language['name']; ?></label><br>';
 				<?php } ?>
 				html += 	'</div>';
 				html += 	'<input type="hidden" name="code" value=""><input type="hidden" name="redirect" value="<?php echo $redirect; ?>">';

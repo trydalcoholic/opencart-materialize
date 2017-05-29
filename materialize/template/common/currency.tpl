@@ -14,11 +14,12 @@
 			$(".modal-currency-btn").click(function() {
 				html  = '<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-currency" class="modal">';
 				html += 	'<div class="modal-content">';
+				html += 		'<h4><?php echo $text_currency; ?></h4>';
 				<?php foreach ($currencies as $currency) { ?>
 					<?php if ($currency['symbol_left']) { ?>
-				html += '<input class="with-gap currency-select" name="<?php echo $currency['code']; ?>" type="radio" id="<?php echo $currency['code']; ?>"><label for="<?php echo $currency['code']; ?>"><?php echo $currency['symbol_left']; ?> <?php echo $currency['title']; ?></label><br>';
+				html += '<input class="with-gap currency-select" name="<?php echo $currency['code']; ?>" type="radio" id="<?php echo $currency['code']; ?>"<?php if ($currency['code'] == $code) { ?> checked="checked"<?php } ?>><label for="<?php echo $currency['code']; ?>"><?php echo $currency['symbol_left']; ?> <?php echo $currency['title']; ?></label><br>';
 					<?php } else { ?>
-				html += '<input class="with-gap currency-select" name="<?php echo $currency['code']; ?>" type="radio" id="<?php echo $currency['code']; ?>"><label for="<?php echo $currency['code']; ?>"><?php echo $currency['symbol_right']; ?> <?php echo $currency['title']; ?></label><br>';
+				html += '<input class="with-gap currency-select" name="<?php echo $currency['code']; ?>" type="radio" id="<?php echo $currency['code']; ?>"<?php if ($currency['code'] == $code) { ?> checked="checked"<?php } ?>><label for="<?php echo $currency['code']; ?>"><?php echo $currency['symbol_right']; ?> <?php echo $currency['title']; ?></label><br>';
 					<?php } ?>
 				<?php } ?>
 				html += 	'</div>';

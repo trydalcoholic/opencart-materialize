@@ -321,6 +321,13 @@
 												<input type="date" name="option[<?php echo $option['product_option_id']; ?>]" placeholder="<?php echo date('d.m.Y'); ?>" value="" id="input-option<?php echo $option['product_option_id']; ?>" class="datepicker-<?php echo $lang; ?>">
 											</div>
 											<?php } ?>
+											<?php if ($option['type'] == 'time') { ?>
+											<div class="input-field section">
+												<i class="material-icons prefix">av_timer</i>
+												<label<?php echo ($option['required'] ? ' class="required"' : ''); ?> for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+												<input id="input-option<?php echo $option['product_option_id']; ?>" class="timepicker-<?php echo $lang; ?>" type="time" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" placeholder="<?php echo date('H:i'); ?>">
+											</div>
+											<?php } ?>
 										<?php } ?>
 									<?php } ?>
 									<div class="section">
@@ -623,6 +630,7 @@
 	</ul>
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
+			// Share side
 			$('.share-btn').sideNav({edge:'right'});
 			// Photo slider
 			$('.slider-for').not('.slick-initialized').slick({
@@ -772,7 +780,7 @@
 				$.ajax({
 					url: 'index.php?route=checkout/cart/add',
 					type: 'post',
-					data: $('#product input[type=\'number\'], #product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+					data: $('#product input[type=\'number\'], #product input[type=\'time\'], #product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
 					dataType: 'json',
 					success: function(json) {
 						if (json['error']) {
