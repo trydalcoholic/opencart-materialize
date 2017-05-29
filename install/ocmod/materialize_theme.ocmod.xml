@@ -519,7 +519,7 @@
 		<operation error="log">
 			<search><![CDATA['name'  => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
 			<add position="replace" trim="true"><![CDATA[
-			'name' => '<span class="new-badge" data-badge="' . ($this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts($filter_data) : '') . '">' . $child['name'] . '</span>',
+			'name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),
 			]]></add>
 		</operation>
 	</file>
@@ -527,13 +527,13 @@
 		<operation error="log">
 			<search><![CDATA['name' => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
 			<add position="replace" trim="true"><![CDATA[
-			'name' => '<span class="new-badge" data-badge="' . ($this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts($filter_data) : '') . '">' . $child['name'] . '</span>',
+			'name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['name'        => $category['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
 			<add position="replace" trim="true"><![CDATA[
-			'name'        => '<span class="new-badge" data-badge="' . ($this->config->get('config_product_count') ? $this->model_catalog_product->getTotalProducts($filter_data) : '') . '">' . $category['name'] . '</span>',
+			'name'        => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $category['name'] . '</span>' : $category['name']),
 			]]></add>
 		</operation>
 	</file>
