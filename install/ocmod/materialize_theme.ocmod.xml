@@ -6,6 +6,22 @@
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Favicon -->
+	<file path="system/library/document.php">
+		<operation error="log">
+			<search><![CDATA[public function addLink($href, $rel) {]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				public function addLink($href, $rel, $type='', $size = '') {
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA['rel'  => $rel]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				'rel'  => $rel,
+				'type' => $type,
+				'size' => $size
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA[$this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');]]></search>
