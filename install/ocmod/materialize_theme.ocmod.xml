@@ -2,9 +2,40 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.64</version>
+	<version>0.65</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Favicon -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				$this->load->model('tool/image');
+				$icon_type = exif_imagetype($server . 'image/' . $this->config->get('config_icon'));
+				if ($icon_type == 1) {$icon_type = 'image/gif';}
+				if ($icon_type == 2) {$icon_type = 'image/jpeg';}
+				if ($icon_type == 3) {$icon_type = 'image/png';}
+				if ($icon_type == 17) {$icon_type = 'image/x-icon';}
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 16, 16), 'icon', $icon_type, '16x16');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 32, 32), 'icon', $icon_type, '32x32');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 48, 48), 'icon', $icon_type, '48x48');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 96, 96), 'icon', $icon_type, '96x96');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 128, 128), 'icon', $icon_type, '128x128');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 160, 160), 'icon', $icon_type, '160x160');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 196, 196), 'icon', $icon_type, '196x196');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 228, 228), 'icon', $icon_type, '228x228');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 256, 256), 'icon', $icon_type, '256x256');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 57, 57), 'apple-touch-icon', $icon_type, '57x57');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 60, 60), 'apple-touch-icon', $icon_type, '60x60');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 72, 72), 'apple-touch-icon', $icon_type, '72x72');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 76, 76), 'apple-touch-icon', $icon_type, '76x76');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 114, 114), 'apple-touch-icon', $icon_type, '114x114');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 120, 120), 'apple-touch-icon', $icon_type, '120x120');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 144, 144), 'apple-touch-icon', $icon_type, '144x144');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 152, 152), 'apple-touch-icon', $icon_type, '152x152');
+			]]></add>
+		</operation>
+	</file>
 	<!-- Subcategory chip -->
 	<file path="catalog/controller/product/category.php">
 		<operation error="log">
