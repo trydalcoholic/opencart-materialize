@@ -514,8 +514,6 @@ iframe {border:none;}
 	/* Yandex Map */
 	#map {position:relative;min-height:360px;}
 	.ymaps-2-1-45-input__control {margin:0 !important;}
-	/* Yandex share */
-	.ya-share2__list_direction_horizontal > .ya-share2__item {margin-bottom:5px !important;}
 	/* Animation */
 	.collapsible-body {will-change:width,height;}
 	/* Category lists */

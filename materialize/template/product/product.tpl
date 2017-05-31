@@ -520,13 +520,13 @@
 			<?php } ?>
 			<?php if ($tags) { ?>
 			<div class="row">
-				<div class="col s12">
+				<div class="col s12 href-underline">
 					<span class="blue-text text-lighten-1"><?php echo $text_tags; ?></span>
 					<?php for ($i = 0; $i < count($tags); $i++) { ?>
 						<?php if ($i < (count($tags) - 1)) { ?>
-						<a href="<?php echo str_replace(' ', '%20', $tags[$i]['href']); ?>"><span class="chip waves-effect waves-default"><?php echo $tags[$i]['tag']; ?></span></a>,
+						<a class="chip waves-effect waves-default" href="<?php echo str_replace(' ', '%20', $tags[$i]['href']); ?>" rel="nofollow"><?php echo $tags[$i]['tag']; ?></a>,
 						<?php } else { ?>
-						<a href="<?php echo str_replace(' ', '%20', $tags[$i]['href']); ?>"><span class="chip waves-effect waves-default"><?php echo $tags[$i]['tag']; ?></span></a>
+						<a class="chip waves-effect waves-default" href="<?php echo str_replace(' ', '%20', $tags[$i]['href']); ?>" rel="nofollow"><?php echo $tags[$i]['tag']; ?></a>
 						<?php } ?>
 					<?php } ?>
 				</div>
