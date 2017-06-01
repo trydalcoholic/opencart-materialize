@@ -1,7 +1,7 @@
 <?php if ($addresses) { ?>
 <p>
 	<input type="radio" name="shipping_address" value="existing" checked="checked" id="existing_shipping_address" class="with-gap">
-	<label for="existing_shipping_address"><?php echo $text_address_existing; ?></label>
+	<label for="existing_shipping_address" class="text-bold"><?php echo $text_address_existing; ?></label>
 	<div id="shipping-existing" class="input-field">
 		<select name="address_id">
 		<?php foreach ($addresses as $address) { ?>
@@ -15,54 +15,60 @@
 	</div>
 	<br>
 	<input type="radio" name="shipping_address" value="new" id="new_shipping_address" class="with-gap">
-	<label for="new_shipping_address"><?php echo $text_address_new; ?></label>
+	<label for="new_shipping_address" class="text-bold"><?php echo $text_address_new; ?></label>
 </p>
 <?php } ?>
 <div id="shipping-new" style="display: <?php echo ($addresses ? 'none' : 'block'); ?>;" class="section">
 	<div class="input-field">
-		<input type="text" name="firstname" value="" id="input-shipping-firstname" class="validate">
-		<label for="input-shipping-firstname" class="active required"><?php echo $entry_firstname; ?></label>
+		<label for="input-shipping-firstname" class="active text-bold required"><?php echo $entry_firstname; ?></label>
+		<input type="text" name="firstname" value="" placeholder="<?php echo $entry_firstname; ?>" id="input-shipping-firstname" class="validate">
 	</div>
 	<div class="input-field">
-		<input type="text" name="lastname" value="" id="input-shipping-lastname" class="validate">
-		<label for="input-shipping-lastname" class="active required"><?php echo $entry_lastname; ?></label>
+		<label for="input-shipping-lastname" class="active text-bold required"><?php echo $entry_lastname; ?></label>
+		<input type="text" name="lastname" value="" placeholder="<?php echo $entry_lastname; ?>" id="input-shipping-lastname" class="validate">
 	</div>
 	<div class="input-field">
+		<label for="input-shipping-company" class="active text-bold"><?php echo $entry_company; ?></label>
 		<input type="text" name="company" value="" placeholder="<?php echo $entry_company; ?>" id="input-shipping-company" class="validate">
-		<label for="input-shipping-company"><?php echo $entry_company; ?></label>
 	</div>
 	<div class="input-field">
-		<input type="text" name="address_1" value="" id="input-shipping-address-1" class="validate">
-		<label for="input-shipping-address-1" class="required"><?php echo $entry_address_1; ?></label>
+		<label for="input-shipping-address-1" class="active text-bold required"><?php echo $entry_address_1; ?></label>
+		<input type="text" name="address_1" value="" placeholder="<?php echo $entry_address_1; ?>" id="input-shipping-address-1" class="validate">
 	</div>
 	<div class="input-field">
-		<input type="text" name="address_2" value="" id="input-shipping-address-2" class="validate">
-		<label for="input-shipping-address-2"><?php echo $entry_address_2; ?></label>
+		<label for="input-shipping-address-2" class="active text-bold"><?php echo $entry_address_2; ?></label>
+		<input type="text" name="address_2" value="" placeholder="<?php echo $entry_address_2; ?>" id="input-shipping-address-2" class="validate">
 	</div>
 	<div class="input-field">
-		<input type="text" name="city" value="" id="input-shipping-city" class="validate">
-		<label for="input-shipping-city" class="required"><?php echo $entry_city; ?></label>
+		<label for="input-shipping-city" class="active text-bold required"><?php echo $entry_city; ?></label>
+		<input type="text" name="city" value="" placeholder="<?php echo $entry_city; ?>" id="input-shipping-city" class="validate">
 	</div>
 	<div class="input-field">
-		<input type="text" name="postcode" value="" id="input-shipping-postcode" class="validate">
-		<label for="input-shipping-postcode" class="required"><?php echo $entry_postcode; ?></label>
+		<label for="input-shipping-postcode" class="active text-bold required"><?php echo $entry_postcode; ?></label>
+		<input type="text" name="postcode" value="" placeholder="<?php echo $entry_postcode; ?>" id="input-shipping-postcode" class="validate">
 	</div>
-	<div class="input-field">
-		<select name="country_id" id="input-shipping-country">
-			<option value="" disabled selected><?php echo $text_select; ?></option>
-			<?php foreach ($countries as $country) { ?>
-			<?php if ($country['country_id'] == $country_id) { ?>
-			<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
-			<?php } else { ?>
-			<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
-			<?php } ?>
-			<?php } ?>
-		</select>
-		<label for="input-shipping-country" class="required"><?php echo $entry_country; ?></label>
+	<div class="section">
+		<div class="input-field">
+			<select name="country_id" id="input-shipping-country">
+				<option value="" disabled selected><?php echo $text_select; ?></option>
+				<?php foreach ($countries as $country) { ?>
+				<?php if ($country['country_id'] == $country_id) { ?>
+				<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
+				<?php } else { ?>
+				<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+				<?php } ?>
+				<?php } ?>
+			</select>
+			<label for="input-shipping-country" class="text-bold required"><?php echo $entry_country; ?></label>
+		</div>
 	</div>
-	<label for="input-shipping-zone" class="required"><?php echo $entry_zone; ?></label>
-	<select name="zone_id" id="input-shipping-zone" class="browser-default">
-	</select>
+	<div class="section">
+		<div class="input-field">
+			<select name="zone_id" id="input-shipping-zone">
+			</select>
+			<label for="input-shipping-zone" class="text-bold required"><?php echo $entry_zone; ?></label>
+		</div>
+	</div>
 </div>
 <div class="flex-reverse">
 	<button type="button" value="<?php echo $button_continue; ?>" id="button-shipping-address" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
@@ -83,9 +89,9 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
 		dataType: 'json',
 		success: function(json) {
 			if (json['postcode_required'] == '1') {
-				$('#collapse-shipping-address input[name=\'postcode\']').parent().parent().addClass('required');
+				$('#collapse-shipping-address input[name=\'postcode\']').parent().find('label').addClass('required');
 			} else {
-				$('#collapse-shipping-address input[name=\'postcode\']').parent().parent().removeClass('required');
+				$('#collapse-shipping-address input[name=\'postcode\']').parent().find('label').removeClass('required');
 			}
 
 			html = '<option value=""><?php echo $text_select; ?></option>';
@@ -105,6 +111,7 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
 			}
 
 			$('#collapse-shipping-address select[name=\'zone_id\']').html(html);
+			$('select').material_select();
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

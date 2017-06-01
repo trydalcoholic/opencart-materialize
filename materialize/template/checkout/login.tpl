@@ -18,7 +18,7 @@
 				<label for="guest"><?php echo $text_guest; ?></label>
 				<?php } ?>
 			</div>
-			<input type="button" value="<?php echo $button_continue; ?>" id="button-account" class="btn waves-effect waves-light red">
+			<button type="button" value="<?php echo $button_continue; ?>" id="button-account" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
 		</div>
 	</div>
 	<div class="col s12 m6">

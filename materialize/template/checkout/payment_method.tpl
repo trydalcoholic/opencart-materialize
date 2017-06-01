@@ -11,17 +11,16 @@
 						<?php } else { ?>
 							<input type="radio" name="payment_method" value="<?php echo $payment_method['code']; ?>" id="<?php echo $payment_method['code']; ?>" class="with-gap">
 						<?php } ?>
-						<label for="<?php echo $payment_method['code']; ?>"><?php echo $payment_method['title']; ?><?php if ($payment_method['terms']) { ?>(<?php echo $payment_method['terms']; ?>)<?php } ?></label>
-						<br>
+						<label for="<?php echo $payment_method['code']; ?>"><?php echo $payment_method['title']; ?><?php if ($payment_method['terms']) { ?>(<?php echo $payment_method['terms']; ?>)<?php } ?></label><br>
 					<?php } ?>
 				</div>
 			<?php } ?>
 			<div class="section">
 				<strong><?php echo $text_comments; ?></strong>
-			</div>
-			<div class="input-field">
-				<i class="material-icons prefix">comment</i>
-				<textarea name="comment" rows="8" class="materialize-textarea"><?php echo $comment; ?></textarea>
+				<div class="input-field">
+					<i class="material-icons prefix">comment</i>
+					<textarea name="comment" rows="8" class="materialize-textarea"><?php echo $comment; ?></textarea>
+				</div>
 			</div>
 			<div class="section">
 				<?php if ($text_agree) { ?>

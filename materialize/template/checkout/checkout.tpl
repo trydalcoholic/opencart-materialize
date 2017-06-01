@@ -331,14 +331,13 @@
 			                if (json['error']['warning']) {
 								Materialize.toast(json['error']['warning'], 7000, 'rounded');
 			                }
-
 							for (i in json['error']) {
 								var element = $('#input-payment-' + i.replace('_', '-'));
 
-								if ($(element).parent().hasClass('input-group')) {
-									Materialize.toast(json['error']['i'], 7000, 'rounded');
+								if ($(element).parent()) {
+									Materialize.toast(json['error'][i], 7000, 'rounded');
 								} else {
-									Materialize.toast(json['error']['i'], 7000, 'rounded');
+									Materialize.toast(json['error'][i], 7000, 'rounded');
 								}
 							}
 			            } else {
@@ -417,7 +416,7 @@
 			                }
 							for (i in json['error']) {
 								var element = $('#input-shipping-' + i.replace('_', '-'));
-								if ($(element).parent().hasClass('input-group')) {
+								if ($(element).parent()) {
 									Materialize.toast(json['error'][i], 7000, 'rounded');
 								} else {
 									Materialize.toast(json['error'][i], 7000, 'rounded');
@@ -487,7 +486,7 @@
 			                }
 							for (i in json['error']) {
 								var element = $('#input-payment-' + i.replace('_', '-'));
-								if ($(element).parent().hasClass('input-group')) {
+								if ($(element).parent()) {
 									Materialize.toast(json['error'][i], 7000, 'rounded');
 								} else {
 									Materialize.toast(json['error'][i], 7000, 'rounded');
@@ -586,7 +585,7 @@
 			                }
 							for (i in json['error']) {
 								var element = $('#input-shipping-' + i.replace('_', '-'));
-								if ($(element).parent().hasClass('input-group')) {
+								if ($(element).parent()) {
 									Materialize.toast(json['error'][i], 7000, 'rounded');
 								} else {
 									Materialize.toast(json['error'][i], 7000, 'rounded');

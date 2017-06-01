@@ -26,8 +26,8 @@
 		</div>
 		<div class="section">
 			<div class="input-field">
-				<input type="text" name="postcode" value="<?php echo $postcode; ?>" id="input-postcode" class="validate">
 				<label for="input-postcode"><?php echo $entry_postcode; ?></label>
+				<input type="text" name="postcode" value="<?php echo $postcode; ?>" id="input-postcode" class="validate">
 			</div>
 		</div>
 		<div class="flex-reverse">
@@ -67,7 +67,6 @@
 						html += '		<h4 class="text-bold"><?php echo $text_shipping_method; ?></h4>';
 
 						for (i in json['shipping_method']) {
-							html += '<p><strong>' + json['shipping_method'][i]['title'] + '</strong></p>';
 							if (!json['shipping_method'][i]['error']) {
 								for (j in json['shipping_method'][i]['quote']) {
 									html += '';
@@ -76,7 +75,7 @@
 									} else {
 										html += '<input type="radio" name="shipping_method" value="' + json['shipping_method'][i]['quote'][j]['code'] + '" id="radio-'+json['shipping_method'][i]['quote'][j]['code']+'" class="with-gap">';
 									}
-									html += '<label for="radio-'+json['shipping_method'][i]['quote'][j]['code']+'">' + json['shipping_method'][i]['quote'][j]['title'] + ' - ' + json['shipping_method'][i]['quote'][j]['text'] + '</label>';
+									html += '<label for="radio-'+json['shipping_method'][i]['quote'][j]['code']+'">' + json['shipping_method'][i]['quote'][j]['title'] + ' - ' + json['shipping_method'][i]['quote'][j]['text'] + '</label><br>';
 								}
 							} else {
 								Materialize.toast('<i class="material-icons left">check</i>'+json['shipping_method'][i]['error'],7000,'toast-warning rounded');
@@ -138,9 +137,9 @@
 				dataType: 'json',
 				success: function(json) {
 					if (json['postcode_required'] == '1') {
-						$('input[name=\'postcode\']').parent().parent().addClass('required');
+						$('input[name=\'postcode\']').parent().find('label').addClass('required');
 					} else {
-						$('input[name=\'postcode\']').parent().parent().removeClass('required');
+						$('input[name=\'postcode\']').parent().find('label').removeClass('required');
 					}
 
 					html = '<option value=""><?php echo $text_select; ?></option>';
@@ -160,6 +159,7 @@
 					}
 
 					$('select[name=\'zone_id\']').html(html);
+					$('select').material_select();
 				},
 				error: function(xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -168,5 +168,6 @@
 		});
 
 		$('select[name=\'country_id\']').trigger('change');
+		$('select').material_select();
 	});
 </script>
