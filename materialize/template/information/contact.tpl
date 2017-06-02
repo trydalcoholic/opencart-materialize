@@ -129,7 +129,7 @@
 			</div>
 		</div>
 	</main>
-	<script async src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+	<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			<?php if ($error_name) { ?>
