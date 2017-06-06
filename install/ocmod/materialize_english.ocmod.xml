@@ -162,7 +162,7 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_comparison_list']      = 'Comparison list';
+				$_['text_comparison_list']      = 'Compare products';
 			]]></add>
 		</operation>
 	</file>
