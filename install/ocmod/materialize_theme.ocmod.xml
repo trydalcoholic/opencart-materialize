@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.65</version>
+	<version>0.65.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Favicon -->
@@ -10,7 +10,7 @@
 		<operation error="log">
 			<search><![CDATA[public function addLink($href, $rel) {]]></search>
 			<add position="replace" trim="true"><![CDATA[
-				public function addLink($href, $rel, $type='', $size = '') {
+				public function addLink($href, $rel, $type='', $sizes = '') {
 			]]></add>
 		</operation>
 		<operation error="log">
@@ -18,7 +18,7 @@
 			<add position="replace" trim="true"><![CDATA[
 				'rel'  => $rel,
 				'type' => $type,
-				'size' => $size
+				'sizes' => $sizes
 			]]></add>
 		</operation>
 	</file>
@@ -439,6 +439,7 @@
 				$data['compare'] = $this->url->link('product/compare');
 				$this->language->load('product/compare');
 				$data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
+				$data['text_comparison_list'] = $this->language->get('text_comparison_list');
 			]]></add>
 		</operation>
 	</file>
@@ -1085,18 +1086,6 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/model/catalog/product.php">
-		<operation error="log">
-			<search><![CDATA[public function getProductImages($product_id) {]]></search>
-			<add position="before" trim="true"><![CDATA[
-			public function getProducttabs($product_id) {
-				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab pc LEFT JOIN " . DB_PREFIX . "product_customtab_description pcd ON (pc.product_customtab_id  = pcd.product_customtab_id) WHERE pc.product_id = '" . (int)$product_id . "'  AND pcd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND status > 0 ORDER BY sort_order ASC");
-
-				return $query->rows;
-			}
-			]]></add>
-		</operation>
-	</file>
 	<file path="admin/controller/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[if (isset($this->request->post['image'])) {]]></search>
@@ -1105,6 +1094,7 @@
 			$data['entry_title']=$this->language->get('entry_title');
 			$data['entry_description']=$this->language->get('entry_description');
 			$data['button_customtab_add']=$this->language->get('button_customtab_add');
+			$data['text_apply']=$this->language->get('text_apply');
 
 			if (isset($this->request->post['product_customtab'])) {
 				$data['product_customtabs'] = $this->request->post['product_customtab'];
@@ -1176,6 +1166,18 @@
 					}
 					return $product_customtab_data;
 				}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[public function getProductImages($product_id) {]]></search>
+			<add position="before" trim="true"><![CDATA[
+			public function getProducttabs($product_id) {
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab pc LEFT JOIN " . DB_PREFIX . "product_customtab_description pcd ON (pc.product_customtab_id  = pcd.product_customtab_id) WHERE pc.product_id = '" . (int)$product_id . "'  AND pcd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND status > 0 ORDER BY sort_order ASC");
+
+				return $query->rows;
+			}
 			]]></add>
 		</operation>
 	</file>
@@ -1393,8 +1395,7 @@
 		<operation error="log">
 			<search><![CDATA[<div class="pull-right">]]></search>
 			<add position="after" trim="true"><![CDATA[
-				<button type="button" onclick="SaS();" type="button" form="form-product" data-toggle="tooltip" title="Применить" class="btn btn-success
-					"><i class="fa fa-repeat"></i></button>]]>
+				<button type="button" onclick="SaS();" type="button" form="form-product" data-toggle="tooltip" title="<?php echo $text_apply; ?>" class="btn btn-success"><i class="fa fa-repeat"></i></button>]]>
 			</add>
 		</operation>
 		<operation error="log">
@@ -1485,7 +1486,7 @@
 		<operation error="log">
 			<search><![CDATA[<div class="pull-right">]]>  </search>
 			<add position="after" trim="true"><![CDATA[
-				<button type="button" onclick="SaS();" type="button" form="form-category" data-toggle="tooltip" title="Применить" class="btn btn-success"><i class="fa fa-repeat"></i></button>
+				<button type="button" onclick="SaS();" type="button" form="form-category" data-toggle="tooltip" title="<?php echo $text_apply; ?>" class="btn btn-success"><i class="fa fa-repeat"></i></button>
 			]]></add>
 		</operation>
 		<operation error="log">

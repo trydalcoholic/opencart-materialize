@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — your language settings</b></font>]]></name>
 	<code>materialize-theme-your-settings</code>
-	<version>0.65</version>
+	<version>0.65.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Your language settings Materialize -->
@@ -158,6 +158,12 @@
 				$_['text_compare']      = '%s';
 			]]></add>
 		</operation>
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_comparison_list']      = 'Comparison list';
+			]]></add>
+		</operation>
 	</file>
 	<file path="catalog/language/*/product/category.php">
 		<operation error="skip">
@@ -190,6 +196,7 @@
 			$_['entry_title']            = 'Tab Title';
 			$_['button_customtab_add']   = 'Add tab';
 			$_['tab_customtab']          = 'Custom Tab';
+			$_['text_apply']             = 'Apply';
 			]]></add>
 		</operation>
 	</file>

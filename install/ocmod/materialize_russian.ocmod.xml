@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.65</version>
+	<version>0.65.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Russian language settings Materialize -->
@@ -158,6 +158,12 @@
 				$_['text_compare']      = '%s';
 			]]></add>
 		</operation>
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_comparison_list']      = 'Список сравнения';
+			]]></add>
+		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/product/category.php">
 		<operation error="skip">
@@ -190,6 +196,7 @@
 				$_['entry_title']               = 'Название вкладки';
 				$_['button_customtab_add']      = 'Добавить вкладку';
 				$_['tab_customtab']             = 'Дополнительные вкладки';
+				$_['text_apply']                = 'Применить';
 			]]></add>
 		</operation>
 	</file>
