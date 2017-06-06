@@ -1,10 +1,14 @@
 # Materialize template for OpenCart 2.3.x
+![OpenCart Materialize Logo](https://materialize.myefforts.ru/image/OpenCart-Materialize-logo.jpg)
 Most of the topics for OpenCart (OCStore) used Bootstrap as the main framework.
 In this theme used the same [Materialize](https://github.com/Dogfalo/materialize) CSS framework.
 ## How it looks like
 * [Main page](https://materialize.myefforts.ru/)
 * [Card product](https://materialize.myefforts.ru/smartphones/iphone-smart/iphone-7-plus-red-special-edition-256gb)
 * [Category page](https://materialize.myefforts.ru/smartphones/)
+***
+![A good example of a working site](https://materialize.myefforts.ru/image/opencart-materialize-template-github.gif)
+***
 ## Differences from standard features OpenCart
 ### Administration
 * Added button "Save and Stay"
@@ -26,35 +30,8 @@ In this theme used the same [Materialize](https://github.com/Dogfalo/materialize
   - Google Mobile-Friendly Test: [main page](https://search.google.com/search-console/mobile-friendly?id=aWnZIZ8aLvbIVq4R2tpuPQ) and [product card](https://search.google.com/search-console/mobile-friendly?id=zIJ0V8Q2y1WuyUJhOpN91w)
 ## Installation and removal
 For a secure installation, you use the local theme folder and 2 installer files (OCMod.xml and SQL), which allows you to rollback changes in the event of conflict ituations. In order to avoid unforeseen errors, make sure you back up the site.
-### Install
-1.  Copy the materialize folder to the folder at: /catalog/view/theme;
-2.  Import the file into the sql_install_materialize_theme.ocmod.sql in phpMyAdmin;
-3.  In the Admin panel open Extensions -> Extension Installer -> Upload File and select materialize_theme.ocmod.xml;
-4.  Open Extensions -> Modifications;
-5.  Click on the refresh button;
-6.  Open Extensions -> Extensions -> Choose the extension type -> Choose -> Themes;
-7.  Default Store Theme -> Edit;
-8.  Theme Directory -> Materialize.
-### Uninstalling
-1.  Extensions -> Modifications: select Materialize Theme For OCStore and click on the delete button. On the same page, click the refresh button;
-2.  Import the file into the sql_uninstall_materialize_theme.ocmod.sql in phpMyAdmin;
-3.  Open Extensions -> Extensions -> Choose the extension type -> Choose -> Themes;
-4.  Default Store Theme -> Edit;
-5.  Theme Directory -> Default;
-6.  Remove the materialize folder from: /catalog/view/theme.
-## Recommendations for setting theme images
-* Default Items Per Page: 18
-* List Description Limit: ~400
-* Category Image Size (W x H): 100x100
-* Product Image Thumb Size (W x H): 250x250
-* Product Image Popup Size (W x H): 1200x1200 or up to 2000x2000
-* Product Image List Size (W x H): 250x250
-* Additional Product Image Size (W x H): 100x100
-* Related Product Image Size (W x H): 250x250
-* Compare Image Size (W x H): 90x90
-* Wish List Image Size (W x H): 47x47
-* Cart Image Size (W x H): 47x47
-* Store Image Size (W x H): By the size of your logo
+* [Documentation in English](https://github.com/trydalcoholic/opencart-materialize/blob/master/Documentation_eng.pdf)
+* [Documentation in Russian](https://github.com/trydalcoholic/opencart-materialize/blob/master/Documentation_rus.pdf)
 ## Technologies used
 * [jQuery](https://github.com/jquery/jquery)
 * [Materialize](https://github.com/Dogfalo/materialize)

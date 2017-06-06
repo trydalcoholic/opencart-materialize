@@ -200,12 +200,12 @@
 									</ul>
 								</blockquote>
 								<ul class="collection z-depth-1">
-									<li class="collection-item">
+									<!-- <li class="collection-item">
 										<a class="inherit-text" href="/index.php?route=information/information&information_id=6" target="_blank"><span><i class="material-icons blue-grey-text text-darken-4 left">local_shipping</i>Доставим завтра <span class="text-underline">за 150 рублей</span></span></a>
 									</li>
 									<li class="collection-item">
 										<a class="inherit-text" href="#" target="_blank"><span><i class="material-icons blue-grey-text text-darken-4 left">store</i>Самовывоз сегодня <span class="text-underline">бесплатно</span></span></a>
-									</li>
+									</li> -->
 									<?php if ($price) { ?>
 										<?php if ($special) { ?>
 										<li class="collection-item">

@@ -160,6 +160,7 @@
 			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['text_shopping_cart'] = $this->language->get('text_shopping_cart');
+				$data['text_cat_says'] = $this->language->get('text_cat_says');
 			]]></add>
 		</operation>
 	</file>
@@ -1056,9 +1057,6 @@
 			} else {
 				$data['thumb_small'] = '';
 			}
-
-			$data['img_small'] = $this->config->get($this->config->get('config_theme') . '_image_additional_width').'x'.$this->config->get($this->config->get('config_theme') . '_image_additional_height');
-			$data['img_big'] = $this->config->get($this->config->get('config_theme') . '_image_thumb_width').'x'.$this->config->get($this->config->get('config_theme') . '_image_thumb_height');
 			]]>
 			</add>
 		</operation>

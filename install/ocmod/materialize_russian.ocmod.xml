@@ -35,6 +35,7 @@
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_shopping_cart']      = 'Ваша корзина';
+				$_['text_cat_says']           = 'Давай помогу тебе потратить деньги :)';
 			]]></add>
 		</operation>
 	</file>
