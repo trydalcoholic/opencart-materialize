@@ -63,7 +63,7 @@
 						<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/cart-empty.png" alt="Пустая корзина" width="128" height="128">
 					</div>
 					<div class="col s8 m9 l10 grey lighten-3 z-depth-1 comment-body">
-						<p>Давай помогу тебе потратить деньги :)</p>
+						<p><?php echo $text_cat_says; ?></p>
 					</div>
 				</div>
 			</div>

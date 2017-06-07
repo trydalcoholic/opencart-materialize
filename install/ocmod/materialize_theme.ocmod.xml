@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.65.1</version>
+	<version>0.65.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Favicon -->
@@ -72,6 +72,18 @@
 		</operation>
 	</file>
 	<!-- Other Materialize Settings -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$css = file_get_contents('catalog/view/theme/materialize/stylesheet/style.css');
+				$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
+				$css = str_replace(': ', ':', $css);
+				$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
+				$data['css'] = $css;
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/controller/common/footer.php">
 		<operation error="log">
 			<search><![CDATA[$data['contact'] = $this->url->link('information/contact');]]></search>
