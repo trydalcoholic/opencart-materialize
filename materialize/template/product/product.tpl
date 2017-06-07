@@ -732,8 +732,7 @@
 			$('button[id^=\'button-upload\']').on('click', function() {
 				var node = this;
 				$('#form-upload').remove();
-				$('#preloader').remove();
-				$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display:none;"><input type="file" name="file"></form><div id="preloader" class="preloader z-depth-3"><div class="preloader-wrapper small active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div>');
+				$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display:none;"><input type="file" name="file"></form><div id="modal-loading" class="modal"><div class="modal-content"><div class="row valign-wrapper"><div class="col s4 m3 center"><div class="preloader-wrapper active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div><div class="col s10 m9"><p id="loading-text" class="flow-text text-bold"><?php echo $text_loading; ?></p></div></div></div></div>');
 				$('#form-upload input[name=\'file\']').trigger('click');
 				if (typeof timer != 'undefined') {
 					clearInterval(timer);
@@ -741,6 +740,11 @@
 				timer = setInterval(function() {
 					if ($('#form-upload input[name=\'file\']').val() != '') {
 						clearInterval(timer);
+						$('#modal-loading').modal({
+							dismissible: false,
+							opacity: .7,
+							endingTop: '40%',
+						}).modal('open');
 						$.ajax({
 							url: 'index.php?route=tool/upload',
 							type: 'post',
@@ -749,11 +753,8 @@
 							cache: false,
 							contentType: false,
 							processData: false,
-							beforeSend: function() {
-								$('.preloader').addClass('active');
-							},
 							complete: function() {
-								$('.preloader').removeClass('active');
+								$('#modal-loading').modal('close');
 							},
 							success: function(json) {
 								if (json['error']) {
