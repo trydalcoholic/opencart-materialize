@@ -312,8 +312,8 @@
 											<div class="section">
 												<div class="input-field">
 													<i class="material-icons prefix">av_timer</i>
-													<label class="text-bold<?php echo ($option['required'] ? ' required' : ''); ?>" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
-													<input id="input-option<?php echo $option['product_option_id']; ?>" class="timepicker-<?php echo $lang; ?>" type="time" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option['value']; ?>" placeholder="<?php echo date('H:i'); ?>">
+													<label class="active text-bold<?php echo ($option['required'] ? ' required' : ''); ?>" for="input-option<?php echo $option['product_option_id']; ?>"><?php echo $option['name']; ?></label>
+													<input type="time" name="option[<?php echo $option['product_option_id']; ?>]" placeholder="<?php echo date('H:i'); ?>" value="" id="input-option<?php echo $option['product_option_id']; ?>" class="timepicker-<?php echo $lang; ?>">
 												</div>
 											</div>
 											<?php } ?>

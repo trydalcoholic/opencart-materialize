@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.65.2</version>
+	<version>0.65.3</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Favicon -->
@@ -173,6 +173,28 @@
 			<add position="after" trim="true"><![CDATA[
 				$data['text_shopping_cart'] = $this->language->get('text_shopping_cart');
 				$data['text_cat_says'] = $this->language->get('text_cat_says');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				$data['text_items'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/checkout/cart.php">
+		<operation error="log">
+			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				$json['total'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/compare.php">
+		<operation error="log">
+			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				$json['total'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 			]]></add>
 		</operation>
 	</file>
@@ -451,7 +473,7 @@
 			<add position="after" trim="true"><![CDATA[
 				$data['compare'] = $this->url->link('product/compare');
 				$this->language->load('product/compare');
-				$data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
+				$data['text_compare'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 				$data['text_comparison_list'] = $this->language->get('text_comparison_list');
 			]]></add>
 		</operation>

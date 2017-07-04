@@ -63,12 +63,12 @@
 				html += 		'<i class="material-icons modal-action modal-close right">close</i>';
 				html += 		'<div class="row"><h4><?php echo $text_cb_title; ?></h4></div>';
 				html += 		'<div class="row">';
-				html += 			'<div class="input-field">';
+				html += 			'<div class="input-field col s12">';
 				html += 				'<i class="material-icons prefix">account_circle</i>';
 				html += 				'<input id="cb-name" name="name" placeholder="<?php echo $text_cb_your_name; ?>" type="text" class="validate" required>';
 				html += 				'<label class="active" for="cb-name"><?php echo $text_cb_your_name; ?></label>';
 				html += 			'</div>';
-				html += 			'<div class="input-field">';
+				html += 			'<div class="input-field col s12">';
 				html += 				'<i class="material-icons prefix">phone</i>';
 				html += 				'<input id="cb-telephone" name="telephone" type="tel" class="validate" placeholder="+7_(___)___-____" data-inputmask="\'alias\':\'phone\'" required>';
 				html += 				'<label class="active" for="cb-telephone"><?php echo $text_cb_your_tel; ?></label>';
@@ -77,7 +77,7 @@
 				html += 	'</div>';
 				html += 	'<div class="modal-footer href-underline">';
 				html += 		'<input type="hidden" name="admin_email" value="<?php echo $email; ?>">';
-				html += 		'<input type="submit" class="btn modal-action red right" value="<?php echo $text_cb_btn; ?>">';
+				html += 		'<button type="submit" class="btn modal-action waves-effect waves-light red" value="<?php echo $text_cb_btn; ?>"><?php echo $text_cb_btn; ?></button>';
 				html += 	'</div>';
 				html += '</form>';
 				$('body').append(html);

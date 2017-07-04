@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.65.2</version>
+	<version>0.65.3</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Russian language settings Materialize -->
@@ -136,29 +136,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/ru-ru/common/cart.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_items']     = '%s товар(ов) - %s';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_items']     = '%s';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/checkout/cart.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_items']               = '%s товар(ов) - %s';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['text_items']               = '%s';
-			]]></add>
-		</operation>
-	</file>
 	<file path="catalog/language/ru-ru/product/compare.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_compare']      = 'Сравнение товаров (%s)';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['text_compare']      = '%s';
-			]]></add>
-		</operation>
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
@@ -286,7 +264,7 @@
 		<operation error="skip">
 			<search><![CDATA[$_['text_login']    = 'Необходимо войти в <a href="%s">Личный кабинет</a> или <a href="%s">создать учетную запись</a>, чтобы добавить товар <a href="%s">%s</a> в свои <a href="%s">закладки</a>!';]]></search>
 			<add position="replace" trim="true"><![CDATA[
-			$_['text_login']    = '<p>Необходимо войти в&nbsp;<a class="text-bold" href="%s">Личный кабинет</a>&nbsp;или&nbsp;<a class="text-bold" href="%s">создать учетную запись</a>, чтобы добавить товар&nbsp;<a class="text-bold" href="%s">%s</a> в свои&nbsp;<a class="text-bold" href="%s">закладки</a>!</p>';
+			$_['text_login']    = 'Необходимо войти в&nbsp;<a class="text-bold" href="%s">Личный кабинет</a>&nbsp;или&nbsp;<a class="text-bold" href="%s">создать учетную запись</a>, чтобы добавить товар&nbsp;<a class="text-bold" href="%s">%s</a> в свои&nbsp;<a class="text-bold" href="%s">закладки</a>!';
 			]]></add>
 		</operation>
 		<operation error="skip">
