@@ -361,7 +361,7 @@
 							<li class="tab"><a class="blue-grey-text text-darken-3 text-bold waves-effect waves-default" href="#tab-review" rel="nofollow"><?php echo $tab_review; ?></a></li>
 							<?php } ?>
 						</ul>
-						<div id="description-product" class="section description-product text-justify photo-swipe" itemprop="description">
+						<div id="description-product" class="section description-product text-justify" itemprop="description">
 							<?php echo $description; ?>
 						</div>
 						<?php if ($attribute_groups) { ?>
