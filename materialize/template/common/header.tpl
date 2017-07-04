@@ -59,7 +59,7 @@
 		<?php } ?>
 		"potentialAction": {
 			"@type": "SearchAction",
-			"target": "https://materialize.myefforts.ru/index.php?route=product/search&search={query}",
+			"target": "<?php echo $base; ?>index.php?route=product/search&search={query}",
 			"query-input": "required name=query"
 		}
 	}
