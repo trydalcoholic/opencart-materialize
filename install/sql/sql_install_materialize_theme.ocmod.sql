@@ -1,4 +1,4 @@
-ALTER TABLE `oc_product` ADD `add_cart` TINYINT(1) NULL DEFAULT '1' AFTER `date_modified`;
+ALTER TABLE `oc_product` ADD `add_cart` TINYINT(1) DEFAULT 1;
 
 CREATE TABLE IF NOT EXISTS `oc_product_customtab` (
 	`product_customtab_id` INT(11) NOT NULL AUTO_INCREMENT,

@@ -199,26 +199,20 @@
 										</li>
 									</ul>
 								</blockquote>
+								<?php if ($special || $reward) { ?>
 								<ul class="collection z-depth-1">
-									<!-- <li class="collection-item">
-										<a class="inherit-text" href="/index.php?route=information/information&information_id=6" target="_blank"><span><i class="material-icons blue-grey-text text-darken-4 left">local_shipping</i>Доставим завтра <span class="text-underline">за 150 рублей</span></span></a>
-									</li>
+									<?php if ($special) { ?>
 									<li class="collection-item">
-										<a class="inherit-text" href="#" target="_blank"><span><i class="material-icons blue-grey-text text-darken-4 left">store</i>Самовывоз сегодня <span class="text-underline">бесплатно</span></span></a>
-									</li> -->
-									<?php if ($price) { ?>
-										<?php if ($special) { ?>
-										<li class="collection-item">
-											<span><i class="material-icons blue-grey-text text-darken-4 left">local_offer</i><?php echo $text_percent; ?> <span class="deep-orange-text text-accent-3 text-bold"><?php echo $percent_discount; ?>%</span></span>
-										</li>
-										<?php } ?>
-										<?php if ($reward) { ?>
-										<li class="collection-item">
-											<span><i class="material-icons blue-grey-text text-darken-4 left">account_balance_wallet</i><span class="deep-orange-text text-accent-3 text-bold"><?php echo $reward; ?></span> <?php echo $text_bonus_points; ?></span>
-										</li>
-										<?php } ?>
+										<span><i class="material-icons blue-grey-text text-darken-4 left">local_offer</i><?php echo $text_percent; ?> <span class="deep-orange-text text-accent-3 text-bold"><?php echo $percent_discount; ?>%</span></span>
+									</li>
+									<?php } ?>
+									<?php if ($reward) { ?>
+									<li class="collection-item">
+										<span><i class="material-icons blue-grey-text text-darken-4 left">account_balance_wallet</i><span class="deep-orange-text text-accent-3 text-bold"><?php echo $reward; ?></span> <?php echo $text_bonus_points; ?></span>
+									</li>
 									<?php } ?>
 								</ul>
+								<?php } ?>
 								<div class="section">
 									<h6 class="center"><?php echo $text_payment_method; ?></h6>
 									<img class="responsive-img center-block lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/payments.jpg" alt="Оплата наличными и банковскими картами">
