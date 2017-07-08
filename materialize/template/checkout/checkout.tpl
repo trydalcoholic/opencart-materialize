@@ -367,9 +367,9 @@
 			                    url: 'index.php?route=checkout/payment_method',
 			                    dataType: 'html',
 			                    success: function(html) {
-									$('#collapse-shipping-method').parent().removeClass('active');
-									$('#collapse-shipping-method').parent().find('.collapsible-header').removeClass('active');
-									$('#collapse-shipping-method').parent().find('.collapsible-body').css('display','');
+									$('#collapse-payment-address').parent().removeClass('active');
+									$('#collapse-payment-address').parent().find('.collapsible-header').removeClass('active');
+									$('#collapse-payment-address').parent().find('.collapsible-body').css('display','');
 									$('#collapse-payment-method').html(html);
 									$('#collapse-payment-method').parent().find('.collapsible-header-disable').removeClass('collapsible-header-disable').addClass('collapsible-header active').html('<?php echo $text_checkout_payment_method; ?>');
 									$('#collapse-payment-method').parent().find('.collapsible-body').css('display','block');
@@ -553,8 +553,15 @@
 			                    url: 'index.php?route=checkout/payment_method',
 			                    dataType: 'html',
 			                    success: function(html) {
+									$('#collapse-payment-address').parent().removeClass('active');
+									$('#collapse-payment-address').parent().find('.collapsible-header').removeClass('active');
+									$('#collapse-payment-address').parent().find('.collapsible-body').css('display','');
 									$('#collapse-payment-method').html(html);
-									$('#collapse-payment-method').parent().find('div:first').html('<?php echo $text_checkout_payment_method; ?>');
+									$('#collapse-payment-method').parent().find('.collapsible-header-disable').removeClass('collapsible-header-disable').addClass('collapsible-header active').html('<?php echo $text_checkout_payment_method; ?>');
+									$('#collapse-payment-method').parent().find('.collapsible-body').css('display','block');
+									$('#collapse-payment-method').parent().addClass('active');
+									$('html,body').animate({scrollTop:$('#collapse-payment-method').parent().offset()},1150);
+									$('#collapse-checkout-confirm').parent().find('div:first').html('<?php echo $text_checkout_confirm; ?>');
 			                    },
 			                    error: function(xhr, ajaxOptions, thrownError) {
 			                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

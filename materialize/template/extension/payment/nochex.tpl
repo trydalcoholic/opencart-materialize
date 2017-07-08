@@ -24,9 +24,7 @@
   <input type="hidden" name="customer_phone_number" value="<?php echo $customer_phone_number; ?>" />
   <input type="hidden" name="email_address" value="<?php echo $email_address; ?>" />
   <input type="hidden" name="hide_billing_details" value="true" />
-  <div class="buttons">
-    <div class="pull-right">
-      <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
-    </div>
+  <div class="flex-reverse">
+    <button type="submit" value="<?php echo $button_confirm; ?>" class="btn waves-effect waves-light red"></button>
   </div>
 </form>

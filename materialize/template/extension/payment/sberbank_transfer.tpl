@@ -1,34 +1,22 @@
-<div class="well well-sm">
-  <p>
-    <?php echo $text_instruction; ?><br /><br />
-    <?php echo $text_printpay; ?><br /><br />
-    <?php echo $text_payment; ?><br /><br />
-    <?php if ($text_order_history) { ?>
-    <?php echo $text_order_history; ?><br /><br />
-    <?php } ?>
-    <?php echo $text_payment_comment; ?>
-  </p>
+<p><?php echo $text_instruction; ?></p>
+<p><?php echo $text_printpay; ?></p>
+<p><?php echo $text_payment; ?></p>
+<?php if ($text_order_history) { ?>
+<p><?php echo $text_order_history; ?></p>
+<?php } ?>
+<p><?php echo $text_payment_comment; ?></p>
+<div class="flex-reverse">
+	<button type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn waves-effect waves-light red"><?php echo $button_confirm; ?></button>
 </div>
-<div class="buttons">
-  <div class="pull-right">
-    <input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn btn-primary" />
-  </div>
-</div>
-<script type="text/javascript"><!--
+<script type="text/javascript">
 $('#button-confirm').on('click', function() {
-  $.ajax({
-    type: 'get',
-    url: 'index.php?route=extension/payment/sberbank_transfer/confirm',
+	$.ajax({
+		type: 'get',
+		url: 'index.php?route=extension/payment/sberbank_transfer/confirm',
 		cache: false,
-		beforeSend: function() {
-			$('#button-confirm').button('loading');
-		},
-		complete: function() {
-			$('#button-confirm').button('reset');
-		},
-    success: function() {
-      location = '<?php echo $continue; ?>';
-    }
-  });
+		success: function() {
+			location = '<?php echo $continue; ?>';
+		}
+	});
 });
-//--></script>
+</script>
