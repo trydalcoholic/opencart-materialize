@@ -91,51 +91,63 @@
 								<input type="text" name="postcode" value="<?php echo $postcode; ?>" id="input-postcode" class="validate">
 								<label for="input-postcode" class="required"><?php echo $entry_postcode; ?></label>
 							</div>
-							<div class="input-field">
-								<select name="country_id" id="input-country">
-									<option value="" disabled selected><?php echo $text_select; ?></option>
-									<?php foreach ($countries as $country) { ?>
-									<?php if ($country['country_id'] == $country_id) { ?>
-									<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
-									<?php } else { ?>
-									<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
-									<?php } ?>
-									<?php } ?>
-								</select>
-								<label for="input-country" class="required"><?php echo $entry_country; ?></label>
-							</div>
-							<label for="input-zone" class="required"><?php echo $entry_zone; ?></label>
-							<select name="zone_id" id="input-zone" class="browser-default">
-							</select>
-						</form>
-					</div>
-					<div class="card-panel">
-						<h2><?php echo $entry_default; ?></h2>
-						<div class="section">
-							<?php if ($default) { ?>
-								<input type="radio" name="default" value="1" checked="checked" id="default-yes" class="with-gap">
-								<label for="default-yes"><?php echo $text_yes; ?></label>
-
-								<input type="radio" name="default" value="0" id="default-no" class="with-gap">
-								<label for="default-no"><?php echo $text_no; ?></label>
-							<?php } else { ?>
-								<input type="radio" name="default" value="1" id="default-yes" class="with-gap">
-								<label for="default-yes"><?php echo $text_yes; ?></label>
-
-								<input type="radio" name="default" value="0" checked="checked" id="default-no" class="with-gap">
-								<label for="default-no"><?php echo $text_no; ?></label>
-							<?php } ?>
-						</div>
-						<div class="row">
-							<div class="col s6">
-								<a href="<?php echo $back; ?>" class="btn-flat waves-effect waves-light left href-underline"><?php echo $button_back; ?></a>
-							</div>
-							<div class="col s6">
-								<div class="flex-reverse no-padding">
-									<input type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red">
+							<div class="section">
+								<div class="input-field">
+									<select name="country_id" id="input-country">
+										<option value="" disabled selected><?php echo $text_select; ?></option>
+										<?php foreach ($countries as $country) { ?>
+										<?php if ($country['country_id'] == $country_id) { ?>
+										<option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
+										<?php } else { ?>
+										<option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+										<?php } ?>
+										<?php } ?>
+									</select>
+									<label for="input-country" class="required"><?php echo $entry_country; ?></label>
 								</div>
 							</div>
-						</div>
+							<div class="section">
+								<div class="input-field">
+									<select name="zone_id" id="input-zone">
+									</select>
+									<label for="input-zone" class="required"><?php echo $entry_zone; ?></label>
+								</div>
+							</div>
+							<h2><?php echo $entry_default; ?></h2>
+							<div class="section">
+								<?php if ($default) { ?>
+									<div class="switch">
+										<label>
+										<?php echo $text_no; ?>
+										<input type="checkbox" checked="checked">
+										<span class="lever"></span>
+										<?php echo $text_yes; ?>
+										</label>
+									</div>
+									<input name="default" id="default" value="1" type="hidden">
+								<?php } else { ?>
+									<div class="switch">
+										<label>
+										<?php echo $text_no; ?>
+										<input type="checkbox">
+										<span class="lever"></span>
+										<?php echo $text_yes; ?>
+										</label>
+									</div>
+									<input name="default" id="default" value="0" type="hidden">
+								<?php } ?>
+							</div>
+							<div class="row">
+								<div class="col s6">
+									<a href="<?php echo $back; ?>" class="btn-flat waves-effect waves-light left href-underline"><?php echo $button_back; ?></a>
+								</div>
+								<div class="col s6">
+									<div class="flex-reverse no-padding">
+										<button type="submit" value="<?php echo $button_continue; ?>" class="btn waves-effect waves-light red"><?php echo $button_continue; ?></button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 					<?php echo $content_bottom; ?>
 				</div>
@@ -196,6 +208,9 @@
 				});
 			});
 			$('select[name=\'country_id\']').trigger('change');
+			$('.switch input[type="checkbox"]').click(function(){
+				$('#default').attr('value', ($('#default').attr('value')==0) ? '1' : '0');
+			});
 		});
 	</script>
 <?php echo $footer; ?>
