@@ -2,9 +2,78 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.65.3</version>
+	<version>0.66</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Integration of the logo module into invoices -->
+	<file path="admin/model/sale/order.php">
+		<operation>
+			<search index="0"><![CDATA[return $query->row['total'];]]></search>
+			<add position="after" offset="2"><![CDATA[
+				public function getProductImage($product_id) {
+					$query = $this->db->query("SELECT image FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
+					return $query->row;
+				}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/sale/order.php">
+		<operation>
+			<search><![CDATA[$store_fax = $store_info['config_fax'];]]></search>
+			<add position="after"><![CDATA[$store_logo = $store_info['config_logo'];]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[=> $order_info['store_name'],]]></search>
+			<add position="after"><![CDATA['logo'              => HTTP_CATALOG . 'image/' .$store_info['config_logo'],]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[$option_data = array();]]></search>
+			<add position="after"><![CDATA[$product['img'] = $this->model_sale_order->getProductImage($product['product_id']);]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[$product_data[] = array(]]></search>
+			<add position="before"><![CDATA[$this->load->model('tool/image');]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[$product_data[] = array(]]></search>
+			<add position="after"><![CDATA[
+				'image'    => $this->model_tool_image->resize($product['img']['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height')),
+                        'width'    => $this->config->get($this->config->get('config_theme') . '_image_cart_width'),
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/sale/order_shipping.tpl">
+		<operation>
+			<search><![CDATA[<div style="page-break-after: always;">]]></search>
+			<add position="after"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[<td><b><?php echo $column_product; ?></b></td>]]></search>
+			<add position="replace"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[<td><?php echo $product['name']; ?>]]></search>
+			<add position="before"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/sale/order_invoice.tpl">
+		<operation>
+			<search><![CDATA[<div style="page-break-after: always;">]]></search>
+			<add position="after"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[<td><b><?php echo $column_product; ?></b></td>]]></search>
+			<add position="replace"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[<td><?php echo $product['name']; ?>]]></search>
+			<add position="before"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[colspan="4"]]></search>
+			<add position="replace"><![CDATA[colspan="5"]]></add>
+		</operation>
+	</file>
 	<!-- Favicon -->
 	<file path="system/library/document.php">
 		<operation error="log">
