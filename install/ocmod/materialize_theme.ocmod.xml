@@ -2,9 +2,18 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.66</version>
+	<version>0.66.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Getting category ID -->
+	<file path="catalog/controller/common/header.php">
+		<operation>
+			<search><![CDATA[$data['categories'][] = array(]]></search>
+			<add position="after"><![CDATA[
+				'id'       => $category['category_id'],
+			]]></add>
+		</operation>
+	</file>
 	<!-- Integration of the logo module into invoices -->
 	<file path="admin/model/sale/order.php">
 		<operation>

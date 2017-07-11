@@ -154,14 +154,14 @@
 									<?php foreach ($categories as $category) { ?>
 										<?php if ($category['children']) { ?>
 										<li>
-											<a class="dropdown-button dropdown-child" href="<?php echo $category['href']; ?>" data-constrainwidth="true" data-activates="dropdown-nav-top-<?php echo $cat = (strlen($category['href'])*rand(1,30)); ?>" itemprop="url"><span itemprop="name"><?php echo $category['name']; ?></span></a>
-											<ul id="dropdown-nav-top-<?php echo $cat; ?>" class="dropdown-content dropdown-overflow z-depth-5">
+											<a class="dropdown-button dropdown-child" href="<?php echo $category['href']; ?>" data-constrainwidth="true" data-activates="dropdown-nav-top-<?php echo $category['id']; ?>" itemprop="url"><span itemprop="name"><?php echo $category['name']; ?></span></a>
 											<?php foreach (array($category['children']) as $children) { ?>
-												<?php foreach ($children as $child) { ?>
-													<li><a class="truncate" href="<?php echo $child['href']; ?>"><?php echo $child['name']; ?></a></li>
-													<li class="divider"></li>
-												<?php } ?>
-											</ul>
+												<ul id="dropdown-nav-top-<?php echo $category['id']; ?>" class="dropdown-content dropdown-overflow z-depth-5">
+													<?php foreach ($children as $child) { ?>
+														<li><a class="truncate" href="<?php echo $child['href']; ?>"><?php echo $child['name']; ?></a></li>
+														<li class="divider"></li>
+													<?php } ?>
+												</ul>
 											<?php } ?>
 										</li>
 										<li class="divider"></li>
