@@ -72,7 +72,7 @@
 	</div>
 	<div class="modal-footer grey lighten-3">
 		<div class="container">
-			<a href="<?php echo $cart; ?>" class="modal-action btn-flat waves-effect waves-light right href-underline" rel="nofollow"><?php echo $text_cart; ?></a>
+			<a href="<?php echo $cart; ?>" class="modal-action btn-flat waves-effect waves-default href-underline" rel="nofollow"><?php echo $text_cart; ?></a>
 		</div>
 	</div>
 </div>

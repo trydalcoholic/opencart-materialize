@@ -520,6 +520,8 @@ $(document).ready(function() {
 
 				$.extend(this, option);
 
+				$(this).attr('autocomplete', 'off');
+
 				// Focus
 				$(this).on('focus', function() {
 					this.request();
@@ -585,7 +587,7 @@ $(document).ready(function() {
 
 						for (i = 0; i < json.length; i++) {
 							if (!json[i]['category']) {
-								html += '<li data-value="' + json[i]['value'] + '"><span>' + json[i]['label'] + '</span></li>';
+								html += '<li class="waves-effect" data-value="' + json[i]['value'] + '">' + json[i]['img'] + '<span>' + json[i]['label'] + '</span></li>';
 							}
 						}
 

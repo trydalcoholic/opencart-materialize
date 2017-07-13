@@ -2,23 +2,114 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.66.1</version>
+	<version>0.67</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Live search -->
+	<file path="catalog/controller/common/search.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="before" trim="true"><![CDATA[
+				public function autocomplete() {
+					$json = array();
+
+					if (isset($this->request->get['filter_name']) || isset($this->request->get['filter_model'])) {
+						$this->load->model('catalog/product');
+						$this->load->model('tool/image');
+
+						if (isset($this->request->get['filter_name'])) {
+							$filter_name = $this->request->get['filter_name'];
+						} else {
+							$filter_name = '';
+						}
+
+						if (isset($this->request->get['filter_model'])) {
+							$filter_model = $this->request->get['filter_model'];
+						} else {
+							$filter_model = '';
+						}
+
+						if (isset($this->request->get['limit'])) {
+							$limit = $this->request->get['limit'];
+						} else {
+							$limit = 5;
+						}
+
+						$filter_data = array(
+							'filter_name'  => $filter_name,
+							'filter_child' => 1,
+							'start'        => 0,
+							'limit'        => $limit
+						);
+
+						$results = $this->model_catalog_product->getProductsSearch($filter_data);
+
+						foreach ($results as $result) {
+							if (is_file(DIR_IMAGE . $result['image'])) {
+								$image = $this->model_tool_image->resize($result['image'], 40, 40);
+								$img ='<img src='.$image.' class="right circle">';
+							} else {
+								$image = $this->model_tool_image->resize('no_image.png', 40, 40);
+								$img ='<img src='.$image.' class="right circle" width="40" height="40">';
+							}
+							$json[] = array(
+								'product_id' => $result['product_id'],
+								'name'       => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+								'img'        => $img,
+								'sku'	     => $result['sku'],
+								'status'     => $result['status']
+							);
+						}
+					}
+
+					$this->response->addHeader('Content-Type: application/json');
+					$this->response->setOutput(json_encode($json));
+				}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['product_path'] = $this->url->link('product/product');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[public function getProduct($product_id) {]]></search>
+			<add position="before" trim="true"><![CDATA[
+			public function getProductsSearch($data = array()) {
+				$sql="select distinct PD.product_id as product_id, PD.name as name,P.sku as sku, P.image as image,CD.name as category, P.status as status FROM " . DB_PREFIX . "product as P LEFT JOIN " . DB_PREFIX . "product_description as PD ON(P.product_id = PD.product_id) LEFT JOIN " . DB_PREFIX . "product_to_category as PTC ON(P.product_id = PTC.product_id) Left JOIN " . DB_PREFIX . "category_description as CD ON (PTC.category_id = CD.category_id) WHERE P.status = 1 AND (PD.name LIKE '%".$data['filter_name']."%' OR P.model LIKE '%".$data['filter_name']."%' OR P.sku LIKE '%".$data['filter_name']."%' OR CD.name LIKE '%".$data['filter_name']."%') GROUP BY P.product_id";
+
+				if (isset($data['start']) || isset($data['limit'])) {
+					if ($data['start'] < 0) {
+						$data['start'] = 0;
+					}
+					if ($data['limit'] < 1) {
+						$data['limit'] = 20;
+					}
+					$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+				}
+				$query = $this->db->query($sql);
+				return $query->rows;
+			}
+			]]></add>
+		</operation>
+	</file>
 	<!-- Getting category ID -->
 	<file path="catalog/controller/common/header.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$data['categories'][] = array(]]></search>
-			<add position="after"><![CDATA[
+			<add position="after" trim="true"><![CDATA[
 				'id'       => $category['category_id'],
 			]]></add>
 		</operation>
 	</file>
 	<!-- Integration of the logo module into invoices -->
 	<file path="admin/model/sale/order.php">
-		<operation>
+		<operation error="log">
 			<search index="0"><![CDATA[return $query->row['total'];]]></search>
-			<add position="after" offset="2"><![CDATA[
+			<add position="after" offset="2" trim="true"><![CDATA[
 				public function getProductImage($product_id) {
 					$query = $this->db->query("SELECT image FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
 					return $query->row;
@@ -27,60 +118,60 @@
 		</operation>
 	</file>
 	<file path="admin/controller/sale/order.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$store_fax = $store_info['config_fax'];]]></search>
-			<add position="after"><![CDATA[$store_logo = $store_info['config_logo'];]]></add>
+			<add position="after" trim="true"><![CDATA[$store_logo = $store_info['config_logo'];]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[=> $order_info['store_name'],]]></search>
-			<add position="after"><![CDATA['logo'              => HTTP_CATALOG . 'image/' .$store_info['config_logo'],]]></add>
+			<add position="after" trim="true"><![CDATA['logo'              => HTTP_CATALOG . 'image/' .$store_info['config_logo'],]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$option_data = array();]]></search>
-			<add position="after"><![CDATA[$product['img'] = $this->model_sale_order->getProductImage($product['product_id']);]]></add>
+			<add position="after" trim="true"><![CDATA[$product['img'] = $this->model_sale_order->getProductImage($product['product_id']);]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$product_data[] = array(]]></search>
-			<add position="before"><![CDATA[$this->load->model('tool/image');]]></add>
+			<add position="before" trim="true"><![CDATA[$this->load->model('tool/image');]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$product_data[] = array(]]></search>
-			<add position="after"><![CDATA[
+			<add position="after" trim="true"><![CDATA[
 				'image'    => $this->model_tool_image->resize($product['img']['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height')),
                         'width'    => $this->config->get($this->config->get('config_theme') . '_image_cart_width'),
 			]]></add>
 		</operation>
 	</file>
 	<file path="admin/view/template/sale/order_shipping.tpl">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[<div style="page-break-after: always;">]]></search>
-			<add position="after"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
+			<add position="after" trim="true"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[<td><b><?php echo $column_product; ?></b></td>]]></search>
-			<add position="replace"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
+			<add position="replace" trim="true"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[<td><?php echo $product['name']; ?>]]></search>
-			<add position="before"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
+			<add position="before" trim="true"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
 		</operation>
 	</file>
 	<file path="admin/view/template/sale/order_invoice.tpl">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[<div style="page-break-after: always;">]]></search>
-			<add position="after"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
+			<add position="after" trim="true"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[<td><b><?php echo $column_product; ?></b></td>]]></search>
-			<add position="replace"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
+			<add position="replace" trim="true"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[<td><?php echo $product['name']; ?>]]></search>
-			<add position="before"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
+			<add position="before" trim="true"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[colspan="4"]]></search>
-			<add position="replace"><![CDATA[colspan="5"]]></add>
+			<add position="replace" trim="true"><![CDATA[colspan="5"]]></add>
 		</operation>
 	</file>
 	<!-- Favicon -->

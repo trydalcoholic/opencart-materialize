@@ -197,7 +197,7 @@
 							<div class="nav-wrapper blue-grey lighten-1">
 								<div id="search-form-side" class="input-field">
 									<input id="search-input-side" type="search" name="search" value="">
-									<label class="activator label-icon" for="search-input-side"><i class="material-icons">search</i></label>
+									<label class="activator label-icon label-icon-search" for="search-input-side"><i class="material-icons">search</i></label>
 									<i id="reset-search-side" class="material-icons">close</i>
 								</div>
 							</div>
