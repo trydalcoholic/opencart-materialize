@@ -92,7 +92,7 @@
 									</div>
 									<a href="<?php echo $forgotten; ?>"><?php echo $text_forgotten; ?></a>
 									<div class="flex-reverse">
-										<input type="submit" value="<?php echo $button_login; ?>" class="btn waves-effect waves-light red href-underline">
+										<button type="submit" value="<?php echo $button_login; ?>" class="btn waves-effect waves-light red"><?php echo $button_login; ?></button>
 										<?php if ($redirect) { ?>
 										<input type="hidden" name="redirect" value="<?php echo $redirect; ?>">
 										<?php } ?>

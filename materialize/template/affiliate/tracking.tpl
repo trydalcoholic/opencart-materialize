@@ -91,7 +91,7 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			$(document).ready(function() {
-				$('input.autocomplete').autocomplete({
+				$('input[name=\'product\']').autocomplete({
 					'source': function(request, response) {
 						$.ajax({
 							url: 'index.php?route=affiliate/tracking/autocomplete&filter_name=' +  encodeURIComponent(request),
@@ -100,6 +100,7 @@
 								response($.map(json, function(item) {
 									return {
 										label: item['name'],
+										img: item['img'],
 										value: item['link']
 									}
 								}));

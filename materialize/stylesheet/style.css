@@ -459,7 +459,8 @@ iframe {border:none;}
 	/* Fix label */
 	.select-wrapper+label {top:-25px;}
 	/* Shadow for dropdown select */
-	.autocomplete-content.dropdown-content,.dropdown-content.select-dropdown.active {box-shadow:0 16px 24px 2px rgba(0,0,0,0.14),0 6px 30px 5px rgba(0,0,0,0.12),0 8px 10px -5px rgba(0,0,0,0.3);z-index:996;}
+	.dropdown-content.select-dropdown.active {box-shadow:0 16px 24px 2px rgba(0,0,0,0.14),0 6px 30px 5px rgba(0,0,0,0.12),0 8px 10px -5px rgba(0,0,0,0.3);z-index:996;}
+	.autocomplete-content.dropdown-content{box-shadow:0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12),0 3px 5px -1px rgba(0,0,0,0.3)}
 	/* Search */
 	.input-field input[type=search] {border-bottom:none;height:100%;}
 	.input-field input[type=search]:focus {width:calc(100% - 7rem);padding-right:3rem;;}
