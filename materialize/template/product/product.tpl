@@ -145,11 +145,11 @@
 									<div class="col s8 flow-text" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 										<?php if ($price) { ?>
 											<?php if (!$special) { ?>
-												<span class="card-price"><?php echo $price; ?></span>
+												<span class="card-price old-prices"><?php echo $price; ?></span>
 												<meta itemprop="price" content="<?php echo preg_replace('/[^0-9,.]/','',$price); ?>">
 											<?php } else { ?>
 												<span class="card-price old-price grey-text"><?php echo $price; ?></span>
-												<span class="card-price red-text text-darken-2"><?php echo $special; ?></span>
+												<span class="card-price new-prices red-text text-darken-2"><?php echo $special; ?></span>
 												<meta itemprop="price" content="<?php echo preg_replace('/[^0-9,.]/','',$special); ?>">
 											<?php } ?>
 										<?php } ?>
@@ -320,7 +320,7 @@
 										<?php } ?>
 									<?php } ?>
 									<div class="section">
-										<label for="input-quantity"><?php echo $entry_qty; ?></label>
+										<label class="text-bold" for="input-quantity"><?php echo $entry_qty; ?></label>
 										<div class="input-number">
 											<button id="quantity-minus" class="btn waves-effect waves-default grey lighten-3 black-text">-</button>
 											<input id="input-quantity" type="number" name="quantity" value="<?php echo $minimum; ?>" size="2" min="<?php echo $minimum; ?>">
@@ -711,15 +711,20 @@
 			$('#quantity-minus').click(function () {
 				var $input = $('#input-quantity');
 				var count = parseInt($input.val()) - 1;
-				count = count < <?php echo $minimum; ?> ? <?php echo $minimum; ?> : count;
+				if (count < <?php echo $minimum; ?>) {
+					count = <?php echo $minimum; ?>;
+					Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $text_minimum; ?></span>',7000,'toast-warning rounded');
+				}
 				$input.val(count);
 				$input.change();
+				changePrice();
 				return false;
 			});
 			$('#quantity-plus').click(function () {
 				var $input = $('#input-quantity');
 				$input.val(parseInt($input.val()) + 1);
 				$input.change();
+				changePrice();
 				return false;
 			});
 			// Download file
@@ -804,6 +809,40 @@
 					}
 				});
 			});
+			// Update price
+			$("#product input[type='checkbox']").click(function() {changePrice();});
+			$("#product input[type='radio']").click(function() {changePrice();});
+			$("#product select").change(function() {changePrice();});
+			var quantity = $('#input-quantity');
+			if (quantity.val() < <?php echo $minimum ?>) {
+				quantity.val(<?php echo $minimum ?>);
+				changePrice();
+			}
+			else {changePrice();}
+
+			quantity.blur(function() {
+				if (quantity.val() < <?php echo $minimum ?>) {
+					quantity.val(<?php echo $minimum ?>);
+					Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $text_minimum; ?></span>',7000,'toast-warning rounded');
+					changePrice();
+				}
+				else {changePrice();}
+			});
+			function changePrice() {
+				$.ajax({
+					url: 'index.php?route=product/product/updatePrice&product_id=<?php echo $product_id; ?>',
+					type: 'post',
+					dataType: 'json',
+					data: $('#product input[name=\'quantity\'], #product select, #product input[type=\'checkbox\']:checked, #product input[type=\'radio\']:checked'),
+					success: function(json) {
+						if (json['new_price_found']) {
+							$('.new-prices').html(json['total_price']);
+						} else {
+							$('.old-prices').html(json['total_price']);
+						}
+					}
+				});
+			}
 		});
 	</script>
 <?php echo $footer; ?>
