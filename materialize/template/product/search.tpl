@@ -30,7 +30,7 @@
 					<h1><?php echo $heading_title; ?></h1>
 					<ul class="collapsible" data-collapsible="expandable">
 						<li>
-							<div class="collapsible-header text-bold"><label for="input-search"><?php echo $entry_search; ?></label><i class="material-icons right">arrow_drop_down</i></div>
+							<div class="collapsible-header text-bold arrow-rotate"><label for="input-search"><?php echo $entry_search; ?></label></div>
 							<div class="collapsible-body white">
 								<div class="row">
 									<div class="col s6 input-field">
@@ -92,7 +92,7 @@
 					<?php if ($products) { ?>
 					<ul class="collapsible" data-collapsible="expandable">
 						<li>
-							<div class="collapsible-header text-bold"><?php echo $text_sort_short; ?><i class="material-icons right">arrow_drop_down</i></div>
+							<div class="collapsible-header text-bold arrow-rotate"><?php echo $text_sort_short; ?></div>
 							<div class="collapsible-body white">
 								<div class="row">
 									<div class="col s6 m6 input-field inline">

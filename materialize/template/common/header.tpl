@@ -207,8 +207,8 @@
 								<a class="white-text" href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>" rel="nofollow"><i class="material-icons left">phone</i><?php echo $telephone; ?></a>
 								<a class="white-text" href="mailto:<?php echo $email; ?>" rel="nofollow"><i class="material-icons left">email</i><?php echo $email; ?></a>
 							</div>
-							<div class="col s3 no-padding">
-								<div id="side-settings" class="btn-floating waves-effect waves-light transparent z-depth-0 dropdown-button" data-activates="dropdown-side-settings" data-alignment="right" data-constrainWidth="false">
+							<div class="col s3 no-padding" style="overflow-x: hidden;">
+								<div id="side-settings" class="btn-floating waves-effect waves-light transparent z-depth-0 dropdown-button" data-activates="dropdown-side-settings" data-alignment="left" data-constrainWidth="false">
 									<i class="material-icons white-text">more_vert</i>
 								</div>
 								<ul id="dropdown-side-settings" class="dropdown-content">

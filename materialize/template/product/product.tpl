@@ -203,12 +203,12 @@
 								<ul class="collection z-depth-1">
 									<?php if ($special) { ?>
 									<li class="collection-item">
-										<span><i class="material-icons blue-grey-text text-darken-4 left">local_offer</i><?php echo $text_percent; ?> <span class="deep-orange-text text-accent-3 text-bold"><?php echo $percent_discount; ?>%</span></span>
+										<i class="material-icons blue-grey-text text-darken-4 left">local_offer</i><?php echo $text_percent; ?> <span class="deep-orange-text text-accent-3 text-bold"><?php echo $percent_discount; ?>%</span>
 									</li>
 									<?php } ?>
 									<?php if ($reward) { ?>
 									<li class="collection-item">
-										<span><i class="material-icons blue-grey-text text-darken-4 left">account_balance_wallet</i><span class="deep-orange-text text-accent-3 text-bold"><?php echo $reward; ?></span> <?php echo $text_bonus_points; ?></span>
+										<i class="material-icons blue-grey-text text-darken-4 left">account_balance_wallet</i><span class="deep-orange-text text-accent-3 text-bold"><?php echo $reward; ?></span> <?php echo $text_bonus_points; ?>
 									</li>
 									<?php } ?>
 								</ul>
@@ -369,7 +369,7 @@
 							<ul class="collapsible" data-collapsible="accordion">
 							<?php foreach ($attribute_groups as $attribute_group) { ?>
 								<li>
-									<div class="collapsible-header grey lighten-4 attribute-collapsible"><span class="text-bold truncate"><?php echo $attribute_group['name']; ?></span></div>
+									<div class="collapsible-header grey lighten-4 attribute-collapsible arrow-rotate"><span class="text-bold truncate"><?php echo $attribute_group['name']; ?></span></div>
 									<div class="collapsible-body no-padding">
 										<table class="bordered striped centered">
 											<tbody>
@@ -397,7 +397,7 @@
 						<div id="tab-review" class="section">
 							<ul class="collapsible" data-collapsible="accordion">
 								<li>
-									<div class="collapsible-header"><span><i class="material-icons">mode_edit</i><?php echo $text_write; ?></span></div>
+									<div class="collapsible-header arrow-rotate"><i class="material-icons left">mode_edit</i><?php echo $text_write; ?></div>
 									<div class="collapsible-body no-padding">
 										<div class="row">
 											<div class="col s12 offset-l3 l6">
@@ -798,7 +798,7 @@
 						if (json['success']) {
 							Materialize.toast('<span><i class="material-icons left">check</i>'+json['success']+'</span>',7000,'toast-success rounded');
 							setTimeout(function () {
-								$('#cart').html('<i class="material-icons left">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating pulse z-depth-1">'+json['total']+'</small>');
+								$('#cart').html('<i class="material-icons pointer-events-none">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating pulse z-depth-1 pointer-events-none">'+json['total']+'</small>');
 							}, 100);
 							$('#cart').addClass('pulse');
 							$('#modal-cart-content').load('index.php?route=common/cart/info .modal-content .container');
