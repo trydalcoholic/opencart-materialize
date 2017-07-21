@@ -1,5 +1,5 @@
 <div class="flex-reverse">
-	<button type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn waves-effect waves-light red"></button>
+	<button type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="btn waves-effect waves-light red"><?php echo $button_confirm; ?></button>
 </div>
 <script type="text/javascript">
 $('#button-confirm').on('click', function() {
