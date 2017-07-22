@@ -137,25 +137,25 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			<?php if ($error_warning) { ?>
-				Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $error_warning; ?></span>',7000,'toast-warning rounded')
+				Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $error_warning; ?></span>',7000,'toast-warning')
 			<?php } ?>
 			<?php if ($error_to_name) { ?>
-				Materialize.toast('<span><i class="material-icons left">info</i><?php echo str_replace('\'','&#39;',$error_to_name); ?></span>',7000,'toast-info rounded')
+				Materialize.toast('<span><i class="material-icons left">info</i><?php echo str_replace('\'','&#39;',$error_to_name); ?></span>',7000,'toast-info')
 			<?php } ?>
 			<?php if ($error_to_email) { ?>
-				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_to_email; ?></span>',7000,'toast-info rounded')
+				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_to_email; ?></span>',7000,'toast-info')
 			<?php } ?>
 			<?php if ($error_from_name) { ?>
-				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_from_name; ?></span>',7000,'toast-info rounded')
+				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_from_name; ?></span>',7000,'toast-info')
 			<?php } ?>
 			<?php if ($error_from_email) { ?>
-				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_from_email; ?></span>',7000,'toast-info rounded')
+				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_from_email; ?></span>',7000,'toast-info')
 			<?php } ?>
 			<?php if ($error_theme) { ?>
-				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_theme; ?></span>',7000,'toast-info rounded')
+				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_theme; ?></span>',7000,'toast-info')
 			<?php } ?>
 			<?php if ($error_amount) { ?>
-				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_amount; ?></span>',7000,'toast-info rounded')
+				Materialize.toast('<span><i class="material-icons left">info</i><?php echo $error_amount; ?></span>',7000,'toast-info')
 			<?php } ?>
 		});
 	</script>

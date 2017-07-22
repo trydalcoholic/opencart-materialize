@@ -46,16 +46,16 @@
 				success: function(json) {
 					if (json['error']) {
 						if (json['error']['warning']) {
-							Materialize.toast('<i class="material-icons left">check</i>'+json['error']['warning'],7000,'toast-warning rounded');
+							Materialize.toast('<i class="material-icons left">check</i>'+json['error']['warning'],7000,'toast-warning');
 						}
 						if (json['error']['country']) {
-							Materialize.toast('<i class="material-icons left">check</i>'+json['error']['country'],7000,'toast-warning rounded');
+							Materialize.toast('<i class="material-icons left">check</i>'+json['error']['country'],7000,'toast-warning');
 						}
 						if (json['error']['zone']) {
-							Materialize.toast('<i class="material-icons left">check</i>'+json['error']['zone'],7000,'toast-warning rounded');
+							Materialize.toast('<i class="material-icons left">check</i>'+json['error']['zone'],7000,'toast-warning');
 						}
 						if (json['error']['postcode']) {
-							Materialize.toast('<i class="material-icons left">check</i>'+json['error']['postcode'],7000,'toast-warning rounded');
+							Materialize.toast('<i class="material-icons left">check</i>'+json['error']['postcode'],7000,'toast-warning');
 						}
 					}
 
@@ -78,7 +78,7 @@
 									html += '<label for="radio-'+json['shipping_method'][i]['quote'][j]['code']+'">' + json['shipping_method'][i]['quote'][j]['title'] + ' - ' + json['shipping_method'][i]['quote'][j]['text'] + '</label><br>';
 								}
 							} else {
-								Materialize.toast('<i class="material-icons left">check</i>'+json['shipping_method'][i]['error'],7000,'toast-warning rounded');
+								Materialize.toast('<i class="material-icons left">check</i>'+json['shipping_method'][i]['error'],7000,'toast-warning');
 							}
 						}
 
@@ -119,7 +119,7 @@
 				dataType: 'json',
 				success: function(json) {
 					if (json['error']) {
-						Materialize.toast('<i class="material-icons left">check</i>'+json['error'],7000,'toast-warning rounded');
+						Materialize.toast('<i class="material-icons left">check</i>'+json['error'],7000,'toast-warning');
 					}
 					if (json['redirect']) {
 						location = json['redirect'];

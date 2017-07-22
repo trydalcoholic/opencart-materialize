@@ -97,7 +97,7 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			<?php if ($error_warning) { ?>
-				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_warning; ?>',7000,'toast-warning rounded')
+				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_warning; ?>',7000,'toast-warning')
 			<?php } ?>
 		});
 	</script>

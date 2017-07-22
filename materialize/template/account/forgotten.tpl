@@ -88,7 +88,7 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			<?php if ($error_warning) { ?>
-				Materialize.toast('<?php echo $error_warning; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_warning; ?>',7000)
 			<?php } ?>
 		});
 	</script>

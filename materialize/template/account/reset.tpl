@@ -92,10 +92,10 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			<?php if ($error_password) { ?>
-				Materialize.toast('<?php echo $error_password; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_password; ?>',7000)
 			<?php } ?>
 			<?php if ($error_confirm) { ?>
-				Materialize.toast('<?php echo $error_confirm; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_confirm; ?>',7000)
 			<?php } ?>
 		});
 	</script>

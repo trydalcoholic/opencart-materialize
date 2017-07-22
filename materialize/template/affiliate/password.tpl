@@ -98,10 +98,10 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			<?php if ($error_password) { ?>
-				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_password; ?>',7000,'toast-warning rounded')
+				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_password; ?>',7000,'toast-warning')
 			<?php } ?>
 			<?php if ($error_confirm) { ?>
-				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_confirm; ?>',7000,'toast-warning rounded')
+				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_confirm; ?>',7000,'toast-warning')
 			<?php } ?>
 		});
 	</script>

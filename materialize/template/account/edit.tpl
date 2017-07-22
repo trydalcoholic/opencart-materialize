@@ -103,16 +103,16 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			<?php if ($error_firstname) { ?>
-				Materialize.toast('<?php echo $error_firstname; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_firstname; ?>',7000)
 			<?php } ?>
 			<?php if ($error_lastname) { ?>
-				Materialize.toast('<?php echo $error_lastname; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_lastname; ?>',7000)
 			<?php } ?>
 			<?php if ($error_email) { ?>
-				Materialize.toast('<?php echo $error_email; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_email; ?>',7000)
 			<?php } ?>
 			<?php if ($error_telephone) { ?>
-				Materialize.toast('<?php echo $error_telephone; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_telephone; ?>',7000)
 			<?php } ?>
 		});
 	</script>

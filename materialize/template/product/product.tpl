@@ -698,10 +698,10 @@
 					data: 'name=' + encodeURIComponent($('input[name=\'name\']').val()) + '&text=' + encodeURIComponent($('textarea[name=\'text\']').val()) + '&rating=' + encodeURIComponent($('input[name=\'rating\']:checked').val() ? $('input[name=\'rating\']:checked').val() : '') + '&captcha=' + encodeURIComponent($('input[name=\'captcha\']').val()),
 					success: function(json) {
 						if (json['error']) {
-							Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning rounded');
+							Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning');
 						}
 						if (json['success']) {
-							Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success rounded');
+							Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success');
 							$('input[name=\'name\']').val('');
 							$('textarea[name=\'text\']').val('');
 							$('input[name=\'rating\']:checked').prop('checked', false);
@@ -717,7 +717,7 @@
 				var count = parseInt($input.val()) - 1;
 				if (count < <?php echo $minimum; ?>) {
 					count = <?php echo $minimum; ?>;
-					Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $text_minimum; ?></span>',7000,'toast-warning rounded');
+					Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $text_minimum; ?></span>',7000,'toast-warning');
 				}
 				$input.val(count);
 				$input.change();
@@ -762,10 +762,10 @@
 							},
 							success: function(json) {
 								if (json['error']) {
-									Materialize.toast('<span><i class="material-icons left">warning</i>'+json["error"]+'</span>',7000,'toast-warning rounded');
+									Materialize.toast('<span><i class="material-icons left">warning</i>'+json["error"]+'</span>',7000,'toast-warning');
 								}
 								if (json['success']) {
-									Materialize.toast('<span><i class="material-icons left">check</i>'+json["success"]+'</span>',7000,'toast-success rounded');
+									Materialize.toast('<span><i class="material-icons left">check</i>'+json["success"]+'</span>',7000,'toast-success');
 									$(node).parent().find('input').val(json['code']);
 								}
 							},
@@ -789,20 +789,20 @@
 								for (i in json['error']['option']) {
 									var element = $('#input-option' + i.replace('_', '-'));
 									if (element.parent().hasClass('input-group')) {
-										Materialize.toast('<span><i class="material-icons left">info</i>'+json["error"]["option"][i]+'</span>',7000,'toast-info rounded');
+										Materialize.toast('<span><i class="material-icons left">info</i>'+json["error"]["option"][i]+'</span>',7000,'toast-info');
 									} else {
-										Materialize.toast('<span><i class="material-icons left">info</i>'+json["error"]["option"][i]+'</span>',7000,'toast-info rounded');
+										Materialize.toast('<span><i class="material-icons left">info</i>'+json["error"]["option"][i]+'</span>',7000,'toast-info');
 									}
 								}
 							}
 							if (json['error']['recurring']) {
-								Materialize.toast('<span><i class="material-icons left">warning</i>'+json["error"]["recurring"]+'</span>',7000,'toast-warning rounded');
+								Materialize.toast('<span><i class="material-icons left">warning</i>'+json["error"]["recurring"]+'</span>',7000,'toast-warning');
 							}
 						}
 						if (json['success']) {
-							Materialize.toast('<span><i class="material-icons left">check</i>'+json['success']+'</span>',7000,'toast-success rounded');
+							Materialize.toast('<span><i class="material-icons left">check</i>'+json['success']+'</span>',7000,'toast-success');
 							setTimeout(function () {
-								$('#cart').html('<i class="material-icons pointer-events-none">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating pulse z-depth-1 pointer-events-none">'+json['total']+'</small>');
+								$('#cart').html('<i class="material-icons">shopping_cart</i><small id="cart-total" class="light-blue darken-1 btn-floating pulse z-depth-1">'+json['total']+'</small>');
 							}, 100);
 							$('#cart').addClass('pulse');
 							$('#modal-cart-content').load('index.php?route=common/cart/info .modal-content .container');
@@ -827,7 +827,7 @@
 			quantity.blur(function() {
 				if (quantity.val() < <?php echo $minimum ?>) {
 					quantity.val(<?php echo $minimum ?>);
-					Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $text_minimum; ?></span>',7000,'toast-warning rounded');
+					Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $text_minimum; ?></span>',7000,'toast-warning');
 					changePrice();
 				}
 				else {changePrice();}

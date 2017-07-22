@@ -249,40 +249,40 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			<?php if ($error_warning) { ?>
-				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_warning; ?>',7000,'toast-warning rounded')
+				Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_warning; ?>',7000,'toast-warning')
 			<?php } ?>
 			<?php if ($error_firstname) { ?>
-				Materialize.toast('<?php echo $error_firstname; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_firstname; ?>',7000)
 			<?php } ?>
 			<?php if ($error_lastname) { ?>
-				Materialize.toast('<?php echo $error_lastname; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_lastname; ?>',7000)
 			<?php } ?>
 			<?php if ($error_email) { ?>
-				Materialize.toast('<?php echo $error_email; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_email; ?>',7000)
 			<?php } ?>
 			<?php if ($error_telephone) { ?>
-				Materialize.toast('<?php echo $error_telephone; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_telephone; ?>',7000)
 			<?php } ?>
 			<?php if ($error_address_1) { ?>
-				Materialize.toast('<?php echo $error_address_1; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_address_1; ?>',7000)
 			<?php } ?>
 			<?php if ($error_city) { ?>
-				Materialize.toast('<?php echo $error_city; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_city; ?>',7000)
 			<?php } ?>
 			<?php if ($error_postcode) { ?>
-				Materialize.toast('<?php echo $error_postcode; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_postcode; ?>',7000)
 			<?php } ?>
 			<?php if ($error_country) { ?>
-				Materialize.toast('<?php echo $error_country; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_country; ?>',7000)
 			<?php } ?>
 			<?php if ($error_zone) { ?>
-				Materialize.toast('<?php echo $error_zone; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_zone; ?>',7000)
 			<?php } ?>
 			<?php if ($error_password) { ?>
-				Materialize.toast('<?php echo $error_password; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_password; ?>',7000)
 			<?php } ?>
 			<?php if ($error_confirm) { ?>
-				Materialize.toast('<?php echo $error_confirm; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_confirm; ?>',7000)
 			<?php } ?>
 			$('select[name=\'country_id\']').on('change', function() {
 				$.ajax({

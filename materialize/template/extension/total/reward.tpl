@@ -20,7 +20,7 @@
 				dataType: 'json',
 				success: function(json) {
 					if (json['error']) {
-						Materialize.toast('<i class="material-icons left">check</i>'+json['error'],7000,'toast-warning rounded');
+						Materialize.toast('<i class="material-icons left">check</i>'+json['error'],7000,'toast-warning');
 					}
 					if (json['redirect']) {
 						location = json['redirect'];

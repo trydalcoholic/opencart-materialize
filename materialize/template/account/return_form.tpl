@@ -179,31 +179,31 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			<?php if ($error_warning) { ?>
-				Materialize.toast('<?php echo $error_warning; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_warning; ?>',7000)
 			<?php } ?>
 			<?php if ($error_firstname) { ?>
-				Materialize.toast('<?php echo $error_firstname; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_firstname; ?>',7000)
 			<?php } ?>
 			<?php if ($error_lastname) { ?>
-				Materialize.toast('<?php echo $error_lastname; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_lastname; ?>',7000)
 			<?php } ?>
 			<?php if ($error_telephone) { ?>
-				Materialize.toast('<?php echo $error_telephone; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_telephone; ?>',7000)
 			<?php } ?>
 			<?php if ($error_email) { ?>
-				Materialize.toast('<?php echo $error_email; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_email; ?>',7000)
 			<?php } ?>
 			<?php if ($error_order_id) { ?>
-				Materialize.toast('<?php echo $error_order_id; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_order_id; ?>',7000)
 			<?php } ?>
 			<?php if ($error_product) { ?>
-				Materialize.toast('<?php echo $error_product; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_product; ?>',7000)
 			<?php } ?>
 			<?php if ($error_model) { ?>
-				Materialize.toast('<?php echo $error_model; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_model; ?>',7000)
 			<?php } ?>
 			<?php if ($error_reason) { ?>
-				Materialize.toast('<?php echo $error_reason; ?>',7000,'rounded')
+				Materialize.toast('<?php echo $error_reason; ?>',7000)
 			<?php } ?>
 		});
 	</script>

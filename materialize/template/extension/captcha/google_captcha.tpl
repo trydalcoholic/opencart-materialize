@@ -6,7 +6,7 @@
 		<?php if ($error_captcha) { ?>
 		<script>
 			document.addEventListener("DOMContentLoaded", function(event) {
-				Materialize.toast('<?php echo $error_captcha; ?>',4000,'rounded')
+				Materialize.toast('<?php echo $error_captcha; ?>',4000)
 			});
 		</script>
 		<?php } ?>
@@ -15,7 +15,7 @@
 		<?php if ($error_captcha) { ?>
 		<script>
 			document.addEventListener("DOMContentLoaded", function(event) {
-				Materialize.toast('<?php echo $error_captcha; ?>',4000,'rounded')
+				Materialize.toast('<?php echo $error_captcha; ?>',4000)
 			});
 		</script>
 		<?php } ?>

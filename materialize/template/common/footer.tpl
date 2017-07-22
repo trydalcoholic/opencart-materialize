@@ -90,7 +90,7 @@
 						type: 'post',
 						data: $(this).serialize(),
 						success: function() {
-							Materialize.toast('<span><i class="material-icons left">check</i>Ваша заявка успешно отправлена!</span>',7000,'toast-success rounded');
+							Materialize.toast('<span><i class="material-icons left">check</i>Ваша заявка успешно отправлена!</span>',7000,'toast-success');
 							$(".modal-close").click();
 						},
 						error: function(xhr, ajaxOptions, thrownError) {
