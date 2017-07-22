@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-	<name><![CDATA[<font color="#263238"><b>Materialize Theme — english settings</b></font>]]></name>
-	<code>materialize-theme-english-settings</code>
+	<name><![CDATA[<font color="#263238"><b>Materialize Theme — romana settings</b></font>]]></name>
+	<code>materialize-theme-romana-settings</code>
 	<version>0.68.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
