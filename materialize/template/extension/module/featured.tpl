@@ -13,7 +13,11 @@
 					<span class="card-title"><a href="<?php echo $product['href']; ?>" class="grey-text text-darken-4"><?php echo $product['name']; ?></a></span>
 				</div>
 				<div class="card-action center-align grey lighten-5">
+					<?php if ($product['add_cart'] == 1) { ?>
 					<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="<?php echo $button_cart; ?>" onclick="cart.add('<?php echo $product['product_id']; ?>');"><i class="material-icons">add_shopping_cart</i></button>
+					<?php } else { ?>
+					<button class="btn btn-floating btn-large add-cart" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
+					<?php } ?>
 					<?php if ($product['price']) { ?>
 						<?php if (!$product['special']) { ?>
 							<span class="card-price"><?php echo $product['price']; ?></span>

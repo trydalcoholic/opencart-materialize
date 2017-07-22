@@ -98,7 +98,11 @@
 											<?php } ?>
 										</td>
 										<td>
+											<?php if ($product['add_cart'] == 1) { ?>
 											<button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');" title="<?php echo $button_cart; ?>" class="btn waves-effect waves-light blue lighten-1"><i class="material-icons">add_shopping_cart</i></button>
+											<?php } else { ?>
+											<button class="btn" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
+											<?php } ?>
 											<a href="<?php echo $product['remove']; ?>" title="<?php echo $button_remove; ?>" class="btn waves-effect waves-light red lighten-1"><i class="material-icons">close</i></a>
 										</td>
 									</tr>

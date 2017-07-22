@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.68.1</version>
+	<version>0.68.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Update price -->
@@ -1034,6 +1034,14 @@
 		</operation>
 	</file>
 	<file path="catalog/controller/product/category.php">
+		<operation error="log">
+			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
+			<add position="before" trim="true"><![CDATA[
+			'add_cart'    => (int)$result['add_cart'],
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/search.php">
 		<operation error="log">
 			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
 			<add position="before" trim="true"><![CDATA[
