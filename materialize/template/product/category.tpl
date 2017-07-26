@@ -135,7 +135,7 @@
 							</div>
 						</li>
 					</ul>
-					<div class="row">
+					<div id="content" class="row">
 						<?php foreach ($products as $product) { ?>
 						<div class="col <?php echo $goods; ?>">
 							<div class="card sticky-action large hoverable">

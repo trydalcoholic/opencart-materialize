@@ -20,16 +20,29 @@
 		</div>
 	</li>
 	<?php } ?>
-	<li><button type="button" id="button-filter" class="waves-effect waves-light btn blue-grey lighten-1 width-max"><?php echo $button_filter; ?></button></li>
 </ul>
 <script>
 	document.addEventListener("DOMContentLoaded", function(event) {
-		$('#button-filter').on('click', function() {
+		$("input[name^=\'filter\']").change(function() {
 			filter = [];
 			$('input[name^=\'filter\']:checked').each(function(element) {
 				filter.push(this.value);
 			});
-			location = '<?php echo $action; ?>&filter=' + filter.join(',');
+			href = '<?php echo $action; ?>&filter=' + filter.join(',');
+			div = ' #content';
+			load_href = href + div;
+			$(div).load(load_href, function() {
+				$(this).children(':first').unwrap();
+			});
+			setLocation(href);
+			return false;
 		});
+		function setLocation(curLoc){
+			try {
+			  history.pushState(null, null, curLoc);
+			  return;
+			} catch(e) {}
+			location.hash = '#' + curLoc;
+		}
 	});
 </script>
