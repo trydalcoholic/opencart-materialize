@@ -401,53 +401,55 @@
 						<?php }} ?>
 						<?php if ($review_status) { ?>
 						<div id="tab-review" class="section">
-							<ul class="collapsible" data-collapsible="accordion">
-								<li>
-									<div class="collapsible-header arrow-rotate"><i class="material-icons left">mode_edit</i><?php echo $text_write; ?></div>
-									<div class="collapsible-body no-padding">
-										<div class="row">
-											<div class="col s12 offset-l3 l6">
-												<div id="form-review" class="card-panel z-depth-2">
-													<?php if ($review_guest) { ?>
-													<div class="input-field">
-														<i class="material-icons prefix">account_circle</i>
-														<input type="text" name="name" value="<?php echo $customer_name; ?>" id="input-name" class="validate">
-														<label for="input-name"><?php echo $entry_name; ?></label>
-													</div>
-													<div class="input-field">
-														<i class="material-icons prefix">mode_edit</i>
-														<textarea name="text" rows="5" id="input-review" class="materialize-textarea"></textarea>
-														<label for="input-review"><?php echo $entry_review; ?></label>
-														<small><?php echo $text_note; ?></small>
-													</div>
-													<div class="section">
-														<div class="rating-input center">
-															<input id="rating-1" type="radio" name="rating" value="1">
-															<label for="rating-1"><i class="material-icons">star</i></label>
-															<input id="rating-2" type="radio" name="rating" value="2">
-															<label for="rating-2"><i class="material-icons">star</i></label>
-															<input id="rating-3" type="radio" name="rating" value="3">
-															<label for="rating-3"><i class="material-icons">star</i></label>
-															<input id="rating-4" type="radio" name="rating" value="4">
-															<label for="rating-4"><i class="material-icons">star</i></label>
-															<input id="rating-5" type="radio" name="rating" value="5">
-															<label for="rating-5"><i class="material-icons">star</i></label>
+							<form id="form-review">
+								<ul class="collapsible" data-collapsible="accordion">
+									<li>
+										<div class="collapsible-header arrow-rotate"><i class="material-icons left">mode_edit</i><?php echo $text_write; ?></div>
+										<div class="collapsible-body no-padding">
+											<div class="row">
+												<div class="col s12 offset-l3 l6">
+													<div class="card-panel z-depth-2">
+														<?php if ($review_guest) { ?>
+														<div class="input-field">
+															<i class="material-icons prefix">account_circle</i>
+															<input type="text" name="name" value="<?php echo $customer_name; ?>" id="input-name" class="validate">
+															<label for="input-name"><?php echo $entry_name; ?></label>
 														</div>
-													</div>
-													<?php echo $captcha; ?>
-													<div class="flex-reverse">
-														<button type="button" id="button-review" class="btn waves-effect waves-light red right"><?php echo $button_continue; ?></button>
+														<div class="input-field">
+															<i class="material-icons prefix">mode_edit</i>
+															<textarea name="text" rows="5" id="input-review" class="materialize-textarea"></textarea>
+															<label for="input-review"><?php echo $entry_review; ?></label>
+															<small><?php echo $text_note; ?></small>
+														</div>
+														<div class="section">
+															<div class="rating-input center">
+																<input id="rating-1" type="radio" name="rating" value="1">
+																<label for="rating-1"><i class="material-icons">star</i></label>
+																<input id="rating-2" type="radio" name="rating" value="2">
+																<label for="rating-2"><i class="material-icons">star</i></label>
+																<input id="rating-3" type="radio" name="rating" value="3">
+																<label for="rating-3"><i class="material-icons">star</i></label>
+																<input id="rating-4" type="radio" name="rating" value="4">
+																<label for="rating-4"><i class="material-icons">star</i></label>
+																<input id="rating-5" type="radio" name="rating" value="5">
+																<label for="rating-5"><i class="material-icons">star</i></label>
+															</div>
+														</div>
+														<?php echo $captcha; ?>
+														<div class="flex-reverse">
+															<button type="button" id="button-review" class="btn waves-effect waves-light red right"><?php echo $button_continue; ?></button>
+														</div>
+														<?php } else { ?>
+															<?php echo $text_login; ?>
+														<?php } ?>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<?php } else { ?>
-										<?php echo $text_login; ?>
-									<?php } ?>
-								</li>
-							</ul>
-							<div id="review"></div>
+									</li>
+								</ul>
+								<div id="review"></div>
+							</form>
 						</div>
 						<?php } ?>
 					</div>
@@ -701,7 +703,7 @@
 					url: 'index.php?route=product/product/write&product_id=<?php echo $product_id; ?>',
 					type: 'post',
 					dataType: 'json',
-					data: 'name=' + encodeURIComponent($('input[name=\'name\']').val()) + '&text=' + encodeURIComponent($('textarea[name=\'text\']').val()) + '&rating=' + encodeURIComponent($('input[name=\'rating\']:checked').val() ? $('input[name=\'rating\']:checked').val() : '') + '&captcha=' + encodeURIComponent($('input[name=\'captcha\']').val()),
+					data: $("#form-review").serialize(),
 					success: function(json) {
 						if (json['error']) {
 							Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning');
@@ -711,7 +713,6 @@
 							$('input[name=\'name\']').val('');
 							$('textarea[name=\'text\']').val('');
 							$('input[name=\'rating\']:checked').prop('checked', false);
-							$('input[name=\'captcha\']').val('');
 						}
 					}
 				});

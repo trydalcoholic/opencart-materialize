@@ -1,19 +1,15 @@
-<fieldset>
-  <legend><?php echo $text_captcha; ?></legend>
-  <div class="form-group required">
-    <?php if (substr($route, 0, 9) == 'checkout/') { ?>
-    <label class="control-label" for="input-payment-captcha"><?php echo $entry_captcha; ?></label>
-    <input type="text" name="captcha" id="input-payment-captcha" class="form-control" autocomplete="off" />
-    <img src="index.php?route=extension/captcha/basic_captcha/captcha" alt="" />
-    <?php } else { ?>
-    <label class="col-sm-2 control-label" for="input-captcha"><?php echo $entry_captcha; ?></label>
-    <div class="col-sm-10">
-      <input type="text" name="captcha" id="input-captcha" class="form-control" />
-      <img src="index.php?route=extension/captcha/basic_captcha/captcha" alt="" />
-      <?php if ($error_captcha) { ?>
-      <div class="text-danger"><?php echo $error_captcha; ?></div>
-      <?php } ?>
-    </div>
-    <?php } ?>
-  </div>
-</fieldset>
+<h4><?php echo $text_captcha; ?></h4>
+<?php if (substr($route, 0, 9) == 'checkout/') { ?>
+	<div class="input-field">
+		<input type="text" name="captcha" id="input-payment-captcha">
+		<label for="input-payment-captcha"><?php echo $entry_captcha; ?></label>
+		<img src="index.php?route=extension/captcha/basic_captcha/captcha" alt="">
+	</div>
+<?php } else { ?>
+	<div class="input-field">
+		<input type="text" name="captcha" id="input-captcha">
+		<label for="input-captcha"><?php echo $entry_captcha; ?></label>
+		<img src="index.php?route=extension/captcha/basic_captcha/captcha" alt="">
+		<?php if ($error_captcha) { ?><script>document.addEventListener("DOMContentLoaded", function(event) {Materialize.toast(<?php echo $error_captcha; ?>,4000)});</script><?php } ?>
+	</div>
+<?php } ?>
