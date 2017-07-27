@@ -2,9 +2,30 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.69</version>
+	<version>0.69.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- SKU on product page -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['sku'] = $product_info['sku'];
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['text_points'] = $this->language->get('text_points');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['text_sku'] = $this->language->get('text_sku');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['text_sku'] = $this->language->get('text_sku');
+			]]></add>
+		</operation>
+	</file>
 	<!-- Filter -->
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
@@ -386,6 +407,8 @@
 				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 120, 120), 'apple-touch-icon', $icon_type, '120x120');
 				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 144, 144), 'apple-touch-icon', $icon_type, '144x144');
 				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 152, 152), 'apple-touch-icon', $icon_type, '152x152');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 167, 167), 'apple-touch-icon', $icon_type, '167x167');
+				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 180, 180), 'apple-touch-icon', $icon_type, '180x180');
 			]]></add>
 		</operation>
 	</file>

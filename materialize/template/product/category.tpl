@@ -120,15 +120,17 @@
 										</select>
 										<label class="text-bold"><?php echo $text_limit; ?></label>
 									</div>
-									<div class="col s12 switch">
-										<div class="section">
-											<span class="text-bold"><?php echo $entry_instock; ?>:</span><br>
-											<label id="instock-switch">
-												<span><?php echo $text_no; ?></span>
-												<input type="checkbox" name="instock" id="input-instock" <?php echo ($instock) ? 'value="1" checked' : 'value=""'; ?>>
-												<span class="lever"></span>
-												<span><?php echo $text_yes; ?></span>
-											</label>
+									<div class="col s12 m6 switch">
+										<div class="row">
+											<div class="col s8">
+												<span class="text-bold"><?php echo $entry_instock; ?>:</span>
+											</div>
+											<div class="col s4">
+												<label id="instock-switch">
+													<input type="checkbox" name="instock" id="input-instock" <?php echo ($instock) ? 'value="1" checked' : 'value=""'; ?>>
+													<span class="lever"></span>
+												</label>
+											</div>
 										</div>
 									</div>
 								</div>

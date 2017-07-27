@@ -53,37 +53,41 @@
 									<div class="col s12">
 										<div class="row">
 											<div class="col s12 m6 switch">
-												<div class="section">
-													<span class="text-bold"><?php echo $entry_description; ?>:</span><br>
-													<label>
-														<span><?php echo $text_no; ?></span>
-														<?php if ($description) { ?>
-														<input type="checkbox" name="description" value="1" checked="checked" id="search-in-description">
-														<?php } else { ?>
-														<input type="checkbox" name="description" value="1" id="search-in-description">
-														<?php } ?>
-														<span class="lever"></span>
-														<span><?php echo $text_yes; ?></span>
-													</label>
+												<div class="row">
+													<div class="col s8">
+														<span class="text-bold"><?php echo $entry_description; ?>:</span>
+													</div>
+													<div class="col s4">
+														<label>
+															<?php if ($description) { ?>
+															<input type="checkbox" name="description" value="1" checked="checked" id="search-in-description">
+															<?php } else { ?>
+															<input type="checkbox" name="description" value="1" id="search-in-description">
+															<?php } ?>
+															<span class="lever"></span>
+														</label>
+													</div>
 												</div>
-											</div>
-											<div class="col s12 m6 switch">
-												<div class="section">
-													<span class="text-bold"><?php echo $text_sub_category; ?>:</span><br>
-													<label>
-														<span><?php echo $text_no; ?></span>
-														<?php if ($sub_category) { ?>
-														<input type="checkbox" name="sub_category" value="1"  checked="checked">
-														<?php } else { ?>
-														<input type="checkbox" name="sub_category" value="1">
-														<?php } ?>
-														<span class="lever"></span>
-														<span><?php echo $text_yes; ?></span>
-													</label>
+												<div class="row">
+													<div class="col s8">
+														<span class="text-bold"><?php echo $text_sub_category; ?>:</span>
+													</div>
+													<div class="col s4">
+														<label>
+															<?php if ($sub_category) { ?>
+															<input type="checkbox" name="sub_category" value="1"  checked="checked">
+															<?php } else { ?>
+															<input type="checkbox" name="sub_category" value="1">
+															<?php } ?>
+															<span class="lever"></span>
+														</label>
+													</div>
 												</div>
 											</div>
 										</div>
-										<input type="button" value="<?php echo $button_search; ?>" id="button-search" class="btn waves-effect waves-light red right">
+										<div class="flex-reverse">
+											<button type="button" value="<?php echo $button_search; ?>" id="button-search" class="btn waves-effect waves-light red"><?php echo $button_search; ?></button>
+										</div>
 									</div>
 								</div>
 							</div>

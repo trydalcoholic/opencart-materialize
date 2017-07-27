@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.69</version>
+	<version>0.69.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Russian language settings Materialize -->
@@ -27,6 +27,12 @@
 				$_['text_cb_your_name']        = 'Как вас зовут';
 				$_['text_cb_your_tel']         = 'Ваш номер телефона';
 				$_['text_cb_btn']              = 'Заказать звонок';
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[<a target="_blank" href="]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				<a target="_blank" rel="noopener" href="
 			]]></add>
 		</operation>
 	</file>
@@ -75,6 +81,7 @@
 				$_['text_payment_method']        = 'Оплата наличными и банковскими картами';
 				$_['text_percent']               = 'Скидка';
 				$_['text_more_detailed']         = 'Подробнее';
+				$_['text_sku']                   = 'Артикул:';
 			]]></add>
 		</operation>
 	</file>

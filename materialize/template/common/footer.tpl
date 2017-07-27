@@ -48,7 +48,7 @@
 		<div class="footer-copyright">
 			<div class="container">
 				<?php echo $powered; ?>
-				<a class="grey-text text-lighten-4 right" href="https://github.com/trydalcoholic/opencart-materialize" target="_blank">Materialize Template</a>
+				<a class="grey-text text-lighten-4 right" href="https://github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">Materialize Template</a>
 			</div>
 		</div>
 	</footer>

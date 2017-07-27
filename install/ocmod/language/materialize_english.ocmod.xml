@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — english settings</b></font>]]></name>
 	<code>materialize-theme-english-settings</code>
-	<version>0.69</version>
+	<version>0.69.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- English language settings Materialize -->
@@ -27,6 +27,12 @@
 				$_['text_cb_your_name']        = 'What is your name';
 				$_['text_cb_your_tel']         = 'Your phone number';
 				$_['text_cb_btn']              = 'Request a call';
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[<a target="_blank" href="]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				<a target="_blank" rel="noopener" href="
 			]]></add>
 		</operation>
 	</file>
@@ -75,6 +81,7 @@
 				$_['text_payment_method']        = 'Payment by cash and bank cards';
 				$_['text_percent']               = 'Discount';
 				$_['text_more_detailed']         = 'More detailed';
+				$_['text_sku']                   = 'SKU:';
 			]]></add>
 		</operation>
 	</file>

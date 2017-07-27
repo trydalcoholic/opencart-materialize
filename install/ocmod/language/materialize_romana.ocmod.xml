@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — romana settings</b></font>]]></name>
 	<code>materialize-theme-romana-settings</code>
-	<version>0.69</version>
+	<version>0.69.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- English language settings Materialize -->
@@ -27,6 +27,12 @@
 				$_['text_cb_your_name']        = 'Numele dvs.';
 				$_['text_cb_your_tel']         = 'Numar de telefon';
 				$_['text_cb_btn']              = 'Solicita contact telefonic';
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[<a target="_blank" href="]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				<a target="_blank" rel="noopener" href="
 			]]></add>
 		</operation>
 	</file>
@@ -75,6 +81,7 @@
 				$_['text_payment_method']        = 'Plata ramburs sau card online';
 				$_['text_percent']               = 'Discount';
 				$_['text_more_detailed']         = 'Mai multe detalii';
+				$_['text_sku']                   = 'SKU:';
 			]]></add>
 		</operation>
 	</file>
