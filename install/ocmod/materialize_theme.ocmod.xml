@@ -5,24 +5,6 @@
 	<version>0.71</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
-	<!-- Integration of the module "SourceCode Compressor" https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=29699 -->
-	<file path="system/library/response.php">
-		<operation error="log">
-			<search><![CDATA[if ($this->output) {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$this->output = preg_replace('/<!--(.|\n)*?-->/', " ", $this->output);
-				$this->output = preg_replace("/(\n)+/", "\n", $this->output);
-				$this->output = preg_replace("/\r\n+/", "\n", $this->output);
-				$this->output = preg_replace("/\n(\t)+/", "\n", $this->output);
-				$this->output = preg_replace("/\n(\ )+/", "\n", $this->output);
-				$this->output = preg_replace("/\>(\n)+</", '><', $this->output);
-				$this->output = preg_replace("/\>\r\n</", '><', $this->output);
-				$search = array('/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s');
-				$replace = array('>','<','\\1');
-				$this->output = preg_replace($search, $replace, $this->output);
-			]]></add>
-		</operation>
-	</file>
 	<!-- Checking email -->
 	<file path="catalog/controller/checkout/guest.php">
 		<operation error="log">
