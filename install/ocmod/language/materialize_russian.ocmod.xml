@@ -2,9 +2,82 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.69.2</version>
+	<version>0.71</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Checking email -->
+	<file path="catalog/language/ru-ru/checkout/checkout.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Ошибка при вводе E-mail';
+				$_['text_email_success']         = 'E-mail введён верно';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/affiliate/register.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Ошибка при вводе E-mail';
+				$_['text_email_success']         = 'E-mail введён верно';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/affiliate/login.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Ошибка при вводе E-mail';
+				$_['text_email_success']         = 'E-mail введён верно';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/affiliate/edit.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Ошибка при вводе E-mail';
+				$_['text_email_success']         = 'E-mail введён верно';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/account/register.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Ошибка при вводе E-mail';
+				$_['text_email_success']         = 'E-mail введён верно';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/account/login.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Ошибка при вводе E-mail';
+				$_['text_email_success']         = 'E-mail введён верно';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/account/edit.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Ошибка при вводе E-mail';
+				$_['text_email_success']         = 'E-mail введён верно';
+			]]></add>
+		</operation>
+	</file>
+	<!-- Integration of the module "Quick Login Signup" https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=24315 -->
+	<file path="catalog/language/ru-ru/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['signin_or_register']           = 'Вход/Регистрация';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Russian language settings Materialize -->
 	<file path="catalog/language/ru-ru/common/header.php">
 		<operation error="skip">
@@ -82,6 +155,20 @@
 				$_['text_percent']               = 'Скидка';
 				$_['text_more_detailed']         = 'Подробнее';
 				$_['text_sku']                   = 'Артикул:';
+				$_['button_share']               = 'Поделиться';
+			]]></add>
+		</operation>
+	</file>
+	<!-- PhotoSwipe -->
+	<file path="catalog/language/ru-ru/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['button_pswp_close']             = 'Закрыть (Esc)';
+				$_['button_pswp_toggle_fullscreen'] = 'Включить полноэкранный режим';
+				$_['button_pswp_zoom']              = 'Увеличить/уменьшить';
+				$_['button_pswp_prev']              = 'Предыдущая (стрелка влево)';
+				$_['button_pswp_next']              = 'Следующая (стрелка вправо)';
 			]]></add>
 		</operation>
 	</file>

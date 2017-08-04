@@ -2,9 +2,119 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.69.2</version>
+	<version>0.71</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Integration of the module "SourceCode Compressor" https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=29699 -->
+	<file path="system/library/response.php">
+		<operation error="log">
+			<search><![CDATA[if ($this->output) {]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$this->output = preg_replace('/<!--(.|\n)*?-->/', " ", $this->output);
+				$this->output = preg_replace("/(\n)+/", "\n", $this->output);
+				$this->output = preg_replace("/\r\n+/", "\n", $this->output);
+				$this->output = preg_replace("/\n(\t)+/", "\n", $this->output);
+				$this->output = preg_replace("/\n(\ )+/", "\n", $this->output);
+				$this->output = preg_replace("/\>(\n)+</", '><', $this->output);
+				$this->output = preg_replace("/\>\r\n</", '><', $this->output);
+				$search = array('/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s');
+				$replace = array('>','<','\\1');
+				$this->output = preg_replace($search, $replace, $this->output);
+			]]></add>
+		</operation>
+	</file>
+	<!-- Checking email -->
+	<file path="catalog/controller/checkout/guest.php">
+		<operation error="log">
+			<search><![CDATA[$data['text_select'] = $this->language->get('text_select');]]></search>
+			<add position="before" trim="true"><![CDATA[
+				$data['text_email_error'] = $this->language->get('text_email_error');
+				$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/checkout/login.php">
+		<operation error="log">
+			<search><![CDATA[$data['text_checkout_account'] = $this->language->get('text_checkout_account');]]></search>
+			<add position="before" trim="true"><![CDATA[
+				$data['text_email_error'] = $this->language->get('text_email_error');
+				$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/checkout/register.php">
+		<operation error="log">
+			<search><![CDATA[$data['text_checkout_payment_address'] = $this->language->get('text_checkout_payment_address');]]></search>
+			<add position="before" trim="true"><![CDATA[
+				$data['text_email_error'] = $this->language->get('text_email_error');
+				$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/affiliate/register.php">
+		<operation error="log">
+			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['text_email_error'] = $this->language->get('text_email_error');
+				$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/affiliate/login.php">
+		<operation error="log">
+			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['text_email_error'] = $this->language->get('text_email_error');
+				$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/affiliate/edit.php">
+		<operation error="log">
+			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['text_email_error'] = $this->language->get('text_email_error');
+				$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/account/register.php">
+		<operation error="log">
+			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['text_email_error'] = $this->language->get('text_email_error');
+				$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/account/login.php">
+		<operation error="log">
+			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['text_email_error'] = $this->language->get('text_email_error');
+				$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/account/edit.php">
+		<operation error="log">
+			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['text_email_error'] = $this->language->get('text_email_error');
+				$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
+	<!-- Integration of the module "Quick Login Signup" https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=24315 -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->language('common/header');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['quicksignup'] = $this->load->controller('common/quicksignup');
+				$data['signin_or_register'] = $this->language->get('signin_or_register');
+			]]></add>
+		</operation>
+	</file>
 	<!-- SKU on product page -->
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
@@ -460,12 +570,6 @@
 			]]></add>
 		</operation>
 		<operation error="log">
-			<search><![CDATA[$this->load->language('product/product');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['url_page'] = (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1')) ? HTTPS_SERVER : HTTP_SERVER) . substr($this->request->server['REQUEST_URI'], 1, (strlen($this->request->server['REQUEST_URI'])-1));
-			]]></add>
-		</operation>
-		<operation error="log">
 			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$data['pricecurrency'] = $this->session->data['currency'];
@@ -584,6 +688,19 @@
 			]]></add>
 		</operation>
 	</file>
+	<!-- PhotoSwipe -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$data['button_pswp_close'] = $this->language->get('button_pswp_close');
+				$data['button_pswp_toggle_fullscreen'] = $this->language->get('button_pswp_toggle_fullscreen');
+				$data['button_pswp_zoom'] = $this->language->get('button_pswp_zoom');
+				$data['button_pswp_prev'] = $this->language->get('button_pswp_prev');
+				$data['button_pswp_next'] = $this->language->get('button_pswp_next');
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/controller/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
@@ -595,6 +712,7 @@
 				$data['text_payment_method'] = $this->language->get('text_payment_method');
 				$data['text_percent'] = $this->language->get('text_percent');
 				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+				$data['button_share'] = $this->language->get('button_share');
 			]]></add>
 		</operation>
 	</file>

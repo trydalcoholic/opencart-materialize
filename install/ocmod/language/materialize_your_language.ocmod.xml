@@ -2,9 +2,82 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — your language settings</b></font>]]></name>
 	<code>materialize-theme-your-settings</code>
-	<version>0.69.2</version>
+	<version>0.71</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Checking email -->
+	<file path="catalog/language/*/checkout/checkout.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/*/affiliate/register.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/*/affiliate/login.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/*/affiliate/edit.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/*/account/register.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/*/account/login.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/*/account/edit.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<!-- Integration of the module "Quick Login Signup" https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=24315 -->
+	<file path="catalog/language/*/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['signin_or_register']           = 'Sign In\Register';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Your language settings Materialize -->
 	<file path="catalog/language/*/common/header.php">
 		<operation error="skip">
@@ -41,7 +114,7 @@
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_shopping_cart']      = 'Your shopping cart';
-				$_['text_cat_says']           = 'Let\'s help you spend money :)';
+				$_['text_cat_says']           = 'Let me help you spend some money :)';
 			]]></add>
 		</operation>
 	</file>
@@ -82,6 +155,20 @@
 				$_['text_percent']               = 'Discount';
 				$_['text_more_detailed']         = 'More detailed';
 				$_['text_sku']                   = 'SKU:';
+				$_['button_share']               = 'Share';
+			]]></add>
+		</operation>
+	</file>
+	<!-- PhotoSwipe -->
+	<file path="catalog/language/*/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['button_pswp_close']             = 'Close (Esc)';
+				$_['button_pswp_toggle_fullscreen'] = 'Toggle fullscreen';
+				$_['button_pswp_zoom']              = 'Zoom in/out';
+				$_['button_pswp_prev']              = 'Previous (arrow left)';
+				$_['button_pswp_next']              = 'Next (arrow right)';
 			]]></add>
 		</operation>
 	</file>

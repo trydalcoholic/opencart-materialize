@@ -2,9 +2,73 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — romana settings</b></font>]]></name>
 	<code>materialize-theme-romana-settings</code>
-	<version>0.69.2</version>
+	<version>0.71</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Checking email -->
+	<file path="catalog/language/ro-ro/checkout/checkout.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'E-mail gresit';
+				$_['text_email_success']         = 'E-mailul este valabil';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ro-ro/affiliate/register.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'E-mail gresit';
+				$_['text_email_success']         = 'E-mailul este valabil';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ro-ro/affiliate/login.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'E-mail gresit';
+				$_['text_email_success']         = 'E-mailul este valabil';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ro-ro/affiliate/edit.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'E-mail gresit';
+				$_['text_email_success']         = 'E-mailul este valabil';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ro-ro/account/register.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'E-mail gresit';
+				$_['text_email_success']         = 'E-mailul este valabil';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ro-ro/account/login.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'E-mail gresit';
+				$_['text_email_success']         = 'E-mailul este valabil';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ro-ro/account/edit.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'E-mail gresit';
+				$_['text_email_success']         = 'E-mailul este valabil';
+			]]></add>
+		</operation>
+	</file>
 	<!-- English language settings Materialize -->
 	<file path="catalog/language/ro-ro/common/header.php">
 		<operation error="skip">
@@ -82,6 +146,20 @@
 				$_['text_percent']               = 'Discount';
 				$_['text_more_detailed']         = 'Mai multe detalii';
 				$_['text_sku']                   = 'SKU:';
+				$_['button_share']               = 'Acțiune';
+			]]></add>
+		</operation>
+	</file>
+	<!-- PhotoSwipe -->
+	<file path="catalog/language/ro-ro/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['button_pswp_close']             = 'Închide (Esc)';
+				$_['button_pswp_toggle_fullscreen'] = 'Comutare la ecran complet';
+				$_['button_pswp_zoom']              = 'Măriți / micșorați';
+				$_['button_pswp_prev']              = 'Înainte (săgeată stânga)';
+				$_['button_pswp_next']              = 'Înainte (dreapta pe săgeată)';
 			]]></add>
 		</operation>
 	</file>
