@@ -42,9 +42,23 @@
 											<option value="0"><?php echo $text_category; ?></option>
 											<?php foreach ($categories as $category_1) { ?>
 												<?php if ($category_1['category_id'] == $category_id) { ?>
-												<option value="<?php echo $category_1['category_id']; ?>" selected="selected"><?php echo $category_1['name']; ?></option>
+													<option value="<?php echo $category_1['category_id']; ?>" selected="selected"><?php echo $category_1['name']; ?></option>
 												<?php } else { ?>
-												<option value="<?php echo $category_1['category_id']; ?>"><?php echo $category_1['name']; ?></option>
+													<option value="<?php echo $category_1['category_id']; ?>"><?php echo $category_1['name']; ?></option>
+												<?php } ?>
+												<?php foreach ($category_1['children'] as $category_2) { ?>
+													<?php if ($category_2['category_id'] == $category_id) { ?>
+														<option value="<?php echo $category_2['category_id']; ?>" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $category_2['name']; ?></option>
+													<?php } else { ?>
+														<option value="<?php echo $category_2['category_id']; ?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $category_2['name']; ?></option>
+													<?php } ?>
+													<?php foreach ($category_2['children'] as $category_3) { ?>
+														<?php if ($category_3['category_id'] == $category_id) { ?>
+															<option value="<?php echo $category_3['category_id']; ?>" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $category_3['name']; ?></option>
+														<?php } else { ?>
+															<option value="<?php echo $category_3['category_id']; ?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $category_3['name']; ?></option>
+														<?php } ?>
+													<?php } ?>
 												<?php } ?>
 											<?php } ?>
 										</select>
@@ -195,7 +209,7 @@
 					<?php } else { ?>
 						<div class="card-panel center">
 							<p class="flow-text text-bold"><?php echo $text_empty; ?></p>
-							<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="Ничего не найдено">
+							<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="">
 						</div>
 					<?php } ?>
 					<?php echo $content_bottom; ?>

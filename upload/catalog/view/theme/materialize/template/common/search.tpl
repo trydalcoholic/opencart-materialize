@@ -1,6 +1,6 @@
 <div id="search" class="input-field">
 	<input id="search-input" class="autocomplete" type="search" name="search" value="<?php echo $search; ?>">
-	<label class="activator label-icon label-icon-search" for="search-input"><i class="material-icons">search</i></label>
+	<label class="activator waves-effect waves-circle label-icon label-icon-search" for="search-input"><i class="material-icons">search</i></label>
 	<i id="reset-search" class="material-icons">close</i>
 </div>
 <script>

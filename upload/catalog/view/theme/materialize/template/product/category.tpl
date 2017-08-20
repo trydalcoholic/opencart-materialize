@@ -68,7 +68,7 @@
 									<a href="<?php echo $category['href']; ?>">
 										<div class="chip grey lighten-2 waves-effect waves-default z-depth-1 truncate">
 											<?php if ($category['thumb']) { ?>
-											<img class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?php echo $category['thumb']; ?>" alt="<?php echo $category['name']; ?>">
+											<img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $category['thumb']; ?>" alt="<?php echo $category['name']; ?>">
 											<?php } ?>
 											<?php echo $category['name']; ?>
 										</div>
@@ -205,29 +205,31 @@
 					<?php } else { ?>
 						<div class="card-panel center">
 							<p class="flow-text text-bold"><?php echo $text_empty; ?></p>
-							<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="Ничего не найдено">
+							<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="">
 						</div>
 					<?php } ?>
-					<?php if ($thumb || $description) { ?>
+					<?php if ($description) { ?>
 					<div class="card-panel z-depth-1">
 						<div class="row valign-wrapper section">
-							<div class="col s4 m2 center">
 							<?php if ($thumb) { ?>
+							<div class="col s4 m2 center">
 								<img src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb; ?>" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" class="responsive-img lazyload">
-							<?php } ?>
 							</div>
 							<div class="col s8 m10">
-							<?php if ($description) { ?>
 								<?php echo $description; ?>
-							<?php } ?>
 							</div>
+							<?php } else { ?>
+							<div class="col s12">
+								<?php echo $description; ?>
+							</div>
+							<?php } ?>
 						</div>
 					</div>
 					<?php } ?>
 					<?php echo $content_bottom; ?>
 				</div>
+				<?php echo $column_right; ?>
 			</div>
-			<?php echo $column_right; ?>
 		</div>
 	</main>
 	<script>

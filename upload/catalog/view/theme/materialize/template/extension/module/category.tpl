@@ -3,15 +3,15 @@
 	<?php foreach ($categories as $category) { ?>
 		<?php if ($category['category_id'] == $category_id) { ?>
 		<li>
-			<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect blue-grey-text text-darken-4 text-bold active" onclick="return false;" rel="nofollow"><?php echo $category['name']; ?></a>
+			<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect blue-grey-text text-darken-4 text-bold active" onclick="return false;"><?php echo $category['name']; ?></a>
 			<?php if ($category['children']) { ?>
 			<div class="collapsible-body no-padding">
 				<div class="collection">
 				<?php foreach ($category['children'] as $child) { ?>
 					<?php if ($child['category_id'] == $child_id) { ?>
-						<a class="collection-item waves-effect child truncate blue-grey-text text-darken-4 blue-grey lighten-4" href="<?php echo $child['href']; ?>" rel="nofollow"><?php echo $child['name']; ?></a>
+						<a class="collection-item waves-effect child truncate blue-grey-text text-darken-4 blue-grey lighten-4" href="<?php echo $child['href']; ?>"><?php echo $child['name']; ?></a>
 					<?php } else { ?>
-						<a class="collection-item waves-effect child truncate blue-grey-text text-darken-4" href="<?php echo $child['href']; ?>" rel="nofollow"><?php echo $child['name']; ?></a>
+						<a class="collection-item waves-effect child truncate blue-grey-text text-darken-4" href="<?php echo $child['href']; ?>"><?php echo $child['name']; ?></a>
 					<?php } ?>
 				<?php } ?>
 				</div>
@@ -20,7 +20,7 @@
 		</li>
 		<?php } else { ?>
 		<li>
-			<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect truncate blue-grey-text text-darken-4 text-bold" rel="nofollow"><?php echo $category['name']; ?></a>
+			<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect truncate blue-grey-text text-darken-4 text-bold"><?php echo $category['name']; ?></a>
 		</li>
 		<?php } ?>
 	<?php } ?>

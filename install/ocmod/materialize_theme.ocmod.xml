@@ -2,16 +2,43 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.71</version>
+	<version>0.71.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Integration of the module "SourceCode Compressor" https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=29699 -->
+	<file path="system/library/response.php">
+		<operation error="log">
+			<search><![CDATA[if ($this->output) {]]></search>
+			<add position="after" trim="true"><![CDATA[
+			$this->output = preg_replace("/(\n)+/", "\n", $this->output);
+			$this->output = preg_replace("/\r\n+/", "\n", $this->output);
+			$this->output = preg_replace("/\n(\t)+/", "\n", $this->output);
+			$this->output = preg_replace("/\n(\ )+/", "\n", $this->output);
+			$this->output = preg_replace("/\>[^\S ]+/s", '>', $this->output);
+			$this->output = preg_replace("/[^\S ]+\</s", '<', $this->output);
+			$this->output = preg_replace('/>\s+</', '><', $this->output);
+			$this->output = preg_replace("/\>(\n)+</", '><', $this->output);
+			$this->output = preg_replace("/\>\r\n</", '><', $this->output);
+			$this->output = preg_replace('~>\s*\n\s*<~', '><', $this->output);
+			]]></add>
+		</operation>
+	</file>
 	<!-- Checking email -->
+	<file path="catalog/controller/information/contact.php">
+		<operation error="log">
+			<search><![CDATA[$data['text_comment'] = $this->language->get('text_comment');]]></search>
+			<add position="before" trim="true"><![CDATA[
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/controller/checkout/guest.php">
 		<operation error="log">
 			<search><![CDATA[$data['text_select'] = $this->language->get('text_select');]]></search>
 			<add position="before" trim="true"><![CDATA[
-				$data['text_email_error'] = $this->language->get('text_email_error');
-				$data['text_email_success'] = $this->language->get('text_email_success');
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
 		</operation>
 	</file>
@@ -19,8 +46,8 @@
 		<operation error="log">
 			<search><![CDATA[$data['text_checkout_account'] = $this->language->get('text_checkout_account');]]></search>
 			<add position="before" trim="true"><![CDATA[
-				$data['text_email_error'] = $this->language->get('text_email_error');
-				$data['text_email_success'] = $this->language->get('text_email_success');
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
 		</operation>
 	</file>
@@ -28,8 +55,8 @@
 		<operation error="log">
 			<search><![CDATA[$data['text_checkout_payment_address'] = $this->language->get('text_checkout_payment_address');]]></search>
 			<add position="before" trim="true"><![CDATA[
-				$data['text_email_error'] = $this->language->get('text_email_error');
-				$data['text_email_success'] = $this->language->get('text_email_success');
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
 		</operation>
 	</file>
@@ -37,8 +64,8 @@
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['text_email_error'] = $this->language->get('text_email_error');
-				$data['text_email_success'] = $this->language->get('text_email_success');
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
 		</operation>
 	</file>
@@ -46,8 +73,8 @@
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['text_email_error'] = $this->language->get('text_email_error');
-				$data['text_email_success'] = $this->language->get('text_email_success');
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
 		</operation>
 	</file>
@@ -55,8 +82,8 @@
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['text_email_error'] = $this->language->get('text_email_error');
-				$data['text_email_success'] = $this->language->get('text_email_success');
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
 		</operation>
 	</file>
@@ -64,8 +91,8 @@
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['text_email_error'] = $this->language->get('text_email_error');
-				$data['text_email_success'] = $this->language->get('text_email_success');
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
 		</operation>
 	</file>
@@ -73,8 +100,8 @@
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['text_email_error'] = $this->language->get('text_email_error');
-				$data['text_email_success'] = $this->language->get('text_email_success');
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
 		</operation>
 	</file>
@@ -82,8 +109,8 @@
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['text_email_error'] = $this->language->get('text_email_error');
-				$data['text_email_success'] = $this->language->get('text_email_success');
+			$data['text_email_error'] = $this->language->get('text_email_error');
+			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
 		</operation>
 	</file>
@@ -92,8 +119,8 @@
 		<operation error="log">
 			<search><![CDATA[$this->load->language('common/header');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['quicksignup'] = $this->load->controller('common/quicksignup');
-				$data['signin_or_register'] = $this->language->get('signin_or_register');
+			$data['quicksignup'] = $this->load->controller('common/quicksignup');
+			$data['signin_or_register'] = $this->language->get('signin_or_register');
 			]]></add>
 		</operation>
 	</file>
@@ -102,19 +129,13 @@
 		<operation error="log">
 			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['sku'] = $product_info['sku'];
+			$data['sku'] = $product_info['sku'];
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['text_points'] = $this->language->get('text_points');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['text_sku'] = $this->language->get('text_sku');
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_sku'] = $this->language->get('text_sku');
+			$data['text_sku'] = $this->language->get('text_sku');
 			]]></add>
 		</operation>
 	</file>
@@ -123,25 +144,25 @@
 		<operation error="log">
 			<search><![CDATA[$sql .= " AND pf.filter_id IN (" . implode(',', $implode) . ")";]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$minq=$this->db->query("SELECT id.product_id FROM(SELECT product_id, count(i.product_id) as t, c.filter_group as b FROM (SELECT f.filter_id, f.product_id, p.filter_group_id FROM ". DB_PREFIX ."product_filter f left join ". DB_PREFIX ."filter p ON p.filter_id = f.filter_id where p.filter_id IN (" . implode(',', $implode) . ") GROUP BY product_id , filter_group_id) as i, (select count(distinct filter_group_id) as filter_group from ". DB_PREFIX ."filter_description f_b WHERE f_b.filter_id in (" . implode(',', $implode) . ")) as c GROUP BY product_id HAVING t = b) as id");
-				$min = array();
-				for ($x = 0; $x < count($minq->rows); $x++){
-					foreach($minq->rows[$x] as $value){
-						$min[]=$value;
-					}
+			$minq=$this->db->query("SELECT id.product_id FROM(SELECT product_id, count(i.product_id) as t, c.filter_group as b FROM (SELECT f.filter_id, f.product_id, p.filter_group_id FROM ". DB_PREFIX ."product_filter f left join ". DB_PREFIX ."filter p ON p.filter_id = f.filter_id where p.filter_id IN (" . implode(',', $implode) . ") GROUP BY product_id , filter_group_id) as i, (select count(distinct filter_group_id) as filter_group from ". DB_PREFIX ."filter_description f_b WHERE f_b.filter_id in (" . implode(',', $implode) . ")) as c GROUP BY product_id HAVING t = b) as id");
+			$min = array();
+			for ($x = 0; $x < count($minq->rows); $x++){
+				foreach($minq->rows[$x] as $value){
+					$min[]=$value;
 				}
-				$imp = implode(',',$min);
+			}
+			$imp = implode(',',$min);
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";]]></search>
 			<add position="after" offset="1" trim="true"><![CDATA[
-				if(isset($filters)) {
-					if(!count($min)) {
-						$imp='0000000';
-					}
-					$sql .= " AND p.product_id IN(".$imp.")";
+			if(isset($filters)) {
+				if(!count($min)) {
+					$imp='0000000';
 				}
+				$sql .= " AND p.product_id IN(".$imp.")";
+			}
 			]]></add>
 		</operation>
 	</file>
@@ -150,20 +171,30 @@
 		<operation error="log">
 			<search><![CDATA[public function getRecurringDescription() {]]></search>
 			<add position="before" trim="true"><![CDATA[
-				public function updatePrice() {
-					$json = array();
+			public function updatePrice() {
+				$json = array();
 
-					$this->load->model('catalog/product');
+				$this->load->model('catalog/product');
 
-					$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
-					$option_price = 0;
+				$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
+				$option_price = 0;
 
-					if(isset($this->request->post['option']) && $this->request->post['option']) {
-						foreach($this->request->post['option'] as $product_option_id => $value) {
-							$result = $this->model_catalog_product->getUpdateOptionsList($this->request->get['product_id'], $product_option_id);
-							if($result) {
-								if($result['type'] == 'select' || $result['type'] == 'radio') {
-									$option_values = $this->model_catalog_product->getUpdateOptionValues($value, $product_option_id);
+				if(isset($this->request->post['option']) && $this->request->post['option']) {
+					foreach($this->request->post['option'] as $product_option_id => $value) {
+						$result = $this->model_catalog_product->getUpdateOptionsList($this->request->get['product_id'], $product_option_id);
+						if($result) {
+							if($result['type'] == 'select' || $result['type'] == 'radio') {
+								$option_values = $this->model_catalog_product->getUpdateOptionValues($value, $product_option_id);
+								if($option_values) {
+									if ($option_values['price_prefix'] == '+') {
+										$option_price += $option_values['price'];
+									} elseif ($option_values['price_prefix'] == '-') {
+										$option_price -= $option_values['price'];
+									}
+								}
+							} elseif ($result['type'] == 'checkbox' && is_array($value)) {
+								foreach ($value as $product_option_value_id) {
+									$option_values = $this->model_catalog_product->getUpdateOptionChcekboxValues($product_option_value_id, $product_option_id);
 									if($option_values) {
 										if ($option_values['price_prefix'] == '+') {
 											$option_price += $option_values['price'];
@@ -171,50 +202,40 @@
 											$option_price -= $option_values['price'];
 										}
 									}
-								} elseif ($result['type'] == 'checkbox' && is_array($value)) {
-									foreach ($value as $product_option_value_id) {
-										$option_values = $this->model_catalog_product->getUpdateOptionChcekboxValues($product_option_value_id, $product_option_id);
-										if($option_values) {
-											if ($option_values['price_prefix'] == '+') {
-												$option_price += $option_values['price'];
-											} elseif ($option_values['price_prefix'] == '-') {
-												$option_price -= $option_values['price'];
-											}
-										}
-									}
 								}
 							}
 						}
 					}
-
-					$price = $product_info['price'];
-					$new_price_found = 0;
-
-					$discount_amount = $this->model_catalog_product->getDiscountAmountForUpdatePrice($this->request->get['product_id'], $this->request->post['quantity']);
-
-					if ($discount_amount) {
-						$price = $discount_amount;
-					}
-
-					if ($product_info['special']) {
-						$price = $product_info['special'];
-						$new_price_found = 1;
-					}
-
-					$total_price = $price + $option_price;
-
-					$unit_price = $this->tax->calculate($total_price, $product_info['tax_class_id'], $this->config->get('config_tax'));
-					$total = $this->currency->format($unit_price * $this->request->post['quantity'], $this->session->data['currency']);
-
-					$unit_tax = $this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax'));
-					$tax_total = $this->currency->format(((float)$product_info['special'] ? ($product_info['special'] + $option_price) : ($product_info['price'] + $option_price)) * $this->request->post['quantity'], $this->session->data['currency']);
-
-					$json['total_price'] = $total;
-					$json['new_price_found'] = $new_price_found;
-					$json['tax_price'] = $tax_total;
-					$this->response->addHeader('Content-Type: application/json');
-					$this->response->setOutput(json_encode($json));
 				}
+
+				$price = $product_info['price'];
+				$new_price_found = 0;
+
+				$discount_amount = $this->model_catalog_product->getDiscountAmountForUpdatePrice($this->request->get['product_id'], $this->request->post['quantity']);
+
+				if ($discount_amount) {
+					$price = $discount_amount;
+				}
+
+				if ($product_info['special']) {
+					$price = $product_info['special'];
+					$new_price_found = 1;
+				}
+
+				$total_price = $price + $option_price;
+
+				$unit_price = $this->tax->calculate($total_price, $product_info['tax_class_id'], $this->config->get('config_tax'));
+				$total = $this->currency->format($unit_price * $this->request->post['quantity'], $this->session->data['currency']);
+
+				$unit_tax = $this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax'));
+				$tax_total = $this->currency->format(((float)$product_info['special'] ? ($product_info['special'] + $option_price) : ($product_info['price'] + $option_price)) * $this->request->post['quantity'], $this->session->data['currency']);
+
+				$json['total_price'] = $total;
+				$json['new_price_found'] = $new_price_found;
+				$json['tax_price'] = $tax_total;
+				$this->response->addHeader('Content-Type: application/json');
+				$this->response->setOutput(json_encode($json));
+			}
 			]]></add>
 		</operation>
 	</file>
@@ -222,41 +243,41 @@
 		<operation error="log">
 			<search><![CDATA[public function getTotalProductSpecials() {]]></search>
 			<add position="before" trim="true"><![CDATA[
-				public function getUpdateOptionsList($product_id, $product_option_id) {
-					$option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$product_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
-					if($option_query->num_rows) {
-						return $option_query->row;
-					} else {
-						return '';
-					}
+			public function getUpdateOptionsList($product_id, $product_option_id) {
+				$option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$product_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+				if($option_query->num_rows) {
+					return $option_query->row;
+				} else {
+					return '';
 				}
+			}
 
-				public function getUpdateOptionValues($value, $product_option_id) {
-					$option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$value . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
-					if($option_value_query->num_rows) {
-						return $option_value_query->row;
-					} else {
-						return '';
-					}
+			public function getUpdateOptionValues($value, $product_option_id) {
+				$option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$value . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+				if($option_value_query->num_rows) {
+					return $option_value_query->row;
+				} else {
+					return '';
 				}
+			}
 
-				public function getUpdateOptionChcekboxValues($product_option_value_id, $product_option_id) {
-					$option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
-					if($option_value_query->num_rows) {
-						return $option_value_query->row;
-					} else {
-						return '';
-					}
+			public function getUpdateOptionChcekboxValues($product_option_value_id, $product_option_id) {
+				$option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+				if($option_value_query->num_rows) {
+					return $option_value_query->row;
+				} else {
+					return '';
 				}
+			}
 
-				public function getDiscountAmountForUpdatePrice($product_id, $quantity) {
-					$product_discount_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND quantity <= '" . (int)$quantity . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
-					if($product_discount_query->num_rows) {
-						return $product_discount_query->row['price'];
-					} else {
-						return '';
-					}
+			public function getDiscountAmountForUpdatePrice($product_id, $quantity) {
+				$product_discount_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND quantity <= '" . (int)$quantity . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
+				if($product_discount_query->num_rows) {
+					return $product_discount_query->row['price'];
+				} else {
+					return '';
 				}
+			}
 			]]></add>
 		</operation>
 	</file>
@@ -265,67 +286,67 @@
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="before" trim="true"><![CDATA[
-				public function autocomplete() {
-					$json = array();
+			public function autocomplete() {
+				$json = array();
 
-					if (isset($this->request->get['filter_name']) || isset($this->request->get['filter_model'])) {
-						$this->load->model('catalog/product');
-						$this->load->model('tool/image');
+				if (isset($this->request->get['filter_name']) || isset($this->request->get['filter_model'])) {
+					$this->load->model('catalog/product');
+					$this->load->model('tool/image');
 
-						if (isset($this->request->get['filter_name'])) {
-							$filter_name = $this->request->get['filter_name'];
-						} else {
-							$filter_name = '';
-						}
-
-						if (isset($this->request->get['filter_model'])) {
-							$filter_model = $this->request->get['filter_model'];
-						} else {
-							$filter_model = '';
-						}
-
-						if (isset($this->request->get['limit'])) {
-							$limit = $this->request->get['limit'];
-						} else {
-							$limit = 5;
-						}
-
-						$filter_data = array(
-							'filter_name'  => $filter_name,
-							'filter_child' => 1,
-							'start'        => 0,
-							'limit'        => $limit
-						);
-
-						$results = $this->model_catalog_product->getProductsSearch($filter_data);
-
-						foreach ($results as $result) {
-							if (is_file(DIR_IMAGE . $result['image'])) {
-								$image = $this->model_tool_image->resize($result['image'], 40, 40);
-								$img ='<img src='.$image.' class="right circle">';
-							} else {
-								$image = $this->model_tool_image->resize('no_image.png', 40, 40);
-								$img ='<img src='.$image.' class="right circle" width="40" height="40">';
-							}
-							$json[] = array(
-								'product_id' => $result['product_id'],
-								'name'       => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
-								'img'        => $img,
-								'sku'	     => $result['sku'],
-								'status'     => $result['status']
-							);
-						}
+					if (isset($this->request->get['filter_name'])) {
+						$filter_name = $this->request->get['filter_name'];
+					} else {
+						$filter_name = '';
 					}
 
-					$this->response->addHeader('Content-Type: application/json');
-					$this->response->setOutput(json_encode($json));
+					if (isset($this->request->get['filter_model'])) {
+						$filter_model = $this->request->get['filter_model'];
+					} else {
+						$filter_model = '';
+					}
+
+					if (isset($this->request->get['limit'])) {
+						$limit = $this->request->get['limit'];
+					} else {
+						$limit = 5;
+					}
+
+					$filter_data = array(
+						'filter_name'  => $filter_name,
+						'filter_child' => 1,
+						'start'        => 0,
+						'limit'        => $limit
+					);
+
+					$results = $this->model_catalog_product->getProductsSearch($filter_data);
+
+					foreach ($results as $result) {
+						if (is_file(DIR_IMAGE . $result['image'])) {
+							$image = $this->model_tool_image->resize($result['image'], 40, 40);
+							$img ='<img src='.$image.' class="right circle">';
+						} else {
+							$image = $this->model_tool_image->resize('no_image.png', 40, 40);
+							$img ='<img src='.$image.' class="right circle" width="40" height="40">';
+						}
+						$json[] = array(
+							'product_id' => $result['product_id'],
+							'name'       => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+							'img'        => $img,
+							'sku'	     => $result['sku'],
+							'status'     => $result['status']
+						);
+					}
 				}
+
+				$this->response->addHeader('Content-Type: application/json');
+				$this->response->setOutput(json_encode($json));
+			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['product_path'] = $this->url->link('product/product');
+			$data['product_path'] = $this->url->link('product/product');
 			]]></add>
 		</operation>
 	</file>
@@ -355,25 +376,25 @@
 		<operation error="log">
 			<search><![CDATA[$this->load->model('catalog/product');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$this->load->model('tool/image');
+			$this->load->model('tool/image');
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$json[] = array(]]></search>
 			<add position="before" trim="true"><![CDATA[
-				if (is_file(DIR_IMAGE . $result['image'])) {
-					$image = $this->model_tool_image->resize($result['image'], 40, 40);
-					$img ='<img src='.$image.' class="right circle">';
-				} else {
-					$image = $this->model_tool_image->resize('no_image.png', 40, 40);
-					$img ='<img src='.$image.' class="right circle" width="40" height="40">';
-				}
+			if (is_file(DIR_IMAGE . $result['image'])) {
+				$image = $this->model_tool_image->resize($result['image'], 40, 40);
+				$img ='<img src='.$image.' class="right circle">';
+			} else {
+				$image = $this->model_tool_image->resize('no_image.png', 40, 40);
+				$img ='<img src='.$image.' class="right circle" width="40" height="40">';
+			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),]]></search>
 			<add position="after" trim="true"><![CDATA[
-				'img'        => $img,
+			'img'        => $img,
 			]]></add>
 		</operation>
 	</file>
@@ -509,17 +530,17 @@
 		<operation error="log">
 			<search><![CDATA[$data['categories'][] = array(]]></search>
 			<add position="replace" offset="3" trim="true"><![CDATA[
-				if ($result['image']) {
-					$image = $this->model_tool_image->resize($result['image'], 32, 32);
-				} else {
-					$image = '';
-				}
+			if ($result['image']) {
+				$image = $this->model_tool_image->resize($result['image'], 32, 32);
+			} else {
+				$image = '';
+			}
 
-				$data['categories'][] = array(
-					'name' => $result['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-					'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '_' . $result['category_id'] . $url),
-					'thumb' => $image
-				);
+			$data['categories'][] = array(
+				'name' => $result['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
+				'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '_' . $result['category_id'] . $url),
+				'thumb' => $image
+			);
 			]]></add>
 		</operation>
 	</file>
@@ -528,11 +549,11 @@
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$css = file_get_contents('catalog/view/theme/materialize/stylesheet/style.css');
-				$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
-				$css = str_replace(': ', ':', $css);
-				$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
-				$data['css'] = $css;
+			$css = file_get_contents('catalog/view/theme/materialize/stylesheet/style.css');
+			$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
+			$css = str_replace(': ', ':', $css);
+			$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
+			$data['css'] = $css;
 			]]></add>
 		</operation>
 	</file>
@@ -540,7 +561,7 @@
 		<operation error="log">
 			<search><![CDATA[$data['contact'] = $this->url->link('information/contact');]]></search>
 			<add position="before" trim="true"><![CDATA[
-				$data['name'] = $this->config->get('config_name');
+			$data['name'] = $this->config->get('config_name');
 			]]></add>
 		</operation>
 	</file>
@@ -548,19 +569,19 @@
 		<operation error="log">
 			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['lang'] = $this->language->get('code');
+			$data['lang'] = $this->language->get('code');
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['pricecurrency'] = $this->session->data['currency'];
+			$data['pricecurrency'] = $this->session->data['currency'];
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['rating'] = (int)$product_info['rating'];]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['reviewCount'] = sprintf((int)$product_info['reviews']);
+			$data['reviewCount'] = sprintf((int)$product_info['reviews']);
 			]]></add>
 		</operation>
 	</file>
@@ -886,19 +907,19 @@
 		<operation error="log">
 			<search><![CDATA[$this->document->setDescription($product_info['meta_description']);]]></search>
 			<add position="replace" trim="true"><![CDATA[
-				$this->document->setDescription($product_info['meta_description']);
-				$this->load->model('catalog/category');
-				$catprod = array();
-				$product_category = $this->model_catalog_product->getCategories($product_id);
-				foreach ($product_category as $product_cat) {
-					$category_info = $this->model_catalog_category->getCategory($product_cat['category_id']);
-					if ($category_info) {
-						$data['category_products'][] = array(
-							'name'     => $category_info['name'],
-							'href'     => $this->url->link('product/category', 'path=' . $category_info['category_id'])
-						);
-					}
+			$this->document->setDescription($product_info['meta_description']);
+			$this->load->model('catalog/category');
+			$catprod = array();
+			$product_category = $this->model_catalog_product->getCategories($product_id);
+			foreach ($product_category as $product_cat) {
+				$category_info = $this->model_catalog_category->getCategory($product_cat['category_id']);
+				if ($category_info) {
+					$data['category_products'][] = array(
+						'name'     => $category_info['name'],
+						'href'     => $this->url->link('product/category', 'path=' . $category_info['category_id'])
+					);
 				}
+			}
 			]]></add>
 		</operation>
 	</file>
@@ -907,14 +928,14 @@
 		<operation error="log">
 			<search><![CDATA[public function getProducts($data = array()) {]]></search>
 			<add position="before" trim="true"><![CDATA[
-				public function getProductSpec($product_id) {
-					$sql = $this->db->query("SELECT ps.date_end FROM " . DB_PREFIX . "product_special ps WHERE product_id = '" . (int)$product_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC");
-					if ($sql->num_rows) {
-						return $sql->row['date_end'];
-					} else {
-						return false;
-					}
+			public function getProductSpec($product_id) {
+				$sql = $this->db->query("SELECT ps.date_end FROM " . DB_PREFIX . "product_special ps WHERE product_id = '" . (int)$product_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC");
+				if ($sql->num_rows) {
+					return $sql->row['date_end'];
+				} else {
+					return false;
 				}
+			}
 			]]></add>
 		</operation>
 	</file>
@@ -922,7 +943,7 @@
 		<operation error="log">
 			<search><![CDATA[$product_info = $this->model_catalog_product->getProduct($product_id);]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['product_spec'] = $this->model_catalog_product->getProductSpec($product_id);
+			$data['product_spec'] = $this->model_catalog_product->getProductSpec($product_id);
 			]]></add>
 		</operation>
 	</file>
@@ -931,10 +952,10 @@
 		<operation error="log">
 			<search><![CDATA[$data['home'] = $this->url->link('common/home');]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['compare'] = $this->url->link('product/compare');
-				$this->language->load('product/compare');
-				$data['text_compare'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
-				$data['text_comparison_list'] = $this->language->get('text_comparison_list');
+			$data['compare'] = $this->url->link('product/compare');
+			$this->language->load('product/compare');
+			$data['text_compare'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
+			$data['text_comparison_list'] = $this->language->get('text_comparison_list');
 			]]></add>
 		</operation>
 	</file>
@@ -943,25 +964,25 @@
 		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY LCASE(" . $data['sort'] . ")";]]></search>
 			<add position="replace" trim="true"><![CDATA[
-				$sql .= " ORDER BY (p.quantity>0) DESC, LCASE(" . $data['sort'] . ")";
+			$sql .= " ORDER BY (p.quantity>0) DESC, LCASE(" . $data['sort'] . ")";
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";]]></search>
 			<add position="replace" trim="true"><![CDATA[
-				$sql .= " ORDER BY (p.quantity>0) DESC, (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
+			$sql .= " ORDER BY (p.quantity>0) DESC, (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY " . $data['sort'];]]></search>
 			<add position="replace" trim="true"><![CDATA[
-				$sql .= " ORDER BY (p.quantity>0) DESC," . $data['sort'];
+			$sql .= " ORDER BY (p.quantity>0) DESC," . $data['sort'];
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY p.sort_order";]]></search>
 			<add position="replace" trim="true"><![CDATA[
-				$sql .= " ORDER BY (p.quantity>0) DESC, p.sort_order";
+			$sql .= " ORDER BY (p.quantity>0) DESC, p.sort_order";
 			]]></add>
 		</operation>
 	</file>
@@ -970,30 +991,30 @@
 		<operation error="log">
 			<search><![CDATA[$data['breadcrumbs'] = array();]]></search>
 			<add position="before" trim="true"><![CDATA[
-				if (isset($this->request->get['instock'])) {
-					$instock = $this->request->get['instock'];
-				} else {
-					$instock = '';
-				}
+			if (isset($this->request->get['instock'])) {
+				$instock = $this->request->get['instock'];
+			} else {
+				$instock = '';
+			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['button_cart'] = $this->language->get('button_cart');]]></search>
 			<add position="before" trim="true"><![CDATA[
-				$data['entry_instock'] = $this->language->get('entry_instock');
+			$data['entry_instock'] = $this->language->get('entry_instock');
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$filter,]]></search>
 			<add position="after" trim="true"><![CDATA[
-				'filter_instock'     => $instock,
+			'filter_instock'     => $instock,
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['limit'] = $limit;]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$data['url'] = html_entity_decode($this->url->link('product/category', 'path=' . $this->request->get['path'] . $url), ENT_QUOTES, 'UTF-8');
-				$data['instock'] = $instock;
+			$data['url'] = html_entity_decode($this->url->link('product/category', 'path=' . $this->request->get['path'] . $url), ENT_QUOTES, 'UTF-8');
+			$data['instock'] = $instock;
 			]]></add>
 		</operation>
 	</file>
@@ -1001,9 +1022,9 @@
 		<operation error="log">
 			<search><![CDATA[if (!empty($data['filter_name']) || !empty($data['filter_tag'])) {]]></search>
 			<add position="before" trim="true"><![CDATA[
-				if (!empty($data['filter_instock'])) {
-					$sql .= " AND (p.stock_status_id = '7' OR p.quantity > 0)";
-				}
+			if (!empty($data['filter_instock'])) {
+				$sql .= " AND (p.stock_status_id = '7' OR p.quantity > 0)";
+			}
 			]]></add>
 		</operation>
 	</file>
@@ -1480,7 +1501,7 @@
 	<!-- Stock Statuses -->
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
-			<search><![CDATA['viewed'           => $query->row['viewed'],]]></search>
+			<search><![CDATA['stock_status'     => $query->row['stock_status'],]]></search>
 			<add position="after"><![CDATA[
 			'stock_status_id'  => $query->row['stock_status_id'],
 			]]>
@@ -1544,18 +1565,10 @@
 			</add>
 		</operation>
 		<operation error="log">
-			<search><![CDATA[$data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));]]></search>
-			<add position="after"><![CDATA[
-				$data['thumb_size'] = $this->config->get($this->config->get('config_theme') . '_image_thumb_width').'x'.$this->config->get($this->config->get('config_theme') . '_image_thumb_height');
-			]]>
-			</add>
-		</operation>
-		<operation error="log">
 			<search><![CDATA[$data['images'] = array();]]></search>
 			<add position="before"><![CDATA[
 			if ($product_info['image']) {
 				$data['thumb_small'] = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'));
-				$data['thumb_small_size'] = $this->config->get($this->config->get('config_theme') . '_image_additional_width').'x'.$this->config->get($this->config->get('config_theme') . '_image_additional_height');
 			} else {
 				$data['thumb_small'] = '';
 			}
@@ -1565,7 +1578,7 @@
 		<operation error="log">
 			<search><![CDATA['popup' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),]]></search>
 			<add position="before"><![CDATA[
-			'helper_thumb' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height')),
+			'thumb_array' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height')),
 			]]>
 			</add>
 		</operation>

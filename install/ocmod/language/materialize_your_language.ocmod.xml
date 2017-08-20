@@ -2,10 +2,19 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — your language settings</b></font>]]></name>
 	<code>materialize-theme-your-settings</code>
-	<version>0.71</version>
+	<version>0.71.2</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Checking email -->
+	<file path="catalog/language/*/information/contact.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/language/*/checkout/checkout.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>

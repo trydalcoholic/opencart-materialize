@@ -161,7 +161,7 @@
 					<?php } ?>
 					<?php } else { ?>
 						<p class="flow-text text-bold"><?php echo $text_empty; ?></p>
-						<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="Ничего не найдено">
+						<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="">
 					<?php } ?>
 					<?php echo $content_bottom; ?>
 				</div>

@@ -72,19 +72,20 @@
 								<span class="<?php echo $stock_color ?> white-text badge availability"><?php echo $stock; ?></span>
 								<?php if ($thumb || $images) { ?>
 									<div class="slider-for photo-swipe" itemscope itemtype="http://schema.org/ImageGallery">
-									<?php if ($thumb_small) { ?>
+									<?php if ($thumb) { ?>
 										<figure class="waves-effect waves-light" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 											<a href="<?php echo $popup; ?>" itemprop="contentUrl" data-size="<?php echo $popup_size; ?>">
-												<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo str_replace($thumb_small_size, $thumb_size, $thumb_small); ?>" itemprop="thumbnail" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
+												<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb; ?>" itemprop="thumbnail" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
 											</a>
 											<figcaption class="center" itemprop="caption description"><?php echo $heading_title; ?></figcaption>
+											<span class="hide"><?php echo $thumb_small; ?></span>
 										</figure>
 									<?php } ?>
 									<?php if ($images) { ?>
 										<?php foreach ($images as $image) { ?>
 										<figure class="waves-effect waves-light" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 											<a href="<?php echo $image['popup']; ?>" itemprop="contentUrl" data-size="<?php echo $popup_size; ?>">
-												<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo str_replace($thumb_small_size, $thumb_size, $image['thumb']); ?>" itemprop="thumbnail" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
+												<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $image['thumb_array']; ?>" itemprop="thumbnail" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
 											</a>
 											<figcaption class="center" itemprop="caption description"><?php echo $heading_title; ?></figcaption>
 										</figure>
@@ -177,25 +178,25 @@
 									<ul>
 										<?php if ($manufacturer) { ?>
 										<li>
-											<span class="text-bold"><?php echo $text_manufacturer; ?></span> <a href="<?php echo $manufacturers; ?>" target="_blank" rel="noopener"><span itemprop="brand"><?php echo $manufacturer; ?></span></a>
+											<span class="text-bold"><?php echo $text_manufacturer; ?></span>&nbsp;<a href="<?php echo $manufacturers; ?>" target="_blank" rel="noopener"><span itemprop="brand"><?php echo $manufacturer; ?></span></a>
 										</li>
 										<?php } ?>
 										<?php if ($category_products) { ?>
 										<li>
-											<span class="text-bold"><?php echo $text_category; ?></span> <a href="<?php echo $category_products[0]['href']; ?>"><span itemprop="category"><?php echo $category_products[0]['name']; ?></span></a>
+											<span class="text-bold"><?php echo $text_category; ?></span>&nbsp;<a href="<?php echo $category_products[0]['href']; ?>"><span itemprop="category"><?php echo $category_products[0]['name']; ?></span></a>
 										</li>
 										<?php } ?>
 										<?php if ($weight > 0) { ?>
 										<li>
-											<span class="text-bold"><?php echo $text_weight; ?></span> <?php echo $weight; ?>
+											<span class="text-bold"><?php echo $text_weight; ?></span>&nbsp;<?php echo $weight; ?>
 										</li>
 										<?php } ?>
 										<li>
-											<span class="text-bold"><?php echo $text_stock; ?></span> <span class="<?php echo $stock_color ?>-text text-darken-1 text-bold"><?php echo $stock; ?></span>
+											<span class="text-bold"><?php echo $text_stock; ?></span> <span class="<?php echo $stock_color ?>-text text-darken-1 text-bold">&nbsp;<?php echo $stock; ?></span>
 										</li>
 										<?php if ($sku) { ?>
 										<li>
-											<span class="text-bold"><?php echo $text_sku; ?></span> <?php echo $sku; ?>
+											<span class="text-bold"><?php echo $text_sku; ?></span>&nbsp;<?php echo $sku; ?>
 										</li>
 										<?php } ?>
 									</ul>

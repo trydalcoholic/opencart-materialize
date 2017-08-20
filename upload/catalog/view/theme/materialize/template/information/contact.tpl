@@ -107,7 +107,7 @@
 										<div class="input-field">
 											<i class="material-icons prefix">email</i>
 											<input type="email" name="email" value="<?php echo $email; ?>" id="input-email" class="validate">
-											<label for="input-email" data-error="Ошибка при вводе e-mail" data-success="E-mail введён верно"><?php echo $entry_email; ?></label>
+											<label for="input-email" data-error="<?php echo $text_email_error; ?>" data-success="<?php echo $text_email_success; ?>"><?php echo $entry_email; ?></label>
 										</div>
 										<div class="input-field">
 											<i class="material-icons prefix">mode_edit</i>
@@ -116,7 +116,7 @@
 										</div>
 										<?php echo $captcha; ?>
 										<div class="flex-reverse">
-											<input class="btn waves-effect waves-light red right" type="submit" value="<?php echo $button_submit; ?>">
+											<button class="btn waves-effect waves-light red right" type="submit" value="<?php echo $button_submit; ?>"><?php echo $button_submit; ?></button>
 										</div>
 									</form>
 								</div>
