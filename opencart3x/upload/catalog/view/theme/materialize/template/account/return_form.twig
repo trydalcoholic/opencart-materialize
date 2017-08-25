@@ -1,0 +1,214 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+					<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				<div class="card-panel">
+					<p class="text-bold">{{ text_description }}</p>
+					<form action="{{ action }}" method="post" enctype="multipart/form-data">
+						<p>{{ text_order }}</p>
+						<div class="row">
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">account_circle</i>
+								<input type="text" name="firstname" value="{{ firstname }}" id="input-firstname" class="validate">
+								<label for="input-firstname">{{ entry_firstname }}</label>
+							</div>
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">account_circle</i>
+								<input type="text" name="lastname" value="{{ lastname }}" id="input-lastname" class="validate">
+								<label for="input-lastname">{{ entry_lastname }}</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">phone</i>
+								<input type="text" name="telephone" value="{{ telephone }}" id="input-telephone" class="fvalidate">
+								<label for="input-telephone">{{ entry_telephone }}</label>
+							</div>
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">email</i>
+								<input type="text" name="email" value="{{ email }}" id="input-email" class="fvalidate">
+								<label for="input-email">{{ entry_email }}</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">info</i>
+								<input type="text" name="order_id" value="{{ order_id }}" id="input-order-id" class="validate">
+								<label for="input-order-id">{{ entry_order_id }}</label>
+							</div>
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">date_range</i>
+								<input type="date" name="date_ordered" value="{{ date_ordered }}" id="input-date-ordered" class="datepicker">
+								<label for="input-date-ordered">{{ entry_date_ordered }}</label>
+							</div>
+						</div>
+						<p>{{ text_product }}</p>
+						<div class="row">
+							<div class="input-field col s12 l6">
+								<input type="text" name="product" value="{{ product }}" id="input-product" class="validate">
+								<label for="input-product">{{ entry_product }}</label>
+							</div>
+							<div class="input-field col s12 l6">
+								<input type="text" name="model" value="{{ model }}"  id="input-model" class="validate">
+								<label for="input-model">{{ entry_model }}</label>
+							</div>
+							<div class="input-field col s12">
+								<input type="text" name="quantity" value="{{ quantity }}" id="input-quantity" class="validate">
+								<label for="input-quantity">{{ entry_quantity }}</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<p>{{ entry_reason }}</p>
+								{% for return_reason in return_reasons %}
+									{% if return_reason.return_reason_id == return_reason_id %}
+										<input id="{{ return_reason.return_reason_id }}" class="with-gap" type="radio" name="return_reason_id" value="{{ return_reason.return_reason_id }}" checked="checked">
+										<label for="{{ return_reason.return_reason_id }}">{{ return_reason.name }}</label><br>
+									{% else %}
+										<input id="{{ return_reason.return_reason_id }}" class="with-gap" type="radio" name="return_reason_id" value="{{ return_reason.return_reason_id }}">
+										<label for="{{ return_reason.return_reason_id }}">{{ return_reason.name }}</label><br>
+									{% endif %}
+								{% endfor %}
+							</div>
+							<div class="input-field col s12">
+								<p>{{ entry_opened }}</p>
+								{% if opened %}
+									<input id="opened" type="radio" name="opened" value="1" class="with-gap" checked="checked">
+								{% else %}
+									<input id="opened" type="radio" name="opened" value="1" class="with-gap">
+								{% endif %}
+								<label for="opened">{{ text_yes }}</label>
+								{% if not opened %}
+									<input id="non-opened" type="radio" name="opened" value="0" class="with-gap" checked="checked">
+								{% else %}
+									<input id="non-opened" type="radio" name="opened" value="0" class="with-gap">
+								{% endif %}
+								<label for="non-opened">{{ text_no }}</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<label for="input-comment">{{ entry_fault_detail }}</label>
+								<textarea name="comment" rows="10" id="input-comment" class="materialize-textarea">{{ comment }}</textarea>
+							</div>
+						</div>
+						{{ captcha }}
+						{% if text_agree %}
+							<div class="row">
+								<div class="col s12">
+									{% if agree %}
+										<input type="checkbox" name="agree" value="1" class="filled-in" id="text-agree" checked="checked">
+									{% else %}
+										<input type="checkbox" name="agree" value="1" class="filled-in" id="text-agree">
+									{% endif %}
+									<label for="text-agree">{{ text_agree }}</label>
+								</div>
+							</div>
+							<div class="flex-reverse">
+								<button type="submit" value="{{ button_submit }}" class="btn waves-effect waves-light red">{{ button_submit }}</button>
+							</div>
+						{% else %}
+							<div class="flex-reverse">
+								<button type="submit" value="{{ button_submit }}" class="btn waves-effect waves-light red">{{ button_submit }}</button>
+							</div>
+						{% endif %}
+					</form>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if error_warning %}
+		Materialize.toast('{{ error_warning }}',7000)
+	{% endif %}
+	{% if error_firstname %}
+		Materialize.toast('{{ error_firstname }}',7000)
+	{% endif %}
+	{% if error_lastname %}
+		Materialize.toast('{{ error_lastname }}',7000)
+	{% endif %}
+	{% if error_telephone %}
+		Materialize.toast('{{ error_telephone }}',7000)
+	{% endif %}
+	{% if error_email %}
+		Materialize.toast('{{ error_email }}',7000)
+	{% endif %}
+	{% if error_order_id %}
+		Materialize.toast('{{ error_order_id }}',7000)
+	{% endif %}
+	{% if error_product %}
+		Materialize.toast('{{ error_product }}',7000)
+	{% endif %}
+	{% if error_model %}
+		Materialize.toast('{{ error_model }}',7000)
+	{% endif %}
+	{% if error_reason %}
+		Materialize.toast('{{ error_reason }}',7000)
+	{% endif %}
+});
+</script>
+{% endspaceless %}
+{{ footer }}

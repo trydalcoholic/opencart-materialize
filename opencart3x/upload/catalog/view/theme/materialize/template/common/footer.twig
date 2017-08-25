@@ -1,0 +1,107 @@
+{% spaceless %}
+<footer class="page-footer blue-grey darken-3">
+	<div class="container">
+		<div class="row">
+			<div class="col l6 s12">
+				<h5 class="white-text text-bold">{{ name }}</h5>
+				<p class="grey-text text-lighten-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea itaque, facere dignissimos aliquam eaque velit at iure cupiditate quam ipsam in assumenda unde quae id fuga dolores reprehenderit laborum totam.</p>
+			</div>
+			<div class="col l5 offset-l1 s12">
+				<div class="row">
+					{% if informations %}
+					<section class="col s6">
+						<h5 class="white-text text-bold">{{ text_information }}</h5>
+						<ul>
+							{% for information in informations %}
+							<li><a class="grey-text text-lighten-3" href="{{ information.href }}">{{ information.title }}</a></li>
+							{% endfor %}
+							<li><a class="grey-text text-lighten-3" href="{{ contact }}">{{ text_contact }}</a></li>
+						</ul>
+					</section>
+					{% endif %}
+					<section class="col s6">
+						<h5 class="white-text text-bold">{{ text_extra }}</h5>
+						<ul>
+							<li><a class="grey-text text-lighten-3" href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>
+							<li><a class="grey-text text-lighten-3" href="{{ voucher }}">{{ text_voucher }}</a></li>
+							<li><a class="grey-text text-lighten-3" href="{{ affiliate }}">{{ text_affiliate }}</a></li>
+							<li><a class="grey-text text-lighten-3" href="{{ special }}">{{ text_special }}</a></li>
+						</ul>
+					</section>
+				</div>
+				<div class="row">
+					<section class="col s6">
+						<h5 class="white-text text-bold">{{ text_account }}</h5>
+						<ul>
+							<li><a class="grey-text text-lighten-3" href="{{ account }}" rel="nofollow">{{ text_account }}</a></li>
+							<li><a class="grey-text text-lighten-3" href="{{ order }}" rel="nofollow">{{ text_order }}</a></li>
+							<li><a class="grey-text text-lighten-3" href="{{ wishlist }}" rel="nofollow">{{ text_wishlist }}</a></li>
+							<li><a class="grey-text text-lighten-3" href="{{ newsletter }}" rel="nofollow">{{ text_newsletter }}</a></li>
+						</ul>
+					</section>
+					<section class="col s6">
+						<h5 class="white-text text-bold">{{ text_social_network }}</h5>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright">
+		<div class="container">
+			{{ powered }}
+			<a class="grey-text text-lighten-4 right" href="https://github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">Materialize Template</a>
+		</div>
+	</div>
+</footer>
+<button type="button" id="back-to-top" class="btn-floating btn-large scale-transition scale-out red z-depth-4 waves-effect waves-light"><i class="material-icons">keyboard_arrow_up</i></button>
+<script defer src="catalog/view/theme/materialize/js/script.js"></script>
+<script>
+	document.addEventListener("DOMContentLoaded", function(event) {
+		$(".modal-call-back-btn").click(function() {
+			$('#modal-call-back').remove();
+			html  = '<form id="modal-call-back" class="modal">';
+			html +=   '<div class="modal-content">';
+			html +=     '<i class="material-icons modal-action modal-close right">close</i>';
+			html +=     '<div class="row"><h4>{{ text_cb_title }}</h4></div>';
+			html +=     '<div class="row">';
+			html +=       '<div class="input-field col s12">';
+			html +=         '<i class="material-icons prefix">account_circle</i>';
+			html +=         '<input id="cb-name" name="name" placeholder="{{ text_cb_your_name }}" type="text" class="validate" required>';
+			html +=         '<label class="active" for="cb-name">{{ text_cb_your_name }}</label>';
+			html +=       '</div>';
+			html +=       '<div class="input-field col s12">';
+			html +=         '<i class="material-icons prefix">phone</i>';
+			html +=         '<input id="cb-telephone" name="telephone" type="tel" class="validate" placeholder="+7_(___)___-____" data-inputmask="\'alias\':\'phone\'" required>';
+			html +=         '<label class="active" for="cb-telephone">{{ text_cb_your_tel }}</label>';
+			html +=       '</div>';
+			html +=     '</div>';
+			html +=   '</div>';
+			html +=   '<div class="modal-footer href-underline">';
+			html +=     '<input type="hidden" name="admin_email" value="{{ email }}">';
+			html +=     '<button type="submit" class="btn modal-action waves-effect waves-light red" value="{{ text_cb_btn }}">{{ text_cb_btn }}</button>';
+			html +=   '</div>';
+			html += '</form>';
+			$('body').append(html);
+			$('#modal-call-back').modal();
+			$('#modal-call-back').modal('open');
+			$(":input[name='telephone']").inputmask();
+			$('#modal-call-back').submit(function() {
+				$.ajax({
+					url: 'catalog/view/theme/materialize/call_back.php',
+					type: 'post',
+					data: $(this).serialize(),
+					success: function() {
+						Materialize.toast('<span><i class="material-icons left">check</i>{{ text_cb_success }}</span>',7000,'toast-success');
+						$(".modal-close").click();
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+					}
+				});
+				return false;
+			});
+		});
+	});
+</script>
+</body></html>
+{% endspaceless %}

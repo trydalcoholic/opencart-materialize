@@ -1,0 +1,15 @@
+<h4>{{ text_captcha }}</h4>
+{% if route|slice(0, 9) == 'checkout/' %}
+	<div class="input-field">
+		<input type="text" name="captcha" id="input-payment-captcha">
+		<label for="input-payment-captcha">{{ entry_captcha }}</label>
+		<img src="index.php?route=extension/captcha/basic/captcha" alt="">
+	</div>
+{% else %}
+	<div class="input-field">
+		<input type="text" name="captcha" id="input-captcha">
+		<label for="input-captcha">{{ entry_captcha }}</label>
+		<img src="index.php?route=extension/captcha/basic/captcha" alt="">
+		{% if error_captcha %}<script>document.addEventListener("DOMContentLoaded", function(event) {Materialize.toast({{ error_captcha }},4000)});</script>{% endif %}
+	</div>
+{% endif %}

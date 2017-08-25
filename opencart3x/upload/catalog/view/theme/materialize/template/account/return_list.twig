@@ -1,0 +1,107 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+					<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				<div class="card-panel">
+					{% if returns %}
+					<div style="overflow-x:scroll;">
+						<table class="bordered centered">
+							<thead class="grey lighten-4">
+								<tr>
+									<th><small>{{ column_return_id }}</small></th>
+									<th><small>{{ column_status }}</small></th>
+									<th><small>{{ column_date_added }}</small></th>
+									<th><small>{{ column_order_id }}</small></th>
+									<th><small>{{ column_customer }}</small></th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for return in returns %}
+								<tr>
+									<td>#{{ return.return_id }}</td>
+									<td>{{ return.status }}</td>
+									<td>{{ return.date_added }}</td>
+									<td>{{ return.order_id }}</td>
+									<td>{{ return.name }}</td>
+									<td><a href="{{ return.href }}" title="{{ button_view }}" class="btn waves-effect waves-light blue"><i class="material-icons">remove_red_eye</i></a></td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					{{ pagination }}
+					{% else %}
+						<p>{{ text_empty }}</p>
+					{% endif %}
+				</div>
+				<div class="flex-reverse">
+					<a href="{{ continue }}" class="btn waves-effect waves-light red href-underline">{{ button_continue }}</a>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+{% endspaceless %}
+{{ footer }}

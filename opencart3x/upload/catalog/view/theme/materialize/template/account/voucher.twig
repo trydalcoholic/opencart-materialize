@@ -1,0 +1,166 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+					<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				<div class="card-panel">
+					<p>{{ text_description }}</p>
+					<form action="{{ action }}" method="post" enctype="multipart/form-data">
+						<div class="row">
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">account_circle</i>
+								<input type="text" name="to_name" value="{{ to_name }}" id="input-to-name" class="validate">
+								<label for="input-to-name">{{ entry_to_name }}</label>
+							</div>
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">email</i>
+								<input type="text" name="to_email" value="{{ to_email }}" id="input-to-email" class="validate">
+								<label for="input-to-email">{{ entry_to_email }}</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">account_box</i>
+								<input type="text" name="from_name" value="{{ from_name }}" id="input-from-name" class="validate">
+								<label for="input-from-name">{{ entry_from_name }}</label>
+							</div>
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">mail_outline</i>
+								<input type="text" name="from_email" value="{{ from_email }}" id="input-from-email" class="validate">
+								<label for="input-from-email">{{ entry_from_email }}</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">mode_edit</i>
+								<label for="input-message">{{ entry_message }}</label>
+								<textarea name="message" cols="40" rows="5" id="input-message" class="materialize-textarea tooltipped" data-position="top" data-delay="50" data-tooltip="{{ help_message }}">{{ message }}</textarea>
+							</div>
+							<div class="col s12 l6">
+								<span class="text-bold">{{ entry_theme }}:</span><br>
+								{% for voucher_theme in voucher_themes %}
+									{% if voucher_theme.voucher_theme_id == voucher_theme_id %}
+										<input id="voucher-theme-{{ voucher_theme.voucher_theme_id }}" class="with-gap" type="radio" name="voucher_theme_id" value="{{ voucher_theme.voucher_theme_id }}" checked="checked">
+										<label for="voucher-theme-{{ voucher_theme.voucher_theme_id }}">{{ voucher_theme.name }}</label>
+										<br>
+									{% else %}
+										<input id="voucher-theme-{{ voucher_theme.voucher_theme_id }}" class="with-gap" type="radio" name="voucher_theme_id" value="{{ voucher_theme.voucher_theme_id }}">
+										<label for="voucher-theme-{{ voucher_theme.voucher_theme_id }}">{{ voucher_theme.name }}</label>
+										<br>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12 l6">
+								<i class="material-icons prefix">attach_money</i>
+								<input type="text" name="amount" value="{{ amount }}" id="input-amount" class="validate tooltipped" size="5" data-position="top" data-delay="50" data-tooltip="{{ help_amount }}">
+								<label for="input-amount">{{ entry_amount }}</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								{% if agree %}
+									<input type="checkbox" name="agree" value="1" class="filled-in" id="text-agree" checked="checked">
+								{% else %}
+									<input type="checkbox" name="agree" value="1" class="filled-in" id="text-agree">
+								{% endif %}
+								<label class="right" for="text-agree">{{ text_agree }}</label>
+							</div>
+						</div>
+						<div class="flex-reverse">
+							<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+						</div>
+					</form>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if error_warning %}
+		Materialize.toast('<span><i class="material-icons left">warning</i>{{ error_warning }}</span>',7000,'toast-warning')
+	{% endif %}
+	{% if error_to_name %}
+		Materialize.toast('<span><i class="material-icons left">warning</i>{{ error_to_name }}</span>',7000,'toast-warning')
+	{% endif %}
+	{% if error_to_email %}
+		Materialize.toast('<span><i class="material-icons left">warning</i>{{ error_to_email }}</span>',7000,'toast-warning')
+	{% endif %}
+	{% if error_from_name %}
+		Materialize.toast('<span><i class="material-icons left">warning</i>{{ error_from_name }}</span>',7000,'toast-warning')
+	{% endif %}
+	{% if error_from_email %}
+		Materialize.toast('<span><i class="material-icons left">warning</i>{{ error_from_email }}</span>',7000,'toast-warning')
+	{% endif %}
+	{% if error_theme %}
+		Materialize.toast('<span><i class="material-icons left">warning</i>{{ error_theme }}</span>',7000,'toast-warning')
+	{% endif %}
+	{% if error_amount %}
+		Materialize.toast('<span><i class="material-icons left">warning</i>{{ error_amount }}</span>',7000,'toast-warning')
+	{% endif %}
+});
+</script>
+{% endspaceless %}
+{{ footer }}

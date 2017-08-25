@@ -1,0 +1,107 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+					<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+		{{ column_left }}
+		<div id="content" class="col {{ main }}">
+			{{ content_top }}
+				<div class="card-panel">
+					<p>{{ text_balance }} <strong>{{ balance }}</strong>.</p>
+					<div class="divider"></div>
+					<table class="bordered striped highlight centered responsive-table">
+						<thead>
+							<tr>
+								<th>{{ column_date_added }}</th>
+								<th>{{ column_description }}</th>
+								<th>{{ column_amount }}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if transactions %}
+							{% for transaction in transactions %}
+							<tr>
+								<td>{{ transaction.date_added }}</td>
+								<td>{{ transaction.description }}</td>
+								<td>{{ transaction.amount }}</td>
+							</tr>
+							{% endfor %}
+							{% else %}
+							<tr>
+								<td colspan="3">{{ text_empty }}</td>
+							</tr>
+							{% endif %}
+						</tbody>
+					</table>
+					{% if pagination %}
+					<div class="row href-underline">
+						{{ pagination }}
+					</div>
+					{% endif %}
+				</div>
+				<div class="flex-reverse href-underline">
+					<a href="{{ continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</a>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+{% endspaceless %}
+{{ footer }}

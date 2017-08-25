@@ -1,0 +1,7 @@
+<div class="collection href-underline">
+	{% for information in informations %}
+	<a href="{{ information.href }}" class="collection-item blue-grey-text text-darken-4">{{ information.title }}</a>
+	{% endfor %}
+	<a href="{{ contact }}" class="collection-item blue-grey-text text-darken-4">{{ text_contact }}</a>
+	<a href="{{ sitemap }}" class="collection-item blue-grey-text text-darken-4">{{ text_sitemap }}</a>
+</div>

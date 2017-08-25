@@ -1,0 +1,112 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+					<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				<div class="card-panel">
+					<h2>{{ text_address_book }}</h2>
+					{% if addresses %}
+					<div class="section">
+						<table>
+							{% for result in addresses %}
+							<tr>
+								<td>{{ result.address }}</td>
+								<td>
+									<a href="{{ result.update }}"><i class="material-icons blue-grey-text text-darken-4">mode_edit</i></a>
+									&nbsp;
+									<a href="{{ result.delete }}"><i class="material-icons blue-grey-text text-darken-4">delete_forever</i></a>
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+					{% else %}
+						<p>{{ text_empty }}</p>
+					{% endif %}
+				</div>
+				<div class="row">
+					<div class="col s6">
+						<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
+					</div>
+					<div class="col s6">
+						<div class="flex-reverse no-padding">
+							<a href="{{ add }}" class="btn waves-effect waves-light red href-underline">{{ button_new_address }}</a>
+						</div>
+					</div>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if success %}
+		Materialize.toast('{{ success }}',7000)
+	{% endif %}
+	{% if error_warning %}
+		Materialize.toast('{{ error_warning }}',7000)
+	{% endif %}
+});
+</script>
+{% endspaceless %}
+{{ footer }}

@@ -1,0 +1,46 @@
+<div class="row">
+	<div class="col s12 m6">
+		<div class="card-panel z-depth-2">
+			<h2>{{ text_new_customer }}</h2>
+			<div class="section">
+				{% if account == 'register' %}
+					<input type="radio" name="account" value="register" checked="checked" id="register" class="with-gap">
+					{% else %}
+					<input type="radio" name="account" value="register" id="register" class="with-gap">
+				{% endif %}
+				<label for="register">{{ text_register }}</label><br>
+				{% if checkout_guest %}
+					{% if account == 'guest' %}
+					<input type="radio" name="account" value="guest" checked="checked" id="guest" class="with-gap">
+					{% else %}
+					<input type="radio" name="account" value="guest" id="guest" class="with-gap">
+					{% endif %}
+				<label for="guest">{{ text_guest }}</label>
+				{% endif %}
+			</div>
+			<button type="button" value="{{ button_continue }}" id="button-account" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+		</div>
+	</div>
+	<div class="col s12 m6">
+		<div class="card-panel z-depth-2">
+			<h2>{{ text_returning_customer }}</h2>
+			<strong>{{ text_i_am_returning_customer }}</strong>
+			<form action="{{ action }}" method="post" enctype="multipart/form-data">
+				<div class="input-field">
+					<i class="material-icons prefix">email</i>
+					<input type="email" name="email" value="" id="input-email" id="input-email" class="validate">
+					<label for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}">{{ entry_email }}</label>
+				</div>
+				<div class="input-field">
+					<i class="material-icons prefix">lock</i>
+					<input type="password" name="password" value="" id="input-password">
+					<label for="input-password">{{ entry_password }}</label>
+					<a href="{{ forgotten }}">{{ text_forgotten }}</a>
+				</div>
+				<div class="flex-reverse">
+					<button type="button" value="{{ button_login }}" id="button-login" class="btn waves-effect waves-light red">{{ button_login }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,124 @@
+{% if addresses %}
+<p>
+	<input type="radio" name="shipping_address" value="existing" checked="checked" id="existing_shipping_address" class="with-gap">
+	<label for="existing_shipping_address" class="text-bold">{{ text_address_existing }}</label>
+	<div id="shipping-existing" class="input-field">
+		<select name="address_id">
+		{% for address in addresses %}
+			{% if address.address_id == address_id %}
+			<option value="{{ address.address_id }}" selected="selected">{{ address.firstname }} {{ address.lastname }}, {{ address.address_1 }}, {{ address.city }}, {{ address.zone }}, {{ address.country }}</option>
+			{% else %}
+			<option value="{{ address.address_id }}">{{ address.firstname }} {{ address.lastname }}, {{ address.address_1 }}, {{ address.city }}, {{ address.zone }}, {{ address.country }}</option>
+			{% endif %}
+		{% endfor %}
+		</select>
+	</div>
+	<br>
+	<input type="radio" name="shipping_address" value="new" id="new_shipping_address" class="with-gap">
+	<label for="new_shipping_address" class="text-bold">{{ text_address_new }}</label>
+</p>
+{% endif %}
+<div id="shipping-new" style="display: {{ addresses ? 'none' : 'block' }}" class="section">
+	<div class="input-field">
+		<label for="input-shipping-firstname" class="active text-bold required">{{ entry_firstname }}</label>
+		<input type="text" name="firstname" value="" placeholder="{{ entry_firstname }}" id="input-shipping-firstname" class="validate">
+	</div>
+	<div class="input-field">
+		<label for="input-shipping-lastname" class="active text-bold required">{{ entry_lastname }}</label>
+		<input type="text" name="lastname" value="" placeholder="{{ entry_lastname }}" id="input-shipping-lastname" class="validate">
+	</div>
+	<div class="input-field">
+		<label for="input-shipping-company" class="active text-bold">{{ entry_company }}</label>
+		<input type="text" name="company" value="" placeholder="{{ entry_company }}" id="input-shipping-company" class="validate">
+	</div>
+	<div class="input-field">
+		<label for="input-shipping-address-1" class="active text-bold required">{{ entry_address_1 }}</label>
+		<input type="text" name="address_1" value="" placeholder="{{ entry_address_1 }}" id="input-shipping-address-1" class="validate">
+	</div>
+	<div class="input-field">
+		<label for="input-shipping-address-2" class="active text-bold">{{ entry_address_2 }}</label>
+		<input type="text" name="address_2" value="" placeholder="{{ entry_address_2 }}" id="input-shipping-address-2" class="validate">
+	</div>
+	<div class="input-field">
+		<label for="input-shipping-city" class="active text-bold required">{{ entry_city }}</label>
+		<input type="text" name="city" value="" placeholder="{{ entry_city }}" id="input-shipping-city" class="validate">
+	</div>
+	<div class="input-field">
+		<label for="input-shipping-postcode" class="active text-bold required">{{ entry_postcode }}</label>
+		<input type="text" name="postcode" value="" placeholder="{{ entry_postcode }}" id="input-shipping-postcode" class="validate">
+	</div>
+	<div class="section">
+		<div class="input-field">
+			<select name="country_id" id="input-shipping-country">
+				<option value="" disabled selected>{{ text_select }}</option>
+				{% for country in countries %}
+				{% if country.country_id == country_id %}
+				<option value="{{ country.country_id }}" selected="selected">{{ country.name }}</option>
+				{% else %}
+				<option value="{{ country.country_id }}">{{ country.name }}</option>
+				{% endif %}
+				{% endfor %}
+			</select>
+			<label for="input-shipping-country" class="text-bold required">{{ entry_country }}</label>
+		</div>
+	</div>
+	<div class="section">
+		<div class="input-field">
+			<select name="zone_id" id="input-shipping-zone">
+			</select>
+			<label for="input-shipping-zone" class="text-bold required">{{ entry_zone }}</label>
+		</div>
+	</div>
+</div>
+<div class="flex-reverse">
+	<button type="button" value="{{ button_continue }}" id="button-shipping-address" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+</div>
+<script>
+$('input[name=\'shipping_address\']').on('change', function() {
+	if (this.value == 'new') {
+		$('#shipping-existing').hide();
+		$('#shipping-new').show();
+	} else {
+		$('#shipping-existing').show();
+		$('#shipping-new').hide();
+	}
+});
+$('#collapse-shipping-address select[name=\'country_id\']').on('change', function() {
+	$.ajax({
+		url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
+		dataType: 'json',
+		success: function(json) {
+			if (json['postcode_required'] == '1') {
+				$('#collapse-shipping-address input[name=\'postcode\']').parent().find('label').addClass('required');
+			} else {
+				$('#collapse-shipping-address input[name=\'postcode\']').parent().find('label').removeClass('required');
+			}
+
+			html = '<option value="">{{ text_select }}</option>';
+
+			if (json['zone'] && json['zone'] != '') {
+				for (i = 0; i < json['zone'].length; i++) {
+					html += '<option value="' + json['zone'][i]['zone_id'] + '"';
+
+					if (json['zone'][i]['zone_id'] == '{{ zone_id }}') {
+						html += ' selected="selected"';
+					}
+
+					html += '>' + json['zone'][i]['name'] + '</option>';
+				}
+			} else {
+				html += '<option value="0" selected="selected">{{ text_none }}</option>';
+			}
+
+			$('#collapse-shipping-address select[name=\'zone_id\']').html(html);
+			$('select').material_select();
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$('#collapse-shipping-address select[name=\'country_id\']').trigger('change');
+$('select').material_select();
+</script>

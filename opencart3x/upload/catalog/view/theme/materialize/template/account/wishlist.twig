@@ -1,0 +1,103 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+					<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				{% if products %}
+					{% for product in products %}
+					<div class="card horizontal">
+						<div class="card-image">
+							<div>
+								{% if product.thumb %}
+									<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" width="75" height="75"></a>
+								{% endif %}
+							</div>
+						</div>
+						<div class="card-stacked">
+							<a href="{{ product.remove }}" title="{{ button_remove }}" class="btn-floating waves-effect transparent z-depth-0 remove-item"><i class="material-icons black-text">close</i></a>
+							<div class="card-content">
+								<a class="text-bold" href="{{ product.href }}">{{ product.name }}</a>
+								<br>
+								<span class="text-bold">{{ column_price }}: </span>{% if product.price %}{% if not product.special %}{{ product.price }}{% else %}<b>{{ product.special }}</b> <s>{{ product.price }}</s>{% endif %}{% endif %}
+								<br>
+								<span class="text-bold">{{ column_stock }}: </span>{{ product.stock }}
+								<br><br>
+								<button type="button" onclick="cart.add('{{ product.product_id }}');" title="{{ button_cart }}" class="btn waves-effect waves-light red"><i class="material-icons left">add_shopping_cart</i>{{ button_cart }}</button>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				{% else %}
+					<div class="card-panel">
+						<p>{{ text_empty }}</p>
+					</div>
+				{% endif %}
+				<div class="flex-reverse">
+					<a href="{{ continue }}" class="btn waves-effect waves-light red href-underline">{{ button_continue }}</a>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+{% endspaceless %}
+{{ footer }}

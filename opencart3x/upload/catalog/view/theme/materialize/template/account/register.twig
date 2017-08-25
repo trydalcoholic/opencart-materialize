@@ -1,0 +1,151 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+					<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				<div class="card-panel">
+					<p><?php echo $text_account_already; ?></p>
+					<form action="{{ action }}" method="post" enctype="multipart/form-data">
+						<div class="row">
+							<div class="col s12">
+								<div id="account" class="card-panel">
+									<h2>{{ text_your_details }}</h2>
+									<div class="input-field">
+										<input type="text" name="firstname" value="{{ firstname }}" id="input-firstname" class="validate">
+										<label for="input-firstname" class="required">{{ entry_firstname }}</label>
+									</div>
+									<div class="input-field">
+										<input type="text" name="lastname" value="{{ lastname }}" id="input-lastname" class="validate">
+										<label for="input-lastname" class="required">{{ entry_lastname }}</label>
+									</div>
+									<div class="input-field">
+										<input type="email" name="email" value="{{ email }}" id="input-email" class="validate">
+										<label for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}" class="required">{{ entry_email }}</label>
+									</div>
+									<div class="input-field">
+										<input type="tel" name="telephone" value="{{ telephone }}" id="input-telephone" class="validate" placeholder="+7_(___)___-____" data-inputmask="'alias':'phone'">
+										<label for="input-telephone" class="required">{{ entry_telephone }}</label>
+									</div>
+									<h2>{{ text_your_password }}</h2>
+									<div class="input-field">
+										<input type="password" name="password" value="{{ password }}" id="input-password" class="validate">
+										<label for="input-password" class="required">{{ entry_password }}</label>
+									</div>
+									<div class="input-field">
+										<input type="password" name="confirm" value="{{ confirm }}" id="input-confirm" class="validate">
+										<label for="input-confirm" class="required">{{ entry_confirm }}</label>
+									</div>
+								</div>
+							</div>
+							{% if captcha %}<div class="col s12">{{ captcha }}</div>{% endif %}
+							<div class="col s12">
+								{% if text_agree %}
+								{% if agree %}
+								<input type="checkbox" name="agree" value="1" checked="checked" id="agreement-check" class="filled-in">
+								{% else %}
+								<input type="checkbox" name="agree" value="1" id="agreement-check" class="filled-in">
+								{% endif %}
+								<label for="agreement-check">{{ text_agree }}</label>
+								<div class="flex-reverse">
+									<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+								</div>
+								{% else %}
+								<div class="flex-reverse">
+									<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+								</div>
+								{% endif %}
+							</div>
+						</div>
+					</form>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if error_firstname %}
+		Materialize.toast('{{ error_firstname }}',7000)
+	{% endif %}
+	{% if error_lastname %}
+		Materialize.toast('{{ error_lastname }}',7000)
+	{% endif %}
+	{% if error_email %}
+		Materialize.toast('{{ error_email }}',7000)
+	{% endif %}
+	{% if error_telephone %}
+		Materialize.toast('{{ error_telephone }}',7000)
+	{% endif %}
+	{% if error_password %}
+		Materialize.toast('{{ error_password }}',7000)
+	{% endif %}
+	{% if error_confirm %}
+		Materialize.toast('{{ error_confirm }}',7000)
+	{% endif %}
+	$('.switch input[type="checkbox"]').click(function(){
+		$('#newsletter').attr('value', ($('#newsletter').attr('value')==0) ? '1' : '0');
+	});
+});
+</script>
+{% endspaceless %}
+{{ footer }}
