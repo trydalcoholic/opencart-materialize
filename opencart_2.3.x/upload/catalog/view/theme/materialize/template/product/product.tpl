@@ -201,7 +201,7 @@
 										<?php } ?>
 									</ul>
 								</blockquote>
-								<?php if ($special || $reward || $discounts) { ?>
+								<?php if ($special || $reward || $discounts || ($sizechart['sizechart_status'] == 1 && $size_chart)) { ?>
 								<ul class="collection z-depth-1">
 									<?php if ($special) { ?>
 									<li class="collection-item">
@@ -216,6 +216,11 @@
 									<?php foreach ($discounts as $discount) { ?>
 									<li class="collection-item">
 										<i class="material-icons blue-grey-text text-darken-4 left">new_releases</i><span class="deep-orange-text text-accent-3 text-bold"><?php echo $discount['price']; ?></span> — <?php echo $discount['quantity']; ?><?php echo $text_discount; ?>
+									</li>
+									<?php } ?>
+									<?php if ($sizechart['sizechart_status'] == 1 && $size_chart) { ?>
+									<li class="collection-item">
+										<i class="material-icons blue-grey-text text-darken-4 left">straighten</i><a class="deep-orange-text text-accent-3 text-bold modal-trigger" href="#modal-size-chart"><?php echo $text_size_chart; ?></a>
 									</li>
 									<?php } ?>
 								</ul>
@@ -538,6 +543,12 @@
 		</div>
 	</main>
 	<aside>
+		<div id="modal-size-chart" class="modal">
+			<div class="modal-content">
+				<h4><?php echo $text_size_chart; ?></h4>
+				<?php echo $size_chart; ?>
+			</div>
+		</div>
 		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"><div class="pswp__bg"></div><div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="<?php echo $button_pswp_close; ?>"></button><button class="pswp__button pswp__button--share" title="<?php echo $button_share; ?>"></button><button class="pswp__button pswp__button--fs" title="<?php echo $button_pswp_toggle_fullscreen; ?>"></button><button class="pswp__button pswp__button--zoom" title="<?php echo $button_pswp_zoom; ?>"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" title="<?php echo $button_pswp_prev; ?>"></button><button class="pswp__button pswp__button--arrow--right" title="<?php echo $button_pswp_next; ?>"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div></div>
 		<ul id="side-share" class="side-nav href-underline">
 			<li>

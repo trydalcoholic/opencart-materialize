@@ -2,9 +2,26 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.71.2</version>
+	<version>0.72</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Size Chart -->
+	<file path="admin/language/ru-ru/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['entry_size_chart'] = 'Таблица размеров';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_size_chart']          = 'Таблица размеров';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Checking email -->
 	<file path="catalog/language/ru-ru/information/contact.php">
 		<operation error="skip">
@@ -269,6 +286,14 @@
 				$_['entry_title']               = 'Название вкладки';
 				$_['button_customtab_add']      = 'Добавить вкладку';
 				$_['tab_customtab']             = 'Дополнительные вкладки';
+				$_['text_apply']                = 'Применить';
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/ru-ru/catalog/category.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
 				$_['text_apply']                = 'Применить';
 			]]></add>
 		</operation>

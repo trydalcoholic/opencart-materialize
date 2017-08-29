@@ -2,14 +2,111 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.71.3</version>
+	<version>0.72</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Size Chart -->
+	<file path="admin/controller/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['entry_recurring'] = $this->language->get('entry_recurring');]]></search>
+			<add position="after"><![CDATA[
+			$data['entry_size_chart'] = $this->language->get('entry_size_chart');
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[
+			$this->db->query("INSERT INTO " . DB_PREFIX . "product_description SET product_id = '" . (int)$product_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', description = '" . $this->db->escape($value['description']) . "', tag = '" . $this->db->escape($value['tag']) . "', meta_title = '" . $this->db->escape($value['meta_title']) . "', meta_description = '" . $this->db->escape($value['meta_description']) . "', meta_keyword = '" . $this->db->escape($value['meta_keyword']) . "'");
+			]]></search>
+			<add position="replace" trim="true"><![CDATA[
+			$this->db->query("INSERT INTO " . DB_PREFIX . "product_description SET product_id = '" . (int) $product_id . "', language_id = '" . (int) $language_id . "', name = '" . $this->db->escape($value['name']) . "', description = '" . $this->db->escape($value['description']) . "', size_chart = '" . $this->db->escape($value['size_chart']) . "', tag = '" . $this->db->escape($value['tag']) . "', meta_title = '" . $this->db->escape($value['meta_title']) . "', meta_description = '" . $this->db->escape($value['meta_description']) . "', meta_keyword = '" . $this->db->escape($value['meta_keyword']) . "'");
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[
+			$this->db->query("INSERT INTO " . DB_PREFIX . "product_description SET product_id = '" . (int)$product_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', description = '" . $this->db->escape($value['description']) . "', tag = '" . $this->db->escape($value['tag']) . "', meta_title = '" . $this->db->escape($value['meta_title']) . "', meta_h1 = '" . $this->db->escape($value['meta_h1']) . "', meta_description = '" . $this->db->escape($value['meta_description']) . "', meta_keyword = '" . $this->db->escape($value['meta_keyword']) . "'");
+			]]></search>
+			<add position="replace" trim="true"><![CDATA[
+			$this->db->query("INSERT INTO " . DB_PREFIX . "product_description SET product_id = '" . (int)$product_id . "', language_id = '" . (int)$language_id . "', name = '" . $this->db->escape($value['name']) . "', description = '" . $this->db->escape($value['description']) . "', size_chart = '" . $this->db->escape($value['size_chart']) . "', tag = '" . $this->db->escape($value['tag']) . "', meta_title = '" . $this->db->escape($value['meta_title']) . "', meta_h1 = '" . $this->db->escape($value['meta_h1']) . "', meta_description = '" . $this->db->escape($value['meta_description']) . "', meta_keyword = '" . $this->db->escape($value['meta_keyword']) . "'");
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$product_description_data[$result['language_id']] = array(]]></search>
+			<add position="after" trim="true"><![CDATA[
+			'size_chart' => $result['size_chart'],
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.tpl">
+		<operation error="skip">
+			<search><![CDATA[
+			<textarea name="product_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" data-lang="<?php echo $lang; ?>" class="form-control summernote"><?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['description'] : ''; ?></textarea>
+			]]></search>
+			<add position="after"><![CDATA[
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="input-description<?php echo $language['language_id']; ?>"><?php echo $entry_size_chart; ?></label>
+				<div class="col-sm-10">
+					<textarea name="product_description[<?php echo $language['language_id']; ?>][size_chart]" placeholder="<?php echo $entry_size_chart; ?>" id="input-size_chart<?php echo $language['language_id']; ?>" data-lang="<?php echo $lang; ?>" class="form-control summernote"><?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['size_chart'] : ''; ?></textarea>
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[
+			<textarea name="product_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="form-control summernote"><?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['description'] : ''; ?></textarea>
+			]]></search>
+			<add position="after"><![CDATA[
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="input-description<?php echo $language['language_id']; ?>"><?php echo $entry_size_chart; ?></label>
+				<div class="col-sm-10">
+					<textarea name="product_description[<?php echo $language['language_id']; ?>][size_chart]" placeholder="<?php echo $entry_size_chart; ?>" id="input-size_chart<?php echo $language['language_id']; ?>" class="form-control summernote"><?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['size_chart'] : ''; ?></textarea>
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[if (isset($this->request->get['category_id'])) {]]></search>
+			<add position="before"><![CDATA[
+			if (isset($this->request->get['size_chart'])) {
+				$url .= '&size_chart=' . $this->request->get['size_chart'];
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/review');]]></search>
+			<add position="after"><![CDATA[
+			$data['text_size_chart'] = $this->language->get('text_size_chart');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['rating'] = (int)$product_info['rating'];]]></search>
+			<add position="after"><![CDATA[
+			$data['size_chart'] = html_entity_decode($product_info['size_chart'], ENT_QUOTES, 'UTF-8');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
+			<add position="after"><![CDATA[
+			$data['sizechart'] = $this->load->controller('extension/module/sizechart');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[meta_description' => $query->row['meta_description'],]]></search>
+			<add position="after"><![CDATA[
+			'size_chart' => $query->row['size_chart'],
+			]]></add>
+		</operation>
+	</file>
 	<!-- Integration of the module "SourceCode Compressor" https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=29699 -->
 	<file path="system/library/response.php">
 		<operation error="log">
 			<search><![CDATA[if ($this->output) {]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$this->output = preg_replace("/(\n)+/", "\n", $this->output);
 			$this->output = preg_replace("/\r\n+/", "\n", $this->output);
 			$this->output = preg_replace("/\n(\t)+/", "\n", $this->output);
@@ -27,7 +124,7 @@
 	<file path="catalog/controller/information/contact.php">
 		<operation error="log">
 			<search><![CDATA[$data['text_comment'] = $this->language->get('text_comment');]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -36,7 +133,7 @@
 	<file path="catalog/controller/checkout/guest.php">
 		<operation error="log">
 			<search><![CDATA[$data['text_select'] = $this->language->get('text_select');]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -45,7 +142,7 @@
 	<file path="catalog/controller/checkout/login.php">
 		<operation error="log">
 			<search><![CDATA[$data['text_checkout_account'] = $this->language->get('text_checkout_account');]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -54,7 +151,7 @@
 	<file path="catalog/controller/checkout/register.php">
 		<operation error="log">
 			<search><![CDATA[$data['text_checkout_payment_address'] = $this->language->get('text_checkout_payment_address');]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -63,7 +160,7 @@
 	<file path="catalog/controller/affiliate/register.php">
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -72,7 +169,7 @@
 	<file path="catalog/controller/affiliate/login.php">
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -81,7 +178,7 @@
 	<file path="catalog/controller/affiliate/edit.php">
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -90,7 +187,7 @@
 	<file path="catalog/controller/account/register.php">
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -99,7 +196,7 @@
 	<file path="catalog/controller/account/login.php">
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -108,7 +205,7 @@
 	<file path="catalog/controller/account/edit.php">
 		<operation error="log">
 			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
@@ -118,13 +215,13 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['sku'] = $product_info['sku'];
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['text_points'] = $this->language->get('text_points');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['text_sku'] = $this->language->get('text_sku');
 			]]></add>
 		</operation>
@@ -133,7 +230,7 @@
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[$sql .= " AND pf.filter_id IN (" . implode(',', $implode) . ")";]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$minq=$this->db->query("SELECT id.product_id FROM(SELECT product_id, count(i.product_id) as t, c.filter_group as b FROM (SELECT f.filter_id, f.product_id, p.filter_group_id FROM ". DB_PREFIX ."product_filter f left join ". DB_PREFIX ."filter p ON p.filter_id = f.filter_id where p.filter_id IN (" . implode(',', $implode) . ") GROUP BY product_id , filter_group_id) as i, (select count(distinct filter_group_id) as filter_group from ". DB_PREFIX ."filter_description f_b WHERE f_b.filter_id in (" . implode(',', $implode) . ")) as c GROUP BY product_id HAVING t = b) as id");
 			$min = array();
 			for ($x = 0; $x < count($minq->rows); $x++){
@@ -146,7 +243,7 @@
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";]]></search>
-			<add position="after" offset="1" trim="true"><![CDATA[
+			<add position="after" offset="1"><![CDATA[
 			if(isset($filters)) {
 				if(!count($min)) {
 					$imp='0000000';
@@ -160,7 +257,7 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[public function getRecurringDescription() {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			public function updatePrice() {
 				$json = array();
 
@@ -232,7 +329,7 @@
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[public function getTotalProductSpecials() {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			public function getUpdateOptionsList($product_id, $product_option_id) {
 				$option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$product_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 				if($option_query->num_rows) {
@@ -275,7 +372,7 @@
 	<file path="catalog/controller/common/search.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			public function autocomplete() {
 				$json = array();
 
@@ -335,7 +432,7 @@
 		</operation>
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['product_path'] = $this->url->link('product/product');
 			]]></add>
 		</operation>
@@ -343,7 +440,7 @@
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[public function getProduct($product_id) {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			public function getProductsSearch($data = array()) {
 				$sql="select distinct PD.product_id as product_id, PD.name as name,P.sku as sku, P.image as image,CD.name as category, P.status as status FROM " . DB_PREFIX . "product as P LEFT JOIN " . DB_PREFIX . "product_description as PD ON(P.product_id = PD.product_id) LEFT JOIN " . DB_PREFIX . "product_to_category as PTC ON(P.product_id = PTC.product_id) Left JOIN " . DB_PREFIX . "category_description as CD ON (PTC.category_id = CD.category_id) WHERE P.status = 1 AND (PD.name LIKE '%".$data['filter_name']."%' OR P.model LIKE '%".$data['filter_name']."%' OR P.sku LIKE '%".$data['filter_name']."%' OR CD.name LIKE '%".$data['filter_name']."%') GROUP BY P.product_id";
 
@@ -365,13 +462,13 @@
 	<file path="catalog/controller/affiliate/tracking.php">
 		<operation error="log">
 			<search><![CDATA[$this->load->model('catalog/product');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$this->load->model('tool/image');
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$json[] = array(]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			if (is_file(DIR_IMAGE . $result['image'])) {
 				$image = $this->model_tool_image->resize($result['image'], 40, 40);
 				$img ='<img src='.$image.' class="right circle">';
@@ -383,7 +480,7 @@
 		</operation>
 		<operation error="log">
 			<search><![CDATA['name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'img'        => $img,
 			]]></add>
 		</operation>
@@ -392,8 +489,8 @@
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA[$data['categories'][] = array(]]></search>
-			<add position="after" trim="true"><![CDATA[
-				'id'       => $category['category_id'],
+			<add position="after"><![CDATA[
+			'id'       => $category['category_id'],
 			]]></add>
 		</operation>
 	</file>
@@ -401,117 +498,117 @@
 	<file path="admin/model/sale/order.php">
 		<operation error="log">
 			<search index="0"><![CDATA[return $query->row['total'];]]></search>
-			<add position="after" offset="2" trim="true"><![CDATA[
-				public function getProductImage($product_id) {
-					$query = $this->db->query("SELECT image FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
-					return $query->row;
-				}
+			<add position="after" offset="2"><![CDATA[
+			public function getProductImage($product_id) {
+				$query = $this->db->query("SELECT image FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
+				return $query->row;
+			}
 			]]></add>
 		</operation>
 	</file>
 	<file path="admin/controller/sale/order.php">
 		<operation error="log">
 			<search><![CDATA[$store_fax = $store_info['config_fax'];]]></search>
-			<add position="after" trim="true"><![CDATA[$store_logo = $store_info['config_logo'];]]></add>
+			<add position="after"><![CDATA[$store_logo = $store_info['config_logo'];]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[=> $order_info['store_name'],]]></search>
-			<add position="after" trim="true"><![CDATA['logo'              => HTTP_CATALOG . 'image/' .$store_info['config_logo'],]]></add>
+			<add position="after"><![CDATA['logo'              => HTTP_CATALOG . 'image/' .$store_info['config_logo'],]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$option_data = array();]]></search>
-			<add position="after" trim="true"><![CDATA[$product['img'] = $this->model_sale_order->getProductImage($product['product_id']);]]></add>
+			<add position="after"><![CDATA[$product['img'] = $this->model_sale_order->getProductImage($product['product_id']);]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$product_data[] = array(]]></search>
-			<add position="before" trim="true"><![CDATA[$this->load->model('tool/image');]]></add>
+			<add position="before"><![CDATA[$this->load->model('tool/image');]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$product_data[] = array(]]></search>
-			<add position="after" trim="true"><![CDATA[
-				'image'    => $this->model_tool_image->resize($product['img']['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height')),
-                        'width'    => $this->config->get($this->config->get('config_theme') . '_image_cart_width'),
+			<add position="after"><![CDATA[
+			'image'    => $this->model_tool_image->resize($product['img']['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height')),
+			'width'    => $this->config->get($this->config->get('config_theme') . '_image_cart_width'),
 			]]></add>
 		</operation>
 	</file>
 	<file path="admin/view/template/sale/order_shipping.tpl">
 		<operation error="log">
 			<search><![CDATA[<div style="page-break-after: always;">]]></search>
-			<add position="after" trim="true"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
+			<add position="after"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<td><b><?php echo $column_product; ?></b></td>]]></search>
-			<add position="replace" trim="true"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
+			<add position="replace"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<td><?php echo $product['name']; ?>]]></search>
-			<add position="before" trim="true"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
+			<add position="before"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
 		</operation>
 	</file>
 	<file path="admin/view/template/sale/order_invoice.tpl">
 		<operation error="log">
 			<search><![CDATA[<div style="page-break-after: always;">]]></search>
-			<add position="after" trim="true"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
+			<add position="after"><![CDATA[<img src=<?php echo $order['logo']; ?> />]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<td><b><?php echo $column_product; ?></b></td>]]></search>
-			<add position="replace" trim="true"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
+			<add position="replace"><![CDATA[<td colspan="2"><b><?php echo $column_product; ?></b></td>]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<td><?php echo $product['name']; ?>]]></search>
-			<add position="before" trim="true"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
+			<add position="before"><![CDATA[<td style="width:<?php echo $product['width'] ?>px"><img src="<?php echo $product['image'] ?>"></td>]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[colspan="4"]]></search>
-			<add position="replace" trim="true"><![CDATA[colspan="5"]]></add>
+			<add position="replace"><![CDATA[colspan="5"]]></add>
 		</operation>
 	</file>
 	<!-- Favicon -->
 	<file path="system/library/document.php">
 		<operation error="log">
 			<search><![CDATA[public function addLink($href, $rel) {]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				public function addLink($href, $rel, $type='', $sizes = '') {
+			<add position="replace"><![CDATA[
+			public function addLink($href, $rel, $type='', $sizes = '') {
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['rel'  => $rel]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				'rel'  => $rel,
-				'type' => $type,
-				'sizes' => $sizes
+			<add position="replace"><![CDATA[
+			'rel'  => $rel,
+			'type' => $type,
+			'sizes' => $sizes
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA[$this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$this->load->model('tool/image');
-				$icon_type = exif_imagetype($server . 'image/' . $this->config->get('config_icon'));
-				if ($icon_type == 1) {$icon_type = 'image/gif';}
-				if ($icon_type == 2) {$icon_type = 'image/jpeg';}
-				if ($icon_type == 3) {$icon_type = 'image/png';}
-				if ($icon_type == 17) {$icon_type = 'image/x-icon';}
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 16, 16), 'icon', $icon_type, '16x16');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 32, 32), 'icon', $icon_type, '32x32');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 48, 48), 'icon', $icon_type, '48x48');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 96, 96), 'icon', $icon_type, '96x96');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 128, 128), 'icon', $icon_type, '128x128');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 160, 160), 'icon', $icon_type, '160x160');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 196, 196), 'icon', $icon_type, '196x196');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 228, 228), 'icon', $icon_type, '228x228');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 256, 256), 'icon', $icon_type, '256x256');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 57, 57), 'apple-touch-icon', $icon_type, '57x57');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 60, 60), 'apple-touch-icon', $icon_type, '60x60');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 72, 72), 'apple-touch-icon', $icon_type, '72x72');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 76, 76), 'apple-touch-icon', $icon_type, '76x76');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 114, 114), 'apple-touch-icon', $icon_type, '114x114');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 120, 120), 'apple-touch-icon', $icon_type, '120x120');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 144, 144), 'apple-touch-icon', $icon_type, '144x144');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 152, 152), 'apple-touch-icon', $icon_type, '152x152');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 167, 167), 'apple-touch-icon', $icon_type, '167x167');
-				$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 180, 180), 'apple-touch-icon', $icon_type, '180x180');
+			<add position="replace"><![CDATA[
+			$this->load->model('tool/image');
+			$icon_type = exif_imagetype($server . 'image/' . $this->config->get('config_icon'));
+			if ($icon_type == 1) {$icon_type = 'image/gif';}
+			if ($icon_type == 2) {$icon_type = 'image/jpeg';}
+			if ($icon_type == 3) {$icon_type = 'image/png';}
+			if ($icon_type == 17) {$icon_type = 'image/x-icon';}
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 16, 16), 'icon', $icon_type, '16x16');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 32, 32), 'icon', $icon_type, '32x32');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 48, 48), 'icon', $icon_type, '48x48');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 96, 96), 'icon', $icon_type, '96x96');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 128, 128), 'icon', $icon_type, '128x128');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 160, 160), 'icon', $icon_type, '160x160');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 196, 196), 'icon', $icon_type, '196x196');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 228, 228), 'icon', $icon_type, '228x228');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 256, 256), 'icon', $icon_type, '256x256');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 57, 57), 'apple-touch-icon', $icon_type, '57x57');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 60, 60), 'apple-touch-icon', $icon_type, '60x60');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 72, 72), 'apple-touch-icon', $icon_type, '72x72');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 76, 76), 'apple-touch-icon', $icon_type, '76x76');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 114, 114), 'apple-touch-icon', $icon_type, '114x114');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 120, 120), 'apple-touch-icon', $icon_type, '120x120');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 144, 144), 'apple-touch-icon', $icon_type, '144x144');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 152, 152), 'apple-touch-icon', $icon_type, '152x152');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 167, 167), 'apple-touch-icon', $icon_type, '167x167');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 180, 180), 'apple-touch-icon', $icon_type, '180x180');
 			]]></add>
 		</operation>
 	</file>
@@ -519,7 +616,7 @@
 	<file path="catalog/controller/product/category.php">
 		<operation error="log">
 			<search><![CDATA[$data['categories'][] = array(]]></search>
-			<add position="replace" offset="3" trim="true"><![CDATA[
+			<add position="replace" offset="3"><![CDATA[
 			if ($result['image']) {
 				$image = $this->model_tool_image->resize($result['image'], 32, 32);
 			} else {
@@ -538,7 +635,7 @@
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$css = file_get_contents('catalog/view/theme/materialize/stylesheet/style.css');
 			$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
 			$css = str_replace(': ', ':', $css);
@@ -550,7 +647,7 @@
 	<file path="catalog/controller/common/footer.php">
 		<operation error="log">
 			<search><![CDATA[$data['contact'] = $this->url->link('information/contact');]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['name'] = $this->config->get('config_name');
 			]]></add>
 		</operation>
@@ -558,19 +655,19 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['lang'] = $this->language->get('code');
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['pricecurrency'] = $this->session->data['currency'];
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['rating'] = (int)$product_info['rating'];]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['reviewCount'] = sprintf((int)$product_info['reviews']);
 			]]></add>
 		</operation>
@@ -579,10 +676,10 @@
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA[$data['logo'] = $server . 'image/' . $this->config->get('config_logo');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				list($logo_width, $logo_height) = getimagesize($data['logo']);
-				$data['logo_height'] = $logo_height;
-				$data['logo_width'] = $logo_width;
+			<add position="after"><![CDATA[
+			list($logo_width, $logo_height) = getimagesize($data['logo']);
+			$data['logo_height'] = $logo_height;
+			$data['logo_width'] = $logo_width;
 			]]></add>
 		</operation>
 	</file>
@@ -590,17 +687,17 @@
 	<file path="catalog/controller/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_all'] = $this->language->get('text_all');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_contact'] = $this->language->get('text_contact');
-				$data['text_about'] = $this->language->get('text_about');
-				$data['text_delivery'] = $this->language->get('text_delivery');
-				$data['text_call_back'] = $this->language->get('text_call_back');
-				$data['text_call_free'] = $this->language->get('text_call_free');
+			<add position="after"><![CDATA[
+			$data['text_contact'] = $this->language->get('text_contact');
+			$data['text_about'] = $this->language->get('text_about');
+			$data['text_delivery'] = $this->language->get('text_delivery');
+			$data['text_call_back'] = $this->language->get('text_call_back');
+			$data['text_call_free'] = $this->language->get('text_call_free');
 			]]></add>
 		</operation>
 		<operation error="skip">
 			<search><![CDATA[$data['name'] = $this->config->get('config_name');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['email'] = $this->config->get('config_email');
 			$data['open'] = nl2br($this->config->get('config_open'));
 			]]></add>
@@ -609,17 +706,17 @@
 	<file path="catalog/controller/common/footer.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_newsletter'] = $this->language->get('text_newsletter');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_social_network'] = $this->language->get('text_social_network');
-				$data['text_cb_title'] = $this->language->get('text_cb_title');
-				$data['text_cb_your_name'] = $this->language->get('text_cb_your_name');
-				$data['text_cb_your_tel'] = $this->language->get('text_cb_your_tel');
-				$data['text_cb_btn'] = $this->language->get('text_cb_btn');
+			<add position="after"><![CDATA[
+			$data['text_social_network'] = $this->language->get('text_social_network');
+			$data['text_cb_title'] = $this->language->get('text_cb_title');
+			$data['text_cb_your_name'] = $this->language->get('text_cb_your_name');
+			$data['text_cb_your_tel'] = $this->language->get('text_cb_your_tel');
+			$data['text_cb_btn'] = $this->language->get('text_cb_btn');
 			]]></add>
 		</operation>
 		<operation error="skip">
 			<search><![CDATA[$data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['email'] = $this->config->get('config_email');
 			]]></add>
 		</operation>
@@ -627,57 +724,57 @@
 	<file path="catalog/controller/common/cart.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_shopping_cart'] = $this->language->get('text_shopping_cart');
-				$data['text_cat_says'] = $this->language->get('text_cat_says');
+			<add position="after"><![CDATA[
+			$data['text_shopping_cart'] = $this->language->get('text_shopping_cart');
+			$data['text_cat_says'] = $this->language->get('text_cat_says');
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$data['text_items'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));
+			<add position="replace"><![CDATA[
+			$data['text_items'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/checkout/cart.php">
 		<operation error="log">
 			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$json['total'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));
+			<add position="replace"><![CDATA[
+			$json['total'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/compare.php">
 		<operation error="log">
 			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$json['total'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
+			<add position="replace"><![CDATA[
+			$json['total'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/search.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_limit'] = $this->language->get('text_limit');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_searched'] = $this->language->get('text_searched');
-				$data['text_refine'] = $this->language->get('text_refine');
-				$data['text_sort_short'] = $this->language->get('text_sort_short');
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_yes'] = $this->language->get('text_yes');
-				$data['text_no'] = $this->language->get('text_no');
-				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+			<add position="after"><![CDATA[
+			$data['text_searched'] = $this->language->get('text_searched');
+			$data['text_refine'] = $this->language->get('text_refine');
+			$data['text_sort_short'] = $this->language->get('text_sort_short');
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_yes'] = $this->language->get('text_yes');
+			$data['text_no'] = $this->language->get('text_no');
+			$data['text_more_detailed'] = $this->language->get('text_more_detailed');
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/category.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_limit'] = $this->language->get('text_limit');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_sort_short'] = $this->language->get('text_sort_short');
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_yes'] = $this->language->get('text_yes');
-				$data['text_no'] = $this->language->get('text_no');
-				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+			<add position="after"><![CDATA[
+			$data['text_sort_short'] = $this->language->get('text_sort_short');
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_yes'] = $this->language->get('text_yes');
+			$data['text_no'] = $this->language->get('text_no');
+			$data['text_more_detailed'] = $this->language->get('text_more_detailed');
 			]]></add>
 		</operation>
 	</file>
@@ -685,85 +782,85 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['button_pswp_close'] = $this->language->get('button_pswp_close');
-				$data['button_pswp_toggle_fullscreen'] = $this->language->get('button_pswp_toggle_fullscreen');
-				$data['button_pswp_zoom'] = $this->language->get('button_pswp_zoom');
-				$data['button_pswp_prev'] = $this->language->get('button_pswp_prev');
-				$data['button_pswp_next'] = $this->language->get('button_pswp_next');
+			<add position="after"><![CDATA[
+			$data['button_pswp_close'] = $this->language->get('button_pswp_close');
+			$data['button_pswp_toggle_fullscreen'] = $this->language->get('button_pswp_toggle_fullscreen');
+			$data['button_pswp_zoom'] = $this->language->get('button_pswp_zoom');
+			$data['button_pswp_prev'] = $this->language->get('button_pswp_prev');
+			$data['button_pswp_next'] = $this->language->get('button_pswp_next');
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_loading'] = $this->language->get('text_loading');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_category'] = $this->language->get('text_category');
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_bonus_points'] = $this->language->get('text_bonus_points');
-				$data['text_end_promotion'] = $this->language->get('text_end_promotion');
-				$data['text_payment_method'] = $this->language->get('text_payment_method');
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
-				$data['button_share'] = $this->language->get('button_share');
+			<add position="after"><![CDATA[
+			$data['text_category'] = $this->language->get('text_category');
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_bonus_points'] = $this->language->get('text_bonus_points');
+			$data['text_end_promotion'] = $this->language->get('text_end_promotion');
+			$data['text_payment_method'] = $this->language->get('text_payment_method');
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+			$data['button_share'] = $this->language->get('button_share');
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/manufacturer.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_empty'] = $this->language->get('text_empty');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_manufacturers_starting'] = $this->language->get('text_manufacturers_starting');
-				$data['text_view_all_products'] = $this->language->get('text_view_all_products');
-				$data['text_sort_short'] = $this->language->get('text_sort_short');
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+			<add position="after"><![CDATA[
+			$data['text_manufacturers_starting'] = $this->language->get('text_manufacturers_starting');
+			$data['text_view_all_products'] = $this->language->get('text_view_all_products');
+			$data['text_sort_short'] = $this->language->get('text_sort_short');
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_more_detailed'] = $this->language->get('text_more_detailed');
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/special.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_limit'] = $this->language->get('text_limit');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_sort_short'] = $this->language->get('text_sort_short');
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+			<add position="after"><![CDATA[
+			$data['text_sort_short'] = $this->language->get('text_sort_short');
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_more_detailed'] = $this->language->get('text_more_detailed');
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/latest.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+			<add position="after"><![CDATA[
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_more_detailed'] = $this->language->get('text_more_detailed');
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/bestseller.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+			<add position="after"><![CDATA[
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_more_detailed'] = $this->language->get('text_more_detailed');
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/featured.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+			<add position="after"><![CDATA[
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_more_detailed'] = $this->language->get('text_more_detailed');
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/special.php">
 		<operation error="skip">
 			<search><![CDATA[$data['text_tax'] = $this->language->get('text_tax');]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['text_percent'] = $this->language->get('text_percent');
-				$data['text_more_detailed'] = $this->language->get('text_more_detailed');
+			<add position="after"><![CDATA[
+			$data['text_percent'] = $this->language->get('text_percent');
+			$data['text_more_detailed'] = $this->language->get('text_more_detailed');
 			]]></add>
 		</operation>
 	</file>
@@ -771,132 +868,100 @@
 	<file path="catalog/controller/common/cart.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/category.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/compare.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/manufacturer.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[public function info() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[public function review() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/search.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/special.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/latest.php">
 		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/carousel.php">
 		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/banner.php">
 		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/bestseller.php">
 		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/featured.php">
 		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/special.php">
 		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/checkout/cart.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-			]]></add>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<!-- Add category in product card -->
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$this->document->setDescription($product_info['meta_description']);]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			$this->document->setDescription($product_info['meta_description']);
 			$this->load->model('catalog/category');
 			$catprod = array();
@@ -917,7 +982,7 @@
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[public function getProducts($data = array()) {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			public function getProductSpec($product_id) {
 				$sql = $this->db->query("SELECT ps.date_end FROM " . DB_PREFIX . "product_special ps WHERE product_id = '" . (int)$product_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC");
 				if ($sql->num_rows) {
@@ -932,7 +997,7 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$product_info = $this->model_catalog_product->getProduct($product_id);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['product_spec'] = $this->model_catalog_product->getProductSpec($product_id);
 			]]></add>
 		</operation>
@@ -941,7 +1006,7 @@
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA[$data['home'] = $this->url->link('common/home');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['compare'] = $this->url->link('product/compare');
 			$this->language->load('product/compare');
 			$data['text_compare'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
@@ -953,25 +1018,25 @@
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY LCASE(" . $data['sort'] . ")";]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			$sql .= " ORDER BY (p.quantity>0) DESC, LCASE(" . $data['sort'] . ")";
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			$sql .= " ORDER BY (p.quantity>0) DESC, (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY " . $data['sort'];]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			$sql .= " ORDER BY (p.quantity>0) DESC," . $data['sort'];
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$sql .= " ORDER BY p.sort_order";]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			$sql .= " ORDER BY (p.quantity>0) DESC, p.sort_order";
 			]]></add>
 		</operation>
@@ -980,7 +1045,7 @@
 	<file path="catalog/controller/product/category.php">
 		<operation error="log">
 			<search><![CDATA[$data['breadcrumbs'] = array();]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			if (isset($this->request->get['instock'])) {
 				$instock = $this->request->get['instock'];
 			} else {
@@ -990,19 +1055,19 @@
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['button_cart'] = $this->language->get('button_cart');]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['entry_instock'] = $this->language->get('entry_instock');
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$filter,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'filter_instock'     => $instock,
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['limit'] = $limit;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['url'] = html_entity_decode($this->url->link('product/category', 'path=' . $this->request->get['path'] . $url), ENT_QUOTES, 'UTF-8');
 			$data['instock'] = $instock;
 			]]></add>
@@ -1011,7 +1076,7 @@
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[if (!empty($data['filter_name']) || !empty($data['filter_tag'])) {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			if (!empty($data['filter_instock'])) {
 				$sql .= " AND (p.stock_status_id = '7' OR p.quantity > 0)";
 			}
@@ -1022,13 +1087,13 @@
 	<file path="system/library/image.php">
 		<operation error="log">
 			<search><![CDATA[public function save($file, $quality = 90) {]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			public function save($file) {
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[imagejpeg($this->image, $file, $quality);]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			imagejpeg($this->image, $file);
 			]]></add>
 		</operation>
@@ -1037,19 +1102,19 @@
 	<file path="system/library/cart/weight.php">
 		<operation error="log">
 			<search><![CDATA[public function format($value, $weight_class_id, $decimal_point = '.', $thousand_point = ',') {]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			public function format($value, $weight_class_id, $decimal_point = '.', $thousand_point = '') {
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[return number_format($value, 2, $decimal_point, $thousand_point) . $this->weights[$weight_class_id]['unit'];]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			return number_format($value, 0, $decimal_point, $thousand_point) . $this->weights[$weight_class_id]['unit'];
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[return number_format($value, 2, $decimal_point, $thousand_point);]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			return number_format($value, 0, $decimal_point, $thousand_point);
 			]]></add>
 		</operation>
@@ -1057,13 +1122,13 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$data['text_tags'] = $this->language->get('text_tags');]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['text_weight'] = $this->language->get('text_weight');
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['weight'] = $this->weight->format($product_info['weight'], $product_info['weight_class_id']);
 			]]></add>
 		</operation>
@@ -1072,7 +1137,7 @@
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA['name'  => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			'name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),
 			]]></add>
 		</operation>
@@ -1080,13 +1145,13 @@
 	<file path="catalog/controller/extension/module/category.php">
 		<operation error="log">
 			<search><![CDATA['name' => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			'name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['name'        => $category['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			'name'        => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $category['name'] . '</span>' : $category['name']),
 			]]></add>
 		</operation>
@@ -1095,19 +1160,19 @@
 	<file path="admin/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$related_id . "' AND related_id = '" . (int)$product_id . "'");]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			// $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$related_id . "' AND related_id = '" . (int)$product_id . "'");
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_related SET product_id = '" . (int)$related_id . "', related_id = '" . (int)$product_id . "'");]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			// $this->db->query("INSERT INTO " . DB_PREFIX . "product_related SET product_id = '" . (int)$related_id . "', related_id = '" . (int)$product_id . "'");
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE related_id = '" . (int)$product_id . "'");]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			// $this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE related_id = '" . (int)$product_id . "'");
 			]]></add>
 		</operation>
@@ -1116,7 +1181,7 @@
 	<file path="admin/controller/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[if (isset($this->request->post['status'])) {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			if (isset($this->request->post['add_cart'])) {
 				$data['add_cart'] = $this->request->post['add_cart'];
 			} else if (!empty($product_info)) {
@@ -1128,7 +1193,7 @@
 		</operation>
 		<operation error="log">
 			<search index="1"><![CDATA[$data['entry_status'] = $this->language->get('entry_status');]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['entry_cart'] = $this->language->get('entry_cart');
 			]]></add>
 		</operation>
@@ -1136,7 +1201,7 @@
 	<file path="admin/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[if (isset($data['image'])) {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			if (isset($data['add_cart'])) {
 				$this->db->query("UPDATE " . DB_PREFIX . "product SET add_cart = '" . $this->db->escape($data['add_cart']) . "' WHERE product_id = '" . (int)$product_id . "'");
 			}
@@ -1146,7 +1211,7 @@
 	<file path="admin/view/template/catalog/product_form.tpl">
 		<operation error="log">
             <search><![CDATA[<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>]]></search>
-            <add position="before" offset="1" trim="true"><![CDATA[
+            <add position="before" offset="1"><![CDATA[
 			<div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cart"><?php echo $entry_cart; ?></label>
                 <div class="col-sm-10">
@@ -1167,13 +1232,13 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$data['rating'] = (int)$product_info['rating'];]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['add_cart'] = (int)$product_info['add_cart'];
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'    => (int)$result['add_cart'],
 			]]></add>
 		</operation>
@@ -1181,7 +1246,7 @@
 	<file path="catalog/controller/product/manufacturer.php">
 		<operation error="log">
 			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'    => (int)$result['add_cart'],
 			]]></add>
 		</operation>
@@ -1189,7 +1254,7 @@
 	<file path="catalog/controller/product/special.php">
 		<operation error="log">
 			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'    => (int)$result['add_cart'],
 			]]></add>
 		</operation>
@@ -1197,7 +1262,7 @@
 	<file path="catalog/controller/product/category.php">
 		<operation error="log">
 			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'    => (int)$result['add_cart'],
 			]]></add>
 		</operation>
@@ -1205,7 +1270,7 @@
 	<file path="catalog/controller/product/search.php">
 		<operation error="log">
 			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'    => (int)$result['add_cart'],
 			]]></add>
 		</operation>
@@ -1213,7 +1278,7 @@
 	<file path="catalog/controller/product/compare.php">
 		<operation error="log">
 			<search><![CDATA['product_id'   => $product_info['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'     => (int)$product_info['add_cart'],
 			]]></add>
 		</operation>
@@ -1221,7 +1286,7 @@
 	<file path="catalog/controller/extension/module/latest.php">
 		<operation error="log">
 			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'    => (int)$result['add_cart'],
 			]]></add>
 		</operation>
@@ -1229,7 +1294,7 @@
 	<file path="catalog/controller/extension/module/special.php">
 		<operation error="log">
 			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'    => (int)$result['add_cart'],
 			]]></add>
 		</operation>
@@ -1237,7 +1302,7 @@
 	<file path="catalog/controller/extension/module/bestseller.php">
 		<operation error="log">
 			<search><![CDATA['product_id'  => $result['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'    => (int)$result['add_cart'],
 			]]></add>
 		</operation>
@@ -1245,7 +1310,7 @@
 	<file path="catalog/controller/extension/module/featured.php">
 		<operation error="log">
 			<search><![CDATA['product_id'  => $product_info['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'    => (int)$product_info['add_cart'],
 			]]></add>
 		</operation>
@@ -1253,7 +1318,7 @@
 	<file path="catalog/controller/account/wishlist.php">
 		<operation error="log">
 			<search><![CDATA['product_id' => $product_info['product_id'],]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			'add_cart'   => (int)$product_info['add_cart'],
 			]]></add>
 		</operation>
@@ -1261,7 +1326,7 @@
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA['viewed'           => $query->row['viewed']]]></search>
-			<add position="replace" trim="true"><![CDATA[
+			<add position="replace"><![CDATA[
 			'viewed'           => $query->row['viewed'],
 			'add_cart'         => $query->row['add_cart']
 			]]></add>
@@ -1271,19 +1336,19 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = round(100-($result['special']/($result['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$special = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = false;
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['special'     => $special,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'percent_discount' => $percent_discount,
 			]]></add>
 		</operation>
@@ -1291,19 +1356,19 @@
 	<file path="catalog/controller/product/manufacturer.php">
 		<operation error="log">
 			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = round(100-($result['special']/($result['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$special = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = false;
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['special'     => $special,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'percent_discount' => $percent_discount,
 			]]></add>
 		</operation>
@@ -1311,19 +1376,19 @@
 	<file path="catalog/controller/product/search.php">
 		<operation error="log">
 			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = round(100-($result['special']/($result['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$special = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = false;
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['special'     => $special,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'percent_discount' => $percent_discount,
 			]]></add>
 		</operation>
@@ -1331,19 +1396,19 @@
 	<file path="catalog/controller/extension/module/featured.php">
 		<operation error="log">
 			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = round(100-($product_info['special']/($product_info['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$special = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = false;
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['special'     => $special,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'percent_discount' => $percent_discount,
 			]]></add>
 		</operation>
@@ -1351,19 +1416,19 @@
 	<file path="catalog/controller/extension/module/bestseller.php">
 		<operation error="log">
 			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = round(100-($result['special']/($result['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$special = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = false;
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['special'     => $special,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'percent_discount' => $percent_discount,
 			]]></add>
 		</operation>
@@ -1371,19 +1436,19 @@
 	<file path="catalog/controller/extension/module/latest.php">
 		<operation error="log">
 			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = round(100-($result['special']/($result['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$special = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = false;
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['special'     => $special,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'percent_discount' => $percent_discount,
 			]]></add>
 		</operation>
@@ -1391,19 +1456,19 @@
 	<file path="catalog/controller/extension/module/special.php">
 		<operation error="log">
 			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = round(100-($result['special']/($result['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$special = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = false;
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['special'     => $special,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'percent_discount' => $percent_discount,
 			]]></add>
 		</operation>
@@ -1411,19 +1476,19 @@
 	<file path="catalog/controller/product/category.php">
 		<operation error="log">
 			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = round(100-($result['special']/($result['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$special = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = false;
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['special'     => $special,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'percent_discount' => $percent_discount,
 			]]></add>
 		</operation>
@@ -1431,19 +1496,19 @@
 	<file path="catalog/controller/product/special.php">
 		<operation error="log">
 			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = round(100-($result['special']/($result['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$special = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$percent_discount = false;
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['special'     => $special,]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			'percent_discount' => $percent_discount,
 			]]></add>
 		</operation>
@@ -1451,13 +1516,13 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['percent_discount'] = round(100-($product_info['special']/($product_info['price']/100)));
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['special'] = false;]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$data['percent_discount'] = false;
 			]]></add>
 		</operation>
@@ -1577,7 +1642,7 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$data['images'] = array();]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['customtabs'] = array();
 			$results = $this->model_catalog_product->getProducttabs($this->request->get['product_id']);
 			foreach ($results as $result) {
@@ -1592,7 +1657,7 @@
 	<file path="admin/controller/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[if (isset($this->request->post['image'])) {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			$data['tab_customtab']=$this->language->get('tab_customtab');
 			$data['entry_title']=$this->language->get('entry_title');
 			$data['entry_description']=$this->language->get('entry_description');
@@ -1612,70 +1677,70 @@
 	<file path="admin/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[$product_id = $this->db->getLastId();]]></search>
-			<add position="after" trim="true"><![CDATA[
-				if (isset($data['product_customtab'])) {
-					foreach ($data['product_customtab'] as $product_customtab) {
-						$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_customtab['sort_order'] . "', status = '" . (int)$product_customtab['status'] . "'");
+			<add position="after"><![CDATA[
+			if (isset($data['product_customtab'])) {
+				foreach ($data['product_customtab'] as $product_customtab) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_customtab['sort_order'] . "', status = '" . (int)$product_customtab['status'] . "'");
 
-						$product_customtab_id = $this->db->getLastId();
+					$product_customtab_id = $this->db->getLastId();
 
-						foreach ($product_customtab['product_customtab_description'] as $language_id => $product_customtab_description) {
-							$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab_description SET product_customtab_id = '" . (int)$product_customtab_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" .  $this->db->escape($product_customtab_description['title']) . "', description = '" .  $this->db->escape($product_customtab_description['description']) . "'");
-						}
+					foreach ($product_customtab['product_customtab_description'] as $language_id => $product_customtab_description) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab_description SET product_customtab_id = '" . (int)$product_customtab_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" .  $this->db->escape($product_customtab_description['title']) . "', description = '" .  $this->db->escape($product_customtab_description['description']) . "'");
 					}
 				}
+			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$this->db->query("DELETE FROM " . DB_PREFIX . "product_customtab WHERE product_id = '" . (int)$product_id . "'");
-				$this->db->query("DELETE FROM " . DB_PREFIX . "product_customtab_description WHERE product_id = '" . (int)$product_id . "'");
-				if (isset($data['product_customtab'])) {
-					foreach ($data['product_customtab'] as $product_customtab) {
-						$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_customtab['sort_order'] . "', status = '" . (int)$product_customtab['status'] . "'");
+			<add position="after"><![CDATA[
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_customtab WHERE product_id = '" . (int)$product_id . "'");
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_customtab_description WHERE product_id = '" . (int)$product_id . "'");
+			if (isset($data['product_customtab'])) {
+				foreach ($data['product_customtab'] as $product_customtab) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_customtab['sort_order'] . "', status = '" . (int)$product_customtab['status'] . "'");
 
-						$product_customtab_id = $this->db->getLastId();
+					$product_customtab_id = $this->db->getLastId();
 
-						foreach ($product_customtab['product_customtab_description'] as $language_id => $product_customtab_description) {
-							$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab_description SET product_customtab_id = '" . (int)$product_customtab_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" .  $this->db->escape($product_customtab_description['title']) . "', description = '" .  $this->db->escape($product_customtab_description['description']) . "'");
-						}
+					foreach ($product_customtab['product_customtab_description'] as $language_id => $product_customtab_description) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab_description SET product_customtab_id = '" . (int)$product_customtab_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" .  $this->db->escape($product_customtab_description['title']) . "', description = '" .  $this->db->escape($product_customtab_description['description']) . "'");
 					}
 				}
+			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[public function getProductImages($product_id) {]]></search>
-			<add position="before" trim="true"><![CDATA[
-				public function getProductcustomtabs($product_id) {
-					$product_customtab_data = array();
-					$product_customtab_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab WHERE product_id = '" . (int)$product_id . "' ORDER BY sort_order ASC");
-					foreach ($product_customtab_query->rows as $product_customtab) {
-						$product_customtab_description_data = array();
-						$product_customtab_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab_description WHERE product_customtab_id = '" . (int)$product_customtab['product_customtab_id'] . "' AND product_id = '" . (int)$product_id . "'");
+			<add position="before"><![CDATA[
+			public function getProductcustomtabs($product_id) {
+				$product_customtab_data = array();
+				$product_customtab_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab WHERE product_id = '" . (int)$product_id . "' ORDER BY sort_order ASC");
+				foreach ($product_customtab_query->rows as $product_customtab) {
+					$product_customtab_description_data = array();
+					$product_customtab_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab_description WHERE product_customtab_id = '" . (int)$product_customtab['product_customtab_id'] . "' AND product_id = '" . (int)$product_id . "'");
 
-						foreach ($product_customtab_description_query->rows as $product_customtab_description) {
-							$product_customtab_description_data[$product_customtab_description['language_id']] = array(
-								'title' => $product_customtab_description['title'],
-								'description' => $product_customtab_description['description'],
-							);
-						}
-
-						$product_customtab_data[] = array(
-							'product_customtab_description' => $product_customtab_description_data,
-							'status'                     => $product_customtab['status'],
-							'sort_order'                    => $product_customtab['sort_order']
+					foreach ($product_customtab_description_query->rows as $product_customtab_description) {
+						$product_customtab_description_data[$product_customtab_description['language_id']] = array(
+							'title' => $product_customtab_description['title'],
+							'description' => $product_customtab_description['description'],
 						);
 					}
-					return $product_customtab_data;
+
+					$product_customtab_data[] = array(
+						'product_customtab_description' => $product_customtab_description_data,
+						'status'                     => $product_customtab['status'],
+						'sort_order'                    => $product_customtab['sort_order']
+					);
 				}
+				return $product_customtab_data;
+			}
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[public function getProductImages($product_id) {]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			public function getProducttabs($product_id) {
 				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab pc LEFT JOIN " . DB_PREFIX . "product_customtab_description pcd ON (pc.product_customtab_id  = pcd.product_customtab_id) WHERE pc.product_id = '" . (int)$product_id . "'  AND pcd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND status > 0 ORDER BY sort_order ASC");
 
@@ -1687,13 +1752,13 @@
 	<file path="admin/view/template/catalog/product_form.tpl">
 		<operation error="log">
 			<search><![CDATA[<li><a href="#tab-design" data-toggle="tab"><?php echo $tab_design; ?></a></li>]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 				<li><a href="#tab-customtabmain" data-toggle="tab"><?php echo $tab_customtab; ?></a></li>
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
-			<add position="before" trim="true"><![CDATA[
+			<add position="before"><![CDATA[
 			<div class="tab-pane" id="tab-customtabmain">
 				 <div class="col-sm-2">
 				  <ul class="nav nav-pills nav-stacked" id="customtab">
@@ -1763,72 +1828,72 @@
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<?php echo $footer; ?>]]></search>
-			<add position="before" trim="true"><![CDATA[
-				<script type="text/javascript"><!--
-					<?php $customtab_row = 0; ?>
-					<?php foreach ($product_customtabs as $product_customtab) { ?>
+			<add position="before"><![CDATA[
+			<script type="text/javascript"><!--
+				<?php $customtab_row = 0; ?>
+				<?php foreach ($product_customtabs as $product_customtab) { ?>
+				<?php foreach ($languages as $language) { ?>
+				$('#input-description<?php echo $customtab_row; ?>-language<?php echo $language['language_id']; ?>').summernote({
+					height: 300
+				});
+				<?php } ?>
+				<?php $customtab_row++; ?>
+				<?php } ?>
+			//--></script>
+			<script type="text/javascript"><!--
+				var customtab_row = <?php echo $customtab_row; ?>;
+				function addCustomtab() {
+					html  = '<div id="tab-customtab' + customtab_row + '" class="tab-pane">';
+					html += '  <ul class="nav nav-tabs" id="clanguage' + customtab_row + '">';
+				    <?php foreach ($languages as $language) { ?>
+				     html += '    <li><a href="#tab-customtab' + customtab_row + '-language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>';
+				    <?php } ?>
+					html += '  </ul>';
+
+					html += '  <div class="tab-content">';
 					<?php foreach ($languages as $language) { ?>
-					$('#input-description<?php echo $customtab_row; ?>-language<?php echo $language['language_id']; ?>').summernote({
+					html += '    <div class="tab-pane" id="tab-customtab' + customtab_row + '-language<?php echo $language['language_id']; ?>">';
+					html += '      <div class="form-group">';
+					html += '        <label class="col-sm-2 control-label" for="input-title' + customtab_row + '-language<?php echo $language['language_id']; ?>"><?php echo $entry_title; ?></label>';
+					html += '        <div class="col-sm-10"><input type="text" name="product_customtab[' + customtab_row + '][product_customtab_description][<?php echo $language['language_id']; ?>][title]" placeholder="<?php echo $entry_title; ?>" id="input-title' + customtab_row + '-language<?php echo $language['language_id']; ?>" value="" class="form-control"/></div>';
+					html += '      </div>';
+					html += '      <div class="form-group">';
+					html += '        <label class="col-sm-2 control-label" for="input-description' + customtab_row + '-language<?php echo $language['language_id']; ?>"><?php echo $entry_description; ?></label>';
+					html += '        <div class="col-sm-10"><textarea name="product_customtab[' + customtab_row + '][product_customtab_description][<?php echo $language['language_id']; ?>][description]" id="input-description' + customtab_row + '-language<?php echo $language['language_id']; ?>"></textarea></div>';
+					html += '      </div>';
+					html += '    </div>';
+					<?php } ?>
+					html += '  </div>';
+					html += '      <div class="form-group">';
+					html += '        <label class="col-sm-2 control-label" for="input-status' + customtab_row +'"><?php echo $entry_status; ?></label>';
+					html += '        <div class="col-sm-10"><select name="product_customtab[' + customtab_row + '][status]" class="form-control"><option value="1"><?php echo $text_enabled; ?></option><option value="0"><?php echo $text_disabled; ?></option></select></div>';
+					html += '      </div>';
+					html += '  <div class="form-group">';
+					html += '<label class="col-sm-2 control-label" for="input-sort_order' + customtab_row +'"><?php echo $entry_sort_order; ?></label>';
+					html += ' <div class="col-sm-10"><input type="text" name="product_customtab[' + customtab_row + '][sort_order]" value="" class="form-control" /></div>';
+					html += '</div>';
+					html += '</div>';
+					$('#tab-customtabmain .tab-content2').append(html);
+					<?php foreach ($languages as $language) { ?>
+					$('#input-description' + customtab_row + '-language<?php echo $language['language_id']; ?>').summernote({
 						height: 300
 					});
-					<?php } ?>
-					<?php $customtab_row++; ?>
-					<?php } ?>
-				//--></script>
-				<script type="text/javascript"><!--
-					var customtab_row = <?php echo $customtab_row; ?>;
-					function addCustomtab() {
-						html  = '<div id="tab-customtab' + customtab_row + '" class="tab-pane">';
-						html += '  <ul class="nav nav-tabs" id="clanguage' + customtab_row + '">';
-					    <?php foreach ($languages as $language) { ?>
-					     html += '    <li><a href="#tab-customtab' + customtab_row + '-language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>';
-					    <?php } ?>
-						html += '  </ul>';
-
-						html += '  <div class="tab-content">';
-						<?php foreach ($languages as $language) { ?>
-						html += '    <div class="tab-pane" id="tab-customtab' + customtab_row + '-language<?php echo $language['language_id']; ?>">';
-						html += '      <div class="form-group">';
-						html += '        <label class="col-sm-2 control-label" for="input-title' + customtab_row + '-language<?php echo $language['language_id']; ?>"><?php echo $entry_title; ?></label>';
-						html += '        <div class="col-sm-10"><input type="text" name="product_customtab[' + customtab_row + '][product_customtab_description][<?php echo $language['language_id']; ?>][title]" placeholder="<?php echo $entry_title; ?>" id="input-title' + customtab_row + '-language<?php echo $language['language_id']; ?>" value="" class="form-control"/></div>';
-						html += '      </div>';
-						html += '      <div class="form-group">';
-						html += '        <label class="col-sm-2 control-label" for="input-description' + customtab_row + '-language<?php echo $language['language_id']; ?>"><?php echo $entry_description; ?></label>';
-						html += '        <div class="col-sm-10"><textarea name="product_customtab[' + customtab_row + '][product_customtab_description][<?php echo $language['language_id']; ?>][description]" id="input-description' + customtab_row + '-language<?php echo $language['language_id']; ?>"></textarea></div>';
-						html += '      </div>';
-						html += '    </div>';
-						<?php } ?>
-						html += '  </div>';
-						html += '      <div class="form-group">';
-						html += '        <label class="col-sm-2 control-label" for="input-status' + customtab_row +'"><?php echo $entry_status; ?></label>';
-						html += '        <div class="col-sm-10"><select name="product_customtab[' + customtab_row + '][status]" class="form-control"><option value="1"><?php echo $text_enabled; ?></option><option value="0"><?php echo $text_disabled; ?></option></select></div>';
-						html += '      </div>';
-						html += '  <div class="form-group">';
-						html += '<label class="col-sm-2 control-label" for="input-sort_order' + customtab_row +'"><?php echo $entry_sort_order; ?></label>';
-						html += ' <div class="col-sm-10"><input type="text" name="product_customtab[' + customtab_row + '][sort_order]" value="" class="form-control" /></div>';
-						html += '</div>';
-						html += '</div>';
-						$('#tab-customtabmain .tab-content2').append(html);
-						<?php foreach ($languages as $language) { ?>
-						$('#input-description' + customtab_row + '-language<?php echo $language['language_id']; ?>').summernote({
-							height: 300
-						});
-					<?php } ?>
-					$('#customtab a[href=\'#tab-customtab' + customtab_row + '\']').tab('show');
-					$('#clanguage' + customtab_row + ' li:first-child a').tab('show');
-					$('#customtab-add').before('<li><a href="#tab-customtab' + customtab_row + '" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$(\'a[href=\\\'#tab-customtab' + customtab_row + '\\\']\').parent().remove(); $(\'#tab-customtab' + customtab_row + '\').remove(); $(\'#customtab li a:first\').tab(\'show\');"></i> <?php echo $tab_customtab; ?> ' + customtab_row + '</a></li>');
-					$('#customtab-' + customtab_row).trigger('click');
-					customtab_row++;
-					}
-				//--></script>
-				<script type="text/javascript"><!--
-					$('#customtab li:first-child a').tab('show');
-					<?php $customtab_row = 0; ?>
-					<?php foreach ($product_customtabs as $product_customtab) { ?>
-					$('#clanguage<?php echo $customtab_row; ?> li:first-child a').tab('show');
-					<?php $customtab_row++; ?>
-					<?php } ?>
-				//--></script>
+				<?php } ?>
+				$('#customtab a[href=\'#tab-customtab' + customtab_row + '\']').tab('show');
+				$('#clanguage' + customtab_row + ' li:first-child a').tab('show');
+				$('#customtab-add').before('<li><a href="#tab-customtab' + customtab_row + '" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$(\'a[href=\\\'#tab-customtab' + customtab_row + '\\\']\').parent().remove(); $(\'#tab-customtab' + customtab_row + '\').remove(); $(\'#customtab li a:first\').tab(\'show\');"></i> <?php echo $tab_customtab; ?> ' + customtab_row + '</a></li>');
+				$('#customtab-' + customtab_row).trigger('click');
+				customtab_row++;
+				}
+			//--></script>
+			<script type="text/javascript"><!--
+				$('#customtab li:first-child a').tab('show');
+				<?php $customtab_row = 0; ?>
+				<?php foreach ($product_customtabs as $product_customtab) { ?>
+				$('#clanguage<?php echo $customtab_row; ?> li:first-child a').tab('show');
+				<?php $customtab_row++; ?>
+				<?php } ?>
+			//--></script>
 			]]></add>
 		</operation>
 	</file>
@@ -1836,182 +1901,188 @@
 	<file path="admin/controller/catalog/product.php">
 		<operation error="log">
 			<search><![CDATA[public function autocomplete()]]></search>
-			<add position="before" trim="true"><![CDATA[
-		       	public function updateStay() {
-					$this->load->language('catalog/product');
-				    $this->document->setTitle($this->language->get('heading_title'));
-				    $this->load->model('catalog/product');
-				if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-					$this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
-					$this->session->data['success'] = $this->language->get('text_success');
-					$url = '';
-		        if (isset($this->request->get['product_id'])) {
-					$url .= '&product_id=' . $this->request->get['product_id'];
-				}
-		            $this->response->redirect($this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . $url, true));
-				}
-				$this->getForm();
-				}
+			<add position="before"><![CDATA[
+	       	public function updateStay() {
+				$this->load->language('catalog/product');
+			    $this->document->setTitle($this->language->get('heading_title'));
+			    $this->load->model('catalog/product');
+			if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+				$this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+				$this->session->data['success'] = $this->language->get('text_success');
+				$url = '';
+	        if (isset($this->request->get['product_id'])) {
+				$url .= '&product_id=' . $this->request->get['product_id'];
+			}
+	            $this->response->redirect($this->url->link('catalog/product/edit', 'token=' . $this->session->data['token'] . $url, true));
+			}
+			$this->getForm();
+			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search index="0"><![CDATA[$data['action']]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['action_stay'] = $this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . $url, true);
+			<add position="after"><![CDATA[
+			$data['action_stay'] = $this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . $url, true);
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search index="1"><![CDATA[$data['action']]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['action_stay'] = $this->url->link('catalog/product/updateStay', 'token=' . $this->session->data['token'] . '&product_id=' . $this->request->get['product_id'] . $url, true);
+			<add position="after"><![CDATA[
+			$data['action_stay'] = $this->url->link('catalog/product/updateStay', 'token=' . $this->session->data['token'] . '&product_id=' . $this->request->get['product_id'] . $url, true);
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[catalog/product_form]]></search>
-			<add position="before" trim="true"><![CDATA[
-				if (isset($this->session->data['success'])) {
-					$data['success'] = $this->session->data['success'];
-					unset($this->session->data['success']);
-				} else {
-					$data['success'] = '';
-				}
+			<add position="before"><![CDATA[
+			if (isset($this->session->data['success'])) {
+				$data['success'] = $this->session->data['success'];
+				unset($this->session->data['success']);
+			} else {
+				$data['success'] = '';
+			}
 			]]></add>
 		</operation>
 	</file>
 	<file path="admin/view/template/catalog/product_form.tpl">
 		<operation error="log">
 			<search><![CDATA[<div class="panel panel-default">]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				<?php if ($success) { ?>
-			    <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-			      <button type="button" class="close" data-dismiss="alert">&times;</button>
-			    </div>
-			    <?php } ?>
+			<add position="replace"><![CDATA[
+			<?php if ($success) { ?>
+		    <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
+		      <button type="button" class="close" data-dismiss="alert">&times;</button>
+		    </div>
+		    <?php } ?>
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<ul class="nav nav-tabs">]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				<ul class="nav nav-tabs" id="myTab">
+			<add position="replace"><![CDATA[
+			<ul class="nav nav-tabs" id="myTab">
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<div class="pull-right">]]></search>
-			<add position="after" trim="true"><![CDATA[
-				<button type="button" onclick="SaS();" type="button" form="form-product" data-toggle="tooltip" title="<?php echo $text_apply; ?>" class="btn btn-success"><i class="fa fa-repeat"></i></button>]]>
+			<add position="after"><![CDATA[
+			<button type="button" onclick="SaS();" type="button" form="form-product" data-toggle="tooltip" title="<?php echo $text_apply; ?>" class="btn btn-success"><i class="fa fa-repeat"></i></button>]]>
 			</add>
 		</operation>
 		<operation error="log">
 		<search><![CDATA[<?php echo $footer; ?>]]></search>
-			<add position="before" trim="true"><![CDATA[
-				<script type="text/javascript"><!--
-				$(document).ready(function() {
-				if (sessionStorage['index_p']) {
-				var index_p = sessionStorage['index_p'];
-				       } else {
-				var index_p = 0;
-				       }
-				$('#myTab li:eq(' + index_p + ') a').tab('show');
-				sessionStorage['index_p'] = 0;
-				});
-				function SaS() {
-				   sessionStorage['index_p'] = $(".nav-tabs .active").index();
-				   $('#form-product').attr('action', '<?php echo (htmlspecialchars_decode($action_stay)); ?>');
-				   $('#form-product').submit();
-				   e.preventDefault();
-				};
-				//--></script>
+			<add position="before"><![CDATA[
+			<script type="text/javascript"><!--
+			$(document).ready(function() {
+			if (sessionStorage['index_p']) {
+			var index_p = sessionStorage['index_p'];
+			       } else {
+			var index_p = 0;
+			       }
+			$('#myTab li:eq(' + index_p + ') a').tab('show');
+			sessionStorage['index_p'] = 0;
+			});
+			function SaS() {
+			   sessionStorage['index_p'] = $(".nav-tabs .active").index();
+			   $('#form-product').attr('action', '<?php echo (htmlspecialchars_decode($action_stay)); ?>');
+			   $('#form-product').submit();
+			   e.preventDefault();
+			};
+			//--></script>
 			]]></add>
 		</operation>
 	</file>
 	<file path="admin/controller/catalog/category.php">
 		<operation error="log">
 			<search><![CDATA[public function autocomplete()]]></search>
-			<add position="before" trim="true"><![CDATA[
-		       	public function updateStay() {
-					$this->load->language('catalog/category');
-				    $this->document->setTitle($this->language->get('heading_title'));
-				    $this->load->model('catalog/category');
-				if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-					$this->model_catalog_category->editCategory($this->request->get['category_id'], $this->request->post);
-					$this->session->data['success'] = $this->language->get('text_success');
-					$url = '';
-		        if (isset($this->request->get['category_id'])) {
-					$url .= '&category_id=' . $this->request->get['category_id'];
-				}
-		            $this->response->redirect($this->url->link('catalog/category/edit', 'token=' . $this->session->data['token'] . $url, true));
-				}
-					$this->getForm();
-				}
+			<add position="before"><![CDATA[
+	       	public function updateStay() {
+				$this->load->language('catalog/category');
+			    $this->document->setTitle($this->language->get('heading_title'));
+			    $this->load->model('catalog/category');
+			if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+				$this->model_catalog_category->editCategory($this->request->get['category_id'], $this->request->post);
+				$this->session->data['success'] = $this->language->get('text_success');
+				$url = '';
+	        if (isset($this->request->get['category_id'])) {
+				$url .= '&category_id=' . $this->request->get['category_id'];
+			}
+	            $this->response->redirect($this->url->link('catalog/category/edit', 'token=' . $this->session->data['token'] . $url, true));
+			}
+				$this->getForm();
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add position="before"><![CDATA[
+			$data['text_apply']=$this->language->get('text_apply');
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search index="0"><![CDATA[$data['action']]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['action_stay'] = $this->url->link('catalog/category/add', 'token=' . $this->session->data['token'] . $url, true);
+			<add position="after"><![CDATA[
+			$data['action_stay'] = $this->url->link('catalog/category/add', 'token=' . $this->session->data['token'] . $url, true);
 			]]></add>
         </operation>
         <operation error="log">
 			<search index="1"><![CDATA[$data['action']]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$data['action_stay'] = $this->url->link('catalog/category/updateStay', 'token=' . $this->session->data['token'] . '&category_id=' . $this->request->get['category_id'] . $url, true);
+			<add position="after"><![CDATA[
+			$data['action_stay'] = $this->url->link('catalog/category/updateStay', 'token=' . $this->session->data['token'] . '&category_id=' . $this->request->get['category_id'] . $url, true);
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[catalog/category_form]]></search>
-			<add position="before" trim="true"><![CDATA[
-				if (isset($this->session->data['success'])) {
-					$data['success'] = $this->session->data['success'];
-					unset($this->session->data['success']);
-				} else {
-					$data['success'] = '';
-				}
+			<add position="before"><![CDATA[
+			if (isset($this->session->data['success'])) {
+				$data['success'] = $this->session->data['success'];
+				unset($this->session->data['success']);
+			} else {
+				$data['success'] = '';
+			}
 			]]></add>
 		</operation>
 	</file>
 	<file path="admin/view/template/catalog/category_form.tpl">
 		<operation error="log">
 			<search><![CDATA[<div class="panel panel-default">]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				<?php if ($success) { ?>
-			    <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-			      <button type="button" class="close" data-dismiss="alert">&times;</button>
-			    </div>
-			    <?php } ?>
+			<add position="replace"><![CDATA[
+			<?php if ($success) { ?>
+		    <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
+		      <button type="button" class="close" data-dismiss="alert">&times;</button>
+		    </div>
+		    <?php } ?>
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<ul class="nav nav-tabs">]]>  </search>
-			<add position="replace" trim="true"><![CDATA[
-            	<ul class="nav nav-tabs" id="myTab">
+			<add position="replace"><![CDATA[
+        	<ul class="nav nav-tabs" id="myTab">
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<div class="pull-right">]]>  </search>
-			<add position="after" trim="true"><![CDATA[
-				<button type="button" onclick="SaS();" type="button" form="form-category" data-toggle="tooltip" title="<?php echo $text_apply; ?>" class="btn btn-success"><i class="fa fa-repeat"></i></button>
+			<add position="after"><![CDATA[
+			<button type="button" onclick="SaS();" type="button" form="form-category" data-toggle="tooltip" title="<?php echo $text_apply; ?>" class="btn btn-success"><i class="fa fa-repeat"></i></button>
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[<?php echo $footer; ?>]]></search>
-			<add position="before" trim="true"><![CDATA[
-				<script type="text/javascript"><!--
-				$(document).ready(function() {
-				if (sessionStorage['index_p']) {
-				var index_p = sessionStorage['index_p'];
-				       } else {
-				var index_p = 0;
-				       }
-				$('#myTab li:eq(' + index_p + ') a').tab('show');
-				sessionStorage['index_p'] = 0;
-				});
-				function SaS() {
-				   sessionStorage['index_p'] = $(".nav-tabs .active").index();
-				   $('#form-category').attr('action', '<?php echo (htmlspecialchars_decode($action_stay)); ?>');
-				   $('#form-category').submit();
-				   e.preventDefault();
-				};
-				//--></script>
+			<add position="before"><![CDATA[
+			<script type="text/javascript"><!--
+			$(document).ready(function() {
+			if (sessionStorage['index_p']) {
+			var index_p = sessionStorage['index_p'];
+			       } else {
+			var index_p = 0;
+			       }
+			$('#myTab li:eq(' + index_p + ') a').tab('show');
+			sessionStorage['index_p'] = 0;
+			});
+			function SaS() {
+			   sessionStorage['index_p'] = $(".nav-tabs .active").index();
+			   $('#form-category').attr('action', '<?php echo (htmlspecialchars_decode($action_stay)); ?>');
+			   $('#form-category').submit();
+			   e.preventDefault();
+			};
+			//--></script>
 			]]></add>
 		</operation>
 	</file>

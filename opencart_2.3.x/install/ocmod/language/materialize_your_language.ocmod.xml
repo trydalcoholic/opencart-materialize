@@ -2,9 +2,26 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — your language settings</b></font>]]></name>
 	<code>materialize-theme-your-settings</code>
-	<version>0.71.2</version>
+	<version>0.72</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Size Chart -->
+	<file path="admin/language/*/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['entry_size_chart'] = 'Size Chart';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/*/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_size_chart']          = 'Size chart';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Checking email -->
 	<file path="catalog/language/*/information/contact.php">
 		<operation error="skip">
@@ -269,6 +286,14 @@
 			$_['entry_title']            = 'Tab Title';
 			$_['button_customtab_add']   = 'Add tab';
 			$_['tab_customtab']          = 'Custom Tab';
+			$_['text_apply']             = 'Apply';
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/*/catalog/category.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
 			$_['text_apply']             = 'Apply';
 			]]></add>
 		</operation>

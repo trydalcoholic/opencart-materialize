@@ -66,7 +66,7 @@
 							<strong><?php echo $text_index; ?></strong>
 							<ul class="manufacturer-list section">
 							<?php foreach ($categories as $category) { ?>
-								<li class="waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo $text_manufacturers_starting; ?> &#34;<?php echo $category['name']; ?>&#34;"><a href="index.php?route=product/manufacturer#<?php echo $category['name']; ?>"><?php echo $category['name']; ?></a></li>
+								<li class="waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo $text_manufacturers_starting; ?> &#34;<?php echo $category['name']; ?>&#34;"><a href="index.php?route=product/manufacturer#<?php echo $category['name']; ?>"><?php echo $category['name']; ?></a></li>&nbsp;
 							<?php } ?>
 							</ul>
 						</p>

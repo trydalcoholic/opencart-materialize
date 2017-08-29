@@ -1,4 +1,5 @@
 ALTER TABLE `oc_product` ADD `add_cart` TINYINT(1) DEFAULT 1;
+ALTER TABLE `oc_product_description` ADD `size_chart` LONGTEXT NOT NULL AFTER `description`;
 
 CREATE TABLE IF NOT EXISTS `oc_product_customtab` (
 	`product_customtab_id` INT(11) NOT NULL AUTO_INCREMENT,
