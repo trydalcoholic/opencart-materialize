@@ -1,0 +1,131 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+					<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<div class="row">
+			{{ column_left }}
+			<div class="col {{ main }} section href-underline">
+				{{ content_top }}
+				<h1>{{ heading_title }}</h1>
+					<div class="card-panel">
+						<div class="row">
+							<div class="col s12 xl6">
+								<div class="collection with-header href-underline">
+									<div class="collection-header"><h2>{{ text_my_account }}</h2></div>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ edit }}"><i class="material-icons left">assignment</i>{{ text_edit }}</a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ password }}"><i class="material-icons left">lock</i>{{ text_password }}</a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ address }}"><i class="material-icons left">home</i>{{ text_address }}</a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ wishlist }}"><i class="material-icons left">favorite</i>{{ text_wishlist }}</a>
+								</div>
+							</div>
+							<div class="col s12 xl6">
+								<div class="collection with-header href-underline">
+									<div class="collection-header"><h2>{{ text_my_orders }}</h2></div>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ order }}"><i class="material-icons left">history</i>{{ text_order }}</a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ download }}"><i class="material-icons left">file_download</i>{{ text_download }}</a>
+									{% if reward %}
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ reward }}"><i class="material-icons left">account_balance_wallet</i>{{ text_reward }}</a>
+									{% endif %}
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ return }}"><i class="material-icons left">cached</i>{{ text_return }}</a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ transaction }}"><i class="material-icons left">payment</i>{{ text_transaction }}</a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ recurring }}"><i class="material-icons left">receipt</i>{{ text_recurring }}</a>
+								</div>
+							</div>
+							<div class="col s12 xl6">
+								<div class="collection with-header href-underline">
+									<div class="collection-header"><h2>{{ text_my_affiliate }}</h2></div>
+									{% if not tracking %}
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ affiliate }}">{{ text_affiliate_add }}</a></li>
+									{% else %}
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ affiliate }}"><i class="material-icons left">border_color</i>{{ text_affiliate_edit }}</a></li>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ tracking }}"><i class="material-icons left">code</i>{{ text_tracking }}</a></li>
+									{% endif %}
+								</div>
+							</div>
+							{% if credit_cards %}
+							<div class="col s12 xl6">
+								<div class="collection with-header href-underline">
+									<div class="collection-header"><h2>{{ text_credit_card }}</h2></div>
+									{% for credit_card in credit_cards %}
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ credit_card.href }}"><i class="material-icons left">credit_card</i>{{ credit_card.name }}</a>
+									{% endfor %}
+								</div>
+							</div>
+							{% endif %}
+							<div class="col s12 xl6">
+								<div class="collection with-header href-underline">
+									<div class="collection-header"><h2>{{ text_my_newsletter }}</h2></div>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ newsletter }}"><i class="material-icons left">add_alert</i>{{ text_newsletter }}</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if success %}
+		Materialize.toast('<span><i class="material-icons left">check</i>{{ success }}</span>',7000,'toast-success')
+	{% endif %}
+});
+</script>
+{% endspaceless %}
+{{ footer }}

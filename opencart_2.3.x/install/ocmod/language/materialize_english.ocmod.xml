@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name><![CDATA[<font color="#263238"><b>Materialize Theme — english settings</b></font>]]></name>
+	<code>materialize-theme-english-settings</code>
+	<version>0.71.3</version>
+	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
+	<link>https://github.com/trydalcoholic</link>
+	<!-- Checking email -->
+	<file path="catalog/language/en-gb/information/contact.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/checkout/checkout.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/affiliate/register.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/affiliate/login.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/affiliate/edit.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/account/register.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/account/login.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/account/edit.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_email_error']           = 'Wrong e-mail';
+				$_['text_email_success']         = 'E-mail Valid';
+			]]></add>
+		</operation>
+	</file>
+	<!-- English language settings Materialize -->
+	<file path="catalog/language/en-gb/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_contact']      = 'Contact Us';
+				$_['text_about']        = 'About';
+				$_['text_delivery']     = 'Delivery';
+				$_['text_call_back']    = 'Call back me';
+				$_['text_call_free']    = 'The call is free';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/common/footer.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_social_network']      = 'We are in social networks';
+				$_['text_cb_title']            = 'Call Back Me';
+				$_['text_cb_your_name']        = 'What is your name';
+				$_['text_cb_your_tel']         = 'Your phone number';
+				$_['text_cb_btn']              = 'Request a call';
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[<a target="_blank" href="]]></search>
+			<add position="replace" trim="true"><![CDATA[
+				<a target="_blank" rel="noopener" href="
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/common/cart.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_shopping_cart']      = 'Your shopping cart';
+				$_['text_cat_says']           = 'Let me help you spend some money :)';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/product/search.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_searched']      = 'You searched for:';
+				$_['text_refine']        = 'Refine category';
+				$_['text_sort_short']    = 'Sort';
+				$_['text_percent']       = 'Discount';
+				$_['text_yes']           = 'Yes';
+				$_['text_no']            = 'No';
+				$_['text_more_detailed'] = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/product/category.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_sort_short']    = 'Sort';
+				$_['text_percent']       = 'Discount';
+				$_['text_yes']           = 'Yes';
+				$_['text_no']            = 'No';
+				$_['text_more_detailed'] = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_category']              = 'Category:';
+				$_['text_bonus_points']          = 'bonus points for purchase';
+				$_['text_end_promotion']         = 'The offer will expire on';
+				$_['text_payment_method']        = 'Payment by cash and bank cards';
+				$_['text_percent']               = 'Discount';
+				$_['text_more_detailed']         = 'More detailed';
+				$_['text_sku']                   = 'SKU:';
+				$_['button_share']               = 'Share';
+			]]></add>
+		</operation>
+	</file>
+	<!-- PhotoSwipe -->
+	<file path="catalog/language/en-gb/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['button_pswp_close']             = 'Close (Esc)';
+				$_['button_pswp_toggle_fullscreen'] = 'Toggle fullscreen';
+				$_['button_pswp_zoom']              = 'Zoom in/out';
+				$_['button_pswp_prev']              = 'Previous (arrow left)';
+				$_['button_pswp_next']              = 'Next (arrow right)';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/product/manufacturer.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_manufacturers_starting']              = 'All manufacturers starting with';
+				$_['text_view_all_products']                   = 'View all products';
+				$_['text_sort_short']                          = 'Sort';
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/product/special.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_sort_short']                          = 'Sort';
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/extension/module/latest.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/extension/module/bestseller.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/extension/module/featured.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/extension/module/special.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_percent']                             = 'Discount';
+				$_['text_more_detailed']                       = 'More detailed';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/product/compare.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['text_comparison_list']      = 'Compare products';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/product/category.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+				$_['entry_instock']       = 'Show only in stock';
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+			$_['text_weight']              = 'Weight:';
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/en-gb/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+			$_['entry_cart']             = 'Button cart';
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/en-gb/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after" trim="true"><![CDATA[
+			$_['entry_title']            = 'Tab Title';
+			$_['button_customtab_add']   = 'Add tab';
+			$_['tab_customtab']          = 'Custom Tab';
+			$_['text_apply']             = 'Apply';
+			]]></add>
+		</operation>
+	</file>
+</modification>
