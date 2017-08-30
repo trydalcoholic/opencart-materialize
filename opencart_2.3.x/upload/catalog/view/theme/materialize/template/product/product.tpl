@@ -227,7 +227,7 @@
 								<?php } ?>
 								<div class="section">
 									<h6 class="center"><?php echo $text_payment_method; ?></h6>
-									<img class="responsive-img center-block lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/payments.jpg" alt="Оплата наличными и банковскими картами">
+									<img class="responsive-img center-block lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/payments.jpg" alt="">
 								</div>
 								<div id="product">
 									<?php if ($options) { ?>
@@ -545,6 +545,7 @@
 	<aside>
 		<div id="modal-size-chart" class="modal">
 			<div class="modal-content">
+				<i class="material-icons modal-action modal-close right">close</i>
 				<h4><?php echo $text_size_chart; ?></h4>
 				<?php echo $size_chart; ?>
 			</div>

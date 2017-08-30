@@ -1,5 +1,5 @@
 <div class="section">
-	<div id="slideshow<?php echo $module; ?>" class="slick-slider">
+	<div id="slideshow<?php echo $module; ?>" class="slick-slider z-depth-1">
 		<?php foreach ($banners as $banner) { ?>
 			<?php if ($banner['link']) { ?>
 			<a href="<?php echo $banner['link']; ?>">
