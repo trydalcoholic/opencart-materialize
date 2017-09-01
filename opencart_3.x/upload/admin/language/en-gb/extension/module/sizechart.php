@@ -9,7 +9,7 @@ $_['text_success']     = 'Success: You have modified Size chart module!';
 $_['text_edit']        = 'Edit Size chart module';
 
 // Entry
-$_['entry_status']     = 'Size chart Status';
+$_['entry_status']     = 'Status';
 
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify Size chart module!';

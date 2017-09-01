@@ -2,9 +2,261 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.72</version>
+	<version>0.73</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Additional Fields -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['images'] = array();]]></search>
+			<add position="before"><![CDATA[
+			$data['additionalfields'] = array();
+			$results = $this->model_catalog_product->getProductfields($this->request->get['product_id']);
+			foreach ($results as $result) {
+				$data['additionalfields'][] = array(
+					'title' => $result['title'],
+					'text' => $result['text'],
+				);
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[if (isset($this->request->post['image'])) {]]></search>
+			<add position="before"><![CDATA[
+			$data['entry_title_additional']=$this->language->get('entry_title_additional');
+			$data['button_additionalfield_add']=$this->language->get('button_additionalfield_add');
+			$data['tab_additionalfield']=$this->language->get('tab_additionalfield');
+
+			if (isset($this->request->post['product_additionalfield'])) {
+				$data['product_additionalfields'] = $this->request->post['product_additionalfield'];
+			} elseif (isset($this->request->get['product_id'])) {
+				$data['product_additionalfields'] = $this->model_catalog_product->getProductadditionalfields($this->request->get['product_id']);
+			} else {
+				$data['product_additionalfields'] = array();
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$product_id = $this->db->getLastId();]]></search>
+			<add position="after"><![CDATA[
+			if (isset($data['product_additionalfield'])) {
+				foreach ($data['product_additionalfield'] as $product_additionalfield) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_additionalfield SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_additionalfield['sort_order'] . "', status = '" . (int)$product_additionalfield['status'] . "'");
+
+					$product_additionalfield_id = $this->db->getLastId();
+
+					foreach ($product_additionalfield['product_additionalfield_text'] as $language_id => $product_additionalfield_text) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_additionalfield_text SET product_additionalfield_id = '" . (int)$product_additionalfield_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" .  $this->db->escape($product_additionalfield_text['title']) . "', text = '" .  $this->db->escape($product_additionalfield_text['text']) . "'");
+					}
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");]]></search>
+			<add position="after"><![CDATA[
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_additionalfield WHERE product_id = '" . (int)$product_id . "'");
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_additionalfield_text WHERE product_id = '" . (int)$product_id . "'");
+			if (isset($data['product_additionalfield'])) {
+				foreach ($data['product_additionalfield'] as $product_additionalfield) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_additionalfield SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_additionalfield['sort_order'] . "', status = '" . (int)$product_additionalfield['status'] . "'");
+
+					$product_additionalfield_id = $this->db->getLastId();
+
+					foreach ($product_additionalfield['product_additionalfield_text'] as $language_id => $product_additionalfield_text) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_additionalfield_text SET product_additionalfield_id = '" . (int)$product_additionalfield_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" .  $this->db->escape($product_additionalfield_text['title']) . "', text = '" .  $this->db->escape($product_additionalfield_text['text']) . "'");
+					}
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function getProductImages($product_id) {]]></search>
+			<add position="before"><![CDATA[
+			public function getProductadditionalfields($product_id) {
+				$product_additionalfield_data = array();
+				$product_additionalfield_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_additionalfield WHERE product_id = '" . (int)$product_id . "' ORDER BY sort_order ASC");
+				foreach ($product_additionalfield_query->rows as $product_additionalfield) {
+					$product_additionalfield_text_data = array();
+					$product_additionalfield_text_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_additionalfield_text WHERE product_additionalfield_id = '" . (int)$product_additionalfield['product_additionalfield_id'] . "' AND product_id = '" . (int)$product_id . "'");
+
+					foreach ($product_additionalfield_text_query->rows as $product_additionalfield_text) {
+						$product_additionalfield_text_data[$product_additionalfield_text['language_id']] = array(
+							'title' => $product_additionalfield_text['title'],
+							'text'  => $product_additionalfield_text['text'],
+						);
+					}
+
+					$product_additionalfield_data[] = array(
+						'product_additionalfield_text'   => $product_additionalfield_text_data,
+						'status'                     => $product_additionalfield['status'],
+						'sort_order'                 => $product_additionalfield['sort_order']
+					);
+				}
+				return $product_additionalfield_data;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[public function getProductImages($product_id) {]]></search>
+			<add position="before"><![CDATA[
+			public function getProductfields($product_id) {
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_additionalfield pc LEFT JOIN " . DB_PREFIX . "product_additionalfield_text pcd ON (pc.product_additionalfield_id  = pcd.product_additionalfield_id) WHERE pc.product_id = '" . (int)$product_id . "'  AND pcd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND status > 0 ORDER BY sort_order ASC");
+
+				return $query->rows;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.tpl">
+		<operation error="log">
+			<search><![CDATA[<li><a href="#tab-design" data-toggle="tab"><?php echo $tab_design; ?></a></li>]]></search>
+			<add position="after"><![CDATA[
+			<li><a href="#tab-additionalfieldmain" data-toggle="tab"><?php echo $tab_additionalfield; ?></a></li>
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
+			<add position="before"><![CDATA[
+			<div class="tab-pane" id="tab-additionalfieldmain">
+				<div class="col-sm-2">
+					<ul class="nav nav-pills nav-stacked" id="additionalfield">
+					<?php $additionalfield_row = 0; ?>
+						<?php foreach ($product_additionalfields as $product_additionalfield) { ?>
+						<li><a href="#tab-additionalfield<?php echo $additionalfield_row; ?>" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('a[href=\'#tab-additionalfield<?php echo $additionalfield_row; ?>\']').parent().remove(); $('#tab-additionalfield<?php echo $additionalfield_row; ?>').remove(); $('#additionalfield a:first').tab('show');"></i> <?php echo $tab_additionalfield . ' ' . $additionalfield_row; ?></a></li>
+						<?php $additionalfield_row++; ?>
+						<?php } ?>
+						<li id="additionalfield-add"><a onclick="addadditionalfield();"><i class="fa fa-plus-circle"></i> <?php echo $button_additionalfield_add; ?></a></li>
+					</ul>
+				</div>
+				<div class="col-sm-10">
+					<div class="tab-content tab-content2">
+						<?php $additionalfield_row = 0; ?>
+						<?php foreach ($product_additionalfields as $product_additionalfield) { ?>
+						<div class="tab-pane" id="tab-additionalfield<?php echo $additionalfield_row; ?>">
+							<ul class="nav nav-tabs" id="clanguage<?php echo $additionalfield_row; ?>">
+								<?php foreach ($languages as $language) { ?>
+								<li><a href="#tab-additionalfield<?php echo $additionalfield_row; ?>-language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" />  <?php echo $language['name']; ?></a></li>
+								<?php } ?>
+							</ul>
+							<div class="tab-content">
+								<?php foreach ($languages as $language) { ?>
+								<div class="tab-pane" id="tab-additionalfield<?php echo $additionalfield_row; ?>-language<?php echo $language['language_id']; ?>">
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="input-heading<?php echo $additionalfield_row; ?>-language<?php echo $language['language_id']; ?>"><?php echo $entry_title_additional; ?></label>
+										<div class="col-sm-10">
+											<input type="text" name="product_additionalfield[<?php echo $additionalfield_row; ?>][product_additionalfield_text][<?php echo $language['language_id']; ?>][title]" value="<?php echo isset($product_additionalfield['product_additionalfield_text'][$language['language_id']]) ? $product_additionalfield['product_additionalfield_text'][$language['language_id']]['title'] : ''; ?>" class="form-control"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" for="input-text<?php echo $additionalfield_row; ?>-language<?php echo $language['language_id']; ?>"><?php echo $entry_text; ?></label>
+										<div class="col-sm-10">
+											<input type="text" name="product_additionalfield[<?php echo $additionalfield_row; ?>][product_additionalfield_text][<?php echo $language['language_id']; ?>][text]" value="<?php echo isset($product_additionalfield['product_additionalfield_text'][$language['language_id']]) ? $product_additionalfield['product_additionalfield_text'][$language['language_id']]['text'] : ''; ?>" id="input-text<?php echo $additionalfield_row; ?>-language<?php echo $language['language_id']; ?>" class="form-control"/>
+										</div>
+									</div>
+								</div>
+								<?php } ?>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="input-sort_order<?php echo $additionalfield_row; ?>"><?php echo $entry_sort_order; ?></label>
+								<div class="col-sm-10">
+									<input type="text" name="product_additionalfield[<?php echo $additionalfield_row; ?>][sort_order]" value="<?php echo $product_additionalfield['sort_order']; ?>" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="input-status<?php echo $additionalfield_row; ?>"><?php echo $entry_status; ?></label>
+								<div class="col-sm-10">
+									<select name="product_additionalfield[<?php echo $additionalfield_row; ?>][status]" id="input-status" class="form-control">
+										<?php if ($product_additionalfield['status']) { ?>
+										<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+										<option value="0"><?php echo $text_disabled; ?></option>
+										<?php } else { ?>
+										<option value="1"><?php echo $text_enabled; ?></option>
+										<option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+										<?php } ?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<?php $additionalfield_row++; ?>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<?php echo $footer; ?>]]></search>
+			<add position="before"><![CDATA[
+			<script type="text/javascript"><!--
+				<?php $additionalfield_row = 0; ?>
+				<?php foreach ($product_additionalfields as $product_additionalfield) { ?>
+				<?php foreach ($languages as $language) { ?>
+				$('#input-text<?php echo $additionalfield_row; ?>-language<?php echo $language['language_id']; ?>');
+				<?php } ?>
+				<?php $additionalfield_row++; ?>
+				<?php } ?>
+			//--></script>
+			<script type="text/javascript"><!--
+				var additionalfield_row = <?php echo $additionalfield_row; ?>;
+				function addadditionalfield() {
+					html  = '<div id="tab-additionalfield' + additionalfield_row + '" class="tab-pane">';
+					html += '	<ul class="nav nav-tabs" id="clanguage' + additionalfield_row + '">';
+					<?php foreach ($languages as $language) { ?>
+					html += '		<li><a href="#tab-additionalfield' + additionalfield_row + '-language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>';
+					<?php } ?>
+					html += '	</ul>';
+					html += '	<div class="tab-content">';
+					<?php foreach ($languages as $language) { ?>
+					html += '		<div class="tab-pane" id="tab-additionalfield' + additionalfield_row + '-language<?php echo $language['language_id']; ?>">';
+					html += '			<div class="form-group">';
+					html += '				<label class="col-sm-2 control-label" for="input-title' + additionalfield_row + '-language<?php echo $language['language_id']; ?>"><?php echo $entry_title_additional; ?></label>';
+					html += '				<div class="col-sm-10"><input type="text" name="product_additionalfield[' + additionalfield_row + '][product_additionalfield_text][<?php echo $language['language_id']; ?>][title]" placeholder="<?php echo $entry_title_additional; ?>" id="input-title' + additionalfield_row + '-language<?php echo $language['language_id']; ?>" value="" class="form-control"/></div>';
+					html += '			</div>';
+					html += '			<div class="form-group">';
+					html += '				<label class="col-sm-2 control-label" for="input-text' + additionalfield_row + '-language<?php echo $language['language_id']; ?>"><?php echo $entry_text; ?></label>';
+					html += '				<div class="col-sm-10"><input type="text" name="product_additionalfield[' + additionalfield_row + '][product_additionalfield_text][<?php echo $language['language_id']; ?>][text]" value="<?php echo isset($product_additionalfield['product_additionalfield_text'][$language['language_id']]) ? $product_additionalfield['product_additionalfield_text'][$language['language_id']]['text'] : ''; ?>" id="input-text' + additionalfield_row + '-language<?php echo $language['language_id']; ?>" class="form-control"/></div>';
+					html += '			</div>';
+					html += '		</div>';
+					<?php } ?>
+					html += '	</div>';
+					html += '	<div class="form-group">';
+					html += '		<label class="col-sm-2 control-label" for="input-sort_order' + additionalfield_row +'"><?php echo $entry_sort_order; ?></label>';
+					html += '		<div class="col-sm-10"><input type="text" name="product_additionalfield[' + additionalfield_row + '][sort_order]" value="" class="form-control" /></div>';
+					html += '	</div>';
+					html += '	<div class="form-group">';
+					html += '		<label class="col-sm-2 control-label" for="input-status' + additionalfield_row +'"><?php echo $entry_status; ?></label>';
+					html += '		<div class="col-sm-10"><select name="product_additionalfield[' + additionalfield_row + '][status]" class="form-control"><option value="1"><?php echo $text_enabled; ?></option><option value="0"><?php echo $text_disabled; ?></option></select></div>';
+					html += '	</div>';
+					html += '</div>';
+					$('#tab-additionalfieldmain .tab-content2').append(html);
+					<?php foreach ($languages as $language) { ?>
+					$('#input-text' + additionalfield_row + '-language<?php echo $language['language_id']; ?>');
+				<?php } ?>
+				$('#additionalfield a[href=\'#tab-additionalfield' + additionalfield_row + '\']').tab('show');
+				$('#clanguage' + additionalfield_row + ' li:first-child a').tab('show');
+				$('#additionalfield-add').before('<li><a href="#tab-additionalfield' + additionalfield_row + '" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$(\'a[href=\\\'#tab-additionalfield' + additionalfield_row + '\\\']\').parent().remove(); $(\'#tab-additionalfield' + additionalfield_row + '\').remove(); $(\'#additionalfield li a:first\').tab(\'show\');"></i> <?php echo $tab_additionalfield; ?> ' + additionalfield_row + '</a></li>');
+				$('#additionalfield-' + additionalfield_row).trigger('click');
+				additionalfield_row++;
+				}
+			//--></script>
+			<script type="text/javascript"><!--
+				$('#additionalfield li:first-child a').tab('show');
+				<?php $additionalfield_row = 0; ?>
+				<?php foreach ($product_additionalfields as $product_additionalfield) { ?>
+				$('#clanguage<?php echo $additionalfield_row; ?> li:first-child a').tab('show');
+				<?php $additionalfield_row++; ?>
+				<?php } ?>
+			//--></script>
+			]]></add>
+		</operation>
+	</file>
 	<!-- Size Chart -->
 	<file path="admin/controller/catalog/product.php">
 		<operation error="log">
@@ -96,7 +348,7 @@
 	</file>
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
-			<search><![CDATA[meta_description' => $query->row['meta_description'],]]></search>
+			<search><![CDATA['meta_description' => $query->row['meta_description'],]]></search>
 			<add position="after"><![CDATA[
 			'size_chart' => $query->row['size_chart'],
 			]]></add>
@@ -1805,7 +2057,7 @@
                         </div>
 					</div>
 					<div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-status<?php echo $customtab_row; ?>"><?php echo $entry_sort_order; ?></label>
+                        <label class="col-sm-2 control-label" for="input-status<?php echo $customtab_row; ?>"><?php echo $entry_status; ?></label>
                         <div class="col-sm-10">
                         <select name="product_customtab[<?php echo $customtab_row; ?>][status]" id="input-status" class="form-control">
 						<?php if ($product_customtab['status']) { ?>

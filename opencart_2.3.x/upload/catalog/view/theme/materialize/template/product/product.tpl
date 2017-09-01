@@ -191,14 +191,21 @@
 											<span class="text-bold"><?php echo $text_weight; ?></span>&nbsp;<?php echo $weight; ?>
 										</li>
 										<?php } ?>
-										<li>
-											<span class="text-bold"><?php echo $text_stock; ?></span> <span class="<?php echo $stock_color ?>-text text-darken-1 text-bold">&nbsp;<?php echo $stock; ?></span>
-										</li>
 										<?php if ($sku) { ?>
 										<li>
 											<span class="text-bold"><?php echo $text_sku; ?></span>&nbsp;<?php echo $sku; ?>
 										</li>
 										<?php } ?>
+										<?php if ($additionalfields) { ?>
+											<?php foreach ($additionalfields as $key=>$additionalfield) { ?>
+											<li id="customfield-<?php echo $key?>">
+												<span class="text-bold"><?php echo $additionalfield['title']; ?>:</span>&nbsp;<?php echo $additionalfield['text']; ?>
+											</li>
+											<?php } ?>
+										<?php } ?>
+										<li>
+											<span class="text-bold"><?php echo $text_stock; ?></span> <span class="<?php echo $stock_color ?>-text text-darken-1 text-bold">&nbsp;<?php echo $stock; ?></span>
+										</li>
 									</ul>
 								</blockquote>
 								<?php if ($special || $reward || $discounts || ($sizechart['sizechart_status'] == 1 && $size_chart)) { ?>

@@ -2,9 +2,20 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.72</version>
+	<version>0.73</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Additional Fields -->
+	<file path="admin/language/ru-ru/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['entry_title_additional']       = 'Название поля';
+			$_['button_additionalfield_add']   = 'Добавить поле';
+			$_['tab_additionalfield']          = 'Дополнительные поля';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Size Chart -->
 	<file path="admin/language/ru-ru/catalog/product.php">
 		<operation error="skip">

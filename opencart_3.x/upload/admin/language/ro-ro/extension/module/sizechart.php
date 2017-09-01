@@ -4,7 +4,7 @@ $_['heading_title'] = '<font color="#263238"><b>Materialize Size chart</b></font
 $_['size_chart_title']    = 'Materialize Size chart';
 
 // Text
-$_['text_extension']   = 'Module';
+$_['text_extension']   = 'Extensie';
 $_['text_success']     = 'Succes: ați modificat setările din modulul de tabele Dimensiune';
 $_['text_edit']        = 'Modificați modulul diagramă dimensiune';
 
