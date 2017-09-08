@@ -2,9 +2,29 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.73</version>
+	<version>0.74.3</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Blog -->
+	<file path="catalog/language/ru-ru/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_blog']          = 'Блог';
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/ru-ru/common/column_left.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_blog']                         = 'Блог';
+			$_['text_blog_category']                = 'Категории';
+			$_['text_blog_post']                    = 'Посты';
+			$_['text_blog_comment']                 = 'Комментарии';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Additional Fields -->
 	<file path="admin/language/ru-ru/catalog/product.php">
 		<operation error="skip">

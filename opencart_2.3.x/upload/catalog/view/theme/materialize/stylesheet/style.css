@@ -37,6 +37,13 @@ iframe {border:none;}
 .cursor-default {cursor:default !important;}
 .width-max {width:100% !important;}
 .flex-reverse {display:flex;flex-direction:row-reverse;padding:1rem 0;}
+.scale:hover {
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	transform: scale(1.1);
+}
 .transition {
 	-webkit-transition: -webkit-transform 0.3s ease-in-out;
 	transition: -webkit-transform 0.3s ease-in-out;
@@ -433,7 +440,7 @@ iframe {border:none;}
 	header {position:relative !important;}
 }
 @media (max-width:992px) {
-	.subcategory-wrap {
+	.subcategory-wrap,.breadcrumb-wrap {
 		-webkit-overflow-scrolling: touch;
 		overflow-x: auto;
 		white-space: nowrap;
@@ -495,8 +502,9 @@ iframe {border:none;}
 	/* Bread crumbs */
 	.breadcrumb-wrapper {height:42px;line-height:42px;}
 	.breadcrumb {font-size:14px;}
-	.breadcrumb:before {color:inherit;font-size:18px;margin:0 8px 0 6px;}
+	.breadcrumb:before {color:inherit;font-size:18px;margin:0 10px 0 0;}
 	.breadcrumb i {position:relative;top:-1px;left:0;font-size:18px;height:42px !important;line-height:42px !important;}
+	.breadcrumb {padding:0 .6rem;}
 	/* Checkbox color */
 	[type="checkbox"].filled-in:checked+label:after {background-color:#78909c !important;border:2px solid #78909c !important;}
 	/* Color of radio buttons */
@@ -515,6 +523,83 @@ iframe {border:none;}
 	.collection-item.child {padding-left:30px;}
 	/* Google reCaptcha */
 	.g-recaptcha>div:first-child {margin:0 auto;}
+
+/*========== Blog ==========*/
+.blog-card .card .card-title {font-weight:400 !important;}
+.blog-card .card-content {border-radius:0 !important;}
+.blog-image-wrap {overflow:hidden;}
+.blog-card .card-image img {width:100%;}
+.blog-card .card-image .material-icons {position:relative;top:0;left:0;}
+.blog-card .rating {text-align:left;}
+.blog-card-tabs .tabs .tab a {color:#263238;}
+.blog-card-tabs .tabs .tab a.active {color:#263238 !important;}
+.blog-card-tabs .tabs .tab a>i.material-icons {line-height:inherit;}
+.blog-card-tabs .tabs .indicator {background-color:#607d8b;}
+.blog-card .tabs-content div {width:100% !important;}
+.blog-card .card-content .tabs-content {height:65px !important;}
+.blog-card .card-content .tabs-content ul {margin:0;}
+.blog-card .card-action {padding:8px !important;}
+.blog-card .card-action a {color:#343434 !important;}
+.blog-card .card-action a:hover {color:#1b1b1b !important;}
+
+@media only screen and (max-width:600px) {.masonry[data-columns]::before {content:'1 .col.s12';}}
+@media only screen and (min-width:601px) and (max-width:1200px) {.masonry[data-columns]::before {content:'2 .col.s12.m6';}}
+@media only screen and (min-width:1201px) {.masonry[data-columns]::before {content:'3 .col.s12.xl4';}}
+
+.post h1 {
+	font-size: 2em;
+	margin: 0 0 1.68rem 0;
+}
+.post-image-block {position:relative;}
+.post-info {
+	position: absolute;
+	margin-top: 0;
+	top: 10px;
+	right: 10px;
+	display: flex;
+	flex-direction: row;
+	padding: 5px 7px;
+	color: #fff;
+	pointer-events: none;
+	z-index: 2;
+	border-radius: 2px;
+	background-color: rgba(55, 71, 79, .7)
+}
+.post-info li {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	margin: 0 5px;
+}
+.post-image-block figure {
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+}
+.post-image-block figure img {
+	display: block;
+	width: 100%;
+}
+.post-image-block .card-title {
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	max-width: 100%;
+	padding: 10px !important;
+	font-size: 18px !important;
+	font-weight: 400 !important;
+	background-color: rgba(55, 71, 79, .7)
+}
+
+.blockquote-note-blog {width:30%;margin-left:20px;padding-top:0;}
+.blockquote-note-blog .blockquote-icon {left:auto;right:10px;padding:12px 0 0 0;}
+@media only screen and (max-width:600px) {.blockquote-note-blog {width:100% !important;}}
+
+#search-input-blog {margin-left:1.2rem;}
+#search-input-blog:focus {width:calc(100% - 2rem);}
+#label-search-blog {top:-21px !important;left:-25px !important;}
+#reset-search-blog {top:-5px !important;right:-15px !important;}
 
 /*========== This can be removed ==========*/
 .catalog-presentation {

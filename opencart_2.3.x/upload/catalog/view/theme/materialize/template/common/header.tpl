@@ -88,6 +88,7 @@
 					</ul>
 					<?php } ?>
 					<ul class="right">
+						<li><a class="waves-effect waves-light" href="<?php echo $blog; ?>"><?php echo $text_blog; ?></a></li>
 						<li><a class="waves-effect waves-light" href="/index.php?route=information/information&information_id=6"><?php echo $text_delivery; ?></a></li>
 						<li><a class="waves-effect waves-light" href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
 						<li><a class="waves-effect waves-light" href="/index.php?route=information/information&information_id=4"><?php echo $text_about; ?></a></li>
@@ -115,7 +116,7 @@
 				</div>
 			</nav>
 		</div>
-		<div class="row blue-grey darken-3 top-container z-depth-5">
+		<div class="row blue-grey darken-3 top-container">
 			<div class="container">
 				<div class="valign-wrapper">
 					<div class="col s12 m4">
@@ -249,6 +250,7 @@
 					</ul>
 				</li>
 				<li class="divider"></li>
+				<li><a class="waves-effect" href="<?php echo $blog; ?>" rel="nofollow"><?php echo $text_blog; ?><i class="material-icons">book</i></a></li>
 				<li><a class="waves-effect" href="/index.php?route=information/information&information_id=6" rel="nofollow"><?php echo $text_delivery; ?><i class="material-icons">local_shipping</i></a></li>
 				<li><a class="waves-effect" href="<?php echo $contact; ?>" rel="nofollow"><?php echo $text_contact; ?><i class="material-icons">email</i></a></li>
 				<li><a class="waves-effect" href="/index.php?route=information/information&information_id=4" rel="nofollow"><?php echo $text_about; ?><i class="material-icons">store</i></a></li>

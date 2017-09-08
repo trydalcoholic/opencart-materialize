@@ -5,6 +5,26 @@
 	<version>0.74.3</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Blog -->
+	<file path="catalog/language/en-gb/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_blog']          = 'Blog';
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/en-gb/common/column_left.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_blog']                         = 'Blog';
+			$_['text_blog_category']                = 'Categories';
+			$_['text_blog_post']                    = 'Posts';
+			$_['text_blog_comment']                 = 'Comment';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Additional Fields -->
 	<file path="admin/language/en-gb/catalog/product.php">
 		<operation error="skip">

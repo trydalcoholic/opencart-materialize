@@ -2,9 +2,292 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.73</version>
+	<version>0.74.3</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Resize image blog -->
+	<file path="catalog/model/tool/image.php">
+		<operation>
+			<search><![CDATA[public function resize($filename, $width, $height) {]]></search>
+			<add position="before"><![CDATA[
+			public function resizeBlog($filename, $width, $height, $type = '') {
+				if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != DIR_IMAGE) {
+					return;
+				}
+
+				$extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+				$image_old = $filename;
+
+				$image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . $type . '.' . $extension;
+
+				if (!is_file(DIR_IMAGE . $image_new) || (filectime(DIR_IMAGE . $image_old) > filectime(DIR_IMAGE . $image_new))) {
+					list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
+
+					if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
+						return DIR_IMAGE . $image_old;
+					}
+
+					$path = '';
+
+					$directories = explode('/', dirname($image_new));
+
+					foreach ($directories as $directory) {
+						$path = $path . '/' . $directory;
+
+						if (!is_dir(DIR_IMAGE . $path)) {
+							@mkdir(DIR_IMAGE . $path, 0777);
+						}
+					}
+
+					if ($width_orig != $width || $height_orig != $height) {
+						$image = new Image(DIR_IMAGE . $image_old);
+
+					$image->resizeBlog($width, $height, $type);
+
+						$image->save(DIR_IMAGE . $image_new);
+					} else {
+						copy(DIR_IMAGE . $image_old, DIR_IMAGE . $image_new);
+					}
+				}
+
+				$image_new = str_replace(' ', '%20', $image_new);  // fix bug when attach image on email (gmail.com). it is automatic changing space " " to +
+
+				if ($this->request->server['HTTPS']) {
+					return $this->config->get('config_ssl') . 'image/' . $image_new;
+				} else {
+					return $this->config->get('config_url') . 'image/' . $image_new;
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="system/library/image.php">
+		<operation>
+			<search><![CDATA[public function watermark($watermark, $position = 'bottomright') {]]></search>
+			<add position="before"><![CDATA[
+			public function resizeBlog($width = 0, $height = 0, $default = '') {
+				if (!$this->width || !$this->height) {
+					return;
+				}
+
+				$xpos = 0;
+				$ypos = 0;
+				$scale = 1;
+
+				$scale_w = $width / $this->width;
+				$scale_h = $height / $this->height;
+
+				$scale = $scale_w;
+
+				if ($scale == 1 && $scale_h == $scale_w && $this->mime != 'image/png') {
+					return;
+				}
+
+				$new_width = (int)($this->width * $scale);
+				$new_height = (int)($this->height * $scale);
+				$xpos = 0;
+				$ypos = 0;
+
+				$image_old = $this->image;
+				$this->image = imagecreatetruecolor($new_width, $new_height);
+
+				if (isset($this->mime) && $this->mime == 'image/png') {
+					imagealphablending($this->image, false);
+					imagesavealpha($this->image, true);
+					$background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
+					imagecolortransparent($this->image, $background);
+				} else {
+					$background = imagecolorallocate($this->image, 255, 255, 255);
+				}
+
+				imagefilledrectangle($this->image, 0, 0, $new_width, $new_height, $background);
+
+				imagecopyresampled($this->image, $image_old, $xpos, $ypos, 0, 0, $new_width, $new_height, $this->width, $this->height);
+				imagedestroy($image_old);
+
+				$this->width  = $new_width;
+				$this->height = $new_height;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Crop image -->
+	<file path="catalog/model/tool/image.php">
+		<operation>
+			<search><![CDATA[public function resize($filename, $width, $height) {]]></search>
+			<add position="replace"><![CDATA[
+			public function resize($filename, $width, $height, $type = '') {
+			]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[$image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;]]></search>
+			<add position="replace"><![CDATA[
+			$image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . $type . '.' . $extension;
+			]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[$image->resize($width, $height);]]></search>
+			<add position="replace"><![CDATA[
+			$image->resize($width, $height, $type);
+			]]></add>
+		</operation>
+	</file>
+	<file path="system/library/image.php">
+		<operation>
+			<search><![CDATA[} elseif ($default == 'h') {]]></search>
+			<add position="after" offset="1"><![CDATA[
+			} elseif ($default == 'crop') {
+			if ($width/$height > $this->width/$this->height) {
+				$scale = $scale_w;
+			} elseif ($width/$height < $this->width/$this->height) {
+				$scale = $scale_h;
+			}
+			]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[private function html2rgb($color) {]]></search>
+			<add position="before"><![CDATA[
+			private function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct) {
+				$w = imagesx($src_im);
+				$h = imagesy($src_im);
+
+				$cut = imagecreatetruecolor($src_w, $src_h);
+
+				imagecopy($cut, $dst_im, 0, 0, $dst_x, $dst_y, $src_w, $src_h);
+
+				imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h);
+				imagecopymerge($dst_im, $cut, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct);
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Blog -->
+	<file path="catalog/controller/extension/feed/google_sitemap.php">
+		<operation>
+			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<add position="before"><![CDATA[
+			$this->load->model('blog/post');
+			]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[$products = $this->model_catalog_product->getProducts();]]></search>
+			<add position="before"><![CDATA[
+			$posts = $this->model_blog_post->getPosts();
+
+			foreach ($posts as $post) {
+				if ($post['image']) {
+					$output .= '<url>';
+					$output .= '<loc>' . $this->url->link('blog/post', 'blog_post_id=' . $post['blog_post_id']) . '</loc>';
+					$output .= '<changefreq>weekly</changefreq>';
+					$output .= '<lastmod>' . date('Y-m-d\TH:i:sP', strtotime($post['date_modified'])) . '</lastmod>';
+					$output .= '<priority>1.0</priority>';
+					$output .= '<image:image>';
+					$output .= '<image:loc>' . $this->model_tool_image->resize($post['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')) . '</image:loc>';
+					$output .= '<image:caption>' . $post['title'] . '</image:caption>';
+					$output .= '<image:title>' . $post['title'] . '</image:title>';
+					$output .= '</image:image>';
+					$output .= '</url>';
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/header.php">
+		<operation>
+			<search><![CDATA[$data['text_all'] = $this->language->get('text_all');]]></search>
+			<add position="after"><![CDATA[
+			$data['text_blog'] = $this->language->get('text_blog');
+			$data['blog'] = $this->url->link('blog/category');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/startup/seo_url.php">
+		<operation>
+			<search index="0"><![CDATA[foreach ($parts as $part) {]]></search>
+			<add position="before" offset="0"><![CDATA[
+			if (strpos($this->request->get['_route_'], 'blog/') !== false) {
+				foreach ($parts as $part) {
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias_blog WHERE keyword = '" . $this->db->escape($part) . "'");
+
+					if ($query->num_rows) {
+						$url = explode('=', $query->row['query']);
+
+						if ($url[0] == 'blog_post_id') {
+							$this->request->get['blog_post_id'] = $url[1];
+							$this->request->get['route'] = 'blog/post';
+						}
+
+						if ($url[0] == 'blog_category_id') {
+							$this->request->get['blog_category_id'] = $url[1];
+							$this->request->get['route'] = 'blog/category';
+						}
+					}
+				}
+				if (!isset($this->request->get['route'])) {
+					$this->request->get['route'] = 'blog/category';
+				}
+			} else {
+			]]></add>
+		</operation>
+		<operation>
+			<search index="1"><![CDATA[if (!isset($this->request->get['route'])) {]]></search>
+			<add position="before" trim="false" offset="0"><![CDATA[}]]></add>
+		</operation>
+		<operation>
+			<search index="0"><![CDATA[} elseif ($key == 'path') {]]></search>
+            <add position="before" offset="0"><![CDATA[
+			} elseif (($data['route'] == 'blog/category') || ($data['route'] == 'blog/post')) {
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias_blog WHERE `query` = '" . $this->db->escape($key . '=' . (int)$value) . "'");
+
+				if ($query->num_rows && $query->row['keyword']) {
+					$url .= ((strpos($url,'/blog/') === false)?'/blog/':'/') . $query->row['keyword'];
+
+					unset($data[$key]);
+				}
+			]]></add>
+        </operation>
+	</file>
+	<file path="admin/controller/common/column_left.php">
+		<operation>
+			<search><![CDATA[if ($this->user->hasPermission('access', 'catalog/information')) {]]></search>
+			<add position="before"><![CDATA[
+			$blog = array();
+
+			if ($this->user->hasPermission('access', 'blog/category')) {
+				$blog[] = array(
+					'name'	   => $this->language->get('text_blog_category'),
+					'href'     => $this->url->link('blog/category', 'token=' . $this->session->data['token'], true),
+					'children' => array()
+				);
+			}
+
+			if ($this->user->hasPermission('access', 'blog/post')) {
+				$blog[] = array(
+					'name'	   => $this->language->get('text_blog_post'),
+					'href'     => $this->url->link('blog/post', 'token=' . $this->session->data['token'], true),
+					'children' => array()
+				);
+			}
+
+			if ($this->user->hasPermission('access', 'blog/comment')) {
+				$blog[] = array(
+					'name'	   => $this->language->get('text_blog_comment'),
+					'href'     => $this->url->link('blog/comment', 'token=' . $this->session->data['token'], true),
+					'children' => array()
+				);
+			}
+
+			if ($blog) {
+				$catalog[] = array(
+					'name'	   => $this->language->get('text_blog'),
+					'href'     => '',
+					'children' => $blog
+				);
+			}
+			]]></add>
+		</operation>
+	</file>
 	<!-- Additional Fields -->
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">

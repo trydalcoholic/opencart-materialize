@@ -1,3 +1,3 @@
 ALTER TABLE `oc_product` DROP `add_cart`;
 ALTER TABLE `oc_product_description` DROP `size_chart`;
-DROP TABLE `oc_product_customtab`, `oc_product_customtab_description`, `oc_product_additionalfield`, `oc_product_additionalfield_text`;
+DROP TABLE IF EXISTS `oc_product_customtab`, `oc_product_customtab_description`, `oc_product_additionalfield`, `oc_product_additionalfield_text`, `oc_blog_category`, `oc_blog_category_description`, `oc_blog_category_to_layout`, `oc_blog_category_to_store`, `oc_blog_comment`, `oc_blog_post`, `oc_blog_post_description`, `oc_blog_post_to_category`, `oc_blog_post_to_layout`, `oc_blog_post_to_store`, `oc_url_alias_blog`;
