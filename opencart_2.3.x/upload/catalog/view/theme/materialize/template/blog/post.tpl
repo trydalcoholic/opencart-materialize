@@ -65,7 +65,6 @@
 				<?php echo $content_top; ?>
 				<div class="card-panel">
 					<div class="post">
-						<h1 itemprop="headline"><?php echo $heading_title; ?></h1>
 						<div class="post-image-block">
 							<ul class="post-info z-depth-1 transition">
 								<li><?php echo $post_published; ?><i class="material-icons left">access_time</i></li>
@@ -83,6 +82,7 @@
 							</div>
 							<?php } ?>
 						</div>
+						<h1 itemprop="headline"><?php echo $heading_title; ?></h1>
 						<div class="section"><div class="divider"></div></div>
 						<section class="text-justify" itemprop="articleBody">
 							<blockquote class="right blockquote-note blockquote-note-blog blue-grey lighten-5 z-depth-1" style="width: 50%;">

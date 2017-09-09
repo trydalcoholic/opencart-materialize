@@ -63,7 +63,7 @@
 					<?php if ($blog_posts) { ?>
 						<div class="row masonry" data-columns>
 						<?php foreach ($blog_posts as $blog_post) { ?>
-							<div class="card blog-card">
+							<div class="card blog-card hoverable">
 								<div class="card-image">
 									<div class="blog-image-wrap"><img class="scale transition lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $blog_post['image']; ?>"></div>
 									<a class="btn-floating btn-large halfway-fab waves-effect waves-light blue-grey darken-1" href="<?php echo $blog_post['href']; ?>#form-review"><i class="material-icons">comment</i></a>

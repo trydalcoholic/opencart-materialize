@@ -471,6 +471,8 @@ iframe {border:none;}
 }
 
 /*========== Fixes ==========*/
+	/* Slideshow */
+	.slick-slider-slideshow {width:100%}
 	/* Fix dropdown in mobile for materialize.css v 0.100.* */
 	#dropdown-side-settings.dropdown-content.active {left:184px !important;}
 	/* Fix action icon search for materialize.css v 0.100.* */
@@ -543,14 +545,14 @@ iframe {border:none;}
 .blog-card .card-action a:hover {color:#1b1b1b !important;}
 
 @media only screen and (max-width:600px) {.masonry[data-columns]::before {content:'1 .col.s12';}}
-@media only screen and (min-width:601px) and (max-width:1200px) {.masonry[data-columns]::before {content:'2 .col.s12.m6';}}
-@media only screen and (min-width:1201px) {.masonry[data-columns]::before {content:'3 .col.s12.xl4';}}
+@media only screen and (min-width:601px) and (max-width:1200px) {.masonry[data-columns]::before {content:'2 .col.m6';}}
+@media only screen and (min-width:1201px) {.masonry[data-columns]::before {content:'3 .col.xl4';}}
 
 .post h1 {
 	font-size: 2em;
-	margin: 0 0 1.68rem 0;
+	margin: 2.1rem 0 0 0;
 }
-.post-image-block {position:relative;}
+.post-image-block {position:relative;margin:-24px -24px 0 -24px;}
 .post-info {
 	position: absolute;
 	margin-top: 0;
