@@ -734,6 +734,7 @@
 							Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success');
 							$('input[name=\'name\']').val('');
 							$('textarea[name=\'text\']').val('');
+							$('textarea[name=\'text\']').trigger('autoresize');
 							$('input[name=\'rating\']:checked').prop('checked', false);
 						}
 					}

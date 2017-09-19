@@ -33,12 +33,12 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
-                <label class="control-label" for="input-title"><?php echo $entry_title; ?></label>
-                <input type="text" name="filter_title" value="<?php echo $filter_title; ?>" placeholder="<?php echo $entry_title; ?>" id="input-title" class="form-control" />
+                <label class="control-label" for="input-post"><?php echo $entry_post; ?></label>
+                <input type="text" name="filter_post" value="<?php echo $filter_post; ?>" placeholder="<?php echo $entry_post; ?>" id="input-post" class="form-control" />
               </div>
               <div class="form-group">
-                <label class="control-label" for="input-author"><?php echo $entry_author; ?>/ <?php echo $entry_email; ?></label>
-                <input type="text" name="filter_author" value="<?php echo $filter_author; ?>" placeholder="<?php echo $entry_author; ?>/ <?php echo $entry_email; ?>" id="input-author" class="form-control" />
+                <label class="control-label" for="input-author"><?php echo $entry_author; ?></label>
+                <input type="text" name="filter_author" value="<?php echo $filter_author; ?>" placeholder="<?php echo $entry_author; ?>" id="input-author" class="form-control" />
               </div>
             </div>
             <div class="col-sm-6">
@@ -66,7 +66,7 @@
                   <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                   </span></div>
               </div>
-              <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> <?php echo $button_filter; ?></button>
+              <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-filter"></i> <?php echo $button_filter; ?></button>
             </div>
           </div>
         </div>
@@ -76,27 +76,27 @@
               <thead>
                 <tr>
                   <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
-                  <td class="text-left"><?php if ($sort == 'pd.title') { ?>
-                    <a href="<?php echo $sort_title; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_title; ?></a>
+                  <td class="text-left"><?php if ($sort == 'pd.name') { ?>
+                    <a href="<?php echo $sort_post; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_post; ?></a>
                     <?php } else { ?>
-                    <a href="<?php echo $sort_title; ?>"><?php echo $column_title; ?></a>
+                    <a href="<?php echo $sort_post; ?>"><?php echo $column_post; ?></a>
                     <?php } ?></td>
-                  <td class="text-left"><?php if ($sort == 'r.author') { ?>
+                  <td class="text-left"><?php if ($sort == 'c.author') { ?>
                     <a href="<?php echo $sort_author; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_author; ?></a>
                     <?php } else { ?>
                     <a href="<?php echo $sort_author; ?>"><?php echo $column_author; ?></a>
                     <?php } ?></td>
-                  <td class="text-left"><?php if ($sort == 'r.email') { ?>
+                  <td class="text-right"><?php if ($sort == 'c.email') { ?>
                     <a href="<?php echo $sort_email; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_email; ?></a>
                     <?php } else { ?>
                     <a href="<?php echo $sort_email; ?>"><?php echo $column_email; ?></a>
-                    <?php } ?></td>                    
-                  <td class="text-left"><?php if ($sort == 'r.status') { ?>
+                    <?php } ?></td>
+                  <td class="text-left"><?php if ($sort == 'c.status') { ?>
                     <a href="<?php echo $sort_status; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_status; ?></a>
                     <?php } else { ?>
                     <a href="<?php echo $sort_status; ?>"><?php echo $column_status; ?></a>
                     <?php } ?></td>
-                  <td class="text-left"><?php if ($sort == 'r.date_added') { ?>
+                  <td class="text-left"><?php if ($sort == 'c.date_added') { ?>
                     <a href="<?php echo $sort_date_added; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date_added; ?></a>
                     <?php } else { ?>
                     <a href="<?php echo $sort_date_added; ?>"><?php echo $column_date_added; ?></a>
@@ -108,14 +108,14 @@
                 <?php if ($comments) { ?>
                 <?php foreach ($comments as $comment) { ?>
                 <tr>
-                  <td class="text-center"><?php if (in_array($comment['blog_comment_id'], $selected)) { ?>
-                    <input type="checkbox" name="selected[]" value="<?php echo $comment['blog_comment_id']; ?>" checked="checked" />
+                  <td class="text-center"><?php if (in_array($comment['comment_id'], $selected)) { ?>
+                    <input type="checkbox" name="selected[]" value="<?php echo $comment['comment_id']; ?>" checked="checked" />
                     <?php } else { ?>
-                    <input type="checkbox" name="selected[]" value="<?php echo $comment['blog_comment_id']; ?>" />
+                    <input type="checkbox" name="selected[]" value="<?php echo $comment['comment_id']; ?>" />
                     <?php } ?></td>
-                  <td class="text-left"><?php echo $comment['title']; ?></td>
+                  <td class="text-left"><?php echo $comment['name']; ?></td>
                   <td class="text-left"><?php echo $comment['author']; ?></td>
-                  <td class="text-left"><?php echo $comment['email']; ?></td>
+                  <td class="text-right"><?php echo $comment['email']; ?></td>
                   <td class="text-left"><?php echo $comment['status']; ?></td>
                   <td class="text-left"><?php echo $comment['date_added']; ?></td>
                   <td class="text-right"><a href="<?php echo $comment['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
@@ -123,7 +123,7 @@
                 <?php } ?>
                 <?php } else { ?>
                 <tr>
-                  <td class="text-center" colspan="8"><?php echo $text_no_results; ?></td>
+                  <td class="text-center" colspan="7"><?php echo $text_no_results; ?></td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -139,38 +139,38 @@
   </div>
   <script type="text/javascript"><!--
 $('#button-filter').on('click', function() {
-	url = 'index.php?route=blog/comment&token=<?php echo $token; ?>';
-	
-	var filter_title = $('input[name=\'filter_title\']').val();
-	
-	if (filter_title) {
-		url += '&filter_title=' + encodeURIComponent(filter_title);
-	}
-	
-	var filter_author = $('input[name=\'filter_author\']').val();
-	
-	if (filter_author) {
-		url += '&filter_author=' + encodeURIComponent(filter_author);
-	}
-	
-	var filter_status = $('select[name=\'filter_status\']').val();
-	
-	if (filter_status != '*') {
-		url += '&filter_status=' + encodeURIComponent(filter_status); 
-	}		
-			
-	var filter_date_added = $('input[name=\'filter_date_added\']').val();
-	
-	if (filter_date_added) {
-		url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-	}
+  url = 'index.php?route=blog/comment&token=<?php echo $token; ?>';
+  
+  var filter_post = $('input[name=\'filter_post\']').val();
+  
+  if (filter_post) {
+    url += '&filter_post=' + encodeURIComponent(filter_post);
+  }
+  
+  var filter_author = $('input[name=\'filter_author\']').val();
+  
+  if (filter_author) {
+    url += '&filter_author=' + encodeURIComponent(filter_author);
+  }
+  
+  var filter_status = $('select[name=\'filter_status\']').val();
+  
+  if (filter_status != '*') {
+    url += '&filter_status=' + encodeURIComponent(filter_status); 
+  }   
+      
+  var filter_date_added = $('input[name=\'filter_date_added\']').val();
+  
+  if (filter_date_added) {
+    url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+  }
 
-	location = url;
+  location = url;
 });
 //--></script> 
   <script type="text/javascript"><!--
 $('.date').datetimepicker({
-	pickTime: false
+  pickTime: false
 });
 //--></script></div>
 <?php echo $footer; ?>

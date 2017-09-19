@@ -2,8 +2,8 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right"><a href="<?php echo $add; ?>" data-toggle="tooltip" title="<?php echo $button_add; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a> <a href="<?php echo $repair; ?>" data-toggle="tooltip" title="<?php echo $button_rebuild; ?>" class="btn btn-default"><i class="fa fa-refresh"></i></a>
-        <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>" class="btn btn-danger" onclick="confirm('<?php echo $text_confirm; ?>') ? $('#form-category').submit() : false;"><i class="fa fa-trash-o"></i></button>
+      <div class="pull-right"><a href="<?php echo $add; ?>" data-toggle="tooltip" title="<?php echo $button_add; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+        <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>" class="btn btn-danger" onclick="confirm('<?php echo $text_confirm; ?>') ? $('#form-author').submit() : false;"><i class="fa fa-trash-o"></i></button>
       </div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
@@ -29,7 +29,7 @@
         <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_list; ?></h3>
       </div>
       <div class="panel-body">
-        <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form-category">
+        <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form-author">
           <div class="table-responsive">
             <table class="table table-bordered table-hover">
               <thead>
@@ -49,21 +49,17 @@
                 </tr>
               </thead>
               <tbody>
-                <?php if ($categories) { ?>
-                <?php foreach ($categories as $category) { ?>
+                <?php if ($authors) { ?>
+                <?php foreach ($authors as $author) { ?>
                 <tr>
-                  <td class="text-center"><?php if (in_array($category['category_id'], $selected)) { ?>
-                    <input type="checkbox" name="selected[]" value="<?php echo $category['category_id']; ?>" checked="checked" />
+                  <td class="text-center"><?php if (in_array($author['author_id'], $selected)) { ?>
+                    <input type="checkbox" name="selected[]" value="<?php echo $author['author_id']; ?>" checked="checked" />
                     <?php } else { ?>
-                    <input type="checkbox" name="selected[]" value="<?php echo $category['category_id']; ?>" />
+                    <input type="checkbox" name="selected[]" value="<?php echo $author['author_id']; ?>" />
                     <?php } ?></td>
-                    <?php if ($category['href']) { ?>
-                    <td class="left"><?php echo $category['indent']; ?><a href="<?php echo $category['href']; ?>"><?php echo $category['name']; ?></a>&nbsp;&nbsp;<i class="fa fa-sort-desc"></i></td>
-                  <?php } else { ?>
-                    <td class="left"><?php echo $category['indent']; ?><?php echo $category['name']; ?></td>
-                  <?php } ?>
-                  <td class="text-right"><?php echo $category['sort_order']; ?></td>
-                  <td class="text-right"><a href="<?php echo $category['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                  <td class="text-left"><?php echo $author['name']; ?></td>
+                  <td class="text-right"><?php echo $author['sort_order']; ?></td>
+                  <td class="text-right"><a href="<?php echo $author['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                 </tr>
                 <?php } ?>
                 <?php } else { ?>
@@ -75,6 +71,10 @@
             </table>
           </div>
         </form>
+        <div class="row">
+          <div class="col-sm-6 text-left"><?php echo $pagination; ?></div>
+          <div class="col-sm-6 text-right"><?php echo $results; ?></div>
+        </div>
       </div>
     </div>
   </div>

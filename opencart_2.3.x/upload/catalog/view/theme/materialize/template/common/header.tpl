@@ -20,7 +20,7 @@
 	<?php if ($keywords) { ?>
 	<meta name="keywords" content= "<?php echo $keywords; ?>">
 	<?php } ?>
-	<meta property="og:title" content="<?php echo $title; if (isset($_GET['page'])) { echo " - ". ((int) $_GET['page'])." ".$text_page;} ?>">
+	<meta property="og:title" content="<?php echo $title; ?>">
 	<meta property="og:type" content="website">
 	<?php if (isset($og_url)) { ?>
 	<meta property="og:url" content="<?php echo $og_url; ?>">
@@ -39,7 +39,7 @@
 	<?php if (isset($og_url)) { ?>
 	<meta name="twitter:url" content="<?php echo $og_url; ?>">
 	<?php } ?>
-	<meta name="twitter:title" content="<?php echo $title; if (isset($_GET['page'])) { echo " - ". ((int) $_GET['page'])." ".$text_page;} ?>">
+	<meta name="twitter:title" content="<?php echo $title; ?>">
 	<?php if ($description) { ?>
 	<meta name="twitter:description" content="<?php echo $description; ?>">
 	<?php } ?>

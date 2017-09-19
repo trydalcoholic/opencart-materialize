@@ -26,8 +26,8 @@ class ControllerBlogComment extends Controller {
 
 			$url = '';
 
-			if (isset($this->request->get['filter_title'])) {
-				$url .= '&filter_title=' . urlencode(html_entity_decode($this->request->get['filter_title'], ENT_QUOTES, 'UTF-8'));
+			if (isset($this->request->get['filter_post'])) {
+				$url .= '&filter_post=' . urlencode(html_entity_decode($this->request->get['filter_post'], ENT_QUOTES, 'UTF-8'));
 			}
 
 			if (isset($this->request->get['filter_author'])) {
@@ -68,14 +68,14 @@ class ControllerBlogComment extends Controller {
 		$this->load->model('blog/comment');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			$this->model_blog_comment->editComment($this->request->get['blog_comment_id'], $this->request->post);
+			$this->model_blog_comment->editComment($this->request->get['comment_id'], $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
 			$url = '';
 
-			if (isset($this->request->get['filter_title'])) {
-				$url .= '&filter_title=' . urlencode(html_entity_decode($this->request->get['filter_title'], ENT_QUOTES, 'UTF-8'));
+			if (isset($this->request->get['filter_post'])) {
+				$url .= '&filter_post=' . urlencode(html_entity_decode($this->request->get['filter_post'], ENT_QUOTES, 'UTF-8'));
 			}
 
 			if (isset($this->request->get['filter_author'])) {
@@ -116,16 +116,16 @@ class ControllerBlogComment extends Controller {
 		$this->load->model('blog/comment');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $blog_comment_id) {
-				$this->model_blog_comment->deleteComment($blog_comment_id);
+			foreach ($this->request->post['selected'] as $comment_id) {
+				$this->model_blog_comment->deleteComment($comment_id);
 			}
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
 			$url = '';
 
-			if (isset($this->request->get['filter_title'])) {
-				$url .= '&filter_title=' . urlencode(html_entity_decode($this->request->get['filter_title'], ENT_QUOTES, 'UTF-8'));
+			if (isset($this->request->get['filter_post'])) {
+				$url .= '&filter_post=' . urlencode(html_entity_decode($this->request->get['filter_post'], ENT_QUOTES, 'UTF-8'));
 			}
 
 			if (isset($this->request->get['filter_author'])) {
@@ -159,10 +159,10 @@ class ControllerBlogComment extends Controller {
 	}
 
 	protected function getList() {
-		if (isset($this->request->get['filter_title'])) {
-			$filter_title = $this->request->get['filter_title'];
+		if (isset($this->request->get['filter_post'])) {
+			$filter_post = $this->request->get['filter_post'];
 		} else {
-			$filter_title = null;
+			$filter_post = null;
 		}
 
 		if (isset($this->request->get['filter_author'])) {
@@ -186,14 +186,13 @@ class ControllerBlogComment extends Controller {
 		if (isset($this->request->get['order'])) {
 			$order = $this->request->get['order'];
 		} else {
-			$order = 'ASC';
+			$order = 'DESC';
 		}
 
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'r.date_added';
-			$order = 'DESC';
+			$sort = 'c.date_added';
 		}
 
 		if (isset($this->request->get['page'])) {
@@ -204,8 +203,8 @@ class ControllerBlogComment extends Controller {
 
 		$url = '';
 
-		if (isset($this->request->get['filter_title'])) {
-			$url .= '&filter_title=' . urlencode(html_entity_decode($this->request->get['filter_title'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_post'])) {
+			$url .= '&filter_post=' . urlencode(html_entity_decode($this->request->get['filter_post'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_author'])) {
@@ -250,14 +249,14 @@ class ControllerBlogComment extends Controller {
 		$data['comments'] = array();
 
 		$filter_data = array(
-			'filter_title'    	=> $filter_title,
-			'filter_author'     => $filter_author,
-			'filter_status'     => $filter_status,
-			'filter_date_added' => $filter_date_added,
-			'sort'              => $sort,
-			'order'             => $order,
-			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
-			'limit'             => $this->config->get('config_limit_admin')
+			'filter_post'		=> $filter_post,
+			'filter_author'		=> $filter_author,
+			'filter_status'		=> $filter_status,
+			'filter_date_added'	=> $filter_date_added,
+			'sort'				=> $sort,
+			'order'				=> $order,
+			'start'				=> ($page - 1) * $this->config->get('config_limit_admin'),
+			'limit'				=> $this->config->get('config_limit_admin')
 		);
 
 		$comment_total = $this->model_blog_comment->getTotalComments($filter_data);
@@ -266,13 +265,13 @@ class ControllerBlogComment extends Controller {
 
 		foreach ($results as $result) {
 			$data['comments'][] = array(
-				'blog_comment_id'  => $result['blog_comment_id'],
-				'title'      => $result['title'],
-				'author'     => $result['author'],
-				'email'      => $result['email'],
-				'status'     => ($result['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'edit'       => $this->url->link('blog/comment/edit', 'token=' . $this->session->data['token'] . '&blog_comment_id=' . $result['blog_comment_id'] . $url, true)
+				'comment_id'	=> $result['comment_id'],
+				'name'			=> $result['name'],
+				'author'		=> $result['author'],
+				'email'			=> $result['email'],
+				'status'		=> ($result['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+				'date_added'	=> date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'edit'			=> $this->url->link('blog/comment/edit', 'token=' . $this->session->data['token'] . '&comment_id=' . $result['comment_id'] . $url, true)
 			);
 		}
 
@@ -284,14 +283,14 @@ class ControllerBlogComment extends Controller {
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
 
-		$data['column_title'] = $this->language->get('column_title');
+		$data['column_post'] = $this->language->get('column_post');
 		$data['column_author'] = $this->language->get('column_author');
 		$data['column_email'] = $this->language->get('column_email');
 		$data['column_status'] = $this->language->get('column_status');
 		$data['column_date_added'] = $this->language->get('column_date_added');
 		$data['column_action'] = $this->language->get('column_action');
 
-		$data['entry_title'] = $this->language->get('entry_title');
+		$data['entry_post'] = $this->language->get('entry_post');
 		$data['entry_author'] = $this->language->get('entry_author');
 		$data['entry_email'] = $this->language->get('entry_email');
 		$data['entry_status'] = $this->language->get('entry_status');
@@ -326,6 +325,22 @@ class ControllerBlogComment extends Controller {
 
 		$url = '';
 
+		if (isset($this->request->get['filter_post'])) {
+			$url .= '&filter_post=' . urlencode(html_entity_decode($this->request->get['filter_post'], ENT_QUOTES, 'UTF-8'));
+		}
+
+		if (isset($this->request->get['filter_author'])) {
+			$url .= '&filter_author=' . urlencode(html_entity_decode($this->request->get['filter_author'], ENT_QUOTES, 'UTF-8'));
+		}
+
+		if (isset($this->request->get['filter_status'])) {
+			$url .= '&filter_status=' . $this->request->get['filter_status'];
+		}
+
+		if (isset($this->request->get['filter_date_added'])) {
+			$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
+		}
+
 		if ($order == 'ASC') {
 			$url .= '&order=DESC';
 		} else {
@@ -336,16 +351,16 @@ class ControllerBlogComment extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['sort_title'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=pd.title' . $url, true);
-		$data['sort_author'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=r.author' . $url, true);
-		$data['sort_email'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=r.email' . $url, true);
-		$data['sort_status'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=r.status' . $url, true);
-		$data['sort_date_added'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=r.date_added' . $url, true);
+		$data['sort_post'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=pd.name' . $url, true);
+		$data['sort_author'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=c.author' . $url, true);
+		$data['sort_email'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=c.email' . $url, true);
+		$data['sort_status'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=c.status' . $url, true);
+		$data['sort_date_added'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . '&sort=c.date_added' . $url, true);
 
 		$url = '';
 
-		if (isset($this->request->get['filter_title'])) {
-			$url .= '&filter_title=' . urlencode(html_entity_decode($this->request->get['filter_title'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_post'])) {
+			$url .= '&filter_post=' . urlencode(html_entity_decode($this->request->get['filter_post'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_author'])) {
@@ -378,10 +393,10 @@ class ControllerBlogComment extends Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($comment_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($comment_total - $this->config->get('config_limit_admin'))) ? $comment_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $comment_total, ceil($comment_total / $this->config->get('config_limit_admin')));
 
-		$data['filter_title'] 		= $filter_title;
-		$data['filter_author'] 		= $filter_author;
-		$data['filter_status'] 		= $filter_status;
-		$data['filter_date_added'] 	= $filter_date_added;
+		$data['filter_post'] = $filter_post;
+		$data['filter_author'] = $filter_author;
+		$data['filter_status'] = $filter_status;
+		$data['filter_date_added'] = $filter_date_added;
 
 		$data['sort'] = $sort;
 		$data['order'] = $order;
@@ -390,23 +405,24 @@ class ControllerBlogComment extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('blog/comment_list.tpl', $data));
+		$this->response->setOutput($this->load->view('blog/comment_list', $data));
 	}
 
 	protected function getForm() {
 		$data['heading_title'] = $this->language->get('heading_title');
 
-		$data['text_form'] = !isset($this->request->get['blog_comment_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = !isset($this->request->get['comment_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
 
-		$data['entry_title'] = $this->language->get('entry_title');
+		$data['entry_post'] = $this->language->get('entry_post');
 		$data['entry_author'] = $this->language->get('entry_author');
 		$data['entry_email'] = $this->language->get('entry_email');
+		$data['entry_date_added'] = $this->language->get('entry_date_added');
 		$data['entry_status'] = $this->language->get('entry_status');
 		$data['entry_text'] = $this->language->get('entry_text');
 
-		$data['help_title'] = $this->language->get('help_title');
+		$data['help_post'] = $this->language->get('help_post');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -417,10 +433,10 @@ class ControllerBlogComment extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		if (isset($this->error['title'])) {
-			$data['error_title'] = $this->error['title'];
+		if (isset($this->error['post'])) {
+			$data['error_post'] = $this->error['post'];
 		} else {
-			$data['error_title'] = '';
+			$data['error_post'] = '';
 		}
 
 		if (isset($this->error['author'])) {
@@ -429,22 +445,22 @@ class ControllerBlogComment extends Controller {
 			$data['error_author'] = '';
 		}
 
-		if (isset($this->error['email'])) {
-			$data['error_email'] = $this->error['email'];
-		} else {
-			$data['error_email'] = '';
-		}
-
 		if (isset($this->error['text'])) {
 			$data['error_text'] = $this->error['text'];
 		} else {
 			$data['error_text'] = '';
 		}
 
+		if (isset($this->error['email'])) {
+			$data['error_email'] = $this->error['email'];
+		} else {
+			$data['error_email'] = '';
+		}
+
 		$url = '';
 
-		if (isset($this->request->get['filter_title'])) {
-			$url .= '&filter_title=' . urlencode(html_entity_decode($this->request->get['filter_title'], ENT_QUOTES, 'UTF-8'));
+		if (isset($this->request->get['filter_post'])) {
+			$url .= '&filter_post=' . urlencode(html_entity_decode($this->request->get['filter_post'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['filter_author'])) {
@@ -483,36 +499,36 @@ class ControllerBlogComment extends Controller {
 			'href' => $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . $url, true)
 		);
 
-		if (!isset($this->request->get['blog_comment_id'])) {
+		if (!isset($this->request->get['comment_id'])) {
 			$data['action'] = $this->url->link('blog/comment/add', 'token=' . $this->session->data['token'] . $url, true);
 		} else {
-			$data['action'] = $this->url->link('blog/comment/edit', 'token=' . $this->session->data['token'] . '&blog_comment_id=' . $this->request->get['blog_comment_id'] . $url, true);
+			$data['action'] = $this->url->link('blog/comment/edit', 'token=' . $this->session->data['token'] . '&comment_id=' . $this->request->get['comment_id'] . $url, true);
 		}
 
 		$data['cancel'] = $this->url->link('blog/comment', 'token=' . $this->session->data['token'] . $url, true);
 
-		if (isset($this->request->get['blog_comment_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-			$comment_info = $this->model_blog_comment->getComment($this->request->get['blog_comment_id']);
+		if (isset($this->request->get['comment_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+			$comment_info = $this->model_blog_comment->getComment($this->request->get['comment_id']);
 		}
 
 		$data['token'] = $this->session->data['token'];
 
 		$this->load->model('blog/post');
 
-		if (isset($this->request->post['blog_post_id'])) {
-			$data['blog_post_id'] = $this->request->post['blog_post_id'];
+		if (isset($this->request->post['post_id'])) {
+			$data['post_id'] = $this->request->post['post_id'];
 		} elseif (!empty($comment_info)) {
-			$data['blog_post_id'] = $comment_info['blog_post_id'];
+			$data['post_id'] = $comment_info['post_id'];
 		} else {
-			$data['blog_post_id'] = '';
+			$data['post_id'] = '';
 		}
 
-		if (isset($this->request->post['title'])) {
-			$data['title'] = $this->request->post['title'];
+		if (isset($this->request->post['post'])) {
+			$data['post'] = $this->request->post['post'];
 		} elseif (!empty($comment_info)) {
-			$data['title'] = $comment_info['title'];
+			$data['post'] = $comment_info['post'];
 		} else {
-			$data['title'] = '';
+			$data['post'] = '';
 		}
 
 		if (isset($this->request->post['author'])) {
@@ -523,6 +539,14 @@ class ControllerBlogComment extends Controller {
 			$data['author'] = '';
 		}
 
+		if (isset($this->request->post['text'])) {
+			$data['text'] = $this->request->post['text'];
+		} elseif (!empty($comment_info)) {
+			$data['text'] = $comment_info['text'];
+		} else {
+			$data['text'] = '';
+		}
+
 		if (isset($this->request->post['email'])) {
 			$data['email'] = $this->request->post['email'];
 		} elseif (!empty($comment_info)) {
@@ -531,12 +555,12 @@ class ControllerBlogComment extends Controller {
 			$data['email'] = '';
 		}
 
-		if (isset($this->request->post['text'])) {
-			$data['text'] = $this->request->post['text'];
+		if (isset($this->request->post['date_added'])) {
+			$data['date_added'] = $this->request->post['date_added'];
 		} elseif (!empty($comment_info)) {
-			$data['text'] = $comment_info['text'];
+			$data['date_added'] = ($comment_info['date_added'] != '0000-00-00 00:00' ? $comment_info['date_added'] : '');
 		} else {
-			$data['text'] = '';
+			$data['date_added'] = '';
 		}
 
 		if (isset($this->request->post['status'])) {
@@ -551,7 +575,7 @@ class ControllerBlogComment extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('blog/comment_form.tpl', $data));
+		$this->response->setOutput($this->load->view('blog/comment_form', $data));
 	}
 
 	protected function validateForm() {
@@ -559,21 +583,22 @@ class ControllerBlogComment extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if (!$this->request->post['blog_post_id']) {
-			$this->error['title'] = $this->language->get('error_title');
+		if (!$this->request->post['post_id']) {
+			$this->error['post'] = $this->language->get('error_post');
 		}
 
 		if ((utf8_strlen($this->request->post['author']) < 3) || (utf8_strlen($this->request->post['author']) > 64)) {
 			$this->error['author'] = $this->language->get('error_author');
 		}
 
-		if ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*.[a-z]{2,15}$/i', $this->request->post['email'])) {
-			$this->error['email'] = $this->language->get('error_email');
-		}
-
 		if (utf8_strlen($this->request->post['text']) < 1) {
 			$this->error['text'] = $this->language->get('error_text');
 		}
+		
+		if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+			$this->error['email'] = $this->language->get('email');
+		}
+
 		return !$this->error;
 	}
 

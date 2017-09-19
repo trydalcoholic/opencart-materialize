@@ -32,11 +32,11 @@
 }
 </script>
 <?php if ($column_left && $column_right) { ?>
-	<?php $main = 's12 m12 l6'; $image = 's12 m6 l12'; $product_info = 's12 m6 l12'; ?>
+	<?php $main = 's12 m12 l6'; $image = 's12 m6 l12'; ?>
 <?php } elseif ($column_left || $column_right) { ?>
-	<?php $main = 's12 l9'; $image = 's12 m6'; $product_info = 's12 m6'; ?>
+	<?php $main = 's12 l9'; $image = 's12 m6'; ?>
 <?php } else { ?>
-	<?php $main = 's12'; $image = 's12 m6 xl5'; $product_info = 's12 m6 xl7'; ?>
+	<?php $main = 's12'; $image = 's12 m6 xl5'; ?>
 <?php } ?>
 <main>
 	<div class="container">
@@ -59,109 +59,133 @@
 			<?php echo $column_left; ?>
 			<article id="content" class="col <?php echo $main; ?> section href-underline" itemscope itemtype="http://schema.org/Article">
 				<meta itemprop="inLanguage" content="<?php echo $lang; ?>">
-				<meta itemprop="datePublished" content="<?php echo $post_published_meta; ?>">
-				<meta itemprop="dateModified" content="<?php echo $post_modified_meta; ?>">
+				<meta itemprop="datePublished" content="<?php echo $meta_published; ?>">
+				<meta itemprop="dateModified" content="<?php echo $meta_modified; ?>">
 				<meta itemprop="mainEntityOfPage" content="<?php echo $share; ?>">
 				<?php echo $content_top; ?>
-				<div class="card-panel">
+				<div class="card-panel post-content">
 					<div class="post">
 						<div class="post-image-block">
 							<ul class="post-info z-depth-1 transition">
-								<li><?php echo $post_published; ?><i class="material-icons left">access_time</i></li>
-								<!-- <li><?php echo $comments; ?><i class="material-icons left">forum</i></li> -->
+								<li><?php echo $published; ?><i class="material-icons left">access_time</i></li>
+								<li><?php echo $viewed; ?><i class="material-icons left">visibility</i></li>
 							</ul>
-							<?php if ($post_popup) { ?>
+							<?php if ($post_image) { ?>
 							<figure>
-								<img class="scale transition responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $post_preview; ?>" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>">
+								<img class="scale transition responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $post_image; ?>" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>">
 								<figcaption class="card-title truncate"><?php echo $heading_title; ?></figcaption>
 							</figure>
 							<div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-								<meta itemprop="url" content="<?php echo $post_popup; ?>">
-								<meta itemprop="width" content="<?php echo $data_size_width; ?>">
-								<meta itemprop="height" content="<?php echo $data_size_height; ?>">
+								<meta itemprop="url" content="<?php echo $post_image; ?>">
+								<meta itemprop="width" content="<?php echo $post_image_width; ?>">
+								<meta itemprop="height" content="<?php echo $post_image_height; ?>">
 							</div>
 							<?php } ?>
 						</div>
 						<h1 itemprop="headline"><?php echo $heading_title; ?></h1>
 						<div class="section"><div class="divider"></div></div>
+						<blockquote class="right blockquote-note blockquote-note-blog no-padding blue-grey lighten-5 z-depth-1" style="width: 50%;">
+							<div class="blockquote-icon blue-grey lighten-4 tooltipped share-icon waves-effect waves-circle" data-position="top" data-delay="50" data-tooltip="<?php echo $button_share; ?>" data-activates="side-share"><i class="material-icons">share</i></div>
+							<ul class="collection article-info">
+								<?php if ($author) { ?>
+								<li class="collection-item">
+									<div itemprop="author" itemscope itemtype="https://schema.org/Person">
+										<a href="<?php echo $author_link; ?>" target="_blank" rel="noopener" class="chip waves-effect blue-grey lighten-4 black-text"><?php if($author_image) { ?><?php echo ($author_image) ? '<img class="lazyload" src="'.$img_loader.'" data-src="'.$author_image.'" title="'.$author.'" alt="'.$author.'">' : '' ;?><?php } ?><span itemprop="name"><?php echo $author; ?></span></a>
+										<?php foreach ($post_authors as $author) { ?>,&nbsp;<a href="<?php echo $author['href']; ?>" target="_blank" rel="noopener" class="chip waves-effect blue-grey lighten-4 black-text"><img src="<?php echo $author['image']; ?>" title="<?php echo $author['name']; ?>" alt="<?php echo $author['name']; ?>"><?php echo $author['name']; ?></a><?php } ?>
+									</div>
+								</li>
+								<?php } ?>
+								<li class="collection-item">
+									<span class="text-bold"><?php echo $text_published; ?>:&nbsp;</span><span class="text-normal"><?php echo $published; ?></span>
+								</li>
+								<li class="collection-item">
+									<span class="text-bold"><?php echo $text_url; ?>:&nbsp;</span><span id="copy-url" class="text-normal" data-clipboard-text="<?php echo $share; ?>"><?php echo $text_copy; ?></span>
+								</li>
+							</ul>
+						</blockquote>
 						<section class="text-justify" itemprop="articleBody">
-							<blockquote class="right blockquote-note blockquote-note-blog blue-grey lighten-5 z-depth-1" style="width: 50%;">
-								<div class="blockquote-icon blue-grey lighten-4 tooltipped share-icon waves-effect waves-circle" data-position="top" data-delay="50" data-tooltip="<?php echo $button_share; ?>" data-activates="side-share"><i class="material-icons">share</i></div>
-								<ul>
-									<?php if ($post_author) { ?>
-									<li>
-										<div itemprop="author" itemscope itemtype="https://schema.org/Person">
-											<span class="text-bold">Автор:&nbsp;<span class="text-normal" itemprop="name"><?php echo $post_author; ?></span></span>
-										</div>
-									</li>
-									<?php } ?>
-								</ul>
-							</blockquote>
 							<?php echo $description; ?>
 						</section>
-						<?php if ($tags) { ?>
-						<div class="row">
-							<div class="col s12 href-underline">
-								<div class="section"><div class="divider"></div></div>
-								<span class="blue-text text-lighten-1"><?php echo $text_tags; ?></span>&nbsp;
-								<?php for ($i = 0; $i < count($tags); $i++) { ?>
-									<?php if ($i < (count($tags) - 1)) { ?>
-									<a class="chip waves-effect waves-default" href="<?php echo str_replace(' ', '%20', $tags[$i]['href']); ?>" rel="nofollow"><?php echo $tags[$i]['tag']; ?></a>,&nbsp;
-									<?php } else { ?>
-									<a class="chip waves-effect waves-default" href="<?php echo str_replace(' ', '%20', $tags[$i]['href']); ?>" rel="nofollow"><?php echo $tags[$i]['tag']; ?></a>
-									<?php } ?>
-								<?php } ?>
-								<div class="section"><div class="divider"></div></div>
-							</div>
-						</div>
-						<?php } ?>
 						<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
 							<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
 								<meta itemprop="url" content="<?php echo $logo; ?>">
 								<meta itemprop="width" content="<?php echo $logo_width; ?>">
 								<meta itemprop="height" content="<?php echo $logo_height; ?>">
 							</div>
-							<meta itemprop="name" content="<?php echo $post_publisher_org; ?>">
+							<meta itemprop="name" content="<?php echo $publisher_org; ?>">
 						</div>
 					</div>
+					<div class="post-footer grey lighten-4">
+						<?php if ($tags) { ?>
+							<span class="blue-text text-lighten-1"><?php echo $text_tags; ?></span>&nbsp;
+							<?php for ($i = 0; $i < count($tags); $i++) { ?>
+								<?php if ($i < (count($tags) - 1)) { ?>
+								<a class="chip waves-effect waves-default" href="<?php echo str_replace(' ', '%20', $tags[$i]['href']); ?>" rel="nofollow"><?php echo $tags[$i]['tag']; ?></a>,&nbsp;
+								<?php } else { ?>
+								<a class="chip waves-effect waves-default" href="<?php echo str_replace(' ', '%20', $tags[$i]['href']); ?>" rel="nofollow"><?php echo $tags[$i]['tag']; ?></a>
+								<?php } ?>
+							<?php } ?>
+						<?php } ?>
+					</div>
 				</div>
+				<?php if ($posts) { ?>
+				<h2><?php echo $text_related; ?></h2>
+				<div class="row slick-posts">
+					<?php foreach ($posts as $post) { ?>
+					<div class="col">
+						<div class="card blog-card small horizontal hoverable">
+							<div class="card-image">
+								<img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $post['thumb']; ?>">
+							</div>
+							<div class="card-stacked">
+								<div class="card-content">
+									<a class="truncate" href="<?php echo $post['href']; ?>"><?php echo $post['name']; ?></a>
+									<p><?php echo $post['description']; ?></p>
+								</div>
+								<div class="card-action">
+									<a href="<?php echo $post['href']; ?>" class="btn-flat waves-effect waves-default"><?php echo $text_read_more; ?></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<?php } ?>
+				</div>
+				<?php } ?>
 				<div class="card-panel">
-					<form id="form-review">
-						<ul class="collapsible" data-collapsible="accordion">
-							<li>
-								<div class="collapsible-header arrow-rotate"><i class="material-icons left">mode_edit</i><?php echo $text_write; ?></div>
-								<div class="collapsible-body no-padding">
-									<div class="row">
-										<div class="col s12 offset-l2 l8">
-											<div class="card-panel z-depth-2">
-												<div class="input-field">
-													<i class="material-icons prefix">account_circle</i>
-													<input type="text" name="name" id="input-name" class="validate">
-													<label for="input-name"><?php echo $entry_name; ?></label>
-												</div>
-												<div class="input-field">
-													<i class="material-icons prefix">email</i>
-													<input type="email" name="email" id="input-email" class="validate tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo $help_email; ?>">
-													<label for="input-email" data-error="<?php echo $text_email_error; ?>" data-success="<?php echo $text_email_success; ?>"><?php echo $entry_email; ?></label>
-												</div>
-												<div class="input-field">
-													<i class="material-icons prefix">mode_edit</i>
-													<textarea name="text" rows="5" id="input-review" class="materialize-textarea"></textarea>
-													<label for="input-review"><?php echo $entry_comment; ?></label>
-													<small><?php echo $text_note; ?></small>
-												</div>
-												<?php echo $captcha; ?>
-												<div class="flex-reverse">
-													<button type="button" id="button-comment" class="btn waves-effect waves-light red right"><?php echo $button_continue; ?></button>
-												</div>
+					<ul class="collapsible" data-collapsible="accordion">
+						<li>
+							<div class="collapsible-header arrow-rotate"><i class="material-icons left">mode_edit</i><?php echo $text_write; ?></div>
+							<div class="collapsible-body no-padding">
+								<div class="row">
+									<div class="col s12 offset-l2 l8">
+										<form id="form-comment" class="card-panel z-depth-2">
+											<div class="input-field">
+												<i class="material-icons prefix">account_circle</i>
+												<input type="text" name="name" id="input-name" class="validate">
+												<label for="input-name"><?php echo $entry_name; ?></label>
 											</div>
-										</div>
+											<div class="input-field">
+												<i class="material-icons prefix">email</i>
+												<input type="email" name="email" id="input-email" class="validate tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo $help_email; ?>">
+												<label for="input-email" data-error="<?php echo $text_email_error; ?>" data-success="<?php echo $text_email_success; ?>"><?php echo $entry_email; ?></label>
+											</div>
+											<div class="input-field">
+												<i class="material-icons prefix">mode_edit</i>
+												<textarea name="text" rows="5" id="input-comment" class="materialize-textarea"></textarea>
+												<label for="input-comment"><?php echo $entry_comment; ?></label>
+												<small><?php echo $text_note; ?></small>
+											</div>
+											<?php echo $captcha; ?>
+											<div class="flex-reverse">
+												<button type="button" id="button-comment" class="btn waves-effect waves-light red right"><?php echo $button_continue; ?></button>
+											</div>
+										</form>
 									</div>
 								</div>
-							</li>
-						</ul>
-						<div id="comment"></div>
-					</form>
+							</div>
+						</li>
+					</ul>
+					<div id="comment"></div>
 				</div>
 				<?php echo $content_bottom; ?>
 			</article>
@@ -273,8 +297,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		function(){$('.post-info').css('opacity','1');},
 		function(){$('.post-info').css('opacity','.7');}
 	);
+	// Clipboard
+	var copyUrl = new Clipboard('#copy-url');
+
+	copyUrl.on('success', function(e) {
+		Materialize.toast('<span><i class="material-icons left">check</i><?php echo $text_сlipboard_succeess; ?></span>',7000,'toast-success');
+	});
+
+	copyUrl.on('error', function(e) {
+		Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $text_сlipboard_error; ?></span>',7000,'toast-warning');
+	});
 	// Comment
-	$('#comment').load('index.php?route=blog/post/comment&blog_post_id=<?php echo $blog_post_id; ?>');
+	$('#comment').load('index.php?route=blog/post/comment&post_id=<?php echo $post_id; ?>');
 	$('#comment').delegate('.pagination a', 'click', function(e) {
 		e.preventDefault();
 		$('#comment').fadeOut('slow');
@@ -284,10 +318,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	$('#button-comment').on('click', function() {
 		$.ajax({
-			url: 'index.php?route=blog/post/write&blog_post_id=<?php echo $blog_post_id; ?>',
+			url: 'index.php?route=blog/post/write&post_id=<?php echo $post_id; ?>',
 			type: 'post',
 			dataType: 'json',
-			data: 'name=' + encodeURIComponent($('input[name=\'name\']').val()) + '&email=' + encodeURIComponent($('input[name=\'email\']').val()) + '&text=' + encodeURIComponent($('textarea[name=\'text\']').val()),
+			data: $("#form-comment").serialize(),
 			success: function(json) {
 				if (json['error']) {
 					Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning');
@@ -297,9 +331,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					$('input[name=\'name\']').val('');
 					$('input[name=\'email\']').val('');
 					$('textarea[name=\'text\']').val('');
+					$('textarea[name=\'text\']').trigger('autoresize');
 				}
 			}
 		});
+	});
+	// Posts slider
+	$('.slick-posts').not('.slick-initialized').slick({
+		dots: true,
+		infinite: true,
+		speed: 300,
+		autoplay: true,
+		dots: false,
+		autoplaySpeed: 5000,
+		slidesToShow: 2,
+		slidesToScroll: 2,
+		responsive: [
+			{
+				breakpoint: 801,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			}
+		]
 	});
 });
 </script>

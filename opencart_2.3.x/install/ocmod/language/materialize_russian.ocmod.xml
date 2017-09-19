@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.74.3</version>
+	<version>0.75</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Blog -->
@@ -18,10 +18,11 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[
-			$_['text_blog']                         = 'Блог';
-			$_['text_blog_category']                = 'Категории';
-			$_['text_blog_post']                    = 'Посты';
-			$_['text_blog_comment']                 = 'Комментарии';
+			$_['text_blog']				= 'Блог';
+			$_['text_blog_category']	= 'Категории';
+			$_['text_blog_post']		= 'Посты';
+			$_['text_blog_author']		= 'Авторы';
+			$_['text_blog_comment']		= 'Комментарии';
 			]]></add>
 		</operation>
 	</file>

@@ -11,7 +11,7 @@
 			<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/comment.png" alt="" width="175" height="175">
 		</div>
 		<div class="col s8 m9 l10 grey lighten-3 z-depth-1 comment-body">
-			<p class="text-bold"><?php echo date_format($comment['date_added'], 'd.m.Y'); ?></p>
+			<p class="text-bold"><?php echo $comment['date_added']; ?></p>
 			<p class="section"><?php echo $comment['text']; ?></p>
 		</div>
 	</div>

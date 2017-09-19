@@ -97,43 +97,6 @@
           </div>
         </fieldset>
         <fieldset>  
-          <legend><?php echo $text_archive; ?></legend> 
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-archive_status"><?php echo $entry_archive_status; ?></label>
-            <div class="col-sm-10">
-              <select name="archive_status" id="input-archive_status" class="form-control">
-                <?php if ($archive_status) { ?>
-                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                <option value="0"><?php echo $text_disabled; ?></option>
-                <?php } else { ?>
-                <option value="1"><?php echo $text_enabled; ?></option>
-                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-archive_type"><?php echo $entry_archive_type; ?></label>
-            <div class="col-sm-10">
-              <select name="archive_type" id="input-archive_type" class="form-control">
-                <?php if ($archive_type) { ?>
-                <option value="1" selected="selected"><?php echo $text_month; ?></option>
-                <option value="0"><?php echo $text_year; ?></option>
-                <?php } else { ?>
-                <option value="1"><?php echo $text_month; ?></option>
-                <option value="0" selected="selected"><?php echo $text_year; ?></option>
-                <?php } ?>
-              </select> 
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-archive_sort_order"><?php echo $entry_archive_sort_order; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="archive_sort_order" value="<?php echo $archive_sort_order; ?>" placeholder="<?php echo $entry_archive_sort_order; ?>" id="input-archive_sort_order" class="form-control" />
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>  
           <legend><?php echo $text_recent_post; ?></legend> 
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-post_status"><?php echo $entry_post_status; ?></label>
@@ -161,65 +124,7 @@
               <input type="text" name="post_sort_order" value="<?php echo $post_sort_order; ?>" placeholder="<?php echo $entry_post_sort_order; ?>" id="input-post_sort_order" class="form-control" />
             </div>
           </div>
-        </fieldset>
-        <fieldset>  
-          <legend><?php echo $text_recent_comment; ?></legend> 
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-comment_status"><?php echo $entry_comment_status; ?></label>
-            <div class="col-sm-10">
-              <select name="comment_status" id="input-comment_status" class="form-control">
-                <?php if ($comment_status) { ?>
-                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                <option value="0"><?php echo $text_disabled; ?></option>
-                <?php } else { ?>
-                <option value="1"><?php echo $text_enabled; ?></option>
-                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-comment_limit"><?php echo $entry_comment_limit; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="comment_limit" value="<?php echo $comment_limit; ?>" placeholder="<?php echo $entry_comment_limit; ?>" id="input-comment_limit" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-comment_sort_order"><?php echo $entry_comment_sort_order; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="comment_sort_order" value="<?php echo $comment_sort_order; ?>" placeholder="<?php echo $entry_comment_sort_order; ?>" id="input-comment_sort_order" class="form-control" />
-            </div>
-          </div>
-        </fieldset>   
-        <fieldset>  
-          <legend><?php echo $text_tag; ?></legend> 
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-tag_status"><?php echo $entry_tag_status; ?></label>
-            <div class="col-sm-10">
-              <select name="tag_status" id="input-tag_status" class="form-control">
-                <?php if ($tag_status) { ?>
-                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                <option value="0"><?php echo $text_disabled; ?></option>
-                <?php } else { ?>
-                <option value="1"><?php echo $text_enabled; ?></option>
-                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-tag_limit"><?php echo $entry_tag_limit; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="tag_limit" value="<?php echo $tag_limit; ?>" placeholder="<?php echo $entry_tag_limit; ?>" id="input-tag_limit" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-tag_sort_order"><?php echo $entry_tag_sort_order; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="tag_sort_order" value="<?php echo $tag_sort_order; ?>" placeholder="<?php echo $entry_tag_sort_order; ?>" id="input-tag_sort_order" class="form-control" />
-            </div>
-          </div>
-        </fieldset>      
+        </fieldset>       
         </form>
       </div>
     </div>

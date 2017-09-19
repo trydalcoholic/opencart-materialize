@@ -32,10 +32,7 @@ class ControllerExtensionModuleBlog extends Controller {
 
 		$data['text_search'] = $this->language->get('text_search');
 		$data['text_category'] = $this->language->get('text_category');
-		$data['text_archive'] = $this->language->get('text_archive');
 		$data['text_recent_post'] = $this->language->get('text_recent_post');
-		$data['text_recent_comment'] = $this->language->get('text_recent_comment');
-		$data['text_tag'] = $this->language->get('text_tag');
 
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_status'] = $this->language->get('entry_status');
@@ -44,18 +41,9 @@ class ControllerExtensionModuleBlog extends Controller {
 		$data['entry_search_sort_order'] = $this->language->get('entry_search_sort_order');
 		$data['entry_category_status'] = $this->language->get('entry_category_status');
 		$data['entry_category_sort_order'] = $this->language->get('entry_category_sort_order');
-		$data['entry_archive_status']  =  $this->language->get('entry_archive_status');
-		$data['entry_archive_type']  =  $this->language->get('entry_archive_type');
-		$data['entry_archive_sort_order']  =  $this->language->get('entry_archive_sort_order');
 		$data['entry_post_status']  =  $this->language->get('entry_post_status');
 		$data['entry_post_limit']  =  $this->language->get('entry_post_limit');
 		$data['entry_post_sort_order']  =  $this->language->get('entry_post_sort_order');
-		$data['entry_comment_status']  =  $this->language->get('entry_comment_status');
-		$data['entry_comment_limit']  =  $this->language->get('entry_comment_limit');
-		$data['entry_comment_sort_order']  =  $this->language->get('entry_comment_sort_order');
-		$data['entry_tag_status']  =  $this->language->get('entry_tag_status');
-		$data['entry_tag_limit']  =  $this->language->get('entry_tag_limit');
-		$data['entry_tag_sort_order']  =  $this->language->get('entry_tag_sort_order');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -148,30 +136,6 @@ class ControllerExtensionModuleBlog extends Controller {
 			$data['category_sort_order'] = '';
 		}
 
-		if (isset($this->request->post['archive_status'])) {
-			$data['archive_status'] = $this->request->post['archive_status'];
-		} elseif (!empty($module_info)) {
-			$data['archive_status'] = $module_info['archive_status'];
-		} else {
-			$data['archive_status'] = '';
-		}
-
-		if (isset($this->request->post['archive_type'])) {
-			$data['archive_type'] = $this->request->post['archive_type'];
-		} elseif (!empty($module_info)) {
-			$data['archive_type'] = $module_info['archive_type'];
-		} else {
-			$data['archive_type'] = '';
-		}
-
-		if (isset($this->request->post['archive_sort_order'])) {
-			$data['archive_sort_order'] = $this->request->post['archive_sort_order'];
-		} elseif (!empty($module_info)) {
-			$data['archive_sort_order'] = $module_info['archive_sort_order'];
-		} else {
-			$data['archive_sort_order'] = '';
-		}
-
 		if (isset($this->request->post['post_status'])) {
 			$data['post_status'] = $this->request->post['post_status'];
 		} elseif (!empty($module_info)) {
@@ -195,55 +159,6 @@ class ControllerExtensionModuleBlog extends Controller {
 		} else {
 			$data['post_sort_order'] = '';
 		}
-
-		if (isset($this->request->post['comment_status'])) {
-			$data['comment_status'] = $this->request->post['comment_status'];
-		} elseif (!empty($module_info)) {
-			$data['comment_status'] = $module_info['comment_status'];
-		} else {
-			$data['comment_status'] = '';
-		}
-
-		if (isset($this->request->post['comment_limit'])) {
-			$data['comment_limit'] = $this->request->post['comment_limit'];
-		} elseif (!empty($module_info)) {
-			$data['comment_limit'] = $module_info['comment_limit'];
-		} else {
-			$data['comment_limit'] = '';
-		}
-
-		if (isset($this->request->post['comment_sort_order'])) {
-			$data['comment_sort_order'] = $this->request->post['comment_sort_order'];
-		} elseif (!empty($module_info)) {
-			$data['comment_sort_order'] = $module_info['comment_sort_order'];
-		} else {
-			$data['comment_sort_order'] = '';
-		}
-
-		if (isset($this->request->post['tag_status'])) {
-			$data['tag_status'] = $this->request->post['tag_status'];
-		} elseif (!empty($module_info)) {
-			$data['tag_status'] = $module_info['tag_status'];
-		} else {
-			$data['tag_status'] = '';
-		}
-
-		if (isset($this->request->post['tag_limit'])) {
-			$data['tag_limit'] = $this->request->post['tag_limit'];
-		} elseif (!empty($module_info)) {
-			$data['tag_limit'] = $module_info['tag_limit'];
-		} else {
-			$data['tag_limit'] = '';
-		}
-
-		if (isset($this->request->post['tag_sort_order'])) {
-			$data['tag_sort_order'] = $this->request->post['tag_sort_order'];
-		} elseif (!empty($module_info)) {
-			$data['tag_sort_order'] = $module_info['tag_sort_order'];
-		} else {
-			$data['tag_sort_order'] = '';
-		}
-
 
 		if (isset($this->request->post['status'])) {
 			$data['status'] = $this->request->post['status'];

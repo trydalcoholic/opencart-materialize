@@ -2,12 +2,12 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.74.3</version>
+	<version>0.75</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
-	<!-- Resize image blog -->
+	<!-- Blog resize image -->
 	<file path="catalog/model/tool/image.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function resize($filename, $width, $height) {]]></search>
 			<add position="before"><![CDATA[
 			public function resizeBlog($filename, $width, $height, $type = '') {
@@ -63,7 +63,7 @@
 		</operation>
 	</file>
 	<file path="system/library/image.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function watermark($watermark, $position = 'bottomright') {]]></search>
 			<add position="before"><![CDATA[
 			public function resizeBlog($width = 0, $height = 0, $default = '') {
@@ -77,7 +77,7 @@
 
 				$scale_w = $width / $this->width;
 				$scale_h = $height / $this->height;
-
+				
 				$scale = $scale_w;
 
 				if ($scale == 1 && $scale_h == $scale_w && $this->mime != 'image/png') {
@@ -114,19 +114,19 @@
 	</file>
 	<!-- Crop image -->
 	<file path="catalog/model/tool/image.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[public function resize($filename, $width, $height) {]]></search>
 			<add position="replace"><![CDATA[
 			public function resize($filename, $width, $height, $type = '') {
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;]]></search>
 			<add position="replace"><![CDATA[
 			$image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . $type . '.' . $extension;
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[$image->resize($width, $height);]]></search>
 			<add position="replace"><![CDATA[
 			$image->resize($width, $height, $type);
@@ -134,7 +134,7 @@
 		</operation>
 	</file>
 	<file path="system/library/image.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[} elseif ($default == 'h') {]]></search>
 			<add position="after" offset="1"><![CDATA[
 			} elseif ($default == 'crop') {
@@ -145,7 +145,7 @@
 			}
 			]]></add>
 		</operation>
-		<operation>
+		<operation error="log">
 			<search><![CDATA[private function html2rgb($color) {]]></search>
 			<add position="before"><![CDATA[
 			private function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct) {
@@ -163,93 +163,8 @@
 		</operation>
 	</file>
 	<!-- Blog -->
-	<file path="catalog/controller/extension/feed/google_sitemap.php">
-		<operation>
-			<search><![CDATA[$this->load->model('catalog/product');]]></search>
-			<add position="before"><![CDATA[
-			$this->load->model('blog/post');
-			]]></add>
-		</operation>
-		<operation>
-			<search><![CDATA[$products = $this->model_catalog_product->getProducts();]]></search>
-			<add position="before"><![CDATA[
-			$posts = $this->model_blog_post->getPosts();
-
-			foreach ($posts as $post) {
-				if ($post['image']) {
-					$output .= '<url>';
-					$output .= '<loc>' . $this->url->link('blog/post', 'blog_post_id=' . $post['blog_post_id']) . '</loc>';
-					$output .= '<changefreq>weekly</changefreq>';
-					$output .= '<lastmod>' . date('Y-m-d\TH:i:sP', strtotime($post['date_modified'])) . '</lastmod>';
-					$output .= '<priority>1.0</priority>';
-					$output .= '<image:image>';
-					$output .= '<image:loc>' . $this->model_tool_image->resize($post['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')) . '</image:loc>';
-					$output .= '<image:caption>' . $post['title'] . '</image:caption>';
-					$output .= '<image:title>' . $post['title'] . '</image:title>';
-					$output .= '</image:image>';
-					$output .= '</url>';
-				}
-			}
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/common/header.php">
-		<operation>
-			<search><![CDATA[$data['text_all'] = $this->language->get('text_all');]]></search>
-			<add position="after"><![CDATA[
-			$data['text_blog'] = $this->language->get('text_blog');
-			$data['blog'] = $this->url->link('blog/category');
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/startup/seo_url.php">
-		<operation>
-			<search index="0"><![CDATA[foreach ($parts as $part) {]]></search>
-			<add position="before" offset="0"><![CDATA[
-			if (strpos($this->request->get['_route_'], 'blog/') !== false) {
-				foreach ($parts as $part) {
-					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias_blog WHERE keyword = '" . $this->db->escape($part) . "'");
-
-					if ($query->num_rows) {
-						$url = explode('=', $query->row['query']);
-
-						if ($url[0] == 'blog_post_id') {
-							$this->request->get['blog_post_id'] = $url[1];
-							$this->request->get['route'] = 'blog/post';
-						}
-
-						if ($url[0] == 'blog_category_id') {
-							$this->request->get['blog_category_id'] = $url[1];
-							$this->request->get['route'] = 'blog/category';
-						}
-					}
-				}
-				if (!isset($this->request->get['route'])) {
-					$this->request->get['route'] = 'blog/category';
-				}
-			} else {
-			]]></add>
-		</operation>
-		<operation>
-			<search index="1"><![CDATA[if (!isset($this->request->get['route'])) {]]></search>
-			<add position="before" trim="false" offset="0"><![CDATA[}]]></add>
-		</operation>
-		<operation>
-			<search index="0"><![CDATA[} elseif ($key == 'path') {]]></search>
-            <add position="before" offset="0"><![CDATA[
-			} elseif (($data['route'] == 'blog/category') || ($data['route'] == 'blog/post')) {
-				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias_blog WHERE `query` = '" . $this->db->escape($key . '=' . (int)$value) . "'");
-
-				if ($query->num_rows && $query->row['keyword']) {
-					$url .= ((strpos($url,'/blog/') === false)?'/blog/':'/') . $query->row['keyword'];
-
-					unset($data[$key]);
-				}
-			]]></add>
-        </operation>
-	</file>
 	<file path="admin/controller/common/column_left.php">
-		<operation>
+		<operation error="log">
 			<search><![CDATA[if ($this->user->hasPermission('access', 'catalog/information')) {]]></search>
 			<add position="before"><![CDATA[
 			$blog = array();
@@ -270,6 +185,14 @@
 				);
 			}
 
+			if ($this->user->hasPermission('access', 'blog/author')) {
+				$blog[] = array(
+					'name'	   => $this->language->get('text_blog_author'),
+					'href'     => $this->url->link('blog/author', 'token=' . $this->session->data['token'], true),
+					'children' => array()
+				);
+			}
+
 			if ($this->user->hasPermission('access', 'blog/comment')) {
 				$blog[] = array(
 					'name'	   => $this->language->get('text_blog_comment'),
@@ -285,6 +208,375 @@
 					'children' => $blog
 				);
 			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/startup/seo_pro.php">
+		<operation error="log">
+			<search><![CDATA[if ($url[0] == 'category_id') {]]></search>
+			<add position="before"><![CDATA[
+			if ($url[0] == 'blog_category_id') {
+				if (!isset($this->request->get['blog_path'])) {
+					$this->request->get['blog_path'] = $url[1];
+				} else {
+					$this->request->get['blog_path'] .= '_' . $url[1];
+				}
+			} else
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[if (isset($this->request->get['product_id'])) {]]></search>
+			<add position="before"><![CDATA[
+			if (isset($this->request->get['post_id'])) {
+				$this->request->get['route'] = 'blog/post';
+				if (!isset($this->request->get['blog_path'])) {
+					$path = $this->getPathByBlogPost($this->request->get['post_id']);
+					if ($path) $this->request->get['blog_path'] = $path;
+				}
+			} elseif (isset($this->request->get['blog_path'])) {
+				$this->request->get['route'] = 'blog/category';
+			} else
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->request->get['route'] = 'product/manufacturer/info';]]></search>
+			<add position="after"><![CDATA[
+			} elseif (isset($this->request->get['author_id'])) {
+				$this->request->get['route'] = 'blog/author/info';
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[case 'product/product':]]></search>
+			<add position="before"><![CDATA[
+			case 'blog/post':
+				if (isset($data['post_id'])) {
+					$tmp = $data;
+					$data = array();
+					if ($this->config->get('config_seo_url_include_path')) {
+						$data['blog_path'] = $this->getPathByBlogPost($tmp['post_id']);
+						if (!$data['blog_path']) return $link;
+					}
+					$data['post_id'] = $tmp['post_id'];
+				}
+				break;
+
+			case 'blog/category':
+				if (isset($data['blog_path'])) {
+					$category = explode('_', $data['blog_path']);
+					$category = end($category);
+					$data['blog_path'] = $this->getPathByBlogCategory($category);
+					if (!$data['blog_path']) return $link;
+				}
+				break;
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[case 'product_id':]]></search>
+			<add position="before"><![CDATA[
+			case 'blog_path':
+				$categories = explode('_', $value);
+				foreach($categories as $category) {
+					$queries[] = 'blog_category_id=' . $category;
+				}
+				unset($data[$key]);
+				break;
+
+			case 'post_id':
+			case 'blog_category_id':
+			case 'author_id':
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[private function getPathByProduct($product_id) {]]></search>
+			<add position="before"><![CDATA[
+			private function getPathByBlogPost($post_id) {
+				$post_id = (int)$post_id;
+				if ($post_id < 1) return false;
+
+				static $path = null;
+				if (!isset($path)) {
+					$path = $this->cache->get('blog.post.seopath');
+					if (!isset($path)) $path = array();
+				}
+
+				if (!isset($path[$post_id])) {
+					$query = $this->db->query("SELECT category_id FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . $post_id . "' ORDER BY main_category DESC LIMIT 1");
+
+					$path[$post_id] = $this->getPathByBlogCategory($query->num_rows ? (int)$query->row['category_id'] : 0);
+
+					$this->cache->set('blog.post.seopath', $path);
+				}
+
+				return $path[$post_id];
+			}
+
+			private function getPathByBlogCategory($category_id) {
+				$category_id = (int)$category_id;
+				if ($category_id < 1) return false;
+
+				static $path = null;
+				if (!isset($path)) {
+					$path = $this->cache->get('blog.category.seopath');
+					if (!isset($path)) $path = array();
+				}
+
+				if (!isset($path[$category_id])) {
+					$max_level = 10;
+
+					$sql = "SELECT CONCAT_WS('_'";
+					for ($i = $max_level-1; $i >= 0; --$i) {
+						$sql .= ",t$i.category_id";
+					}
+					$sql .= ") AS path FROM " . DB_PREFIX . "blog_category t0";
+					for ($i = 1; $i < $max_level; ++$i) {
+						$sql .= " LEFT JOIN " . DB_PREFIX . "blog_category t$i ON (t$i.category_id = t" . ($i-1) . ".parent_id)";
+					}
+					$sql .= " WHERE t0.category_id = '" . $category_id . "'";
+
+					$query = $this->db->query($sql);
+
+					$path[$category_id] = $query->num_rows ? $query->row['path'] : false;
+
+					$this->cache->set('blog.category.seopath', $path);
+				}
+
+				return $path[$category_id];
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/startup/seo_url.php">
+		<operation error="log">
+			<search><![CDATA[if ($url[0] == 'category_id') {]]></search>
+			<add position="before"><![CDATA[
+			if ($url[0] == 'post_id') {
+				$this->request->get['post_id'] = $url[1];
+			}
+
+			if ($url[0] == 'author_id') {
+				$this->request->get['author_id'] = $url[1];
+			}
+
+			if ($url[0] == 'blog_category_id') {
+				if (!isset($this->request->get['blog_path'])) {
+					$this->request->get['blog_path'] = $url[1];
+				} else {
+					$this->request->get['blog_path'] .= '_' . $url[1];
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[if ($query->row['query'] && $url[0] != 'information_id' && $url[0] != 'manufacturer_id' && $url[0] != 'category_id' && $url[0] != 'product_id') {]]></search>
+			<add position="replace" trim="true"><![CDATA[if ($query->row['query'] && $url[0] != 'information_id' && $url[0] != 'manufacturer_id' && $url[0] != 'category_id' && $url[0] != 'product_id' && $url[0] != 'blog_category_id' && $url[0] != 'author_id' && $url[0] != 'post_id') {]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[} elseif (isset($this->request->get['path'])) {]]></search>
+			<add position="before"><![CDATA[
+			} elseif (isset($this->request->get['post_id'])) {
+				$this->request->get['route'] = 'blog/post';
+			} elseif (isset($this->request->get['blog_path'])) {
+				$this->request->get['route'] = 'blog/category';
+			} elseif (isset($this->request->get['author_id'])) {
+				$this->request->get['route'] = 'blog/author/info';
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[if (($data['route'] == 'product/product' && $key == 'product_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || ($data['route'] == 'information/information' && $key == 'information_id')) {]]></search>
+			<add position="replace" trim="true"><![CDATA[
+			if (($data['route'] == 'product/product' && $key == 'product_id') || ($data['route'] == 'blog/post' && $key == 'post_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || (($data['route'] == 'blog/author/info' || $data['route'] == 'blog/post') && $key == 'author_id') || ($data['route'] == 'information/information' && $key == 'information_id')) {
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[} elseif ($key == 'path') {]]></search>
+			<add position="before"><![CDATA[
+			} elseif ($key == 'blog_path') {
+				$categories = explode('_', $value);
+
+				foreach ($categories as $category) {
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = 'blog_category_id=" . (int)$category . "'");
+
+					if ($query->num_rows && $query->row['keyword']) {
+						$url .= '/' . $query->row['keyword'];
+					} else {
+						$url = '';
+
+						break;
+					}
+				}
+
+				unset($data[$key]);
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/information/sitemap.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('blog/category');
+			$this->load->model('blog/post');
+
+			$data['blog_categories'] = array();
+
+			$categories_1 = $this->model_blog_category->getCategories(0);
+
+			foreach ($categories_1 as $category_1) {
+				$level_2_data = array();
+
+				$categories_2 = $this->model_blog_category->getCategories($category_1['category_id']);
+
+				foreach ($categories_2 as $category_2) {
+					$level_3_data = array();
+
+					$categories_3 = $this->model_blog_category->getCategories($category_2['category_id']);
+
+					foreach ($categories_3 as $category_3) {
+						$level_3_data[] = array(
+							'name'	=> $category_3['name'],
+							'href'	=> $this->url->link('blog/category', 'path=' . $category_1['category_id'] . '_' . $category_2['category_id'] . '_' . $category_3['category_id'])
+						);
+					}
+
+					$level_2_data[] = array(
+						'name'		=> $category_2['name'],
+						'children'	=> $level_3_data,
+						'href'		=> $this->url->link('blog/category', 'path=' . $category_1['category_id'] . '_' . $category_2['category_id'])
+					);
+				}
+
+				$data['blog_categories'][] = array(
+					'name'		=> $category_1['name'],
+					'children'	=> $level_2_data,
+					'href'		=> $this->url->link('blog/category', 'path=' . $category_1['category_id'])
+				);
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/feed/google_sitemap.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('blog/post');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$products = $this->model_catalog_product->getProducts();]]></search>
+			<add position="after"><![CDATA[
+			$posts = $this->model_blog_post->getPosts();
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search index="0"><![CDATA[foreach ($products as $product) {]]></search>
+			<add position="before"><![CDATA[
+			foreach ($posts as $post) {
+				if ($post['image']) {
+					$output .= '<url>';
+					$output .= '<loc>' . $this->url->link('blog/post', 'post_id=' . $post['post_id']) . '</loc>';
+					$output .= '<changefreq>weekly</changefreq>';
+					$output .= '<lastmod>' . date('Y-m-d\TH:i:sP', strtotime($post['date_modified'])) . '</lastmod>';
+					$output .= '<priority>1.0</priority>';
+					$output .= '<image:image>';
+					$output .= '<image:loc>' . $this->model_tool_image->resize($post['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'), 'crop') . '</image:loc>';
+					$output .= '<image:caption>' . $post['name'] . '</image:caption>';
+					$output .= '<image:title>' . $post['name'] . '</image:title>';
+					$output .= '</image:image>';
+					$output .= '</url>';
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/category');]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('blog/category');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$output .= $this->getCategories(0);]]></search>
+			<add position="after"><![CDATA[
+			$output .= $this->getBlogCategories(0);
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[protected function getCategories($parent_id, $current_path = '') {]]></search>
+			<add position="before"><![CDATA[
+				protected function getBlogCategories($parent_id, $current_path = '') {
+					$output = '';
+
+					$results = $this->model_blog_category->getCategories($parent_id);
+
+					foreach ($results as $result) {
+						if (!$current_path) {
+							$new_path = $result['category_id'];
+						} else {
+							$new_path = $current_path . '_' . $result['category_id'];
+						}
+
+						$output .= '<url>';
+						$output .= '<loc>' . $this->url->link('blog/category', 'path=' . $new_path) . '</loc>';
+						$output .= '<changefreq>weekly</changefreq>';
+						$output .= '<priority>0.7</priority>';
+						$output .= '</url>';
+
+						$posts = $this->model_blog_post->getPosts(array('filter_category_id' => $result['category_id']));
+
+						foreach ($posts as $post) {
+							$output .= '<url>';
+							$output .= '<loc>' . $this->url->link('blog/post', 'path=' . $new_path . '&post_id=' . $post['post_id']) . '</loc>';
+							$output .= '<changefreq>weekly</changefreq>';
+							$output .= '<priority>1.0</priority>';
+							$output .= '</url>';
+						}
+
+						$output .= $this->getCategories($result['category_id'], $new_path);
+					}
+
+					return $output;
+				}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/manufacturer');]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('blog/author');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$manufacturers = $this->model_catalog_manufacturer->getManufacturers();]]></search>
+			<add position="after"><![CDATA[
+			$authors = $this->model_blog_author->getAuthors();
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[foreach ($manufacturers as $manufacturer) {]]></search>
+			<add position="before"><![CDATA[
+			foreach ($authors as $author) {
+				$output .= '<url>';
+				$output .= '<loc>' . $this->url->link('blog/author/info', 'author_id=' . $author['author_id']) . '</loc>';
+				$output .= '<changefreq>weekly</changefreq>';
+				$output .= '<priority>0.7</priority>';
+				$output .= '</url>';
+
+				$posts = $this->model_blog_post->getPosts(array('filter_author_id' => $author['author_id']));
+
+				foreach ($posts as $post) {
+					$output .= '<url>';
+					$output .= '<loc>' . $this->url->link('blog/post', 'author_id=' . $author['author_id'] . '&post_id=' . $post['post_id']) . '</loc>';
+					$output .= '<changefreq>weekly</changefreq>';
+					$output .= '<priority>1.0</priority>';
+					$output .= '</url>';
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$data['text_all'] = $this->language->get('text_all');]]></search>
+			<add position="after"><![CDATA[
+			$data['text_blog'] = $this->language->get('text_blog');
+			$data['blog'] = $this->url->link('blog/category');
 			]]></add>
 		</operation>
 	</file>
@@ -2481,12 +2773,12 @@
 	<file path="admin/view/template/catalog/product_form.tpl">
 		<operation error="log">
 			<search><![CDATA[<div class="panel panel-default">]]></search>
-			<add position="replace"><![CDATA[
+			<add position="before"><![CDATA[
 			<?php if ($success) { ?>
-		    <div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
-		      <button type="button" class="close" data-dismiss="alert">&times;</button>
-		    </div>
-		    <?php } ?>
+			<div class="alert alert-success"><i class="fa fa-check-circle"></i> <?php echo $success; ?>
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+			<?php } ?>
 			]]></add>
 		</operation>
 		<operation error="log">
@@ -2498,7 +2790,8 @@
 		<operation error="log">
 			<search><![CDATA[<div class="pull-right">]]></search>
 			<add position="after"><![CDATA[
-			<button type="button" onclick="SaS();" type="button" form="form-product" data-toggle="tooltip" title="<?php echo $text_apply; ?>" class="btn btn-success"><i class="fa fa-repeat"></i></button>]]>
+			<button type="button" onclick="SaS();" type="button" form="form-product" data-toggle="tooltip" title="<?php echo $text_apply; ?>" class="btn btn-success"><i class="fa fa-repeat"></i></button>
+			]]>
 			</add>
 		</operation>
 		<operation error="log">

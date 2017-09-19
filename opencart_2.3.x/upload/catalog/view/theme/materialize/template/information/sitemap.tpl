@@ -112,6 +112,29 @@
 									</ol>
 								</li>
 							</ul>
+							<ul>
+								<?php foreach ($blog_categories as $category_1) { ?>
+								<li>
+									<a href="<?php echo $category_1['href']; ?>"><?php echo $category_1['name']; ?></a>
+									<?php if ($category_1['children']) { ?>
+									<ol>
+										<?php foreach ($category_1['children'] as $category_2) { ?>
+										<li>
+											<a href="<?php echo $category_2['href']; ?>"><?php echo $category_2['name']; ?></a>
+											<?php if ($category_2['children']) { ?>
+												<ol>
+													<?php foreach ($category_2['children'] as $category_3) { ?>
+													<li><a href="<?php echo $category_3['href']; ?>"><?php echo $category_3['name']; ?></a></li>
+													<?php } ?>
+												</ol>
+											<?php } ?>
+										</li>
+										<?php } ?>
+									</ol>
+									<?php } ?>
+								</li>
+								<?php } ?>
+							</ul>
 						</div>
 					</div>
 				</div>

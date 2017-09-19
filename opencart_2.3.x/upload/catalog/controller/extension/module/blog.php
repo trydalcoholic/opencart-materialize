@@ -3,22 +3,18 @@ class ControllerExtensionModuleBlog extends Controller {
 	public function index($setting) {
 		$this->load->language('extension/module/blog');
 
-		$data['heading_title'] = $this->language->get('heading_title');
+		$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
 		$data['heading_search'] = $this->language->get('heading_search');
 		$data['heading_category'] = $this->language->get('heading_category');
-		$data['heading_archive'] = $this->language->get('heading_archive');
 		$data['heading_post'] = $this->language->get('heading_post');
-		$data['heading_comment'] = $this->language->get('heading_comment');
-		$data['heading_tag'] = $this->language->get('heading_tag');
-
 		$data['text_search'] = $this->language->get('text_search');
 
-		if (isset($this->request->get['filter_title'])) {
-			$data['filter_title'] = $this->request->get['filter_title'];
+		if (isset($this->request->get['filter_name'])) {
+			$data['filter_name'] = $this->request->get['filter_name'];
 		} else {
-			$data['filter_title'] = '';
-		}
+			$data['filter_name'] = '';
+		}	
 
 		if (isset($this->request->get['blog_category_id'])) {
 			$data['blog_category_id'] = $this->request->get['blog_category_id'];
@@ -30,7 +26,7 @@ class ControllerExtensionModuleBlog extends Controller {
 			$data['date_added'] = $this->request->get['date_added'];
 		} else {
 			$data['date_added'] = 0;
-		}
+		}		
 
 		$blog_blocks =  array();
 
@@ -40,135 +36,96 @@ class ControllerExtensionModuleBlog extends Controller {
 
 		$this->load->model('blog/category');
 		$this->load->model('blog/post');
-		$this->load->model('blog/comment');
 		$this->load->model('tool/image');
 
 		if(!empty($setting['category_status'])) {
+			if (isset($this->request->get['path'])) {
+				$parts = explode('_', (string)$this->request->get['path']);
+			} else {
+				$parts = array();
+			}
+
+			if (isset($parts[0])) {
+				$data['category_id'] = $parts[0];
+			} else {
+				$data['category_id'] = 0;
+			}
+
+			if (isset($parts[1])) {
+				$data['child_id'] = $parts[1];
+			} else {
+				$data['child_id'] = 0;
+			}
 
 			$data['categories'] = array();
 
-			$categories = $this->model_blog_category->getCategories();
+			$categories = $this->model_blog_category->getCategories(0);
 
 			foreach ($categories as $category) {
+				$children_data = array();
+
+				if ($category['category_id'] == $data['category_id']) {
+					$children = $this->model_blog_category->getCategories($category['category_id']);
+
+					foreach($children as $child) {
+						$filter_data = array('filter_category_id' => $child['category_id'], 'filter_sub_category' => true);
+
+						$children_data[] = array(
+							'category_id'	=> $child['category_id'],
+							'name'			=> $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_blog_post->getTotalPosts($filter_data) . ')' : ''),
+							'href'			=> $this->url->link('blog/category', 'blog_path=' . $category['category_id'] . '_' . $child['category_id'])
+						);
+					}
+				}
 
 				$filter_data = array(
-					'filter_blog_category_id'  => $category['blog_category_id']
+					'filter_category_id'	=> $category['category_id'],
+					'filter_sub_category'	=> true
 				);
 
 				$data['categories'][] = array(
-					'blog_category_id' 	=> $category['blog_category_id'],
-					'name'        		=> $category['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_blog_post->getTotalPosts($filter_data) . ')' : ''),
-					'href'        		=> $this->url->link('blog/category', 'blog_category_id=' . $category['blog_category_id'])
+					'category_id'	=> $category['category_id'],
+					'name'			=> $category['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_blog_post->getTotalPosts($filter_data) . ')' : ''),
+					'children'		=> $children_data,
+					'href'			=> $this->url->link('blog/category', 'blog_path=' . $category['category_id'])
 				);
 			}
 
 			$blog_blocks[$setting['category_sort_order']] = 'categories';
 		}
 
-		if(!empty($setting['archive_status'])) {
-
-			$data['archives'] = array();
-
-			$post_dates = $this->model_blog_post->getPostsDate($setting['archive_type']);
-
-			foreach ($post_dates as $post_date) {
-
-				if($setting['archive_type']){
-					$date_added = date('F, Y', strtotime($post_date['date_added']));
-				}else{
-					$date_added = 'Year ' . date('Y', strtotime($post_date['date_added']));
-				}
-
-				$data['archives'][] = array(
-					'title'        	=> $date_added,
-					'date_added' 	=> $post_date['date_added2'],
-					'href'			=> $this->url->link('blog/category', 'filter_date_added=' . $post_date['date_added2'])
-				);
-			}
-
-			$blog_blocks[$setting['archive_sort_order']] = 'archives';
-		}
-
 		if(!empty($setting['post_status'])) {
-			$data['recent_posts'] = array();
+			$data['latest_posts'] = array();
 
 			$filter_data = array(
-				'sort'		=> 'p.date_added',
-				'order'  	=> 'DESC',
-				'start'  	=> 0,
-				'limit'  	=> $setting['post_limit']
+				'sort'	=> 'p.date_added',
+				'order'	=> 'DESC',
+				'start'	=> 0,
+				'limit'	=> 5
 			);
 
-			$posts = $this->model_blog_post->getPosts($filter_data);
+			$results = $this->model_blog_post->getPosts($filter_data);
 
-			foreach ($posts as $post) {
+			if ($results) {
+				foreach ($results as $result) {
+					if ($result['image']) {
+						$image = $this->model_tool_image->resize($result['image'], 42, 42, 'crop');
+					} else {
+						$image = $this->model_tool_image->resize('placeholder.png', 42, 42);
+					}
 
-				$data['recent_posts'][] = array(
-					'blog_post_id' 		=> $post['blog_post_id'],
-					'title'        		=> $post['title'],
-					'image'        		=> $this->model_tool_image->resize($post['image'], 42, 42, 'crop'),
-					'date_added' 		=> date_create($post['date_added']),
-					'description'		=> utf8_substr(strip_tags(html_entity_decode($post['description'], ENT_QUOTES, 'UTF-8')), 0, 100) . '..',
-					'href'        		=> $this->url->link('blog/post', 'blog_post_id=' . $post['blog_post_id'])
-				);
-			}
-
-			$blog_blocks[$setting['post_sort_order']] = 'recent_posts';
-
-		}
-
-		if(!empty($setting['comment_status'])) {
-
-			$data['recent_comments'] = array();
-
-			$filter_data = array(
-				'sort'		=> 'r.date_added',
-				'order'  	=> 'DESC',
-				'start'  	=> 0,
-				'limit'  	=> $setting['comment_limit']
-			);
-
-			$comments = $this->model_blog_comment->getComments($filter_data);
-
-			foreach ($comments as $comment) {
-
-				$data['recent_comments'][] = array(
-					'blog_comment_id' 	=> $comment['blog_comment_id'],
-					'title'        		=> $comment['title'],
-					'author'        	=> $comment['author'],
-					'date_added' 		=> date_create($comment['date_added']),
-					'text'   			=> utf8_substr(strip_tags(html_entity_decode($comment['text'], ENT_QUOTES, 'UTF-8')), 0, 100) . '..',
-					'href'        		=> $this->url->link('blog/post', 'blog_post_id=' . $comment['blog_post_id'])
-				);
-			}
-
-			$blog_blocks[$setting['comment_sort_order']] = 'recent_comments';
-
-		}
-
-		if(!empty($setting['tag_status'])){
-
-			$data['tags'] = array();
-			$filter_data = array(
-				'order'  	=> 'ASC',
-				'limit'  	=> $setting['tag_limit']
-			);
-
-			$tags = $this->model_blog_post->getPostTags($filter_data);
-
-			if ($tags) {
-				foreach ($tags as $tag) {
-					$data['tags'][] = array(
-						'tag'  => trim($tag),
-						'href' => $this->url->link('blog/category', 'filter_title=' . trim($tag))
+					$data['latest_posts'][] = array(
+						'post_id'		=> $result['post_id'],
+						'thumb'			=> $image,
+						'name'			=> $result['name'],
+						'description'	=> utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 75) . '..',
+						'published'		=> date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+						'href'			=> $this->url->link('blog/post', 'post_id=' . $result['post_id'])
 					);
 				}
 			}
-
-			$blog_blocks[$setting['tag_sort_order']] = 'tags';
-
+			$blog_blocks[$setting['post_sort_order']] = 'latest_posts';
 		}
-
 
 		ksort($blog_blocks);
 

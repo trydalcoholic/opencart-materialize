@@ -2,7 +2,11 @@
 // Text
 $_['text_blog']						= 'Блог';
 $_['text_success']					= 'Спасибо за ваш комментарий. Он отправлен на модерацию.';
-$_['text_error']					= 'Страница информации не найдена!';
+$_['text_error']					= 'Страница не найдена!';
+$_['text_author']					= 'Автор';
+$_['text_published']				= 'Дата публикации';
+$_['text_url']						= 'Ссылка на публикацию';
+$_['text_copy']						= 'скопировать';
 $_['text_no_comments']				= 'У этого поста нет комментариев.';
 $_['text_write']					= 'Написать комментарий';
 $_['text_note']						= 'Внимание: HTML не поддерживается! Используйте обычный текст!';
@@ -10,6 +14,12 @@ $_['text_comment']					= 'Что вы думаете?';
 $_['text_tags']						= 'Теги:';
 $_['text_email_error']				= 'Ошибка при вводе E-mail';
 $_['text_email_success']			= 'E-mail введён верно';
+$_['text_сlipboard_error']			= 'При копировании произошла ошибка!';
+$_['text_сlipboard_succeess']		= 'Ссылка скопирована!';
+$_['text_read_more']				= 'Читать далее';
+$_['text_related']					= 'Это может быть интересно';
+
+// Button
 $_['button_pswp_close']				= 'Закрыть (Esc)';
 $_['button_pswp_toggle_fullscreen']	= 'Включить полноэкранный режим';
 $_['button_pswp_zoom']				= 'Увеличить/уменьшить';
@@ -22,7 +32,7 @@ $_['help_email']					= 'Ваш адрес электронной почты не
 
 //Entry
 $_['entry_name']					= 'Ваше имя:';
-$_['entry_email']					= 'Ваш e-mal';
+$_['entry_email']					= 'Ваш e-mail:';
 $_['entry_comment']					= 'Ваш комментарий';
 
 // Error

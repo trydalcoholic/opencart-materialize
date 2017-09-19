@@ -49,53 +49,43 @@
 				</div>
 			</nav>
 			<?php if ($column_left && $column_right) { ?>
-				<?php $main = 's12 l6'; ?>
+				<?php $main = 's12 l6'; $goods = 's12'; ?>
 			<?php } elseif ($column_left || $column_right) { ?>
-				<?php $main = 's12 l9'; ?>
+				<?php $main = 's12 l9'; $goods = 's12 m6'; ?>
 			<?php } else { ?>
-				<?php $main = 's12'; ?>
+				<?php $main = 's12'; $goods = 's12 m6 l4'; ?>
 			<?php } ?>
 			<div class="row">
 				<?php echo $column_left; ?>
-				<div class="col <?php echo $main; ?> section href-underline">
-					<?php echo $content_top; ?>
-					<h1><?php echo $heading_title; ?></h1>
-					<?php if ($categories) { ?>
-						<div class="subcategory-wrap">
-							<?php if (count($categories) <= 5) { ?>
-								<?php foreach ($categories as $category) { ?>
-									<a href="<?php echo $category['href']; ?>">
-										<div class="chip grey lighten-2 waves-effect waves-default z-depth-1 truncate">
-											<?php if ($category['thumb']) { ?>
-											<img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $category['thumb']; ?>" alt="<?php echo $category['name']; ?>">
-											<?php } ?>
-											<?php echo $category['name']; ?>
-										</div>
-									</a>
-								<?php } ?>
+				<div class="col s12">
+					<div class="card-panel z-depth-1">
+						<div class="row valign-wrapper section">
+							<?php if ($thumb) { ?>
+							<div class="col s4 m2 center">
+								<img src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb; ?>" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" class="responsive-img circle lazyload">
+							</div>
+							<div class="col s8 m10">
+								<h1><?php echo $heading_title; ?></h1>
+								<?php echo $description; ?>
+							</div>
 							<?php } else { ?>
-								<?php foreach (array_chunk($categories, ceil(count($categories) / 4)) as $categories) { ?>
-									<?php foreach ($categories as $category) { ?>
-										<a href="<?php echo $category['href']; ?>">
-											<div class="chip grey lighten-2 waves-effect waves-default z-depth-1 truncate">
-												<?php if ($category['thumb']) { ?>
-												<img class="lazyload" src="" data-src="<?php echo $category['thumb']; ?>" alt="<?php echo $category['name']; ?>">
-												<?php } ?>
-												<?php echo $category['name']; ?>
-											</div>
-										</a>
-									<?php } ?>
-								<?php } ?>
+							<div class="col s12">
+								<h1><?php echo $heading_title; ?></h1>
+								<?php echo $description; ?>
+							</div>
 							<?php } ?>
 						</div>
-					<?php } ?>
-					<?php if ($posts) { ?>
+					</div>
+				</div>
+				<?php if ($posts) { ?>
+				<div class="col <?php echo $main; ?> section href-underline">
+					<?php echo $content_top; ?>
 					<ul class="collapsible" data-collapsible="expandable">
 						<li>
 							<div class="collapsible-header text-bold arrow-rotate"><?php echo $text_sort; ?></div>
 							<div class="collapsible-body white">
 								<div class="row">
-									<div class="col s6 input-field inline">
+									<div class="col s6 m6 input-field inline">
 										<select id="input-sort" onchange="location = this.value;">
 											<?php foreach ($sorts as $sorts) { ?>
 											<?php if ($sorts['value'] == $sort . '-' . $order) { ?>
@@ -107,7 +97,7 @@
 										</select>
 										<label class="text-bold" for="input-sort"><?php echo $text_sort; ?></label>
 									</div>
-									<div class="col s6 input-field inline">
+									<div class="col s6 m6 input-field inline">
 										<select id="input-limit" onchange="location = this.value;">
 											<?php foreach ($limits as $limits) { ?>
 											<?php if ($limits['value'] == $limit) { ?>
@@ -147,9 +137,9 @@
 									<div id="tab-time-card<?php echo $post['post_id']; ?>">
 										<ul>
 											<?php if ($post['author']) { ?>
-											<li><span class="text-bold"><?php echo $text_author; ?>:</span>&nbsp;<?php echo $post['author']; ?></li>
+											<li><span class="text-bold"><?php echo $text_author; ?></span>&nbsp;<?php echo $post['author']; ?></li>
 											<?php } ?>
-											<li><span class="text-bold"><?php echo $text_published; ?></span>&nbsp;<?php echo $post['published']; ?></li>
+											<li><span class="text-bold"><?php echo $text_published; ?></span>&nbsp;<?php echo date_format($post['published'], 'd.m.Y'); ?></li>
 										</ul>
 									</div>
 								</div>
@@ -165,32 +155,9 @@
 						<?php echo $pagination; ?>
 					</div>
 					<?php } ?>
-					<?php } else { ?>
-						<div class="card-panel center">
-							<p class="flow-text text-bold"><?php echo $text_empty; ?></p>
-							<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="">
-						</div>
-					<?php } ?>
-					<?php if ($description) { ?>
-					<div class="card-panel z-depth-1">
-						<div class="row valign-wrapper section">
-							<?php if ($thumb) { ?>
-							<div class="col s4 m2 center">
-								<img src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb; ?>" alt="<?php echo $heading_title; ?>" title="<?php echo $heading_title; ?>" class="responsive-img lazyload">
-							</div>
-							<div class="col s8 m10">
-								<?php echo $description; ?>
-							</div>
-							<?php } else { ?>
-							<div class="col s12">
-								<?php echo $description; ?>
-							</div>
-							<?php } ?>
-						</div>
-					</div>
-					<?php } ?>
 					<?php echo $content_bottom; ?>
 				</div>
+				<?php } ?>
 				<?php echo $column_right; ?>
 			</div>
 		</div>
