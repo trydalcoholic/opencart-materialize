@@ -501,7 +501,6 @@ class ControllerBlogPost extends Controller {
 		$data['entry_authors'] = $this->language->get('entry_authors');
 		$data['entry_store'] = $this->language->get('entry_store');
 		$data['entry_category'] = $this->language->get('entry_category');
-		$data['entry_filter'] = $this->language->get('entry_filter');
 		$data['entry_related'] = $this->language->get('entry_related');
 		$data['entry_text'] = $this->language->get('entry_text');
 		$data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -512,7 +511,6 @@ class ControllerBlogPost extends Controller {
 
 		$data['help_keyword'] = $this->language->get('help_keyword');
 		$data['help_category'] = $this->language->get('help_category');
-		$data['help_filter'] = $this->language->get('help_filter');
 		$data['help_related'] = $this->language->get('help_related');
 		$data['help_tag'] = $this->language->get('help_tag');
 		$data['help_authors'] = $this->language->get('help_authors');
@@ -729,29 +727,6 @@ class ControllerBlogPost extends Controller {
 			$data['post_category'] = $this->model_blog_post->getPostCategories($this->request->get['post_id']);
 		} else {
 			$data['post_category'] = array();
-		}
-
-		$this->load->model('catalog/filter');
-
-		if (isset($this->request->post['post_filter'])) {
-			$filters = $this->request->post['post_filter'];
-		} elseif (isset($this->request->get['post_id'])) {
-			$filters = $this->model_blog_post->getPostFilters($this->request->get['post_id']);
-		} else {
-			$filters = array();
-		}
-
-		$data['post_filters'] = array();
-
-		foreach ($filters as $filter_id) {
-			$filter_info = $this->model_catalog_filter->getFilter($filter_id);
-
-			if ($filter_info) {
-				$data['post_filters'][] = array(
-					'filter_id' => $filter_info['filter_id'],
-					'name'      => $filter_info['group'] . ' &gt; ' . $filter_info['name']
-				);
-			}
 		}
 
 		// Image

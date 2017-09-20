@@ -514,7 +514,7 @@
 						}
 
 						$output .= '<url>';
-						$output .= '<loc>' . $this->url->link('blog/category', 'path=' . $new_path) . '</loc>';
+						$output .= '<loc>' . $this->url->link('blog/category', 'blog_path=' . $new_path) . '</loc>';
 						$output .= '<changefreq>weekly</changefreq>';
 						$output .= '<priority>0.7</priority>';
 						$output .= '</url>';
@@ -523,7 +523,7 @@
 
 						foreach ($posts as $post) {
 							$output .= '<url>';
-							$output .= '<loc>' . $this->url->link('blog/post', 'path=' . $new_path . '&post_id=' . $post['post_id']) . '</loc>';
+							$output .= '<loc>' . $this->url->link('blog/post', 'blog_path=' . $new_path . '&post_id=' . $post['post_id']) . '</loc>';
 							$output .= '<changefreq>weekly</changefreq>';
 							$output .= '<priority>1.0</priority>';
 							$output .= '</url>';

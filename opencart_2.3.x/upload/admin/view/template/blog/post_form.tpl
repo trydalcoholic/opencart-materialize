@@ -201,19 +201,6 @@
                   <a onclick="$(this).parent().find(':checkbox').prop('checked', true);"><?php echo $text_select_all; ?></a> / <a onclick="$(this).parent().find(':checkbox').prop('checked', false);"><?php echo $text_unselect_all; ?></a></div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-filter"><span data-toggle="tooltip" title="<?php echo $help_filter; ?>"><?php echo $entry_filter; ?></span></label>
-                <div class="col-sm-10">
-                  <input type="text" name="filter" value="" placeholder="<?php echo $entry_filter; ?>" id="input-filter" class="form-control" />
-                  <div id="post-filter" class="well well-sm" style="height: 150px; overflow: auto;">
-                    <?php foreach ($post_filters as $post_filter) { ?>
-                    <div id="post-filter<?php echo $post_filter['filter_id']; ?>"><i class="fa fa-minus-circle"></i> <?php echo $post_filter['name']; ?>
-                      <input type="hidden" name="post_filter[]" value="<?php echo $post_filter['filter_id']; ?>" />
-                    </div>
-                    <?php } ?>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
                 <label class="col-sm-2 control-label"><?php echo $entry_store; ?></label>
                 <div class="col-sm-10">
                   <div class="well well-sm" style="height: 150px; overflow: auto;">
@@ -410,35 +397,6 @@ $('input[name=\'category\']').autocomplete({
 });
 
 $('#post-category').delegate('.fa-minus-circle', 'click', function() {
-  $(this).parent().remove();
-});
-
-// Filter
-$('input[name=\'filter\']').autocomplete({
-  'source': function(request, response) {
-    $.ajax({
-      url: 'index.php?route=catalog/filter/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request),
-      dataType: 'json',
-      success: function(json) {
-        response($.map(json, function(item) {
-          return {
-            label: item['name'],
-            value: item['filter_id']
-          }
-        }));
-      }
-    });
-  },
-  'select': function(item) {
-    $('input[name=\'filter\']').val('');
-
-    $('#post-filter' + item['value']).remove();
-
-    $('#post-filter').append('<div id="post-filter' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="post_filter[]" value="' + item['value'] + '" /></div>');
-  }
-});
-
-$('#post-filter').delegate('.fa-minus-circle', 'click', function() {
   $(this).parent().remove();
 });
 

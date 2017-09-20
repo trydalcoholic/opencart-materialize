@@ -38,12 +38,6 @@ class ModelBlogPost extends Model {
 			$this->db->query("UPDATE " . DB_PREFIX . "post_to_category SET main_category = 1 WHERE post_id = '" . (int)$post_id . "' AND category_id = '" . (int)$data['post_category'][0] . "'");
 		}
 
-		if (isset($data['post_filter'])) {
-			foreach ($data['post_filter'] as $filter_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "post_filter SET post_id = '" . (int)$post_id . "', filter_id = '" . (int)$filter_id . "'");
-			}
-		}
-
 		if (isset($data['post_related'])) {
 			foreach ($data['post_related'] as $related_id) {
 				$this->db->query("DELETE FROM " . DB_PREFIX . "post_related WHERE post_id = '" . (int)$post_id . "' AND related_id = '" . (int)$related_id . "'");
@@ -112,14 +106,6 @@ class ModelBlogPost extends Model {
 			$this->db->query("UPDATE " . DB_PREFIX . "post_to_category SET main_category = 1 WHERE post_id = '" . (int)$post_id . "' AND category_id = '" . (int)$data['post_category'][0] . "'");
 		}
 
-		$this->db->query("DELETE FROM " . DB_PREFIX . "post_filter WHERE post_id = '" . (int)$post_id . "'");
-
-		if (isset($data['post_filter'])) {
-			foreach ($data['post_filter'] as $filter_id) {
-				$this->db->query("INSERT INTO " . DB_PREFIX . "post_filter SET post_id = '" . (int)$post_id . "', filter_id = '" . (int)$filter_id . "'");
-			}
-		}
-
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_related WHERE post_id = '" . (int)$post_id . "'");
 
 		if (isset($data['post_related'])) {
@@ -157,7 +143,6 @@ class ModelBlogPost extends Model {
 			$data['status'] = '0';
 
 			$data['post_description'] = $this->getPostDescriptions($post_id);
-			$data['post_filter'] = $this->getPostFilters($post_id);
 			$data['post_related'] = $this->getPostRelated($post_id);
 			$data['post_category'] = $this->getPostCategories($post_id);
 			$data['post_author'] = $this->getPostAuthors($post_id);
@@ -173,7 +158,6 @@ class ModelBlogPost extends Model {
 	public function deletePost($post_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post WHERE post_id = '" . (int)$post_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_description WHERE post_id = '" . (int)$post_id . "'");
-		$this->db->query("DELETE FROM " . DB_PREFIX . "post_filter WHERE post_id = '" . (int)$post_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_related WHERE post_id = '" . (int)$post_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . (int)$post_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_author WHERE post_id = '" . (int)$post_id . "'");	
@@ -306,18 +290,6 @@ class ModelBlogPost extends Model {
 		}
 
 		return $post_author_data;
-	}
-
-	public function getPostFilters($post_id) {
-		$post_filter_data = array();
-
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "post_filter WHERE post_id = '" . (int)$post_id . "'");
-
-		foreach ($query->rows as $result) {
-			$post_filter_data[] = $result['filter_id'];
-		}
-
-		return $post_filter_data;
 	}
 
 	public function getPostStores($post_id) {

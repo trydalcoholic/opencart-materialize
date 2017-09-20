@@ -82,11 +82,6 @@ CREATE TABLE IF NOT EXISTS `oc_blog_category_description` (
 	`meta_keyword` varchar(255) NOT NULL
 ) ENGINE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `oc_blog_category_filter` (
-	`category_id` int(11) NOT NULL,
-	`filter_id` int(11) NOT NULL
-) ENGINE=MyISAM;
-
 CREATE TABLE IF NOT EXISTS `oc_blog_category_path` (
 	`category_id` int(11) NOT NULL,
 	`path_id` int(11) NOT NULL,
@@ -138,11 +133,6 @@ CREATE TABLE IF NOT EXISTS `oc_post_description` (
 	`meta_keyword` varchar(255) NOT NULL
 ) ENGINE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `oc_post_filter` (
-	`post_id` int(11) NOT NULL,
-	`filter_id` int(11) NOT NULL
-) ENGINE=MyISAM;
-
 CREATE TABLE IF NOT EXISTS `oc_post_related` (
 	`post_id` int(11) NOT NULL,
 	`related_id` int(11) NOT NULL
@@ -175,14 +165,12 @@ ALTER TABLE `oc_blog_author_description` ADD PRIMARY KEY (`author_id`,`language_
 ALTER TABLE `oc_blog_author_to_store` ADD PRIMARY KEY (`author_id`,`store_id`);
 ALTER TABLE `oc_blog_category` ADD PRIMARY KEY (`category_id`), ADD KEY `parent_id` (`parent_id`);
 ALTER TABLE `oc_blog_category_description` ADD PRIMARY KEY (`category_id`,`language_id`), ADD KEY `name` (`name`);
-ALTER TABLE `oc_blog_category_filter` ADD PRIMARY KEY (`category_id`,`filter_id`);
 ALTER TABLE `oc_blog_category_path` ADD PRIMARY KEY (`category_id`,`path_id`);
 ALTER TABLE `oc_blog_category_to_layout` ADD PRIMARY KEY (`category_id`,`store_id`);
 ALTER TABLE `oc_blog_category_to_store` ADD PRIMARY KEY (`category_id`,`store_id`);
 ALTER TABLE `oc_post` ADD PRIMARY KEY (`post_id`);
 ALTER TABLE `oc_post_comment` ADD PRIMARY KEY (`comment_id`), ADD KEY `post_id` (`post_id`);
 ALTER TABLE `oc_post_description` ADD PRIMARY KEY (`post_id`,`language_id`), ADD KEY `name` (`name`);
-ALTER TABLE `oc_post_filter` ADD PRIMARY KEY (`post_id`,`filter_id`);
 ALTER TABLE `oc_post_related` ADD PRIMARY KEY (`post_id`,`related_id`);
 ALTER TABLE `oc_post_to_author` ADD PRIMARY KEY (`post_id`,`author_id`), ADD KEY `author_id` (`author_id`);
 ALTER TABLE `oc_post_to_category` ADD PRIMARY KEY (`post_id`,`category_id`), ADD KEY `category_id` (`category_id`);

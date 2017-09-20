@@ -23,7 +23,6 @@ $_['entry_meta_keyword']		= 'Мета-тег Keywords';
 $_['entry_meta_description']	= 'Мета-тег Description';
 $_['entry_keyword']				= 'SEO URL:';
 $_['entry_parent']				= 'Родительская категория:';
-$_['entry_filter']				= 'Фильтры:';
 $_['entry_store']				= 'Магазины:';
 $_['entry_image']				= 'Изображение категории';
 $_['entry_sort_order']			= 'Порядок сортировки:';
@@ -31,7 +30,6 @@ $_['entry_status']				= 'Статус:';
 $_['entry_layout']				= 'Выберите макет:';
 
 // Help
-$_['help_filter']				= '(Автодополнение)';
 $_['help_keyword']				= 'Замените пробелы на тире. Должно быть уникальным на всю систему.';
 
 // Error

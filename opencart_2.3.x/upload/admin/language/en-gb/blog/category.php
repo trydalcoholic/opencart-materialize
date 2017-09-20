@@ -23,7 +23,6 @@ $_['entry_meta_keyword']		= 'Meta Tag Keywords';
 $_['entry_meta_description']	= 'Meta Tag Description';
 $_['entry_keyword']				= 'SEO URL';
 $_['entry_parent']				= 'Parent';
-$_['entry_filter']				= 'Filters';
 $_['entry_store']				= 'Stores';
 $_['entry_image']				= 'Image';
 $_['entry_sort_order']			= 'Sort Order';
@@ -31,7 +30,6 @@ $_['entry_status']				= 'Status';
 $_['entry_layout']				= 'Layout Override';
 
 // Help
-$_['help_filter']				= '(Autocomplete)';
 $_['help_keyword']				= 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
 
 // Error
