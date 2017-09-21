@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-	<name><![CDATA[<font color="#263238"><b>Materialize Tema — Türkçe dil ayarları</b></font>]]></name>
+	<name><![CDATA[<font color="#263238"><b>Materialize Tema — turkish settings</b></font>]]></name>
 	<code>materialize-theme-turkish-settings</code>
 	<version>0.73</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
@@ -114,8 +114,8 @@
 				$_['text_contact']      = 'İletişime geçin';
 				$_['text_about']        = 'Hakkında';
 				$_['text_delivery']     = 'Teslimat';
-				$_['text_call_back']    = 'Beni ara';
-				$_['text_call_free']    = 'Ücretsiz arama';
+				$_['text_call_back']    = 'Biz sizi arayalım';
+				$_['text_call_free']    = 'Arama Talebi Oluştur';
 			]]></add>
 		</operation>
 	</file>
@@ -123,11 +123,11 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_social_network']      = 'Sosyal ağlarda biz';
-				$_['text_cb_title']            = 'Beni ara';
+				$_['text_social_network']      = 'Sosyal Ağlarda Biz';
+				$_['text_cb_title']            = 'Arama Talebi Oluştur';
 				$_['text_cb_your_name']        = 'Adınız nedir';
 				$_['text_cb_your_tel']         = 'Telefon numaranız';
-				$_['text_cb_btn']              = 'Arama isteği';
+				$_['text_cb_btn']              = 'Arama isteği gönder';
 			]]></add>
 		</operation>
 		<operation error="skip">
@@ -156,7 +156,7 @@
 				$_['text_percent']       = 'İndirim';
 				$_['text_yes']           = 'Evet';
 				$_['text_no']            = 'Hayır';
-				$_['text_more_detailed'] = 'Daha ayrıntılı';
+				$_['text_more_detailed'] = 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -168,7 +168,7 @@
 				$_['text_percent']       = 'İndirim';
 				$_['text_yes']           = 'Evet';
 				$_['text_no']            = 'Hayır';
-				$_['text_more_detailed'] = 'Daha ayrıntılı';
+				$_['text_more_detailed'] = 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -181,7 +181,7 @@
 				$_['text_end_promotion']         = 'Teklif sone erme zamanı';
 				$_['text_payment_method']        = 'Nakit ve banka kartlarıyla ödeme';
 				$_['text_percent']               = 'İndirim';
-				$_['text_more_detailed']         = 'Daha ayrıntılı';
+				$_['text_more_detailed']         = 'Ayrıntılı göster';
 				$_['text_sku']                   = 'SKU:';
 				$_['button_share']               = 'Paylaş';
 			]]></add>
@@ -208,7 +208,7 @@
 				$_['text_view_all_products']                   = 'Tüm ürünleri görüntüle';
 				$_['text_sort_short']                          = 'Tür';
 				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Daha ayrıntılı';
+				$_['text_more_detailed']                       = 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -218,7 +218,7 @@
 			<add position="after" trim="true"><![CDATA[
 				$_['text_sort_short']                          = 'Tür';
 				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Daha ayrıntılı';
+				$_['text_more_detailed']                       = 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -227,7 +227,7 @@
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Daha ayrıntılı';
+				$_['text_more_detailed']                       = 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -236,7 +236,7 @@
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Daha ayrıntılı';
+				$_['text_more_detailed']                       = 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -245,7 +245,7 @@
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Daha ayrıntılı';
+				$_['text_more_detailed']                       = 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -254,7 +254,7 @@
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
 				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Daha ayrıntılı';
+				$_['text_more_detailed']                       = 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>

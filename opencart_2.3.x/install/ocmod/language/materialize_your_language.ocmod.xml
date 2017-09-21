@@ -26,6 +26,17 @@
 			]]></add>
 		</operation>
 	</file>
+	<!-- Additional Fields -->
+	<file path="admin/language/en-gb/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['entry_title_additional']		= 'Field Title';
+			$_['button_additionalfield_add']	= 'Add field';
+			$_['tab_additionalfield']			= 'Additional fields';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Size Chart -->
 	<file path="admin/language/*/catalog/product.php">
 		<operation error="skip">

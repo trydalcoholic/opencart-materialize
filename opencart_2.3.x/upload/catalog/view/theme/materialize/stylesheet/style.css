@@ -561,6 +561,8 @@ iframe {border:none;}
 	font-size: 2em;
 	margin: 2.1rem 0 0 0;
 }
+.post a:hover {text-decoration:underline !important;}
+.post p {text-indent:1.5rem;}
 .post-image-block {position:relative;margin:-24px -24px 0 -24px;}
 .post-info {
 	position: absolute;
@@ -613,7 +615,7 @@ iframe {border:none;}
 #copy-url {color:#039be5;-webkit-tap-highlight-color:transparent;cursor:pointer;}
 
 .post-footer {
-	margin: 0 -24px -24px -24px;
+	margin: 24px -24px -24px -24px;
 	padding: 24px;
 	border-top: 1px solid #e0e0e0;
 }
