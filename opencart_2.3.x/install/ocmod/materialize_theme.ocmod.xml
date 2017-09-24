@@ -1527,6 +1527,7 @@
 			$data['text_contact'] = $this->language->get('text_contact');
 			$data['text_about'] = $this->language->get('text_about');
 			$data['text_delivery'] = $this->language->get('text_delivery');
+			$data['text_call_back'] = $this->language->get('text_call_back');
 			$data['text_call_free'] = $this->language->get('text_call_free');
 			]]></add>
 		</operation>
