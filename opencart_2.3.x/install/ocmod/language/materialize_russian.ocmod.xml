@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.75</version>
+	<version>0.76</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Blog -->
@@ -10,7 +10,7 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[
-			$_['text_blog']          = 'Блог';
+			$_['text_blog']	= 'Блог';
 			]]></add>
 		</operation>
 	</file>
@@ -31,9 +31,9 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[
-			$_['entry_title_additional']       = 'Название поля';
-			$_['button_additionalfield_add']   = 'Добавить поле';
-			$_['tab_additionalfield']          = 'Дополнительные поля';
+			$_['entry_title_additional']		= 'Название поля';
+			$_['button_additionalfield_add']	= 'Добавить поле';
+			$_['tab_additionalfield']			= 'Дополнительные поля';
 			]]></add>
 		</operation>
 	</file>
@@ -50,80 +50,17 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[
-			$_['text_size_chart']          = 'Таблица размеров';
+			$_['text_size_chart']	= 'Таблица размеров';
 			]]></add>
 		</operation>
 	</file>
 	<!-- Checking email -->
-	<file path="catalog/language/ru-ru/information/contact.php">
+	<file path="catalog/language/ru-ru/{information,checkout,affiliate,account}/{contact,checkout,register,login,edit}*.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Ошибка при вводе E-mail';
-				$_['text_email_success']         = 'E-mail введён верно';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/checkout/checkout.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Ошибка при вводе E-mail';
-				$_['text_email_success']         = 'E-mail введён верно';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/affiliate/register.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Ошибка при вводе E-mail';
-				$_['text_email_success']         = 'E-mail введён верно';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/affiliate/login.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Ошибка при вводе E-mail';
-				$_['text_email_success']         = 'E-mail введён верно';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/affiliate/edit.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Ошибка при вводе E-mail';
-				$_['text_email_success']         = 'E-mail введён верно';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/account/register.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Ошибка при вводе E-mail';
-				$_['text_email_success']         = 'E-mail введён верно';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/account/login.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Ошибка при вводе E-mail';
-				$_['text_email_success']         = 'E-mail введён верно';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/account/edit.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Ошибка при вводе E-mail';
-				$_['text_email_success']         = 'E-mail введён верно';
+			$_['text_email_error']		= 'Ошибка при вводе E-mail';
+			$_['text_email_success']	= 'E-mail введён верно';
 			]]></add>
 		</operation>
 	</file>
@@ -132,11 +69,10 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_contact']      = 'Контакты';
-				$_['text_about']        = 'О нас';
-				$_['text_delivery']     = 'Доставка';
-				$_['text_call_back']    = 'Звонок с сайта';
-				$_['text_call_free']    = 'Звонок бесплатный';
+			$_['text_contact']		= 'Контакты';
+			$_['text_about']		= 'О нас';
+			$_['text_delivery']		= 'Доставка';
+			$_['text_call_free']	= 'Звонок бесплатный';
 			]]></add>
 		</operation>
 	</file>
@@ -144,17 +80,13 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_social_network']      = 'Мы в соцсетях';
-				$_['text_cb_title']            = 'Перезвоните мне';
-				$_['text_cb_your_name']        = 'Как вас зовут';
-				$_['text_cb_your_tel']         = 'Ваш номер телефона';
-				$_['text_cb_btn']              = 'Заказать звонок';
+			$_['text_social_network']	= 'Мы в соцсетях';
 			]]></add>
 		</operation>
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
 			<add position="replace" trim="true"><![CDATA[
-				<a target="_blank" rel="noopener" href="
+			<a target="_blank" rel="noopener" href="
 			]]></add>
 		</operation>
 	</file>
@@ -162,8 +94,8 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_shopping_cart']      = 'Ваша корзина';
-				$_['text_cat_says']           = 'Давай помогу тебе потратить деньги :)';
+			$_['text_shopping_cart']	= 'Ваша корзина';
+			$_['text_cat_says']			= 'Давай помогу тебе потратить деньги :)';
 			]]></add>
 		</operation>
 	</file>
@@ -171,13 +103,11 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_searched']      = 'Вы искали:';
-				$_['text_refine']        = 'Уточнить категорию';
-				$_['text_sort_short']    = 'Сортировать';
-				$_['text_percent']       = 'Скидка';
-				$_['text_yes']           = 'Да';
-				$_['text_no']            = 'Нет';
-				$_['text_more_detailed'] = 'Подробнее';
+			$_['text_searched']			= 'Вы искали:';
+			$_['text_refine']			= 'Уточнить категорию';
+			$_['text_sort_short']		= 'Сортировать';
+			$_['text_percent']			= 'Скидка';
+			$_['text_more_detailed']	= 'Подробнее';
 			]]></add>
 		</operation>
 	</file>
@@ -185,11 +115,10 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_sort_short']    = 'Сортировать';
-				$_['text_percent']       = 'Скидка';
-				$_['text_yes']           = 'Да';
-				$_['text_no']            = 'Нет';
-				$_['text_more_detailed'] = 'Подробнее';
+			$_['text_sort_short']		= 'Сортировать';
+			$_['text_percent']			= 'Скидка';
+			$_['text_more_detailed']	= 'Подробнее';
+			$_['entry_instock']			= 'Показывать только в наличии';
 			]]></add>
 		</operation>
 	</file>
@@ -197,27 +126,21 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_category']              = 'Категория:';
-				$_['text_bonus_points']          = 'бонусных баллов за покупку';
-				$_['text_end_promotion']         = 'Акция закончится';
-				$_['text_payment_method']        = 'Оплата наличными и банковскими картами';
-				$_['text_percent']               = 'Скидка';
-				$_['text_more_detailed']         = 'Подробнее';
-				$_['text_sku']                   = 'Артикул:';
-				$_['button_share']               = 'Поделиться';
-			]]></add>
-		</operation>
-	</file>
-	<!-- PhotoSwipe -->
-	<file path="catalog/language/ru-ru/product/product.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['button_pswp_close']             = 'Закрыть (Esc)';
-				$_['button_pswp_toggle_fullscreen'] = 'Включить полноэкранный режим';
-				$_['button_pswp_zoom']              = 'Увеличить/уменьшить';
-				$_['button_pswp_prev']              = 'Предыдущая (стрелка влево)';
-				$_['button_pswp_next']              = 'Следующая (стрелка вправо)';
+			$_['text_category']					= 'Категория:';
+			$_['text_bonus_points']				= 'бонусных баллов за покупку';
+			$_['text_end_promotion']			= 'Акция закончится';
+			$_['text_payment_method']			= 'Оплата наличными и банковскими картами';
+			$_['text_percent']					= 'Скидка';
+			$_['text_more_detailed']			= 'Подробнее';
+			$_['text_sku']						= 'Артикул:';
+			$_['text_weight']					= 'Вес:';
+			// PhotoSwipe
+			$_['button_share']					= 'Поделиться';
+			$_['button_pswp_close']				= 'Закрыть (Esc)';
+			$_['button_pswp_toggle_fullscreen']	= 'Включить полноэкранный режим';
+			$_['button_pswp_zoom']				= 'Увеличить/уменьшить';
+			$_['button_pswp_prev']				= 'Предыдущая (стрелка влево)';
+			$_['button_pswp_next']				= 'Следующая (стрелка вправо)';
 			]]></add>
 		</operation>
 	</file>
@@ -225,11 +148,11 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_manufacturers_starting']              = 'Все производители, начинающиеся на';
-				$_['text_view_all_products']                   = 'Посмотреть все товары';
-				$_['text_sort_short']                          = 'Сортировать';
-				$_['text_percent']                             = 'Скидка';
-				$_['text_more_detailed']                       = 'Подробнее';
+			$_['text_manufacturers_starting']	= 'Все производители, начинающиеся на';
+			$_['text_view_all_products']		= 'Посмотреть все товары';
+			$_['text_sort_short']				= 'Сортировать';
+			$_['text_percent']					= 'Скидка';
+			$_['text_more_detailed']			= 'Подробнее';
 			]]></add>
 		</operation>
 	</file>
@@ -237,45 +160,18 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_sort_short']                          = 'Сортировать';
-				$_['text_percent']                             = 'Скидка';
-				$_['text_more_detailed']                       = 'Подробнее';
+			$_['text_sort_short']		= 'Сортировать';
+			$_['text_percent']			= 'Скидка';
+			$_['text_more_detailed']	= 'Подробнее';
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/ru-ru/extension/module/latest.php">
+	<file path="catalog/language/ru-ru/extension/module/{latest,bestseller,featured,special}*.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_percent']                             = 'Скидка';
-				$_['text_more_detailed']                       = 'Подробнее';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/extension/module/bestseller.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_percent']                             = 'Скидка';
-				$_['text_more_detailed']                       = 'Подробнее';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/extension/module/featured.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_percent']                             = 'Скидка';
-				$_['text_more_detailed']                       = 'Подробнее';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/extension/module/special.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_percent']                             = 'Скидка';
-				$_['text_more_detailed']                       = 'Подробнее';
+			$_['text_percent']			= 'Скидка';
+			$_['text_more_detailed']	= 'Подробнее';
 			]]></add>
 		</operation>
 	</file>
@@ -283,169 +179,37 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_comparison_list']      = 'Сравнение товаров';
+			$_['text_comparison_list']      = 'Сравнение товаров';
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/ru-ru/product/category.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['entry_instock']       = 'Показывать только в наличии';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/product/product.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['text_weight']                             = 'Вес:';
-			]]></add>
-		</operation>
-	</file>
+	<!-- Cart button -->
 	<file path="admin/language/ru-ru/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-			$_['entry_cart']          	    = 'Кнопка корзины';
+			$_['entry_cart']	= 'Кнопка корзины';
 			]]></add>
 		</operation>
 	</file>
+	<!-- Custom Tabs -->
 	<file path="admin/language/ru-ru/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['entry_title']               = 'Название вкладки';
-				$_['button_customtab_add']      = 'Добавить вкладку';
-				$_['tab_customtab']             = 'Дополнительные вкладки';
-				$_['text_apply']                = 'Применить';
+			$_['entry_title']			= 'Название вкладки';
+			$_['button_customtab_add']	= 'Добавить вкладку';
+			$_['tab_customtab']			= 'Дополнительные вкладки';
+			$_['text_apply']			= 'Применить';
 			]]></add>
 		</operation>
 	</file>
+	<!-- Apply button -->
 	<file path="admin/language/ru-ru/catalog/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_apply']                = 'Применить';
-			]]></add>
-		</operation>
-	</file>
-	<!-- Fix language -->
-	<file path="catalog/language/ru-ru/extension/module/latest.php">
-		<operation error="skip">
-			<search><![CDATA[$_['heading_title'] = 'Последние';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['heading_title'] = 'Новые поступления';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/checkout/cart.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_success']             = 'Товар <a href="%s">%s</a> добавлен в вашу <a href="%s">корзину</a>!';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['text_success']             = 'Товар&nbsp;<a href="%s">%s</a>&nbsp;добавлен в вашу&nbsp;<a href="%s">корзину</a>!';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['error_required']           = '%s необходим!';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-				$_['error_required']           = '%s необходимо выбрать!';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/product/product.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_instock']                            = 'На складе';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_instock']                            = 'В наличии';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['text_option']                             = 'Доступные опции';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_option']                             = 'Варианты заказа';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['text_minimum']                            = 'Минимальное кол-во для заказа этого товара: %s. ';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_minimum']                            = 'Минимальное количество для заказа этого товара: %s. ';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['text_reviews']                            = '%s отзывов';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_reviews']                            = '%s отзыва(ов)';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['text_note']                               = '<span class="text-danger">Внимание:</span> HTML не поддерживается! Используйте обычный текст!';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_note']                               = 'Внимание: HTML не поддерживается! Используйте обычный текст!';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['text_related']                            = 'Рекомендуемые товары';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_related']                            = 'Сопутствующие товары';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['entry_qty']                               = 'Кол-во';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['entry_qty']                               = 'Количество';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/product/compare.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_success']      = 'Товар <a href="%s">%s</a> успешно добавлен в <a href="%s">список сравнения</a>!';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_success']      = 'Товар&nbsp;<a href="%s">%s</a>&nbsp;успешно добавлен в&nbsp;<a href="%s">список сравнения</a>!';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['text_summary']      = 'Summary';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_summary']      = 'Описание';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/account/wishlist.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_login']    = 'Необходимо войти в <a href="%s">Личный кабинет</a> или <a href="%s">создать учетную запись</a>, чтобы добавить товар <a href="%s">%s</a> в свои <a href="%s">закладки</a>!';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_login']    = 'Необходимо войти в&nbsp;<a class="text-bold" href="%s">Личный кабинет</a>&nbsp;или&nbsp;<a class="text-bold" href="%s">создать учетную запись</a>, чтобы добавить товар&nbsp;<a class="text-bold" href="%s">%s</a> в свои&nbsp;<a class="text-bold" href="%s">закладки</a>!';
-			]]></add>
-		</operation>
-		<operation error="skip">
-			<search><![CDATA[$_['text_success']  = 'Товар <a href="%s">%s</a> успешно добавлен в <a href="%s">закладки</a>!';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_success']  = 'Товар&nbsp;<a href="%s">%s</a> успешно добавлен в&nbsp;<a href="%s">закладки</a>!';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/account/login.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_account']				   = 'Личный rабинет';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_account']				   = 'Личный кабинет';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/ru-ru.php">
-		<operation error="skip">
-			<search><![CDATA[$_['button_filter']         = 'Уточнение поиска';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['button_filter']         = 'Показать';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/ru-ru/common/maintenance.php">
-		<operation error="skip">
-			<search><![CDATA[$_['text_message']     = '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><h1 style="text-align:center;">В настоящее время магазин закрыт на техническое обслуживание. <br/>Пожалуйста, зайдите чуть позже!</h1><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			$_['text_message']     = '<h1 style="text-align:center;">В настоящее время магазин закрыт на техническое обслуживание. <br/>Пожалуйста, зайдите чуть позже!</h1>';
+			$_['text_apply']	= 'Применить';
 			]]></add>
 		</operation>
 	</file>

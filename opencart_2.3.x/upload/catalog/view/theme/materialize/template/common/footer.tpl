@@ -54,53 +54,5 @@
 	</footer>
 	<button type="button" id="back-to-top" class="btn-floating btn-large scale-transition scale-out red z-depth-4 waves-effect waves-light"><i class="material-icons">keyboard_arrow_up</i></button>
 	<script defer src="catalog/view/theme/materialize/js/script.js"></script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function(event) {
-			$(".modal-call-back-btn").click(function() {
-				$('#modal-call-back').remove();
-				html  = '<form id="modal-call-back" class="modal">';
-				html += 	'<div class="modal-content">';
-				html += 		'<i class="material-icons modal-action modal-close right">close</i>';
-				html += 		'<div class="row"><h4><?php echo $text_cb_title; ?></h4></div>';
-				html += 		'<div class="row">';
-				html += 			'<div class="input-field col s12">';
-				html += 				'<i class="material-icons prefix">account_circle</i>';
-				html += 				'<input id="cb-name" name="name" placeholder="<?php echo $text_cb_your_name; ?>" type="text" class="validate" required>';
-				html += 				'<label class="active" for="cb-name"><?php echo $text_cb_your_name; ?></label>';
-				html += 			'</div>';
-				html += 			'<div class="input-field col s12">';
-				html += 				'<i class="material-icons prefix">phone</i>';
-				html += 				'<input id="cb-telephone" name="telephone" type="tel" class="validate" placeholder="+7_(___)___-____" data-inputmask="\'alias\':\'phone\'" required>';
-				html += 				'<label class="active" for="cb-telephone"><?php echo $text_cb_your_tel; ?></label>';
-				html += 			'</div>';
-				html += 		'</div>';
-				html += 	'</div>';
-				html += 	'<div class="modal-footer href-underline">';
-				html += 		'<input type="hidden" name="admin_email" value="<?php echo $email; ?>">';
-				html += 		'<button type="submit" class="btn modal-action waves-effect waves-light red" value="<?php echo $text_cb_btn; ?>"><?php echo $text_cb_btn; ?></button>';
-				html += 	'</div>';
-				html += '</form>';
-				$('body').append(html);
-				$('#modal-call-back').modal();
-				$('#modal-call-back').modal('open');
-				$(":input[name='telephone']").inputmask();
-				$('#modal-call-back').submit(function() {
-					$.ajax({
-						url: 'catalog/view/theme/materialize/call_back.php',
-						type: 'post',
-						data: $(this).serialize(),
-						success: function() {
-							Materialize.toast('<span><i class="material-icons left">check</i>Ваша заявка успешно отправлена!</span>',7000,'toast-success');
-							$(".modal-close").click();
-						},
-						error: function(xhr, ajaxOptions, thrownError) {
-							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-						}
-					});
-					return false;
-				});
-			});
-		});
-	</script>
 </body>
 </html>

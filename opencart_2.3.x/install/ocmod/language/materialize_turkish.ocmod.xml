@@ -2,17 +2,38 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Tema — turkish settings</b></font>]]></name>
 	<code>materialize-theme-turkish-settings</code>
-	<version>0.73</version>
+	<version>0.75</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Blog -->
+	<file path="catalog/language/tr-tr/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_blog']	= 'Blog';
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/tr-tr/common/column_left.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_blog']				= 'Blog';
+			$_['text_blog_category']	= 'Kategoriler';
+			$_['text_blog_post']		= 'Mesajlar';
+			$_['text_blog_author']		= 'Yazarlar';
+			$_['text_blog_comment']		= 'Yorumlar';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Additional Fields -->
 	<file path="admin/language/tr-tr/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[
-			$_['entry_title_additional']       = 'Alan Başlığı';
-			$_['button_additionalfield_add']   = 'Alan ekle';
-			$_['tab_additionalfield']          = 'Ek alanlar';
+			$_['entry_title_additional']		= 'Alan Başlığı';
+			$_['button_additionalfield_add']	= 'Alan ekle';
+			$_['tab_additionalfield']			= 'Ek alanlar';
 			]]></add>
 		</operation>
 	</file>
@@ -21,7 +42,7 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[
-			$_['entry_size_chart'] = 'Beden Tablosu';
+			$_['entry_size_chart']	= 'Beden Tablosu';
 			]]></add>
 		</operation>
 	</file>
@@ -29,93 +50,29 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[
-			$_['text_size_chart']          = 'Beden tablosu';
+			$_['text_size_chart']	= 'Beden tablosu';
 			]]></add>
 		</operation>
 	</file>
 	<!-- Checking email -->
-	<file path="catalog/language/tr-tr/information/contact.php">
+	<file path="catalog/language/tr-tr/{information,checkout,affiliate,account}/{contact,checkout,register,login,edit}*.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Geçersiz E-posta';
-				$_['text_email_success']         = 'E-posta Geçerli';
+			$_['text_email_error']		= 'Geçersiz E-posta';
+			$_['text_email_success']	= 'E-posta Geçerli';
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/tr-tr/checkout/checkout.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Geçersiz E-posta';
-				$_['text_email_success']         = 'E-psota Geçerli';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/affiliate/register.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Geçersiz E-posta';
-				$_['text_email_success']         = 'E-psota Geçerli';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/affiliate/login.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Geçersiz E-posta';
-				$_['text_email_success']         = 'E-psota Geçerli';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/affiliate/edit.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Geçersiz E-posta';
-				$_['text_email_success']         = 'E-psota Geçerli';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/account/register.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Geçersiz E-posta';
-				$_['text_email_success']         = 'E-psota Geçerli';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/account/login.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Geçersiz E-posta';
-				$_['text_email_success']         = 'E-psota Geçerli';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/account/edit.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']           = 'Geçersiz E-posta';
-				$_['text_email_success']         = 'E-psota Geçerli';
-			]]></add>
-		</operation>
-	</file>
-	<!-- Your language settings Materialize -->
+	<!-- Turkish language settings Materialize -->
 	<file path="catalog/language/tr-tr/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_contact']      = 'İletişime geçin';
-				$_['text_about']        = 'Hakkında';
-				$_['text_delivery']     = 'Teslimat';
-				$_['text_call_back']    = 'Biz sizi arayalım';
-				$_['text_call_free']    = 'Arama Talebi Oluştur';
+			$_['text_contact']		= 'İletişime geçin';
+			$_['text_about']		= 'Hakkında';
+			$_['text_delivery']		= 'Teslimat';
+			$_['text_call_free']	= 'Arama Talebi Oluştur';
 			]]></add>
 		</operation>
 	</file>
@@ -123,17 +80,13 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_social_network']      = 'Sosyal Ağlarda Biz';
-				$_['text_cb_title']            = 'Arama Talebi Oluştur';
-				$_['text_cb_your_name']        = 'Adınız nedir';
-				$_['text_cb_your_tel']         = 'Telefon numaranız';
-				$_['text_cb_btn']              = 'Arama isteği gönder';
+			$_['text_social_network']	= 'Sosyal Ağlarda Biz';
 			]]></add>
 		</operation>
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
 			<add position="replace" trim="true"><![CDATA[
-				<a target="_blank" rel="noopener" href="
+			<a target="_blank" rel="noopener" href="
 			]]></add>
 		</operation>
 	</file>
@@ -141,8 +94,8 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_shopping_cart']      = 'Alışveriş sepetiniz';
-				$_['text_cat_says']           = 'Biraz para harcamanıza yardım edeyim :)';
+			$_['text_shopping_cart']	= 'Alışveriş sepetiniz';
+			$_['text_cat_says']			= 'Biraz para harcamanıza yardım edeyim :)';
 			]]></add>
 		</operation>
 	</file>
@@ -150,13 +103,12 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_searched']      = 'Arama nedeniniz:';
-				$_['text_refine']        = 'Kategoriyi filtrele';
-				$_['text_sort_short']    = 'Tür';
-				$_['text_percent']       = 'İndirim';
-				$_['text_yes']           = 'Evet';
-				$_['text_no']            = 'Hayır';
-				$_['text_more_detailed'] = 'Ayrıntılı göster';
+			$_['text_searched']			= 'Arama nedeniniz:';
+			$_['text_refine']			= 'Kategoriyi filtrele';
+			$_['text_sort_short']		= 'Tür';
+			$_['text_percent']			= 'İndirim';
+			$_['text_more_detailed']	= 'Ayrıntılı göster';
+			$_['entry_instock']			= 'Sadece stoklarda göster';
 			]]></add>
 		</operation>
 	</file>
@@ -164,11 +116,9 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_sort_short']    = 'Tür';
-				$_['text_percent']       = 'İndirim';
-				$_['text_yes']           = 'Evet';
-				$_['text_no']            = 'Hayır';
-				$_['text_more_detailed'] = 'Ayrıntılı göster';
+			$_['text_sort_short']		= 'Tür';
+			$_['text_percent']			= 'İndirim';
+			$_['text_more_detailed']	= 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -176,27 +126,21 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_category']              = 'Kategori:';
-				$_['text_bonus_points']          = 'Satın almak için bonus puan';
-				$_['text_end_promotion']         = 'Teklif sone erme zamanı';
-				$_['text_payment_method']        = 'Nakit ve banka kartlarıyla ödeme';
-				$_['text_percent']               = 'İndirim';
-				$_['text_more_detailed']         = 'Ayrıntılı göster';
-				$_['text_sku']                   = 'SKU:';
-				$_['button_share']               = 'Paylaş';
-			]]></add>
-		</operation>
-	</file>
-	<!-- PhotoSwipe -->
-	<file path="catalog/language/tr-tr/product/product.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['button_pswp_close']             = 'Kapat (Esc)';
-				$_['button_pswp_toggle_fullscreen'] = 'Tam ekran göster';
-				$_['button_pswp_zoom']              = 'Yakınlaştır / Uzaklaştır';
-				$_['button_pswp_prev']              = 'Önceki (sol ok)';
-				$_['button_pswp_next']              = 'Sonraki (sağ ok)';
+			$_['text_category']					= 'Kategori:';
+			$_['text_bonus_points']				= 'Satın almak için bonus puan';
+			$_['text_end_promotion']			= 'Teklif sone erme zamanı';
+			$_['text_payment_method']			= 'Nakit ve banka kartlarıyla ödeme';
+			$_['text_percent']					= 'İndirim';
+			$_['text_more_detailed']			= 'Ayrıntılı göster';
+			$_['text_sku']						= 'SKU:';
+			$_['text_weight']					= 'Genişlik:';
+			// PhotoSwipe
+			$_['button_share']					= 'Paylaş';
+			$_['button_pswp_close']				= 'Kapat (Esc)';
+			$_['button_pswp_toggle_fullscreen']	= 'Tam ekran göster';
+			$_['button_pswp_zoom']				= 'Yakınlaştır / Uzaklaştır';
+			$_['button_pswp_prev']				= 'Önceki (sol ok)';
+			$_['button_pswp_next']				= 'Sonraki (sağ ok)';
 			]]></add>
 		</operation>
 	</file>
@@ -204,11 +148,11 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_manufacturers_starting']              = 'Tüm üreticiler başlangıcı';
-				$_['text_view_all_products']                   = 'Tüm ürünleri görüntüle';
-				$_['text_sort_short']                          = 'Tür';
-				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Ayrıntılı göster';
+			$_['text_manufacturers_starting']	= 'Tüm üreticiler başlangıcı';
+			$_['text_view_all_products']		= 'Tüm ürünleri görüntüle';
+			$_['text_sort_short']				= 'Tür';
+			$_['text_percent']					= 'İndirim';
+			$_['text_more_detailed']			= 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -216,45 +160,18 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_sort_short']                          = 'Tür';
-				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Ayrıntılı göster';
+			$_['text_sort_short']		= 'Tür';
+			$_['text_percent']			= 'İndirim';
+			$_['text_more_detailed']	= 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/tr-tr/extension/module/latest.php">
+	<file path="catalog/language/tr-tr/extension/module/{latest,bestseller,featured,special}*.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Ayrıntılı göster';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/extension/module/bestseller.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Ayrıntılı göster';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/extension/module/featured.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Ayrıntılı göster';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/extension/module/special.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_percent']                             = 'İndirim';
-				$_['text_more_detailed']                       = 'Ayrıntılı göster';
+			$_['text_percent']			= 'İndirim';
+			$_['text_more_detailed']	= 'Ayrıntılı göster';
 			]]></add>
 		</operation>
 	</file>
@@ -262,50 +179,37 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-				$_['text_comparison_list']      = 'Ürünleri karşılaştır';
+			$_['text_comparison_list']	= 'Ürünleri karşılaştır';
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/tr-tr/product/category.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['entry_instock']       = 'Sadece stoklarda göster';
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/language/tr-tr/product/product.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['text_weight']              = 'Genişlik:';
-			]]></add>
-		</operation>
-	</file>
+	<!-- Cart button -->
 	<file path="admin/language/tr-tr/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-			$_['entry_cart']             = 'Düğme sepeti';
+			$_['entry_cart']	= 'Düğme sepeti';
 			]]></add>
 		</operation>
 	</file>
+	<!-- Custom Tabs -->
 	<file path="admin/language/tr-tr/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-			$_['entry_title']            = 'Sekme Başlığıe';
-			$_['button_customtab_add']   = 'Sekme ekle';
-			$_['tab_customtab']          = 'Özel Sekme';
-			$_['text_apply']             = 'Uygula';
+			$_['entry_title']			= 'Sekme Başlığıe';
+			$_['button_customtab_add']	= 'Sekme ekle';
+			$_['tab_customtab']			= 'Özel Sekme';
+			$_['text_apply']			= 'Uygula';
 			]]></add>
 		</operation>
 	</file>
+	<!-- Apply button -->
 	<file path="admin/language/tr-tr/catalog/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after" trim="true"><![CDATA[
-			$_['text_apply']             = 'Uygula';
+			$_['text_apply']	= 'Uygula';
 			]]></add>
 		</operation>
 	</file>

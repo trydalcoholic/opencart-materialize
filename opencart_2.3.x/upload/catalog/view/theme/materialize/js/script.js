@@ -281,7 +281,7 @@ $(document).ready(function() {
 	});
 
 	/*========== Initialization Inputmask ==========*/
-	$(":input[name='telephone']").inputmask();
+	$(":input[type=\'tel\']").inputmask();
 
 	/*========== Fix pagination ==========*/
 	$('ul.pagination').addClass('col m12 pagination section center');
@@ -302,7 +302,6 @@ $(document).ready(function() {
 		$('body,html').animate({scrollTop:0}, scroll_top_duration);
 	});
 
-	
 	/*========== Sticky Menu ==========*/
 	if(window.matchMedia('(min-width:601px)').matches) {
 		var mainHeader = $('header'),

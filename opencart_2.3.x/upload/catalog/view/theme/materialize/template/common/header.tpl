@@ -135,7 +135,7 @@
 						<div class="right-align">
 							<ul class="right contact-info">
 								<li><a href="mailto:<?php echo $email; ?>" class="blue-grey-text text-lighten-5"><?php echo $email; ?><i class="material-icons left">email</i></a></li>
-								<li><a class="blue-grey-text text-lighten-5 modal-call-back-btn activator" rel="nofollow"><?php echo $text_call_back; ?><i class="material-icons left">phone_in_talk</i></a></li>
+								<li><a class="blue-grey-text text-lighten-5 modal-trigger activator" href="#callback__modal" rel="nofollow">Обратный звонок<i class="material-icons left">phone_in_talk</i></a></li>
 								<?php if ($open) { ?>
 								<li><i class="material-icons left">access_time</i><span><?php echo $open; ?></span></li>
 								<?php } ?>
@@ -224,7 +224,7 @@
 						</div>
 					</div>
 				</li>
-				<li class="grey lighten-4"><a class="waves-effect waves-default modal-call-back-btn activator" rel="nofollow"><i class="material-icons">phone_in_talk</i><?php echo $text_call_back; ?></a></li>
+				<li class="grey lighten-4"><a class="waves-effect waves-default modal-trigger activator" href="#callback__modal" rel="nofollow"><i class="material-icons">phone_in_talk</i>Обратный звонок</a></li>
 				<li>
 					<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
 					<?php if ($categories) { ?>
@@ -279,6 +279,7 @@
 		</div>
 	</header>
 	<?php echo $cart; ?>
+	<?php echo $callback; ?>
 	<a id="compare-btn" href="<?php echo $compare; ?>" class="btn-floating btn-large waves-effect waves-light blue z-depth-4 scale-transition pulse <?php if ($text_compare==0) {echo 'scale-out';} ?>" title="<?php echo $text_comparison_list; ?>" rel="nofollow">
 		<i class="material-icons">compare_arrows</i>
 		<small id="compare-total" class="light-blue darken-2 btn-floating z-depth-1 pulse"><?php echo $text_compare; ?></small>

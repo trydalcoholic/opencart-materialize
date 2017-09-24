@@ -1,7 +1,7 @@
 <?php
 // Heading
-$_['heading_title']				= '<font color="#263238"><b>Materialize Блог</b></font>';
-$_['blog_title']				= 'Materialize Блог';
+$_['heading_title']				= '<font color="#263238"><b>Materialize "Блог"</b></font>';
+$_['blog_title']				= 'Materialize "Блог"';
 
 // Text
 $_['text_module']				= 'Модули';
