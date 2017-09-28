@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.76</version>
+	<version>0.76.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Callback -->
@@ -1421,11 +1421,11 @@
 			<search><![CDATA[$this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');]]></search>
 			<add position="replace"><![CDATA[
 			$this->load->model('tool/image');
-			$icon_type = exif_imagetype($server . 'image/' . $this->config->get('config_icon'));
-			if ($icon_type == 1) {$icon_type = 'image/gif';}
-			if ($icon_type == 2) {$icon_type = 'image/jpeg';}
-			if ($icon_type == 3) {$icon_type = 'image/png';}
-			if ($icon_type == 17) {$icon_type = 'image/x-icon';}
+
+			$file = ($server . 'image/' . $this->config->get('config_icon'));
+			$info = getimagesize($file);
+			$icon_type = isset($info['mime']) ? $info['mime'] : '';
+
 			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 16, 16), 'icon', $icon_type, '16x16');
 			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 32, 32), 'icon', $icon_type, '32x32');
 			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 48, 48), 'icon', $icon_type, '48x48');
