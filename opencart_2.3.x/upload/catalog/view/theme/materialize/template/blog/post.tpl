@@ -356,6 +356,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			}
 		]
 	});
+	// Common slider
+	$('.blog-slider').not('.slick-initialized').slick({
+		lazyLoad: 'ondemand',
+		infinite: true,
+		slidesToShow: 2,
+		slidesToScroll: 1,
+		dots: true,
+		responsive: [
+			{
+				breakpoint: 601,
+				settings: {
+					slidesToShow: 1
+				}
+			},
+			{
+				breakpoint: 921,
+				settings: {
+					slidesToShow: 2
+				}
+			}
+		]
+	});
 });
 </script>
 <?php echo $footer; ?>

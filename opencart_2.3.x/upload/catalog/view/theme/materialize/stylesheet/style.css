@@ -21,6 +21,7 @@ h5 {font-size:1.05em;}
 h6 {font-size:1em;}
 label {color:inherit !important;}
 iframe {border:none;}
+figcaption {padding:1rem 0;}
 :focus {outline:none;}
 .inherit {background-color:inherit !important;}
 .inherit-text {color:inherit !important;}
@@ -31,6 +32,7 @@ iframe {border:none;}
 .text-justify {text-align:justify !important;}
 .text-uppercase {text-transform:uppercase !important;}
 .text-underline {text-decoration:underline !important;}
+.text-italic {font-style:italic;}
 .no-border {border:none !important;}
 .block {display:block !important;}
 .activator {cursor:pointer !important;}
@@ -566,6 +568,7 @@ iframe {border:none;}
 }
 .post a:hover {text-decoration:underline !important;}
 .post p {text-indent:1.5rem;}
+.post ul li {list-style-type:disc;margin:7px 0 7px 16px;}
 .post-image-block {position:relative;margin:-24px -24px 0 -24px;}
 .post-info {
 	position: absolute;
@@ -585,7 +588,7 @@ iframe {border:none;}
 	display: flex;
 	flex-direction: row-reverse;
 	align-items: center;
-	margin: 0 5px;
+	margin: 0 5px !important;
 }
 .post-image-block figure {
 	position: relative;

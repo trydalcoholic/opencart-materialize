@@ -73,6 +73,8 @@ class ControllerBlogSearch extends Controller {
 			$this->document->setTitle($this->language->get('heading_title'));
 		}
 
+		$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(

@@ -344,7 +344,7 @@ class ControllerBlogCategory extends Controller {
 		// http://googlewebmastercentral.blogspot.com/2011/09/pagination-with-relnext-and-relprev.html
 		if ($this->request->get['blog_path'] != 0) {
 			if ($page == 1) {
-				$this->document->addLink($this->url->link('blog/category', 'blog_path=' . $category_info['category_id'], true), 'canonical');
+				$this->document->addLink($this->url->link('blog/category', 'blog_path=', true), 'canonical');
 			} elseif ($page == 2) {
 				$this->document->addLink($this->url->link('blog/category', 'blog_path=' . $category_info['category_id'], true), 'prev');
 			} else {

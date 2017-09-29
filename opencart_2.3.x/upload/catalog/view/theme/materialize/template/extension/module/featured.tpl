@@ -50,7 +50,7 @@
 							<?php endif ?>
 						</span>
 					</div>
-					<a href="<?php echo $product['href']; ?>" class="btn waves-effect waves-light red"><?php echo $text_more_detailed; ?></a>
+					<a href="<?php echo $product['href']; ?>" class="btn waves-effect waves-light red width-max"><?php echo $text_more_detailed; ?></a>
 				</div>
 				<div class="card-reveal">
 					<span class="card-title"><a href="<?php echo $product['href']; ?>" class="grey-text text-darken-4"><?php echo $product['name']; ?></a><i class="material-icons">close</i></span>
