@@ -78,6 +78,12 @@
 										<br>
 										<small><?php echo $product['reward']; ?></small>
 									<?php } ?>
+									<?php if ($product['option']) { ?>
+										<?php foreach ($product['option'] as $option) { ?>
+										<br>
+										<small><?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
+										<?php } ?>
+									<?php } ?>
 									<?php if ($product['recurring']) { ?>
 										<br>
 										<span class="label label-info"><?php echo $text_recurring_item; ?></span> <small><?php echo $product['recurring']; ?></small>

@@ -109,10 +109,14 @@
 							<div class="card-panel product-info">
 								<div class="row">
 									<ul class="user-btn">
-										<li><button type="button" class="btn-flat tooltipped no-padding red-text text-lighten-1" data-position="top" data-tooltip="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');"><i class="material-icons activator">favorite</i></button></li>
-										<li><button type="button" class="btn-flat tooltipped no-padding blue-grey-text text-darken-4" onclick="compare.add('<?php echo $product_id; ?>');" data-position="top" data-tooltip="<?php echo $button_compare; ?>"><i class="material-icons activator dropdown-button">compare_arrows</i></button></li>
+										<li>
+											<i class="material-icons waves-effect waves-circle tooltipped activator" data-position="top" data-tooltip="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');">favorite_border</i>
+										</li>
+										<li>
+											<i class="material-icons waves-effect waves-circle tooltipped activator" onclick="compare.add('<?php echo $product_id; ?>');" data-position="top" data-tooltip="<?php echo $button_compare; ?>">compare_arrows</i>
+										</li>
 									</ul>
-									<button type="button" class="btn-flat tooltipped no-padding blue-grey-text text-darken-4 share-btn" data-position="top" data-tooltip="<?php echo $button_share; ?>" data-activates="side-share"><i class="material-icons">share</i></button>
+									<i class="material-icons waves-effect waves-circle tooltipped share-btn" data-position="top" data-tooltip="<?php echo $button_share; ?>" data-activates="side-share">share</i>
 								</div>
 								<h1 class="center" itemprop="name"><?php echo $heading_title; ?></h1>
 								<div class="rating">
@@ -247,7 +251,7 @@
 												<?php foreach ($option['product_option_value'] as $option_value) { ?>
 													<li>
 													<?php if ($option_value['image']) { ?><img src="<?php echo $img_loader; ?>" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img lazyload"><?php } ?>
-													<input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>" class="with-gap">
+													<input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>" class="with-gap" <?php echo (1 == $option_value['default_option'] ? 'checked="checked"' : ''); ?>>
 													<label for="<?php echo $option_value['product_option_value_id']; ?>"><?php echo $option_value['name']; ?> <?php if ($option_value['price']) { ?>(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?></label>
 													</li>
 												<?php } ?>
@@ -263,7 +267,7 @@
 														<?php if ($option_value['image']) { ?>
 														<img src="<?php echo $img_loader; ?>" data-src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="responsive-img lazyload">
 														<?php } ?>
-														<input type="checkbox" name="option[<?php echo $option['product_option_id']; ?>][]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>" class="filled-in">
+														<input type="checkbox" name="option[<?php echo $option['product_option_id']; ?>][]" value="<?php echo $option_value['product_option_value_id']; ?>" id="<?php echo $option_value['product_option_value_id']; ?>" class="filled-in" <?php echo (1 == $option_value['default_option'] ? 'checked="checked"' : ''); ?>>
 														<label for="<?php echo $option_value['product_option_value_id']; ?>">
 															<?php echo $option_value['name']; ?> <?php if ($option_value['price']) { ?>(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?>
 														</label>
@@ -277,7 +281,7 @@
 												<div class="input-field">
 													<select name="option[<?php echo $option['product_option_id']; ?>]" id="input-option<?php echo $option['product_option_id']; ?>" class="icons">
 														<?php foreach ($option['product_option_value'] as $option_value) { ?>
-														<option value="<?php echo $option_value['product_option_value_id']; ?>"<?php if($option_value['image']){ ?> class="left circle" data-icon="<?php echo $option_value['image']; ?>"<?php } ?>><?php echo $option_value['name']; ?><?php if ($option_value['price']) { ?>&nbsp;(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?>
+														<option value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo (1 == $option_value['default_option'] ? 'selected' : ''); ?> <?php if($option_value['image']){ ?> class="left circle" data-icon="<?php echo $option_value['image']; ?>"<?php } ?>><?php echo $option_value['name']; ?><?php if ($option_value['price']) { ?>&nbsp;(<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)<?php } ?>
 														</option>
 														<?php } ?>
 													</select>

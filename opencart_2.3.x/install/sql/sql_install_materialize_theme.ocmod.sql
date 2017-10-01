@@ -1,5 +1,6 @@
 ALTER TABLE `oc_product` ADD `add_cart` TINYINT(1) DEFAULT 1;
-ALTER TABLE `oc_product_description` ADD `size_chart` TEXT NOT NULL AFTER `description`;
+ALTER TABLE `oc_product_description` ADD `size_chart` TEXT NOT NULL;
+ALTER TABLE `oc_product_option_value` ADD `default` TINYINT(1) NOT NULL DEFAULT '0';
 
 INSERT INTO `oc_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES (NULL, 'blog/category', 'blog');
 INSERT INTO `oc_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES (NULL, 'blog/author', 'authors');

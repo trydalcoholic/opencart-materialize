@@ -2,9 +2,18 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — russian settings</b></font>]]></name>
 	<code>materialize-theme-russian-settings</code>
-	<version>0.76</version>
+	<version>0.77</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Default option -->
+	<file path="admin/language/ru-ru/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['entry_default_option']	= 'По умолчанию';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Blog -->
 	<file path="catalog/language/ru-ru/common/header.php">
 		<operation error="skip">

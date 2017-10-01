@@ -198,9 +198,6 @@ figcaption {padding:1rem 0;}
 /*========== Card product ==========*/
 	.product-info {position:relative;padding-bottom:0;}
 	.product-info h1 {margin-top:0;}
-	/* Share */
-	.share-btn {position:absolute;top:7px;right:15px;font-size:1.5rem !important;}
-	.share-btn:hover {background-color:inherit;}
 	#side-share {z-index:1000;}
 	.side-share__item {
 		display: inline-block;
@@ -226,10 +223,11 @@ figcaption {padding:1rem 0;}
 	.skype {background-color:#00AFF0;}
 	.telegram {background-color:#2CA5E0;}
 	/* User btn */
-	.user-btn {position:absolute;top:7px;left:15px;margin:0;}
-	.user-btn li{float:left;margin-right:15px;}
-	.user-btn li .btn-flat i {font-size:1.5rem !important;}
-	.user-btn li .btn-flat:hover {background-color:inherit;}
+	.user-btn {display:flex;position:absolute;top:7px;left:15px;margin:0;}
+	.user-btn li {margin-right:10px;}
+	.user-btn i.material-icons,.share-btn {width:1.6em;height:1.6em;font-size:1.6em;line-height:1.6em;}
+	/* Share */
+	.share-btn {position:absolute;top:7px;right:15px;}
 	/* Product photos */
 	.slider-nav img:hover {cursor:pointer;}
 	.img-block {position:relative;}
