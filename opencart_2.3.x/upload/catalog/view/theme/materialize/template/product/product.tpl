@@ -110,7 +110,11 @@
 								<div class="row">
 									<ul class="user-btn">
 										<li>
-											<i class="material-icons waves-effect waves-circle tooltipped activator" data-position="top" data-tooltip="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');">favorite_border</i>
+											<?php if ($wishlist_product) { ?>
+												<i id="wishlist-btn" class="material-icons waves-effect waves-circle tooltipped red-text activator" data-position="top" data-tooltip="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');">favorite</i>
+											<?php } else { ?>
+												<i id="wishlist-btn" class="material-icons waves-effect waves-circle tooltipped activator" data-position="top" data-tooltip="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product_id; ?>');">favorite_border</i>
+											<?php } ?>
 										</li>
 										<li>
 											<i class="material-icons waves-effect waves-circle tooltipped activator" onclick="compare.add('<?php echo $product_id; ?>');" data-position="top" data-tooltip="<?php echo $button_compare; ?>">compare_arrows</i>
@@ -657,6 +661,19 @@
 	</aside>
 	<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
+			// Wishlist button
+			var wishlistBtn = $('#wishlist-btn'),
+				originalColor = wishlistBtn.css('color'),
+				originalText = wishlistBtn.text();
+
+			wishlistBtn.click(function(){
+				$(this).text("favorite").addClass('red-text');
+				originalText = 'favorite';
+			}).hover(function() {
+				$(this).text("favorite").css('color','#ef5350').addClass('scale');
+			}, function() {
+				$(this).text(originalText).css('color',originalColor).removeClass('scale');
+			});
 			// Share side
 			$('.share-btn').sideNav({edge:'right'});
 			// Photo slider

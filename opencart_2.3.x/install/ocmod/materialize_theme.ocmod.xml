@@ -2,9 +2,38 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.77</version>
+	<version>0.77.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Editing wishlist on the product page -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<add position="before"><![CDATA[
+			$this->load->model('account/wishlist');
+
+			$wishlist_product = $this->model_account_wishlist->selectWishlist($product_id);
+
+			if (isset($wishlist_product)) {
+				$data['wishlist_product'] = $wishlist_product;
+			} else {
+				$data['wishlist_product'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/account/wishlist.php">
+		<operation error="log">
+			<search><![CDATA[class ModelAccountWishlist extends Model {]]></search>
+			<add position="after"><![CDATA[
+			public function selectWishlist($product_id) {
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_wishlist WHERE customer_id = '" . (int)$this->customer->getId() . "' AND product_id = '" . (int)$product_id . "'");
+
+				return $query->rows;
+			}
+			]]></add>
+		</operation>
+	</file>
 	<!-- Default option -->
 	<file path="admin/{controller,model}/catalog/product.php">
 		<operation error="log">

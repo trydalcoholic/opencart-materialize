@@ -65,23 +65,23 @@
 							<div class="col s12 xl6">
 								<div class="collection with-header href-underline">
 									<div class="collection-header"><h2><?php echo $text_my_account; ?></h2></div>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $edit; ?>"><i class="material-icons left">assignment</i><?php echo $text_edit; ?></a>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $password; ?>"><i class="material-icons left">lock</i><?php echo $text_password; ?></a>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $address; ?>"><i class="material-icons left">home</i><?php echo $text_address; ?></a>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $wishlist; ?>"><i class="material-icons left">favorite</i><?php echo $text_wishlist; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $edit; ?>"><i class="material-icons left">assignment</i><?php echo $text_edit; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $password; ?>"><i class="material-icons left">lock</i><?php echo $text_password; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $address; ?>"><i class="material-icons left">home</i><?php echo $text_address; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $wishlist; ?>"><i class="material-icons left">favorite</i><?php echo $text_wishlist; ?></a>
 								</div>
 							</div>
 							<div class="col s12 xl6">
 								<div class="collection with-header href-underline">
 									<div class="collection-header"><h2><?php echo $text_my_orders; ?></h2></div>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $order; ?>"><i class="material-icons left">history</i><?php echo $text_order; ?></a>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $download; ?>"><i class="material-icons left">file_download</i><?php echo $text_download; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $order; ?>"><i class="material-icons left">history</i><?php echo $text_order; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $download; ?>"><i class="material-icons left">file_download</i><?php echo $text_download; ?></a>
 									<?php if ($reward) { ?>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $reward; ?>"><i class="material-icons left">account_balance_wallet</i><?php echo $text_reward; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $reward; ?>"><i class="material-icons left">account_balance_wallet</i><?php echo $text_reward; ?></a>
 									<?php } ?>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $return; ?>"><i class="material-icons left">cached</i><?php echo $text_return; ?></a>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $transaction; ?>"><i class="material-icons left">payment</i><?php echo $text_transaction; ?></a>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $recurring; ?>"><i class="material-icons left">receipt</i><?php echo $text_recurring; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $return; ?>"><i class="material-icons left">cached</i><?php echo $text_return; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $transaction; ?>"><i class="material-icons left">payment</i><?php echo $text_transaction; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $recurring; ?>"><i class="material-icons left">receipt</i><?php echo $text_recurring; ?></a>
 								</div>
 							</div>
 							<?php if ($credit_cards) { ?>
@@ -89,7 +89,7 @@
 								<div class="collection with-header href-underline">
 									<div class="collection-header"><h2><?php echo $text_credit_card; ?></h2></div>
 									<?php foreach ($credit_cards as $credit_card) { ?>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $credit_card['href']; ?>"><i class="material-icons left">credit_card</i><?php echo $credit_card['name']; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $credit_card['href']; ?>"><i class="material-icons left">credit_card</i><?php echo $credit_card['name']; ?></a>
 									<?php } ?>
 								</div>
 							</div>
@@ -97,7 +97,7 @@
 							<div class="col s12 xl6">
 								<div class="collection with-header href-underline">
 									<div class="collection-header"><h2><?php echo $text_my_newsletter; ?></h2></div>
-									<a class="collection-item blue-grey-text text-darken-4" href="<?php echo $newsletter; ?>"><i class="material-icons left">add_alert</i><?php echo $text_newsletter; ?></a>
+									<a class="collection-item waves-effect blue-grey-text text-darken-4" href="<?php echo $newsletter; ?>"><i class="material-icons left">add_alert</i><?php echo $text_newsletter; ?></a>
 								</div>
 							</div>
 						</div>

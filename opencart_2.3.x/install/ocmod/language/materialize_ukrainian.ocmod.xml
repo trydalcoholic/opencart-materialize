@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-	<name><![CDATA[<font color="#263238"><b>Materialize Theme — ukrainian-settings</b></font>]]></name>
+	<name><![CDATA[<font color="#263238"><b>Materialize Theme — ukrainian settings</b></font>]]></name>
 	<code>materialize-theme-ukrainian-settings</code>
-	<version>0.77</version>
+	<version>0.77.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Default option -->
@@ -10,7 +10,7 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[
-			$_['entry_default_option']	= 'По умолчанию';
+			$_['entry_default_option']	= 'За замовчуванням';
 			]]></add>
 		</operation>
 	</file>
