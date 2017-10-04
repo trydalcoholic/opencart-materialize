@@ -10,7 +10,7 @@
 			</div>
 			<div class="input-field col s12">
 				<i class="material-icons prefix">phone</i>
-				<input id="callback-telephone" name="callback_telephone" type="tel" class="validate" placeholder="+7(___)___-____" data-inputmask="'alias':'phone'" required>
+				<input id="callback-telephone" name="callback_telephone" type="tel" class="validate" placeholder="+7(___)___-____" <?php if ($callback_phonemask) { ?>data-inputmask="'alias':'phone'"<?php } ?> required>
 				<label class="active" for="callback-telephone"><?php echo $entry_telephone; ?></label>
 			</div>
 		</div>
@@ -19,41 +19,38 @@
 		<button type="button" id="callback__button" class="btn modal-action waves-effect waves-light red" value="<?php $button_submit; ?>"><?php echo $button_submit; ?></button>
 	</div>
 </form>
-<?php if ($callback_status == 1) { ?>
+<?php if ($callback_status) { ?>
 <button type="button" data-target="callback__modal" id="callback__btn" class="btn-floating btn-large green darken-1 z-depth-4 waves-effect waves-light pulse modal-trigger"><i id="callback__phone-icon" class="material-icons">phone</i></button>
 <div id="callback__attract" class="tap-target green lighten-1" data-activates="callback__btn">
 	<div class="tap-target-content white-text">
-		<i class="material-icons waves-effect waves-circle right">close</i>
+		<i id="callback__attract-close" class="material-icons waves-effect waves-circle right">close</i>
 		<h5 class="text-bold"><?php echo $attract_title; ?></h5>
-		<p><?php echo $attract_text; ?></p>
+		<p><?php echo $attract_description; ?></p>
 	</div>
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	idleTimer = null;
-	idleState = false;
-	idleWait = 45000;
-
 	var callbackAttract = $('#callback__attract'),
 		callbackPhoneIcon = $('#callback__phone-icon');
 
 	setInterval(function() {
 		callbackPhoneIcon.toggleClass('callback-shake');
-	}, 5000)
+	}, 2500)
+
+	idleTimer = null;
+	idleState = false;
+	idleWait = <?php echo $callback_time;?>000;
 
 	$(document).bind('mousemove keydown scroll', function() {
 		clearTimeout(idleTimer);
 
-		if(idleState == true) { 
-			callbackAttract.tapTarget('open');
-		}
-
 		idleState = false;
 		idleTimer = setTimeout(function() { 
 			callbackAttract.tapTarget('open');
-			idleState = true; 
+			idleState = true;
 		}, idleWait);
 	});
+
 	$("body").trigger("mousemove");
 });
 </script>

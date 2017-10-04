@@ -3,22 +3,32 @@ class ControllerExtensionModuleCallback extends Controller {
 	public function index() {
 		$this->load->language('extension/module/callback');
 
+		$language = $this->config->get('config_language_id');
+
 		$data['heading_title'] = $this->language->get('heading_title');
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_telephone'] = $this->language->get('entry_telephone');
 		$data['button_submit'] = $this->language->get('button_submit');
 		$data['text_success'] = $this->language->get('text_success');
 
-		$data['attract_title'] = $this->language->get('attract_title');
-		$data['attract_text'] = $this->language->get('attract_text');
+		$data['attract_title'] = $this->config->get('callback_title' . $language);
+		$data['attract_description'] = $this->config->get('callback_description' . $language);
+
+		$data['callback_time'] = $this->config->get('callback_time');
 
 		$data['error_name'] = $this->language->get('error_name');
 		$data['error_telephone'] = $this->language->get('error_telephone');
 
-		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
-			$data['callback_status'] = str_replace('http', 'https', html_entity_decode($this->config->get('callback_status')));
+		if ($this->config->get('callback_status') == 0) {
+			$data['callback_status'] = '';
 		} else {
-			$data['callback_status'] = html_entity_decode($this->config->get('callback_status'));
+			$data['callback_status'] = $this->config->get('callback_status');
+		}
+
+		if ($this->config->get('callback_phonemask') == 0) {
+			$data['callback_phonemask'] = '';
+		} else {
+			$data['callback_phonemask'] = $this->config->get('callback_phonemask');
 		}
 
 		return $this->load->view('extension/module/callback', $data);

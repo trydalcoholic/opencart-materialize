@@ -3,7 +3,7 @@
 	<div class="page-header">
 		<div class="container-fluid">
 			<div class="pull-right">
-				<button type="submit" form="form-callback" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+				<button type="submit" form="form-callback" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>&nbsp;
 				<a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>
 			</div>
 			<h1><?php echo $callback_title; ?></h1>
@@ -23,12 +23,13 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3></div>
 			<div class="panel-body">
+				<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;<?php echo $text_materialize; ?></div>
 				<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-callback" class="form-horizontal">
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+						<label class="col-sm-2 control-label" for="input-phonemask-status"><?php echo $entry_phonemask; ?></label>
 						<div class="col-sm-10">
-							<select name="callback_status" id="input-status" class="form-control">
-								<?php if ($callback_status) { ?>
+							<select name="callback_phonemask" id="input-phonemask-status" class="form-control">
+								<?php if ($callback_phonemask) { ?>
 								<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
 								<option value="0"><?php echo $text_disabled; ?></option>
 								<?php } else { ?>
@@ -38,9 +39,69 @@
 							</select>
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+						<div class="col-sm-10">
+							<select name="callback_status" id="input-status" class="form-control">
+								<?php if ($callback_status) { ?>
+								<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+								<option value="0"><?php echo $text_disabled; ?></option>
+								<?php } else { ?>
+								<option value="1"><?php echo $text_enabled; ?></option>
+								<option value="0" selected="selected" id="callback_disabled"><?php echo $text_disabled; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+					<div class="tab-pane callback-settings">
+						<ul class="nav nav-tabs" id="language">
+							<?php foreach ($languages as $language) { ?>
+							<li><a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
+							<?php } ?>
+						</ul>
+						<div class="tab-content">
+							<?php foreach ($languages as $language) { ?>
+							<div class="tab-pane" id="language<?php echo $language['language_id']; ?>">
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="callback_title<?php echo $language['language_id']; ?>"><?php echo $entry_title; ?></label>
+									<div class="col-sm-10">
+										<input type="text" name="callback_title<?php echo $language['language_id']; ?>" placeholder="<?php echo $entry_title; ?>" id="callback_title<?php echo $language['language_id']; ?>" value="<?php echo isset(${'callback_title' . $language['language_id']}) ? ${'callback_title' . $language['language_id']} : ''; ?>" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="callback_description<?php echo $language['language_id']; ?>"><?php echo $entry_description; ?></label>
+									<div class="col-sm-10">
+										<textarea name="callback_description<?php echo $language['language_id']; ?>" placeholder="<?php echo $entry_description; ?>" id="callback_description<?php echo $language['language_id']; ?>" class="form-control" style="min-height:100px;resize:vertical;"><?php echo isset(${'callback_description' . $language['language_id']}) ? ${'callback_description' . $language['language_id']} : ''; ?></textarea>
+									</div>
+								</div>
+							</div>
+							<?php } ?>
+						</div>
+					</div>
+					<div class="form-group required callback-settings">
+						<label class="col-sm-2 control-label" for="callback_time"><span data-toggle="tooltip" title="<?php echo $help_time; ?>"><?php echo $entry_time; ?></span></label>
+						<div class="col-sm-10">
+							<input type="number" min="1" name="callback_time" placeholder="<?php echo $entry_time; ?>" id="callback_time" value="<?php echo $callback_time; ?>" class="form-control" />
+							<?php if ($error_callback_time) { ?>
+							<div class="text-danger"><?php echo $error_callback_time; ?></div>
+							<?php } ?>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$('#language a:first').tab('show');
+
+	var inputStatus = $("#input-status");
+
+	if (inputStatus.val() == 0) {$('.callback-settings').hide();}
+
+	inputStatus.change(function(){
+		if (inputStatus.val() == 0) {$('.callback-settings').hide();}
+		if (inputStatus.val() == 1) {$('.callback-settings').show();}
+	});
+</script>
 <?php echo $footer; ?> 
