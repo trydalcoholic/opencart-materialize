@@ -1,18 +1,34 @@
 <form id="callback__modal" class="modal">
 	<div class="modal-content">
-		<i class="material-icons modal-action modal-close right">close</i>
-		<div class="row"><h4><?php echo $heading_title; ?></h4></div>
+		<i class="material-icons modal-action modal-close waves-effect waves-circle close-icon">close</i>
+		<div class="row"><h4><?php echo $callback_modaltitle; ?></h4></div>
 		<div class="row">
+			<?php if ($callback_name) { ?>
 			<div class="input-field col s12">
 				<i class="material-icons prefix">account_circle</i>
-				<input id="callback-name" name="callback_name" placeholder="<?php echo $entry_name; ?>" type="text" class="validate" required>
-				<label class="active" for="callback-name"><?php echo $entry_name; ?></label>
+				<input id="callback-name" name="callback_name" type="text" class="validate" <?php echo $callback_name_required ? 'required' : ''; ?>>
+				<label for="callback-name" <?php echo $callback_name_required ? 'class="required"' : ''; ?>><?php echo $entry_name; ?></label>
 			</div>
+			<?php } ?>
 			<div class="input-field col s12">
 				<i class="material-icons prefix">phone</i>
-				<input id="callback-telephone" name="callback_telephone" type="tel" class="validate" placeholder="+7(___)___-____" <?php if ($callback_phonemask) { ?>data-inputmask="'alias':'phone'"<?php } ?> required>
-				<label class="active" for="callback-telephone"><?php echo $entry_telephone; ?></label>
+				<input id="callback-telephone" name="callback_telephone" type="tel" class="validate" <?php echo $callback_phonemask ? 'data-inputmask="\'alias\':\'phone\'"' : ''; ?> required>
+				<label for="callback-telephone" class="required"><?php echo $entry_telephone; ?></label>
 			</div>
+			<?php if ($callback_enquiry) { ?>
+			<div class="input-field col s12">
+				<i class="material-icons prefix">chat</i>
+				<textarea id="callback-enquiry" name="callback_enquiry" class="materialize-textarea" data-length="360" <?php echo $callback_enquiry_required ? 'required' : ''; ?>></textarea>
+				<label for="callback-enquiry" <?php echo $callback_enquiry_required ? 'class="required"' : ''; ?>><?php echo $entry_enquiry; ?></label>
+			</div>
+			<?php } ?>
+			<?php if ($callback_calltime) { ?>
+			<div class="input-field col s12">
+				<i class="material-icons prefix">av_timer</i>
+				<input type="text" id="callback-calltime" class="timepicker-<?php echo $lang; ?>" name="callback_calltime" value="">
+				<label for="callback-calltime" <?php echo $callback_calltime_required ? 'class="required"' : ''; ?>><?php echo $entry_calltime; ?></label>
+			</div>
+			<?php } ?>
 		</div>
 	</div>
 	<div class="modal-footer href-underline">
@@ -35,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	setInterval(function() {
 		callbackPhoneIcon.toggleClass('callback-shake');
-	}, 2500)
+	}, 2500);
 
 	idleTimer = null;
 	idleState = false;
@@ -69,8 +85,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				}
 				if (json['success']) {
 					Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success');
-					$('input[name=\'callback_name\']').val('');
 					$('input[name=\'callback_telephone\']').val('');
+					<?php if ($callback_name) { ?>
+					$('input[name=\'callback_name\']').val('');
+					<?php } ?>
+					<?php if ($callback_enquiry) { ?>
+					$('input[name=\'callback_enquiry\']').val('');
+					<?php } ?>
+					<?php if ($callback_calltime) { ?>
+					$('input[name=\'callback_calltime\']').val('');
+					<?php } ?>
 					$('#callback__modal').modal('close');
 				}
 			}

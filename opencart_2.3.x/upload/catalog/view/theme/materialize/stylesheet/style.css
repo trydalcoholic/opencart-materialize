@@ -37,6 +37,14 @@ figcaption {padding:1rem 0;}
 .block {display:block !important;}
 .activator {cursor:pointer !important;}
 .cursor-default {cursor:default !important;}
+.close-icon {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 1.5em !important;
+	height: 1.5em !important;
+	line-height: 1.5em !important;
+}
 .width-max {width:100% !important;}
 .flex-reverse {display:flex;flex-direction:row-reverse;padding:1rem 0;}
 .scale:hover {
@@ -327,7 +335,7 @@ figcaption {padding:1rem 0;}
 	.rating-input [type="radio"]:not(:checked)+label, .rating-input [type="radio"]:checked+label {padding-left:0;}
 	.rating-input-active,.rating-input-checked {color:#FC0 !important;}
 	/* Required */
-	.required:after {content:' *';color:#e53935;font-weight:bold;}
+	.required:before {content:'* ';color:#e53935;font-weight:bold;}
 	/* Successfully added to cart */
 	#cart-total,#compare-total {position:absolute;top:0;right:0;width:20px;height:20px;line-height:20px;font-size:.7rem;}
 
