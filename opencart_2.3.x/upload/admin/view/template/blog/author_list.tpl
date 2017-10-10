@@ -29,6 +29,7 @@
         <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_list; ?></h3>
       </div>
       <div class="panel-body">
+        <div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;<?php echo $text_materialize; ?></div>
         <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form-author">
           <div class="table-responsive">
             <table class="table table-bordered table-hover">

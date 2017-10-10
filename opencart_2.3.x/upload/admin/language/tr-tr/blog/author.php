@@ -8,6 +8,7 @@ $_['text_list']					= 'Yazarlar Listesi';
 $_['text_add']					= 'Yeni Yazar Ejke';
 $_['text_edit']					= 'Yazar düzenle';
 $_['text_default']				= 'Varsayılan';
+$_['text_materialize']			= 'Eğer modülün çalışması ile ilgili sorunlar varsa, <a href="https://github.com/trydalcoholic/opencart-materialize/issues" target="_blank" rel="noopener"><b>Github</b></a> üzerinde bir sorunu olan bir tema oluşturun lütfen.<hr><b>Materialize Template</b> — ücretsiz bir temadır, işi beğendiyseniz ve fırsatınız varsa, lütfen projenin <a href="https://money.yandex.ru/to/41001413377821" target="_blank" rel="noopener"><b>Yandex.Money</b></a> veya <a href="https://www.paypal.me/trydalcoholic" target="_blank" rel="noopener"><b>PayPal</b></a> aracılığıyla para ile geliştirilmesini destekleyin.<hr>Ayrıca şablon gelişimine yardımcı olmak, yorum bırakarak ve <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener"><b>Pazar</b></a> yerinde bir değerlendirme koyarak.';
 
 // Column
 $_['column_name']				= 'Yazar Adı';

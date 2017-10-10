@@ -25,6 +25,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$data['text_product'] = $this->language->get('text_product');
 		$data['text_image'] = $this->language->get('text_image');
 		$data['text_general'] = $this->language->get('text_general');
+		$data['text_materialize'] = $this->language->get('text_materialize');
 
 		$data['entry_directory'] = $this->language->get('entry_directory');
 		$data['entry_status'] = $this->language->get('entry_status');

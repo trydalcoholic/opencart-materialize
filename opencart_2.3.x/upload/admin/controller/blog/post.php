@@ -341,6 +341,7 @@ class ControllerBlogPost extends Controller {
 		$data['text_disabled'] = $this->language->get('text_disabled');
 		$data['text_no_results'] = $this->language->get('text_no_results');
 		$data['text_confirm'] = $this->language->get('text_confirm');
+		$data['text_materialize'] = $this->language->get('text_materialize');
 
 		$data['column_image'] = $this->language->get('column_image');
 		$data['column_name'] = $this->language->get('column_name');

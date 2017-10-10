@@ -27,6 +27,7 @@ class ControllerExtensionModuleBlog extends Controller {
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_disabled'] = $this->language->get('text_disabled');
+		$data['text_materialize'] = $this->language->get('text_materialize');
 		$data['text_year'] = $this->language->get('text_year');
 		$data['text_month'] = $this->language->get('text_month');
 
