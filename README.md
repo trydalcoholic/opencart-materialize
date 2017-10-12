@@ -30,14 +30,14 @@ Due to the large number of changes, in order to support multilingual, some compo
 * automatic generation of the most popular favicon sizes, to satisfy all requests for a variety of different devices;
 * in the header of the site the necessary contact information (phone, mail, call back order, working time) is displayed;
 * «Live search» starts immediately to search for the product as the query is entered in the search box;
-* The "Dimension table" module is integrated - do you sell clothes? Specify flexible table for each product and help to determine the right size for your customers;
+* The "Sizechart" module is integrated - do you sell clothes? Specify flexible table for each product and help to determine the right size for your customers;
 * integrated Blog module is a powerful and free tool at the service of the online store, write articles/news/posts, do reviews of product, create categories and subcategories, involve content managers, pointing them as the authors of the posts in the "Blog". Supported humanly understandable URL Default and SEOpro, Google Sitemap; 
 * The module "Callback" is integrated - everything is very simple, customize the module to your liking and wait for call orders from your customers;
 * "Quick order" module is integrated - the module adds a "Quick order" button to the product page. The minimum and mandatory input field is the customer's phone (additional fields are configured in the administrator part), after which the module sends a message to your work mail (you need to register the order yourself); 
 * on the product category page:
-* you can enable sorting taking into account the product "only in stock";
-* ajax filter without reloading the page;
-* the category description below the list of products — don't limit yourself to SEO optimization.
+  - you can enable sorting taking into account the product "only in stock";
+  - ajax filter without reloading the page;
+  - the category description below the list of products — don't limit yourself to SEO optimization.
 * Yandex.Map is integrated on the contacts page with automatic determination of the address of the store;
 * integrated gif player;
 * manufacturers' logos have been added to the manufacturers page;
