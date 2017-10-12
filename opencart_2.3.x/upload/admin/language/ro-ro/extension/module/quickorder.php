@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']		= '<font color="#263238"><b>Materialize "Comandă rapidă"</b></font>';
+$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize "Comandă rapidă"</b></font>';
 $_['quickorder_title']	= 'Materialize "Comandă rapidă"';
 
 // Text

@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']		= '<font color="#263238"><b>Materialize "Таблиця розмірів"</b></font>';
+$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize "Таблиця розмірів"</b></font>';
 $_['size_chart_title']	= 'Materialize "Таблиця розмірів"';
 
 // Text

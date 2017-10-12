@@ -143,7 +143,7 @@
 							<div class="card sticky-action large hoverable">
 							<?php if ($product['special']) { ?><span class="white-text badge red lighten-1 percent"><?php echo $text_percent; ?> <?php echo $product['percent_discount']; ?>%</span><?php } ?>
 								<div class="card-image">
-									<span><i class="material-icons small right activator">more_vert</i></span>
+									<i class="material-icons waves-effect waves-circle close-icon activator">more_vert</i>
 									<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>
 								</div>
 								<div class="card-content center-align">
@@ -190,7 +190,7 @@
 									<a href="<?php echo $product['href']; ?>" class="btn waves-effect waves-light red width-max"><?php echo $text_more_detailed; ?></a>
 								</div>
 								<div class="card-reveal">
-									<span class="card-title"><a href="<?php echo $product['href']; ?>" class="grey-text text-darken-4"><?php echo $product['name']; ?></a><i class="material-icons">close</i></span>
+									<span class="card-title"><a href="<?php echo $product['href']; ?>" class="grey-text text-darken-4"><?php echo $product['name']; ?></a><i class="material-icons waves-effect waves-circle close-icon">close</i></span>
 									<p><?php echo $product['description']; ?></p>
 								</div>
 							</div>

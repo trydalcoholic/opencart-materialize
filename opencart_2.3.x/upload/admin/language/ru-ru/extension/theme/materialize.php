@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']						= 'Materialize Template';
+$_['heading_title']						= '<font color="#263238"><b><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize Template</b></font>';
 
 // Text
 $_['text_theme']						= 'Шаблоны';
