@@ -85,15 +85,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				}
 				if (json['success']) {
 					Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success');
-					$('input[name=\'callback_telephone\']').val('');
+					$('input[name=\'callback_telephone\']').val('').blur();
 					<?php if ($callback_name) { ?>
-					$('input[name=\'callback_name\']').val('');
+					$('input[name=\'callback_name\']').val('').blur();
 					<?php } ?>
 					<?php if ($callback_enquiry) { ?>
-					$('input[name=\'callback_enquiry\']').val('');
+					$('input[name=\'callback_enquiry\']').val('').blur();
 					<?php } ?>
 					<?php if ($callback_calltime) { ?>
-					$('input[name=\'callback_calltime\']').val('');
+					$('input[name=\'callback_calltime\']').val('').blur();
 					<?php } ?>
 					$('#callback__modal').modal('close');
 				}

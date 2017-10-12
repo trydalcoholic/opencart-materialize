@@ -364,11 +364,12 @@
 									<?php } ?>
 									<div class="section">
 										<?php if ($add_cart == 1) { ?>
-										<button type="button" id="button-cart" class="btn btn-large waves-effect waves-light red href-underline width-max"><i class="material-icons left">add_shopping_cart</i><?php echo $button_cart; ?></button>
+										<button type="button" id="button-cart" class="btn btn-large waves-effect waves-light red width-max"><i class="material-icons left">add_shopping_cart</i><?php echo $button_cart; ?></button>
 										<?php } else { ?>
-										<button type="button" id="button-cart" class="btn btn-large href-underline width-max" disabled="disabled"><i class="material-icons left">add_shopping_cart</i><?php echo $button_cart; ?></button>
+										<button type="button" id="button-cart" class="btn btn-large width-max" disabled="disabled"><i class="material-icons left">add_shopping_cart</i><?php echo $button_cart; ?></button>
 										<?php } ?>
 									</div>
+									<?php echo $quickorder; ?>
 								</div>
 							</div>
 						</div>

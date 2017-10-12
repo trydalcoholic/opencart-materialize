@@ -2,9 +2,18 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.77.3.1</version>
+	<version>0.77.4</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Quickorder -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/category');]]></search>
+			<add position="before"><![CDATA[
+			$data['quickorder'] = $this->load->controller('extension/module/quickorder', $data);
+			]]></add>
+		</operation>
+	</file>
 	<!-- Editing wishlist on the product page -->
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
