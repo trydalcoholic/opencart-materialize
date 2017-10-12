@@ -78,7 +78,6 @@
 												<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb; ?>" itemprop="thumbnail" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
 											</a>
 											<figcaption class="center" itemprop="caption description"><?php echo $heading_title; ?></figcaption>
-											<span class="hide"><?php echo $thumb_small; ?></span>
 										</figure>
 									<?php } ?>
 									<?php if ($images) { ?>
