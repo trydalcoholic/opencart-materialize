@@ -107,10 +107,18 @@
 						<div class="card-panel product-info">
 							<div class="row">
 								<ul class="user-btn">
-									<li><button type="button" class="btn-flat tooltipped no-padding red-text text-lighten-1" data-position="top" data-tooltip="{{ button_wishlist }}" data-delay="50" onclick="wishlist.add('{{ product_id }}');"><i class="material-icons activator">favorite</i></button></li>
-									<li><button type="button" class="btn-flat tooltipped no-padding blue-grey-text text-darken-4" onclick="compare.add('{{ product_id }}');" data-position="top" data-tooltip="{{ button_compare }}" data-delay="50"><i class="material-icons activator dropdown-button">compare_arrows</i></button></li>
+									<li>
+										{% if wishlist_product %}
+											<i id="wishlist-btn" class="material-icons waves-effect waves-circle tooltipped red-text activator" data-position="top" data-tooltip="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');">favorite</i>
+										{% else %}
+											<i id="wishlist-btn" class="material-icons waves-effect waves-circle tooltipped activator" data-position="top" data-tooltip="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');">favorite_border</i>
+										{% endif %}
+									</li>
+									<li>
+										<i class="material-icons waves-effect waves-circle tooltipped activator" onclick="compare.add('{{ product_id }}');" data-position="top" data-tooltip="{{ button_compare }}">compare_arrows</i>
+									</li>
 								</ul>
-								<button type="button" class="btn-flat tooltipped no-padding blue-grey-text text-darken-4 share-btn" data-position="top" data-tooltip="{{ button_share }}" data-delay="50" data-activates="side-share"><i class="material-icons">share</i></button>
+								<i class="material-icons waves-effect waves-circle tooltipped share-btn" data-position="top" data-tooltip="{{ button_share }}" data-activates="side-share">share</i>
 							</div>
 							<h1 class="center" itemprop="name">{{ heading_title }}</h1>
 							<div class="rating">
@@ -178,17 +186,17 @@
 								<div class="blockquote-icon blue-grey lighten-4 cursor-default"><i class="material-icons">chat</i></div>
 								<ul>
 									{% if manufacturer %}
-									<li><span class="text-bold">{{ text_manufacturer }}:</span>&nbsp;<a href="{{ manufacturers }}" target="_blank" rel="noopener"><span itemprop="brand">{{ manufacturer }}</span></a></li>
+									<li><span class="text-bold">{{ text_manufacturer }}</span>&nbsp;<a href="{{ manufacturers }}" target="_blank" rel="noopener"><span itemprop="brand">{{ manufacturer }}</span></a></li>
 									{% endif %}
 									{% if category_products %}
-									<li><span class="text-bold">{{ text_category }}:</span>&nbsp;<a href="{{ category_products.0.href }}"><span itemprop="category">{{ category_products.0.name }}</span></a></li>
+									<li><span class="text-bold">{{ text_category }}</span>&nbsp;<a href="{{ category_products.0.href }}"><span itemprop="category">{{ category_products.0.name }}</span></a></li>
 									{% endif %}
 									{% if weight > 0 %}
-									<li><span class="text-bold">{{ text_weight }}:</span>&nbsp;{{ weight }}</li>
+									<li><span class="text-bold">{{ text_weight }}</span>&nbsp;{{ weight }}</li>
 									{% endif %}
 									<li><span class="text-bold">{{ text_stock }}</span>&nbsp;<span class="{{ stock_color }}-text text-darken-1 text-bold">{{ stock }}</span></li>
 									{% if sku %}
-									<li><span class="text-bold">{{ text_sku }}:</span>&nbsp;{{ sku }}</li>
+									<li><span class="text-bold">{{ text_sku }}</span>&nbsp;{{ sku }}</li>
 									{% endif %}
 								</ul>
 							</blockquote>
@@ -326,12 +334,13 @@
 								</blockquote>
 								{% endif %}
 								<div class="section">
-									{% if add_cart == 1 %}
+									{% if add_cart %}
 									<button type="button" id="button-cart" class="btn btn-large waves-effect waves-light red href-underline width-max"><i class="material-icons left">add_shopping_cart</i>{{ button_cart }}</button>
 									{% else %}
 									<button type="button" id="button-cart" class="btn btn-large href-underline width-max" disabled="disabled"><i class="material-icons left">add_shopping_cart</i>{{ button_cart }}</button>
 									{% endif %}
 								</div>
+								{{ quickorder }}
 							</div>
 						</div>
 					</div>
@@ -445,14 +454,14 @@
 				<div class="card sticky-action large hoverable href-underline">
 					{% if product.special %}<span class="white-text badge red lighten-1 percent">{{ text_percent }}&nbsp;{{ product.percent_discount }}%</span>{% endif %}
 					<div class="card-image">
-						<span><i class="material-icons small right activator">more_vert</i></span>
+						<i class="material-icons waves-effect waves-circle close-icon activator">more_vert</i>
 						<a href="{{ product.href }}"><img class="lazyload" src="{{ img_loader }}" data-src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"></a>
 					</div>
 					<div class="card-content center-align">
 						<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a></span>
 					</div>
 					<div class="card-action center-align grey lighten-5">
-						{% if product.add_cart == 1 %}
+						{% if product.add_cart %}
 						<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
 						{% else %}
 						<button class="btn btn-floating btn-large add-cart" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
@@ -488,10 +497,10 @@
 								{% endif %}
 							</span>
 						</div>
-						<a href="{{ product.href }}" class="btn waves-effect waves-light red">{{ text_more_detailed }}</a>
+						<a href="{{ product.href }}" class="btn waves-effect waves-light red width-max">{{ text_more_detailed }}</a>
 					</div>
 					<div class="card-reveal">
-						<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a><i class="material-icons">close</i></span>
+						<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a><i class="material-icons waves-effect waves-circle close-icon">close</i></span>
 						<p>{{ product.description }}</p>
 					</div>
 				</div>
@@ -517,6 +526,7 @@
 	</div>
 </main>
 <aside>
+	{% endif %}
 	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"><div class="pswp__bg"></div><div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="{{ button_pswp_close }}"></button><button class="pswp__button pswp__button--share" title="{{ button_share }}"></button><button class="pswp__button pswp__button--fs" title="{{ button_pswp_toggle_fullscreen }}"></button><button class="pswp__button pswp__button--zoom" title="{{ button_pswp_zoom }}"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" title="{{ button_pswp_prev }}"></button><button class="pswp__button pswp__button--arrow--right" title="{{ button_pswp_next }}"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div></div>
 	<ul id="side-share" class="side-nav href-underline">
 		<li><a class="waves-effect waves-default" href="https://vk.com/share.php?url={{ share }}" rel="nofollow noopener" target="_blank"><span class="side-share__item"><svg class="vk" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M7.828 12.526h.957s.288-.032.436-.19c.14-.147.14-.42.14-.42s-.02-1.284.58-1.473c.59-.187 1.34 1.24 2.14 1.788.61.42 1.07.33 1.07.33l2.14-.03s1.12-.07.59-.95c-.04-.07-.3-.65-1.58-1.84-1.34-1.24-1.16-1.04.45-3.19.98-1.31 1.38-2.11 1.25-2.45-.11-.32-.84-.24-.84-.24l-2.4.02s-.18-.02-.31.06-.21.26-.21.26-.38 1.02-.89 1.88C10.27 7.9 9.84 8 9.67 7.88c-.403-.26-.3-1.053-.3-1.62 0-1.76.27-2.5-.52-2.69-.26-.06-.454-.1-1.123-.11-.86-.01-1.585.006-1.996.207-.27.135-.48.434-.36.45.16.02.52.098.71.358.25.337.24 1.09.24 1.09s.14 2.077-.33 2.335c-.33.174-.77-.187-1.73-1.837-.49-.84-.86-1.78-.86-1.78s-.07-.17-.2-.27c-.15-.11-.37-.15-.37-.15l-2.29.02s-.34.01-.46.16c-.11.13-.01.41-.01.41s1.79 4.19 3.82 6.3c1.86 1.935 3.97 1.81 3.97 1.81z"/></svg></span>VK</a></li>
@@ -537,6 +547,19 @@
 </aside>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
+	// Wishlist button
+	var wishlistBtn = $('#wishlist-btn'),
+		originalColor = wishlistBtn.css('color'),
+		originalText = wishlistBtn.text();
+
+	wishlistBtn.click(function(){
+		$(this).text("favorite").addClass('red-text');
+		originalText = 'favorite';
+	}).hover(function() {
+		$(this).text("favorite").css('color','#ef5350').addClass('scale');
+	}, function() {
+		$(this).text(originalText).css('color',originalColor).removeClass('scale');
+	});
 	// Share side
 	$('.share-btn').sideNav({edge:'right'});
 	// Photo slider

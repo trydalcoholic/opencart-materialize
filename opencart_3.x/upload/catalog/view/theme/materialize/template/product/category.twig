@@ -41,7 +41,7 @@
 {% endif %}
 <main>
 	<div class="container">
-		<nav class="breadcrumb-wrapper transparent z-depth-0">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
 			<div class="nav-wrapper">
 				{% for key, breadcrumb in breadcrumbs %}
 					{% if key < breadcrumbs|length - 1 %}
@@ -151,7 +151,7 @@
 								<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a></span>
 							</div>
 							<div class="card-action center-align grey lighten-5">
-								{% if product.add_cart == 1 %}
+								{% if product.add_cart %}
 								<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
 								{% else %}
 								<button class="btn btn-floating btn-large add-cart" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>

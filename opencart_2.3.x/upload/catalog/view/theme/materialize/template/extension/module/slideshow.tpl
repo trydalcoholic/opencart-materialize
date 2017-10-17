@@ -12,17 +12,17 @@
 	</div>
 </div>
 <script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		$('.slick-slider').not('.slick-initialized').slick({
-			infinite: true,
-			autoplay: true,
-			autoplaySpeed: 5000,
-			slidesToShow: 1,
-			adaptiveHeight: true,
-			fade: true,
-			cssEase: 'linear',
-			dots: true,
-			arrows: true
-		});
+document.addEventListener("DOMContentLoaded", function(event) {
+	$('.slick-slider').not('.slick-initialized').slick({
+		infinite: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		slidesToShow: 1,
+		adaptiveHeight: true,
+		fade: true,
+		cssEase: 'linear',
+		dots: true,
+		arrows: true
 	});
+});
 </script>

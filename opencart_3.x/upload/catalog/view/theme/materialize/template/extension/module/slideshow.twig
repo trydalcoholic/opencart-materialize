@@ -1,5 +1,5 @@
 <div class="section">
-	<div id="slideshow{{ module }}" class="slick-slider">
+	<div id="slideshow{{ module }}" class="slick-slider slick-slider-slideshow z-depth-1">
 	{% for banner in banners %}
 		{% if banner.link %}
 		<a href="{{ banner.link }}"><img class="responsive-img" src="{{ banner.image }}" alt="{{ banner.title }}"></a>

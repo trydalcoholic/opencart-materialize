@@ -6,14 +6,14 @@
 			<div class="card sticky-action large hoverable">
 			{% if product.special %}<span class="white-text badge red lighten-1 percent">{{ text_percent }} {{ product.percent_discount }}%</span>{% endif %}
 			<div class="card-image">
-				<span><i class="material-icons small right activator">more_vert</i></span>
+				<i class="material-icons waves-effect waves-circle close-icon activator">more_vert</i>
 				<a href="{{ product.href }}"><img class="lazyload" src="{{ img_loader }}" data-src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"></a>
 			</div>
 			<div class="card-content center-align">
 				<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a></span>
 			</div>
 			<div class="card-action center-align grey lighten-5">
-				{% if product.add_cart == 1 %}
+				{% if product.add_cart %}
 					<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
 				{% else %}
 					<button class="btn btn-floating btn-large add-cart" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
@@ -52,7 +52,7 @@
 				<a href="{{ product.href }}" class="btn waves-effect waves-light red">{{ text_more_detailed }}</a>
 			</div>
 			<div class="card-reveal">
-				<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a><i class="material-icons">close</i></span>
+				<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a><i class="material-icons waves-effect waves-circle close-icon">close</i></span>
 				<p>{{ product.description }}</p>
 			</div>
 		</div>

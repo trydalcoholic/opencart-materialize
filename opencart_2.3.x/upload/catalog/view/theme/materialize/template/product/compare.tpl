@@ -159,7 +159,7 @@
 								<td></td>
 								<?php foreach ($products as $product) { ?>
 								<td>
-									<?php if ($product['add_cart'] == 1) { ?>
+									<?php if ($product['add_cart']) { ?>
 									<button type="button" value="<?php echo $button_cart; ?>" class="btn waves-effect waves-light blue" title="<?php echo $button_cart; ?>" onclick="cart.add('<?php echo $product['product_id']; ?>', '<?php echo $product['minimum']; ?>');"><i class="material-icons">add_shopping_cart</i></button>
 									<?php } else { ?>
 									<button class="btn" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>

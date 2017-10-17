@@ -1,4 +1,3 @@
-ALTER TABLE `oc_product` ADD `add_cart` TINYINT(1) DEFAULT 1;
 ALTER TABLE `oc_product_description` ADD `size_chart` TEXT NOT NULL;
 ALTER TABLE `oc_product_option_value` ADD `default_option` TINYINT(1) NOT NULL DEFAULT '0';
 

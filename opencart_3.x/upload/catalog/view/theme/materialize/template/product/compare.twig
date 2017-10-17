@@ -191,7 +191,7 @@
 							<td></td>
 							{% for product in products %}
 							<td>
-								{% if product.add_cart == 1 %}
+								{% if product.add_cart %}
 								<button type="button" value="{{ button_cart }}" class="btn waves-effect waves-light blue" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><i class="material-icons">add_shopping_cart</i></button>
 								{% else %}
 								<button class="btn" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
