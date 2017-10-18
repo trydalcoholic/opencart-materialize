@@ -1,3 +1,5 @@
+ALTER TABLE `oc_product_option_value` ADD `default_option` TINYINT(1) NOT NULL DEFAULT '0';
+
 /*INSERT INTO `oc_seo_url` (`seo_url_id`, `store_id`, `language_id`, `query`, `keyword`) VALUES (NULL, '0', '1', 'blog/category', 'blog'), (NULL, '0', '1', 'blog/author', 'authors');*/
 
 CREATE TABLE IF NOT EXISTS `oc_product_customtab` (
