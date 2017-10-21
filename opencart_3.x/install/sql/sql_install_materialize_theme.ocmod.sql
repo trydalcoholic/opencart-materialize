@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `oc_product_customtab_description` (
 	`description` TEXT CHARACTER SET utf8 NOT NULL
 ) ENGINE=MyISAM;
 
-/*CREATE TABLE IF NOT EXISTS `oc_product_additionalfield` (
+CREATE TABLE IF NOT EXISTS `oc_product_additionalfield` (
 	`product_additionalfield_id` INT(11) NOT NULL AUTO_INCREMENT,
 	`product_id` INT(11) NOT NULL,
 	`sort_order` INT(11) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `oc_product_additionalfield_text` (
 	`product_id` INT(11) NOT NULL,
 	`title` VARCHAR(255) CHARACTER SET utf8 NOT NULL,
 	`text` VARCHAR(255) CHARACTER SET utf8 NOT NULL
-) ENGINE=MyISAM;*/
+) ENGINE=MyISAM;
 
 /* Blog */
 

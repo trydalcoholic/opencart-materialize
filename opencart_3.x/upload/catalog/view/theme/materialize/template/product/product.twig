@@ -186,18 +186,25 @@
 								<div class="blockquote-icon blue-grey lighten-4 cursor-default"><i class="material-icons">chat</i></div>
 								<ul>
 									{% if manufacturer %}
-									<li><span class="text-bold">{{ text_manufacturer }}</span>&nbsp;<a href="{{ manufacturers }}" target="_blank" rel="noopener"><span itemprop="brand">{{ manufacturer }}</span></a></li>
+									<li><span class="text-bold">{{ text_manufacturer }}</span>:&nbsp;<a href="{{ manufacturers }}" target="_blank" rel="noopener"><span itemprop="brand">{{ manufacturer }}</span></a></li>
 									{% endif %}
 									{% if category_products %}
-									<li><span class="text-bold">{{ text_category }}</span>&nbsp;<a href="{{ category_products.0.href }}"><span itemprop="category">{{ category_products.0.name }}</span></a></li>
+									<li><span class="text-bold">{{ text_category }}</span>:&nbsp;<a href="{{ category_products.0.href }}"><span itemprop="category">{{ category_products.0.name }}</span></a></li>
 									{% endif %}
 									{% if weight > 0 %}
-									<li><span class="text-bold">{{ text_weight }}</span>&nbsp;{{ weight }}</li>
+									<li><span class="text-bold">{{ text_weight }}</span>:&nbsp;{{ weight }}</li>
+									{% endif %}
+									{% if sku %}
+									<li><span class="text-bold">{{ text_sku }}</span>:&nbsp;{{ sku }}</li>
+									{% endif %}
+									{% if additionalfields %}
+										{% for key, additionalfield in additionalfields %}
+										<li id="customfield-{{ key }}">
+											<span class="text-bold">{{ additionalfield.title }}:</span>&nbsp;{{ additionalfield.text }}
+										</li>
+										{% endfor %}
 									{% endif %}
 									<li><span class="text-bold">{{ text_stock }}</span>&nbsp;<span class="{{ stock_color }}-text text-darken-1 text-bold">{{ stock }}</span></li>
-									{% if sku %}
-									<li><span class="text-bold">{{ text_sku }}</span>&nbsp;{{ sku }}</li>
-									{% endif %}
 								</ul>
 							</blockquote>
 							{% if special or reward or discounts or (sizechart.sizechart_status == 1 and size_chart) %}
