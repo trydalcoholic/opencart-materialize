@@ -25,8 +25,6 @@ class ModelBlogPost extends Model {
 			}
 		}
 
-		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_author WHERE post_id = '" . (int)$post_id . "'");
-
 		if (isset($data['post_author'])) {
 			foreach ($data['post_author'] as $author_id) {
 				$this->db->query("INSERT INTO " . DB_PREFIX . "post_to_author SET post_id = '" . (int)$post_id . "', author_id = '" . (int)$author_id . "'");
@@ -86,6 +84,14 @@ class ModelBlogPost extends Model {
 		if (isset($data['post_store'])) {
 			foreach ($data['post_store'] as $store_id) {
 				$this->db->query("INSERT INTO " . DB_PREFIX . "post_to_store SET post_id = '" . (int)$post_id . "', store_id = '" . (int)$store_id . "'");
+			}
+		}
+
+		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_author WHERE post_id = '" . (int)$post_id . "'");
+
+		if (isset($data['post_author'])) {
+			foreach ($data['post_author'] as $author_id) {
+				$this->db->query("INSERT INTO " . DB_PREFIX . "post_to_author SET post_id = '" . (int)$post_id . "', author_id = '" . (int)$author_id . "'");
 			}
 		}
 
@@ -162,7 +168,8 @@ class ModelBlogPost extends Model {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post WHERE post_id = '" . (int)$post_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_description WHERE post_id = '" . (int)$post_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_related WHERE post_id = '" . (int)$post_id . "'");
-		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . (int)$post_id . "'");	
+		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . (int)$post_id . "'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_author WHERE post_id = '" . (int)$post_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_layout WHERE post_id = '" . (int)$post_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_store WHERE post_id = '" . (int)$post_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'post_id=" . (int)$post_id . "'");

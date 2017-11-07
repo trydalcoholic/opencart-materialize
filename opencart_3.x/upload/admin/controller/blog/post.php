@@ -308,14 +308,13 @@ class ControllerBlogPost extends Controller {
 		$this->load->model('blog/category');
 
 		$filter_data = array(
-			'sort'        => 'name',
-			'order'       => 'ASC'
+			'sort'	=> 'name',
+			'order'	=> 'ASC'
 		);
 
 		$data['categories'] = $this->model_blog_category->getCategories($filter_data);
 
 		foreach ($results as $result) {
-
 			$category =  $this->model_blog_post->getPostCategories($result['post_id']);
 
 			if (is_file(DIR_IMAGE . $result['image'])) {
@@ -646,6 +645,14 @@ class ControllerBlogPost extends Controller {
 				);
 			}
 		}
+
+		// Main category
+		$filter_data = array(
+			'sort'	=> 'name',
+			'order'	=> 'ASC'
+		);
+
+		$data['categories'] = $this->model_blog_category->getCategories($filter_data);
 
 		// Filters
 		if (isset($this->request->post['main_category_id'])) {
