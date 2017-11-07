@@ -1,0 +1,167 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main, goods = 's12 l6', 's12' %}
+{% elseif column_left or column_right %}
+	{% set main, goods = 's12 l9', 's12 m6' %}
+{% else %}
+	{% set main, goods = 's12', 's12 m6 l4' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<div class="row">
+			{{ column_left }}
+			<div class="col s12">
+				<div class="card-panel z-depth-1">
+					<div class="row valign-wrapper section">
+						{% if thumb %}
+						<div class="col s4 m2 center">
+							<img src="{{ img_loader }}" data-src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="responsive-img circle lazyload">
+						</div>
+						<div class="col s8 m10">
+							<h1>{{ heading_title }}</h1>
+							{{ description }}
+						</div>
+						{% else %}
+						<div class="col s12">
+							<h1>{{ heading_title }}</h1>
+							{{ description }}
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{% if posts %}
+			<div class="col {{ main }} section href-underline">
+				{{ content_top }}
+				<ul class="collapsible" data-collapsible="expandable">
+					<li>
+						<div class="collapsible-header text-bold arrow-rotate">{{ text_sort }}</div>
+						<div class="collapsible-body white">
+							<div class="row">
+								<div class="col s6 m6 input-field inline">
+									<select id="input-sort" onchange="location = this.value;">
+										{% for sorts in sorts %}
+										{% if sorts.value == '%s-%s'|format(sort, order) %}
+										<option value="{{ sorts.href }}" selected>{{ sorts.text }}</option>
+										{% else %}
+										<option value="{{ sorts.href }}">{{ sorts.text }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+									<label class="text-bold" for="input-sort">{{ text_sort }}</label>
+								</div>
+								<div class="col s6 m6 input-field inline">
+									<select id="input-limit" onchange="location = this.value;">
+										{% for limits in limits %}
+										{% if limits.value == limit %}
+										<option value="{{ limits.href }}" selected>{{ limits.text }}</option>
+										{% else %}
+										<option value="{{ limits.href }}">{{ limits.text }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+									<label class="text-bold">{{ text_limit }}</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div id="content">
+					<div class="row masonry" data-columns>
+						{% for post in posts %}
+						<div class="card blog-card hoverable">
+							<div class="card-image">
+								<div class="blog-image-wrap"><img class="scale transition lazyload" src="{{ img_loader }}" data-src="{{ post.thumb }}"></div>
+								<a class="btn-floating btn-large halfway-fab waves-effect waves-light blue-grey darken-1" href="{{ post.href }}#comment"><i class="material-icons">comment</i></a>
+							</div>
+							<div class="card-content blue-grey white-text">
+								<a href="{{ post.href }}" class="white-text"><span class="card-title truncate">{{ post.name }}</span></a>
+							</div>
+							<div class="blog-card-tabs">
+								<ul class="tabs tabs-fixed-width tabs-swipe blue-grey lighten-5">
+									<li class="tab"><a class="waves-effect waves-default" href="#tab-description-card{{ post.post_id }}" class="active"><i class="material-icons">description</i></a></li>
+									<li class="tab"><a class="waves-effect waves-default" href="#tab-time-card{{ post.post_id }}"><i class="material-icons">info</i></a></li>
+								</ul>
+							</div>
+							<div class="card-content">
+								<div id="tab-description-card{{ post.post_id }}">
+									<p>{{ post.description }}</p>
+								</div>
+								<div id="tab-time-card{{ post.post_id }}">
+									<ul>
+										{% if post.author %}
+										<li><span class="text-bold">{{ text_author }}</span>&nbsp;{{ post.author }}</li>
+										{% endif %}
+										<li><span class="text-bold">{{ text_published }}</span>&nbsp;{{ post.published }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-action">
+								<a href="{{ post.href }}" class="btn-flat waves-effect waves-default">{{ text_read_more }}</a>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				{% if pagination %}
+				<div class="row">
+					{{ pagination }}
+				</div>
+				{% endif %}
+				{{ content_bottom }}
+			</div>
+			{% endif %}
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+{% endspaceless %}
+{{ footer }}

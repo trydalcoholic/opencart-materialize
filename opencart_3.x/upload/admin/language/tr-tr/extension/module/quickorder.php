@@ -17,11 +17,11 @@ $_['text_materialize']	= 'Eğer modülün çalışması ile ilgili sorunlar vars
 
 // Entry
 $_['entry_phonemask']	= 'Telefon giriş maskesi';
-$_['entry_status']		= 'Durum';
-$_['entry_required']	= 'Gereklidir';
+$_['entry_status']		= 'Durum:';
+$_['entry_required']	= 'Gereklidir:';
 $_['entry_button']		= 'Düğme metni';
 $_['entry_success']		= 'Göndermeden sonra metin';
-$_['entry_fields']		= 'Ek alanlar';
+$_['entry_fields']		= 'Ek alanlar:';
 $_['entry_title']		= 'Başlık';
 $_['entry_checkout']	= 'Kayıt için onay';
 

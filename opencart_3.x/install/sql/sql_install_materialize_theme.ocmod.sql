@@ -1,7 +1,7 @@
 ALTER TABLE `oc_product_description` ADD `size_chart` TEXT NOT NULL;
 ALTER TABLE `oc_product_option_value` ADD `default_option` TINYINT(1) NOT NULL DEFAULT '0';
 
-/*INSERT INTO `oc_seo_url` (`seo_url_id`, `store_id`, `language_id`, `query`, `keyword`) VALUES (NULL, '0', '1', 'blog/category', 'blog'), (NULL, '0', '1', 'blog/author', 'authors');*/
+INSERT INTO `oc_seo_url` (`seo_url_id`, `store_id`, `language_id`, `query`, `keyword`) VALUES (NULL, 0, 1, 'blog/category', 'blog'), (NULL, 0, 1, 'blog/author', 'authors');
 
 CREATE TABLE IF NOT EXISTS `oc_product_customtab` (
 	`product_customtab_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `oc_product_additionalfield_text` (
 
 /* Blog */
 
-/*CREATE TABLE IF NOT EXISTS `oc_blog_author` (
+CREATE TABLE IF NOT EXISTS `oc_blog_author` (
 	`author_id` int(11) NOT NULL,
 	`name` varchar(64) NOT NULL,
 	`image` varchar(255) DEFAULT NULL,
@@ -178,4 +178,4 @@ ALTER TABLE `oc_post_to_store` ADD PRIMARY KEY (`post_id`,`store_id`);
 ALTER TABLE `oc_blog_author` MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `oc_blog_category` MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `oc_post` MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
-ALTER TABLE `oc_post_comment` MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;*/
+ALTER TABLE `oc_post_comment` MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;

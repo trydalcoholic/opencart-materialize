@@ -89,7 +89,6 @@ class ModelBlogPost extends Model {
 			}
 		}
 
-		/* НЕСКОЛЬКО АТВОРОВ */
 		$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_author WHERE post_id = '" . (int)$post_id . "'");
 
 		if (isset($data['post_author'])) {
@@ -97,7 +96,6 @@ class ModelBlogPost extends Model {
 				$this->db->query("INSERT INTO " . DB_PREFIX . "post_to_author SET post_id = '" . (int)$post_id . "', author_id = '" . (int)$author_id . "'");
 			}
 		}
-		/* НЕСКОЛЬКО АТВОРОВ */
 
 		if(isset($data['main_category_id']) && $data['main_category_id'] > 0) {
 			$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . (int)$post_id . "' AND category_id = '" . (int)$data['main_category_id'] . "'");

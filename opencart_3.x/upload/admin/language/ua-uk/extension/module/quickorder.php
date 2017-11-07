@@ -17,11 +17,11 @@ $_['text_materialize']	= 'Якщо у вас виникли проблеми з 
 
 // Entry
 $_['entry_phonemask']	= 'Маска введення телефону';
-$_['entry_status']		= 'Статус';
-$_['entry_required']	= 'Обов&#39;язково';
+$_['entry_status']		= 'Статус:';
+$_['entry_required']	= 'Обов&#39;язково:';
 $_['entry_button']		= 'Текст кнопки';
 $_['entry_success']		= 'Текст після відправки';
-$_['entry_fields']		= 'Додаткові поля';
+$_['entry_fields']		= 'Додаткові поля:';
 $_['entry_title']		= 'Заголовок';
 $_['entry_checkout']	= 'Підтвердження при оформленні';
 

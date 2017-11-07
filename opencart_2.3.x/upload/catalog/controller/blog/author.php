@@ -166,7 +166,6 @@ class ControllerBlogAuthor extends Controller {
 
 			if ($author_info['image']) {
 				$data['thumb'] = $this->model_tool_image->resize($author_info['image'], 150, 150, 'crop');
-				$this->document->setOgImage($data['thumb']);
 			} else {
 				$data['thumb'] = '';
 			}
@@ -209,7 +208,7 @@ class ControllerBlogAuthor extends Controller {
 					'author'		=> $result['author'],
 					'name'			=> $result['name'],
 					'description'	=> utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
-					'published'		=> date_create($result['date_added']),
+					'published'		=> date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 					'href'			=> $this->url->link('blog/post', 'author_id=' . $result['author_id'] . '&post_id=' . $result['post_id'] . $url)
 				);
 			}

@@ -139,7 +139,7 @@
 											<?php if ($post['author']) { ?>
 											<li><span class="text-bold"><?php echo $text_author; ?></span>&nbsp;<?php echo $post['author']; ?></li>
 											<?php } ?>
-											<li><span class="text-bold"><?php echo $text_published; ?></span>&nbsp;<?php echo date_format($post['published'], 'd.m.Y'); ?></li>
+											<li><span class="text-bold"><?php echo $text_published; ?></span>&nbsp;<?php echo $post['published']; ?></li>
 										</ul>
 									</div>
 								</div>

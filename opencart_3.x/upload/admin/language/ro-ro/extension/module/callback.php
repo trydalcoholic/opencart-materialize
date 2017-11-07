@@ -17,10 +17,10 @@ $_['text_materialize']	= 'Dacă aveți probleme cu activitatea modulului, vă ru
 
 // Entry
 $_['entry_phonemask']	= 'Masca de introducere a telefonului';
-$_['entry_status']		= 'Starea';
-$_['entry_required']	= 'Necesar';
+$_['entry_status']		= 'Starea:';
+$_['entry_required']	= 'Necesar:';
 $_['entry_success']		= 'Text după trimitere';
-$_['entry_fields']		= 'Câmpuri suplimentare';
+$_['entry_fields']		= 'Câmpuri suplimentare:';
 $_['entry_title']		= 'Titlu';
 $_['entry_description']	= 'Descriere';
 $_['entry_time']		= 'Timpul până la apariție';

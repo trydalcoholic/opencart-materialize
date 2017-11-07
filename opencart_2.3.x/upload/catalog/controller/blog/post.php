@@ -343,15 +343,13 @@ class ControllerBlogPost extends Controller {
 					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get($this->config->get('config_theme') . '_image_related_width'), $this->config->get($this->config->get('config_theme') . '_image_related_height'));
 				}
 
-				$mainCategory = $this->model_blog_post->getPostMainCategory($result['post_id']);
-
 				$data['posts'][] = array(
 					'post_id'		=> $result['post_id'],
 					'thumb'			=> $image,
 					'name'			=> $result['name'],
 					'author'		=> $result['author'],
 					'description'	=> utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 150) . '..',
-					'href'			=> $this->url->link('blog/post', 'blog_path=' . $mainCategory . 'post_id=' . $result['post_id'])
+					'href'			=> $this->url->link('blog/post', 'post_id=' . $result['post_id'])
 				);
 			}
 

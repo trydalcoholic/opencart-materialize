@@ -17,11 +17,11 @@ $_['text_materialize']	= 'If you have problems with the work of the module, plea
 
 // Entry
 $_['entry_phonemask']	= 'Phone input mask';
-$_['entry_status']		= 'Status';
-$_['entry_required']	= 'Required';
+$_['entry_status']		= 'Status:';
+$_['entry_required']	= 'Required:';
 $_['entry_button']		= 'Button text';
 $_['entry_success']		= 'Text after sending';
-$_['entry_fields']		= 'Additional fields';
+$_['entry_fields']		= 'Additional fields:';
 $_['entry_title']		= 'Title';
 $_['entry_checkout']	= 'Confirmation for registration';
 

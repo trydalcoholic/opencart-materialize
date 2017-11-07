@@ -41,19 +41,19 @@
 {% endif %}
 <main>
 	<div class="container">
-		<nav class="breadcrumb-wrapper transparent z-depth-0">
-			<div class="nav-wrapper">
-			{% for key, breadcrumb in breadcrumbs %}
-				{% if key < breadcrumbs|length - 1 %}
-					{% if key == 0 %}
-					<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
 					{% else %}
-					<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
 					{% endif %}
-				{% else %}
-				<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
-				{% endif %}
-			{% endfor %}
+				{% endfor %}
 			</div>
 		</nav>
 		<h1>{{ heading_title }}</h1>
