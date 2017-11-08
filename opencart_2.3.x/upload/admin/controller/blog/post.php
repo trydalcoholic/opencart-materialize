@@ -488,6 +488,7 @@ class ControllerBlogPost extends Controller {
 		$data['text_select'] = $this->language->get('text_select');
 		$data['text_select_all'] = $this->language->get('text_select_all');
 		$data['text_unselect_all'] = $this->language->get('text_unselect_all');
+		$data['text_materialize'] = $this->language->get('text_materialize');
 
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_description'] = $this->language->get('entry_description');
