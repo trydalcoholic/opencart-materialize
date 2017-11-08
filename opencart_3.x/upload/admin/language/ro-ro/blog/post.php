@@ -41,11 +41,7 @@ $_['entry_layout']				= 'Layout Suprascrie:';
 
 // Help
 $_['help_keyword']				= 'Nu utilizați spații, înlocuiți locurile cu - și asigurați-vă că URL-ul SEO este global unic.';
-$_['help_author']				= '(Completare automată)';
-$_['help_category']				= '(Completare automată)';
-$_['help_related']				= '(Completare automată)';
-$_['help_related_product']		= '(Completare automată)';
-$_['help_authors']				= '(Completare automată)';
+$_['help_autofill']				= '(Completare automată)';
 $_['help_tag']					= 'Separate prin virgulă';
 
 // Error

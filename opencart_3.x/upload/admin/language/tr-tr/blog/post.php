@@ -41,11 +41,7 @@ $_['entry_layout']				= 'Yerleşim Geçersiz Kılma:';
 
 // Help
 $_['help_keyword']				= 'Boşluk kullanmayın, boşluk yerine - ile değiştirin ve SEO URL nin küresel olarak benzersiz olduğundan emin olun.';
-$_['help_author']				= '(OtoTamamla)';
-$_['help_category']				= '(OtoTamamla)';
-$_['help_related']				= '(OtoTamamla)';
-$_['help_related_product']		= '(OtoTamamla)';
-$_['help_authors']				= '(OtoTamamla)';
+$_['help_autofill']				= '(OtoTamamla)';
 $_['help_tag']					= 'Virgülle ayırın';
 
 // Error
