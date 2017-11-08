@@ -19,14 +19,14 @@
 			<div class="input-field col s12">
 				<i class="material-icons prefix">chat</i>
 				<textarea id="callback-enquiry" name="module_callback_enquiry" class="materialize-textarea" data-length="360" {{ module_callback_enquiry_required ? 'required' : '' }}></textarea>
-				<label for="callback-enquiry" {{ module_callback_enquiry_required ? 'required' : '' }}>{{ entry_enquiry }}</label>
+				<label for="callback-enquiry" {{ module_callback_enquiry_required ? 'class="required"' : '' }}>{{ entry_enquiry }}</label>
 			</div>
 			{% endif %}
 			{% if module_callback_calltime %}
 			<div class="input-field col s12">
 				<i class="material-icons prefix">av_timer</i>
 				<input type="text" id="callback-calltime" class="timepicker-{{ lang }}" name="module_callback_calltime" value="">
-				<label for="callback-calltime" {{ module_callback_calltime_required ? 'required' : '' }}>{{ entry_calltime }}</label>
+				<label for="callback-calltime" {{ module_callback_calltime_required ? 'class="required"' : '' }}>{{ entry_calltime }}</label>
 			</div>
 			{% endif %}
 		</div>
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					$('input[name=\'module_callback_name\']').val('').blur();
 					{% endif %}
 					{% if module_callback_enquiry %}
-					$('input[name=\'module_callback_enquiry\']').val('').blur();
+					$('textarea[name=\'module_callback_enquiry\']').val('').blur();
 					{% endif %}
 					{% if module_callback_calltime %}
 					$('input[name=\'module_callback_calltime\']').val('').blur();

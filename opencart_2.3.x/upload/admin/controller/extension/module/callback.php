@@ -10,7 +10,7 @@ class ControllerExtensionModuleCallback extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('callback', $this->request->post);
+			$this->model_setting_setting->editSetting('module_callback', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -43,6 +43,8 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['help_modaltitle'] = $this->language->get('help_modaltitle');
 		$data['help_time'] = $this->language->get('help_time');
 
+		$data['error_time'] = $this->language->get('error_time');
+
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
 
@@ -52,10 +54,10 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		if (isset($this->error['error_callback_time'])) {
-			$data['error_callback_time'] = $this->error['error_callback_time'];
+		if (isset($this->error['error_module_callback_time'])) {
+			$data['error_module_callback_time'] = $this->error['error_module_callback_time'];
 		} else {
-			$data['error_callback_time'] = '';
+			$data['error_module_callback_time'] = '';
 		}
 
 		$data['breadcrumbs'] = array();
@@ -83,74 +85,78 @@ class ControllerExtensionModuleCallback extends Controller {
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
-		$languages = $this->model_localisation_language->getLanguages();
+		$module_callback = array();
 
-		foreach ($languages as $language) {
-			if (isset($this->request->post['callback_modaltitle' . $language['language_id']])) {
-				$data['callback_modaltitle' . $language['language_id']] = $this->request->post['callback_modaltitle' . $language['language_id']];
-				$data['callback_success' . $language['language_id']] = $this->request->post['callback_success' . $language['language_id']];
-				$data['callback_title' . $language['language_id']] = $this->request->post['callback_title' . $language['language_id']];
-				$data['callback_description' . $language['language_id']] = $this->request->post['callback_description' . $language['language_id']];
-			} else {
-				$data['callback_modaltitle' . $language['language_id']] = $this->config->get('callback_modaltitle' . $language['language_id']);
-				$data['callback_success' . $language['language_id']] = $this->config->get('callback_success' . $language['language_id']);
-				$data['callback_title' . $language['language_id']] = $this->config->get('callback_title' . $language['language_id']);
-				$data['callback_description' . $language['language_id']] = $this->config->get('callback_description' . $language['language_id']);
-			}
+		foreach ($data['languages'] as $key => $language) {
+			$module_callback[$language['language_id']][] = $this->language->get('module_callback');
 		}
 
-		if (isset($this->request->post['callback_name'])) {
-			$data['callback_name'] = $this->request->post['callback_name'];
+		if (isset($this->request->post['module_callback'])) {
+			$data['module_callback'] = $this->request->post['module_callback'];
+		} elseif (!empty($this->config->get('module_callback'))) {
+			$data['module_callback'] = $this->config->get('module_callback');
 		} else {
-			$data['callback_name'] = $this->config->get('callback_name');
+			$data['module_callback'] = $module_callback;
 		}
 
-		if (isset($this->request->post['callback_name_required'])) {
-			$data['callback_name_required'] = $this->request->post['callback_name_required'];
+		if (isset($this->request->post['module_callback_name'])) {
+			$data['module_callback_name'] = $this->request->post['module_callback_name'];
 		} else {
-			$data['callback_name_required'] = $this->config->get('callback_name_required');
+			$data['module_callback_name'] = $this->config->get('module_callback_name');
 		}
 
-		if (isset($this->request->post['callback_enquiry'])) {
-			$data['callback_enquiry'] = $this->request->post['callback_enquiry'];
+		if (isset($this->request->post['module_callback_name_required'])) {
+			$data['module_callback_name_required'] = $this->request->post['module_callback_name_required'];
 		} else {
-			$data['callback_enquiry'] = $this->config->get('callback_enquiry');
+			$data['module_callback_name_required'] = $this->config->get('module_callback_name_required');
 		}
 
-		if (isset($this->request->post['callback_enquiry_required'])) {
-			$data['callback_enquiry_required'] = $this->request->post['callback_enquiry_required'];
+		if (isset($this->request->post['module_callback_enquiry'])) {
+			$data['module_callback_enquiry'] = $this->request->post['module_callback_enquiry'];
 		} else {
-			$data['callback_enquiry_required'] = $this->config->get('callback_enquiry_required');
+			$data['module_callback_enquiry'] = $this->config->get('module_callback_enquiry');
 		}
 
-		if (isset($this->request->post['callback_calltime'])) {
-			$data['callback_calltime'] = $this->request->post['callback_calltime'];
+		if (isset($this->request->post['module_callback_enquiry_required'])) {
+			$data['module_callback_enquiry_required'] = $this->request->post['module_callback_enquiry_required'];
 		} else {
-			$data['callback_calltime'] = $this->config->get('callback_calltime');
+			$data['module_callback_enquiry_required'] = $this->config->get('module_callback_enquiry_required');
 		}
 
-		if (isset($this->request->post['callback_calltime_required'])) {
-			$data['callback_calltime_required'] = $this->request->post['callback_calltime_required'];
+		if (isset($this->request->post['module_callback_calltime'])) {
+			$data['module_callback_calltime'] = $this->request->post['module_callback_calltime'];
 		} else {
-			$data['callback_calltime_required'] = $this->config->get('callback_calltime_required');
+			$data['module_callback_calltime'] = $this->config->get('module_callback_calltime');
 		}
 
-		if (isset($this->request->post['callback_time'])) {
-			$data['callback_time'] = $this->request->post['callback_time'];
+		if (isset($this->request->post['module_callback_calltime_required'])) {
+			$data['module_callback_calltime_required'] = $this->request->post['module_callback_calltime_required'];
 		} else {
-			$data['callback_time'] = $this->config->get('callback_time');
+			$data['module_callback_calltime_required'] = $this->config->get('module_callback_calltime_required');
 		}
 
-		if (isset($this->request->post['callback_status'])) {
-			$data['callback_status'] = $this->request->post['callback_status'];
+		if (isset($this->request->post['module_callback_time'])) {
+			$data['module_callback_time'] = $this->request->post['module_callback_time'];
 		} else {
-			$data['callback_status'] = $this->config->get('callback_status');
+			$data['module_callback_time'] = $this->config->get('module_callback_time');
 		}
 
-		if (isset($this->request->post['callback_phonemask'])) {
-			$data['callback_phonemask'] = $this->request->post['callback_phonemask'];
+		if (isset($this->request->post['module_callback_callaction_status'])) {
+			$data['module_callback_callaction_status'] = $this->request->post['module_callback_callaction_status'];
 		} else {
-			$data['callback_phonemask'] = $this->config->get('callback_phonemask');
+			$data['module_callback_callaction_status'] = $this->config->get('module_callback_callaction_status');
+		}
+
+		if (isset($this->request->post['module_callback_phonemask_status'])) {
+			$data['module_callback_phonemask_status'] = $this->request->post['module_callback_phonemask_status'];
+		} else {
+			$data['module_callback_phonemask_status'] = $this->config->get('module_callback_phonemask_status');
+		}
+
+		if (isset($this->request->post['module_callback_status'])) {
+			$data['module_callback_status'] = $this->request->post['module_callback_status'];
+		} else {
+			$data['module_callback_status'] = $this->config->get('module_callback_status');
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -165,8 +171,8 @@ class ControllerExtensionModuleCallback extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if ((utf8_strlen($this->request->post['callback_time']) < 1) || ($this->request->post['callback_time'] < 1)) {
-			$this->error['error_callback_time'] = $this->language->get('error_time');
+		if ($this->request->post['module_callback_callaction_status'] && ((utf8_strlen($this->request->post['module_callback_time']) < 1) || ($this->request->post['module_callback_time'] < 1))) {
+			$this->error['error_module_callback_time'] = $this->language->get('error_time');
 		}
 
 		return !$this->error;

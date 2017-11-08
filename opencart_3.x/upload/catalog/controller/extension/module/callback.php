@@ -75,8 +75,6 @@ class ControllerExtensionModuleCallback extends Controller {
 	public function send() {
 		$this->load->language('extension/module/callback');
 
-		$language = $this->config->get('config_language_id');
-
 		$module_callback = $this->config->get('module_callback');
 
 		$json = array();

@@ -140,7 +140,7 @@ class ControllerExtensionModuleCallback extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if ((utf8_strlen($this->request->post['module_callback_time']) < 1) || ($this->request->post['module_callback_time'] < 1)) {
+		if ($this->request->post['module_callback_callaction_status'] && ((utf8_strlen($this->request->post['module_callback_time']) < 1) || ($this->request->post['module_callback_time'] < 1))) {
 			$this->error['error_module_callback_time'] = $this->language->get('error_time');
 		}
 
