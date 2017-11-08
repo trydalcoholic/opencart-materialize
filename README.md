@@ -1,4 +1,4 @@
-# Materialize template for OpenCart 2.3.x
+# Materialize template for OpenCart 2.3.x and OpenCart 3.x
 ![OpenCart Materialize Logo](https://materialize.myefforts.ru/image/OpenCart-Materialize-logo.jpg)
 Most of the topics for OpenCart (OCStore) used Bootstrap as the main framework.
 In this theme used the same [Materialize](https://github.com/Dogfalo/materialize) CSS framework.
