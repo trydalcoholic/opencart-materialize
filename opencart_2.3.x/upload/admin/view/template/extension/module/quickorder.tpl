@@ -20,16 +20,16 @@
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		</div>
 		<?php } ?>
+		<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;<?php echo $text_materialize; ?></div>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3></div>
 			<div class="panel-body">
-				<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;<?php echo $text_materialize; ?></div>
 				<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-quickorder" class="form-horizontal">
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="input-action-status"><?php echo $entry_status; ?></label>
+						<label class="col-sm-2 control-label" for="input-action-status"><?php echo $entry_status; ?>:</label>
 						<div class="col-sm-10">
-							<select name="quickorder_status" id="input-action-status" class="form-control">
-								<?php if ($quickorder_status) { ?>
+							<select name="module_quickorder_status" id="input-action-status" class="form-control">
+								<?php if ($module_quickorder_status) { ?>
 								<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
 								<option value="0"><?php echo $text_disabled; ?></option>
 								<?php } else { ?>
@@ -41,158 +41,164 @@
 					</div>
 					<fieldset>
 						<legend><?php echo $text_popup; ?></legend>
-						<table class="table table-striped table-bordered table-hover">
-							<thead>
-								<tr>
-									<td class="text-left" style="width: 70%;"><?php echo $entry_fields; ?></td>
-									<td class="text-center" style="width: 15%;"><?php echo $entry_status; ?></td>
-									<td class="text-center" style="width: 15%;"><?php echo $entry_required; ?></td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-left"><?php echo $text_name; ?></td>
-									<td class="text-center">
-										<div class="checkbox">
-											<label>
-												<?php if ($quickorder_name) { ?>
-												<input type="checkbox" name="quickorder_name" id="quickorder-name" class="quickorder-checkbox" value="1" checked="checked" />
-												<?php } else { ?>
-												<input type="checkbox" name="quickorder_name" id="quickorder-name" class="quickorder-checkbox" value="1" />
-												<?php } ?>
-											</label>
-										</div>
-									</td>
-									<td class="text-center">
-										<div class="checkbox">
-											<label>
-												<?php if ($quickorder_name_required) { ?>
-												<input type="checkbox" name="quickorder_name_required" id="quickorder-name-required" class="quickorder-checkbox" value="1" checked="checked" />
-												<?php } else { ?>
-												<input type="checkbox" name="quickorder_name_required" id="quickorder-name-required" class="quickorder-checkbox" value="1" />
-												<?php } ?>
-											</label>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-left"><?php echo $text_email; ?></td>
-									<td class="text-center">
-										<div class="checkbox">
-											<label>
-												<?php if ($quickorder_email) { ?>
-												<input type="checkbox" name="quickorder_email" id="quickorder-email" class="quickorder-checkbox" value="1" checked="checked" />
-												<?php } else { ?>
-												<input type="checkbox" name="quickorder_email" id="quickorder-email" class="quickorder-checkbox" value="1" />
-												<?php } ?>
-											</label>
-										</div>
-									</td>
-									<td class="text-center">
-										<div class="checkbox">
-											<label>
-												<?php if ($quickorder_email_required) { ?>
-												<input type="checkbox" name="quickorder_email_required" id="quickorder-email-required" class="quickorder-checkbox" value="1" checked="checked" />
-												<?php } else { ?>
-												<input type="checkbox" name="quickorder_email_required" id="quickorder-email-required" class="quickorder-checkbox" value="1" />
-												<?php } ?>
-											</label>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-left"><?php echo $text_enquiry; ?></td>
-									<td class="text-center">
-										<div class="checkbox">
-											<label>
-												<?php if ($quickorder_enquiry) { ?>
-												<input type="checkbox" name="quickorder_enquiry" id="quickorder-enquiry" class="quickorder-checkbox" value="1" checked="checked" />
-												<?php } else { ?>
-												<input type="checkbox" name="quickorder_enquiry" id="quickorder-enquiry" class="quickorder-checkbox" value="1" />
-												<?php } ?>
-											</label>
-										</div>
-									</td>
-									<td class="text-center">
-										<div class="checkbox">
-											<label>
-												<?php if ($quickorder_enquiry_required) { ?>
-												<input type="checkbox" name="quickorder_enquiry_required" id="quickorder-enquiry-required" class="quickorder-checkbox" value="1" checked="checked" />
-												<?php } else { ?>
-												<input type="checkbox" name="quickorder_enquiry_required" id="quickorder-enquiry-required" class="quickorder-checkbox" value="1" />
-												<?php } ?>
-											</label>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="text-left"><?php echo $text_call_time; ?></td>
-									<td class="text-center">
-										<div class="checkbox">
-											<label>
-												<?php if ($quickorder_calltime) { ?>
-												<input type="checkbox" name="quickorder_calltime" id="quickorder-calltime" class="quickorder-checkbox" value="1" checked="checked" />
-												<?php } else { ?>
-												<input type="checkbox" name="quickorder_calltime" id="quickorder-calltime" class="quickorder-checkbox" value="1" />
-												<?php } ?>
-											</label>
-										</div>
-									</td>
-									<td class="text-center">
-										<div class="checkbox">
-											<label>
-												<?php if ($quickorder_calltime_required) { ?>
-												<input type="checkbox" name="quickorder_calltime_required" id="quickorder-calltime-required" class="quickorder-checkbox" value="1" checked="checked" />
-												<?php } else { ?>
-												<input type="checkbox" name="quickorder_calltime_required" id="quickorder-calltime-required" class="quickorder-checkbox" value="1" />
-												<?php } ?>
-											</label>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</fieldset>
-					<br>
-					<div class="tab-pane">
-						<ul class="nav nav-tabs" id="language">
-							<?php foreach ($languages as $language) { ?>
-							<li><a href="#language<?php echo $language['language_id']; ?>" data-toggle="tab"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>" /> <?php echo $language['name']; ?></a></li>
-							<?php } ?>
-						</ul>
-						<div class="tab-content">
-							<?php foreach ($languages as $language) { ?>
-							<div class="tab-pane" id="language<?php echo $language['language_id']; ?>">
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="quickorder_modaltitle<?php echo $language['language_id']; ?>"><span data-toggle="tooltip" title="<?php echo $help_modaltitle; ?>"><?php echo $entry_title; ?>:</span></label>
-									<div class="col-sm-10">
-										<input type="text" name="quickorder_modaltitle<?php echo $language['language_id']; ?>" placeholder="<?php echo $help_modaltitle; ?>" id="quickorder_modaltitle<?php echo $language['language_id']; ?>" value="<?php echo isset(${'quickorder_modaltitle' . $language['language_id']}) ? ${'quickorder_modaltitle' . $language['language_id']} : ''; ?>" class="form-control" />
-									</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_modaltitle; ?>"><?php echo $entry_title; ?>:</span></label>
+							<div class="col-sm-10">
+								<?php foreach ($languages as $language) { ?>
+								<div class="input-group">
+									<span class="input-group-addon"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>"/></span>
+									<input type="text" name="module_quickorder[<?php echo $language['language_id']; ?>][title]" value="<?php echo isset($module_quickorder[$language['language_id']]) ? $module_quickorder[$language['language_id']]['title'] : ''; ?>" placeholder="<?php echo $help_modaltitle; ?>" class="form-control" />
 								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="quickorder_button<?php echo $language['language_id']; ?>"><?php echo $entry_button; ?>:</label>
-									<div class="col-sm-10">
-										<input type="text" name="quickorder_button<?php echo $language['language_id']; ?>" placeholder="<?php echo $entry_button; ?>" id="quickorder_button<?php echo $language['language_id']; ?>" value="<?php echo isset(${'quickorder_button' . $language['language_id']}) ? ${'quickorder_button' . $language['language_id']} : ''; ?>" class="form-control" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="quickorder_success<?php echo $language['language_id']; ?>"><?php echo $entry_success; ?>:</label>
-									<div class="col-sm-10">
-										<input type="text" name="quickorder_success<?php echo $language['language_id']; ?>" placeholder="<?php echo $entry_success; ?>" id="quickorder_success<?php echo $language['language_id']; ?>" value="<?php echo isset(${'quickorder_success' . $language['language_id']}) ? ${'quickorder_success' . $language['language_id']} : ''; ?>" class="form-control" />
-									</div>
-								</div>
+								<?php } ?>
 							</div>
-							<?php } ?>
 						</div>
-					</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"><?php echo $entry_success; ?>:</label>
+							<div class="col-sm-10">
+								<?php foreach ($languages as $language) { ?>
+								<div class="input-group">
+									<span class="input-group-addon"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>"/></span>
+									<input type="text" name="module_quickorder[<?php echo $language['language_id']; ?>][success]" value="<?php echo isset($module_quickorder[$language['language_id']]) ? $module_quickorder[$language['language_id']]['success'] : ''; ?>" placeholder="<?php echo $entry_success; ?>" class="form-control" />
+								</div>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"><?php echo $entry_button; ?>:</label>
+							<div class="col-sm-10">
+								<?php foreach ($languages as $language) { ?>
+								<div class="input-group">
+									<span class="input-group-addon"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>"/></span>
+									<input type="text" name="module_quickorder[<?php echo $language['language_id']; ?>][button]" value="<?php echo isset($module_quickorder[$language['language_id']]) ? $module_quickorder[$language['language_id']]['button'] : ''; ?>" placeholder="<?php echo $entry_button; ?>" class="form-control" />
+								</div>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"><?php echo $entry_fields; ?>:</label>
+							<div class="col-sm-10">
+								<table class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<td class="text-left" style="width: 70%;"><?php echo $entry_fields; ?></td>
+											<td class="text-center" style="width: 15%;"><?php echo $entry_status; ?></td>
+											<td class="text-center" style="width: 15%;"><?php echo $entry_required; ?></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-left"><?php echo $text_name; ?></td>
+											<td class="text-center">
+												<div class="checkbox">
+													<label>
+														<?php if ($module_quickorder_name) { ?>
+														<input type="checkbox" name="module_quickorder_name" id="quickorder-name" class="quickorder-checkbox" value="1" checked="checked" />
+														<?php } else { ?>
+														<input type="checkbox" name="module_quickorder_name" id="quickorder-name" class="quickorder-checkbox" value="1" />
+														<?php } ?>
+													</label>
+												</div>
+											</td>
+											<td class="text-center">
+												<div class="checkbox">
+													<label>
+														<?php if ($module_quickorder_name_required) { ?>
+														<input type="checkbox" name="module_quickorder_name_required" id="quickorder-name-required" class="quickorder-checkbox" value="1" checked="checked" />
+														<?php } else { ?>
+														<input type="checkbox" name="module_quickorder_name_required" id="quickorder-name-required" class="quickorder-checkbox" value="1" />
+														<?php } ?>
+													</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-left"><?php echo $text_email; ?></td>
+											<td class="text-center">
+												<div class="checkbox">
+													<label>
+														<?php if ($module_quickorder_email) { ?>
+														<input type="checkbox" name="module_quickorder_email" id="quickorder-email" class="quickorder-checkbox" value="1" checked="checked" />
+														<?php } else { ?>
+														<input type="checkbox" name="module_quickorder_email" id="quickorder-email" class="quickorder-checkbox" value="1" />
+														<?php } ?>
+													</label>
+												</div>
+											</td>
+											<td class="text-center">
+												<div class="checkbox">
+													<label>
+														<?php if ($module_quickorder_email_required) { ?>
+														<input type="checkbox" name="module_quickorder_email_required" id="quickorder-email-required" class="quickorder-checkbox" value="1" checked="checked" />
+														<?php } else { ?>
+														<input type="checkbox" name="module_quickorder_email_required" id="quickorder-email-required" class="quickorder-checkbox" value="1" />
+														<?php } ?>
+													</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-left"><?php echo $text_enquiry; ?></td>
+											<td class="text-center">
+												<div class="checkbox">
+													<label>
+														<?php if ($module_quickorder_enquiry) { ?>
+														<input type="checkbox" name="module_quickorder_enquiry" id="quickorder-enquiry" class="quickorder-checkbox" value="1" checked="checked" />
+														<?php } else { ?>
+														<input type="checkbox" name="module_quickorder_enquiry" id="quickorder-enquiry" class="quickorder-checkbox" value="1" />
+														<?php } ?>
+													</label>
+												</div>
+											</td>
+											<td class="text-center">
+												<div class="checkbox">
+													<label>
+														<?php if ($module_quickorder_enquiry_required) { ?>
+														<input type="checkbox" name="module_quickorder_enquiry_required" id="quickorder-enquiry-required" class="quickorder-checkbox" value="1" checked="checked" />
+														<?php } else { ?>
+														<input type="checkbox" name="module_quickorder_enquiry_required" id="quickorder-enquiry-required" class="quickorder-checkbox" value="1" />
+														<?php } ?>
+													</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-left"><?php echo $text_call_time; ?></td>
+											<td class="text-center">
+												<div class="checkbox">
+													<label>
+														<?php if ($module_quickorder_calltime) { ?>
+														<input type="checkbox" name="module_quickorder_calltime" id="quickorder-calltime" class="quickorder-checkbox" value="1" checked="checked" />
+														<?php } else { ?>
+														<input type="checkbox" name="module_quickorder_calltime" id="quickorder-calltime" class="quickorder-checkbox" value="1" />
+														<?php } ?>
+													</label>
+												</div>
+											</td>
+											<td class="text-center">
+												<div class="checkbox">
+													<label>
+														<?php if ($module_quickorder_calltime_required) { ?>
+														<input type="checkbox" name="module_quickorder_calltime_required" id="quickorder-calltime-required" class="quickorder-checkbox" value="1" checked="checked" />
+														<?php } else { ?>
+														<input type="checkbox" name="module_quickorder_calltime_required" id="quickorder-calltime-required" class="quickorder-checkbox" value="1" />
+														<?php } ?>
+													</label>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</fieldset>
 					<br>
 					<fieldset>
 						<legend><?php echo $text_settings; ?></legend>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input-phonemask-status"><?php echo $entry_phonemask; ?></label>
+							<label class="col-sm-2 control-label" for="input-phonemask-status"><?php echo $entry_phonemask; ?>:</label>
 							<div class="col-sm-10">
-								<select name="quickorder_phonemask" id="input-phonemask-status" class="form-control">
-									<?php if ($quickorder_phonemask) { ?>
+								<select name="module_quickorder_phonemask_status" id="input-phonemask-status" class="form-control">
+									<?php if ($module_quickorder_phonemask_status) { ?>
 									<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
 									<option value="0"><?php echo $text_disabled; ?></option>
 									<?php } else { ?>
@@ -203,12 +209,12 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="quickorder-agreement"><span data-toggle="tooltip" title="<?php echo $help_checkout; ?>"><?php echo $entry_checkout; ?></span></label>
+							<label class="col-sm-2 control-label" for="quickorder-agreement"><span data-toggle="tooltip" title="<?php echo $help_checkout; ?>"><?php echo $entry_checkout; ?>:</span></label>
 							<div class="col-sm-10">
-								<select name="quickorder_agreement" id="quickorder-agreement" class="form-control">
+								<select name="module_quickorder_agreement" id="quickorder-agreement" class="form-control">
 									<option value="0"><?php echo $text_none; ?></option>
 									<?php foreach ($informations as $information) { ?>
-									<?php if ($information['information_id'] == $quickorder_agreement) { ?>
+									<?php if ($information['information_id'] == $module_quickorder_agreement) { ?>
 									<option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
 									<?php } else { ?>
 									<option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>

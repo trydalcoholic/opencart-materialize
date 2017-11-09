@@ -1,50 +1,50 @@
-<?php if ($quickorder_status) { ?>
+<?php if ($module_quickorder_status) { ?>
 <form id="quickorder__modal" class="modal white">
 	<div class="modal-content">
 		<i class="material-icons modal-action modal-close waves-effect waves-circle close-icon">close</i>
-		<h4><?php echo $quickorder_modaltitle; ?> — <?php echo $product_title; ?></h4>
+		<h4><?php echo $module_quickorder_title; ?> — <?php echo $product_title; ?></h4>
 		<div class="row">
 			<?php if ($thumb) { ?>
 			<div class="col s12 m6 center">
 				<figure>
-					<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb; ?>" alt="<?php echo $quickorder_modaltitle; ?> — <?php echo $product_title; ?>">
-					<figcaption><?php echo $quickorder_modaltitle; ?> — <?php echo $product_title; ?></figcaption>
+					<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb; ?>" alt="<?php echo $module_quickorder_title; ?> — <?php echo $product_title; ?>">
+					<figcaption><?php echo $module_quickorder_title; ?> — <?php echo $product_title; ?></figcaption>
 				</figure>
 			</div>
 			<?php } ?>
 			<div class="col s12 <?php echo $thumb ? 'm6' : '' ?>">
 				<div class="row">
-					<?php if ($quickorder_name) { ?>
+					<?php if ($module_quickorder_name) { ?>
 					<div class="input-field col s12">
 						<i class="material-icons prefix">account_circle</i>
-						<input id="quickorder-name" name="quickorder_name" type="text" class="validate" <?php echo $quickorder_name_required ? 'required' : ''; ?>>
-						<label for="quickorder-name" <?php echo $quickorder_name_required ? 'class="required"' : ''; ?>><?php echo $entry_name; ?></label>
+						<input id="quickorder-name" name="module_quickorder_name" type="text" class="validate" <?php echo $module_quickorder_name_required ? 'required' : ''; ?>>
+						<label for="quickorder-name" <?php echo $module_quickorder_name_required ? 'class="required"' : ''; ?>><?php echo $entry_name; ?></label>
 					</div>
 					<?php } ?>
 					<div class="input-field col s12">
 						<i class="material-icons prefix">phone</i>
-						<input id="quickorder-telephone" name="quickorder_telephone" type="tel" class="validate" <?php echo $quickorder_phonemask ? 'data-inputmask="\'alias\':\'phone\'"' : ''; ?> required>
+						<input id="quickorder-telephone" name="module_quickorder_telephone" type="tel" class="validate" <?php echo $module_quickorder_phonemask_status ? 'data-inputmask="\'alias\':\'phone\'"' : ''; ?> required>
 						<label for="quickorder-telephone" class="required"><?php echo $entry_telephone; ?></label>
 					</div>
-					<?php if ($quickorder_email) { ?>
+					<?php if ($module_quickorder_email) { ?>
 					<div class="input-field col s12">
 						<i class="material-icons prefix">email</i>
-						<input id="quickorder-email" name="quickorder_email" type="email" class="validate" <?php echo $quickorder_email_required ? 'required' : ''; ?>>
-						<label for="quickorder-email" data-error="<?php echo $text_email_error; ?>" data-success="<?php echo $text_email_success; ?>" <?php echo $quickorder_email_required ? 'class="required"' : ''; ?>><?php echo $entry_email; ?></label>
+						<input id="quickorder-email" name="module_quickorder_email" type="email" class="validate" <?php echo $module_quickorder_email_required ? 'required' : ''; ?>>
+						<label for="quickorder-email" data-error="<?php echo $text_email_error; ?>" data-success="<?php echo $text_email_success; ?>" <?php echo $module_quickorder_email_required ? 'class="required"' : ''; ?>><?php echo $entry_email; ?></label>
 					</div>
 					<?php } ?>
-					<?php if ($quickorder_enquiry) { ?>
+					<?php if ($module_quickorder_enquiry) { ?>
 					<div class="input-field col s12">
 						<i class="material-icons prefix">chat</i>
-						<textarea id="quickorder-enquiry" name="quickorder_enquiry" class="materialize-textarea" data-length="360" <?php echo $quickorder_enquiry_required ? 'required' : ''; ?>></textarea>
-						<label for="quickorder-enquiry" <?php echo $quickorder_enquiry_required ? 'class="required"' : ''; ?>><?php echo $entry_enquiry; ?></label>
+						<textarea id="quickorder-enquiry" name="module_quickorder_enquiry" class="materialize-textarea" data-length="360" <?php echo $module_quickorder_enquiry_required ? 'required' : ''; ?>></textarea>
+						<label for="quickorder-enquiry" <?php echo $module_quickorder_enquiry_required ? 'class="required"' : ''; ?>><?php echo $entry_enquiry; ?></label>
 					</div>
 					<?php } ?>
-					<?php if ($quickorder_calltime) { ?>
+					<?php if ($module_quickorder_calltime) { ?>
 					<div class="input-field col s12">
 						<i class="material-icons prefix">av_timer</i>
-						<input type="text" id="quickorder-calltime" class="timepicker-<?php echo $lang; ?>" name="quickorder_calltime" value="">
-						<label for="quickorder-calltime" <?php echo $quickorder_calltime_required ? 'class="required"' : ''; ?>><?php echo $entry_calltime; ?></label>
+						<input type="text" id="quickorder-calltime" class="timepicker-<?php echo $lang; ?>" name="module_quickorder_calltime" value="">
+						<label for="quickorder-calltime" <?php echo $module_quickorder_calltime_required ? 'class="required"' : ''; ?>><?php echo $entry_calltime; ?></label>
 					</div>
 					<?php } ?>
 				</div>
@@ -70,7 +70,7 @@
 	</div>
 </form>
 <div class="section">
-	<button type="button" data-target="quickorder__modal" id="quickorder__btn" class="btn btn-large waves-effect waves-light blue width-max modal-trigger"><i class="material-icons left">shopping_cart</i><?php echo $quickorder_button; ?></button>
+	<button type="button" data-target="quickorder__modal" id="quickorder__btn" class="btn btn-large waves-effect waves-light blue width-max modal-trigger"><i class="material-icons left">shopping_cart</i><?php echo $module_quickorder_button; ?></button>
 </div>
 <?php } ?>
 <script>
@@ -87,18 +87,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				}
 				if (json['success']) {
 					Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success');
-					$('input[name=\'quickorder_telephone\']').val('').blur();
-					<?php if ($quickorder_name) { ?>
-					$('input[name=\'quickorder_name\']').val('').blur();
+					$('input[name=\'module_quickorder_telephone\']').val('').blur();
+					<?php if ($module_quickorder_name) { ?>
+					$('input[name=\'module_quickorder_name\']').val('').blur();
 					<?php } ?>
-					<?php if ($quickorder_email) { ?>
-					$('input[name=\'quickorder_email\']').val('').blur();
+					<?php if ($module_quickorder_email) { ?>
+					$('input[name=\'module_quickorder_email\']').val('').blur();
 					<?php } ?>
-					<?php if ($quickorder_enquiry) { ?>
-					$('input[name=\'quickorder_enquiry\']').val('').blur();
+					<?php if ($module_quickorder_enquiry) { ?>
+					$('textarea[name=\'module_quickorder_enquiry\']').val('').blur();
+					$('textarea[name=\'module_quickorder_enquiry\']').trigger('autoresize');
 					<?php } ?>
-					<?php if ($quickorder_calltime) { ?>
-					$('input[name=\'quickorder_calltime\']').val('').blur();
+					<?php if ($module_quickorder_calltime) { ?>
+					$('input[name=\'module_quickorder_calltime\']').val('').blur();
 					<?php } ?>
 					$('#quickorder__modal').modal('close');
 				}

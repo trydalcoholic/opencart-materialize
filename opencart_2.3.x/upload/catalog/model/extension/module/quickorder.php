@@ -8,18 +8,18 @@ class ModelExtensionModuleQuickorder extends Model {
 		$message  = $this->language->get('text_waiting') . "\n";
 		$message .= sprintf($this->language->get('text_product'), html_entity_decode($data['quickorder_product_title'], ENT_QUOTES, 'UTF-8')) . "\n";
 		$message .= sprintf($this->language->get('text_link'), html_entity_decode($data['quickorder_product_link'], ENT_QUOTES, 'UTF-8')) . "\n";
-		$message .= sprintf($this->language->get('text_telephone'), html_entity_decode($data['quickorder_telephone'], ENT_QUOTES, 'UTF-8')) . "\n";
-		if ((html_entity_decode($data['quickorder_name'], ENT_QUOTES, 'UTF-8'))) {
-			$message .= sprintf($this->language->get('text_name'), html_entity_decode($data['quickorder_name'], ENT_QUOTES, 'UTF-8')) . "\n";
+		$message .= sprintf($this->language->get('text_telephone'), html_entity_decode($data['module_quickorder_telephone'], ENT_QUOTES, 'UTF-8')) . "\n";
+		if ((html_entity_decode($data['module_quickorder_name'], ENT_QUOTES, 'UTF-8'))) {
+			$message .= sprintf($this->language->get('text_name'), html_entity_decode($data['module_quickorder_name'], ENT_QUOTES, 'UTF-8')) . "\n";
 		}
-		if ((html_entity_decode($data['quickorder_email'], ENT_QUOTES, 'UTF-8'))) {
-			$message .= sprintf($this->language->get('text_email'), html_entity_decode($data['quickorder_email'], ENT_QUOTES, 'UTF-8')) . "\n";
+		if ((html_entity_decode($data['module_quickorder_email'], ENT_QUOTES, 'UTF-8'))) {
+			$message .= sprintf($this->language->get('text_email'), html_entity_decode($data['module_quickorder_email'], ENT_QUOTES, 'UTF-8')) . "\n";
 		}
-		if ((html_entity_decode($data['quickorder_enquiry'], ENT_QUOTES, 'UTF-8'))) {
-			$message .= sprintf($this->language->get('text_enquiry'), html_entity_decode($data['quickorder_enquiry'], ENT_QUOTES, 'UTF-8')) . "\n";
+		if ((html_entity_decode($data['module_quickorder_enquiry'], ENT_QUOTES, 'UTF-8'))) {
+			$message .= sprintf($this->language->get('text_enquiry'), html_entity_decode($data['module_quickorder_enquiry'], ENT_QUOTES, 'UTF-8')) . "\n";
 		}
-		if ((html_entity_decode($data['quickorder_calltime'], ENT_QUOTES, 'UTF-8'))) {
-			$message .= sprintf($this->language->get('text_calltime'), html_entity_decode($data['quickorder_calltime'], ENT_QUOTES, 'UTF-8')) . "\n";
+		if ((html_entity_decode($data['module_quickorder_calltime'], ENT_QUOTES, 'UTF-8'))) {
+			$message .= sprintf($this->language->get('text_calltime'), html_entity_decode($data['module_quickorder_calltime'], ENT_QUOTES, 'UTF-8')) . "\n";
 		}
 
 		$mail = new Mail();

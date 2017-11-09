@@ -3,16 +3,7 @@ class ControllerExtensionModuleQuickorder extends Controller {
 	public function index() {
 		$this->load->language('extension/module/quickorder');
 
-		$data['lang'] = $this->language->get('code');
-
-		$language = $this->config->get('config_language_id');
-
 		$data['button_submit'] = $this->language->get('button_submit');
-
-		$data['attract_title'] = $this->config->get('quickorder_title' . $language);
-		$data['attract_description'] = $this->config->get('quickorder_description' . $language);
-
-		$data['quickorder_time'] = $this->config->get('quickorder_time');
 
 		$data['entry_email'] = $this->language->get('entry_email');
 		$data['entry_name'] = $this->language->get('entry_name');
@@ -28,73 +19,77 @@ class ControllerExtensionModuleQuickorder extends Controller {
 		$data['error_calltime'] = $this->language->get('error_calltime');
 
 		$data['text_email_error'] = $this->language->get('text_email_error');
-		$data['text_email_success'] = $this->language->get('text_email_success');		
+		$data['text_email_success'] = $this->language->get('text_email_success');
 
-		$data['quickorder_modaltitle'] = $this->config->get('quickorder_modaltitle' . $language);
-		$data['quickorder_button'] = $this->config->get('quickorder_button' . $language);
+		$data['lang'] = $this->language->get('code');
 
-		if ($this->config->get('quickorder_name') == 1) {
-			$data['quickorder_name'] = $this->config->get('quickorder_name');
+		$module_quickorder = $this->config->get('module_quickorder');
 
-			if ($this->config->get('quickorder_name_required') == 1) {
-				$data['quickorder_name_required'] = $this->config->get('quickorder_name_required');
+		$data['module_quickorder_title'] = $module_quickorder[$this->config->get('config_language_id')]['title'];
+		$data['module_quickorder_button'] = $module_quickorder[$this->config->get('config_language_id')]['button'];
+
+		if ($this->config->get('module_quickorder_name') == 1) {
+			$data['module_quickorder_name'] = $this->config->get('module_quickorder_name');
+
+			if ($this->config->get('module_quickorder_name_required') == 1) {
+				$data['module_quickorder_name_required'] = $this->config->get('module_quickorder_name_required');
 			} else {
-				$data['quickorder_name_required'] = '';
+				$data['module_quickorder_name_required'] = '';
 			}
 		} else {
-			$data['quickorder_name'] = '';
-			$data['quickorder_name_required'] = '';
+			$data['module_quickorder_name'] = '';
+			$data['module_quickorder_name_required'] = '';
 		}
 
-		if ($this->config->get('quickorder_email') == 1) {
-			$data['quickorder_email'] = $this->config->get('quickorder_email');
+		if ($this->config->get('module_quickorder_email') == 1) {
+			$data['module_quickorder_email'] = $this->config->get('module_quickorder_email');
 
-			if ($this->config->get('quickorder_email_required') == 1) {
-				$data['quickorder_email_required'] = $this->config->get('quickorder_email_required');
+			if ($this->config->get('module_quickorder_email_required') == 1) {
+				$data['module_quickorder_email_required'] = $this->config->get('module_quickorder_email_required');
 			} else {
-				$data['quickorder_email_required'] = '';
+				$data['module_quickorder_email_required'] = '';
 			}
 		} else {
-			$data['quickorder_email'] = '';
-			$data['quickorder_email_required'] = '';
+			$data['module_quickorder_email'] = '';
+			$data['module_quickorder_email_required'] = '';
 		}
 
-		if ($this->config->get('quickorder_enquiry') == 1) {
-			$data['quickorder_enquiry'] = $this->config->get('quickorder_enquiry');
+		if ($this->config->get('module_quickorder_enquiry') == 1) {
+			$data['module_quickorder_enquiry'] = $this->config->get('module_quickorder_enquiry');
 
-			if ($this->config->get('quickorder_enquiry_required') == 1) {
-				$data['quickorder_enquiry_required'] = $this->config->get('quickorder_enquiry_required');
+			if ($this->config->get('module_quickorder_enquiry_required') == 1) {
+				$data['module_quickorder_enquiry_required'] = $this->config->get('module_quickorder_enquiry_required');
 			} else {
-				$data['quickorder_enquiry_required'] = '';
+				$data['module_quickorder_enquiry_required'] = '';
 			}
 		} else {
-			$data['quickorder_enquiry'] = '';
-			$data['quickorder_enquiry_required'] = '';
+			$data['module_quickorder_enquiry'] = '';
+			$data['module_quickorder_enquiry_required'] = '';
 		}
 
-		if ($this->config->get('quickorder_calltime') == 1) {
-			$data['quickorder_calltime'] = $this->config->get('quickorder_calltime');
+		if ($this->config->get('module_quickorder_calltime') == 1) {
+			$data['module_quickorder_calltime'] = $this->config->get('module_quickorder_calltime');
 
-			if ($this->config->get('quickorder_calltime_required') == 1) {
-				$data['quickorder_calltime_required'] = $this->config->get('quickorder_calltime_required');
+			if ($this->config->get('module_quickorder_calltime_required') == 1) {
+				$data['module_quickorder_calltime_required'] = $this->config->get('module_quickorder_calltime_required');
 			} else {
-				$data['quickorder_calltime_required'] = '';
+				$data['module_quickorder_calltime_required'] = '';
 			}
 		} else {
-			$data['quickorder_calltime'] = '';
-			$data['quickorder_calltime_required'] = '';
+			$data['module_quickorder_calltime'] = '';
+			$data['module_quickorder_calltime_required'] = '';
 		}
 
-		if ($this->config->get('quickorder_status') == 1) {
-			$data['quickorder_status'] = $this->config->get('quickorder_status');
+		if ($this->config->get('module_quickorder_phonemask_status') == 1) {
+			$data['module_quickorder_phonemask_status'] = $this->config->get('module_quickorder_phonemask_status');
 		} else {
-			$data['quickorder_status'] = '';
+			$data['module_quickorder_phonemask_status'] = '';
 		}
 
-		if ($this->config->get('quickorder_phonemask') == 1) {
-			$data['quickorder_phonemask'] = $this->config->get('quickorder_phonemask');
+		if (isset($this->request->post['agree'])) {
+			$data['agree'] = $this->request->post['agree'];
 		} else {
-			$data['quickorder_phonemask'] = '';
+			$data['agree'] = false;
 		}
 
 		if (isset($this->request->get['product_id'])) {
@@ -123,10 +118,10 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['thumb'] = '';
 		}
 
-		if ($this->config->get('quickorder_agreement')) {
+		if ($this->config->get('module_quickorder_agreement')) {
 			$this->load->model('catalog/information');
 
-			$information_info = $this->model_catalog_information->getInformation($this->config->get('quickorder_agreement'));
+			$information_info = $this->model_catalog_information->getInformation($this->config->get('module_quickorder_agreement'));
 
 			if ($information_info) {
 				$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_account_id'), true), $information_info['title'], $information_info['title']);
@@ -137,10 +132,10 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['text_agree'] = '';
 		}
 
-		if (isset($this->request->post['agree'])) {
-			$data['agree'] = $this->request->post['agree'];
+		if ($this->config->get('module_quickorder_status') == 1) {
+			$data['module_quickorder_status'] = $this->config->get('module_quickorder_status');
 		} else {
-			$data['agree'] = false;
+			$data['module_quickorder_status'] = '';
 		}
 
 		return $this->load->view('extension/module/quickorder', $data);
@@ -151,50 +146,36 @@ class ControllerExtensionModuleQuickorder extends Controller {
 
 		$language = $this->config->get('config_language_id');
 
+		$module_quickorder = $this->config->get('module_quickorder');
+
 		$json = array();
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-			if ((utf8_strlen($this->request->post['quickorder_telephone']) < 5) || (utf8_strlen($this->request->post['quickorder_telephone']) > 24)) {
+			if ((utf8_strlen($this->request->post['module_quickorder_telephone']) < 5) || (utf8_strlen($this->request->post['module_quickorder_telephone']) > 24)) {
 				$json['error'] = $this->language->get('error_telephone');
 			}
 
-			if (isset($this->request->post['quickorder_name'])) {
-				if (($this->config->get('quickorder_name_required') == 1) && ((utf8_strlen($this->request->post['quickorder_name']) < 3) || (utf8_strlen($this->request->post['quickorder_name']) > 25))) {
-					$json['error'] = $this->language->get('error_name');
-				}
-			} else {
-				$this->request->post['quickorder_name'] = '';
+			if (($this->config->get('module_quickorder_name_required') == 1) && (utf8_strlen($this->request->post['module_quickorder_name']) < 3) || (utf8_strlen($this->request->post['module_quickorder_name']) > 25)) {
+				$json['error'] = $this->language->get('error_name');
+			}
+ 
+			if (($this->config->get('module_quickorder_email_required') == 1) && (!filter_var($this->request->post['module_quickorder_email'], FILTER_VALIDATE_EMAIL))) {
+				$json['error'] = $this->language->get('error_email');
 			}
 
-			if (isset($this->request->post['quickorder_email'])) {
-				if (($this->config->get('quickorder_name_required') == 1) && (!preg_match($this->config->get('config_mail_regexp'), $this->request->post['quickorder_email']))) {
-					$json['error'] = $this->language->get('error_email');
-				}
-			} else {
-				$this->request->post['quickorder_email'] = '';
+			if (($this->config->get('module_quickorder_enquiry_required') == 1) && ((utf8_strlen($this->request->post['module_quickorder_enquiry'])) < 10) || ((utf8_strlen($this->request->post['module_quickorder_enquiry'])) > 360)) {
+				$json['error'] = $this->language->get('error_enquiry');
 			}
 
-			if (isset($this->request->post['quickorder_enquiry'])) {
-				if (($this->config->get('quickorder_enquiry_required') == 1) && ((utf8_strlen($this->request->post['quickorder_enquiry']) < 10) || (utf8_strlen($this->request->post['quickorder_enquiry']) > 360))) {
-					$json['error'] = $this->language->get('error_enquiry');
-				}
-			} else {
-				$this->request->post['quickorder_enquiry'] = '';
-			}
-
-			if (isset($this->request->post['quickorder_calltime'])) {
-				if (($this->config->get('quickorder_calltime_required') == 1) && empty($this->request->post['quickorder_calltime'])) {
-					$json['error'] = $this->language->get('error_calltime');
-				}
-			} else {
-				$this->request->post['quickorder_calltime'] = '';
+			if ($this->config->get('module_quickorder_calltime_required') == 1 && empty($this->request->post['module_quickorder_calltime'])) {
+				$json['error'] = $this->language->get('error_calltime');
 			}
 
 			// Agree to terms
-			if ($this->config->get('quickorder_agreement')) {
+			if ($this->config->get('module_quickorder_agreement')) {
 				$this->load->model('catalog/information');
 
-				$information_info = $this->model_catalog_information->getInformation($this->config->get('quickorder_agreement'));
+				$information_info = $this->model_catalog_information->getInformation($this->config->get('module_quickorder_agreement'));
 
 				if ($information_info && !isset($this->request->post['agree'])) {
 					$json['error'] = sprintf($this->language->get('error_agree'), '<b>&nbsp;' . $information_info['title'] . '</b>');
@@ -206,7 +187,7 @@ class ControllerExtensionModuleQuickorder extends Controller {
 
 				$this->model_extension_module_quickorder->sendQuickorder($this->request->post);
 
-				$json['success'] = $this->config->get('quickorder_success' . $language);
+				$json['success'] = $module_quickorder[$this->config->get('config_language_id')]['success'];
 			}
 		}
 

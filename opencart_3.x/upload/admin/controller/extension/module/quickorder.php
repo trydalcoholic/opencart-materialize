@@ -114,12 +114,6 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['module_quickorder_calltime_required'] = $this->config->get('module_quickorder_calltime_required');
 		}
 
-		if (isset($this->request->post['module_quickorder_status'])) {
-			$data['module_quickorder_status'] = $this->request->post['module_quickorder_status'];
-		} else {
-			$data['module_quickorder_status'] = $this->config->get('module_quickorder_status');
-		}
-
 		if (isset($this->request->post['module_quickorder_phonemask_status'])) {
 			$data['module_quickorder_phonemask_status'] = $this->request->post['module_quickorder_phonemask_status'];
 		} else {
@@ -130,6 +124,12 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['module_quickorder_agreement'] = $this->request->post['module_quickorder_agreement'];
 		} else {
 			$data['module_quickorder_agreement'] = $this->config->get('module_quickorder_agreement');
+		}
+
+		if (isset($this->request->post['module_quickorder_status'])) {
+			$data['module_quickorder_status'] = $this->request->post['module_quickorder_status'];
+		} else {
+			$data['module_quickorder_status'] = $this->config->get('module_quickorder_status');
 		}
 
 		$data['header'] = $this->load->controller('common/header');
