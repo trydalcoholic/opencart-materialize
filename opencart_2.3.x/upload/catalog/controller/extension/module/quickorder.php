@@ -155,20 +155,36 @@ class ControllerExtensionModuleQuickorder extends Controller {
 				$json['error'] = $this->language->get('error_telephone');
 			}
 
-			if (($this->config->get('module_quickorder_name_required') == 1) && (utf8_strlen($this->request->post['module_quickorder_name']) < 3) || (utf8_strlen($this->request->post['module_quickorder_name']) > 25)) {
-				$json['error'] = $this->language->get('error_name');
-			}
- 
-			if (($this->config->get('module_quickorder_email_required') == 1) && (!filter_var($this->request->post['module_quickorder_email'], FILTER_VALIDATE_EMAIL))) {
-				$json['error'] = $this->language->get('error_email');
-			}
-
-			if (($this->config->get('module_quickorder_enquiry_required') == 1) && ((utf8_strlen($this->request->post['module_quickorder_enquiry'])) < 10) || ((utf8_strlen($this->request->post['module_quickorder_enquiry'])) > 360)) {
-				$json['error'] = $this->language->get('error_enquiry');
+			if (isset($this->request->post['module_quickorder_name'])) {
+				if (($this->config->get('module_quickorder_name_required') == 1) && ((utf8_strlen($this->request->post['module_quickorder_name']) < 3) || (utf8_strlen($this->request->post['module_quickorder_name']) > 25))) {
+					$json['error'] = $this->language->get('error_name');
+				}
+			} else {
+				$this->request->post['module_quickorder_name'] = '';
 			}
 
-			if ($this->config->get('module_quickorder_calltime_required') == 1 && empty($this->request->post['module_quickorder_calltime'])) {
-				$json['error'] = $this->language->get('error_calltime');
+			if (isset($this->request->post['module_quickorder_email'])) {
+				if (($this->config->get('module_quickorder_email_required') == 1) && (!filter_var($this->request->post['module_quickorder_email'], FILTER_VALIDATE_EMAIL))) {
+					$json['error'] = $this->language->get('error_email');
+				}
+			} else {
+				$this->request->post['module_quickorder_email'] = '';
+			}
+
+			if (isset($this->request->post['module_quickorder_enquiry'])) {
+				if (($this->config->get('module_quickorder_enquiry_required') == 1) && ((utf8_strlen($this->request->post['module_quickorder_enquiry']) < 10) || ((utf8_strlen($this->request->post['module_quickorder_enquiry'])) > 360))) {
+					$json['error'] = $this->language->get('error_enquiry');
+				}
+			} else {
+				$this->request->post['module_quickorder_enquiry'] = '';
+			}
+
+			if (isset($this->request->post['module_quickorder_calltime'])) {
+				if (($this->config->get('module_quickorder_calltime_required') == 1) && (empty($this->request->post['module_quickorder_calltime']))) {
+					$json['error'] = $this->language->get('error_calltime');
+				}
+			} else {
+				$this->request->post['module_quickorder_calltime'] = '';
 			}
 
 			// Agree to terms

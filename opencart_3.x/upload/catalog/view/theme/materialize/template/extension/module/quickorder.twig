@@ -44,7 +44,7 @@
 					<div class="input-field col s12">
 						<i class="material-icons prefix">av_timer</i>
 						<input type="text" id="quickorder-calltime" class="timepicker-{{ lang }}" name="module_quickorder_calltime" value="">
-						<label for="quickorder-calltime" {{ module_quickorder_enquiry_required ? 'class="required"' : '' }}>{{ entry_calltime }}</label>
+						<label for="quickorder-calltime" {{ module_quickorder_calltime_required ? 'class="required"' : '' }}>{{ entry_calltime }}</label>
 					</div>
 					{% endif %}
 				</div>
@@ -94,7 +94,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					$('input[name=\'module_quickorder_email\']').val('').blur();
 					{% endif %}
 					{% if module_quickorder_enquiry %}
-					$('input[name=\'module_quickorder_enquiry\']').val('').blur();
+					$('textarea[name=\'module_quickorder_enquiry\']').val('').blur();
+					$('textarea[name=\'module_quickorder_enquiry\']').trigger('autoresize');
 					{% endif %}
 					{% if module_quickorder_calltime %}
 					$('input[name=\'module_quickorder_calltime\']').val('').blur();
