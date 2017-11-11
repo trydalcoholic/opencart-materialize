@@ -2,7 +2,7 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.77.4.5</version>
+	<version>0.77.4.6</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Disable button cart -->
@@ -1903,7 +1903,6 @@
 			<search><![CDATA[$data['home'] = $this->url->link('common/home');]]></search>
 			<add position="after"><![CDATA[
 			$data['compare'] = $this->url->link('product/compare');
-			$this->language->load('product/compare');
 			$data['text_compare'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 			$data['text_comparison_list'] = $this->language->get('text_comparison_list');
 			]]></add>

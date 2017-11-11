@@ -2,25 +2,21 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Tema — turkish settings</b></font>]]></name>
 	<code>materialize-theme-turkish-settings</code>
-	<version>0.77.4.5</version>
+	<version>0.77.4.6</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Default option -->
 	<file path="admin/language/tr-tr/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[
-			$_['entry_default_option']	= 'Varsayılan';
-			]]></add>
+			<add position="after"><![CDATA[$_['entry_default_option']	= 'Varsayılan';]]></add>
 		</operation>
 	</file>
 	<!-- Blog -->
 	<file path="catalog/language/tr-tr/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[
-			$_['text_blog']	= 'Blog';
-			]]></add>
+			<add position="after"><![CDATA[$_['text_blog']	= 'Blog';]]></add>
 		</operation>
 	</file>
 	<file path="admin/language/tr-tr/common/column_left.php">
@@ -50,17 +46,13 @@
 	<file path="admin/language/tr-tr/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[
-			$_['entry_size_chart']	= 'Beden Tablosu';
-			]]></add>
+			<add position="after"><![CDATA[$_['entry_size_chart']	= 'Beden Tablosu';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/tr-tr/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[
-			$_['text_size_chart']	= 'Beden tablosu';
-			]]></add>
+			<add position="after"><![CDATA[$_['text_size_chart']	= 'Beden tablosu';]]></add>
 		</operation>
 	</file>
 	<!-- Checking email -->
@@ -89,15 +81,11 @@
 	<file path="catalog/language/tr-tr/common/footer.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['text_social_network']	= 'Sosyal Ağlarda Biz';
-			]]></add>
+			<add position="after" trim="true"><![CDATA[$_['text_social_network']	= 'Sosyal Ağlarda Biz';]]></add>
 		</operation>
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			<a target="_blank" rel="noopener" href="
-			]]></add>
+			<add position="replace" trim="true"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/tr-tr/common/cart.php">
@@ -185,21 +173,17 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/tr-tr/product/compare.php">
+	<file path="catalog/language/tr-tr/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['text_comparison_list']	= 'Ürünleri karşılaştır';
-			]]></add>
+			<add position="after" trim="true"><![CDATA[$_['text_comparison_list']	= 'Ürünleri karşılaştır';]]></add>
 		</operation>
 	</file>
 	<!-- Cart button -->
 	<file path="admin/language/tr-tr/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['entry_cart']	= 'Düğme sepeti';
-			]]></add>
+			<add position="after" trim="true"><![CDATA[$_['entry_cart']	= 'Düğme sepeti';]]></add>
 		</operation>
 	</file>
 	<!-- Custom Tabs -->
@@ -218,9 +202,7 @@
 	<file path="admin/language/tr-tr/catalog/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['text_apply']	= 'Uygula';
-			]]></add>
+			<add position="after" trim="true"><![CDATA[$_['text_apply']	= 'Uygula';]]></add>
 		</operation>
 	</file>
 </modification>

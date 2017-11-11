@@ -2,25 +2,21 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — ukrainian settings</b></font>]]></name>
 	<code>materialize-theme-ukrainian-settings</code>
-	<version>0.77.4.5</version>
+	<version>0.77.4.6</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
 	<!-- Default option -->
 	<file path="admin/language/ua-uk/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[
-			$_['entry_default_option']	= 'За замовчуванням';
-			]]></add>
+			<add position="after"><![CDATA[$_['entry_default_option']	= 'За замовчуванням';]]></add>
 		</operation>
 	</file>
 	<!-- Blog -->
 	<file path="catalog/language/ua-uk/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[
-			$_['text_blog']	= 'Блог';
-			]]></add>
+			<add position="after"><![CDATA[$_['text_blog']	= 'Блог';]]></add>
 		</operation>
 	</file>
 	<file path="admin/language/ua-uk/common/column_left.php">
@@ -50,17 +46,13 @@
 	<file path="admin/language/ua-uk/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[
-			$_['entry_size_chart'] = 'Таблиця розмірів';
-			]]></add>
+			<add position="after"><![CDATA[$_['entry_size_chart'] = 'Таблиця розмірів';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ua-uk/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[
-			$_['text_size_chart']	= 'Таблиця розмірів';
-			]]></add>
+			<add position="after"><![CDATA[$_['text_size_chart']	= 'Таблиця розмірів';]]></add>
 		</operation>
 	</file>
 	<!-- Checking email -->
@@ -89,15 +81,11 @@
 	<file path="catalog/language/ua-uk/common/footer.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['text_social_network']	= 'Ми в соцмережах';
-			]]></add>
+			<add position="after" trim="true"><![CDATA[$_['text_social_network']	= 'Ми в соцмережах';]]></add>
 		</operation>
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
-			<add position="replace" trim="true"><![CDATA[
-			<a target="_blank" rel="noopener" href="
-			]]></add>
+			<add position="replace" trim="true"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ua-uk/common/cart.php">
@@ -188,18 +176,14 @@
 	<file path="catalog/language/ua-uk/product/compare.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['text_comparison_list']	= 'Порівняння товарів';
-			]]></add>
+			<add position="after" trim="true"><![CDATA[$_['text_comparison_list']	= 'Порівняння товарів';]]></add>
 		</operation>
 	</file>
 	<!-- Cart button -->
 	<file path="admin/language/ua-uk/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['entry_cart']	= 'Кнопка кошика';
-			]]></add>
+			<add position="after" trim="true"><![CDATA[$_['entry_cart']	= 'Кнопка кошика';]]></add>
 		</operation>
 	</file>
 	<!-- Custom Tabs -->
@@ -218,9 +202,7 @@
 	<file path="admin/language/ua-uk/catalog/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-			$_['text_apply']	= 'Застосувати';
-			]]></add>
+			<add position="after" trim="true"><![CDATA[$_['text_apply']	= 'Застосувати';]]></add>
 		</operation>
 	</file>
 </modification>
