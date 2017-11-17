@@ -1,12 +1,13 @@
 <?php
 // Heading
-$_['heading_title']						= '<font color="#263238"><b><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize Template</b></font>';
+$_['heading_title']						= '<font color="#263238"><b><i class="fa fa-cogs"></i>&nbsp;&nbsp;&nbsp;Materialize Template</b></font>';
+$_['materialize_title']					= 'Materialize Template';
 
 // Text
 $_['text_theme']						= 'Themes';
 $_['text_extension']					= 'Extensions';
 $_['text_success']						= 'Success: You have modified the default store theme!';
-$_['text_edit']							= 'Edit Default Store Theme';
+$_['text_edit']							= 'Edit Materialize Template';
 $_['text_general']						= 'General';
 $_['text_product']						= 'Products';
 $_['text_image']						= 'Images';
@@ -29,9 +30,10 @@ $_['entry_image_cart']					= 'Cart Image Size (W x H)';
 $_['entry_image_location']				= 'Store Image Size (W x H)';
 $_['entry_width']						= 'Width';
 $_['entry_height']						= 'Height';
+$_['entry_title']						= 'Title';
+$_['entry_description']					= 'Description';
 
 // Help
-$_['help_directory']					= 'This field is only to enable older themes to be compatible with the new theme system. You can set the theme directory to use on the image size settings defined here.';
 $_['help_product_limit']				= 'Determines how many catalog items are shown per page (products, categories, etc)';
 $_['help_product_description_length']	= 'In the list view, short description character limit (categories, special etc)';
 

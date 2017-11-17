@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize "Geri Arama"</b></font>';
+$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;Materialize "Geri Arama"</b></font>';
 $_['callback_title']	= 'Materialize "Geri Arama"';
 
 // Text
@@ -17,10 +17,10 @@ $_['text_materialize']	= 'Eğer modülün çalışması ile ilgili sorunlar vars
 
 // Entry
 $_['entry_phonemask']	= 'Telefon giriş maskesi';
-$_['entry_status']		= 'Durum';
-$_['entry_required']	= 'Gereklidir';
+$_['entry_status']		= 'Durum:';
+$_['entry_required']	= 'Gereklidir:';
 $_['entry_success']		= 'Göndermeden sonra metin';
-$_['entry_fields']		= 'Ek alanlar';
+$_['entry_fields']		= 'Ek alanlar:';
 $_['entry_title']		= 'Başlık';
 $_['entry_description']	= 'Tanım';
 $_['entry_time']		= 'Görünüm zamanı';

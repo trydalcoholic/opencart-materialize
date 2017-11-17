@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize "Зворотний дзвінок"</b></font>';
+$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;Materialize "Зворотний дзвінок"</b></font>';
 $_['callback_title']	= 'Materialize "Зворотний дзвінок"';
 
 // Text
@@ -17,13 +17,13 @@ $_['text_materialize']	= 'Якщо у вас виникли проблеми з 
 
 // Entry
 $_['entry_phonemask']	= 'Маска введення телефону';
-$_['entry_status']		= 'Статус';
-$_['entry_required']	= 'Обов&#39;язково';
+$_['entry_status']		= 'Статус:';
+$_['entry_required']	= 'Обов&#39;язково:';
 $_['entry_success']		= 'Текст після відправки';
-$_['entry_fields']		= 'Додаткові поля';
+$_['entry_fields']		= 'Додаткові поля:';
 $_['entry_title']		= 'Заголовок';
-$_['entry_description']	= 'Опис';
-$_['entry_time']		= 'Час до появи';
+$_['entry_description']	= 'Опис:';
+$_['entry_time']		= 'Час до появи:';
 
 // Help
 $_['help_modaltitle']	= 'Заголовок спливаючого вікна';

@@ -29,68 +29,7 @@
 		{% endif %}
 		<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;{{ text_materialize }}</div>
 		<div class="row">
-			<div id="filter-post" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
-				<div class="panel panel-default">
-					<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3></div>
-					<div class="panel-body">
-						<div class="form-group">
-							<label class="control-label" for="input-name">{{ entry_name }}</label>
-							<input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label class="control-label" for="input-category">{{ column_category }}</label>
-							<select name="filter_category" id="input-category" class="form-control">
-								<option value="*"></option>
-								{% for category in categories %}
-								{% if category.post_count >= 1 %}
-								{% if category.category_id == filter_category %}
-								<option value="{{ category.category_id }}" selected="selected">{{ category.name }}&nbsp;&nbsp;&nbsp;&nbsp;</option>
-								{% else %}
-								<option value="{{ category.category_id }}">&nbsp;&nbsp;{{ category.name }}&nbsp;&nbsp;&nbsp;&nbsp;</option>
-								{% endif %}
-								{% endif %}
-								{% endfor %}
-							</select>
-						</div>
-						<div class="form-group">
-							<label class="control-label" for="input-image">{{ entry_image }}</label>
-							<select name="filter_image" id="input-image" class="form-control">
-								<option value="*"></option>
-								{% if filter_image == '1' %}
-								<option value="1" selected="selected">{{ text_enabled }}</option>
-								{% else %}
-								<option value="1">{{ text_enabled }}</option>
-								{% endif %}
-								{% if filter_image == '0' %}
-								<option value="0" selected="selected">{{ text_disabled }}</option>
-								{% else %}
-								<option value="0">{{ text_disabled }}</option>
-								{% endif %}
-							</select>
-						</div>
-						<div class="form-group">
-							<label class="control-label" for="input-status">{{ entry_status }}</label>
-							<select name="filter_status" id="input-status" class="form-control">
-								<option value=""></option>
-								{% if filter_status == '1' %}
-								<option value="1" selected="selected">{{ text_enabled }}</option>
-								{% else %}
-								<option value="1">{{ text_enabled }}</option>
-								{% endif %}
-								{% if filter_status == '0' %}
-								<option value="0" selected="selected">{{ text_disabled }}</option>
-								{% else %}
-								<option value="0">{{ text_disabled }}</option>
-								{% endif %}
-							</select>
-						</div>
-						<div class="form-group text-right">
-							<button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-9 col-md-pull-3 col-sm-12">
+			<div class="col-md-9 col-sm-12">
 				<div class="panel panel-default">
 					<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3></div>
 					<div class="panel-body">
@@ -161,6 +100,78 @@
 						<div class="row">
 							<div class="col-sm-6 text-left">{{ pagination }}</div>
 							<div class="col-sm-6 text-right">{{ results }}</div>
+						</div>
+					</div>
+					<div class="panel-footer text-center">
+						<a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
+						<i class="fa fa-github"></i>&nbsp;
+						<a href="//github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">GitHub</a>&nbsp;|&nbsp;
+						<i class="fa fa-twitter"></i>&nbsp;
+						<a href="//twitter.com/trydalcoholic" target="_blank" rel="noopener">Twitter</a>&nbsp;|&nbsp;
+						<i class="fa fa-paypal"></i>&nbsp;
+						<a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a>&nbsp;|&nbsp;
+						<i class="fa fa-credit-card-alt"></i>&nbsp;
+						<a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Yandex.Money</a>
+					</div>
+				</div>
+			</div>
+			<div id="filter-post" class="col-md-3 col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3></div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="control-label" for="input-name">{{ entry_name }}</label>
+							<input type="text" name="filter_name" value="{{ filter_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="input-category">{{ column_category }}</label>
+							<select name="filter_category" id="input-category" class="form-control">
+								<option value="*"></option>
+								{% for category in categories %}
+								{% if category.post_count >= 1 %}
+								{% if category.category_id == filter_category %}
+								<option value="{{ category.category_id }}" selected="selected">{{ category.name }}&nbsp;&nbsp;&nbsp;&nbsp;</option>
+								{% else %}
+								<option value="{{ category.category_id }}">&nbsp;&nbsp;{{ category.name }}&nbsp;&nbsp;&nbsp;&nbsp;</option>
+								{% endif %}
+								{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="input-image">{{ entry_image }}</label>
+							<select name="filter_image" id="input-image" class="form-control">
+								<option value="*"></option>
+								{% if filter_image == '1' %}
+								<option value="1" selected="selected">{{ text_enabled }}</option>
+								{% else %}
+								<option value="1">{{ text_enabled }}</option>
+								{% endif %}
+								{% if filter_image == '0' %}
+								<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% else %}
+								<option value="0">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="input-status">{{ entry_status }}</label>
+							<select name="filter_status" id="input-status" class="form-control">
+								<option value=""></option>
+								{% if filter_status == '1' %}
+								<option value="1" selected="selected">{{ text_enabled }}</option>
+								{% else %}
+								<option value="1">{{ text_enabled }}</option>
+								{% endif %}
+								{% if filter_status == '0' %}
+								<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% else %}
+								<option value="0">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+						<div class="form-group text-right">
+							<button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
 						</div>
 					</div>
 				</div>

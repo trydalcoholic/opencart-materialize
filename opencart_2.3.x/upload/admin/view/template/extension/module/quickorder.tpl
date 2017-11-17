@@ -226,6 +226,17 @@
 					</fieldset>
 				</form>
 			</div>
+			<div class="panel-footer text-center">
+				<a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
+				<i class="fa fa-github"></i>&nbsp;
+				<a href="//github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">GitHub</a>&nbsp;|&nbsp;
+				<i class="fa fa-twitter"></i>&nbsp;
+				<a href="//twitter.com/trydalcoholic" target="_blank" rel="noopener">Twitter</a>&nbsp;|&nbsp;
+				<i class="fa fa-paypal"></i>&nbsp;
+				<a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a>&nbsp;|&nbsp;
+				<i class="fa fa-credit-card-alt"></i>&nbsp;
+				<a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Yandex.Money</a>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,7 +1,7 @@
 <?php
 // Heading
-$_['heading_title']				= '<font color="#263238"><b><i class="fa fa-archive" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize Blog</b></font>';
-$_['blog_title']				= 'Materialize Blog';
+$_['heading_title']				= '<font color="#263238"><b><i class="fa fa-newspaper-o"></i>&nbsp;&nbsp;&nbsp;Materialize Blog</b></font>';
+$_['blog_title']				= 'Materialize "Blog"';
 
 // Text
 $_['text_module']				= 'Modüller';

@@ -1,7 +1,7 @@
 <?php
 // Heading
-$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize Beden Tablosu</b></font>';
-$_['size_chart_title']	= 'Materialize Beden tablosu';
+$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-table"></i>&nbsp;&nbsp;&nbsp;Materialize Beden Tablosu</b></font>';
+$_['size_chart_title']	= 'Materialize "Beden tablosu"';
 
 // Text
 $_['text_extension']	= 'Eklentiler';

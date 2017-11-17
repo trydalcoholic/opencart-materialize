@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize "Зворотний дзвінок"</b></font>';
+$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;Materialize "Зворотний дзвінок"</b></font>';
 $_['callback_title']	= 'Materialize "Зворотний дзвінок"';
 
 // Text

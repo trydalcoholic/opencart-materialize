@@ -5,7 +5,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	public function index() {
 		$this->load->language('extension/theme/materialize');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->setTitle($this->language->get('materialize_title'));
 
 		$this->load->model('setting/setting');
 
@@ -18,6 +18,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		}
 
 		$data['heading_title'] = $this->language->get('heading_title');
+		$data['materialize_title'] = $this->language->get('materialize_title');
 
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_enabled'] = $this->language->get('text_enabled');

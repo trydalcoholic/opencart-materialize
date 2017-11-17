@@ -19,12 +19,12 @@
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		</div>
 		<?php } ?>
+		<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;<?php echo $text_materialize; ?></div>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
 			</div>
 			<div class="panel-body">
-				<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;<?php echo $text_materialize; ?></div>
 				<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-blog" class="form-horizontal">
 				<fieldset>
 					<div class="form-group">
@@ -127,6 +127,17 @@
 					</div>
 				</fieldset>
 				</form>
+			</div>
+			<div class="panel-footer text-center">
+				<a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
+				<i class="fa fa-github"></i>&nbsp;
+				<a href="//github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">GitHub</a>&nbsp;|&nbsp;
+				<i class="fa fa-twitter"></i>&nbsp;
+				<a href="//twitter.com/trydalcoholic" target="_blank" rel="noopener">Twitter</a>&nbsp;|&nbsp;
+				<i class="fa fa-paypal"></i>&nbsp;
+				<a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a>&nbsp;|&nbsp;
+				<i class="fa fa-credit-card-alt"></i>&nbsp;
+				<a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Yandex.Money</a>
 			</div>
 		</div>
 	</div>

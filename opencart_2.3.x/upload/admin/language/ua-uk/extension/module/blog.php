@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']				= '<font color="#263238"><b><i class="fa fa-archive" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Materialize "Блог"</b></font>';
+$_['heading_title']				= '<font color="#263238"><b><i class="fa fa-archive"></i>&nbsp;&nbsp;&nbsp;Materialize "Блог"</b></font>';
 $_['blog_title']				= 'Materialize "Блог"';
 
 // Text
