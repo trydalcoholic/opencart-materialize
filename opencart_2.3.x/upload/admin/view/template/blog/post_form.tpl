@@ -150,7 +150,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="input-authors"><span data-toggle="tooltip" title="<?php echo $help_authors; ?>"><?php echo $entry_authors; ?></span></label>
+								<label class="col-sm-2 control-label" for="input-authors"><span data-toggle="tooltip" title="<?php echo $help_autofill; ?>"><?php echo $entry_authors; ?></span></label>
 								<div class="col-sm-10">
 									<input type="text" name="authors" value="" placeholder="<?php echo $entry_authors; ?>" id="input-authors" class="form-control" />
 									<div id="post-authors" class="well well-sm" style="height: 150px; overflow: auto;">
@@ -233,7 +233,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="input-related"><span data-toggle="tooltip" title="<?php echo $help_related; ?>"><?php echo $entry_related; ?></span></label>
+								<label class="col-sm-2 control-label" for="input-related"><span data-toggle="tooltip" title="<?php echo $help_autofill; ?>"><?php echo $entry_related; ?></span></label>
 								<div class="col-sm-10">
 									<input type="text" name="related" value="" placeholder="<?php echo $entry_related; ?>" id="input-related" class="form-control" />
 									<div id="post-related" class="well well-sm" style="height: 150px; overflow: auto;">

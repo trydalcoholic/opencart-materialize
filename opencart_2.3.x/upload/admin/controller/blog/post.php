@@ -513,9 +513,8 @@ class ControllerBlogPost extends Controller {
 
 		$data['help_keyword'] = $this->language->get('help_keyword');
 		$data['help_category'] = $this->language->get('help_category');
-		$data['help_related'] = $this->language->get('help_related');
 		$data['help_tag'] = $this->language->get('help_tag');
-		$data['help_authors'] = $this->language->get('help_authors');
+		$data['help_autofill'] = $this->language->get('help_autofill');
 
 		$data['button_view'] = $this->language->get('button_view');
 		$data['button_save'] = $this->language->get('button_save');
