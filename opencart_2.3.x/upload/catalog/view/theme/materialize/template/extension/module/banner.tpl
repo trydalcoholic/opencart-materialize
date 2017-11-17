@@ -1,23 +1,23 @@
-<div id="banner<?php echo $module; ?>"  class="slick-banner card-panel">
+<div id="banner<?php echo $module; ?>" class="slick-banner z-depth-2 center">
 	<?php foreach ($banners as $banner) { ?>
 	<div>
 		<?php if ($banner['link']) { ?>
-		<a href="<?php echo $banner['link']; ?>"><img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>"></a>
+		<a href="<?php echo $banner['link']; ?>"><img class="width-max waves-effect waves-light lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>"></a>
 		<?php } else { ?>
-		<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>">
+		<img class="width-max waves-effect waves-light lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>">
 		<?php } ?>
 	</div>
 	<?php } ?>
 </div>
 <script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		$('.slick-banner').not('.slick-initialized').slick({
-			infinite: true,
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			infinite: true,
-			speed: 300,
-			autoplay: true
-		});
+document.addEventListener("DOMContentLoaded", function(event) {
+	$('.slick-banner').not('.slick-initialized').slick({
+		infinite: true,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		infinite: true,
+		speed: 300,
+		autoplay: true
 	});
+});
 </script>

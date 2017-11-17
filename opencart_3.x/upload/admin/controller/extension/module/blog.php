@@ -1,131 +1,162 @@
 <?php
 class ControllerExtensionModuleBlog extends Controller {
-	public function index($setting) {
+	private $error = array();
+
+	public function index() {
 		$this->load->language('extension/module/blog');
 
-		$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+		$this->document->setTitle($this->language->get('blog_title'));
 
-		if (isset($this->request->get['filter_name'])) {
-			$data['filter_name'] = $this->request->get['filter_name'];
-		} else {
-			$data['filter_name'] = '';
-		}	
+		$this->load->model('setting/module');
 
-		if (isset($this->request->get['blog_category_id'])) {
-			$data['blog_category_id'] = $this->request->get['blog_category_id'];
-		} else {
-			$data['blog_category_id'] = 0;
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			if (!isset($this->request->get['module_id'])) {
+				$this->model_setting_module->addModule('blog', $this->request->post);
+			} else {
+				$this->model_setting_module->editModule($this->request->get['module_id'], $this->request->post);
+			}
+
+			$this->session->data['success'] = $this->language->get('text_success');
+
+			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true));
 		}
 
-		if (isset($this->request->get['date_added'])) {
-			$data['date_added'] = $this->request->get['date_added'];
+		if (isset($this->error['warning'])) {
+			$data['error_warning'] = $this->error['warning'];
 		} else {
-			$data['date_added'] = 0;
-		}		
-
-		$blog_blocks =  array();
-
-		if(!empty($setting['search_status'])) {
-			$blog_blocks[$setting['search_sort_order']] = 'search';
+			$data['error_warning'] = '';
 		}
 
-		$this->load->model('blog/category');
-		$this->load->model('blog/post');
-		$this->load->model('tool/image');
-
-		if(!empty($setting['category_status'])) {
-			if (isset($this->request->get['path'])) {
-				$parts = explode('_', (string)$this->request->get['path']);
-			} else {
-				$parts = array();
-			}
-
-			if (isset($parts[0])) {
-				$data['category_id'] = $parts[0];
-			} else {
-				$data['category_id'] = 0;
-			}
-
-			if (isset($parts[1])) {
-				$data['child_id'] = $parts[1];
-			} else {
-				$data['child_id'] = 0;
-			}
-
-			$data['categories'] = array();
-
-			$categories = $this->model_blog_category->getCategories(0);
-
-			foreach ($categories as $category) {
-				$children_data = array();
-
-				if ($category['category_id'] == $data['category_id']) {
-					$children = $this->model_blog_category->getCategories($category['category_id']);
-
-					foreach($children as $child) {
-						$filter_data = array('filter_category_id' => $child['category_id'], 'filter_sub_category' => true);
-
-						$children_data[] = array(
-							'category_id'	=> $child['category_id'],
-							'name'			=> $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_blog_post->getTotalPosts($filter_data) . ')' : ''),
-							'href'			=> $this->url->link('blog/category', 'blog_path=' . $category['category_id'] . '_' . $child['category_id'])
-						);
-					}
-				}
-
-				$filter_data = array(
-					'filter_category_id'	=> $category['category_id'],
-					'filter_sub_category'	=> true
-				);
-
-				$data['categories'][] = array(
-					'category_id'	=> $category['category_id'],
-					'name'			=> $category['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_blog_post->getTotalPosts($filter_data) . ')' : ''),
-					'children'		=> $children_data,
-					'href'			=> $this->url->link('blog/category', 'blog_path=' . $category['category_id'])
-				);
-			}
-
-			$blog_blocks[$setting['category_sort_order']] = 'categories';
+		if (isset($this->error['name'])) {
+			$data['error_name'] = $this->error['name'];
+		} else {
+			$data['error_name'] = '';
 		}
 
-		if(!empty($setting['post_status'])) {
-			$data['latest_posts'] = array();
+		$data['breadcrumbs'] = array();
 
-			$filter_data = array(
-				'sort'	=> 'p.date_added',
-				'order'	=> 'DESC',
-				'start'	=> 0,
-				'limit'	=> 5
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+		);
+
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_module'),
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true)
+		);
+
+		if (!isset($this->request->get['module_id'])) {
+			$data['breadcrumbs'][] = array(
+				'text' => $this->language->get('heading_title'),
+				'href' => $this->url->link('extension/module/blog', 'user_token=' . $this->session->data['user_token'], true)
 			);
-
-			$results = $this->model_blog_post->getPosts($filter_data);
-
-			if ($results) {
-				foreach ($results as $result) {
-					if ($result['image']) {
-						$image = $this->model_tool_image->resize($result['image'], 42, 42, 'crop');
-					} else {
-						$image = $this->model_tool_image->resize('placeholder.png', 42, 42);
-					}
-
-					$data['latest_posts'][] = array(
-						'post_id'		=> $result['post_id'],
-						'thumb'			=> $image,
-						'name'			=> $result['name'],
-						'description'	=> utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 75) . '..',
-						'published'		=> date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-						'href'			=> $this->url->link('blog/post', 'post_id=' . $result['post_id'])
-					);
-				}
-			}
-			$blog_blocks[$setting['post_sort_order']] = 'latest_posts';
+		} else {
+			$data['breadcrumbs'][] = array(
+				'text' => $this->language->get('heading_title'),
+				'href' => $this->url->link('extension/module/blog', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id'], true)
+			);
 		}
 
-		ksort($blog_blocks);
+		if (!isset($this->request->get['module_id'])) {
+			$data['action'] = $this->url->link('extension/module/blog', 'user_token=' . $this->session->data['user_token'], true);
+		} else {
+			$data['action'] = $this->url->link('extension/module/blog', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id'], true);
+		}
 
-		$data['blog_blocks'] = $blog_blocks;
+		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
-		return $this->load->view('extension/module/blog', $data);
+		if (isset($this->request->get['module_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+			$module_info = $this->model_setting_module->getModule($this->request->get['module_id']);
+		}
+
+		if (isset($this->request->post['name'])) {
+			$data['name'] = $this->request->post['name'];
+		} elseif (!empty($module_info)) {
+			$data['name'] = $module_info['name'];
+		} else {
+			$data['name'] = '';
+		}
+
+		if (isset($this->request->post['search_status'])) {
+			$data['search_status'] = $this->request->post['search_status'];
+		} elseif (!empty($module_info)) {
+			$data['search_status'] = $module_info['search_status'];
+		} else {
+			$data['search_status'] = '';
+		}
+
+		if (isset($this->request->post['search_sort_order'])) {
+			$data['search_sort_order'] = $this->request->post['search_sort_order'];
+		} elseif (!empty($module_info)) {
+			$data['search_sort_order'] = $module_info['search_sort_order'];
+		} else {
+			$data['search_sort_order'] = '';
+		}
+
+		if (isset($this->request->post['category_status'])) {
+			$data['category_status'] = $this->request->post['category_status'];
+		} elseif (!empty($module_info)) {
+			$data['category_status'] = $module_info['category_status'];
+		} else {
+			$data['category_status'] = '';
+		}
+
+		if (isset($this->request->post['category_sort_order'])) {
+			$data['category_sort_order'] = $this->request->post['category_sort_order'];
+		} elseif (!empty($module_info)) {
+			$data['category_sort_order'] = $module_info['category_sort_order'];
+		} else {
+			$data['category_sort_order'] = '';
+		}
+
+		if (isset($this->request->post['post_status'])) {
+			$data['post_status'] = $this->request->post['post_status'];
+		} elseif (!empty($module_info)) {
+			$data['post_status'] = $module_info['post_status'];
+		} else {
+			$data['post_status'] = '';
+		}
+
+		if (isset($this->request->post['post_limit'])) {
+			$data['post_limit'] = $this->request->post['post_limit'];
+		} elseif (!empty($module_info)) {
+			$data['post_limit'] = $module_info['post_limit'];
+		} else {
+			$data['post_limit'] = '';
+		}
+
+		if (isset($this->request->post['post_sort_order'])) {
+			$data['post_sort_order'] = $this->request->post['post_sort_order'];
+		} elseif (!empty($module_info)) {
+			$data['post_sort_order'] = $module_info['post_sort_order'];
+		} else {
+			$data['post_sort_order'] = '';
+		}
+
+		if (isset($this->request->post['status'])) {
+			$data['status'] = $this->request->post['status'];
+		} elseif (!empty($module_info)) {
+			$data['status'] = $module_info['status'];
+		} else {
+			$data['status'] = '';
+		}
+
+		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer'] = $this->load->controller('common/footer');
+
+		$this->response->setOutput($this->load->view('extension/module/blog', $data));
+	}
+
+	protected function validate() {
+		if (!$this->user->hasPermission('modify', 'extension/module/blog')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 64)) {
+			$this->error['name'] = $this->language->get('error_name');
+		}
+
+		return !$this->error;
 	}
 }

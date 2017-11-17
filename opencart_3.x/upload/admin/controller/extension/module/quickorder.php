@@ -60,7 +60,7 @@ class ControllerExtensionModuleQuickorder extends Controller {
 
 		if (isset($this->request->post['module_quickorder'])) {
 			$data['module_quickorder'] = $this->request->post['module_quickorder'];
-		} elseif (!empty($this->config->get('module_quickorder'))) {
+		} elseif ($this->config->get('module_quickorder') == true) {
 			$data['module_quickorder'] = $this->config->get('module_quickorder');
 		} else {
 			$data['module_quickorder'] = $module_quickorder;
