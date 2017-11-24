@@ -62,67 +62,79 @@
 			<div class="col {{ main }}">
 				{{ content_top }}
 				<div class="card-panel">
+					{% if yandex or google %}
 					<div id="map">
-						{% if geocode %}
-							<a href="https://maps.google.com/maps?q={{ geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" class="btn-floating btn-large halfway-fab waves-effect waves-light blue" title="{{ button_map }}" target="_blank"><i class="material-icons">map</i></a>
+						{% if yandex %}
+						<a href="//maps.yandex.ru/?text={{ lat }},{{ lng }}" class="btn-floating btn-large halfway-fab waves-effect waves-light blue" title="{{ text_view_map }}" target="_blank" rel="noopener"><i class="material-icons">map</i></a>
+						{% endif %}
+						{% if google %}
+						<a href="//maps.google.com/maps?q={{ lat }},{{ lng }}&hl={{ geocode_hl }}&t=m&z=15" class="btn-floating btn-large halfway-fab waves-effect waves-light blue" title="{{ text_view_map }}" target="_blank" rel="noopener"><i class="material-icons">map</i></a>
+						<div id="google-map">
+						</div>
 						{% endif %}
 					</div>
-					<h2>{{ store }}</h2>
-					<div class="row">
-						<div class="col s12 l6">
-							<div class="card-panel">
-								<ul class="collection no-border">
-									{% if image %}
-									<li class="collection-item no-border">
-										<img src="{{ image }}" alt="{{ store }}" title="{{ store }}" class="responsive-img">
-									</li>
-									{% endif %}
-									<li class="collection-item no-border">
-										<address><i class="material-icons left">location_on</i>{{ address }}</address>
-									</li>
-									<li class="collection-item no-border">
-										<span><i class="material-icons left">phone</i>{{ telephone }}</span>
-									</li>
-									{% if open %}
-									<li class="collection-item no-border">
-										<p><i class="material-icons left">access_time</i>{{ open }}</p>
-									</li>
-									{% endif %}
-									{% if comment %}
-									<li class="collection-item no-border">
-										<p><i class="material-icons left">info</i>{{ comment }}</p>
-									</li>
-									{% endif %}
-								</ul>
+					{% endif %}
+					<section class="section">
+						<h2>{{ store }}</h2>
+						<div class="row">
+							<div class="col s12 l6">
+								<div class="card-panel">
+									<ul class="collection no-border">
+										{% if image %}
+										<li class="collection-item no-border">
+											<img src="{{ image }}" alt="{{ store }}" title="{{ store }}" class="responsive-img">
+										</li>
+										{% endif %}
+										<li class="collection-item no-border">
+											<address><i class="material-icons left">location_on</i>{{ address }}</address>
+										</li>
+										<li class="collection-item no-border">
+											<span><i class="material-icons left">phone</i>{{ telephone }}</span>
+										</li>
+										<li class="collection-item no-border">
+											<span><i class="material-icons left">email</i>{{ email_store }}</span>
+										</li>
+										{% if open %}
+										<li class="collection-item no-border">
+											<i class="material-icons left">access_time</i>{{ open }}
+										</li>
+										{% endif %}
+										{% if comment %}
+										<li class="collection-item no-border">
+											<i class="material-icons left">info</i>{{ comment }}
+										</li>
+										{% endif %}
+									</ul>
+								</div>
+							</div>
+							<div class="col s12 l6">
+								<div class="card-panel">
+									<form action="{{ action }}" method="post" enctype="multipart/form-data">
+										<h3>{{ text_contact }}</h3>
+										<div class="input-field">
+											<i class="material-icons prefix">account_circle</i>
+											<input type="text" name="name" value="{{ name }}" id="input-name" class="validate">
+											<label for="input-name">{{ entry_name }}</label>
+										</div>
+										<div class="input-field">
+											<i class="material-icons prefix">email</i>
+											<input type="email" name="email" value="{{ email }}" id="input-email" class="validate">
+											<label for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}">{{ entry_email }}</label>
+										</div>
+										<div class="input-field">
+											<i class="material-icons prefix">mode_edit</i>
+											<textarea name="enquiry" rows="10" id="input-enquiry" class="materialize-textarea"></textarea>
+											<label for="input-enquiry">{{ entry_enquiry }}</label>
+										</div>
+										{{ captcha }}
+										<div class="flex-reverse">
+											<button class="btn waves-effect waves-light red right" type="submit" value="{{ button_submit }}">{{ button_submit }}</button>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
-						<div class="col s12 l6">
-							<div class="card-panel">
-								<form action="{{ action }}" method="post" enctype="multipart/form-data">
-									<h3>{{ text_contact }}</h3>
-									<div class="input-field">
-										<i class="material-icons prefix">account_circle</i>
-										<input type="text" name="name" value="{{ name }}" id="input-name" class="validate">
-										<label for="input-name">{{ entry_name }}</label>
-									</div>
-									<div class="input-field">
-										<i class="material-icons prefix">email</i>
-										<input type="email" name="email" value="{{ email }}" id="input-email" class="validate">
-										<label for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}">{{ entry_email }}</label>
-									</div>
-									<div class="input-field">
-										<i class="material-icons prefix">mode_edit</i>
-										<textarea name="enquiry" rows="10" id="input-enquiry" class="materialize-textarea"></textarea>
-										<label for="input-enquiry">{{ entry_enquiry }}</label>
-									</div>
-									{{ captcha }}
-									<div class="flex-reverse">
-										<button class="btn waves-effect waves-light red right" type="submit" value="{{ button_submit }}">{{ button_submit }}</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+					</section>
 				</div>
 				{{ content_bottom }}
 			</div>
@@ -130,38 +142,77 @@
 		</div>
 	</div>
 </main>
-<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+{% if yandex %}<script async defer src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>{% endif %}
+{% if google %}<script async defer src="//maps.googleapis.com/maps/api/js?key={{ google_api }}"></script>{% endif %}
 <script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		{% if error_name %}
-			Materialize.toast('{{ error_name }}',4000)
-		{% endif %}
-		{% if error_email %}
-			Materialize.toast('{{ error_email }}',4000)
-		{% endif %}
-		{% if error_enquiry %}
-			Materialize.toast('{{ error_enquiry }}',4000)
-		{% endif %}
-		ymaps.ready(init);
-		function init() {
-			var myMap = new ymaps.Map('map', {
-				center: [55.753994, 37.622093],
-				zoom: 16,
-				controls: []
-			});
-			ymaps.geocode('{{ address }}', {
-				results: 1
-			}).then(function (res) {
-				var firstGeoObject = res.geoObjects.get(0),
-				coords = firstGeoObject.geometry.getCoordinates(),
-				bounds = firstGeoObject.properties.get('boundedBy');
-				myMap.geoObjects.add(firstGeoObject);
-				myMap.setBounds(bounds, {
-					checkZoomRange: true
-				});
-			});
-		};
-	});
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if error_name %}
+		Materialize.toast('{{ error_name }}',4000)
+	{% endif %}
+	{% if error_email %}
+		Materialize.toast('{{ error_email }}',4000)
+	{% endif %}
+	{% if error_enquiry %}
+		Materialize.toast('{{ error_enquiry }}',4000)
+	{% endif %}
+	{% if yandex %}
+	ymaps.ready(init);
+
+	var myMap, myPlacemark, myPin;
+
+	function init() {
+		myMap = new ymaps.Map("map", {
+			center: [{{ lat }}, {{ lng }}],
+			zoom: 16,
+			controls: []
+		});
+
+		myPin = new ymaps.GeoObjectCollection({}, {
+			{% if icon_pin %}
+			iconLayout: 'default#image',
+			iconImageSize: [{{ icon_pin_width }},{{ icon_pin_height }}],
+			iconImageHref: '{{ icon_pin }}'
+			{% endif %}
+		});
+
+		myPlacemark = new ymaps.Placemark([{{ geocode }}], {
+			balloonContent: '{{ map_description }}'
+		});
+
+		myPin.add(myPlacemark);
+		myMap.geoObjects.add(myPin);
+	}
+	{% endif %}
+	{% if google %}
+	google.maps.event.addDomListener(window, 'load', init);
+
+	var element, options, myMap, myPlacemark, infoWindow;
+
+	function init() {
+		element = document.getElementById('google-map');
+		options = {
+			center: {lat: {{ lat }}, lng: {{ lng }}},
+			zoom: 16
+		}
+
+		myMap = new google.maps.Map(element, options);
+
+		myPlacemark = new google.maps.Marker({
+			position: {lat: {{ lat }}, lng: {{ lng }}},
+			map: myMap,
+			icon: '{{ icon_pin }}'
+		});
+
+		infoWindow = new google.maps.InfoWindow({
+			content: '{{ map_description }}'
+		});
+
+		myPlacemark.addListener('click', function() {
+			infoWindow.open(myMap, myPlacemark);
+		});
+	}
+	{% endif %}
+});
 </script>
 {% endspaceless %}
 {{ footer }}

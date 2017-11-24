@@ -1,6 +1,6 @@
-<button type="button" id="cart" data-target="modal-cart" class="btn-floating btn-large waves-effect waves-light waves-circle modal-trigger red z-depth-4">
-	<i class="material-icons">shopping_cart</i>
-	<small id="cart-total" class="light-blue darken-1 btn-floating z-depth-1">{{ text_items }}</small>
+<button type="button" id="cart" data-target="modal-cart" class="btn-floating btn-large waves-effect waves-light waves-circle modal-trigger z-depth-4 {{ color_cart ? color_cart : 'red' }}">
+	<i class="material-icons {{ color_cart_text ? color_cart_text : 'white-text' }}">shopping_cart</i>
+	<small id="cart-total" class="btn-floating z-depth-1 {{ color_cart_total ? color_cart_total : 'light-blue darken-1' }} {{ color_cart_total_text ? color_cart_total_text : 'white-text' }}">{{ text_items }}</small>
 </button>
 <div id="modal-cart" class="modal bottom-sheet modal-fixed-footer">
 	<div id="modal-cart-content" class="modal-content">

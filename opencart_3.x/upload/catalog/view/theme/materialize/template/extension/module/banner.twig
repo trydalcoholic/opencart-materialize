@@ -2,7 +2,7 @@
 	{% for banner in banners %}
 	<div>
 		{% if banner.link %}
-		<a href="{{ banner.link }}"><img class="width-max waves-effect waves-light lazyload" src="{{ img_loader }}" data-src="{{ banner.image }}" alt="{{ banner.title }}"></a>
+		<a href="{{ banner.link }}" class="waves-effect waves-light"><img class="width-max lazyload" src="{{ img_loader }}" data-src="{{ banner.image }}" alt="{{ banner.title }}"></a>
 		{% else %}
 		<img class="width-max waves-effect waves-light lazyload" src="{{ img_loader }}" data-src="{{ banner.image }}" alt="{{ banner.title }}">
 		{% endif %}

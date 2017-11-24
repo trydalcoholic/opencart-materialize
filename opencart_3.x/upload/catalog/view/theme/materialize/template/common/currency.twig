@@ -1,5 +1,5 @@
 {% if currencies|length > 1 %}
-<a class="modal-currency-btn" rel="nofollow">
+<a class="modal-currency-btn {{ color_top_menu_text ? color_top_menu_text : 'white-text' }}" rel="nofollow">
 	{{ text_currency }}:
 	{% for currency in currencies %}
 		{% if currency.symbol_left and currency.code == code %}
@@ -12,19 +12,19 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
 	$(".modal-currency-btn").click(function() {
-		html = '<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency" class="modal">';
-		html +=   '<div class="modal-content">';
-		html +=     '<h4>{{ text_currency }}</h4>';
+		html =	'<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency" class="modal">';
+		html +=		'<div class="modal-content">';
+		html +=			'<h4>{{ text_currency }}</h4>';
 		{% for currency in currencies %}
 			{% if currency.symbol_left %}
-		html += '<input class="with-gap currency-select" name="{{ currency.code }}" type="radio" id="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}><label for="{{ currency.code }}">{{ currency.symbol_left }} {{ currency.title }}</label><br>';
+		html +=			'<input class="with-gap currency-select" name="{{ currency.code }}" type="radio" id="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}><label for="{{ currency.code }}">{{ currency.symbol_left }} {{ currency.title }}</label><br>';
 			{% else %}
-		html += '<input class="with-gap currency-select" name="{{ currency.code }}" type="radio" id="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}><label for="{{ currency.code }}">{{ currency.symbol_right }} {{ currency.title }}</label><br>';
+		html +=			'<input class="with-gap currency-select" name="{{ currency.code }}" type="radio" id="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}><label for="{{ currency.code }}">{{ currency.symbol_right }} {{ currency.title }}</label><br>';
 			{% endif %}
 		{% endfor %}
-		html +=   '</div>';
-		html +=   '<input type="hidden" name="code" value=""><input type="hidden" name="redirect" value="{{ redirect }}">';
-		html += '</form>';
+		html +=		'</div>';
+		html += 	'<input type="hidden" name="code" value=""><input type="hidden" name="redirect" value="{{ redirect }}">';
+		html +=	'</form>';
 		$('body').append(html);
 		$('#form-currency').modal().modal('open');
 		$('#form-currency .currency-select').on('click', function(e) {

@@ -1,0 +1,663 @@
+{{ header }}{{ column_left }}
+<div id="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="pull-right">
+				<button type="submit" form="form-materialize" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>&nbsp;
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+			</div>
+			<h1>{{ materialize_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+				<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		{% if error_warning %}
+		<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+		{% endif %}
+		<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> {{ text_materialize }}</div>
+		<div class="panel panel-default">
+			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> {{ materialize_title }}</h3></div>
+			<div class="panel-body">
+				<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-materialize" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-status">{{ entry_status }}:</label>
+						<div class="col-sm-10">
+							<select name="module_materialize_status" id="input-status" class="form-control">
+								{% if module_materialize_status %}
+								<option value="1" selected="selected">{{ text_enabled }}</option>
+								<option value="0">{{ text_disabled }}</option>
+								{% else %}
+								<option value="1">{{ text_enabled }}</option>
+								<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<br>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_colors }}</a></li>
+						<li><a href="#tab-footer" data-toggle="tab">{{ tab_footer }}</a></li>
+						<li><a href="#tab-product" data-toggle="tab">{{ tab_product }}</a></li>
+						<li><a href="#tab-map" data-toggle="tab">{{ tab_map }}</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-general">
+							<fieldset>
+								<legend>{{ entry_colors }}</legend>
+								<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;{{ help_colors }}</div>
+								<div class="row">
+									<div class="col-sm-2">
+										<ul class="nav nav-pills nav-stacked" id="tab-colors">
+											<li><a href="#tab-color-common" data-toggle="tab">{{ tab_common }}</a></li>
+											<li><a href="#tab-color-header" data-toggle="tab">{{ tab_header }}</a></li>
+											<li><a href="#tab-color-footer" data-toggle="tab">{{ tab_footer }}</a></li>
+										</ul>
+									</div>
+									<div class="col-sm-10">
+										<div class="tab-content">
+											<div class="tab-pane" id="tab-color-common">
+												<ul class="nav nav-tabs">
+													<li class="active"><a href="#tab-color-common__buttons" data-toggle="tab">{{ tab_buttons }}</a></li>
+													<li><a href="#tab-color-common__mobile" data-toggle="tab">{{ tab_mobile }}</a></li>
+												</ul>
+												<div class="tab-content">
+													<div class="tab-pane active" id="tab-color-common__buttons">
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_background }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_background" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_background %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_nav_btn }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_nav_btn" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_nav_btn %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_nav_btn_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_nav_btn_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_cart_btn }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_cart_btn" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_cart_btn %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_cart_btn_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_cart_btn_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_total_btn }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_total_btn" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_total_btn %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_total_btn_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_total_btn_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_btt_btn }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_btt_btn" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_btt_btn %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_btt_btn_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_btt_btn_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="tab-pane" id="tab-color-common__mobile">
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_bar }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_browser_bar" id="select-color-browser-bar" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_browser_bar %}
+																	<option value="{{ color.name }}" data-hex="#{{ color.hex }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}" data-hex="#{{ color.hex }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<input type="hidden" name="module_materialize_color_browser_bar_hex" value="{{ module_materialize_color_browser_bar_hex ? module_materialize_color_browser_bar_hex }}" id="input-color-browser-bar-hex" />
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane" id="tab-color-header">
+												<ul class="nav nav-tabs">
+													<li class="active"><a href="#tab-color-header__desktop" data-toggle="tab">{{ tab_desktop }}</a></li>
+													<li><a href="#tab-color-header__mobile" data-toggle="tab">{{ tab_mobile }}</a></li>
+												</ul>
+												<div class="tab-content">
+													<div class="tab-pane active" id="tab-color-header__desktop">
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_top_menu }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_top_menu" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_top_menu %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_top_menu_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_top_menu_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_header }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_header" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_header %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_header_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_header_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_navigation }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_navigation" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_navigation %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_navigation_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_navigation_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_search }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_search" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_search %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="tab-pane" id="tab-color-header__mobile">
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_sidebar }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_sidebar" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_sidebar %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_sidebar_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_sidebar_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_mob_search }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_mobile_search" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_mobile_search %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane" id="tab-color-footer">
+												<ul class="nav nav-tabs">
+													<li class="active"><a href="#tab-color-footer__common" data-toggle="tab">{{ tab_common }}</a></li>
+												</ul>
+												<div class="tab-content">
+													<div class="tab-pane active" id="tab-color-footer__common">
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_footer }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_footer" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_footer %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_footer_text" id="input-color-footer-text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_footer_text %}
+																	<option value="{{ color.name }}" data-hex="#{{ color.hex }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}" data-hex="#{{ color.hex }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<input type="hidden" name="module_materialize_color_footer_text_sn" value="{{ module_materialize_color_footer_text_sn ? module_materialize_color_footer_text_sn }}" id="input-color-footer-text-hex" />
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="tab-pane" id="tab-footer">
+							<fieldset>
+								<legend>{{ entry_description }}</legend>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{ entry_title }}:</label>
+									<div class="col-sm-10">
+										{% for language in languages %}
+										<div class="input-group">
+											<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+											<input type="text" name="module_materialize[{{ language.language_id }}][footer_title]" value="{{ module_materialize[language.language_id] ? module_materialize[language.language_id].footer_title }}" placeholder="{{ entry_title }}" class="form-control" />
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{ entry_description }}:</label>
+									<div class="col-sm-10">
+										{% for language in languages %}
+										<div class="input-group">
+											<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+											<textarea name="module_materialize[{{ language.language_id }}][footer_description]" rows="5" placeholder="{{ entry_description }}" class="form-control" style="min-height:100px;resize:vertical;">{{ module_materialize[language.language_id] ? module_materialize[language.language_id].footer_description }}</textarea>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{ entry_contact }}:</label>
+									<div class="col-sm-10">
+										<select name="module_materialize_footer_contact" class="form-control">
+											{% if module_materialize_footer_contact %}
+											<option value="1" selected="selected">{{ text_enabled }}</option>
+											<option value="0">{{ text_disabled }}</option>
+											{% else %}
+											<option value="1">{{ text_enabled }}</option>
+											<option value="0" selected="selected">{{ text_disabled }}</option>
+											{% endif %}
+										</select>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend>{{ entry_socials }}</legend>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{ entry_text }}:</label>
+									<div class="col-sm-10">
+										{% for language in languages %}
+										<div class="input-group">
+											<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+											<input type="text" name="module_materialize[{{ language.language_id }}][sn_text]" value="{{ module_materialize[language.language_id] ? module_materialize[language.language_id].sn_text }}" placeholder="{{ entry_text }}" class="form-control" />
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{ entry_socials }}:</label>
+									<div class="col-sm-10">
+										<table class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<td class="text-left" style="width: 30%;">{{ entry_socials }}</td>
+													<td class="text-left" style="width: 70%;">{{ entry_link }}</td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="text-left"><b>Facebook:</b></td>
+													<td>
+														<input type="text" name="module_materialize_sn_fb" value="{{ module_materialize_sn_fb ? module_materialize_sn_fb }}" placeholder="{{ entry_link }}" class="form-control" />
+													</td>
+												</tr>
+												<tr>
+													<td class="text-left"><b>Google+:</b></td>
+													<td>
+														<input type="text" name="module_materialize_sn_g" value="{{ module_materialize_sn_g ? module_materialize_sn_g }}" placeholder="{{ entry_link }}" class="form-control" />
+													</td>
+												</tr>
+												<tr>
+													<td class="text-left"><b>Instagram:</b></td>
+													<td>
+														<input type="text" name="module_materialize_sn_inst" value="{{ module_materialize_sn_inst ? module_materialize_sn_inst }}" placeholder="{{ entry_link }}" class="form-control" />
+													</td>
+												</tr>
+												<tr>
+													<td class="text-left"><b>Twitter:</b></td>
+													<td>
+														<input type="text" name="module_materialize_sn_tw" value="{{ module_materialize_sn_tw ? module_materialize_sn_tw }}" placeholder="{{ entry_link }}" class="form-control" />
+													</td>
+												</tr>
+												<tr>
+													<td class="text-left"><b>YouTube:</b></td>
+													<td>
+														<input type="text" name="module_materialize_sn_yt" value="{{ module_materialize_sn_yt ? module_materialize_sn_yt }}" placeholder="{{ entry_link }}" class="form-control" />
+													</td>
+												</tr>
+												<tr>
+													<td class="text-left"><b>VK:</b></td>
+													<td>
+														<input type="text" name="module_materialize_sn_vk" value="{{ module_materialize_sn_vk ? module_materialize_sn_vk }}" placeholder="{{ entry_link }}" class="form-control" />
+													</td>
+												</tr>
+												<tr>
+													<td class="text-left"><b>Odnoklassniki:</b></td>
+													<td>
+														<input type="text" name="module_materialize_sn_ok" value="{{ module_materialize_sn_ok ? module_materialize_sn_ok }}" placeholder="{{ entry_link }}" class="form-control" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="input-status"><span data-toggle="tooltip" title="{{ help_not_index }}">{{ entry_not_index }}:</span></label>
+									<div class="col-sm-10">
+										<select name="module_materialize_sn_index" id="input-status" class="form-control">
+											{% if module_materialize_sn_index %}
+											<option value="1" selected="selected">{{ text_enabled }}</option>
+											<option value="0">{{ text_disabled }}</option>
+											{% else %}
+											<option value="1">{{ text_enabled }}</option>
+											<option value="0" selected="selected">{{ text_disabled }}</option>
+											{% endif %}
+										</select>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="tab-pane" id="tab-product">
+							<fieldset>
+								<legend>{{ entry_payment }}</legend>
+								<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;{{ help_payment }}</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{ entry_text }}:</label>
+									<div class="col-sm-10">
+										{% for language in languages %}
+										<div class="input-group">
+											<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+											<input type="text" name="module_materialize[{{ language.language_id }}][payment_text]" value="{{ module_materialize[language.language_id] ? module_materialize[language.language_id].payment_text }}" placeholder="{{ entry_text }}" class="form-control" />
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{ entry_image }}:</label>
+									<div class="col-sm-10">
+										<a href="" id="thumb-payment-image" data-toggle="image" class="img-thumbnail"><img src="{{ module_materialize_payment_thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+										<input type="hidden" name="module_materialize_payment_image" value="{{ module_materialize_payment_image }}" id="input-payment-image" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_image_size }}">{{ entry_image_size }}:</span></label>
+									<div class="col-sm-10">
+										<div class="row">
+											<div class="col-sm-6">
+												<input type="number" name="module_materialize_payment_image_width" value="{{ module_materialize_payment_image_width }}" placeholder="{{ entry_width }}" class="form-control" />
+											</div>
+											<div class="col-sm-6">
+												<input type="number" name="module_materialize_payment_image_height" value="{{ module_materialize_payment_image_height }}" placeholder="{{ entry_height }}" class="form-control" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="tab-pane" id="tab-map">
+							<fieldset>
+								<legend>{{ tab_map }}</legend>
+								<div class="alert alert-info google-maps-settings"><i class="fa fa-exclamation-circle"></i>&nbsp;{{ help_google_map }}</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="input-maps">{{ tab_map }}:</label>
+									<div class="col-sm-10">
+										<select name="module_materialize_map" id="input-maps" class="form-control">
+											{% for map in module_materialize_maps %}
+											{% if map.map_id == module_materialize_map %}
+											<option value="{{ map.map_id }}" selected="selected">{{ map.name }}</option>
+											{% else %}
+											<option value="{{ map.map_id }}">{{ map.name }}</option>
+											{% endif %}
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="form-group required google-maps-settings">
+									<label class="col-sm-2 control-label">{{ entry_api }}:</label>
+									<div class="col-sm-10">
+										<input type="text" name="module_materialize_google_api" value="{{ module_materialize_google_api }}" placeholder="{{ entry_api }}" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_geocode }}">{{ entry_geocode }}:</span></label>
+									<div class="col-sm-10">
+										<div class="row">
+											<div class="col-sm-6">
+												<input type="number" name="module_materialize_geo_lat" value="{{ module_materialize_geo_lat }}" placeholder="{{ entry_lat }}" class="form-control" />												
+											</div>
+											<div class="col-sm-6">
+												<input type="number" name="module_materialize_geo_lng" value="{{ module_materialize_geo_lng }}" placeholder="{{ entry_lng }}" class="form-control" />												
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{ entry_description }}:</label>
+									<div class="col-sm-10">
+										{% for language in languages %}
+										<span class="input-group-addon" style="border:1px solid #ccc;border-top-right-radius:3px;border-bottom-left-radius:0;"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+										<textarea name="module_materialize[{{ language.language_id }}][map_description]" placeholder="{{ entry_description }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ module_materialize[language.language_id] ? module_materialize[language.language_id].map_description }}</textarea>
+										{% endfor %}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">{{ entry_icon_pin }}:</label>
+									<div class="col-sm-10">
+										<a href="" id="thumb-icon-pin" data-toggle="image" class="img-thumbnail"><img src="{{ module_materialize_icon_pin_thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+										<input type="hidden" name="module_materialize_icon_pin" value="{{ module_materialize_icon_pin }}" id="input-icon-pin" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_image_size }}">{{ entry_image_size }}:</span></label>
+									<div class="col-sm-10">
+										<div class="row">
+											<div class="col-sm-6">
+												<input type="number" name="module_materialize_icon_pin_width" value="{{ module_materialize_icon_pin_width }}" placeholder="{{ entry_width }}" class="form-control" />												
+											</div>
+											<div class="col-sm-6">
+												<input type="number" name="module_materialize_icon_pin_height" value="{{ module_materialize_icon_pin_height }}" placeholder="{{ entry_height }}" class="form-control" />												
+											</div>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="panel-footer text-center">
+				<a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
+				<i class="fa fa-github"></i>&nbsp;
+				<a href="//github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">GitHub</a>&nbsp;|&nbsp;
+				<i class="fa fa-twitter"></i>&nbsp;
+				<a href="//twitter.com/trydalcoholic" target="_blank" rel="noopener">Twitter</a>&nbsp;|&nbsp;
+				<i class="fa fa-paypal"></i>&nbsp;
+				<a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a>&nbsp;|&nbsp;
+				<i class="fa fa-credit-card"></i>&nbsp;
+				<a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Yandex.Money</a>
+			</div>
+		</div>
+	</div>
+</div>
+<link href="view/javascript/codemirror/lib/codemirror.css" rel="stylesheet" />
+<link href="view/javascript/codemirror/theme/monokai.css" rel="stylesheet" />
+<link href="view/javascript/summernote/summernote.css" rel="stylesheet" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<script type="text/javascript" src="view/javascript/codemirror/lib/codemirror.js"></script> 
+<script type="text/javascript" src="view/javascript/codemirror/lib/xml.js"></script> 
+<script type="text/javascript" src="view/javascript/codemirror/lib/formatting.js"></script> 
+<script type="text/javascript" src="view/javascript/summernote/summernote.js"></script>
+<script type="text/javascript" src="view/javascript/summernote/summernote-image-attributes.js"></script> 
+<script type="text/javascript" src="view/javascript/summernote/opencart.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script type="text/javascript">
+	$('#language a:first').tab('show');
+	$('#tab-colors a:first').tab('show');
+
+	var inputMaps = $("#input-maps"),
+		selectBrowserBar = $("#select-color-browser-bar"),
+		inputBrowserBar = $("#input-color-browser-bar-hex"),
+		inputFooterColorText = $("#input-color-footer-text"),
+		inputFooterColorTextHex = $("#input-color-footer-text-hex");
+
+	selectBrowserBar.change(function(){
+		selectBrowserBarOption = $("#select-color-browser-bar option:selected");
+		valueHex = selectBrowserBarOption.data('hex');
+		inputBrowserBar.attr('value',valueHex);
+	});
+
+	inputFooterColorText.change(function(){
+		inputFooterColorTextOption = $("#input-color-footer-text option:selected");
+		valueHex = inputFooterColorTextOption.data('hex');
+		inputFooterColorTextHex.attr('value',valueHex);
+	});
+
+	if (inputMaps.val() == 1) {$('.google-maps-settings').show();}
+	if (inputMaps.val() != 1) {$('.google-maps-settings').hide();}
+
+	inputMaps.change(function(){
+		if (inputMaps.val() == 1) {$('.google-maps-settings').show();}
+		if (inputMaps.val() != 1) {$('.google-maps-settings').hide();}
+	});
+
+	$('.selectpicker').selectpicker({
+		size: 10,
+		liveSearch: true,
+		iconBase: 'fa',
+		tickIcon: 'fa-check'
+	});
+</script>
+{{ footer }}

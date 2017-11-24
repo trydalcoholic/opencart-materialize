@@ -2,7 +2,7 @@
 	<?php foreach ($banners as $banner) { ?>
 	<div>
 		<?php if ($banner['link']) { ?>
-		<a href="<?php echo $banner['link']; ?>"><img class="width-max waves-effect waves-light lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>"></a>
+		<a href="<?php echo $banner['link']; ?>" class="waves-effect waves-light"><img class="width-max lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>"></a>
 		<?php } else { ?>
 		<img class="width-max waves-effect waves-light lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>">
 		<?php } ?>
