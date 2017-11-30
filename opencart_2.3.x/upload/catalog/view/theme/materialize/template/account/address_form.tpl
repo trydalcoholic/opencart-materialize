@@ -184,9 +184,9 @@
 					dataType: 'json',
 					success: function(json) {
 						if (json['postcode_required'] == '1') {
-							$('input[name=\'postcode\']').parent().parent().addClass('required');
+							$('input[name=\'postcode\']').parent().find('label').addClass('required');
 						} else {
-							$('input[name=\'postcode\']').parent().parent().removeClass('required');
+							$('input[name=\'postcode\']').parent().find('label').removeClass('required');
 						}
 						html = '<option value=""><?php echo $text_select; ?></option>';
 						if (json['zone'] && json['zone'] != '') {
@@ -200,6 +200,7 @@
 						} else {
 							html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';
 						}
+						$('select').material_select();
 						$('select[name=\'zone_id\']').html(html);
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
@@ -207,6 +208,7 @@
 					}
 				});
 			});
+			$('select').material_select();
 			$('select[name=\'country_id\']').trigger('change');
 			$('.switch input[type="checkbox"]').click(function(){
 				$('#default').attr('value', ($('#default').attr('value')==0) ? '1' : '0');
