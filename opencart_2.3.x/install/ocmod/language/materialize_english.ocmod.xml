@@ -2,9 +2,16 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — english settings</b></font>]]></name>
 	<code>materialize-theme-english-settings</code>
-	<version>0.77.4.7</version>
+	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Custom map -->
+	<file path="catalog/language/en-gb/information/contact.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_view_map']	= 'View on map';]]></add>
+		</operation>
+	</file>
 	<!-- Default option -->
 	<file path="admin/language/en-gb/catalog/product.php">
 		<operation error="skip">
@@ -74,15 +81,10 @@
 			$_['text_about']		= 'About';
 			$_['text_delivery']		= 'Delivery';
 			$_['text_call_back']	= 'Call back me';
-			$_['text_call_free']	= 'The call is free';
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/en-gb/common/footer.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[$_['text_social_network']	= 'We are in social networks';]]></add>
-		</operation>
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
 			<add position="replace"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
@@ -124,14 +126,13 @@
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[
-			$_['text_category']					= 'Category:';
+			$_['text_category']					= 'Category';
 			$_['text_bonus_points']				= 'bonus points for purchase';
 			$_['text_end_promotion']			= 'The offer will expire on';
-			$_['text_payment_method']			= 'Payment by cash and bank cards';
 			$_['text_percent']					= 'Discount';
 			$_['text_more_detailed']			= 'More detailed';
-			$_['text_sku']						= 'SKU:';
-			$_['text_weight']					= 'Weight:';
+			$_['text_sku']						= 'SKU';
+			$_['text_weight']					= 'Weight';
 			// PhotoSwipe
 			$_['button_share']					= 'Share';
 			$_['button_pswp_close']				= 'Close (Esc)';

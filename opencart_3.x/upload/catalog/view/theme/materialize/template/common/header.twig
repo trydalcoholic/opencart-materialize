@@ -49,7 +49,7 @@
 	<![endif]-->
 </head>
 <body class="{{ color_background ? color_background : 'grey lighten-3' }}">
-	<header class="href-underline transition">
+	<header class="href-underline">
 		<div class="row hide-on-small-only {{ color_top_menu ? color_top_menu : 'blue-grey darken-4'}}">
 			<nav class="container transparent z-depth-0 top-menu">
 				<div class="nav-wrapper">
@@ -88,7 +88,7 @@
 				</div>
 			</nav>
 		</div>
-		<div class="row {{ color_header ? color_header : 'blue-grey darken-3' }} top-container z-depth-5">
+		<div class="row top-container {{ color_header ? color_header : 'blue-grey darken-3' }}">
 			<div class="container">
 				<div class="valign-wrapper">
 					<div class="col s12 m4">
@@ -102,16 +102,14 @@
 						{% endif %}
 					</div>
 					<div class="col m8 right-align hide-on-small-only {{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}">
-						<span class="flow-text block"><a class="href-underline text-bold {{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}" href="tel:{{ telephone|replace({"(": "", ")" : "", " " : ""})}}">{{ telephone }}</a></span>
-						<div class="right-align">
-							<ul class="right contact-info">
-								<li><a href="mailto:{{ email }}" class="{{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}"><i class="material-icons left">email</i>{{ email }}</a></li>
-								<li><a href="#callback__modal" class="modal-trigger activator {{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}" rel="nofollow">{{ text_call_back }}<i class="material-icons left">phone_in_talk</i></a></li>
-								{% if open %}
-								<li><i class="material-icons left">access_time</i><span>{{ open }}</span></li>
-								{% endif %}
-							</ul>
-						</div>
+						<a class="href-underline text-bold flow-text block {{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}" href="tel:{{ telephone|replace({"(": "", ")" : "", " " : ""})}}">{{ telephone }}</a>
+						<ul class="right contact-info">
+							<li><a href="mailto:{{ email }}" class="{{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}"><i class="material-icons left">email</i>{{ email }}</a></li>
+							<li><a href="#callback__modal" class="modal-trigger activator {{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}" rel="nofollow"><i class="material-icons left">phone_in_talk</i>{{ text_call_back }}</a></li>
+							{% if open %}
+							<li><i class="material-icons left">access_time</i>{{ open }}</li>
+							{% endif %}
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -137,7 +135,7 @@
 				<div class="userView">
 					<div class="background {{ color_sidebar ? color_sidebar : 'blue-grey darken-2' }}"></div>
 					{% if logo %}
-					<img class="responsive-img lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ logo }}" title="{{ name }}" alt="{{ name }}">
+					<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ logo }}" title="{{ name }}" alt="{{ name }}">
 					{% else %}
 					<strong><a href="{{ home }}">{{ name }}</a></strong>
 					{% endif %}
@@ -166,13 +164,13 @@
 			<li class="grey lighten-4"><a class="waves-effect waves-default modal-trigger activator" href="#callback__modal" rel="nofollow"><i class="material-icons">phone_in_talk</i>{{ text_call_back }}</a></li>
 			{{ menu_side }}
 			<li class="divider"></li>
-			<li><a class="waves-effect" href="{{ delivery }}" rel="nofollow">{{ text_delivery }}<i class="material-icons">local_shipping</i></a></li>
-			<li><a class="waves-effect" href="{{ contact }}" rel="nofollow">{{ text_contact }}<i class="material-icons">email</i></a></li>
-			<li><a class="waves-effect" href="{{ about }}" rel="nofollow">{{ text_about }}<i class="material-icons">store</i></a></li>
+			<li><a class="waves-effect" href="{{ delivery }}" rel="nofollow"><i class="material-icons">local_shipping</i>{{ text_delivery }}</a></li>
+			<li><a class="waves-effect" href="{{ contact }}" rel="nofollow"><i class="material-icons">email</i>{{ text_contact }}</a></li>
+			<li><a class="waves-effect" href="{{ about }}" rel="nofollow"><i class="material-icons">store</i>{{ text_about }}</a></li>
 			<li>
 				<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
 					<li class="text-bold">
-						<a href="{{ account }}" class="collapsible-header waves-effect with-subcat" onclick="return false;" rel="nofollow">{{ text_account }}<i class="material-icons">account_circle</i></a>
+						<a href="{{ account }}" class="collapsible-header waves-effect with-subcat" onclick="return false;" rel="nofollow"><i class="material-icons">account_circle</i>{{ text_account }}</a>
 						<div class="collapsible-body no-padding">
 							<ul>
 								{% if logged %}

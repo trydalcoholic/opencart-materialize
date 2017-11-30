@@ -2,9 +2,16 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme — ukrainian settings</b></font>]]></name>
 	<code>materialize-theme-ukrainian-settings</code>
-	<version>0.77.4.7</version>
+	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Custom map -->
+	<file path="catalog/language/en-gb/information/contact.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_view_map']	= 'Подивитися на карті';]]></add>
+		</operation>
+	</file>
 	<!-- Default option -->
 	<file path="admin/language/ua-uk/catalog/product.php">
 		<operation error="skip">

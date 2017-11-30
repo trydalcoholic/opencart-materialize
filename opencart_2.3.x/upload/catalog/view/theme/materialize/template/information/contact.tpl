@@ -31,41 +31,49 @@
 		]
 	}
 </script>
-	<main>
-		<div class="container">
-			<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
-				<div class="nav-wrapper breadcrumb-wrap href-underline">
-					<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
-					<?php $i++ ?>
-					<?php if ($i < count($breadcrumbs)) { ?>
-					<?php if ($i == 1) {?>
-						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb waves-effect black-text"><i class="material-icons">home</i></a>
-					<?php } else {?>
-						<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb waves-effect black-text"><?php echo $breadcrumb['text']; ?></a>
-					<?php }?>
-					<?php } else { ?>
-						<span class="breadcrumb blue-grey-text text-darken-3"><?php echo $breadcrumb['text']; ?></span>
-					<?php }}?>
-				</div>
-			</nav>
-			<h1><?php echo $heading_title; ?></h1>
-			<?php if ($column_left && $column_right) { ?>
-				<?php $main = 's12 l6'; ?>
-			<?php } elseif ($column_left || $column_right) { ?>
-				<?php $main = 's12 l9'; ?>
-			<?php } else { ?>
-				<?php $main = 's12'; ?>
-			<?php } ?>
-			<div class="row">
-				<?php echo $column_left; ?>
-				<div class="col <?php echo $main; ?>">
-					<?php echo $content_top; ?>
-					<div class="card-panel">
-						<div id="map">
-							<?php if ($geocode) { ?>
-								<a href="https://maps.google.com/maps?q=<?php echo urlencode($geocode); ?>&hl=<?php echo $geocode_hl; ?>&t=m&z=15" class="btn-floating btn-large halfway-fab waves-effect waves-light blue" title="<?php echo $button_map; ?>" target="_blank"><i class="material-icons">map</i></a>
-							<?php } ?>
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
+				<?php $i++ ?>
+				<?php if ($i < count($breadcrumbs)) { ?>
+				<?php if ($i == 1) {?>
+					<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb waves-effect black-text"><i class="material-icons">home</i></a>
+				<?php } else {?>
+					<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb waves-effect black-text"><?php echo $breadcrumb['text']; ?></a>
+				<?php }?>
+				<?php } else { ?>
+					<span class="breadcrumb blue-grey-text text-darken-3"><?php echo $breadcrumb['text']; ?></span>
+				<?php }}?>
+			</div>
+		</nav>
+		<h1><?php echo $heading_title; ?></h1>
+		<?php if ($column_left && $column_right) { ?>
+			<?php $main = 's12 l6'; ?>
+		<?php } elseif ($column_left || $column_right) { ?>
+			<?php $main = 's12 l9'; ?>
+		<?php } else { ?>
+			<?php $main = 's12'; ?>
+		<?php } ?>
+		<div class="row">
+			<?php echo $column_left; ?>
+			<div class="col <?php echo $main; ?>">
+				<?php echo $content_top; ?>
+				<div class="card-panel">
+					<?php if ($yandex || $google) { ?>
+					<div id="map">
+						<?php if ($yandex) { ?>
+						<a href="//maps.yandex.ru/?text=<?php echo $lat; ?>,<?php echo $lng; ?>" class="btn-floating btn-large halfway-fab waves-effect waves-light blue" title="<?php echo $text_view_map; ?>" target="_blank" rel="noopener"><i class="material-icons">map</i></a>
+						<?php } ?>
+						<?php if ($google) { ?>
+						<a href="//maps.google.com/maps?q=<?php echo $lat; ?>,<?php echo $lng; ?>&hl=<?php echo $geocode_hl; ?>&t=m&z=15" class="btn-floating btn-large halfway-fab waves-effect waves-light blue" title="<?php echo $text_view_map; ?>" target="_blank" rel="noopener"><i class="material-icons">map</i></a>
+						<div id="google-map">
 						</div>
+						<?php } ?>
+					</div>
+					<?php } ?>
+					<section class="section">
 						<h2><?php echo $store; ?></h2>
 						<div class="row">
 							<div class="col s12 l6">
@@ -73,7 +81,7 @@
 									<ul class="collection no-border">
 										<?php if ($image) { ?>
 										<li class="collection-item no-border">
-											<img src="<?php echo $image; ?>" alt="<?php echo $store; ?>" title="<?php echo $store; ?>" class="responsive-img">
+											<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $image; ?>" alt="<?php echo $store; ?>" title="<?php echo $store; ?>">
 										</li>
 										<?php } ?>
 										<li class="collection-item no-border">
@@ -122,44 +130,84 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<?php echo $content_bottom; ?>
+					</section>
 				</div>
-				<?php echo $column_right; ?>
+				<?php echo $content_bottom; ?>
 			</div>
+			<?php echo $column_right; ?>
 		</div>
-	</main>
-	<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function(event) {
-			<?php if ($error_name) { ?>
-				Materialize.toast('<?php echo $error_name; ?>',4000)
-			<?php } ?>
-			<?php if ($error_email) { ?>
-				Materialize.toast('<?php echo $error_email; ?>',4000)
-			<?php } ?>
-			<?php if ($error_enquiry) { ?>
-				Materialize.toast('<?php echo $error_enquiry; ?>',4000)
-			<?php } ?>
-			ymaps.ready(init);
-			function init() {
-				var myMap = new ymaps.Map('map', {
-					center: [55.753994, 37.622093],
-					zoom: 16,
-					controls: []
-				});
-				ymaps.geocode('<?php echo $address; ?>', {
-					results: 1
-				}).then(function (res) {
-					var firstGeoObject = res.geoObjects.get(0),
-					coords = firstGeoObject.geometry.getCoordinates(),
-					bounds = firstGeoObject.properties.get('boundedBy');
-					myMap.geoObjects.add(firstGeoObject);
-					myMap.setBounds(bounds, {
-						checkZoomRange: true
-					});
-				});
-			};
+	</div>
+</main>
+<?php if ($yandex) { ?><script defer src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script><?php } ?>
+<?php if ($google) { ?><script defer src="//maps.googleapis.com/maps/api/js?key=<?php echo $google_api; ?>"></script><?php } ?>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	<?php if ($error_name) { ?>
+		Materialize.toast('<?php echo $error_name; ?>',4000)
+	<?php } ?>
+	<?php if ($error_email) { ?>
+		Materialize.toast('<?php echo $error_email; ?>',4000)
+	<?php } ?>
+	<?php if ($error_enquiry) { ?>
+		Materialize.toast('<?php echo $error_enquiry; ?>',4000)
+	<?php } ?>
+	<?php if ($yandex) { ?>
+	ymaps.ready(init);
+
+	var myMap, myPlacemark, myPin;
+
+	function init() {
+		myMap = new ymaps.Map("map", {
+			center: [<?php echo $lat; ?>, <?php echo $lng; ?>],
+			zoom: 16,
+			controls: []
 		});
-	</script>
+
+		myPin = new ymaps.GeoObjectCollection({}, {
+			<?php if ($icon_pin) { ?>
+			iconLayout: 'default#image',
+			iconImageSize: [<?php echo $icon_pin_width; ?>,<?php echo $icon_pin_height; ?>],
+			iconImageHref: '<?php echo $icon_pin; ?>'
+			<?php } ?>
+		});
+
+		myPlacemark = new ymaps.Placemark([<?php echo $lat; ?>, <?php echo $lng; ?>], {
+			balloonContent: '<?php echo $map_description; ?>'
+		});
+
+		myPin.add(myPlacemark);
+		myMap.geoObjects.add(myPin);
+	}
+	<?php } ?>
+	<?php if ($google) { ?>
+	google.maps.event.addDomListener(window, 'load', init);
+
+	var element, options, myMap, myPlacemark, infoWindow;
+
+	function init() {
+		element = document.getElementById('google-map');
+		options = {
+			center: {lat: <?php echo $lat; ?>, lng: <?php echo $lng; ?>},
+			zoom: 16
+		}
+
+		myMap = new google.maps.Map(element, options);
+
+		myPlacemark = new google.maps.Marker({
+			position: {lat: <?php echo $lat; ?>, lng: <?php echo $lng; ?>},
+			map: myMap,
+			icon: '<?php echo $icon_pin; ?>'
+		});
+
+		infoWindow = new google.maps.InfoWindow({
+			content: '<?php echo $map_description; ?>'
+		});
+
+		myPlacemark.addListener('click', function() {
+			infoWindow.open(myMap, myPlacemark);
+		});
+	}
+	<?php } ?>
+});
+</script>
 <?php echo $footer; ?>

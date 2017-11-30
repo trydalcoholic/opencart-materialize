@@ -239,10 +239,12 @@
 									<?php } ?>
 								</ul>
 								<?php } ?>
+								<?php if ($payment_method || $payment_image) { ?>
 								<div class="section">
-									<h6 class="center"><?php echo $text_payment_method; ?></h6>
-									<img class="responsive-img center-block lazyload" src="<?php echo $img_loader; ?>" data-src="catalog/view/theme/materialize/image/payments.jpg" alt="">
+									<?php if ($payment_method) { ?><h6 class="center"><?php echo $payment_method; ?></h6><?php } ?>
+									<?php if ($payment_image) { ?><img class="responsive-img center-block lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $payment_image; ?>" alt="<?php echo $payment_method; ?>"><?php } ?>
 								</div>
+								<?php } ?>
 								<div id="product">
 									<?php if ($options) { ?>
 										<h3><?php echo $text_option; ?></h3>
@@ -345,13 +347,11 @@
 											<?php } ?>
 										<?php } ?>
 									<?php } ?>
-									<div class="section">
-										<label class="text-bold" for="input-quantity"><?php echo $entry_qty; ?></label>
-										<div class="input-number">
-											<button id="quantity-minus" class="btn waves-effect waves-default grey lighten-3 black-text">–</button>
-											<input id="input-quantity" type="number" name="quantity" value="<?php echo $minimum; ?>" size="2" min="<?php echo $minimum; ?>">
-											<button id="quantity-plus" class="btn waves-effect waves-default grey lighten-3 black-text">+</button>
-										</div>
+									<div class="input-number section">
+										<label class="text-bold" for="input-quantity"><?php echo $entry_qty; ?>:</label>
+										<i id="quantity-minus" class="material-icons waves-effect waves-circle input-quantity-minus grey-text">remove_circle_outline</i>
+										<input id="input-quantity" type="number" name="quantity" value="<?php echo $minimum; ?>" min="<?php echo $minimum; ?>">
+										<i id="quantity-plus" class="material-icons waves-effect waves-circle input-quantity-plus">add_circle_outline</i>
 									</div>
 									<input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
 									<?php if ($minimum > 1) { ?>
@@ -851,23 +851,23 @@
 			var quantity = $('#input-quantity');
 
 			if (quantity.val() == 1 || quantity.val() == <?php echo $minimum ?>) {
-				$('#quantity-minus').addClass('disabled');
+				$('#quantity-minus').addClass('grey-text');
 			}
 
 			quantity.blur(function() {
 				if (quantity.val() == 1 || quantity.val() == <?php echo $minimum ?>) {
-					$('#quantity-minus').addClass('disabled');
+					$('#quantity-minus').addClass('grey-text');
 				}
 				if (quantity.val() < <?php echo $minimum ?>) {
 					quantity.val(<?php echo $minimum ?>);
-					$('#quantity-minus').addClass('disabled');
+					$('#quantity-minus').addClass('grey-text');
 					Materialize.toast('<span><i class="material-icons left">warning</i><?php echo $text_minimum; ?></span>',7000,'toast-warning');
 					changePrice();
 				}
 				else {
 					changePrice();
 					if (quantity.val() > <?php echo $minimum ?>) {
-						$('#quantity-minus').removeClass('disabled');
+						$('#quantity-minus').removeClass('grey-text');
 					}
 				}
 			});
@@ -884,7 +884,7 @@
 				$input.change();
 				changePrice();
 				if (quantity.val() == 1 || quantity.val() == <?php echo $minimum ?>) {
-					$('#quantity-minus').addClass('disabled');
+					$('#quantity-minus').addClass('grey-text');
 				}
 				return false;
 			});
@@ -894,7 +894,7 @@
 				$input.change();
 				changePrice();
 				if (quantity.val() > <?php echo $minimum ?>) {
-					$('#quantity-minus').removeClass('disabled');
+					$('#quantity-minus').removeClass('grey-text');
 				}
 				return false;
 			});

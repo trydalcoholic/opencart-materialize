@@ -2,9 +2,191 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.77.4.7</version>
+	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Materialize Template Settings -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_materialize_status') == 1) {
+				$data['color_browser_bar'] = $this->config->get('module_materialize_color_browser_bar_hex');
+				$data['color_background'] = $this->config->get('module_materialize_color_background');
+				$data['color_top_menu'] = $this->config->get('module_materialize_color_top_menu');
+				$data['color_top_menu_text'] = $this->config->get('module_materialize_color_top_menu_text');
+				$data['color_header'] = $this->config->get('module_materialize_color_header');
+				$data['color_header_text'] = $this->config->get('module_materialize_color_header_text');
+				$data['color_navigation'] = $this->config->get('module_materialize_color_navigation');
+				$data['color_navigation_text'] = $this->config->get('module_materialize_color_navigation_text');
+				$data['color_sidebar'] = $this->config->get('module_materialize_color_sidebar');
+				$data['color_sidebar_text'] = $this->config->get('module_materialize_color_sidebar_text');
+				$data['color_nav_btn'] = $this->config->get('module_materialize_color_nav_btn');
+				$data['color_nav_btn_text'] = $this->config->get('module_materialize_color_nav_btn_text');
+			} else {
+				$data['color_browser_bar'] = '#263238';
+				$data['color_background'] = 'grey lighten-3';
+				$data['color_top_menu'] = 'blue-grey darken-4';
+				$data['color_top_menu_text'] = 'white-text';
+				$data['color_header'] = 'blue-grey darken-3';
+				$data['color_header_text'] = 'blue-grey-text text-lighten-5';
+				$data['color_nav_btn'] = 'blue-grey darken-2';
+				$data['color_nav_btn_text'] = 'white-text';
+				$data['color_navigation'] = 'blue-grey darken-2';
+				$data['color_navigation_text'] = 'white-text';
+				$data['color_sidebar'] = 'blue-grey darken-2';
+				$data['color_sidebar_text'] = 'white-text';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/cart.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_materialize_status') == 1) {
+				$data['color_cart'] = $this->config->get('module_materialize_color_cart_btn');
+				$data['color_cart_text'] = $this->config->get('module_materialize_color_cart_btn_text');
+				$data['color_cart_total'] = $this->config->get('module_materialize_color_total_btn');
+				$data['color_cart_total_text'] = $this->config->get('module_materialize_color_total_btn_text');
+			} else {
+				$data['color_cart'] = 'red';
+				$data['color_cart_text'] = 'white-text';
+				$data['color_cart_total'] = 'light-blue darken-1';
+				$data['color_cart_total_text'] = 'white-text';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/currency.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_materialize_status') == 1) {
+				$data['color_top_menu_text'] = $this->config->get('module_materialize_color_top_menu_text');
+			} else {
+				$data['color_top_menu_text'] = 'white-text';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/search.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_materialize_status') == 1) {
+				$data['color_search'] = $this->config->get('module_materialize_color_search');
+			} else {
+				$data['color_search'] = 'blue-grey darken-1';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/footer.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_materialize_status') == 1) {
+				$materialize = $this->config->get('module_materialize');
+
+				$data['footer_title'] = $materialize[$this->config->get('config_language_id')]['footer_title'];
+				$data['footer_description'] = $materialize[$this->config->get('config_language_id')]['footer_description'];
+				$data['footer_contact'] = $this->config->get('module_materialize_footer_contact');
+
+				if (($this->config->get('module_materialize_sn_fb') == false) && ($this->config->get('module_materialize_sn_g') == false) && ($this->config->get('module_materialize_sn_inst') == false) && ($this->config->get('module_materialize_sn_tw') == false) && ($this->config->get('module_materialize_sn_yt') == false) && ($this->config->get('module_materialize_sn_vk') == false) && ($this->config->get('module_materialize_sn_ok') == false)) {
+					$data['social_network'] = false;
+				} else {
+					$data['social_network'] = true;
+					$data['sn_text'] = $materialize[$this->config->get('config_language_id')]['sn_text'];
+					$data['facebook'] = $this->config->get('module_materialize_sn_fb');
+					$data['google'] = $this->config->get('module_materialize_sn_g');
+					$data['instagram'] = $this->config->get('module_materialize_sn_inst');
+					$data['twitter'] = $this->config->get('module_materialize_sn_tw');
+					$data['youtube'] = $this->config->get('module_materialize_sn_yt');
+					$data['vk'] = $this->config->get('module_materialize_sn_vk');
+					$data['odnoklassniki'] = $this->config->get('module_materialize_sn_ok');
+					if ($this->config->get('module_materialize_sn_index') == 1) {
+						$data['no_index'] = true;
+					} else {
+						$data['no_index'] = false;
+					}
+				}
+
+				$data['color_footer'] = $this->config->get('module_materialize_color_footer');
+				$data['color_footer_text'] = $this->config->get('module_materialize_color_footer_text');
+				$data['color_footer_sn'] = $this->config->get('module_materialize_color_footer_text_sn');
+				$data['color_btt'] = $this->config->get('module_materialize_color_btt_btn');
+				$data['color_btt_text'] = $this->config->get('module_materialize_color_btt_btn_text');
+			} else {
+				$data['footer_title'] = '';
+				$data['footer_description'] = '';
+				$data['footer_contact'] = '';
+				$data['social_network'] = '';
+
+				$data['color_footer'] = 'blue-grey darken-3';
+				$data['color_footer_text'] = 'white-text';
+				$data['color_footer_sn'] = 'white-text';
+				$data['color_btt'] = 'red';
+				$data['color_btt_text'] = 'white-text';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('tool/image');]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_materialize_status') == 1) {
+				$materialize = $this->config->get('module_materialize');
+
+				$data['payment_method'] = $materialize[$this->config->get('config_language_id')]['payment_text'];
+
+				if ($this->config->get('module_materialize_payment_image') == true) {
+					$data['payment_image'] = $this->model_tool_image->resize($this->config->get('module_materialize_payment_image'), $this->config->get('module_materialize_payment_image_width'), $this->config->get('module_materialize_payment_image_height'));
+				} else {
+					$data['payment_image'] = '';
+				}
+			} else {
+				$data['payment_method'] = '';
+				$data['payment_image'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/information/contact.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('tool/image');]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_materialize_status') == 1) {
+				if ($this->config->get('module_materialize_map') == 1) {
+					$data['google'] = true;
+					$data['google_api'] = $this->config->get('module_materialize_google_api');
+					$data['yandex'] = '';
+				} else {
+					$data['yandex'] = true;
+					$data['google'] = '';
+				}
+				$materialize = $this->config->get('module_materialize');
+
+				$data['map_description'] = html_entity_decode($materialize[$this->config->get('config_language_id')]['map_description'], ENT_QUOTES, 'UTF-8');
+
+				$data['lat'] = $this->config->get('module_materialize_geo_lat');
+				$data['lng'] = $this->config->get('module_materialize_geo_lng');
+
+				if ($this->config->get('module_materialize_icon_pin') == true) {
+					$data['icon_pin'] = $this->model_tool_image->resize($this->config->get('module_materialize_icon_pin'), $this->config->get('module_materialize_icon_pin_width'), $this->config->get('module_materialize_icon_pin_height'));
+					$data['icon_pin_width'] = $this->config->get('module_materialize_icon_pin_width');
+					$data['icon_pin_height'] = $this->config->get('module_materialize_icon_pin_height');
+				} else {
+					$data['icon_pin'] = '';
+				}
+			} else {
+				$data['yandex'] = '';
+				$data['google'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
 	<!-- Disable button cart -->
 	<file path="catalog/controller/product/compare.php">
 		<operation error="log">
@@ -1664,13 +1846,20 @@
 			$css = str_replace(': ', ':', $css);
 			$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
 			$data['css'] = $css;
+			$data['delivery'] = $this->url->link('information/information' . '&information_id=6');
+			$data['about'] = $this->url->link('information/information' . '&information_id=4');
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/common/footer.php">
 		<operation error="log">
 			<search><![CDATA[$data['contact'] = $this->url->link('information/contact');]]></search>
-			<add position="before"><![CDATA[$data['name'] = $this->config->get('config_name');]]></add>
+			<add position="before"><![CDATA[
+			$data['telephone'] = $this->config->get('config_telephone');
+			$data['open'] = nl2br($this->config->get('config_open'));
+			$data['email'] = $this->config->get('config_email');
+			$data['address'] = nl2br($this->config->get('config_address'));
+			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
@@ -1829,6 +2018,12 @@
 			]]></add>
 		</operation>
 	</file>
+	<file path="catalog/controller/information/contact.php">
+		<operation error="log">
+			<search><![CDATA[$data['button_map'] = $this->language->get('button_map');]]></search>
+			<add position="after"><![CDATA[$data['text_view_map'] = $this->language->get('text_view_map');]]></add>
+		</operation>
+	</file>
 	<!-- Add base64 loader -->
 	<file path="catalog/controller/{common,checkout,product}/{cart,category,compare,manufacturer,product,search,special}*.php">
 		<operation error="log">
@@ -1851,6 +2046,12 @@
 	<file path="catalog/controller/extension/module/{latest,carousel,banner,bestseller,featured,special}*.php">
 		<operation error="log">
 			<search><![CDATA[public function index($setting) {]]></search>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/information/contact.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
@@ -2677,6 +2878,13 @@
 				}, false);
 			</script>
 			]]></add>
+		</operation>
+	</file>
+	<!-- Add side search -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->language('common/header');]]></search>
+			<add position="after"><![CDATA[$data['search_side'] = $this->load->controller('common/search_side');]]></add>
 		</operation>
 	</file>
 </modification>

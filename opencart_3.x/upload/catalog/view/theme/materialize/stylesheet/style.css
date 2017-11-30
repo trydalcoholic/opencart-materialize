@@ -67,7 +67,11 @@ figcaption {padding:1rem 0;}
 /*========== Site header ==========*/
 .top-menu,.top-menu .nav-wrapper i {height:32px;line-height:32px;}
 .top-menu .nav-wrapper i {font-size:1.2rem;}
-.top-container {padding:10px 0;}
+.top-container {
+	position: relative;
+	z-index: 997;
+	padding: 10px 0;
+}
 .contact-info {margin:0;}
 .contact-info li {float:left;margin-left:10px;}
 .contact-info li i {margin:0 5px 0 0;}

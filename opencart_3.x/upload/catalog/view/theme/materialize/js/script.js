@@ -317,12 +317,11 @@ $(document).ready(function() {
 	function refreshGutter() {
 		widthDropDownNav = $('.dropdown-parent').outerWidth();
 		$('.dropdown-button.dropdown-child').dropdown({
-				constrainWidth: false,
-				belowOrigin: false,
-				hover: true,
-				gutter: widthDropDownNav
-			}
-		);
+			constrainWidth: false,
+			belowOrigin: false,
+			hover: true,
+			gutter: widthDropDownNav
+		});
 	}
 	refreshGutter();
 	$(window).resize(refreshGutter);

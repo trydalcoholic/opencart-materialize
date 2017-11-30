@@ -2,9 +2,16 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Tema — turkish settings</b></font>]]></name>
 	<code>materialize-theme-turkish-settings</code>
-	<version>0.77.4.7</version>
+	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>https://github.com/trydalcoholic</link>
+	<!-- Custom map -->
+	<file path="catalog/language/tr-tr/information/contact.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_view_map']	= 'Haritayı görüntüle';]]></add>
+		</operation>
+	</file>
 	<!-- Default option -->
 	<file path="admin/language/tr-tr/catalog/product.php">
 		<operation error="skip">

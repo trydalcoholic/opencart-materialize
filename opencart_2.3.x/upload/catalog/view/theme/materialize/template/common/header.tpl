@@ -6,43 +6,31 @@
 	<base href="<?php echo $base; ?>">
 	<title><?php echo $title; ?></title>
 	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="theme-color" content="#263238">
+	<meta name="theme-color" content="<?php echo $color_browser_bar; ?>">
 	<meta name="application-name" content="<?php echo $name; ?>">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="#263238">
+	<meta name="apple-mobile-web-app-status-bar-style" content="<?php echo $color_browser_bar; ?>">
 	<meta name="apple-mobile-web-app-title" content="<?php echo $name; ?>">
-	<meta name="msapplication-TileColor" content="#263238">
+	<meta name="msapplication-TileColor" content="<?php echo $color_browser_bar; ?>">
 	<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
 	<meta name="format-detection" content="telephone=no">
-	<?php if ($description) { ?>
-	<meta name="description" content="<?php echo $description; ?>">
-	<?php } ?>
-	<?php if ($keywords) { ?>
-	<meta name="keywords" content= "<?php echo $keywords; ?>">
-	<?php } ?>
-	<meta property="og:title" content="<?php echo $title; ?>">
+	<?php if ($description) { ?><meta name="description" content="<?php echo $description; ?>"><?php } ?>
+	<?php if ($keywords) { ?><meta name="keywords" content= "<?php echo $keywords; ?>"><?php } ?>
 	<meta property="og:type" content="website">
-	<?php if (isset($og_url)) { ?>
-	<meta property="og:url" content="<?php echo $og_url; ?>">
-	<?php } ?>
+	<meta property="og:site_name" content="<?php echo $name; ?>">
+	<meta property="og:locale" content="<?php echo $lang; ?>">
+	<meta property="og:title" content="<?php echo $title; ?>">
+	<?php if (isset($og_url)) { ?><meta property="og:url" content="<?php echo $og_url; ?>"><?php } ?>
 	<?php if (isset($og_image)) { ?>
 	<meta property="og:image" content="<?php echo $og_image; ?>">
 	<?php } else { ?>
 	<meta property="og:image" content="<?php echo $logo; ?>">
 	<?php } ?>
-	<meta property="og:site_name" content="<?php echo $name; ?>">
-	<?php if ($description) { ?>
-	<meta property="og:description" content="<?php echo $description; ?>">
-	<?php } ?>
-	<meta property="og:locale" content="<?php echo $lang; ?>">
+	<?php if ($description) { ?><meta property="og:description" content="<?php echo $description; ?>"><?php } ?>
 	<meta name="twitter:card" content="summary_large_image">
-	<?php if (isset($og_url)) { ?>
-	<meta name="twitter:url" content="<?php echo $og_url; ?>">
-	<?php } ?>
+	<?php if (isset($og_url)) { ?><meta name="twitter:url" content="<?php echo $og_url; ?>"><?php } ?>
 	<meta name="twitter:title" content="<?php echo $title; ?>">
-	<?php if ($description) { ?>
-	<meta name="twitter:description" content="<?php echo $description; ?>">
-	<?php } ?>
+	<?php if ($description) { ?><meta name="twitter:description" content="<?php echo $description; ?>"><?php } ?>
 	<?php if (isset($og_image)) { ?>
 	<meta name="twitter:image:src" content="<?php echo $og_image; ?>">
 	<?php } else { ?>
@@ -76,10 +64,10 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<![endif]-->
 </head>
-<body class="grey lighten-3">
-	<header class="href-underline transition">
-		<div class="row blue-grey darken-4 hide-on-small-only">
-			<nav class="container blue-grey darken-4 z-depth-0 top-menu">
+<body class="<?php echo $color_background; ?>">
+	<header class="href-underline">
+		<div class="row hide-on-small-only <?php echo $color_top_menu; ?>">
+			<nav class="container transparent z-depth-0 top-menu">
 				<div class="nav-wrapper">
 					<?php if($language || $currency) { ?>
 					<ul class="left">
@@ -88,12 +76,12 @@
 					</ul>
 					<?php } ?>
 					<ul class="right">
-						<li><a class="waves-effect waves-light" href="<?php echo $blog; ?>"><?php echo $text_blog; ?></a></li>
-						<li><a class="waves-effect waves-light" href="/index.php?route=information/information&information_id=6"><?php echo $text_delivery; ?></a></li>
-						<li><a class="waves-effect waves-light" href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
-						<li><a class="waves-effect waves-light" href="/index.php?route=information/information&information_id=4"><?php echo $text_about; ?></a></li>
+						<li><a class="waves-effect waves-light <?php echo $color_top_menu_text; ?>" href="<?php echo $blog; ?>"><?php echo $text_blog; ?></a></li>
+						<li><a class="waves-effect waves-light <?php echo $color_top_menu_text; ?>" href="<?php echo $delivery; ?>"><?php echo $text_delivery; ?></a></li>
+						<li><a class="waves-effect waves-light <?php echo $color_top_menu_text; ?>" href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
+						<li><a class="waves-effect waves-light <?php echo $color_top_menu_text; ?>" href="<?php echo $about; ?>"><?php echo $text_about; ?></a></li>
 						<li>
-							<a class="dropdown-button waves-effect waves-light" href="<?php echo $account; ?>" data-activates="dropdown-top-lk" data-beloworigin="true" data-constrainwidth="false" data-hover="true" rel="nofollow"><?php echo $text_account; ?></a>
+							<a class="dropdown-button waves-effect waves-light <?php echo $color_top_menu_text; ?>" href="<?php echo $account; ?>" data-activates="dropdown-top-lk" data-beloworigin="true" data-constrainwidth="false" data-hover="true" rel="nofollow"><?php echo $text_account; ?></a>
 							<ul id="dropdown-top-lk" class="dropdown-content">
 								<?php if ($logged) { ?>
 								<li><a class="waves-effect" href="<?php echo $account; ?>" rel="nofollow"><?php echo $text_account; ?></a></li>
@@ -116,43 +104,40 @@
 				</div>
 			</nav>
 		</div>
-		<div class="row blue-grey darken-3 top-container">
+		<div class="row top-container <?php echo $color_header; ?>">
 			<div class="container">
 				<div class="valign-wrapper">
 					<div class="col s12 m4">
-						<button type="button" data-activates="slide-out" id="btn-side-menu" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light blue-grey darken-2 z-depth-4"><i class="material-icons white-text">menu</i></button>
+						<button type="button" data-activates="slide-out" id="btn-side-menu" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light z-depth-4 <?php echo $color_nav_btn; ?>"><i class="material-icons <?php echo $color_nav_btn_text; ?>">menu</i></button>
 						<?php if ($logo) { ?>
 						<a href="<?php echo $home; ?>">
-							<img id="logo-img" src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="<?php echo $logo_width; ?>" height="<?php echo $logo_height; ?>">
+							<img id="logo-img" class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="<?php echo $logo_width; ?>" height="<?php echo $logo_height; ?>">
 						</a>
 						<?php } else { ?>
-							<strong><a href="<?php echo $home; ?>"><?php echo $name; ?></a></strong>
+						<strong><a href="<?php echo $home; ?>" class="<?php echo $color_header_text; ?>"><?php echo $name; ?></a></strong>
 						<?php } ?>
 					</div>
-					<div class="col m8 right-align hide-on-small-only blue-grey-text text-lighten-5">
-						<span class="flow-text block"><a class="href-underline inherit-text text-bold" href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>"><?php echo $telephone; ?></a><sup>*</sup></span>
-						<small class="block">*<?php echo $text_call_free; ?></small>
-						<div class="right-align">
-							<ul class="right contact-info">
-								<li><a href="mailto:<?php echo $email; ?>" class="blue-grey-text text-lighten-5"><?php echo $email; ?><i class="material-icons left">email</i></a></li>
-								<li><a class="blue-grey-text text-lighten-5 modal-trigger activator" href="#callback__modal" rel="nofollow"><?php echo $text_call_back; ?><i class="material-icons left">phone_in_talk</i></a></li>
-								<?php if ($open) { ?>
-								<li><i class="material-icons left">access_time</i><span><?php echo $open; ?></span></li>
-								<?php } ?>
-							</ul>
-						</div>
+					<div class="col m8 right-align hide-on-small-only <?php echo $color_header_text; ?>">
+						<a class="href-underline text-bold flow-text block <?php echo $color_header_text; ?>" href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>"><?php echo $telephone; ?></a>
+						<ul class="right contact-info">
+							<li><a href="mailto:<?php echo $email; ?>" class="<?php echo $color_header_text; ?>"><i class="material-icons left">email</i><?php echo $email; ?></a></li>
+							<li><a class="modal-trigger activator <?php echo $color_header_text; ?>" href="#callback__modal" rel="nofollow"><i class="material-icons left">phone_in_talk</i><?php echo $text_call_back; ?></a></li>
+							<?php if ($open) { ?>
+							<li><i class="material-icons left">access_time</i><?php echo $open; ?></li>
+							<?php } ?>
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="fixed-nav">
-			<nav class="blue-grey darken-2 hide-on-small-only header-navigation">
+		<div id="fixed-nav-wrapper">
+			<nav id="header-navigation" class="hide-on-small-only pin-top <?php echo $color_navigation; ?>">
 				<div class="nav-wrapper container">
 					<div class="row">
 						<ul>
 							<li class="col m3">
 								<?php if ($categories) { ?>
-									<a id="main-dd-nav" class="dropdown-button text-uppercase" data-activates="dropdown-nav-top" rel="nofollow"><?php echo $text_category; ?></a>
+									<a id="main-dd-nav" class="dropdown-button text-uppercase <?php echo $color_navigation_text; ?>" data-activates="dropdown-nav-top" rel="nofollow"><?php echo $text_category; ?></a>
 									<ul id="dropdown-nav-top" class="dropdown-content z-depth-5 dropdown-parent" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
 									<?php foreach ($categories as $category) { ?>
 										<?php if ($category['children']) { ?>
@@ -177,106 +162,96 @@
 								<?php } ?>
 							</li>
 							<li class="col m9">
-								<nav class="search-wrapper z-depth-0">
-									<div class="nav-wrapper blue-grey darken-1">
-										<?php echo $search; ?>
-									</div>
-								</nav>
+							<?php echo $search; ?>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</nav>
-			<ul id="slide-out" class="side-nav hide-on-med-and-up">
-				<li>
-					<div class="userView">
-						<div class="background blue-grey darken-2"></div>
-						<?php if ($logo) { ?>
-						<img class="responsive-img lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>">
-						<?php } else { ?>
-						<strong><a href="<?php echo $home; ?>"><?php echo $name; ?></a></strong>
-						<?php } ?>
-						<nav>
-							<div class="nav-wrapper blue-grey lighten-1">
-								<div id="search-form-side" class="input-field">
-									<input id="search-input-side" type="search" name="search" value="">
-									<label class="activator waves-effect waves-circle label-icon label-icon-search" for="search-input-side"><i class="material-icons">search</i></label>
-									<i id="reset-search-side" class="material-icons">close</i>
-								</div>
+		</div>
+		<ul id="slide-out" class="side-nav hide-on-med-and-up">
+			<li>
+				<div class="userView">
+					<div class="background <?php echo $color_sidebar; ?>"></div>
+					<?php if ($logo) { ?>
+					<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>">
+					<?php } else { ?>
+					<strong><a href="<?php echo $home; ?>"><?php echo $name; ?></a></strong>
+					<?php } ?>
+					<nav>
+					<?php echo $search_side; ?>
+					</nav>
+					<div class="row">
+						<div class="col s9 side-info no-padding">
+							<a class="<?php echo $color_sidebar_text; ?>" href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>" rel="nofollow"><i class="material-icons left">phone</i><?php echo $telephone; ?></a>
+							<a class="<?php echo $color_sidebar_text; ?>" href="mailto:<?php echo $email; ?>" rel="nofollow"><i class="material-icons left">email</i><?php echo $email; ?></a>
+						</div>
+						<div class="col s3 no-padding" style="overflow-x: hidden;">
+							<?php if($language || $currency) { ?>
+							<div id="side-settings" class="btn-floating waves-effect waves-light transparent z-depth-0 dropdown-button" data-activates="dropdown-side-settings" data-alignment="left" data-constrainWidth="false">
+								<i class="material-icons <?php echo $color_sidebar_text; ?>">settings</i>
 							</div>
-						</nav>
-						<div class="row">
-							<div class="col s9 side-info no-padding">
-								<a class="white-text" href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>" rel="nofollow"><i class="material-icons left">phone</i><?php echo $telephone; ?></a>
-								<a class="white-text" href="mailto:<?php echo $email; ?>" rel="nofollow"><i class="material-icons left">email</i><?php echo $email; ?></a>
-							</div>
-							<div class="col s3 no-padding" style="overflow-x: hidden;">
-								<?php if($language || $currency) { ?>
-								<div id="side-settings" class="btn-floating waves-effect waves-light transparent z-depth-0 dropdown-button" data-activates="dropdown-side-settings" data-alignment="left" data-constrainWidth="false">
-									<i class="material-icons white-text">settings</i>
-								</div>
-								<ul id="dropdown-side-settings" class="dropdown-content">
-									<?php if($language) { ?><li><?php echo $language; ?></li><?php } ?>
-									<?php if($currency) { ?><li><?php echo $currency; ?></li><?php } ?>
-								</ul>
-								<?php } ?>
-							</div>
+							<ul id="dropdown-side-settings" class="dropdown-content">
+								<?php if($language) { ?><li><?php echo $language; ?></li><?php } ?>
+								<?php if($currency) { ?><li><?php echo $currency; ?></li><?php } ?>
+							</ul>
+							<?php } ?>
 						</div>
 					</div>
-				</li>
-				<li class="grey lighten-4"><a class="waves-effect waves-default modal-trigger activator" href="#callback__modal" rel="nofollow"><i class="material-icons">phone_in_talk</i><?php echo $text_call_back; ?></a></li>
-				<li>
-					<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
-					<?php if ($categories) { ?>
-						<?php foreach ($categories as $category) { ?>
-							<?php if ($category['children']) { ?>
-								<li class="with-subcat">
-									<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect truncate text-bold" onclick="return false;" rel="nofollow"><?php echo $category['name']; ?></a>
-									<?php foreach (array($category['children']) as $children) { ?>
-									<div class="collapsible-body no-padding">
-										<ul>
-										<?php foreach ($children as $child) { ?>
-											<li><a class="truncate" href="<?php echo $child['href']; ?>" rel="nofollow"><?php echo $child['name']; ?></a></li>
-										<?php } ?>
-										</ul>
-									</div>
+				</div>
+			</li>
+			<li class="grey lighten-4"><a class="waves-effect waves-default modal-trigger activator" href="#callback__modal" rel="nofollow"><i class="material-icons">phone_in_talk</i><?php echo $text_call_back; ?></a></li>
+			<li>
+				<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
+				<?php if ($categories) { ?>
+					<?php foreach ($categories as $category) { ?>
+						<?php if ($category['children']) { ?>
+							<li class="with-subcat">
+								<a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect truncate text-bold" onclick="return false;" rel="nofollow"><?php echo $category['name']; ?></a>
+								<?php foreach (array($category['children']) as $children) { ?>
+								<div class="collapsible-body no-padding">
+									<ul>
+									<?php foreach ($children as $child) { ?>
+										<li><a class="truncate" href="<?php echo $child['href']; ?>" rel="nofollow"><?php echo $child['name']; ?></a></li>
 									<?php } ?>
-								</li>
-							<?php } else { ?>
-								<li><a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect truncate text-bold" rel="nofollow"><?php echo $category['name']; ?></a></li>
-							<?php } ?>
+									</ul>
+								</div>
+								<?php } ?>
+							</li>
+						<?php } else { ?>
+							<li><a href="<?php echo $category['href']; ?>" class="collapsible-header waves-effect truncate text-bold" rel="nofollow"><?php echo $category['name']; ?></a></li>
 						<?php } ?>
 					<?php } ?>
-					</ul>
-				</li>
-				<li class="divider"></li>
-				<li><a class="waves-effect" href="<?php echo $blog; ?>" rel="nofollow"><?php echo $text_blog; ?><i class="material-icons">book</i></a></li>
-				<li><a class="waves-effect" href="/index.php?route=information/information&information_id=6" rel="nofollow"><?php echo $text_delivery; ?><i class="material-icons">local_shipping</i></a></li>
-				<li><a class="waves-effect" href="<?php echo $contact; ?>" rel="nofollow"><?php echo $text_contact; ?><i class="material-icons">email</i></a></li>
-				<li><a class="waves-effect" href="/index.php?route=information/information&information_id=4" rel="nofollow"><?php echo $text_about; ?><i class="material-icons">store</i></a></li>
-				<li>
-					<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
-						<li class="text-bold">
-							<a href="<?php echo $account; ?>" class="collapsible-header waves-effect with-subcat" onclick="return false;" rel="nofollow"><?php echo $text_account; ?><i class="material-icons">account_circle</i></a>
-							<div class="collapsible-body no-padding">
-								<ul>
-									<?php if ($logged) { ?>
-									<li><a class="waves-effect" href="<?php echo $account; ?>" rel="nofollow"><?php echo $text_account; ?></a></li>
-									<li><a class="waves-effect" href="<?php echo $order; ?>" rel="nofollow"><?php echo $text_order; ?></a></li>
-									<li><a class="waves-effect" href="<?php echo $transaction; ?>" rel="nofollow"><?php echo $text_transaction; ?></a></li>
-									<li><a class="waves-effect" href="<?php echo $download; ?>" rel="nofollow"><?php echo $text_download; ?></a></li>
-									<li><a class="waves-effect" href="<?php echo $logout; ?>" rel="nofollow"><?php echo $text_logout; ?></a></li>
-									<?php } else { ?>
-									<li><a class="waves-effect" href="<?php echo $register; ?>" rel="nofollow"><?php echo $text_register; ?></a></li>
-									<li><a class="waves-effect" href="<?php echo $login; ?>" rel="nofollow"><?php echo $text_login; ?></a></li>
-									<?php } ?>
-								</ul>
-							</div>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
+				<?php } ?>
+				</ul>
+			</li>
+			<li class="divider"></li>
+			<li><a class="waves-effect" href="<?php echo $blog; ?>" rel="nofollow"><i class="material-icons">book</i><?php echo $text_blog; ?></a></li>
+			<li><a class="waves-effect" href="<?php echo $delivery; ?>" rel="nofollow"><i class="material-icons">local_shipping</i><?php echo $text_delivery; ?></a></li>
+			<li><a class="waves-effect" href="<?php echo $contact; ?>" rel="nofollow"><i class="material-icons">email</i><?php echo $text_contact; ?></a></li>
+			<li><a class="waves-effect" href="<?php echo $about; ?>" rel="nofollow"><i class="material-icons">store</i><?php echo $text_about; ?></a></li>
+			<li>
+				<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
+					<li class="text-bold">
+						<a href="<?php echo $account; ?>" class="collapsible-header waves-effect with-subcat" onclick="return false;" rel="nofollow"><i class="material-icons">account_circle</i><?php echo $text_account; ?></a>
+						<div class="collapsible-body no-padding">
+							<ul>
+								<?php if ($logged) { ?>
+								<li><a class="waves-effect" href="<?php echo $account; ?>" rel="nofollow"><?php echo $text_account; ?></a></li>
+								<li><a class="waves-effect" href="<?php echo $order; ?>" rel="nofollow"><?php echo $text_order; ?></a></li>
+								<li><a class="waves-effect" href="<?php echo $transaction; ?>" rel="nofollow"><?php echo $text_transaction; ?></a></li>
+								<li><a class="waves-effect" href="<?php echo $download; ?>" rel="nofollow"><?php echo $text_download; ?></a></li>
+								<li><a class="waves-effect" href="<?php echo $logout; ?>" rel="nofollow"><?php echo $text_logout; ?></a></li>
+								<?php } else { ?>
+								<li><a class="waves-effect" href="<?php echo $register; ?>" rel="nofollow"><?php echo $text_register; ?></a></li>
+								<li><a class="waves-effect" href="<?php echo $login; ?>" rel="nofollow"><?php echo $text_login; ?></a></li>
+								<?php } ?>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
 	</header>
 	<?php echo $cart; ?>
 	<?php echo $callback; ?>
