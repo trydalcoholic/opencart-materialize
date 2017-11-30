@@ -82,7 +82,7 @@
 									<ul class="collection no-border">
 										{% if image %}
 										<li class="collection-item no-border">
-											<img src="{{ image }}" alt="{{ store }}" title="{{ store }}" class="responsive-img">
+											<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ image }}" alt="{{ store }}" title="{{ store }}">
 										</li>
 										{% endif %}
 										<li class="collection-item no-border">
@@ -142,8 +142,8 @@
 		</div>
 	</div>
 </main>
-{% if yandex %}<script async defer src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>{% endif %}
-{% if google %}<script async defer src="//maps.googleapis.com/maps/api/js?key={{ google_api }}"></script>{% endif %}
+{% if yandex %}<script defer src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>{% endif %}
+{% if google %}<script defer src="//maps.googleapis.com/maps/api/js?key={{ google_api }}"></script>{% endif %}
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
 	{% if error_name %}

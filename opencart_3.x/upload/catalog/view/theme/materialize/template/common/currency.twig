@@ -1,5 +1,5 @@
 {% if currencies|length > 1 %}
-<a class="modal-currency-btn {{ color_top_menu_text ? color_top_menu_text : 'white-text' }}" rel="nofollow">
+<a class="modal-currency-btn {{ color_top_menu_text }}" rel="nofollow">
 	{{ text_currency }}:
 	{% for currency in currencies %}
 		{% if currency.symbol_left and currency.code == code %}

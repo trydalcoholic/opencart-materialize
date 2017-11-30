@@ -63,7 +63,7 @@ class ControllerExtensionModuleMaterialize extends Controller {
 		} elseif ($this->config->get('module_materialize') == true) {
 			$data['module_materialize'] = $this->config->get('module_materialize');
 		} else {
-			$data['module_materialize'] = $module_materialize;
+			$data['module_materialize'] = '';
 		}
 
 		/* General */

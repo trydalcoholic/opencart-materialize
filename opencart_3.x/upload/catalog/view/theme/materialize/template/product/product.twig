@@ -225,7 +225,7 @@
 								{% endif %}
 							</ul>
 							{% endif %}
-							{% if payment_status %}
+							{% if payment_method or payment_image %}
 							<div class="section">
 								{% if payment_method %}<h6 class="center">{{ payment_method }}</h6>{% endif %}
 								{% if payment_image %}<img class="responsive-img center-block lazyload" src="{{ img_loader }}" data-src="{{ payment_image }}" alt="{{ payment_method }}">{% endif %}

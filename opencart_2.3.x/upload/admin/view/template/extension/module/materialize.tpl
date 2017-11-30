@@ -83,29 +83,6 @@
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-sm-2 control-label"><?php echo $entry_nav_btn; ?>:</label>
-															<div class="col-sm-4">
-																<select name="module_materialize_color_nav_btn" class="selectpicker show-tick">
-																	<?php foreach ($module_materialize_colors as $color) { ?>
-																	<?php if ($color['name'] == $module_materialize_color_nav_btn) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
-																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
-																	<?php } ?>
-																	<?php } ?>
-																</select>
-																<select name="module_materialize_color_nav_btn_text" class="selectpicker show-tick">
-																	<?php foreach ($module_materialize_colors_text as $color) { ?>
-																	<?php if ($color['name'] == $module_materialize_color_nav_btn_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
-																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
-																	<?php } ?>
-																	<?php } ?>
-																</select>
-															</div>
-														</div>
-														<div class="form-group">
 															<label class="col-sm-2 control-label"><?php echo $entry_cart_btn; ?>:</label>
 															<div class="col-sm-4">
 																<select name="module_materialize_color_cart_btn" class="selectpicker show-tick">
@@ -189,6 +166,29 @@
 																	<?php } ?>
 																</select>
 																<input type="hidden" name="module_materialize_color_browser_bar_hex" value="<?php echo isset($module_materialize_color_browser_bar_hex) ? $module_materialize_color_browser_bar_hex : ''; ?>" id="input-color-browser-bar-hex" />
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label"><?php echo $entry_nav_btn; ?>:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_nav_btn" class="selectpicker show-tick">
+																	<?php foreach ($module_materialize_colors as $color) { ?>
+																	<?php if ($color['name'] == $module_materialize_color_nav_btn) { ?>
+																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<?php } else { ?>
+																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<?php } ?>
+																	<?php } ?>
+																</select>
+																<select name="module_materialize_color_nav_btn_text" class="selectpicker show-tick">
+																	<?php foreach ($module_materialize_colors_text as $color) { ?>
+																	<?php if ($color['name'] == $module_materialize_color_nav_btn_text) { ?>
+																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<?php } else { ?>
+																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<?php } ?>
+																	<?php } ?>
+																</select>
 															</div>
 														</div>
 													</div>

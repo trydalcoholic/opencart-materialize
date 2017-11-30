@@ -83,29 +83,6 @@
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-sm-2 control-label">{{ entry_nav_btn }}:</label>
-															<div class="col-sm-4">
-																<select name="module_materialize_color_nav_btn" class="selectpicker show-tick">
-																	{% for color in module_materialize_colors %}
-																	{% if color.name == module_materialize_color_nav_btn %}
-																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
-																	{% else %}
-																	<option value="{{ color.name }}">{{ color.name }}</option>
-																	{% endif %}
-																	{% endfor %}
-																</select>
-																<select name="module_materialize_color_nav_btn_text" class="selectpicker show-tick">
-																	{% for color in module_materialize_colors_text %}
-																	{% if color.name == module_materialize_color_nav_btn_text %}
-																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
-																	{% else %}
-																	<option value="{{ color.name }}">{{ color.name }}</option>
-																	{% endif %}
-																	{% endfor %}
-																</select>
-															</div>
-														</div>
-														<div class="form-group">
 															<label class="col-sm-2 control-label">{{ entry_cart_btn }}:</label>
 															<div class="col-sm-4">
 																<select name="module_materialize_color_cart_btn" class="selectpicker show-tick">
@@ -189,6 +166,29 @@
 																	{% endfor %}
 																</select>
 																<input type="hidden" name="module_materialize_color_browser_bar_hex" value="{{ module_materialize_color_browser_bar_hex ? module_materialize_color_browser_bar_hex }}" id="input-color-browser-bar-hex" />
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_nav_btn }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_nav_btn" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_nav_btn %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_nav_btn_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_nav_btn_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
 															</div>
 														</div>
 													</div>
@@ -556,10 +556,10 @@
 									<div class="col-sm-10">
 										<div class="row">
 											<div class="col-sm-6">
-												<input type="number" name="module_materialize_geo_lat" value="{{ module_materialize_geo_lat }}" placeholder="{{ entry_lat }}" class="form-control" />
+												<input type="text" name="module_materialize_geo_lat" value="{{ module_materialize_geo_lat }}" placeholder="{{ entry_lat }}" class="form-control" />
 											</div>
 											<div class="col-sm-6">
-												<input type="number" name="module_materialize_geo_lng" value="{{ module_materialize_geo_lng }}" placeholder="{{ entry_lng }}" class="form-control" />
+												<input type="text" name="module_materialize_geo_lng" value="{{ module_materialize_geo_lng }}" placeholder="{{ entry_lng }}" class="form-control" />
 											</div>
 										</div>
 									</div>

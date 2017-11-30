@@ -106,7 +106,7 @@
 					$data['vk'] = $this->config->get('module_materialize_sn_vk');
 					$data['odnoklassniki'] = $this->config->get('module_materialize_sn_ok');
 					if ($this->config->get('module_materialize_sn_index') == 1) {
-						$data['no_index'] = true;
+						$data['no_index'] = ' nofollow';
 					} else {
 						$data['no_index'] = false;
 					}

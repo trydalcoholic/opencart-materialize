@@ -7,21 +7,21 @@
 	<base href="{{ base }}">
 	<title>{{ title }}</title>
 	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="theme-color" content="{{ color_browser_bar ? color_browser_bar : '#263238' }}">
+	<meta name="theme-color" content="{{ color_browser_bar }}">
 	<meta name="application-name" content="{{ name }}">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="{{ color_browser_bar ? color_browser_bar : '#263238' }}">
+	<meta name="apple-mobile-web-app-status-bar-style" content="{{ color_browser_bar }}">
 	<meta name="apple-mobile-web-app-title" content="{{ name }}">
-	<meta name="msapplication-TileColor" content="{{ color_browser_bar ? color_browser_bar : '#263238' }}">
+	<meta name="msapplication-TileColor" content="{{ color_browser_bar }}">
 	<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
 	<meta name="format-detection" content="telephone=no">
 	{% if description %}<meta name="description" content="{{ description }}">{% endif %}
 	{% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
-	<meta property="og:title" content="{{ title }}">
 	<meta property="og:type" content="website">
 	<meta property="og:site_name" content="{{ name }}">
-	{% if description %}<meta property="og:description" content="{{ description }}">{% endif %}
+	<meta property="og:title" content="{{ title }}">
 	<meta property="og:locale" content="{{ lang }}">
+	{% if description %}<meta property="og:description" content="{{ description }}">{% endif %}
 	<meta name="twitter:title" content="{{ title }}">
 	{% if description %}<meta name="twitter:description" content="{{ description }}">{% endif %}
 	<script type="application/ld+json">
@@ -48,9 +48,9 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<![endif]-->
 </head>
-<body class="{{ color_background ? color_background : 'grey lighten-3' }}">
+<body class="{{ color_background }}">
 	<header class="href-underline">
-		<div class="row hide-on-small-only {{ color_top_menu ? color_top_menu : 'blue-grey darken-4'}}">
+		<div class="row hide-on-small-only {{ color_top_menu }}">
 			<nav class="container transparent z-depth-0 top-menu">
 				<div class="nav-wrapper">
 					{% if language or currency %}
@@ -60,12 +60,12 @@
 					</ul>
 					{% endif %}
 					<ul class="right">
-						<li><a class="waves-effect waves-light {{ color_top_menu_text ? color_top_menu_text : 'white-text'}}" href="{{ blog }}">{{ text_blog }}</a></li>
-						<li><a class="waves-effect waves-light {{ color_top_menu_text ? color_top_menu_text : 'white-text'}}" href="{{ delivery }}">{{ text_delivery }}</a></li>
-						<li><a class="waves-effect waves-light {{ color_top_menu_text ? color_top_menu_text : 'white-text'}}" href="{{ contact }}">{{ text_contact }}</a></li>
-						<li><a class="waves-effect waves-light {{ color_top_menu_text ? color_top_menu_text : 'white-text'}}" href="{{ about }}">{{ text_about }}</a></li>
+						<li><a class="waves-effect waves-light {{ color_top_menu_text }}" href="{{ blog }}">{{ text_blog }}</a></li>
+						<li><a class="waves-effect waves-light {{ color_top_menu_text }}" href="{{ delivery }}">{{ text_delivery }}</a></li>
+						<li><a class="waves-effect waves-light {{ color_top_menu_text }}" href="{{ contact }}">{{ text_contact }}</a></li>
+						<li><a class="waves-effect waves-light {{ color_top_menu_text }}" href="{{ about }}">{{ text_about }}</a></li>
 						<li>
-							<a class="dropdown-button waves-effect waves-light {{ color_top_menu_text ? color_top_menu_text : 'white-text'}}" href="{{ account }}" data-activates="dropdown-top-lk" data-beloworigin="true" data-constrainwidth="false" data-hover="true" rel="nofollow">{{ text_account }}</a>
+							<a class="dropdown-button waves-effect waves-light {{ color_top_menu_text }}" href="{{ account }}" data-activates="dropdown-top-lk" data-beloworigin="true" data-constrainwidth="false" data-hover="true" rel="nofollow">{{ text_account }}</a>
 							<ul id="dropdown-top-lk" class="dropdown-content">
 								{% if logged %}
 								<li><a class="waves-effect" href="{{ account }}" rel="nofollow">{{ text_account }}</a></li>
@@ -88,24 +88,24 @@
 				</div>
 			</nav>
 		</div>
-		<div class="row top-container {{ color_header ? color_header : 'blue-grey darken-3' }}">
+		<div class="row top-container {{ color_header }}">
 			<div class="container">
 				<div class="valign-wrapper">
 					<div class="col s12 m4">
-						<button type="button" data-activates="slide-out" id="btn-side-menu" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light z-depth-4 {{ color_nav_btn ? color_nav_btn : 'blue-grey darken-2' }}"><i class="material-icons {{ color_nav_btn_text ? color_nav_btn_text : 'white-text' }}">menu</i></button>
+						<button type="button" data-activates="slide-out" id="btn-side-menu" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light z-depth-4 {{ color_nav_btn }}"><i class="material-icons {{ color_nav_btn_text }}">menu</i></button>
 						{% if logo %}
 						<a href="{{ home }}">
 							<img id="logo-img" class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ logo }}" title="{{ name }}" alt="{{ name }}">
 						</a>
 						{% else %}
-							<strong><a href="{{ home }}" class="{{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}">{{ name }}</a></strong>
+							<strong><a href="{{ home }}" class="{{ color_header_text }}">{{ name }}</a></strong>
 						{% endif %}
 					</div>
-					<div class="col m8 right-align hide-on-small-only {{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}">
-						<a class="href-underline text-bold flow-text block {{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}" href="tel:{{ telephone|replace({"(": "", ")" : "", " " : ""})}}">{{ telephone }}</a>
+					<div class="col m8 right-align hide-on-small-only {{ color_header_text }}">
+						<a class="href-underline text-bold flow-text block {{ color_header_text }}" href="tel:{{ telephone|replace({"(": "", ")" : "", " " : ""})}}">{{ telephone }}</a>
 						<ul class="right contact-info">
-							<li><a href="mailto:{{ email }}" class="{{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}"><i class="material-icons left">email</i>{{ email }}</a></li>
-							<li><a href="#callback__modal" class="modal-trigger activator {{ color_header_text ? color_header_text : 'blue-grey-text text-lighten-5' }}" rel="nofollow"><i class="material-icons left">phone_in_talk</i>{{ text_call_back }}</a></li>
+							<li><a href="mailto:{{ email }}" class="{{ color_header_text }}"><i class="material-icons left">email</i>{{ email }}</a></li>
+							<li><a href="#callback__modal" class="modal-trigger activator {{ color_header_text }}" rel="nofollow"><i class="material-icons left">phone_in_talk</i>{{ text_call_back }}</a></li>
 							{% if open %}
 							<li><i class="material-icons left">access_time</i>{{ open }}</li>
 							{% endif %}
@@ -115,7 +115,7 @@
 			</div>
 		</div>
 		<div id="fixed-nav-wrapper">
-			<nav id="header-navigation" class="{{ color_navigation ? color_navigation : 'blue-grey darken-2' }} hide-on-small-only pin-top">
+			<nav id="header-navigation" class="hide-on-small-only pin-top {{ color_navigation }}">
 				<div class="nav-wrapper container">
 					<div class="row">
 						<ul>
@@ -133,7 +133,7 @@
 		<ul id="slide-out" class="side-nav hide-on-med-and-up">
 			<li>
 				<div class="userView">
-					<div class="background {{ color_sidebar ? color_sidebar : 'blue-grey darken-2' }}"></div>
+					<div class="background {{ color_sidebar }}"></div>
 					{% if logo %}
 					<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ logo }}" title="{{ name }}" alt="{{ name }}">
 					{% else %}
@@ -144,13 +144,13 @@
 					</nav>
 					<div class="row">
 						<div class="col s9 side-info no-padding">
-							<a class="{{ color_sidebar_text ? color_sidebar_text : 'white-text' }}" href="tel:{{ telephone|replace({"(": "", ")" : "", " " : ""})}}" rel="nofollow"><i class="material-icons left">phone</i>{{ telephone }}</a>
-							<a class="{{ color_sidebar_text ? color_sidebar_text : 'white-text' }}" href="mailto:{{ email }}" rel="nofollow"><i class="material-icons left">email</i>{{ email }}</a>
+							<a class="{{ color_sidebar_text }}" href="tel:{{ telephone|replace({"(": "", ")" : "", " " : ""})}}" rel="nofollow"><i class="material-icons left">phone</i>{{ telephone }}</a>
+							<a class="{{ color_sidebar_text }}" href="mailto:{{ email }}" rel="nofollow"><i class="material-icons left">email</i>{{ email }}</a>
 						</div>
 						<div class="col s3 no-padding" style="overflow-x: hidden;">
 							{% if language or currency %}
 							<div id="side-settings" class="btn-floating waves-effect waves-light transparent z-depth-0 dropdown-button" data-activates="dropdown-side-settings" data-alignment="left" data-constrainWidth="false">
-								<i class="material-icons {{ color_sidebar_text ? color_sidebar_text : 'white-text' }}">settings</i>
+								<i class="material-icons {{ color_sidebar_text }}">settings</i>
 							</div>
 							<ul id="dropdown-side-settings" class="dropdown-content">
 								{% if language %}<li>{{ language }}</li>{% endif %}

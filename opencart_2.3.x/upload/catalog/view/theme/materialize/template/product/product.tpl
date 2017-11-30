@@ -190,12 +190,12 @@
 										<?php } ?>
 										<?php if ($category_products) { ?>
 										<li>
-											<span class="text-bold"><?php echo $text_category; ?></span>&nbsp;<a href="<?php echo $category_products[0]['href']; ?>"><span itemprop="category"><?php echo $category_products[0]['name']; ?></span></a>
+											<span class="text-bold"><?php echo $text_category; ?></span>:&nbsp;<a href="<?php echo $category_products[0]['href']; ?>"><span itemprop="category"><?php echo $category_products[0]['name']; ?></span></a>
 										</li>
 										<?php } ?>
 										<?php if ($weight > 0) { ?>
 										<li>
-											<span class="text-bold"><?php echo $text_weight; ?></span>&nbsp;<?php echo $weight; ?>
+											<span class="text-bold"><?php echo $text_weight; ?></span>:&nbsp;<?php echo $weight; ?>
 										</li>
 										<?php } ?>
 										<?php if ($sku) { ?>

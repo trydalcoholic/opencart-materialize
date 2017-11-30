@@ -1,5 +1,5 @@
 {% if categories %}
-<a id="main-dd-nav" class="dropdown-button text-uppercase {{ color_navigation_text ? color_navigation_text : 'white-text' }}" data-activates="dropdown-nav-top" rel="nofollow">{{ text_category }}</a>
+<a id="main-dd-nav" class="dropdown-button text-uppercase {{ color_navigation_text }}" data-activates="dropdown-nav-top" rel="nofollow">{{ text_category }}</a>
 <ul id="dropdown-nav-top" class="dropdown-content z-depth-5 dropdown-parent" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
 {% for category in categories %}
 	{% if category.children %}

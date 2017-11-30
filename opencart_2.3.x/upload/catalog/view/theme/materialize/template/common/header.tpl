@@ -18,8 +18,8 @@
 	<?php if ($keywords) { ?><meta name="keywords" content= "<?php echo $keywords; ?>"><?php } ?>
 	<meta property="og:type" content="website">
 	<meta property="og:site_name" content="<?php echo $name; ?>">
-	<meta property="og:locale" content="<?php echo $lang; ?>">
 	<meta property="og:title" content="<?php echo $title; ?>">
+	<meta property="og:locale" content="<?php echo $lang; ?>">
 	<?php if (isset($og_url)) { ?><meta property="og:url" content="<?php echo $og_url; ?>"><?php } ?>
 	<?php if (isset($og_image)) { ?>
 	<meta property="og:image" content="<?php echo $og_image; ?>">
