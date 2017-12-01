@@ -126,6 +126,38 @@ class ControllerExtensionModuleMaterialize extends Controller {
 			$data['module_materialize_color_total_btn_text'] = 'white-text';
 		}
 
+		if (isset($this->request->post['module_materialize_color_compare_btn'])) {
+			$data['module_materialize_color_compare_btn'] = $this->request->post['module_materialize_color_compare_btn'];
+		} elseif ($this->config->get('module_materialize_color_compare_btn') == true) {
+			$data['module_materialize_color_compare_btn'] = $this->config->get('module_materialize_color_compare_btn');
+		} else {
+			$data['module_materialize_color_compare_btn'] = 'blue';
+		}
+
+		if (isset($this->request->post['module_materialize_color_compare_btn_text'])) {
+			$data['module_materialize_color_compare_btn_text'] = $this->request->post['module_materialize_color_compare_btn_text'];
+		} elseif ($this->config->get('module_materialize_color_compare_btn_text') == true) {
+			$data['module_materialize_color_compare_btn_text'] = $this->config->get('module_materialize_color_compare_btn_text');
+		} else {
+			$data['module_materialize_color_compare_btn_text'] = 'white-text';
+		}
+
+		if (isset($this->request->post['module_materialize_color_compare_total_btn'])) {
+			$data['module_materialize_color_compare_total_btn'] = $this->request->post['module_materialize_color_compare_total_btn'];
+		} elseif ($this->config->get('module_materialize_color_compare_total_btn') == true) {
+			$data['module_materialize_color_compare_total_btn'] = $this->config->get('module_materialize_color_compare_total_btn');
+		} else {
+			$data['module_materialize_color_compare_total_btn'] = 'light-blue darken-2';
+		}
+
+		if (isset($this->request->post['module_materialize_color_compare_total_btn_text'])) {
+			$data['module_materialize_color_compare_total_btn_text'] = $this->request->post['module_materialize_color_compare_total_btn_text'];
+		} elseif ($this->config->get('module_materialize_color_compare_total_btn_text') == true) {
+			$data['module_materialize_color_compare_total_btn_text'] = $this->config->get('module_materialize_color_compare_total_btn_text');
+		} else {
+			$data['module_materialize_color_compare_total_btn_text'] = 'white-text';
+		}
+
 		if (isset($this->request->post['module_materialize_color_btt_btn'])) {
 			$data['module_materialize_color_btt_btn'] = $this->request->post['module_materialize_color_btt_btn'];
 		} elseif ($this->config->get('module_materialize_color_btt_btn') == true) {

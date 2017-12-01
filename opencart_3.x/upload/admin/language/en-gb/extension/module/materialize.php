@@ -36,6 +36,8 @@ $_['entry_background']	= 'Common Background';
 $_['entry_nav_btn']		= 'Mobile Navigation Button';
 $_['entry_cart_btn']	= 'Cart Button';
 $_['entry_total_btn']	= 'Quantity product above Cart Button';
+$_['entry_compare_btn']	= 'Compare Button';
+$_['entry_tot_cmp_btn']	= 'Quantity product above Compare Button';
 $_['entry_btt_btn']		= 'Back to top Button';
 
 $_['entry_title']		= 'Title';

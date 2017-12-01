@@ -129,6 +129,52 @@
 															</div>
 														</div>
 														<div class="form-group">
+															<label class="col-sm-2 control-label"><?php echo $entry_compare_btn; ?>:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_compare_btn" class="selectpicker show-tick">
+																	<?php foreach ($module_materialize_colors as $color) { ?>
+																	<?php if ($color['name'] == $module_materialize_color_compare_btn) { ?>
+																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<?php } else { ?>
+																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<?php } ?>
+																	<?php } ?>
+																</select>
+																<select name="module_materialize_color_compare_btn_text" class="selectpicker show-tick">
+																	<?php foreach ($module_materialize_colors_text as $color) { ?>
+																	<?php if ($color['name'] == $module_materialize_color_compare_btn_text) { ?>
+																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<?php } else { ?>
+																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<?php } ?>
+																	<?php } ?>
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label"><?php echo $entry_tot_cmp_btn; ?>:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_compare_total_btn" class="selectpicker show-tick">
+																	<?php foreach ($module_materialize_colors as $color) { ?>
+																	<?php if ($color['name'] == $module_materialize_color_compare_total_btn) { ?>
+																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<?php } else { ?>
+																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<?php } ?>
+																	<?php } ?>
+																</select>
+																<select name="module_materialize_color_compare_total_btn_text" class="selectpicker show-tick">
+																	<?php foreach ($module_materialize_colors_text as $color) { ?>
+																	<?php if ($color['name'] == $module_materialize_color_compare_total_btn_text) { ?>
+																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<?php } else { ?>
+																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<?php } ?>
+																	<?php } ?>
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
 															<label class="col-sm-2 control-label"><?php echo $entry_btt_btn; ?>:</label>
 															<div class="col-sm-4">
 																<select name="module_materialize_color_btt_btn" class="selectpicker show-tick">

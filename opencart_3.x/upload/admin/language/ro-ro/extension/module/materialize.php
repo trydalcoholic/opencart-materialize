@@ -36,6 +36,8 @@ $_['entry_background']	= 'Contextul principal';
 $_['entry_nav_btn']		= 'Buton de navigare mobil';
 $_['entry_cart_btn']	= 'Buton cu buton';
 $_['entry_total_btn']	= 'Cantitate produs de mai sus Carton Button';
+$_['entry_compare_btn']	= 'Comparați butonul';
+$_['entry_tot_cmp_btn']	= 'Cantitatea produsului de mai sus Butonul Comparare';
 $_['entry_btt_btn']		= 'Sus Button';
 
 $_['entry_title']		= 'Titlu';
@@ -59,12 +61,12 @@ $_['entry_icon_pin']	= 'Icon Pin';
 $_['entry_image_size']	= 'Dimensiunile imaginii';
 
 // Help
-$_['help_colors']		= 'The colors of the template are already embedded in the CSS styles. Customize the colors of the site according to your desire based on the existing color palette. You can see the color palette on the website of the developers of the <a href="//materializecss.com/color.html" target="_blank" rel="noopener"><b>Materialize framework.</b></a>';
-$_['help_not_index']	= 'Sets the rel=&quot;nofollow&quot;';
-$_['help_payment']		= 'Here you can configure only the output of information about available payment methods on the products page.';
-$_['help_image_size']	= 'First, specify the width, then the height of the image in pixels.';
-$_['help_google_map']	= 'To use <b>Google Maps</b>, you need to get the <b>Google API Key</b> from <a href="//developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener"><b>this link</b></a> and manually enter it into the appropriate field.';
-$_['help_geocode']		= 'Specify the coordinates in the order of Latitude, and Longitude.';
+$_['help_colors']		= 'Culorile șablonului sunt deja încorporate în stilurile CSS. Personalizați culorile site-ului în funcție de dorința dvs., pe baza paletei de culori existente. Puteți vedea paleta de culori pe site-ul dezvoltatorilor din cadrul <a href="//materializecss.com/color.html" target="_blank" rel="noopener"><b>Materialize</b></a>.';
+$_['help_not_index']	= 'Seteaza rel=&quot;nofollow&quot;';
+$_['help_payment']		= 'Aici puteți configura numai rezultatul informațiilor despre metodele de plată disponibile pe pagina de produse.';
+$_['help_image_size']	= 'Mai întâi, specificați lățimea, apoi înălțimea imaginii în pixeli.';
+$_['help_google_map']	= 'Pentru a utiliza <b>Google Maps</b>, trebuie să obțineți cheia <b>Google API Key</b> de la <a href="//developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener"><b>acest link</b></a> și să o introduceți manual în câmpul corespunzător.';
+$_['help_geocode']		= 'Specificați coordonatele în ordinea Latitude și Longitude.';
 
 // Error
 $_['error_permission']	= 'Nu aveți permisiunea de a gestiona acest modul!';

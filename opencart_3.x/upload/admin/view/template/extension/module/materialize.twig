@@ -129,6 +129,52 @@
 															</div>
 														</div>
 														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_compare_btn }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_compare_btn" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_compare_btn %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_compare_btn_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_compare_btn_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">{{ entry_tot_cmp_btn }}:</label>
+															<div class="col-sm-4">
+																<select name="module_materialize_color_compare_total_btn" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors %}
+																	{% if color.name == module_materialize_color_compare_total_btn %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+																<select name="module_materialize_color_compare_total_btn_text" class="selectpicker show-tick">
+																	{% for color in module_materialize_colors_text %}
+																	{% if color.name == module_materialize_color_compare_total_btn_text %}
+																	<option value="{{ color.name }}" selected="selected">{{ color.name }}</option>
+																	{% else %}
+																	<option value="{{ color.name }}">{{ color.name }}</option>
+																	{% endif %}
+																	{% endfor %}
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
 															<label class="col-sm-2 control-label">{{ entry_btt_btn }}:</label>
 															<div class="col-sm-4">
 																<select name="module_materialize_color_btt_btn" class="selectpicker show-tick">

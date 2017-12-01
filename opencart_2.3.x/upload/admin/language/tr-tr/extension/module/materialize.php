@@ -36,6 +36,8 @@ $_['entry_background']	= 'Ortak Arka Plan';
 $_['entry_nav_btn']		= 'Mobil Navigasyon Düğmesi';
 $_['entry_cart_btn']	= 'Sepeti Düğmesini';
 $_['entry_total_btn']	= 'Miktar ürün Sepeti Düğme yukarıda';
+$_['entry_compare_btn']	= 'Karşılaştır düğmesi';
+$_['entry_tot_cmp_btn']	= 'Yukarıdaki Miktar Ürün Karşılaştırma Düğmesi';
 $_['entry_btt_btn']		= 'Geri Düğmesi üstüne';
 
 $_['entry_title']		= 'Başlık';

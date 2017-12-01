@@ -62,6 +62,8 @@ class ControllerExtensionModuleMaterialize extends Controller {
 		$data['entry_nav_btn'] = $this->language->get('entry_nav_btn');
 		$data['entry_cart_btn'] = $this->language->get('entry_cart_btn');
 		$data['entry_total_btn'] = $this->language->get('entry_total_btn');
+		$data['entry_compare_btn'] = $this->language->get('entry_compare_btn');
+		$data['entry_tot_cmp_btn'] = $this->language->get('entry_tot_cmp_btn');
 		$data['entry_btt_btn'] = $this->language->get('entry_btt_btn');
 
 		$data['entry_title'] = $this->language->get('entry_title');
@@ -196,6 +198,38 @@ class ControllerExtensionModuleMaterialize extends Controller {
 			$data['module_materialize_color_total_btn_text'] = $this->config->get('module_materialize_color_total_btn_text');
 		} else {
 			$data['module_materialize_color_total_btn_text'] = 'white-text';
+		}
+
+		if (isset($this->request->post['module_materialize_color_compare_btn'])) {
+			$data['module_materialize_color_compare_btn'] = $this->request->post['module_materialize_color_compare_btn'];
+		} elseif ($this->config->get('module_materialize_color_compare_btn') == true) {
+			$data['module_materialize_color_compare_btn'] = $this->config->get('module_materialize_color_compare_btn');
+		} else {
+			$data['module_materialize_color_compare_btn'] = 'blue';
+		}
+
+		if (isset($this->request->post['module_materialize_color_compare_btn_text'])) {
+			$data['module_materialize_color_compare_btn_text'] = $this->request->post['module_materialize_color_compare_btn_text'];
+		} elseif ($this->config->get('module_materialize_color_compare_btn_text') == true) {
+			$data['module_materialize_color_compare_btn_text'] = $this->config->get('module_materialize_color_compare_btn_text');
+		} else {
+			$data['module_materialize_color_compare_btn_text'] = 'white-text';
+		}
+
+		if (isset($this->request->post['module_materialize_color_compare_total_btn'])) {
+			$data['module_materialize_color_compare_total_btn'] = $this->request->post['module_materialize_color_compare_total_btn'];
+		} elseif ($this->config->get('module_materialize_color_compare_total_btn') == true) {
+			$data['module_materialize_color_compare_total_btn'] = $this->config->get('module_materialize_color_compare_total_btn');
+		} else {
+			$data['module_materialize_color_compare_total_btn'] = 'light-blue darken-2';
+		}
+
+		if (isset($this->request->post['module_materialize_color_compare_total_btn_text'])) {
+			$data['module_materialize_color_compare_total_btn_text'] = $this->request->post['module_materialize_color_compare_total_btn_text'];
+		} elseif ($this->config->get('module_materialize_color_compare_total_btn_text') == true) {
+			$data['module_materialize_color_compare_total_btn_text'] = $this->config->get('module_materialize_color_compare_total_btn_text');
+		} else {
+			$data['module_materialize_color_compare_total_btn_text'] = 'white-text';
 		}
 
 		if (isset($this->request->post['module_materialize_color_btt_btn'])) {

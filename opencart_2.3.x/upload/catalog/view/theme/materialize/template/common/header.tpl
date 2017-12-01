@@ -255,7 +255,7 @@
 	</header>
 	<?php echo $cart; ?>
 	<?php echo $callback; ?>
-	<a id="compare-btn" href="<?php echo $compare; ?>" class="btn-floating btn-large waves-effect waves-light blue z-depth-4 scale-transition pulse <?php if ($text_compare==0) {echo 'scale-out';} ?>" title="<?php echo $text_comparison_list; ?>" rel="nofollow">
-		<i class="material-icons">compare_arrows</i>
-		<small id="compare-total" class="light-blue darken-2 btn-floating z-depth-1 pulse"><?php echo $text_compare; ?></small>
+	<a id="compare-btn" href="<?php echo $compare; ?>" class="btn-floating btn-large waves-effect waves-light scale-transition pulse <?php echo $color_compare; ?> <?php if ($text_compare==0) {echo 'scale-out';} ?>" title="<?php echo $text_comparison_list; ?>" rel="nofollow">
+		<i class="material-icons <?php echo $color_compare_text; ?>">compare_arrows</i>
+		<small id="compare-total" class="btn-floating z-depth-1 pulse <?php echo $color_compare_total.' '.$color_compare_total_text; ?>"><?php echo $text_compare; ?></small>
 	</a>
