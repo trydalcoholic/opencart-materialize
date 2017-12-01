@@ -105,7 +105,7 @@
 						<a class="href-underline text-bold flow-text block {{ color_header_text }}" href="tel:{{ telephone|replace({"(": "", ")" : "", " " : ""})}}">{{ telephone }}</a>
 						<ul class="right contact-info">
 							<li><a href="mailto:{{ email }}" class="{{ color_header_text }}"><i class="material-icons left">email</i>{{ email }}</a></li>
-							<li><a href="#callback__modal" class="modal-trigger activator {{ color_header_text }}" rel="nofollow"><i class="material-icons left">phone_in_talk</i>{{ text_call_back }}</a></li>
+							{% if callback_status %}<li><a href="#callback__modal" class="modal-trigger activator {{ color_header_text }}" rel="nofollow"><i class="material-icons left">phone_in_talk</i>{{ text_call_back }}</a></li>{% endif %}
 							{% if open %}
 							<li><i class="material-icons left">access_time</i>{{ open }}</li>
 							{% endif %}
@@ -161,7 +161,7 @@
 					</div>
 				</div>
 			</li>
-			<li class="grey lighten-4"><a class="waves-effect waves-default modal-trigger activator" href="#callback__modal" rel="nofollow"><i class="material-icons">phone_in_talk</i>{{ text_call_back }}</a></li>
+			{% if callback_status %}<li class="grey lighten-4"><a class="waves-effect waves-default modal-trigger activator" href="#callback__modal" rel="nofollow"><i class="material-icons">phone_in_talk</i>{{ text_call_back }}</a></li>{% endif %}
 			{{ menu_side }}
 			<li class="divider"></li>
 			<li><a class="waves-effect" href="{{ delivery }}" rel="nofollow"><i class="material-icons">local_shipping</i>{{ text_delivery }}</a></li>
@@ -191,7 +191,7 @@
 		</ul>
 	</header>
 	{{ cart }}
-	{{ callback }}
+	{{ callback_module }}
 	<a id="compare-btn" href="{{ compare }}" class="btn-floating btn-large waves-effect waves-light scale-transition pulse {{ color_compare }} {{ text_compare == '0' ? 'scale-out' : '' }}" title="{{ text_comparison_list }}" rel="nofollow">
 		<i class="material-icons {{ color_compare_text }}">compare_arrows</i>
 		<small id="compare-total" class="btn-floating z-depth-1 pulse {{ color_compare_total }} {{ color_compare_total_text }}">{{ text_compare }}</small>

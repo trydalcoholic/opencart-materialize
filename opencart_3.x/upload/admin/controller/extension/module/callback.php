@@ -23,6 +23,12 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['error_warning'] = '';
 		}
 
+		if (isset($this->error['success'])) {
+			$data['error_success'] = $this->error['success'];
+		} else {
+			$data['error_success'] = array();
+		}
+
 		if (isset($this->error['error_module_callback_time'])) {
 			$data['error_module_callback_time'] = $this->error['error_module_callback_time'];
 		} else {
@@ -138,6 +144,12 @@ class ControllerExtensionModuleCallback extends Controller {
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/module/callback')) {
 			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		foreach ($this->request->post['module_callback'] as $language_id => $value) {
+			if (utf8_strlen($value['success']) < 1) {
+				$this->error['success'][$language_id] = $this->language->get('error_success');
+			}
 		}
 
 		if ($this->request->post['module_callback_callaction_status'] && ((utf8_strlen($this->request->post['module_callback_time']) < 1) || ($this->request->post['module_callback_time'] < 1))) {

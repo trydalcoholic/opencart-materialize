@@ -31,4 +31,5 @@ $_['help_time']			= 'Time is specified in seconds';
 
 // Error
 $_['error_permission']	= 'You do not have permission to manage this module!';
+$_['error_success']		= 'Fill in the field Text after sending!';
 $_['error_time']		= 'Time can not be less than 1 second!';
