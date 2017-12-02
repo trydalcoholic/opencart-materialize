@@ -71,7 +71,7 @@ class ControllerExtensionModuleCallback extends Controller {
 		} elseif ($this->config->get('module_callback') == true) {
 			$data['module_callback'] = $this->config->get('module_callback');
 		} else {
-			$data['module_callback'] = $module_callback;
+			$data['module_callback'] = '';
 		}
 
 		if (isset($this->request->post['module_callback_name'])) {

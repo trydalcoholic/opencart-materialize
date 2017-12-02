@@ -31,4 +31,5 @@ $_['help_time']			= 'Time is specified in seconds';
 
 // Error
 $_['error_permission']	= 'Nu ai permisiunea sa modifici acest modul!';
+$_['error_success']		= 'Completați câmpul Text după expediere!';
 $_['error_time']		= 'Timpul nu poate fi mai mic de 1 secundă!';

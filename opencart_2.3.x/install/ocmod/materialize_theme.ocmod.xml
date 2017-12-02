@@ -437,8 +437,16 @@
 	<!-- Callback -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
-			<search><![CDATA[$data['name'] = $this->config->get('config_name');]]></search>
-			<add position="after"><![CDATA[$data['callback'] = $this->load->controller('extension/module/callback', $data);]]></add>
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_callback_status') == 1) {
+				$data['callback_status'] = true;
+				$data['callback_module'] = $this->load->controller('extension/module/callback', $data);
+			} else {
+				$data['callback_status'] = false;
+				$data['callback_module'] = '';
+			}
+			]]></add>
 		</operation>
 	</file>
 	<!-- Blog resize image -->

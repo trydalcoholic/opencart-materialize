@@ -44,6 +44,7 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['help_time'] = $this->language->get('help_time');
 
 		$data['error_time'] = $this->language->get('error_time');
+		$data['error_success'] = $this->language->get('error_success');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -52,6 +53,12 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
 			$data['error_warning'] = '';
+		}
+
+		if (isset($this->error['success'])) {
+			$data['error_success'] = $this->error['success'];
+		} else {
+			$data['error_success'] = array();
 		}
 
 		if (isset($this->error['error_module_callback_time'])) {
@@ -96,7 +103,7 @@ class ControllerExtensionModuleCallback extends Controller {
 		} elseif ($this->config->get('module_callback') == true) {
 			$data['module_callback'] = $this->config->get('module_callback');
 		} else {
-			$data['module_callback'] = $module_callback;
+			$data['module_callback'] = '';
 		}
 
 		if (isset($this->request->post['module_callback_name'])) {
@@ -169,6 +176,12 @@ class ControllerExtensionModuleCallback extends Controller {
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/module/callback')) {
 			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		foreach ($this->request->post['module_callback'] as $language_id => $value) {
+			if (utf8_strlen($value['success']) < 1) {
+				$this->error['success'][$language_id] = $this->language->get('error_success');
+			}
 		}
 
 		if ($this->request->post['module_callback_callaction_status'] && ((utf8_strlen($this->request->post['module_callback_time']) < 1) || ($this->request->post['module_callback_time'] < 1))) {

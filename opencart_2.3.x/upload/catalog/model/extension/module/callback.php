@@ -6,15 +6,15 @@ class ModelExtensionModuleCallback extends Model {
 		$subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 
 		$message  = $this->language->get('text_waiting') . "\n";
-		$message .= sprintf($this->language->get('text_telephone'), html_entity_decode($data['module_callback_telephone'], ENT_QUOTES, 'UTF-8')) . "\n";
-		if ((html_entity_decode($data['module_callback_name'], ENT_QUOTES, 'UTF-8'))) {
-			$message .= sprintf($this->language->get('text_name'), html_entity_decode($data['module_callback_name'], ENT_QUOTES, 'UTF-8')) . "\n";
+		$message .= sprintf($this->language->get('text_telephone'), trim($data['module_callback_telephone'])) . "\n";
+		if ($data['module_callback_name']) {
+			$message .= sprintf($this->language->get('text_name'), trim($data['module_callback_name'])) . "\n";
 		}
-		if ((html_entity_decode($data['module_callback_enquiry'], ENT_QUOTES, 'UTF-8'))) {
-			$message .= sprintf($this->language->get('text_enquiry'), html_entity_decode($data['module_callback_enquiry'], ENT_QUOTES, 'UTF-8')) . "\n";
+		if ($data['module_callback_enquiry']) {
+			$message .= sprintf($this->language->get('text_enquiry'), trim($data['module_callback_enquiry'])) . "\n";
 		}
-		if ((html_entity_decode($data['module_callback_calltime'], ENT_QUOTES, 'UTF-8'))) {
-			$message .= sprintf($this->language->get('text_calltime'), html_entity_decode($data['module_callback_calltime'], ENT_QUOTES, 'UTF-8')) . "\n";
+		if ($data['module_callback_calltime']) {
+			$message .= sprintf($this->language->get('text_calltime'), trim($data['module_callback_calltime'])) . "\n";
 		}
 
 		$mail = new Mail();

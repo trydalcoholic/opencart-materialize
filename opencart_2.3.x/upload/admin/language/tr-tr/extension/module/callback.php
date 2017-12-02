@@ -31,4 +31,5 @@ $_['help_time']			= 'Zaman saniye cinsinden belirtilir';
 
 // Error
 $_['error_permission']	= 'Bu modülü yönetme izniniz yok!';
+$_['error_success']		= 'Alanı doldurun!';
 $_['error_time']		= 'Zamanı 1 saniyeden az olamaz!';

@@ -92,12 +92,12 @@ class ControllerExtensionModuleCallback extends Controller {
 		$json = array();
 
 		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-			if ((utf8_strlen($this->request->post['module_callback_telephone']) < 5) || (utf8_strlen($this->request->post['module_callback_telephone']) > 24)) {
+			if ((utf8_strlen(trim($this->request->post['module_callback_telephone'])) < 4) || (utf8_strlen(trim($this->request->post['module_callback_telephone'])) > 24)) {
 				$json['error'] = $this->language->get('error_telephone');
 			}
 
 			if (isset($this->request->post['module_callback_name'])) {
-				if (($this->config->get('module_callback_name_required') == 1) && ((utf8_strlen($this->request->post['module_callback_name']) < 3) || (utf8_strlen($this->request->post['module_callback_name']) > 25))) {
+				if (($this->config->get('module_callback_name_required') == 1) && ((utf8_strlen(trim($this->request->post['module_callback_name'])) < 3) || (utf8_strlen(trim($this->request->post['module_callback_name'])) > 25))) {
 					$json['error'] = $this->language->get('error_name');
 				}
 			} else {
@@ -105,7 +105,7 @@ class ControllerExtensionModuleCallback extends Controller {
 			}
 
 			if (isset($this->request->post['module_callback_enquiry'])) {
-				if (($this->config->get('module_callback_enquiry_required') == 1) && ((utf8_strlen($this->request->post['module_callback_enquiry']) < 10) || (utf8_strlen($this->request->post['module_callback_enquiry']) > 360))) {
+				if (($this->config->get('module_callback_enquiry_required') == 1) && ((utf8_strlen(trim($this->request->post['module_callback_enquiry'])) < 10) || (utf8_strlen(trim($this->request->post['module_callback_enquiry'])) > 360))) {
 					$json['error'] = $this->language->get('error_enquiry');
 				}
 			} else {
