@@ -223,6 +223,21 @@
 								</select>
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="callback-agreement"><span data-toggle="tooltip" title="{{ help_agreement }}">{{ entry_agreement }}:</span></label>
+							<div class="col-sm-10">
+								<select name="module_callback_agreement" id="callback-agreement" class="form-control">
+									<option value="0">{{ text_none }}</option>
+									{% for information in informations %}
+									{% if information.information_id == module_callback_agreement %}
+									<option value="{{ information.information_id }}" selected="selected">{{ information.title }}</option>
+									{% else %}
+									<option value="{{ information.information_id }}">{{ information.title }}</option>
+									{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+						</div>
 					</fieldset>
 				</form>
 			</div>

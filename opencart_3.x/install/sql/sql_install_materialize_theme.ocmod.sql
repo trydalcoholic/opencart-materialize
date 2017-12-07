@@ -184,6 +184,29 @@ ALTER TABLE `oc_blog_category` MODIFY `category_id` int(11) NOT NULL AUTO_INCREM
 ALTER TABLE `oc_post` MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `oc_post_comment` MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
 
+/* Materialize Call Back */
+
+CREATE TABLE IF NOT EXISTS `oc_materialize_callback` (
+	`callback_id` INT NOT NULL AUTO_INCREMENT,
+	`telephone` VARCHAR(32) NOT NULL,
+	`name` VARCHAR(32) NOT NULL,
+	`enquiry` VARCHAR(360) NOT NULL,
+	`call_time` TIME NOT NULL,
+	`ip` VARCHAR(40) NOT NULL,
+	`date_added` DATETIME NOT NULL,
+	`order_page` TEXT NOT NULL,
+	`status` TINYINT(1) NOT NULL,
+	PRIMARY KEY (`callback_id`)
+) ENGINE = MyISAM;
+
+CREATE TABLE IF NOT EXISTS `oc_materialize_callback_history` (
+	`callback_history_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`callback_id` INT NOT NULL,
+	`comment` TEXT NOT NULL,
+	`date_added` DATETIME NOT NULL,
+	PRIMARY KEY (`callback_history_id`)
+) ENGINE = MyISAM;
+
 /* Materialize Settings */
 
 CREATE TABLE IF NOT EXISTS `oc_materialize_maps` (

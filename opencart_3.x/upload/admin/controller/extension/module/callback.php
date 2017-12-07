@@ -17,6 +17,10 @@ class ControllerExtensionModuleCallback extends Controller {
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true));
 		}
 
+		$this->load->model('catalog/information');
+
+		$data['informations'] = $this->model_catalog_information->getInformations();
+
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
@@ -126,6 +130,12 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['module_callback_phonemask_status'] = $this->request->post['module_callback_phonemask_status'];
 		} else {
 			$data['module_callback_phonemask_status'] = $this->config->get('module_callback_phonemask_status');
+		}
+
+		if (isset($this->request->post['module_callback_agreement'])) {
+			$data['module_callback_agreement'] = $this->request->post['module_callback_agreement'];
+		} else {
+			$data['module_callback_agreement'] = $this->config->get('module_callback_agreement');
 		}
 
 		if (isset($this->request->post['module_callback_status'])) {
