@@ -9,7 +9,7 @@ $_['entry_enquiry']		= 'Comment';
 $_['entry_calltime']	= 'Convenient time for a call';
 
 // Text
-$_['text_agree']			= 'I have read and agree to the <a href="%s" class="agree"><b>%s</b></a>';
+$_['text_agree']		= 'I have read and agree to the <a href="%s" class="agree"><b>%s</b></a>';
 
 // Error
 $_['error_telephone']	= 'Phone must be from 4 to 24 characters!';

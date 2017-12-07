@@ -8,7 +8,6 @@ $_['text_сalled']			= 'Сalled';
 $_['text_waiting']			= 'Waiting';
 $_['text_success']			= 'Success: You have modified Call Back!';
 $_['text_list']				= 'Call Back List';
-$_['text_add']				= 'Add Call Back';
 $_['text_edit']				= 'Edit Call Back: #%u';
 $_['text_account']			= 'Call Back Details';
 $_['text_info']				= 'Info';
@@ -41,7 +40,7 @@ $_['entry_date_added']		= 'Date Added';
 
 // Error
 $_['error_warning']			= 'Warning: Please check the form carefully for errors!';
-$_['error_permission']		= 'Warning: You do not have permission to modify customers!';
+$_['error_permission']		= 'Warning: You do not have permission to edit this module!';
 $_['error_telephone']		= 'Telephone must be between 3 and 32 characters!';
 $_['error_name']			= 'The name can not be longer than 32 characters!';
 $_['error_enquiry']			= 'The comment can not be longer than 360 characters!';
