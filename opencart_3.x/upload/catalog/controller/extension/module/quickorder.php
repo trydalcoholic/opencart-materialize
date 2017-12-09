@@ -108,10 +108,10 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['text_agree'] = '';
 		}
 
-		if (isset($this->request->post['agree'])) {
-			$data['agree'] = $this->request->post['agree'];
+		if (isset($this->request->post['module_quickorder_agree'])) {
+			$data['module_quickorder_agree'] = $this->request->post['module_quickorder_agree'];
 		} else {
-			$data['agree'] = false;
+			$data['module_quickorder_agree'] = false;
 		}
 
 		if ($this->config->get('module_quickorder_status') == 1) {
@@ -175,7 +175,7 @@ class ControllerExtensionModuleQuickorder extends Controller {
 
 				$information_info = $this->model_catalog_information->getInformation($this->config->get('module_quickorder_agreement'));
 
-				if ($information_info && !isset($this->request->post['agree'])) {
+				if ($information_info && !isset($this->request->post['module_quickorder_agree'])) {
 					$json['error'] = sprintf($this->language->get('error_agree'), '<b>&nbsp;' . $information_info['title'] . '</b>');
 				}
 			}

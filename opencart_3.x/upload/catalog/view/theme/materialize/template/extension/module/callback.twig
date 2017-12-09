@@ -34,11 +34,11 @@
 		<div class="row">
 			<div class="col s12">
 				{% if agree %}
-				<input type="checkbox" name="agree" value="1" checked="checked" id="agreement-check" class="filled-in">
+				<input type="checkbox" name="module_callback_agree" value="1" checked="checked" id="agreement-check-callback" class="filled-in">
 				{% else %}
-				<input type="checkbox" name="agree" value="1" id="agreement-check" class="filled-in">
+				<input type="checkbox" name="module_callback_agree" value="1" id="agreement-check-callback" class="filled-in">
 				{% endif %}
-				<label for="agreement-check">{{ text_agree }}</label>
+				<label for="agreement-check-callback">{{ text_agree }}</label>
 			</div>
 		</div>
 		{% endif %}
@@ -114,12 +114,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					{% endif %}
 					{% if module_callback_enquiry %}
 					$('textarea[name=\'module_callback_enquiry\']').val('').blur();
+					$('textarea[name=\'module_callback_enquiry\']').trigger('autoresize');
 					{% endif %}
 					{% if module_callback_calltime %}
 					$('input[name=\'module_callback_calltime\']').val('').blur();
 					{% endif %}
 					{% if text_agree %}
-					$('input[name=\'agree\']').prop('checked', false);
+					$('input[name=\'module_callback_agree\']').prop('checked', false);
 					{% endif %}
 					$('#callback__modal').modal('close');
 				}

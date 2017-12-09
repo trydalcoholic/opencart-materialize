@@ -31,3 +31,4 @@ $_['help_checkout']		= 'Sipariş verirken kurallara uyulup onaylanmadığını i
 
 // Error
 $_['error_permission']	= 'Bu modülü yönetme izniniz yok!';
+$_['error_success']		= 'Alanı doldurun!';

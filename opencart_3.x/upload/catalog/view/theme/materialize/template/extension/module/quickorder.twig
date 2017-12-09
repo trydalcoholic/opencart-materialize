@@ -54,11 +54,11 @@
 		<div class="row">
 			<div class="col s12">
 				{% if agree %}
-				<input type="checkbox" name="agree" value="1" checked="checked" id="agreement-check" class="filled-in">
+				<input type="checkbox" name="module_quickorder_agree" value="1" checked="checked" id="agreement-check-quickorder" class="filled-in">
 				{% else %}
-				<input type="checkbox" name="agree" value="1" id="agreement-check" class="filled-in">
+				<input type="checkbox" name="module_quickorder_agree" value="1" id="agreement-check-quickorder" class="filled-in">
 				{% endif %}
-				<label for="agreement-check">{{ text_agree }}</label>
+				<label for="agreement-check-quickorder">{{ text_agree }}</label>
 			</div>
 		</div>
 		{% endif %}
@@ -109,6 +109,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					{% endif %}
 					{% if module_quickorder_calltime %}
 					$('input[name=\'module_quickorder_calltime\']').val('').blur();
+					{% endif %}
+					{% if text_agree %}
+					$('input[name=\'module_quickorder_agree\']').prop('checked', false);
 					{% endif %}
 					$('#quickorder__modal').modal('close');
 				}

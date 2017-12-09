@@ -83,10 +83,10 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['text_agree'] = '';
 		}
 
-		if (isset($this->request->post['agree'])) {
-			$data['agree'] = $this->request->post['agree'];
+		if (isset($this->request->post['module_callback_agree'])) {
+			$data['module_callback_agree'] = $this->request->post['module_callback_agree'];
 		} else {
-			$data['agree'] = false;
+			$data['module_callback_agree'] = false;
 		}
 
 		if ($this->config->get('module_callback_status') == 1) {
@@ -140,7 +140,7 @@ class ControllerExtensionModuleCallback extends Controller {
 
 				$information_info = $this->model_catalog_information->getInformation($this->config->get('module_callback_agreement'));
 
-				if ($information_info && !isset($this->request->post['agree'])) {
+				if ($information_info && !isset($this->request->post['module_callback_agree'])) {
 					$json['error'] = sprintf($this->language->get('error_agree'), '<b>&nbsp;' . $information_info['title'] . '</b>');
 				}
 			}
