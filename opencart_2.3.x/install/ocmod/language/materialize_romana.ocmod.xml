@@ -4,7 +4,20 @@
 	<code>materialize-theme-romana-settings</code>
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
-	<link>https://github.com/trydalcoholic</link>
+	<link>//goo.gl/pSwwUR</link>
+	<!-- Call Back -->
+	<file path="admin/language/ro-ro/common/column_left.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_callback']	= 'Suna inapoi';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ro-ro/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_call_back']	= 'Solicita apel';]]></add>
+		</operation>
+	</file>
 	<!-- Custom map -->
 	<file path="catalog/language/ro-ro/information/contact.php">
 		<operation error="skip">
@@ -66,9 +79,9 @@
 	<file path="catalog/language/ro-ro/{information,checkout,affiliate,account}/{contact,checkout,register,login,edit}*.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
-				$_['text_email_error']		= 'E-mail gresit';
-				$_['text_email_success']	= 'E-mailul este valabil';
+			<add position="after"><![CDATA[
+			$_['text_email_error']		= 'E-mail gresit';
+			$_['text_email_success']	= 'E-mailul este valabil';
 			]]></add>
 		</operation>
 	</file>
@@ -76,29 +89,23 @@
 	<file path="catalog/language/ro-ro/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_contact']		= 'Contact';
 			$_['text_about']		= 'Despre noi';
 			$_['text_delivery']		= 'Livrare';
-			$_['text_call_back']	= 'Solicita apel';
-			$_['text_call_free']	= 'apel cu tarif normal';
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ro-ro/common/footer.php">
 		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[$_['text_social_network']	= 'Ne gasiti pe';]]></add>
-		</operation>
-		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
-			<add position="replace" trim="true"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
+			<add position="replace"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ro-ro/common/cart.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_shopping_cart']	= 'Cos de cumparaturi';
 			$_['text_cat_says']			= 'Te ajut sa iti cheltuiesti banii :)';
 			]]></add>
@@ -107,7 +114,7 @@
 	<file path="catalog/language/ro-ro/product/search.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_searched']			= 'Ai cautat:';
 			$_['text_refine']			= 'defineste categoria';
 			$_['text_sort_short']		= 'Sorteaza';
@@ -119,7 +126,7 @@
 	<file path="catalog/language/ro-ro/product/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_sort_short']		= 'Sorteaza';
 			$_['text_percent']			= 'Discount';
 			$_['text_more_detailed']	= 'Mai multe detalii';
@@ -130,11 +137,10 @@
 	<file path="catalog/language/ro-ro/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_category']					= 'Categorie:';
 			$_['text_bonus_points']				= 'puncte bonus la cumparare';
 			$_['text_end_promotion']			= 'Oferta expira pe';
-			$_['text_payment_method']			= 'Plata ramburs sau card online';
 			$_['text_percent']					= 'Discount';
 			$_['text_more_detailed']			= 'Mai multe detalii';
 			$_['text_sku']						= 'SKU:';
@@ -152,7 +158,7 @@
 	<file path="catalog/language/ro-ro/product/manufacturer.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_manufacturers_starting']	= 'Toti producatorii cu';
 			$_['text_view_all_products']		= 'Vezi toate produsele';
 			$_['text_sort_short']				= 'Sorteaza';
@@ -164,7 +170,7 @@
 	<file path="catalog/language/ro-ro/product/special.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_sort_short']		= 'Sorteaza';
 			$_['text_percent']			= 'Discount';
 			$_['text_more_detailed']	= 'Mai multe detalii';
@@ -174,7 +180,7 @@
 	<file path="catalog/language/ro-ro/extension/module/{latest,bestseller,featured,special}*.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_percent']			= 'Discount';
 			$_['text_more_detailed']	= 'Mai multe detalii';
 			]]></add>
@@ -183,21 +189,21 @@
 	<file path="catalog/language/ro-ro/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[$_['text_comparison_list']	= 'Lista comparare';]]></add>
+			<add position="after"><![CDATA[$_['text_comparison_list']	= 'Lista comparare';]]></add>
 		</operation>
 	</file>
 	<!-- Cart button -->
 	<file path="admin/language/ro-ro/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[$_['entry_cart']	= 'Buton cos';]]></add>
+			<add position="after"><![CDATA[$_['entry_cart']	= 'Buton cos';]]></add>
 		</operation>
 	</file>
 	<!-- Custom Tabs -->
 	<file path="admin/language/ro-ro/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['entry_title']			= 'Titlu filei';
 			$_['button_customtab_add']	= 'Adauga fila';
 			$_['tab_customtab']			= 'Fila personalizata';
@@ -209,7 +215,7 @@
 	<file path="admin/language/ro-ro/catalog/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[$_['text_apply']	= 'Aplica';]]></add>
+			<add position="after"><![CDATA[$_['text_apply']	= 'Aplica';]]></add>
 		</operation>
 	</file>
 </modification>

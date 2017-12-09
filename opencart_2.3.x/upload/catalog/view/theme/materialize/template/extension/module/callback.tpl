@@ -30,6 +30,19 @@
 			</div>
 			<?php } ?>
 		</div>
+		<?php if ($text_agree) { ?>
+		<div class="row">
+			<div class="col s12">
+				<?php if ($agree) { ?>
+				<input type="checkbox" name="agree" value="1" checked="checked" id="agreement-check" class="filled-in">
+				<?php } else { ?>
+				<input type="checkbox" name="agree" value="1" id="agreement-check" class="filled-in">
+				<?php } ?>
+				<label for="agreement-check"><?php echo $text_agree; ?></label>
+			</div>
+		</div>
+		<?php } ?>
+		<input type="hidden" name="order_page" value="<?php echo $order_page; ?>">
 	</div>
 	<div class="modal-footer href-underline">
 		<button type="button" id="callback__button" class="btn modal-action waves-effect waves-light red" value="<?php $button_submit; ?>"><?php echo $button_submit; ?></button>
@@ -94,6 +107,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					<?php } ?>
 					<?php if ($module_callback_calltime) { ?>
 					$('input[name=\'module_callback_calltime\']').val('').blur();
+					<?php } ?>
+					<?php if ($text_agree) { ?>
+					$('input[name=\'agree\']').prop('checked', false);
 					<?php } ?>
 					$('#callback__modal').modal('close');
 				}

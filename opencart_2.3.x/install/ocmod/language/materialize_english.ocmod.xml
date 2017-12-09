@@ -4,7 +4,20 @@
 	<code>materialize-theme-english-settings</code>
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
-	<link>https://github.com/trydalcoholic</link>
+	<link>//goo.gl/pSwwUR</link>
+	<!-- Call Back -->
+	<file path="admin/language/en-gb/common/column_left.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_callback']	= 'Call Back';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/en-gb/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_call_back']	= 'Call back me';]]></add>
+		</operation>
+	</file>
 	<!-- Custom map -->
 	<file path="catalog/language/en-gb/information/contact.php">
 		<operation error="skip">
@@ -80,7 +93,6 @@
 			$_['text_contact']		= 'Contact Us';
 			$_['text_about']		= 'About';
 			$_['text_delivery']		= 'Delivery';
-			$_['text_call_back']	= 'Call back me';
 			]]></add>
 		</operation>
 	</file>

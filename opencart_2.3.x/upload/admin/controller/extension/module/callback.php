@@ -17,6 +17,10 @@ class ControllerExtensionModuleCallback extends Controller {
 			$this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
 		}
 
+		$this->load->model('catalog/information');
+
+		$data['informations'] = $this->model_catalog_information->getInformations();
+
 		$data['heading_title'] = $this->language->get('heading_title');
 		$data['callback_title'] = $this->language->get('callback_title');
 
@@ -29,6 +33,7 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['text_name'] = $this->language->get('text_name');
 		$data['text_enquiry'] = $this->language->get('text_enquiry');
 		$data['text_call_time'] = $this->language->get('text_call_time');
+		$data['text_none'] = $this->language->get('text_none');
 		$data['text_materialize'] = $this->language->get('text_materialize');
 
 		$data['entry_phonemask'] = $this->language->get('entry_phonemask');
@@ -39,9 +44,11 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['entry_title'] = $this->language->get('entry_title');
 		$data['entry_description'] = $this->language->get('entry_description');
 		$data['entry_time'] = $this->language->get('entry_time');
+		$data['entry_agreement'] = $this->language->get('entry_agreement');
 
 		$data['help_modaltitle'] = $this->language->get('help_modaltitle');
 		$data['help_time'] = $this->language->get('help_time');
+		$data['help_agreement'] = $this->language->get('help_agreement');
 
 		$data['error_time'] = $this->language->get('error_time');
 		$data['error_success'] = $this->language->get('error_success');
@@ -152,6 +159,12 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['module_callback_callaction_status'] = $this->request->post['module_callback_callaction_status'];
 		} else {
 			$data['module_callback_callaction_status'] = $this->config->get('module_callback_callaction_status');
+		}
+
+		if (isset($this->request->post['module_callback_agreement'])) {
+			$data['module_callback_agreement'] = $this->request->post['module_callback_agreement'];
+		} else {
+			$data['module_callback_agreement'] = $this->config->get('module_callback_agreement');
 		}
 
 		if (isset($this->request->post['module_callback_phonemask_status'])) {

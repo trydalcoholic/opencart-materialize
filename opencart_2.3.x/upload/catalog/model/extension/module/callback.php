@@ -3,6 +3,8 @@ class ModelExtensionModuleCallback extends Model {
 	public function sendCallback($data) {
 		$this->load->language('mail/callback');
 
+		$this->db->query("INSERT INTO " . DB_PREFIX . "materialize_callback SET telephone = '" . $this->db->escape(trim($data['module_callback_telephone'])) . "', name = '" . $this->db->escape(trim($data['module_callback_name'])) . "', enquiry = '" . $this->db->escape(trim($data['module_callback_enquiry'])) . "', call_time  = '" . $this->db->escape(trim($data['module_callback_calltime'])) . "', order_page  = '" . $this->db->escape(html_entity_decode($data['order_page'], ENT_QUOTES, 'UTF-8')) . "', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', status = '0', date_added = NOW()");
+
 		$subject = sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
 
 		$message  = $this->language->get('text_waiting') . "\n";

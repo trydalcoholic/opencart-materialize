@@ -4,7 +4,20 @@
 	<code>materialize-theme-turkish-settings</code>
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
-	<link>https://github.com/trydalcoholic</link>
+	<link>//goo.gl/pSwwUR</link>
+	<!-- Call Back -->
+	<file path="admin/language/tr-tr/common/column_left.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_callback']	= 'Geri aramak';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/tr-tr/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_call_back']	= 'Biz sizi arayalım';]]></add>
+		</operation>
+	</file>
 	<!-- Custom map -->
 	<file path="catalog/language/tr-tr/information/contact.php">
 		<operation error="skip">
@@ -80,16 +93,10 @@
 			$_['text_contact']		= 'İletişime geçin';
 			$_['text_about']		= 'Hakkında';
 			$_['text_delivery']		= 'Teslimat';
-			$_['text_call_back']	= 'Biz sizi arayalım';
-			$_['text_call_free']	= 'Arama Talebi Oluştur';
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/tr-tr/common/footer.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[$_['text_social_network']	= 'Sosyal Ağlarda Biz';]]></add>
-		</operation>
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
 			<add position="replace" trim="true"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
@@ -134,7 +141,6 @@
 			$_['text_category']					= 'Kategori:';
 			$_['text_bonus_points']				= 'Satın almak için bonus puan';
 			$_['text_end_promotion']			= 'Teklif sone erme zamanı';
-			$_['text_payment_method']			= 'Nakit ve banka kartlarıyla ödeme';
 			$_['text_percent']					= 'İndirim';
 			$_['text_more_detailed']			= 'Ayrıntılı göster';
 			$_['text_sku']						= 'SKU:';

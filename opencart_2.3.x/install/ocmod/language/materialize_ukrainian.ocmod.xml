@@ -4,9 +4,22 @@
 	<code>materialize-theme-ukrainian-settings</code>
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
-	<link>https://github.com/trydalcoholic</link>
+	<link>//goo.gl/pSwwUR</link>
+	<!-- Call Back -->
+	<file path="admin/language/ua-uk/common/column_left.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_callback']	= 'Дзвінок з сайту';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ua-uk/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_call_back']	= 'Дзвінок з сайту';]]></add>
+		</operation>
+	</file>
 	<!-- Custom map -->
-	<file path="catalog/language/en-gb/information/contact.php">
+	<file path="catalog/language/ua-uk/information/contact.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
 			<add position="after"><![CDATA[$_['text_view_map']	= 'Подивитися на карті';]]></add>
@@ -53,7 +66,7 @@
 	<file path="admin/language/ua-uk/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[$_['entry_size_chart'] = 'Таблиця розмірів';]]></add>
+			<add position="after"><![CDATA[$_['entry_size_chart']	= 'Таблиця розмірів';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ua-uk/product/product.php">
@@ -66,7 +79,7 @@
 	<file path="catalog/language/ua-uk/{information,checkout,affiliate,account}/{contact,checkout,register,login,edit}*.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_email_error']		= 'Помилка при введенні E-mail';
 			$_['text_email_success']	= 'E-mail введений вірно';
 			]]></add>
@@ -76,29 +89,23 @@
 	<file path="catalog/language/ua-uk/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_contact']		= 'Контакти';
 			$_['text_about']		= 'Про нас';
 			$_['text_delivery']		= 'Доставка';
-			$_['text_call_back']	= 'Дзвінок з сайту';
-			$_['text_call_free']	= 'Дзвінок безкоштовний';
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ua-uk/common/footer.php">
 		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[$_['text_social_network']	= 'Ми в соцмережах';]]></add>
-		</operation>
-		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
-			<add position="replace" trim="true"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
+			<add position="replace"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ua-uk/common/cart.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_shopping_cart']	= 'Ваша корзина';
 			$_['text_cat_says']			= 'Давай допоможу тобі витратити гроші :)';
 			]]></add>
@@ -107,7 +114,7 @@
 	<file path="catalog/language/ua-uk/product/search.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_searched']			= 'Ви шукали:';
 			$_['text_refine']			= 'Уточнити категорію';
 			$_['text_sort_short']		= 'Сортувати';
@@ -119,7 +126,7 @@
 	<file path="catalog/language/ua-uk/product/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_sort_short']		= 'Сортувати';
 			$_['text_percent']			= 'Знижка';
 			$_['text_more_detailed']	= 'Детальніше';
@@ -130,11 +137,10 @@
 	<file path="catalog/language/ua-uk/product/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_category']					= 'Категорія:';
 			$_['text_bonus_points']				= 'бонусних балів за покупку';
 			$_['text_end_promotion']			= 'Акція закінчиться';
-			$_['text_payment_method']			= 'Оплата готівкою і банківськими картами';
 			$_['text_percent']					= 'Знижка';
 			$_['text_more_detailed']			= 'Детальніше';
 			$_['text_sku']						= 'Артикул:';
@@ -152,7 +158,7 @@
 	<file path="catalog/language/ua-uk/product/manufacturer.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_manufacturers_starting']	= 'Всі виробники, що починаються на';
 			$_['text_view_all_products']		= 'Переглянути всі товари';
 			$_['text_sort_short']				= 'Сортувати';
@@ -164,7 +170,7 @@
 	<file path="catalog/language/ua-uk/product/special.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_sort_short']		= 'Сортувати';
 			$_['text_percent']			= 'Знижка';
 			$_['text_more_detailed']	= 'Детальніше';
@@ -174,7 +180,7 @@
 	<file path="catalog/language/ua-uk/extension/module/{latest,bestseller,featured,special}*.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['text_percent']			= 'Знижка';
 			$_['text_more_detailed']	= 'Детальніше';
 			]]></add>
@@ -183,21 +189,21 @@
 	<file path="catalog/language/ua-uk/product/compare.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[$_['text_comparison_list']	= 'Порівняння товарів';]]></add>
+			<add position="after"><![CDATA[$_['text_comparison_list']	= 'Порівняння товарів';]]></add>
 		</operation>
 	</file>
 	<!-- Cart button -->
 	<file path="admin/language/ua-uk/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[$_['entry_cart']	= 'Кнопка кошика';]]></add>
+			<add position="after"><![CDATA[$_['entry_cart']	= 'Кнопка кошика';]]></add>
 		</operation>
 	</file>
 	<!-- Custom Tabs -->
 	<file path="admin/language/ua-uk/catalog/product.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[
+			<add position="after"><![CDATA[
 			$_['entry_title']			= 'Назва вкладки';
 			$_['button_customtab_add']	= 'Додати вкладку';
 			$_['tab_customtab']			= 'Додаткові вкладки';
@@ -209,7 +215,7 @@
 	<file path="admin/language/ua-uk/catalog/category.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after" trim="true"><![CDATA[$_['text_apply']	= 'Застосувати';]]></add>
+			<add position="after"><![CDATA[$_['text_apply']	= 'Застосувати';]]></add>
 		</operation>
 	</file>
 </modification>

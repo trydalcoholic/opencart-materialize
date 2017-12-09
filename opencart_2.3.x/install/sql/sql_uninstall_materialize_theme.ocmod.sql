@@ -24,5 +24,7 @@ DROP TABLE IF EXISTS
 	`oc_post_to_store`,
 	`oc_materialize_maps`,
 	`oc_materialize_colors`,
-	`oc_materialize_colors_text`
+	`oc_materialize_colors_text`,
+	`oc_materialize_callback`,
+	`oc_materialize_callback_history`
 ;

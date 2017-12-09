@@ -4,7 +4,47 @@
 	<code>materialize-theme</code>
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
-	<link>https://github.com/trydalcoholic</link>
+	<link>//goo.gl/pSwwUR</link>
+	<!-- Fix the Dashboard Extensions -->
+	<file path="admin/controller/extension/extension/dashboard.php">
+		<operation error="log">
+			<search><![CDATA[$this->model_extension_extension->install('dashboard', 'dashboard_' . $this->request->get['extension']);]]></search>
+			<add position="replace"><![CDATA[$this->model_extension_extension->install('dashboard', $this->request->get['extension']);]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->model_extension_extension->uninstall('dashboard', 'dashboard_' . $this->request->get['extension']);]]></search>
+			<add position="replace"><![CDATA[$this->model_extension_extension->uninstall('dashboard', $this->request->get['extension']);]]></add>
+		</operation>
+	</file>
+	<!-- Callback -->
+	<file path="admin/controller/common/column_left.php">
+		<operation error="log">
+			<search><![CDATA[$customer = array();]]></search>
+			<add position="after"><![CDATA[
+			if ($this->user->hasPermission('access', 'customer/callback')) {
+				$customer[] = array(
+					'name'		=> $this->language->get('text_callback'),
+					'href'		=> $this->url->link('customer/callback', 'token=' . $this->session->data['token'], true),
+					'children'	=> array()
+				);	
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_callback_status') == 1) {
+				$data['callback_status'] = true;
+				$data['callback_module'] = $this->load->controller('extension/module/callback', $data);
+			} else {
+				$data['callback_status'] = false;
+				$data['callback_module'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
 	<!-- Materialize Template Settings -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
@@ -432,21 +472,6 @@
 		<operation error="log">
 			<search><![CDATA[$product_option_value_data[] = array(]]></search>
 			<add position="after" trim="true"><![CDATA['default_option'	=> $product_option_value['default_option'],]]></add>
-		</operation>
-	</file>
-	<!-- Callback -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			if ($this->config->get('module_callback_status') == 1) {
-				$data['callback_status'] = true;
-				$data['callback_module'] = $this->load->controller('extension/module/callback', $data);
-			} else {
-				$data['callback_status'] = false;
-				$data['callback_module'] = '';
-			}
-			]]></add>
 		</operation>
 	</file>
 	<!-- Blog resize image -->

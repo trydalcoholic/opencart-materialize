@@ -223,6 +223,21 @@
 								</select>
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="callback-agreement"><span data-toggle="tooltip" title="<?php echo $help_agreement; ?>"><?php echo $entry_agreement; ?>:</span></label>
+							<div class="col-sm-10">
+								<select name="module_callback_agreement" id="callback-agreement" class="form-control">
+									<option value="0"><?php echo $text_none; ?></option>
+									<?php foreach ($informations as $information) { ?>
+									<?php if ($information['information_id'] == $module_callback_agreement) { ?>
+									<option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
+									<?php } else { ?>
+									<option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
+									<?php } ?>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
 					</fieldset>
 				</form>
 			</div>

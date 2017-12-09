@@ -24,6 +24,12 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['error_enquiry'] = $this->language->get('error_enquiry');
 		$data['error_calltime'] = $this->language->get('error_calltime');
 
+		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+			$data['order_page'] = 'https://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		} else {
+			$data['order_page'] = 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		}
+
 		if ($this->config->get('module_callback_name') == 1) {
 			$data['module_callback_name'] = $this->config->get('module_callback_name');
 
@@ -75,6 +81,26 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['module_callback_phonemask_status'] = '';
 		}
 
+		if (isset($this->request->post['agree'])) {
+			$data['agree'] = $this->request->post['agree'];
+		} else {
+			$data['agree'] = false;
+		}
+
+		if ($this->config->get('module_callback_agreement')) {
+			$this->load->model('catalog/information');
+
+			$information_info = $this->model_catalog_information->getInformation($this->config->get('module_callback_agreement'));
+
+			if ($information_info) {
+				$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_account_id'), true), $information_info['title'], $information_info['title']);
+			} else {
+				$data['text_agree'] = '';
+			}
+		} else {
+			$data['text_agree'] = '';
+		}
+
 		if ($this->config->get('module_callback_status') == 1) {
 			$data['module_callback_status'] = $this->config->get('module_callback_status');
 		} else {
@@ -118,6 +144,17 @@ class ControllerExtensionModuleCallback extends Controller {
 				}
 			} else {
 				$this->request->post['module_callback_calltime'] = '';
+			}
+
+			// Agree to terms
+			if ($this->config->get('module_callback_agreement')) {
+				$this->load->model('catalog/information');
+
+				$information_info = $this->model_catalog_information->getInformation($this->config->get('module_callback_agreement'));
+
+				if ($information_info && !isset($this->request->post['agree'])) {
+					$json['error'] = sprintf($this->language->get('error_agree'), '<b>&nbsp;' . $information_info['title'] . '</b>');
+				}
 			}
 
 			if (!isset($json['error'])) {

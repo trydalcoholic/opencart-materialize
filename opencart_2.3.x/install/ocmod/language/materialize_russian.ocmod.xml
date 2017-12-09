@@ -4,7 +4,20 @@
 	<code>materialize-theme-russian-settings</code>
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
-	<link>https://github.com/trydalcoholic</link>
+	<link>//goo.gl/pSwwUR</link>
+	<!-- Call Back -->
+	<file path="admin/language/ru-ru/common/column_left.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_callback']	= 'Звонок с сайта';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/ru-ru/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_call_back']	= 'Звонок с сайта';]]></add>
+		</operation>
+	</file>
 	<!-- Custom map -->
 	<file path="catalog/language/ru-ru/information/contact.php">
 		<operation error="skip">
@@ -80,16 +93,10 @@
 			$_['text_contact']		= 'Контакты';
 			$_['text_about']		= 'О нас';
 			$_['text_delivery']		= 'Доставка';
-			$_['text_call_back']	= 'Звонок с сайта';
-			$_['text_call_free']	= 'Звонок бесплатный';
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/ru-ru/common/footer.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[$_['text_social_network']	= 'Мы в соцсетях';]]></add>
-		</operation>
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
 			<add position="replace"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
@@ -134,7 +141,6 @@
 			$_['text_category']					= 'Категория:';
 			$_['text_bonus_points']				= 'бонусных баллов за покупку';
 			$_['text_end_promotion']			= 'Акция закончится';
-			$_['text_payment_method']			= 'Оплата наличными и банковскими картами';
 			$_['text_percent']					= 'Скидка';
 			$_['text_more_detailed']			= 'Подробнее';
 			$_['text_sku']						= 'Артикул:';
@@ -183,7 +189,7 @@
 	<file path="catalog/language/ru-ru/common/header.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[$_['text_comparison_list']      = 'Сравнение товаров';]]></add>
+			<add position="after"><![CDATA[$_['text_comparison_list']	= 'Сравнение товаров';]]></add>
 		</operation>
 	</file>
 	<!-- Cart button -->
