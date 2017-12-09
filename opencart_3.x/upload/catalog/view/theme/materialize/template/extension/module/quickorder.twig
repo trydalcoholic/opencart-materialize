@@ -43,7 +43,7 @@
 					{% if module_quickorder_calltime %}
 					<div class="input-field col s12">
 						<i class="material-icons prefix">av_timer</i>
-						<input type="text" id="quickorder-calltime" class="timepicker-{{ lang }}" name="module_quickorder_calltime" value="">
+						<input type="text" id="quickorder-calltime" class="timepicker" name="module_quickorder_calltime" value="">
 						<label for="quickorder-calltime" {{ module_quickorder_calltime_required ? 'class="required"' : '' }}>{{ entry_calltime }}</label>
 					</div>
 					{% endif %}
@@ -74,6 +74,16 @@
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {	
+	{% if module_quickorder_calltime %}
+	$('.timepicker').pickatime({
+		default: 'now',
+		twelvehour: {{ twelve_hour }},
+		donetext: '{{ button_time_done }}',
+		cleartext: '{{ button_time_clear }}',
+		canceltext: '{{ button_time_cancel }}',
+		autoclose: true
+	});
+	{% endif %}
 	$('#quickorder__button').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=extension/module/quickorder/send',

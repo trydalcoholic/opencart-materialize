@@ -285,7 +285,7 @@
 										<div class="input-field">
 											<i class="material-icons prefix">textsms</i>
 											<label class="text-bold{% if option.required %} required{% endif %}" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-											<input type="text" name="option[{{ option.product_option_id }}]" value="" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}">
+											<input type="text" name="option[{{ option.product_option_id }}]" value="" id="input-option{{ option.product_option_id }}">
 										</div>
 									</div>
 									{% endif %}
@@ -294,7 +294,7 @@
 										<div class="input-field">
 											<i class="material-icons prefix">message</i>
 											<label class="text-bold{% if option.required %} required{% endif %}" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-											<textarea name="option[{{ option.product_option_id }}]" rows="5" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}" class="materialize-textarea"></textarea>
+											<textarea name="option[{{ option.product_option_id }}]" rows="5" id="input-option{{ option.product_option_id }}" class="materialize-textarea"></textarea>
 										</div>
 									</div>
 									{% endif %}
@@ -318,7 +318,7 @@
 										<div class="input-field">
 											<i class="material-icons prefix">event</i>
 											<label class="text-bold{% if option.required %} required{% endif %}" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-											<input type="date" name="option[{{ option.product_option_id }}]" placeholder="{{ 'now'|date('d.m.Y') }}" value="" id="input-option{{ option.product_option_id }}" class="datepicker-{{ lang }}">
+											<input type="text" name="option[{{ option.product_option_id }}]" value="" id="input-option{{ option.product_option_id }}" class="datepicker">
 										</div>
 									</div>
 									{% endif %}
@@ -326,8 +326,8 @@
 									<div class="section">
 										<div class="input-field">
 											<i class="material-icons prefix">av_timer</i>
-											<label class="active text-bold{% if option.required %} required{% endif %}" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-											<input type="time" name="option[{{ option.product_option_id }}]" placeholder="{{ 'now'|date('H:i') }}" value="" id="input-option{{ option.product_option_id }}" class="timepicker-{{ lang }}">
+											<label class="text-bold{% if option.required %} required{% endif %}" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+											<input type="text" name="option[{{ option.product_option_id }}]" value="" id="input-option{{ option.product_option_id }}" class="timepicker">
 										</div>
 									</div>
 									{% endif %}
@@ -596,6 +596,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		infinite: false,
 		focusOnSelect: true
 	});
+	{% if products %}
 	// Goods slider
 	$('.slick-goods').not('.slick-initialized').slick({
 		dots: true,
@@ -622,6 +623,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			}
 		]
 	});
+	{% endif %}
 	// Reviews
 	$('#review').delegate('.pagination a', 'click', function(e) {
 		e.preventDefault();
@@ -665,57 +667,85 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 		grecaptcha.reset();
 	});
-	// Download file
-	$('button[id^=\'button-upload\']').on('click', function() {
-		var node = this;
-		$('#form-upload').remove();
-		$('#modal-loading').remove();
-		$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display:none;"><input type="file" name="file"></form><div id="modal-loading" class="modal"><div class="modal-content"><div class="row valign-wrapper"><div class="col s4 m3 center"><div class="preloader-wrapper active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div><div class="col s10 m9"><p id="loading-text" class="flow-text text-bold">{{ text_loading }}</p></div></div></div></div>');
-		$('#form-upload input[name=\'file\']').trigger('click');
-		if (typeof timer != 'undefined') {
-			clearInterval(timer);
-		}
-		timer = setInterval(function() {
-			if ($('#form-upload input[name=\'file\']').val() != '') {
+	{% if options %}
+	{% for option in options %}
+		{% if option.type == 'file' %}
+		$('button[id^=\'button-upload\']').on('click', function() {
+			var node = this;
+			$('#form-upload').remove();
+			$('#modal-loading').remove();
+			$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display:none;"><input type="file" name="file"></form><div id="modal-loading" class="modal"><div class="modal-content"><div class="row valign-wrapper"><div class="col s4 m3 center"><div class="preloader-wrapper active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div><div class="col s10 m9"><p id="loading-text" class="flow-text text-bold">{{ text_loading }}</p></div></div></div></div>');
+			$('#form-upload input[name=\'file\']').trigger('click');
+			if (typeof timer != 'undefined') {
 				clearInterval(timer);
-				$('#modal-loading').modal({
-					dismissible: false,
-					opacity: .7,
-					endingTop: '40%',
-				}).modal('open');
-				$.ajax({
-					url: 'index.php?route=tool/upload',
-					type: 'post',
-					dataType: 'json',
-					data: new FormData($('#form-upload')[0]),
-					cache: false,
-					contentType: false,
-					processData: false,
-					complete: function() {
-						$('#modal-loading').modal('close');
-					},
-					success: function(json) {
-						if (json['error']) {
-						  Materialize.toast('<span><i class="material-icons left">warning</i>'+json["error"]+'</span>',7000,'toast-warning');
-						}
-						if (json['success']) {
-						  Materialize.toast('<span><i class="material-icons left">check</i>'+json["success"]+'</span>',7000,'toast-success');
-						  $(node).parent().find('input').val(json['code']);
-						}
-					},
-					error: function(xhr, ajaxOptions, thrownError) {
-						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-					}
-				});
 			}
-		}, 500);
-	});
+			timer = setInterval(function() {
+				if ($('#form-upload input[name=\'file\']').val() != '') {
+					clearInterval(timer);
+					$('#modal-loading').modal({
+						dismissible: false,
+						opacity: .7,
+						endingTop: '40%',
+					}).modal('open');
+					$.ajax({
+						url: 'index.php?route=tool/upload',
+						type: 'post',
+						dataType: 'json',
+						data: new FormData($('#form-upload')[0]),
+						cache: false,
+						contentType: false,
+						processData: false,
+						complete: function() {
+							$('#modal-loading').modal('close');
+						},
+						success: function(json) {
+							if (json['error']) {
+							  Materialize.toast('<span><i class="material-icons left">warning</i>'+json["error"]+'</span>',7000,'toast-warning');
+							}
+							if (json['success']) {
+							  Materialize.toast('<span><i class="material-icons left">check</i>'+json["success"]+'</span>',7000,'toast-success');
+							  $(node).parent().find('input').val(json['code']);
+							}
+						},
+						error: function(xhr, ajaxOptions, thrownError) {
+							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						}
+					});
+				}
+			}, 500);
+		});
+		{% endif %}
+		{% if option.type == 'date' %}
+		$('.datepicker').pickadate({
+			monthsFull: ['{{ text_months_full_january }}', '{{ text_months_full_february }}', '{{ text_months_full_march }}', '{{ text_months_full_april }}', '{{ text_months_full_may }}', '{{ text_months_full_june }}', '{{ text_months_full_july }}', '{{ text_months_full_august }}', '{{ text_months_full_september }}', '{{ text_months_full_october }}', '{{ text_months_full_november }}', '{{ text_months_full_december }}'],
+			monthsShort: ['{{ text_months_short_january }}', '{{ text_months_short_february }}', '{{ text_months_short_march }}', '{{ text_months_short_april }}', '{{ text_months_short_may }}', '{{ text_months_short_june }}', '{{ text_months_short_july }}', '{{ text_months_short_august }}', '{{ text_months_short_september }}', '{{ text_months_short_october }}', '{{ text_months_short_november }}', '{{ text_months_short_december }}'],
+			weekdaysFull: ['{{ text_weekdays_full_sunday }}', '{{ text_weekdays_full_monday }}', '{{ text_weekdays_full_tuesday }}', '{{ text_weekdays_full_wednesday }}', '{{ text_weekdays_full_thursday }}', '{{ text_weekdays_full_friday }}', '{{ text_weekdays_full_saturday }}'],
+			weekdaysShort: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}'],
+			today: '{{ button_date_today }}',
+			clear: '{{ button_datetime_clear }}',
+			close: '{{ button_datetime_done }}',
+			firstDay: {{ first_day }},
+			formatSubmit: 'yyyy-mm-dd'
+		});
+		{% endif %}
+		{% if option.type == 'time' %}
+		$('.timepicker').pickatime({
+			default: 'now',
+			twelvehour: {{ twelve_hour }},
+			donetext: '{{ button_time_done }}',
+			cleartext: '{{ button_datetime_clear }}',
+			canceltext: '{{ button_datetime_done }}',
+			autoclose: true
+		});
+		{% endif %}
+	{% endfor %}
+	{% endif %}
 	// Add to cart
 	$('#button-cart').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=checkout/cart/add',
 			type: 'post',
-			data: $('#product input[type=\'number\'], #product input[type=\'time\'], #product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+			data: $('#product input[type=\'number\'], #product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
 			dataType: 'json',
 			success: function(json) {
 				if (json['error']) {

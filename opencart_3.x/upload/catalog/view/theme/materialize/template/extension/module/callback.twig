@@ -25,7 +25,7 @@
 			{% if module_callback_calltime %}
 			<div class="input-field col s12">
 				<i class="material-icons prefix">av_timer</i>
-				<input type="text" id="callback-calltime" class="timepicker-{{ lang }}" name="module_callback_calltime" value="">
+				<input type="text" id="callback-calltime" class="timepicker" name="module_callback_calltime" value="">
 				<label for="callback-calltime" {{ module_callback_calltime_required ? 'class="required"' : '' }}>{{ entry_calltime }}</label>
 			</div>
 			{% endif %}
@@ -85,7 +85,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </script>
 {% endif %}
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {	
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if module_callback_calltime %}
+	$('.timepicker').pickatime({
+		default: 'now',
+		twelvehour: {{ twelve_hour }},
+		donetext: '{{ button_time_done }}',
+		cleartext: '{{ button_time_clear }}',
+		canceltext: '{{ button_time_cancel }}',
+		autoclose: true
+	});
+	{% endif %}
 	$('#callback__button').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=extension/module/callback/send',

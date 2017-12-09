@@ -11,6 +11,12 @@ $_['entry_telephone']		= 'Your phone number';
 $_['entry_enquiry']			= 'Comment';
 $_['entry_calltime']		= 'Convenient time for a call';
 
+// Time picker
+$_['button_time_done']		= 'Select';
+$_['button_time_clear']		= 'Clear';
+$_['button_time_cancel']	= 'Close';
+$_['twelve_hour']			= 'true';
+
 // Error
 $_['error_telephone']		= 'Phone must be from 4 to 24 characters!';
 $_['error_name']			= 'The name must be between 3 and 32 characters!';

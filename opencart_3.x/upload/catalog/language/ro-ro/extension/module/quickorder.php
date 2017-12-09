@@ -11,6 +11,12 @@ $_['entry_telephone']		= 'Numarul de telefon';
 $_['entry_enquiry']			= 'Comentariu';
 $_['entry_calltime']		= 'Timp convenabil pentru un apel';
 
+// Time picker
+$_['button_time_done']		= 'Selectați';
+$_['button_time_clear']		= 'Clar';
+$_['button_time_cancel']	= 'Închide';
+$_['twelve_hour']			= 'true';
+
 // Error
 $_['error_telephone']		= 'Numarul de telefon trebuie sa aiba intre 4 si 24 caractere!';
 $_['error_name']			= 'Numele trebuie sa aiba intre 3 si 32 de caractere!';

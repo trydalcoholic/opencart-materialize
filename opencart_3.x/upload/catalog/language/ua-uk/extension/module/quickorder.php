@@ -11,6 +11,12 @@ $_['entry_telephone']		= 'Ваш номер телефону';
 $_['entry_enquiry']			= 'Коментар';
 $_['entry_calltime']		= 'Зручний час дзвінка';
 
+// Time picker
+$_['button_time_done']		= 'Вибрати';
+$_['button_time_clear']		= 'Очистити';
+$_['button_time_cancel']	= 'Закрити';
+$_['twelve_hour']			= 'false';
+
 // Error
 $_['error_telephone']		= 'Телефон повинен бути від 4 до 24 символів!';
 $_['error_name']			= 'Ім&#39;я повинно бути від 3 до 32 символів!';
