@@ -207,7 +207,7 @@
 									<li><span class="text-bold">{{ text_stock }}</span>&nbsp;<span class="{{ stock_color }}-text text-darken-1 text-bold">{{ stock }}</span></li>
 								</ul>
 							</blockquote>
-							{% if special or reward or discounts or (sizechart.sizechart_status == 1 and size_chart) %}
+							{% if special or reward or discounts or size_chart %}
 							<ul class="collection z-depth-1">
 								{% if special %}
 								<li class="collection-item"><i class="material-icons blue-grey-text text-darken-4 left">local_offer</i>{{ text_percent }}&nbsp;<span class="deep-orange-text text-accent-3 text-bold">{{ percent_discount }}%</span></li>
@@ -218,9 +218,9 @@
 								{% for discount in discounts %}
 								<li class="collection-item"><i class="material-icons blue-grey-text text-darken-4 left">new_releases</i>{{ discount.quantity }}{{ text_discount }}<span class="deep-orange-text text-accent-3 text-bold">{{ discount.price }}</span></li>
 								{% endfor %}
-								{% if sizechart.sizechart_status == 1 and size_chart %}
+								{% if size_chart %}
 								<li class="collection-item">
-									<i class="material-icons blue-grey-text text-darken-4 left">straighten</i><a class="deep-orange-text text-accent-3 text-bold modal-trigger" href="#modal-size-chart">{{ text_size_chart }}</a>
+									<i class="material-icons blue-grey-text text-darken-4 left">straighten</i><a class="deep-orange-text text-accent-3 text-bold modal-trigger" href="#modal-size-chart" rel="nofollow">{{ text_size_chart }}</a>
 								</li>
 								{% endif %}
 							</ul>
@@ -538,13 +538,13 @@
 	</div>
 </main>
 <aside>
+	{% if size_chart %}
 	<div id="modal-size-chart" class="modal">
-		<div class="modal-content">
-			<i class="material-icons modal-action modal-close right">close</i>
-			<h4>{{ text_size_chart }}</h4>
+		<div class="modal-content no-padding">
 			{{ size_chart }}
 		</div>
 	</div>
+	{% endif %}
 	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"><div class="pswp__bg"></div><div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="{{ button_pswp_close }}"></button><button class="pswp__button pswp__button--share" title="{{ button_share }}"></button><button class="pswp__button pswp__button--fs" title="{{ button_pswp_toggle_fullscreen }}"></button><button class="pswp__button pswp__button--zoom" title="{{ button_pswp_zoom }}"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" title="{{ button_pswp_prev }}"></button><button class="pswp__button pswp__button--arrow--right" title="{{ button_pswp_next }}"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div></div>
 	<ul id="side-share" class="side-nav href-underline">
 		<li><a class="waves-effect waves-default" href="//vk.com/share.php?url={{ share }}" rel="nofollow noopener" target="_blank"><span class="side-share__item"><svg class="vk" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M7.828 12.526h.957s.288-.032.436-.19c.14-.147.14-.42.14-.42s-.02-1.284.58-1.473c.59-.187 1.34 1.24 2.14 1.788.61.42 1.07.33 1.07.33l2.14-.03s1.12-.07.59-.95c-.04-.07-.3-.65-1.58-1.84-1.34-1.24-1.16-1.04.45-3.19.98-1.31 1.38-2.11 1.25-2.45-.11-.32-.84-.24-.84-.24l-2.4.02s-.18-.02-.31.06-.21.26-.21.26-.38 1.02-.89 1.88C10.27 7.9 9.84 8 9.67 7.88c-.403-.26-.3-1.053-.3-1.62 0-1.76.27-2.5-.52-2.69-.26-.06-.454-.1-1.123-.11-.86-.01-1.585.006-1.996.207-.27.135-.48.434-.36.45.16.02.52.098.71.358.25.337.24 1.09.24 1.09s.14 2.077-.33 2.335c-.33.174-.77-.187-1.73-1.837-.49-.84-.86-1.78-.86-1.78s-.07-.17-.2-.27c-.15-.11-.37-.15-.37-.15l-2.29.02s-.34.01-.46.16c-.11.13-.01.41-.01.41s1.79 4.19 3.82 6.3c1.86 1.935 3.97 1.81 3.97 1.81z"/></svg></span>VK</a></li>
