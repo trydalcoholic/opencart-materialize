@@ -83,7 +83,7 @@ class ControllerExtensionModuleQuickorder extends Controller {
 
 		$data['action'] = $this->url->link('extension/module/quickorder', 'token=' . $this->session->data['token'], true);
 
-		$data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'] . '&type=module', true);
+		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true);
 
 		$this->load->model('localisation/language');
 
