@@ -14,6 +14,7 @@ $_['text_info']				= 'Info';
 $_['text_history']			= 'Istorie';
 $_['text_history_add']		= 'Adăugați Istoric';
 $_['text_ip']				= 'IP';
+$_['text_filter']			= 'Filtre';
 
 // Column
 $_['column_id']				= 'ID';
