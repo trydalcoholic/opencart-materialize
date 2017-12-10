@@ -5,6 +5,69 @@
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Timing -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[
+			// Months Full
+			$data['text_months_full_january'] = $this->language->get('text_months_full_january');
+			$data['text_months_full_february'] = $this->language->get('text_months_full_february');
+			$data['text_months_full_march'] = $this->language->get('text_months_full_march');
+			$data['text_months_full_april'] = $this->language->get('text_months_full_april');
+			$data['text_months_full_may'] = $this->language->get('text_months_full_may');
+			$data['text_months_full_june'] = $this->language->get('text_months_full_june');
+			$data['text_months_full_july'] = $this->language->get('text_months_full_july');
+			$data['text_months_full_august'] = $this->language->get('text_months_full_august');
+			$data['text_months_full_september'] = $this->language->get('text_months_full_september');
+			$data['text_months_full_october'] = $this->language->get('text_months_full_october');
+			$data['text_months_full_november'] = $this->language->get('text_months_full_november');
+			$data['text_months_full_december'] = $this->language->get('text_months_full_december');
+
+			// Months Short
+			$data['text_months_short_january'] = $this->language->get('text_months_short_january');
+			$data['text_months_short_february'] = $this->language->get('text_months_short_february');
+			$data['text_months_short_march'] = $this->language->get('text_months_short_march');
+			$data['text_months_short_april'] = $this->language->get('text_months_short_april');
+			$data['text_months_short_may'] = $this->language->get('text_months_short_may');
+			$data['text_months_short_june'] = $this->language->get('text_months_short_june');
+			$data['text_months_short_july'] = $this->language->get('text_months_short_july');
+			$data['text_months_short_august'] = $this->language->get('text_months_short_august');
+			$data['text_months_short_september'] = $this->language->get('text_months_short_september');
+			$data['text_months_short_october'] = $this->language->get('text_months_short_october');
+			$data['text_months_short_november'] = $this->language->get('text_months_short_november');
+			$data['text_months_short_december'] = $this->language->get('text_months_short_december');
+
+			// Weekdays Full
+			$data['text_weekdays_full_sunday'] = $this->language->get('text_weekdays_full_sunday');
+			$data['text_weekdays_full_monday'] = $this->language->get('text_weekdays_full_monday');
+			$data['text_weekdays_full_tuesday'] = $this->language->get('text_weekdays_full_tuesday');
+			$data['text_weekdays_full_wednesday'] = $this->language->get('text_weekdays_full_wednesday');
+			$data['text_weekdays_full_thursday'] = $this->language->get('text_weekdays_full_thursday');
+			$data['text_weekdays_full_friday'] = $this->language->get('text_weekdays_full_friday');
+			$data['text_weekdays_full_saturday'] = $this->language->get('text_weekdays_full_saturday');
+
+			// Weekdays Short
+			$data['text_weekdays_short_sunday'] = $this->language->get('text_weekdays_short_sunday');
+			$data['text_weekdays_short_monday'] = $this->language->get('text_weekdays_short_monday');
+			$data['text_weekdays_short_tuesday'] = $this->language->get('text_weekdays_short_tuesday');
+			$data['text_weekdays_short_wednesday'] = $this->language->get('text_weekdays_short_wednesday');
+			$data['text_weekdays_short_thursday'] = $this->language->get('text_weekdays_short_thursday');
+			$data['text_weekdays_short_friday']	 = $this->language->get('text_weekdays_short_friday');
+			$data['text_weekdays_short_saturday'] = $this->language->get('text_weekdays_short_saturday');
+
+			// Buttons
+			$data['button_date_today'] = $this->language->get('button_date_today');
+			$data['button_time_done'] = $this->language->get('button_time_done');
+			$data['button_datetime_clear'] = $this->language->get('button_datetime_clear');
+			$data['button_datetime_done'] = $this->language->get('button_datetime_done');
+
+			// Settings
+			$data['twelve_hour'] = $this->language->get('twelve_hour');
+			$data['first_day'] = $this->language->get('first_day');
+			]]></add>
+		</operation>
+	</file>
 	<!-- Fix the Dashboard Extensions -->
 	<file path="admin/controller/extension/extension/dashboard.php">
 		<operation error="log">
@@ -140,6 +203,10 @@
 				$data['footer_title'] = $materialize[$this->config->get('config_language_id')]['footer_title'];
 				$data['footer_description'] = $materialize[$this->config->get('config_language_id')]['footer_description'];
 				$data['footer_contact'] = $this->config->get('module_materialize_footer_contact');
+				$data['telephone'] = $this->config->get('config_telephone');
+				$data['open'] = nl2br($this->config->get('config_open'));
+				$data['email'] = $this->config->get('config_email');
+				$data['address'] = nl2br($this->config->get('config_address'));
 
 				if (($this->config->get('module_materialize_sn_fb') == false) && ($this->config->get('module_materialize_sn_g') == false) && ($this->config->get('module_materialize_sn_inst') == false) && ($this->config->get('module_materialize_sn_tw') == false) && ($this->config->get('module_materialize_sn_yt') == false) && ($this->config->get('module_materialize_sn_vk') == false) && ($this->config->get('module_materialize_sn_ok') == false)) {
 					$data['social_network'] = false;
@@ -1892,22 +1959,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/controller/common/footer.php">
-		<operation error="log">
-			<search><![CDATA[$data['contact'] = $this->url->link('information/contact');]]></search>
-			<add position="before"><![CDATA[
-			$data['telephone'] = $this->config->get('config_telephone');
-			$data['open'] = nl2br($this->config->get('config_open'));
-			$data['email'] = $this->config->get('config_email');
-			$data['address'] = nl2br($this->config->get('config_address'));
-			]]></add>
-		</operation>
-	</file>
 	<file path="catalog/controller/product/product.php">
-		<operation error="log">
-			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
-			<add position="after"><![CDATA[$data['lang'] = $this->language->get('code');]]></add>
-		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
 			<add position="after"><![CDATA[$data['pricecurrency'] = $this->session->data['currency'];]]></add>

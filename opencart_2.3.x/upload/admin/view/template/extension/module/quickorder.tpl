@@ -52,7 +52,7 @@
 								<?php } ?>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group required">
 							<label class="col-sm-2 control-label"><?php echo $entry_success; ?>:</label>
 							<div class="col-sm-10">
 								<?php foreach ($languages as $language) { ?>
@@ -60,6 +60,7 @@
 									<span class="input-group-addon"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>"/></span>
 									<input type="text" name="module_quickorder[<?php echo $language['language_id']; ?>][success]" value="<?php echo isset($module_quickorder[$language['language_id']]) ? $module_quickorder[$language['language_id']]['success'] : ''; ?>" placeholder="<?php echo $entry_success; ?>" class="form-control" />
 								</div>
+								<?php if (isset($error_success[$language['language_id']])) { ?><div class="text-danger"><?php echo $error_success[$language['language_id']]; ?></div><?php } ?>
 								<?php } ?>
 							</div>
 						</div>

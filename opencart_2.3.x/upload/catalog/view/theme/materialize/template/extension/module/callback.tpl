@@ -25,7 +25,7 @@
 			<?php if ($module_callback_calltime) { ?>
 			<div class="input-field col s12">
 				<i class="material-icons prefix">av_timer</i>
-				<input type="text" id="callback-calltime" class="timepicker-<?php echo $lang; ?>" name="module_callback_calltime" value="">
+				<input type="text" id="callback-calltime" class="timepicker" name="module_callback_calltime" value="">
 				<label for="callback-calltime" <?php echo $module_callback_calltime_required ? 'class="required"' : ''; ?>><?php echo $entry_calltime; ?></label>
 			</div>
 			<?php } ?>
@@ -33,12 +33,12 @@
 		<?php if ($text_agree) { ?>
 		<div class="row">
 			<div class="col s12">
-				<?php if ($agree) { ?>
-				<input type="checkbox" name="agree" value="1" checked="checked" id="agreement-check" class="filled-in">
+				<?php if ($module_callback_agree) { ?>
+				<input type="checkbox" name="module_callback_agree" value="1" checked="checked" id="agreement-check-callback" class="filled-in">
 				<?php } else { ?>
-				<input type="checkbox" name="agree" value="1" id="agreement-check" class="filled-in">
+				<input type="checkbox" name="module_callback_agree" value="1" id="agreement-check-callback" class="filled-in">
 				<?php } ?>
-				<label for="agreement-check"><?php echo $text_agree; ?></label>
+				<label for="agreement-check-callback"><?php echo $text_agree; ?></label>
 			</div>
 		</div>
 		<?php } ?>
@@ -87,6 +87,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {	
 	$('#callback__button').on('click', function() {
+		<?php if ($module_callback_calltime) { ?>
+		$('.timepicker').pickatime({
+			default: 'now',
+			twelvehour: <?php echo $twelve_hour; ?>,
+			donetext: '<?php echo $button_time_done; ?>',
+			cleartext: '<?php echo $button_time_clear; ?>',
+			canceltext: '<?php echo $button_time_cancel; ?>',
+			autoclose: true
+		});
+		<?php } ?>
 		$.ajax({
 			url: 'index.php?route=extension/module/callback/send',
 			type: 'post',
@@ -104,12 +114,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					<?php } ?>
 					<?php if ($module_callback_enquiry) { ?>
 					$('textarea[name=\'module_callback_enquiry\']').val('').blur();
+					$('textarea[name=\'module_callback_enquiry\']').trigger('autoresize');
 					<?php } ?>
 					<?php if ($module_callback_calltime) { ?>
 					$('input[name=\'module_callback_calltime\']').val('').blur();
 					<?php } ?>
 					<?php if ($text_agree) { ?>
-					$('input[name=\'agree\']').prop('checked', false);
+					$('input[name=\'module_callback_agree\']').prop('checked', false);
 					<?php } ?>
 					$('#callback__modal').modal('close');
 				}

@@ -31,3 +31,4 @@ $_['help_checkout']		= 'Solicitați confirmarea respectării regulilor atunci c�
 
 // Error
 $_['error_permission']	= 'Nu ai permisiunea sa modifici acest modul!';
+$_['error_success']		= 'Completați câmpul Text după expediere!';

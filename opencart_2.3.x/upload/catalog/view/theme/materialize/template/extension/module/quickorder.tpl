@@ -43,7 +43,7 @@
 					<?php if ($module_quickorder_calltime) { ?>
 					<div class="input-field col s12">
 						<i class="material-icons prefix">av_timer</i>
-						<input type="text" id="quickorder-calltime" class="timepicker-<?php echo $lang; ?>" name="module_quickorder_calltime" value="">
+						<input type="text" id="quickorder-calltime" class="timepicker" name="module_quickorder_calltime" value="">
 						<label for="quickorder-calltime" <?php echo $module_quickorder_calltime_required ? 'class="required"' : ''; ?>><?php echo $entry_calltime; ?></label>
 					</div>
 					<?php } ?>
@@ -53,12 +53,12 @@
 		<?php if ($text_agree) { ?>
 		<div class="row">
 			<div class="col s12">
-				<?php if ($agree) { ?>
-				<input type="checkbox" name="agree" value="1" checked="checked" id="agreement-check" class="filled-in">
+				<?php if ($module_quickorder_agree) { ?>
+				<input type="checkbox" name="module_quickorder_agree" value="1" checked="checked" id="agreement-check-quickorder" class="filled-in">
 				<?php } else { ?>
-				<input type="checkbox" name="agree" value="1" id="agreement-check" class="filled-in">
+				<input type="checkbox" name="module_quickorder_agree" value="1" id="agreement-check-quickorder" class="filled-in">
 				<?php } ?>
-				<label for="agreement-check"><?php echo $text_agree; ?></label>
+				<label for="agreement-check-quickorder"><?php echo $text_agree; ?></label>
 			</div>
 		</div>
 		<?php } ?>
@@ -72,9 +72,18 @@
 <div class="section">
 	<button type="button" data-target="quickorder__modal" id="quickorder__btn" class="btn btn-large waves-effect waves-light blue width-max modal-trigger"><i class="material-icons left">shopping_cart</i><?php echo $module_quickorder_button; ?></button>
 </div>
-<?php } ?>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {	
+document.addEventListener("DOMContentLoaded", function(event) {
+	<?php if ($module_quickorder_calltime) { ?>
+	$('.timepicker').pickatime({
+		default: 'now',
+		twelvehour: <?php echo $twelve_hour; ?>,
+		donetext: '<?php echo $button_time_done; ?>',
+		cleartext: '<?php echo $button_time_clear; ?>',
+		canceltext: '<?php echo $button_time_cancel; ?>',
+		autoclose: true
+	});
+	<?php } ?>
 	$('#quickorder__button').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=extension/module/quickorder/send',
@@ -101,6 +110,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					<?php if ($module_quickorder_calltime) { ?>
 					$('input[name=\'module_quickorder_calltime\']').val('').blur();
 					<?php } ?>
+					<?php if ($text_agree) { ?>
+					$('input[name=\'module_quickorder_agree\']').prop('checked', false);
+					<?php } ?>
 					$('#quickorder__modal').modal('close');
 				}
 			}
@@ -108,3 +120,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 });
 </script>
+<?php } ?>

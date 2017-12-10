@@ -14,7 +14,6 @@ $_['text_info']				= 'Bilgi';
 $_['text_history']			= 'Tarih';
 $_['text_history_add']		= 'Tarih Eklemek';
 $_['text_ip']				= 'IP';
-$_['text_filter']			= 'Filtreler';
 
 // Column
 $_['column_id']				= 'ID';

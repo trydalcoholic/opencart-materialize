@@ -19,6 +19,11 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['entry_enquiry'] = $this->language->get('entry_enquiry');
 		$data['entry_calltime'] = $this->language->get('entry_calltime');
 
+		$data['button_time_done'] = $this->language->get('button_time_done');
+		$data['button_time_clear'] = $this->language->get('button_time_clear');
+		$data['button_time_cancel'] = $this->language->get('button_time_cancel');
+		$data['twelve_hour'] = $this->language->get('twelve_hour');
+
 		$data['error_telephone'] = $this->language->get('error_telephone');
 		$data['error_name'] = $this->language->get('error_name');
 		$data['error_enquiry'] = $this->language->get('error_enquiry');
@@ -81,10 +86,10 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['module_callback_phonemask_status'] = '';
 		}
 
-		if (isset($this->request->post['agree'])) {
-			$data['agree'] = $this->request->post['agree'];
+		if (isset($this->request->post['module_callback_agree'])) {
+			$data['module_callback_agree'] = $this->request->post['module_callback_agree'];
 		} else {
-			$data['agree'] = false;
+			$data['module_callback_agree'] = false;
 		}
 
 		if ($this->config->get('module_callback_agreement')) {
@@ -152,7 +157,7 @@ class ControllerExtensionModuleCallback extends Controller {
 
 				$information_info = $this->model_catalog_information->getInformation($this->config->get('module_callback_agreement'));
 
-				if ($information_info && !isset($this->request->post['agree'])) {
+				if ($information_info && !isset($this->request->post['module_callback_agree'])) {
 					$json['error'] = sprintf($this->language->get('error_agree'), '<b>&nbsp;' . $information_info['title'] . '</b>');
 				}
 			}

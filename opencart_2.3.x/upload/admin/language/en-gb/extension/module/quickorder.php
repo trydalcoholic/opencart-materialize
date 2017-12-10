@@ -31,3 +31,4 @@ $_['help_checkout']		= 'Require confirmation of compliance with the rules when p
 
 // Error
 $_['error_permission']	= 'You do not have permission to manage this module!';
+$_['error_success']		= 'Fill in the field Text after sending!';

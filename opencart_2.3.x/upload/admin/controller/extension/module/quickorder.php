@@ -58,6 +58,12 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['error_warning'] = '';
 		}
 
+		if (isset($this->error['success'])) {
+			$data['error_success'] = $this->error['success'];
+		} else {
+			$data['error_success'] = array();
+		}
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -94,7 +100,7 @@ class ControllerExtensionModuleQuickorder extends Controller {
 		} elseif ($this->config->get('module_quickorder') == true) {
 			$data['module_quickorder'] = $this->config->get('module_quickorder');
 		} else {
-			$data['module_quickorder'] = $module_quickorder;
+			$data['module_quickorder'] = '';
 		}
 
 		if (isset($this->request->post['module_quickorder_name'])) {
@@ -173,6 +179,12 @@ class ControllerExtensionModuleQuickorder extends Controller {
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/module/quickorder')) {
 			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		foreach ($this->request->post['module_quickorder'] as $language_id => $value) {
+			if (utf8_strlen($value['success']) < 1) {
+				$this->error['success'][$language_id] = $this->language->get('error_success');
+			}
 		}
 
 		return !$this->error;
