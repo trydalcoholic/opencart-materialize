@@ -2808,6 +2808,10 @@
 			]]></add>
 		</operation>
 		<operation error="log">
+			<search><![CDATA[<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">]]></search>
+			<add position="replace"><![CDATA[<form action="<?php echo $action; ?>" data-action="<?php echo $apply; ?>" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">]]></add>
+		</operation>
+		<operation error="log">
 			<search><![CDATA[<ul class="nav nav-tabs">]]></search>
 			<add position="replace"><![CDATA[<ul class="nav nav-tabs" id="apply-tab">]]></add>
 		</operation>
