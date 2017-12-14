@@ -67,6 +67,13 @@
 				<div class="row">
 					<div class="col {{ image }}">
 						<div class="card-panel img-block">
+							{% if labels %}
+							<ul class="labels-wrap">
+								{% for label in labels %}
+								<li class="labels-wrap__item"><span class="waves-effect badge {{ label.color }} {{ label.color_text }}">{{ label.name }}</span></li>
+								{% endfor %}
+							</ul>
+							{% endif %}
 							{% if special %}<span class="white-text badge red lighten-1 product-card-badge-percent z-depth-1">{{ text_percent }} <b>{{ percent_discount }}%</b></span>{% endif %}
 							<span class="{{ stock_color }} white-text badge availability">{{ stock }}</span>
 							{% if thumb or images %}
@@ -464,6 +471,13 @@
 			{% for product in products %}
 			<div class="col">
 				<div class="card sticky-action large hoverable href-underline">
+					{% if product.labels %}
+					<ul class="labels-wrap">
+						{% for label in product.labels %}
+						<li class="labels-wrap__item"><span class="waves-effect badge {{ label.color }} {{ label.color_text }}">{{ label.name }}</span></li>
+						{% endfor %}
+					</ul>
+					{% endif %}
 					{% if product.special %}<span class="white-text badge red lighten-1 percent">{{ text_percent }}&nbsp;{{ product.percent_discount }}%</span>{% endif %}
 					<div class="card-image">
 						<i class="material-icons waves-effect waves-circle close-icon activator">more_vert</i>
