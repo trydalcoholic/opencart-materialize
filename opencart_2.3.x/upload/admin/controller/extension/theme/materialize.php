@@ -248,7 +248,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['materialize_image_product_width'])) {
 			$data['materialize_image_product_width'] = $setting_info['materialize_image_product_width'];
 		} else {
-			$data['materialize_image_product_width'] = 250;
+			$data['materialize_image_product_width'] = 200;
 		}
 
 		if (isset($this->request->post['materialize_image_product_height'])) {
@@ -256,7 +256,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['materialize_image_product_height'])) {
 			$data['materialize_image_product_height'] = $setting_info['materialize_image_product_height'];
 		} else {
-			$data['materialize_image_product_height'] = 250;
+			$data['materialize_image_product_height'] = 200;
 		}
 
 		if (isset($this->request->post['materialize_image_additional_width'])) {
@@ -280,7 +280,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['materialize_image_related_width'])) {
 			$data['materialize_image_related_width'] = $setting_info['materialize_image_related_width'];
 		} else {
-			$data['materialize_image_related_width'] = 250;
+			$data['materialize_image_related_width'] = 200;
 		}
 
 		if (isset($this->request->post['materialize_image_related_height'])) {
@@ -288,7 +288,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['materialize_image_related_height'])) {
 			$data['materialize_image_related_height'] = $setting_info['materialize_image_related_height'];
 		} else {
-			$data['materialize_image_related_height'] = 250;
+			$data['materialize_image_related_height'] = 200;
 		}
 
 		if (isset($this->request->post['materialize_image_compare_width'])) {
