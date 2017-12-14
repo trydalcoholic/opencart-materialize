@@ -26,5 +26,8 @@ DROP TABLE IF EXISTS
 	`oc_materialize_colors`,
 	`oc_materialize_colors_text`,
 	`oc_materialize_callback`,
-	`oc_materialize_callback_history`
+	`oc_materialize_callback_history`,
+	`oc_materialize_label`,
+	`oc_materialize_label_description`,
+	`oc_product_label`
 ;

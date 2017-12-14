@@ -207,6 +207,29 @@ CREATE TABLE IF NOT EXISTS `oc_materialize_callback_history` (
 	PRIMARY KEY (`callback_history_id`)
 ) ENGINE = MyISAM;
 
+/* Materialize Labels */
+
+CREATE TABLE IF NOT EXISTS `oc_materialize_label` (
+	`label_id` INT(11) NOT NULL AUTO_INCREMENT,
+	`label_color` VARCHAR(25) NOT NULL,
+	`label_color_text` VARCHAR(35) NOT NULL,
+	`sort_order` INT(3) NOT NULL,
+	PRIMARY KEY (`label_id`)
+) ENGINE = MyISAM;
+
+CREATE TABLE IF NOT EXISTS `oc_materialize_label_description` (
+	`label_id` INT(11) NOT NULL,
+	`language_id` INT(11) NOT NULL,
+	`name` VARCHAR(20) NOT NULL,
+	PRIMARY KEY (`label_id`, `language_id`)
+) ENGINE = MyISAM;
+
+CREATE TABLE IF NOT EXISTS `oc_product_label` (
+	`product_id` INT(11) NOT NULL,
+	`label_id` INT(11) NOT NULL,
+	PRIMARY KEY (`product_id`,`label_id`)
+) ENGINE = MyISAM;
+
 /* Materialize Settings */
 
 CREATE TABLE IF NOT EXISTS `oc_materialize_maps` (

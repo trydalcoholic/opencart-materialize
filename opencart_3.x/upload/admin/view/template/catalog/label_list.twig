@@ -35,16 +35,20 @@
 							<thead>
 								<tr>
 									<td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
-									<td class="text-left">{% if sort == 'agd.name' %}
+									<td class="text-left">
+										{% if sort == 'mld.name' %}
 										<a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
 										{% else %}
 										<a href="{{ sort_name }}">{{ column_name }}</a>
-										{% endif %}</td>
-									<td class="text-right">{% if sort == 'ag.sort_order' %}
+										{% endif %}
+									</td>
+									<td class="text-right">
+										{% if sort == 'ml.sort_order' %}
 										<a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
 										{% else %}
 										<a href="{{ sort_sort_order }}">{{ column_sort_order }}</a>
-										{% endif %}</td>
+										{% endif %}
+									</td>
 									<td class="text-right">{{ column_action }}</td>
 								</tr>
 							</thead>
@@ -52,11 +56,13 @@
 								{% if labels %}
 								{% for label in labels %}
 								<tr>
-									<td class="text-center">{% if label.label_id in selected %}
+									<td class="text-center">
+										{% if label.label_id in selected %}
 										<input type="checkbox" name="selected[]" value="{{ label.label_id }}" checked="checked" />
 										{% else %}
 										<input type="checkbox" name="selected[]" value="{{ label.label_id }}" />
-										{% endif %}</td>
+										{% endif %}
+									</td>
 									<td class="text-left">{{ label.name }}</td>
 									<td class="text-right">{{ label.sort_order }}</td>
 									<td class="text-right"><a href="{{ label.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>

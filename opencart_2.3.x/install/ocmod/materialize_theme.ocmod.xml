@@ -5,6 +5,227 @@
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Labels -->
+	<file path="admin/controller/common/column_left.php">
+		<operation error="log">
+			<search><![CDATA[if ($catalog) {]]></search>
+			<add position="before"><![CDATA[
+			if ($this->user->hasPermission('access', 'catalog/label')) {
+				$catalog[] = array(
+					'name'		=> $this->language->get('text_labels'),
+					'href'		=> $this->url->link('catalog/label', 'token=' . $this->session->data['token'], true),
+					'children'	=> array()		
+				);
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('setting/store');]]></search>
+			<add position="before"><![CDATA[
+			$data['entry_labels'] = $this->language->get('entry_labels');
+
+			$this->load->model('catalog/label');
+
+			$data['labels'] = array();
+
+			$labels = $this->model_catalog_label->getLabels();
+
+			foreach ($labels as $label) {
+				$data['labels'][] = array(
+					'label_id'	=> $label['label_id'],
+					'name'		=> $label['name']
+				);
+			}
+
+			if (isset($this->request->post['product_label'])) {
+				$data['product_label'] = $this->request->post['product_label'];
+			} elseif (isset($this->request->get['product_id'])) {
+				$data['product_label'] = $this->model_catalog_product->getProductLabels($this->request->get['product_id']);
+			} else {
+				$data['product_label'] = array();
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$product_id = $this->db->getLastId();]]></search>
+			<add position="after"><![CDATA[
+			if (isset($data['product_label'])) {
+				foreach ($data['product_label'] as $label_id) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_label SET product_id = '" . (int)$product_id . "', label_id = '" . (int)$label_id . "'");
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function editProduct($product_id, $data) {]]></search>
+			<add position="after"><![CDATA[
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");
+
+			if (isset($data['product_label'])) {
+				foreach ($data['product_label'] as $product_label) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_label SET product_id = '" . (int)$product_id . "', label_id = '" . (int)$product_label . "'");
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->addProduct($data);]]></search>
+			<add position="before"><![CDATA[$data['product_label'] = $this->getProductLabels($product_id);]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function deleteProduct($product_id) {]]></search>
+			<add position="after"><![CDATA[$this->db->query("DELETE FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[class ModelCatalogProduct extends Model {]]></search>
+			<add position="after"><![CDATA[
+			public function getProductLabels($product_id) {
+				$product_label_data = array();
+
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");
+
+				foreach ($query->rows as $result) {
+					$product_label_data[] = $result['label_id'];
+				}
+
+				return $product_label_data;
+			}
+
+			public function getTotalProductsByLabelId($label_id) {
+				$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "product_label WHERE label_id = '" . (int)$label_id . "'");
+
+				return $query->row['total'];
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.tpl">
+		<operation error="log">
+			<search index="23"><![CDATA[<div class="form-group">]]></search>
+			<add position="before"><![CDATA[
+			<div class="form-group">
+				<label class="col-sm-2 control-label"><?php echo $entry_labels; ?></label>
+				<div class="col-sm-10">
+					<div class="well well-sm" style="height: 150px; overflow: auto;">
+						<?php foreach ($labels as $label) { ?>
+						<div class="checkbox">
+							<label>
+								<?php if (in_array($label['label_id'], $product_label)) { ?>
+								<input type="checkbox" name="product_label[]" value="<?php echo $label['label_id']; ?>" checked="checked" />&nbsp;
+								<?php echo $label['name']; ?>
+								<?php } else { ?>
+								<input type="checkbox" name="product_label[]" value="<?php echo $label['label_id']; ?>" />&nbsp;
+								<?php echo $label['name']; ?>
+								<?php } ?>
+							</label>
+						</div>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/{category,manufacturer,product,search,special}.php">
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="before"><![CDATA[
+			$labels = array();
+
+			$labels_array = $this->model_catalog_product->getProductLabels($result['product_id']);
+
+			foreach ($labels_array as $label) {
+				$labels[] = array(
+					'name'			=> $label['name'],
+					'color'			=> $label['label_color'],
+					'color_text'	=> $label['label_color_text']
+				);
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['labels'	=> $labels,]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[
+			$data['labels'] = array();
+
+			$results = $this->model_catalog_product->getProductLabels($this->request->get['product_id']);
+
+			foreach ($results as $result) {
+				$data['labels'][] = array(
+					'name'			=> $result['name'],
+					'color'			=> $result['label_color'],
+					'color_text'	=> $result['label_color_text']
+				);
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/featured.php">
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="before"><![CDATA[
+			$labels = array();
+
+			$results = $this->model_catalog_product->getProductLabels($product_info['product_id']);
+
+			foreach ($results as $result) {
+				$labels[] = array(
+					'name'			=> $result['name'],
+					'color'			=> $result['label_color'],
+					'color_text'	=> $result['label_color_text']
+				);
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['labels'	=> $labels,]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/{bestseller,latest,special}*.php">
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="before"><![CDATA[
+			$labels = array();
+
+			$labels_array = $this->model_catalog_product->getProductLabels($result['product_id']);
+
+			foreach ($labels_array as $label) {
+				$labels[] = array(
+					'name'			=> $label['name'],
+					'color'			=> $label['label_color'],
+					'color_text'	=> $label['label_color_text']
+				);
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['labels'	=> $labels,]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[class ModelCatalogProduct extends Model {]]></search>
+			<add position="after"><![CDATA[
+			public function getProductLabels($product_id) {
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_label pl LEFT JOIN " . DB_PREFIX . "materialize_label_description mld ON (pl.label_id = mld.label_id) LEFT JOIN " . DB_PREFIX . "materialize_label ml ON (pl.label_id = ml.label_id) WHERE pl.product_id = '" . (int)$product_id . "' AND mld.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY sort_order ASC");
+
+				return $query->rows;
+			}
+			]]></add>
+		</operation>
+	</file>
 	<!-- Size Chart -->
 	<file path="admin/controller/catalog/product.php">
 		<operation error="log">

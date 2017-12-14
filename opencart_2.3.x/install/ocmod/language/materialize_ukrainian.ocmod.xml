@@ -5,6 +5,19 @@
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Labels -->
+	<file path="admin/language/ua-uk/common/column_left.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['text_labels']	= 'Етикетки';]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/ua-uk/catalog/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$_['entry_labels']	= 'Етикетки';]]></add>
+		</operation>
+	</file>
 	<!-- Size Chart -->
 	<file path="admin/language/ua-uk/catalog/product.php">
 		<operation error="skip">

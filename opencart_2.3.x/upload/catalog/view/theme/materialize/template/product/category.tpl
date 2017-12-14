@@ -141,7 +141,14 @@
 						<?php foreach ($products as $product) { ?>
 						<div class="col <?php echo $goods; ?>">
 							<div class="card sticky-action large hoverable">
-							<?php if ($product['special']) { ?><span class="white-text badge red lighten-1 percent"><?php echo $text_percent; ?> <?php echo $product['percent_discount']; ?>%</span><?php } ?>
+								<?php if ($product['labels']) { ?>
+								<ul class="labels-wrap">
+									<?php foreach ($product['labels'] as $label) { ?>
+									<li class="labels-wrap__item"><span class="waves-effect badge <?php echo $label['color']; ?> <?php echo $label['color_text']; ?>"><?php echo $label['name']; ?></span></li>
+									<?php } ?>
+								</ul>
+								<?php } ?>
+								<?php if ($product['special']) { ?><span class="white-text badge red lighten-1 percent"><?php echo $text_percent; ?> <?php echo $product['percent_discount']; ?>%</span><?php } ?>
 								<div class="card-image">
 									<i class="material-icons waves-effect waves-circle close-icon activator">more_vert</i>
 									<a href="<?php echo $product['href']; ?>"><img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>"></a>

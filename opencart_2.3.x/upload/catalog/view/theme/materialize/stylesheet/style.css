@@ -169,8 +169,19 @@ figcaption {padding:1rem 0;}
 .subcategory-wrap .chip{max-width:150px;}
 
 /*========== Goods cards list ==========*/
-.card .badge {position:absolute;margin:0;z-index:10;}
-.card .badge.percent {left:auto;right:0;}
+.labels-wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: 0;
+}
+.labels-wrap span.badge {margin-left:0;position:relative;}
+.labels-wrap__item {margin-bottom:5px;}
+.labels-wrap__item:last-child {margin-bottom:0;}
+.card .badge.percent {position:absolute;margin:0;z-index:10;left:auto;right:0;}
 .card-title,.card-price {font-weight:bold !important;font-size:1.3em !important;line-height:1.4em !important;}
 .card-reveal .card-title {padding-right:25px;}
 .card-price {display:block;font-size:1.6em !important;}
