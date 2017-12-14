@@ -488,7 +488,7 @@
 		<h3><?php echo $text_related; ?></h3>
 		<div class="row slick-goods">
 			<?php foreach ($products as $product) { ?>
-			<div class="col">
+			<div class="col s12 m4">
 				<div class="card sticky-action large hoverable href-underline">
 					<?php if ($product['labels']) { ?>
 					<ul class="labels-wrap">
