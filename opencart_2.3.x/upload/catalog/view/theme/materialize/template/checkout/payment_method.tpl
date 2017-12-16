@@ -43,9 +43,9 @@
 	</div>
 </div>
 <script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		<?php if ($error_warning) { ?>
-			Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_warning; ?>',7000,'toast-warning rounded')
-		<?php } ?>
-	});
+document.addEventListener("DOMContentLoaded", function(event) {
+	<?php if ($error_warning) { ?>
+		Materialize.toast('<i class="material-icons left">warning</i><?php echo $error_warning; ?>',7000,'toast-warning rounded')
+	<?php } ?>
+});
 </script>

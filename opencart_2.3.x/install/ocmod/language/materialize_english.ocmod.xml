@@ -5,6 +5,13 @@
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Breadcrumbs -->
+	<file path="catalog/language/en-gb/en-gb.php">
+		<operation error="log">
+			<search><![CDATA[<i class="fa fa-home"></i>]]></search>
+			<add position="replace"><![CDATA[<i class="material-icons">home</i>]]></add>
+		</operation>
+	</file>
 	<!-- Labels -->
 	<file path="admin/language/en-gb/common/column_left.php">
 		<operation error="skip">

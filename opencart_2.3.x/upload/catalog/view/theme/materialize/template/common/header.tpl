@@ -111,7 +111,7 @@
 						<button type="button" data-activates="slide-out" id="btn-side-menu" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light z-depth-4 <?php echo $color_nav_btn; ?>"><i class="material-icons <?php echo $color_nav_btn_text; ?>">menu</i></button>
 						<?php if ($logo) { ?>
 						<a href="<?php echo $home; ?>">
-							<img id="logo-img" class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="<?php echo $logo_width; ?>" height="<?php echo $logo_height; ?>">
+							<img id="logo-img" class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="<?php echo $logo_width; ?>" height="<?php echo $logo_height; ?>">
 						</a>
 						<?php } else { ?>
 						<strong><a href="<?php echo $home; ?>" class="<?php echo $color_header_text; ?>"><?php echo $name; ?></a></strong>
@@ -174,7 +174,7 @@
 				<div class="userView">
 					<div class="background <?php echo $color_sidebar; ?>"></div>
 					<?php if ($logo) { ?>
-					<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>">
+					<img class="lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" width="<?php echo $logo_width; ?>" height="<?php echo $logo_height; ?>">
 					<?php } else { ?>
 					<strong><a href="<?php echo $home; ?>"><?php echo $name; ?></a></strong>
 					<?php } ?>

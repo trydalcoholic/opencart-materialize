@@ -75,7 +75,7 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
 
 					if (json['zone'][i]['zone_id'] == '<?php echo $zone_id; ?>') {
 						html += ' selected="selected"';
-          			}
+					}
 
 					html += '>' + json['zone'][i]['name'] + '</option>';
 				}

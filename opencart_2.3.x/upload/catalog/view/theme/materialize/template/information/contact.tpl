@@ -35,14 +35,9 @@
 	<div class="container">
 		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
 			<div class="nav-wrapper breadcrumb-wrap href-underline">
-				<?php foreach ($breadcrumbs as $i=> $breadcrumb) { ?>
-				<?php $i++ ?>
+				<?php foreach ($breadcrumbs as $i=> $breadcrumb) { $i++ ?>
 				<?php if ($i < count($breadcrumbs)) { ?>
-				<?php if ($i == 1) {?>
-					<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb waves-effect black-text"><i class="material-icons">home</i></a>
-				<?php } else {?>
 					<a href="<?php echo $breadcrumb['href']; ?>" class="breadcrumb waves-effect black-text"><?php echo $breadcrumb['text']; ?></a>
-				<?php }?>
 				<?php } else { ?>
 					<span class="breadcrumb blue-grey-text text-darken-3"><?php echo $breadcrumb['text']; ?></span>
 				<?php }}?>

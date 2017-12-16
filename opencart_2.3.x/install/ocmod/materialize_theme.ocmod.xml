@@ -130,7 +130,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/controller/product/{category,manufacturer,product,search,special}.php">
+	<file path="catalog/controller/product/{category,manufacturer,product,search,special}*.php">
 		<operation error="log">
 			<search><![CDATA[$data['products'][] = array(]]></search>
 			<add position="before"><![CDATA[
@@ -2331,7 +2331,7 @@
 		</operation>
 	</file>
 	<!-- Add base64 loader -->
-	<file path="catalog/controller/{common,checkout,product}/{cart,category,compare,manufacturer,product,search,special}*.php">
+	<file path="catalog/controller/{common,checkout,product}/{header,cart,category,compare,manufacturer,product,search,special}*.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>

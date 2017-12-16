@@ -7,8 +7,8 @@
 	"itemListElement": [
 	{% for key, breadcrumb in breadcrumbs %}
 		{% if key < breadcrumbs|length - 1 %}
-			{% if key == 0 %}
-			{% else %}
+		{% if key == 0 %}
+		{% else %}
 		{
 			"@type": "ListItem",
 			"position": {{ key }},
@@ -42,14 +42,11 @@
 <main>
 	<div class="container">
 		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<span class="breadcrumb-blur hide-on-med-and-up"></span>
 			<div class="nav-wrapper breadcrumb-wrap href-underline">
 				{% for key, breadcrumb in breadcrumbs %}
 					{% if key < breadcrumbs|length - 1 %}
-						{% if key == 0 %}
-						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text"><i class="material-icons">home</i></a>
-						{% else %}
 						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
-						{% endif %}
 					{% else %}
 						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
 					{% endif %}
@@ -600,16 +597,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		slidesToScroll: 1,
 		arrows: true,
 		fade: true,
+		mobileFirst: true,
 		asNavFor: '.slider-nav'
 	});
+	{% if images %}
 	$('.slider-nav').not('.slick-initialized').slick({
 		slidesToShow: 4,
+		slidesToScroll: 4,
 		asNavFor: '.slider-for',
 		centerMode: false,
 		arrows: false,
 		infinite: false,
 		focusOnSelect: true
 	});
+	{% endif %}
 	{% if products %}
 	// Goods slider
 	$('.slick-goods').not('.slick-initialized').slick({
