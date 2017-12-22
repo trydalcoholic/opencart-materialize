@@ -24,9 +24,7 @@
   <input type="hidden" name="currency" value="{{ currency }}" />
   <input type="hidden" name="callback" value="{{ callback }}" />
   <input type="hidden" name="options" value="{{ options }}" />
-  <div class="buttons">
-    <div class="pull-right">
-      <input type="submit" value="{{ button_confirm }}" class="btn btn-primary" />
-    </div>
+  <div class="flex-reverse">
+    <button type="button" value="{{ button_confirm }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
   </div>
 </form>

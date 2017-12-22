@@ -1,15 +1,11 @@
 <form id="alipaysubmit" name="alipaysubmit" action="{{ action }}" method="POST">
-    {% for key, value in form_params %}
-        <input type="hidden" name="{{ key }}" value="{{ value }}"/>
-    {% endfor %}
+{% for key, value in form_params %}<input type="hidden" name="{{ key }}" value="{{ value }}"/>{% endfor %}
 </form>
-<div class="buttons">
-    <div class="pull-right">
-        <input type="button" value="{{ button_confirm }}" id="button-confirm" class="btn btn-primary" />
-    </div>
+<div class="flex-reverse">
+	<button type="submit" value="{{ button_confirm }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
 </div>
-<script type="text/javascript"><!--
-    $('#button-confirm').bind('click', function() {
-        $('#alipaysubmit').submit();
-    });
-//--></script>
+<script>
+$('#button-confirm').bind('click', function() {
+	$('#alipaysubmit').submit();
+});
+</script>

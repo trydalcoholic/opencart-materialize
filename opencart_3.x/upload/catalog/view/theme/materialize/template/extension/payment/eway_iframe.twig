@@ -1,19 +1,9 @@
-  {% if error %}
-    <div class="alert alert-danger alert-dismissible">Payment Error: {{ error }}</div>
-  {% else %}
-
-  {% if text_testing %}
-    <div class="alert alert-warning alert-dismissible">{{ text_testing }}</div>
-  {% endif %}
-
-  <div class="buttons">
-    <div class="pull-right">
-      <input type="button" value="{{ button_pay }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary" />
-    </div>
-  </div>
+<div class="flex-reverse">
+	<button type="button" value="{{ button_pay }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_pay }}</button>
+</div>
 
 <script src="https://secure.ewaypayments.com/scripts/eCrypt.js"></script>
-<script type="text/javascript">//<!--
+<script>
 
 	/**
 	 * eWAY Rapid IFrame config object.
@@ -41,6 +31,9 @@
 		eCrypt.showModalPayment(eWAYConfig, resultCallback);
 	});
 
-//--></script>
+	
+{% if error %}Materialize.toast('<i class="material-icons left">error</i>Payment Error: {{ error }}',7000,'toast-warning');{% else %}
+{% if text_testing %}Materialize.toast('<i class="material-icons left">info</i>{{ text_testing }}',7000,'toast-info');{% endif %}
 
+</script>
 {% endif %}

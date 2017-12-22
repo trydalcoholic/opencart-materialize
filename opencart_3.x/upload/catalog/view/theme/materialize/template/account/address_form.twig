@@ -199,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					html += '<option value="0" selected="selected">{{ text_none }}</option>';
 				}
 				$('select[name=\'zone_id\']').html(html);
+				$('select').material_select();
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -206,6 +207,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	});
 	$('select[name=\'country_id\']').trigger('change');
+	$('select').material_select();
 	$('.switch input[type="checkbox"]').click(function(){
 		$('#default').attr('value', ($('#default').attr('value')==0) ? '1' : '0');
 	});

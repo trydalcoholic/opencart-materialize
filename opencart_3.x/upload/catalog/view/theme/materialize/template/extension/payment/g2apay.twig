@@ -1,7 +1,5 @@
 <form action="{{ action }}" method="post">
-    <div class="buttons">
-        <div class="pull-right">
-            <input type="submit" value="{{ button_confirm }}" class="btn btn-primary" />
-        </div>
-    </div>
+	<div class="flex-reverse">
+		<button type="button" value="{{ button_confirm }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
+	</div>
 </form>

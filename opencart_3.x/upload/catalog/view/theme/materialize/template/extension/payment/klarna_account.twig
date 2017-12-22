@@ -28,37 +28,25 @@
       <div class="col-sm-3">
         <select name="pno_day" id="input-dob" class="form-control">
           <option value="">{{ text_day }}</option>
-          
-         {% for day in days %}
-          
+          {% for day in days %}
           <option value="{{ day.value }}">{{ day.text }}</option>
-          
           {% endfor %}
-        
         </select>
       </div>
       <div class="col-sm-3">
         <select name="pno_month" class="form-control">
           <option value="">{{ text_month }}</option>
-          
-         {% for month in months %}
-          
+          {% for month in months %}
           <option value="{{ month.value }}">{{ month.text }}</option>
-          
           {% endfor %}
-        
         </select>
       </div>
       <div class="col-sm-3">
         <select name="pno_year" class="form-control">
           <option value="">{{ text_year }}</option>
-          
-         {% for year in years %}
-          
+          {% for year in years %}
           <option value="{{ year.value }}">{{ year.text }}</option>
-          
           {% endfor %}
-        
         </select>
       </div>
     </div>
@@ -125,10 +113,8 @@
     {% endif %}
   </fieldset>
 </form>
-<div class="buttons">
-  <div class="pull-right">
-    <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary" />
-  </div>
+<div class="flex-reverse">
+  <button type="button" value="{{ button_confirm }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
 </div>
 <script type="text/javascript"><!--
 $('#button-confirm').on('click', function() {

@@ -95,7 +95,7 @@
 						<button type="button" data-activates="slide-out" id="btn-side-menu" class="button-collapse hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light z-depth-4 {{ color_nav_btn }}"><i class="material-icons {{ color_nav_btn_text }}">menu</i></button>
 						{% if logo %}
 						<a href="{{ home }}">
-							<img id="logo-img" class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ logo }}" title="{{ name }}" alt="{{ name }}">
+							<img id="logo-img" class="lazyload" src="{{ img_loader }}" data-src="{{ logo }}" title="{{ name }}" alt="{{ name }}">
 						</a>
 						{% else %}
 							<strong><a href="{{ home }}" class="{{ color_header_text }}">{{ name }}</a></strong>
@@ -135,7 +135,7 @@
 				<div class="userView">
 					<div class="background {{ color_sidebar }}"></div>
 					{% if logo %}
-					<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ logo }}" title="{{ name }}" alt="{{ name }}">
+					<img class="lazyload" src="{{ img_loader }}" data-src="{{ logo }}" title="{{ name }}" alt="{{ name }}">
 					{% else %}
 					<strong><a href="{{ home }}">{{ name }}</a></strong>
 					{% endif %}
