@@ -6,6 +6,17 @@ class ControllerExtensionModuleMaterialize extends Controller {
 		$this->load->language('extension/module/materialize');
 
 		$this->document->setTitle($this->language->get('materialize_title'));
+		$this->document->addScript('view/javascript/codemirror/lib/codemirror.js');
+		$this->document->addScript('view/javascript/codemirror/lib/xml.js');
+		$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
+		$this->document->addScript('view/javascript/summernote/summernote.js');
+		$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
+		$this->document->addScript('view/javascript/summernote/opencart.js');
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
+		$this->document->addStyle('view/javascript/codemirror/theme/monokai.css');
+		$this->document->addStyle('view/javascript/summernote/summernote.css');
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('setting/setting');
 
@@ -18,13 +29,25 @@ class ControllerExtensionModuleMaterialize extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
-			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true));
+			if (isset($this->request->get['apply'])) {
+				$this->response->redirect($this->url->link('extension/module/materialize', 'user_token=' . $this->session->data['user_token'], true));
+			} else {
+				$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true));
+			}
 		}
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
 			$data['error_warning'] = '';
+		}
+
+		if (isset($this->session->data['success'])) {
+			$data['success'] = $this->session->data['success'];
+
+			unset($this->session->data['success']);
+		} else {
+			$data['success'] = '';
 		}
 
 		$data['breadcrumbs'] = array();
@@ -45,6 +68,8 @@ class ControllerExtensionModuleMaterialize extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/module/materialize', 'user_token=' . $this->session->data['user_token'], true);
+
+		$data['apply'] = $this->url->link('extension/module/materialize', 'user_token=' . $this->session->data['user_token'] . '&apply', true);
 
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
