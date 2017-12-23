@@ -10,12 +10,11 @@
 <script>
 $('#button-confirm').on('click', function() {
 	$.ajax({
-		type: 'get',
 		url: 'index.php?route=extension/payment/bank_transfer/confirm',
-		cache: false,
-		success: function() {
+		dataType: 'json',
+		success: function(json) {
 			if (json['redirect']) {
-				location = json['redirect'];
+				location = json['redirect'];	
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {

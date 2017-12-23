@@ -4,7 +4,7 @@
 		{% if banner.link %}
 		<a href="{{ banner.link }}"><img class="responsive-img" src="{{ banner.image }}" alt="{{ banner.title }}"></a>
 		{% else %}
-		<img class="responsive-img" src="{{ banner.image }}" alt="{{ banner.title }}">
+		<img class="responsive-img z-depth-1" src="{{ banner.image }}" alt="{{ banner.title }}">
 		{% endif %}
 	{% endfor %}
 	</div>
