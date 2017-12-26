@@ -3,6 +3,7 @@
 	<div class="page-header">
 		<div class="container-fluid">
 			<div class="pull-right">
+				<button type="button" form="form-materialize" id="apply-btn" data-toggle="tooltip" title="<?php echo $button_apply; ?>" class="btn btn-success"><i class="fa fa-repeat"></i></button>
 				<button type="submit" form="form-materialize" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>&nbsp;
 				<a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a>
 			</div>
@@ -15,16 +16,11 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<?php if ($error_warning) { ?>
-		<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?>
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-		</div>
-		<?php } ?>
 		<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> <?php echo $text_materialize; ?></div>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $materialize_title; ?></h3></div>
 			<div class="panel-body">
-				<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-materialize" class="form-horizontal">
+				<form action="<?php echo $action; ?>" data-action="<?php echo $apply; ?>" method="post" enctype="multipart/form-data" id="form-materialize" class="form-horizontal">
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?>:</label>
 						<div class="col-sm-10">
@@ -40,7 +36,7 @@
 						</div>
 					</div>
 					<br>
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-tabs" id="apply-tab">
 						<li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_colors; ?></a></li>
 						<li><a href="#tab-footer" data-toggle="tab"><?php echo $tab_footer; ?></a></li>
 						<li><a href="#tab-product" data-toggle="tab"><?php echo $tab_product; ?></a></li>
@@ -74,9 +70,9 @@
 																<select name="module_materialize_color_background" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_background) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -88,18 +84,18 @@
 																<select name="module_materialize_color_cart_btn" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_cart_btn) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_cart_btn_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_cart_btn_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -111,18 +107,18 @@
 																<select name="module_materialize_color_total_btn" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_total_btn) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_total_btn_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_total_btn_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -134,18 +130,18 @@
 																<select name="module_materialize_color_compare_btn" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_compare_btn) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_compare_btn_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_compare_btn_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -157,18 +153,18 @@
 																<select name="module_materialize_color_compare_total_btn" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_compare_total_btn) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_compare_total_btn_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_compare_total_btn_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -180,18 +176,18 @@
 																<select name="module_materialize_color_btt_btn" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_btt_btn) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_btt_btn_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_btt_btn_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -205,9 +201,9 @@
 																<select name="module_materialize_color_browser_bar" id="select-color-browser-bar" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_browser_bar) { ?>
-																	<option value="<?php echo $color['name']; ?>" data-hex="#<?php echo $color['hex']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" data-hex="#<?php echo $color['hex']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>" data-hex="#<?php echo $color['hex']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" data-hex="#<?php echo $color['hex']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -220,18 +216,18 @@
 																<select name="module_materialize_color_nav_btn" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_nav_btn) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_nav_btn_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_nav_btn_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -253,18 +249,18 @@
 																<select name="module_materialize_color_top_menu" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_top_menu) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_top_menu_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_top_menu_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -276,18 +272,18 @@
 																<select name="module_materialize_color_header" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_header) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_header_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_header_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -299,18 +295,18 @@
 																<select name="module_materialize_color_navigation" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_navigation) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_navigation_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_navigation_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -322,9 +318,9 @@
 																<select name="module_materialize_color_search" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_search) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -338,18 +334,18 @@
 																<select name="module_materialize_color_sidebar" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_sidebar) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_sidebar_text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_sidebar_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -361,9 +357,9 @@
 																<select name="module_materialize_color_mobile_search" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_mobile_search) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -384,18 +380,18 @@
 																<select name="module_materialize_color_footer" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_footer) { ?>
-																	<option value="<?php echo $color['name']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
 																<select name="module_materialize_color_footer_text" id="input-color-footer-text" class="selectpicker show-tick">
 																	<?php foreach ($module_materialize_colors_text as $color) { ?>
 																	<?php if ($color['name'] == $module_materialize_color_footer_text) { ?>
-																	<option value="<?php echo $color['name']; ?>" data-hex="#<?php echo $color['hex']; ?>" selected="selected"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" data-hex="#<?php echo $color['hex']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
 																	<?php } else { ?>
-																	<option value="<?php echo $color['name']; ?>" data-hex="#<?php echo $color['hex']; ?>"><?php echo $color['name']; ?></option>
+																	<option value="<?php echo $color['name']; ?>" data-hex="#<?php echo $color['hex']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
 																	<?php } ?>
 																	<?php } ?>
 																</select>
@@ -597,7 +593,7 @@
 										<input type="text" name="module_materialize_google_api" value="<?php echo $module_materialize_google_api; ?>" placeholder="<?php echo $entry_api; ?>" class="form-control" />
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="form-group required">
 									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_geocode; ?>"><?php echo $entry_geocode; ?>:</span></label>
 									<div class="col-sm-10">
 										<div class="row">
@@ -658,11 +654,6 @@
 		</div>
 	</div>
 </div>
-<link href="view/javascript/summernote/summernote.css" rel="stylesheet" />
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-<script type="text/javascript" src="view/javascript/summernote/summernote.js"></script>
-<script type="text/javascript" src="view/javascript/summernote/opencart.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script type="text/javascript">
 	$('#language a:first').tab('show');
 	$('#tab-colors a:first').tab('show');
@@ -699,5 +690,53 @@
 		iconBase: 'fa',
 		tickIcon: 'fa-check'
 	});
+
+	// Apply button
+	var applyBtn = $('#apply-btn'),
+		formMaterialize = $('#form-materialize'),
+		dataAction = formMaterialize.attr('data-action');
+
+	if (sessionStorage['index_p']) {
+		var index_p = sessionStorage['index_p'];
+	} else {
+		var index_p = 0;
+	}
+
+	$('#apply-tab li:eq(' + index_p + ') a').tab('show');
+	sessionStorage['index_p'] = 0;
+
+	applyBtn.click(function() {
+		sessionStorage['index_p'] = $(".nav-tabs .active").index();
+
+		formMaterialize.attr({'action':dataAction});
+		formMaterialize.submit();
+
+		e.preventDefault();
+	});
+
+	document.addEventListener("keydown", function(event) {
+		if (event.keyCode == 83 && (navigator.platform.match("Mac") ? event.metaKey : event.ctrlKey)) {
+			event.preventDefault();
+			applyBtn.trigger('click');
+		}
+	}, false);
+
+	// Notify
+	<?php if ($success) { ?>
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{<?php echo $success; ?>'
+	},{
+		type: "success"
+	});
+	<?php } ?>
+	<?php if ($error_warning) { ?>
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '<?php echo $error_warning; ?>'
+	},{
+		type: "danger"
+	});
+	<?php } ?>
 </script>
 <?php echo $footer; ?>

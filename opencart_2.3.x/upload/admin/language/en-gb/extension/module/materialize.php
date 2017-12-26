@@ -3,6 +3,9 @@
 $_['heading_title']		= '<font color="#263238"><b><i class="fa fa-cog"></i>&nbsp;&nbsp;&nbsp;Materialize Template Settings</b></font>';
 $_['materialize_title']	= 'Materialize Template Settings';
 
+// Buttons
+$_['button_apply']		= 'Apply';
+
 // Tabs
 $_['tab_colors']		= 'Colors';
 $_['tab_header']		= 'Header';
