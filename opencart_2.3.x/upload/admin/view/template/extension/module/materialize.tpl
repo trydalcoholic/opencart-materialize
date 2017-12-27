@@ -725,7 +725,7 @@
 	<?php if ($success) { ?>
 	$.notify({
 		icon: 'fa fa-exclamation-circle',
-		message: '{<?php echo $success; ?>'
+		message: '<?php echo $success; ?>'
 	},{
 		type: "success"
 	});
