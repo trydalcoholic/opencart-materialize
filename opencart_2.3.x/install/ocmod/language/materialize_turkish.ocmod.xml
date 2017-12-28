@@ -5,6 +5,24 @@
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Materialize Template Settings: show fields -->
+	<file path="catalog/language/tr-tr/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_sku']			= 'SKU';
+			$_['text_upc']			= 'UPC';
+			$_['text_ean']			= 'EAN';
+			$_['text_jan']			= 'JAN';
+			$_['text_isbn']			= 'ISBN';
+			$_['text_mpn']			= 'MPN';
+			$_['text_location']		= 'Yer';
+			$_['text_dimension']	= 'Boyutları (U x G x Y)';
+			$_['text_weight']		= 'Ağırlık';
+			$_['text_remainder']	= 'Kalan';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Breadcrumbs -->
 	<file path="catalog/language/tr-tr/tr-tr.php">
 		<operation error="skip">
@@ -229,8 +247,6 @@
 			$_['text_end_promotion']			= 'Teklif sone erme zamanı';
 			$_['text_percent']					= 'İndirim';
 			$_['text_more_detailed']			= 'Ayrıntılı göster';
-			$_['text_sku']						= 'SKU:';
-			$_['text_weight']					= 'Genişlik:';
 			// PhotoSwipe
 			$_['button_share']					= 'Paylaş';
 			$_['button_pswp_close']				= 'Kapat (Esc)';

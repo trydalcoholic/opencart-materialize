@@ -234,10 +234,10 @@
 									{% endif %}
 									<li><span class="text-bold">{{ text_stock }}</span>&nbsp;<span class="{{ stock_color }}-text text-darken-1 text-bold">{{ stock }}</span></li>
 									{% if type_remainder == 'numerical' %}
-									<li><span class="text-bold">Остаток</span>:&nbsp;{{ remainder }}</li>
+									<li><span class="text-bold">{{ text_remainder }}</span>:&nbsp;{{ remainder }}</li>
 									{% endif %}
 									{% if type_remainder == 'progressbar' %}
-									<li class="product-remainder"><span class="text-bold">Остаток</span>:&nbsp;<div class="progress blue lighten-3"><div class="determinate {{ progressbar_color }}" style="width: {{ progressbar_percent }}%"></div></div></li>
+									<li class="product-remainder"><span class="text-bold">{{ text_remainder }}</span>:&nbsp;<div class="progress blue lighten-3"><div class="determinate {{ progressbar_color }}" style="width: {{ progressbar_percent }}%"></div></div></li>
 									{% endif %}
 								</ul>
 							</blockquote>

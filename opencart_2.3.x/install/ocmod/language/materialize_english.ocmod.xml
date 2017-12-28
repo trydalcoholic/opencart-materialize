@@ -5,9 +5,27 @@
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Materialize Template Settings: show fields -->
+	<file path="catalog/language/en-gb/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_sku']			= 'SKU';
+			$_['text_upc']			= 'UPC';
+			$_['text_ean']			= 'EAN';
+			$_['text_jan']			= 'JAN';
+			$_['text_isbn']			= 'ISBN';
+			$_['text_mpn']			= 'MPN';
+			$_['text_location']		= 'Location';
+			$_['text_dimension']	= 'Dimensions (L x W x H)';
+			$_['text_weight']		= 'Weight';
+			$_['text_remainder']	= 'Remainder';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Breadcrumbs -->
 	<file path="catalog/language/en-gb/en-gb.php">
-		<operation error="log">
+		<operation error="skip">
 			<search><![CDATA[<i class="fa fa-home"></i>]]></search>
 			<add position="replace"><![CDATA[<i class="material-icons">home</i>]]></add>
 		</operation>
@@ -229,8 +247,6 @@
 			$_['text_end_promotion']			= 'The offer will expire on';
 			$_['text_percent']					= 'Discount';
 			$_['text_more_detailed']			= 'More detailed';
-			$_['text_sku']						= 'SKU';
-			$_['text_weight']					= 'Weight';
 			// PhotoSwipe
 			$_['button_share']					= 'Share';
 			$_['button_pswp_close']				= 'Close (Esc)';

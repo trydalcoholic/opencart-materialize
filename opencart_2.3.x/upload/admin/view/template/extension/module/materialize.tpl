@@ -534,6 +534,206 @@
 						</div>
 						<div class="tab-pane" id="tab-product">
 							<fieldset>
+								<legend><?php echo $entry_show_fields; ?></legend>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><?php echo $entry_show_fields; ?>:</label>
+									<div class="col-sm-10">
+										<table class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<td class="text-left" style="width: 85%;"><?php echo $entry_fields; ?></td>
+													<td class="text-center" style="width: 15%;"><?php echo $entry_show; ?></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><b><?php echo $entry_model; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_model) { ?>
+																<input type="checkbox" name="module_materialize_show_model" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_model" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td><b><?php echo $entry_sku; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_sku) { ?>
+																<input type="checkbox" name="module_materialize_show_sku" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_sku" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td><b><?php echo $entry_upc; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_upc) { ?>
+																<input type="checkbox" name="module_materialize_show_upc" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_upc" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td><b><?php echo $entry_ean; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_ean) { ?>
+																<input type="checkbox" name="module_materialize_show_ean" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_ean" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td><b><?php echo $entry_jan; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_jan) { ?>
+																<input type="checkbox" name="module_materialize_show_jan" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_jan" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td><b><?php echo $entry_isbn; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_isbn) { ?>
+																<input type="checkbox" name="module_materialize_show_isbn" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_isbn" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td><b><?php echo $entry_mpn; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_mpn) { ?>
+																<input type="checkbox" name="module_materialize_show_mpn" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_mpn" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td><b><?php echo $entry_location; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_location) { ?>
+																<input type="checkbox" name="module_materialize_show_location" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_location" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td><b><?php echo $entry_dimension; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_dimensions) { ?>
+																<input type="checkbox" name="module_materialize_show_dimensions" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_dimensions" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td><b><?php echo $entry_weight; ?></b></td>
+													<td class="text-center">
+														<div class="checkbox">
+															<label>
+																<?php if ($module_materialize_show_weight) { ?>
+																<input type="checkbox" name="module_materialize_show_weight" value="1" checked="checked" />
+																<?php } else { ?>
+																<input type="checkbox" name="module_materialize_show_weight" value="1" />
+																<?php } ?>
+															</label>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</fieldset>
+							<br>
+							<fieldset>
+								<legend><?php echo $entry_show_remainder; ?></legend>
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="input-show-remainder"><?php echo $entry_status; ?>:</label>
+									<div class="col-sm-10">
+										<select name="module_materialize_show_remainder" id="input-show-remainder" class="form-control">
+											<?php if ($module_materialize_show_remainder) { ?>
+											<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+											<option value="0"><?php echo $text_disabled; ?></option>
+											<?php } else { ?>
+											<option value="1"><?php echo $text_enabled; ?></option>
+											<option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+											<?php } ?>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="input-type-remainder"><?php echo $entry_type; ?>:</label>
+									<div class="col-sm-10">
+										<select name="module_materialize_type_remainder" id="input-type-remainder" class="form-control">
+											<?php if ($module_materialize_type_remainder == 'numerical') { ?>
+											<option value="numerical" selected="selected">Numerical</option>
+											<option value="progressbar">Progressbar</option>
+											<?php } else { ?>
+											<option value="numerical">Numerical</option>
+											<option value="progressbar" selected="selected">Progressbar</option>
+											<?php } ?>
+										</select>
+									</div>
+								</div>
+								<div class="form-group required progressbar-settings">
+									<label class="col-sm-2 control-label"><?php echo $entry_calculation; ?>:</label>
+									<div class="col-sm-10">
+										<input type="number" min="1" name="module_materialize_percent_remainder" value="<?php echo $module_materialize_percent_remainder; ?>" placeholder="" class="form-control" />
+										<?php if ($error_module_materialize_percent_remainder) { ?>
+										<div class="text-danger"><?php echo $error_module_materialize_percent_remainder; ?></div>
+										<?php } ?>
+									</div>
+								</div>
+							</fieldset>
+							<br>
+							<fieldset>
 								<legend><?php echo $entry_payment; ?></legend>
 								<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;<?php echo $help_payment; ?></div>
 								<div class="form-group">
@@ -662,7 +862,8 @@
 		selectBrowserBar = $("#select-color-browser-bar"),
 		inputBrowserBar = $("#input-color-browser-bar-hex"),
 		inputFooterColorText = $("#input-color-footer-text"),
-		inputFooterColorTextHex = $("#input-color-footer-text-hex");
+		inputFooterColorTextHex = $("#input-color-footer-text-hex"),
+		inputTypeRemainder = $("#input-type-remainder");
 
 	selectBrowserBar.change(function(){
 		selectBrowserBarOption = $("#select-color-browser-bar option:selected");
@@ -674,6 +875,13 @@
 		inputFooterColorTextOption = $("#input-color-footer-text option:selected");
 		valueHex = inputFooterColorTextOption.data('hex');
 		inputFooterColorTextHex.attr('value',valueHex);
+	});
+
+	if (inputTypeRemainder.val() == 'numerical') {$('.progressbar-settings').hide();}
+
+	inputTypeRemainder.change(function(){
+		if (inputTypeRemainder.val() == 'numerical') {$('.progressbar-settings').hide();}
+		if (inputTypeRemainder.val() == 'progressbar') {$('.progressbar-settings').show();}
 	});
 
 	if (inputMaps.val() == 1) {$('.google-maps-settings').show();}
@@ -734,6 +942,14 @@
 	$.notify({
 		icon: 'fa fa-exclamation-circle',
 		message: '<?php echo $error_warning; ?>'
+	},{
+		type: "danger"
+	});
+	<?php } ?>
+	<?php if ($error_module_materialize_percent_remainder) { ?>
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '<?php echo $error_module_materialize_percent_remainder; ?>'
 	},{
 		type: "danger"
 	});

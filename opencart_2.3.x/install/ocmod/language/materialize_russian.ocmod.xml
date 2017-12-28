@@ -5,6 +5,24 @@
 	<version>0.78</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Materialize Template Settings: show fields -->
+	<file path="catalog/language/ru-ru/product/product.php">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[
+			$_['text_sku']			= 'Артикул';
+			$_['text_upc']			= 'UPC';
+			$_['text_ean']			= 'EAN';
+			$_['text_jan']			= 'JAN';
+			$_['text_isbn']			= 'ISBN';
+			$_['text_mpn']			= 'MPN';
+			$_['text_location']		= 'Расположение';
+			$_['text_dimension']	= 'Размеры (Д х Ш х В)';
+			$_['text_weight']		= 'Вес';
+			$_['text_remainder']	= 'Остаток';
+			]]></add>
+		</operation>
+	</file>
 	<!-- Breadcrumbs -->
 	<file path="catalog/language/ru-ru/ru-ru.php">
 		<operation error="skip">
@@ -229,8 +247,6 @@
 			$_['text_end_promotion']			= 'Акция закончится';
 			$_['text_percent']					= 'Скидка';
 			$_['text_more_detailed']			= 'Подробнее';
-			$_['text_sku']						= 'Артикул:';
-			$_['text_weight']					= 'Вес:';
 			// PhotoSwipe
 			$_['button_share']					= 'Поделиться';
 			$_['button_pswp_close']				= 'Закрыть (Esc)';

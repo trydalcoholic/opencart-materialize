@@ -539,9 +539,125 @@
 				} else {
 					$data['payment_image'] = '';
 				}
+				
+				if ($this->config->get('module_materialize_show_model') == 1) {
+					$data['model'] = $product_info['model'];
+					$data['text_model'] = $this->language->get('text_model');
+				} else {
+					$data['model'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_sku') == 1) {
+					$data['sku'] = $product_info['sku'];
+					$data['text_sku'] = $this->language->get('text_sku');
+				} else {
+					$data['sku'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_upc') == 1) {
+					$data['upc'] = $product_info['upc'];
+					$data['text_upc'] = $this->language->get('text_upc');
+				} else {
+					$data['upc'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_ean') == 1) {
+					$data['ean'] = $product_info['ean'];
+					$data['text_ean'] = $this->language->get('text_ean');
+				} else {
+					$data['ean'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_jan') == 1) {
+					$data['jan'] = $product_info['jan'];
+					$data['text_jan'] = $this->language->get('text_jan');
+				} else {
+					$data['jan'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_isbn') == 1) {
+					$data['isbn'] = $product_info['isbn'];
+					$data['text_isbn'] = $this->language->get('text_isbn');
+				} else {
+					$data['isbn'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_mpn') == 1) {
+					$data['mpn'] = $product_info['mpn'];
+					$data['text_mpn'] = $this->language->get('text_mpn');
+				} else {
+					$data['mpn'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_location') == 1) {
+					$data['location'] = $product_info['location'];
+					$data['text_location'] = $this->language->get('text_location');
+				} else {
+					$data['location'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_dimensions') == 1) {
+					$data['dimensions_length'] = $this->length->format($product_info['length'], $product_info['length_class_id']);
+					$data['dimensions_width'] = $this->length->format($product_info['width'], $product_info['length_class_id']);
+					$data['dimensions_height'] = $this->length->format($product_info['height'], $product_info['length_class_id']);
+					$data['text_dimension'] = $this->language->get('text_dimension');
+				} else {
+					$data['dimensions_length'] = '';
+					$data['dimensions_width'] = '';
+					$data['dimensions_height'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_weight') == 1) {
+					$data['weight'] = $this->weight->format($product_info['weight'], $product_info['weight_class_id']);
+					$data['text_weight'] = $this->language->get('text_weight');
+				} else {
+					$data['weight'] = '';
+				}
+				
+				if ($this->config->get('module_materialize_show_remainder') == 1) {
+					$data['remainder'] = $product_info['quantity'];
+					$data['text_remainder'] = $this->language->get('text_remainder');
+
+					if ($this->config->get('module_materialize_type_remainder') == 'numerical') {
+						$data['type_remainder'] = 'numerical';
+					} else {
+						$data['type_remainder'] = 'progressbar';
+						$data['progressbar_percent'] = round(($product_info['quantity'] * 100)/$this->config->get('module_materialize_percent_remainder'));
+
+						if ($data['progressbar_percent'] <= 5) {
+							$data['progressbar_color'] = 'red accent-4';
+						} elseif (($data['progressbar_percent'] > 5) && ($data['progressbar_percent'] <= 10)) {
+							$data['progressbar_color'] = 'red';
+						} elseif (($data['progressbar_percent'] > 11) && ($data['progressbar_percent'] <= 30)) {
+							$data['progressbar_color'] = 'yellow';
+						} elseif (($data['progressbar_percent'] > 30) && ($data['progressbar_percent'] <= 70)) {
+							$data['progressbar_color'] = 'green lighten-1';
+						} elseif (($data['progressbar_percent'] > 70) && ($data['progressbar_percent'] <= 100)) {
+							$data['progressbar_color'] = 'green';
+						} elseif ($data['progressbar_percent'] > 100) {
+							$data['progressbar_color'] = 'green';
+							$data['progressbar_percent'] = '100';
+						}
+					}
+				} else {
+					$data['type_remainder'] = '';
+				}
 			} else {
 				$data['payment_method'] = '';
 				$data['payment_image'] = '';
+				$data['model'] = '';
+				$data['sku'] = '';
+				$data['upc'] = '';
+				$data['ean'] = '';
+				$data['jan'] = '';
+				$data['isbn'] = '';
+				$data['mpn'] = '';
+				$data['location'] = '';
+				$data['dimensions_length'] = '';
+				$data['dimensions_width'] = '';
+				$data['dimensions_height'] = '';
+				$data['weight'] = '';
+				$data['remainder'] = '';
 			}
 			]]></add>
 		</operation>
@@ -1745,17 +1861,6 @@
 			$data['text_email_error'] = $this->language->get('text_email_error');
 			$data['text_email_success'] = $this->language->get('text_email_success');
 			]]></add>
-		</operation>
-	</file>
-	<!-- SKU on product page -->
-	<file path="catalog/controller/product/product.php">
-		<operation error="log">
-			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
-			<add position="after"><![CDATA[$data['sku'] = $product_info['sku'];]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[$data['text_points'] = $this->language->get('text_points');]]></search>
-			<add position="after"><![CDATA[$data['text_sku'] = $this->language->get('text_sku');]]></add>
 		</operation>
 	</file>
 	<!-- Filter -->

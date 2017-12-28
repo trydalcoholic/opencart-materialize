@@ -44,6 +44,7 @@ class ControllerExtensionModuleMaterialize extends Controller {
 		$data['text_disabled'] = $this->language->get('text_disabled');
 
 		$data['entry_status'] = $this->language->get('entry_status');
+		$data['entry_type'] = $this->language->get('entry_type');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -89,6 +90,22 @@ class ControllerExtensionModuleMaterialize extends Controller {
 		$data['entry_link'] = $this->language->get('entry_link');
 		$data['entry_not_index'] = $this->language->get('entry_not_index');
 
+		$data['entry_show_fields'] = $this->language->get('entry_show_fields');
+		$data['entry_fields'] = $this->language->get('entry_fields');
+		$data['entry_show'] = $this->language->get('entry_show');
+		$data['entry_model'] = $this->language->get('entry_model');
+		$data['entry_sku'] = $this->language->get('entry_sku');
+		$data['entry_upc'] = $this->language->get('entry_upc');
+		$data['entry_ean'] = $this->language->get('entry_ean');
+		$data['entry_jan'] = $this->language->get('entry_jan');
+		$data['entry_isbn'] = $this->language->get('entry_isbn');
+		$data['entry_mpn'] = $this->language->get('entry_mpn');
+		$data['entry_location'] = $this->language->get('entry_location');
+		$data['entry_dimension'] = $this->language->get('entry_dimension');
+		$data['entry_weight'] = $this->language->get('entry_weight');
+		$data['entry_show_remainder'] = $this->language->get('entry_show_remainder');
+		$data['entry_calculation'] = $this->language->get('entry_calculation');
+
 		$data['entry_payment'] = $this->language->get('entry_payment');
 		$data['entry_image'] = $this->language->get('entry_image');
 		$data['entry_width'] = $this->language->get('entry_width');
@@ -110,11 +127,18 @@ class ControllerExtensionModuleMaterialize extends Controller {
 		$data['help_geocode'] = $this->language->get('help_geocode');
 
 		$data['error_permission'] = $this->language->get('error_permission');
+		$data['error_percent_remainder'] = $this->language->get('error_percent_remainder');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
 			$data['error_warning'] = '';
+		}
+
+		if (isset($this->error['error_module_materialize_percent_remainder'])) {
+			$data['error_module_materialize_percent_remainder'] = $this->error['error_module_materialize_percent_remainder'];
+		} else {
+			$data['error_module_materialize_percent_remainder'] = '';
 		}
 
 		if (isset($this->session->data['success'])) {
@@ -449,7 +473,86 @@ class ControllerExtensionModuleMaterialize extends Controller {
 			$data['module_materialize_sn_index'] = $this->config->get('module_materialize_sn_index');
 		}
 
-		/* Product */
+		/* Show fields */
+		if (isset($this->request->post['module_materialize_show_model'])) {
+			$data['module_materialize_show_model'] = $this->request->post['module_materialize_show_model'];
+		} else {
+			$data['module_materialize_show_model'] = $this->config->get('module_materialize_show_model');
+		}
+
+		if (isset($this->request->post['module_materialize_show_sku'])) {
+			$data['module_materialize_show_sku'] = $this->request->post['module_materialize_show_sku'];
+		} else {
+			$data['module_materialize_show_sku'] = $this->config->get('module_materialize_show_sku');
+		}
+
+		if (isset($this->request->post['module_materialize_show_upc'])) {
+			$data['module_materialize_show_upc'] = $this->request->post['module_materialize_show_upc'];
+		} else {
+			$data['module_materialize_show_upc'] = $this->config->get('module_materialize_show_upc');
+		}
+
+		if (isset($this->request->post['module_materialize_show_ean'])) {
+			$data['module_materialize_show_ean'] = $this->request->post['module_materialize_show_ean'];
+		} else {
+			$data['module_materialize_show_ean'] = $this->config->get('module_materialize_show_ean');
+		}
+
+		if (isset($this->request->post['module_materialize_show_jan'])) {
+			$data['module_materialize_show_jan'] = $this->request->post['module_materialize_show_jan'];
+		} else {
+			$data['module_materialize_show_jan'] = $this->config->get('module_materialize_show_jan');
+		}
+
+		if (isset($this->request->post['module_materialize_show_isbn'])) {
+			$data['module_materialize_show_isbn'] = $this->request->post['module_materialize_show_isbn'];
+		} else {
+			$data['module_materialize_show_isbn'] = $this->config->get('module_materialize_show_isbn');
+		}
+
+		if (isset($this->request->post['module_materialize_show_mpn'])) {
+			$data['module_materialize_show_mpn'] = $this->request->post['module_materialize_show_mpn'];
+		} else {
+			$data['module_materialize_show_mpn'] = $this->config->get('module_materialize_show_mpn');
+		}
+
+		if (isset($this->request->post['module_materialize_show_location'])) {
+			$data['module_materialize_show_location'] = $this->request->post['module_materialize_show_location'];
+		} else {
+			$data['module_materialize_show_location'] = $this->config->get('module_materialize_show_location');
+		}
+
+		if (isset($this->request->post['module_materialize_show_dimensions'])) {
+			$data['module_materialize_show_dimensions'] = $this->request->post['module_materialize_show_dimensions'];
+		} else {
+			$data['module_materialize_show_dimensions'] = $this->config->get('module_materialize_show_dimensions');
+		}
+
+		if (isset($this->request->post['module_materialize_show_weight'])) {
+			$data['module_materialize_show_weight'] = $this->request->post['module_materialize_show_weight'];
+		} else {
+			$data['module_materialize_show_weight'] = $this->config->get('module_materialize_show_weight');
+		}
+
+		if (isset($this->request->post['module_materialize_show_remainder'])) {
+			$data['module_materialize_show_remainder'] = $this->request->post['module_materialize_show_remainder'];
+		} else {
+			$data['module_materialize_show_remainder'] = $this->config->get('module_materialize_show_remainder');
+		}
+
+		if (isset($this->request->post['module_materialize_type_remainder'])) {
+			$data['module_materialize_type_remainder'] = $this->request->post['module_materialize_type_remainder'];
+		} else {
+			$data['module_materialize_type_remainder'] = $this->config->get('module_materialize_type_remainder');
+		}
+
+		if (isset($this->request->post['module_materialize_percent_remainder'])) {
+			$data['module_materialize_percent_remainder'] = $this->request->post['module_materialize_percent_remainder'];
+		} else {
+			$data['module_materialize_percent_remainder'] = $this->config->get('module_materialize_percent_remainder');
+		}
+
+		/* Payment methods */
 		if (isset($this->request->post['module_materialize_payment_image'])) {
 			$data['module_materialize_payment_image'] = $this->request->post['module_materialize_payment_image'];
 		} else {
@@ -548,6 +651,10 @@ class ControllerExtensionModuleMaterialize extends Controller {
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/module/materialize')) {
 			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		if ($this->request->post['module_materialize_type_remainder'] && ((utf8_strlen($this->request->post['module_materialize_percent_remainder']) < 1) || ($this->request->post['module_materialize_percent_remainder'] < 1))) {
+			$this->error['error_module_materialize_percent_remainder'] = $this->language->get('error_percent_remainder');
 		}
 
 		return !$this->error;

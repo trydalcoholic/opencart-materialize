@@ -293,6 +293,15 @@ figcaption {padding:1rem 0;}
 		padding-left: 24px;
 		padding-right: 24px;
 	}
+	/* Product remainder */
+	.product-remainder {
+		display: flex;
+		align-items: center;
+	}
+	.product-remainder>.progress{
+		height: 1rem;
+		margin: 0;
+	}
 	/* Selection options */
 	.product-option>li {
 		display: -webkit-box;
