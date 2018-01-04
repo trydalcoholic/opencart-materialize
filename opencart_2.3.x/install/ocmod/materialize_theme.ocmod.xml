@@ -657,7 +657,7 @@
 				$data['dimensions_width'] = '';
 				$data['dimensions_height'] = '';
 				$data['weight'] = '';
-				$data['remainder'] = '';
+				$data['type_remainder'] = '';
 			}
 			]]></add>
 		</operation>
