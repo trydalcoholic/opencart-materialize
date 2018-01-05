@@ -511,7 +511,7 @@ class ControllerBlogPost extends Controller {
 				$json['error'] = $this->language->get('error_text');
 			}
 
-			if (!preg_match($this->config->get('config_mail_regexp'), $this->request->post['email'])) {
+			if (!filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
 				$json['error'] = $this->language->get('error_email');
 			}
 
