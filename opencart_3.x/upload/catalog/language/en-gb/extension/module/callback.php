@@ -1,7 +1,4 @@
 <?php
-// Button
-$_['button_submit']			= 'Request a call';
-
 // Entry
 $_['entry_name']			= 'What is your name';
 $_['entry_telephone']		= 'Your phone number';

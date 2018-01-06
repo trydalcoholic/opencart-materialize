@@ -6,6 +6,8 @@ class ControllerExtensionDashboardCallback extends Controller {
 		$this->load->language('extension/dashboard/callback');
 
 		$this->document->setTitle($this->language->get('callback_title'));
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('setting/setting');
 

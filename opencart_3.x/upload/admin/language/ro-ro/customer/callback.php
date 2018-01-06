@@ -45,3 +45,10 @@ $_['error_permission']		= 'Avertisment: Nu aveți permisiunea de a edita acest m
 $_['error_telephone']		= 'Telefonul trebuie să aibă între 3 și 32 de caractere!';
 $_['error_name']			= 'Numele nu poate fi mai mare de 32 de caractere!';
 $_['error_enquiry']			= 'Comentariul nu poate fi mai lung de 360 de caractere!';
+
+// To appeal to users
+$_['appeal_marketplace']	= 'Vă rugăm să evaluați Materialalize Template <ul><li>Deschideți contul pe OpenCart Marketplace</li> <li>Selectați &quot;Rate your Downloads&quot;</li> <li>Selectați &quot;Materialize Template&quot;</li> <li>Trimiteți o evaluare sinceră și lăsați-vă feedbackul :)</li></ul>';
+$_['appeal_github']			= 'Dacă aveți probleme cu activitatea modulului, vă rugăm să creați o temă cu o problemă la Github.';
+$_['appeal_twitter']		= 'Urmăriți pentru informații despre actualizările din Twitter oficial.';
+$_['appeal_paypal']			= 'Sprijiniți dezvoltarea unui șablon prin PayPal :)';
+$_['appeal_yandex_money']	= 'Sprijiniți dezvoltarea unui șablon prin Yandex.Money :)';

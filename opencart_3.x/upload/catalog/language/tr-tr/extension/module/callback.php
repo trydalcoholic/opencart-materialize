@@ -1,7 +1,4 @@
 <?php
-// Button
-$_['button_submit']			= 'Arama isteği oluştur';
-
 // Entry
 $_['entry_name']			= 'Adınız';
 $_['entry_telephone']		= 'Telefon numaranız';

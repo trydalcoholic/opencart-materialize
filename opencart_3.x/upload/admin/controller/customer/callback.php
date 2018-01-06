@@ -6,6 +6,8 @@ class ControllerCustomerCallback extends Controller {
 		$this->load->language('customer/callback');
 
 		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('customer/callback');
 
@@ -16,6 +18,8 @@ class ControllerCustomerCallback extends Controller {
 		$this->load->language('customer/callback');
 
 		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('customer/callback');
 
@@ -636,8 +640,8 @@ class ControllerCustomerCallback extends Controller {
 
 			foreach ($results as $result) {
 				$json[] = array(
-					'callback_id'		=> $result['callback_id'],
-					'name'				=> strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
+					'callback_id'	=> $result['callback_id'],
+					'name'			=> strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
 				);
 			}
 		}

@@ -1,37 +1,46 @@
 <?php
 // Heading
-$_['heading_title']		= '<font color="#263238"><b><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;Materialize "Geri Arama"</b></font>';
-$_['callback_title']	= 'Materialize "Geri Arama"';
+$_['heading_title']			= '<font color="#263238"><b><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;Materialize "Geri Arama"</b></font>';
+$_['callback_title']		= 'Materialize "Geri Arama"';
 
 // Text
-$_['text_extension']	= 'Modüller';
-$_['text_success']		= 'Modül ayarları güncellendi!';
-$_['text_edit']			= 'Materialize "Geri Arama" modülünü düzenle';
-$_['text_settings']		= 'EK AYARLAR';
-$_['text_popup']		= 'POP-UP PENCERE';
-$_['text_call_action']	= 'EYLEM ÇAĞRISI';
-$_['text_name']			= 'Isim';
-$_['text_enquiry']		= 'Yorum alanı';
-$_['text_call_time']	= 'Bir görüşme yapmak için uygun zaman';
-$_['text_materialize']	= 'Eğer modülün çalışması ile ilgili sorunlar varsa, <a href="//github.com/trydalcoholic/opencart-materialize/issues" target="_blank" rel="noopener"><b>Github</b></a> üzerinde bir sorunu olan bir tema oluşturun lütfen.<hr><b>Materialize Template</b> — ücretsiz bir temadır, işi beğendiyseniz ve fırsatınız varsa, lütfen projenin <a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener"><b>Yandex.Money</b></a> veya <a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener"><b>PayPal</b></a> aracılığıyla para ile geliştirilmesini destekleyin.<hr>Ayrıca şablon gelişimine yardımcı olmak, yorum bırakarak ve <a href="//goo.gl/pSwwUR" target="_blank" rel="noopener"><b>Pazar</b></a> yerinde bir değerlendirme koyarak.';
+$_['text_extension']		= 'Modüller';
+$_['text_success']			= 'Modül ayarları güncellendi!';
+$_['text_edit']				= 'Materialize "Geri Arama" modülünü düzenle';
+$_['text_settings']			= 'EK AYARLAR';
+$_['text_popup']			= 'POP-UP PENCERE';
+$_['text_call_action']		= 'EYLEM ÇAĞRISI';
+$_['text_name']				= 'Isim';
+$_['text_enquiry']			= 'Yorum alanı';
+$_['text_call_time']		= 'Uygun bir zamanda çağrı';
 
 // Entry
-$_['entry_phonemask']	= 'Telefon giriş maskesi';
-$_['entry_status']		= 'Durum:';
-$_['entry_required']	= 'Gereklidir:';
-$_['entry_success']		= 'Göndermeden sonra metin';
-$_['entry_fields']		= 'Ek alanlar:';
-$_['entry_title']		= 'Başlık';
-$_['entry_description']	= 'Tanım';
-$_['entry_time']		= 'Görünüm zamanı';
-$_['entry_agreement']	= 'Kurallarla anlaşma yapmak';
+$_['entry_phonemask']		= 'Telefon giriş maskesi';
+$_['entry_status']			= 'Durum:';
+$_['entry_required']		= 'Gereklidir:';
+$_['entry_success']			= 'Göndermeden sonra metin';
+$_['entry_fields']			= 'Ek alanlar:';
+$_['entry_title']			= 'Başlık';
+$_['entry_text_button']		= 'Düğme metni';
+$_['entry_button_color']	= 'Renkli düğmeler';
+$_['entry_description']		= 'Tanım';
+$_['entry_time']			= 'Görünüm zamanı';
+$_['entry_agreement']		= 'Kurallarla anlaşma yapmak';
 
 // Help
-$_['help_modaltitle']	= 'Açılır pencere başlığı';
-$_['help_time']			= 'Zaman saniye cinsinden belirtilir';
-$_['help_agreement']	= 'Kurallara uyulup onaylanmadığını isteyin';
+$_['help_time']				= 'Zaman saniye cinsinden belirtilir';
+$_['help_agreement']		= 'Kurallara uyulup onaylanmadığını isteyin';
 
 // Error
-$_['error_permission']	= 'Bu modülü yönetme izniniz yok!';
-$_['error_success']		= 'Alanı doldurun!';
-$_['error_time']		= 'Zamanı 1 saniyeden az olamaz!';
+$_['error_permission']		= 'Bu modülü yönetme izniniz yok!';
+$_['error_title']			= 'Alanı doldurun <b>Başlık!</b>';
+$_['error_text_button']		= 'Alanı doldurun <b>Düğme metni!</b>';
+$_['error_success']			= 'Alanı doldurun <b>Göndermeden sonra metin!</b>';
+$_['error_time']			= 'Zamanı <b>1 saniyeden</b> az olamaz!';
+
+// To appeal to users
+$_['appeal_marketplace']	= 'Koyunuz değerlendirme <ul><li>Gidin hesabınızı</li> <li>Seçin &quot;Rate your Downloads&quot;</li> <li>Seçin &quot;Materialize Template&quot;</li> <li>Dürüst bir değerlendirme yapın ve geribildirim bırakın :)</li></ul>';
+$_['appeal_github']			= 'Eğer herhangi bir sorun varsa, iş, modül, tema oluşturma ile bir sorun Github.';
+$_['appeal_twitter']		= 'Takip edin, bilgi güncellemeleri hakkında resmi Twitter.';
+$_['appeal_paypal']			= 'PayPal aracılığıyla şablon geliştirme desteği :)';
+$_['appeal_yandex_money']	= 'Yandex.Money aracılığıyla bir şablon geliştirme desteği :)';

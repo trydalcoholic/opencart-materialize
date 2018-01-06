@@ -20,7 +20,6 @@
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		</div>
 		{% endif %}
-		<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> {{ text_materialize }}</div>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3></div>
 			<div class="panel-body">
@@ -42,14 +41,15 @@
 					<br>
 					<fieldset>
 						<legend>{{ text_popup }}</legend>
-						<div class="form-group">
-							<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_modaltitle }}">{{ entry_title }}:</span></label>
+						<div class="form-group required">
+							<label class="col-sm-2 control-label">{{ entry_title }}:</label>
 							<div class="col-sm-10">
 								{% for language in languages %}
 								<div class="input-group">
 									<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
 									<input type="text" name="module_callback[{{ language.language_id }}][title]" value="{{ module_callback[language.language_id] ? module_callback[language.language_id].title }}" placeholder="{{ help_modaltitle }}" class="form-control" />
 								</div>
+								{% if error_title[language.language_id] %}<div class="text-danger">{{ error_title[language.language_id] }}</div>{% endif %}
 								{% endfor %}
 							</div>
 						</div>
@@ -156,6 +156,41 @@
 								</table>
 							</div>
 						</div>
+						<div class="form-group required">
+							<label class="col-sm-2 control-label">{{ entry_text_button }}:</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+								<div class="input-group">
+									<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+									<input type="text" name="module_callback[{{ language.language_id }}][text_button]" value="{{ module_callback[language.language_id] ? module_callback[language.language_id].text_button }}" placeholder="{{ help_modaltitle }}" class="form-control" />
+								</div>
+								{% if error_text_button[language.language_id] %}<div class="text-danger">{{ error_text_button[language.language_id] }}</div>{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">{{ entry_button_color }}:</label>
+							<div class="col-sm-4">
+								<select name="module_callback_color_btn" class="selectpicker show-tick">
+									{% for color in module_callback_colors %}
+									{% if color.name == module_callback_color_btn %}
+									<option value="{{ color.name }}" class="{{ color.name }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+									{% else %}
+									<option value="{{ color.name }}" class="{{ color.name }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+									{% endif %}
+									{% endfor %}
+								</select>
+								<select name="module_callback_color_btn_text" class="selectpicker show-tick">
+									{% for color in module_callback_colors_text %}
+									{% if color.name == module_callback_color_btn_text %}
+									<option value="{{ color.name }}" class="{{ color.name }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+									{% else %}
+									<option value="{{ color.name }}" class="{{ color.name }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+									{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+						</div>
 					</fieldset>
 					<br>
 					<fieldset>
@@ -242,15 +277,16 @@
 				</form>
 			</div>
 			<div class="panel-footer text-center">
-				<a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
+				<i class="fa fa-opencart"></i>&nbsp;
+				<a href="//goo.gl/bjyFAW" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Materialize Template</b>" data-content="{{ appeal_marketplace }}"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
 				<i class="fa fa-github"></i>&nbsp;
-				<a href="//github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">GitHub</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/VAM4ww" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>GitHub</b>" data-content="{{ appeal_github }}">GitHub</a>&nbsp;|&nbsp;
 				<i class="fa fa-twitter"></i>&nbsp;
-				<a href="//twitter.com/trydalcoholic" target="_blank" rel="noopener">Twitter</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/yG1AGS" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Twitter</b>" data-content="{{ appeal_twitter }}">Twitter</a>&nbsp;|&nbsp;
 				<i class="fa fa-paypal"></i>&nbsp;
-				<a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/Ry4CeM" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>PayPal</b>" data-content="{{ appeal_paypal }}">PayPal</a>&nbsp;|&nbsp;
 				<i class="fa fa-credit-card"></i>&nbsp;
-				<a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Yandex.Money</a>
+				<a href="//goo.gl/1C4gKu" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Yandex.Money</b>" data-content="{{ appeal_yandex_money }}">Yandex.Money</a>
 			</div>
 		</div>
 	</div>
@@ -322,5 +358,64 @@
 		if (inputStatus.val() == 0) {$('.callback-settings').hide();}
 		if (inputStatus.val() == 1) {$('.callback-settings').show();}
 	});
+
+	$('.selectpicker').selectpicker({
+		size: 10,
+		liveSearch: true,
+		iconBase: 'fa',
+		tickIcon: 'fa-check'
+	});
+
+	// Notify
+	{% if success %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ success }}'
+	},{
+		type: "success"
+	});
+	{% endif %}
+	{% if error_warning %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ error_warning }}'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+	{% if error_module_callback_time %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ error_module_callback_time }}'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+	{% for language in languages %}
+		{% if error_title[language.language_id] %}
+		$.notify({
+			icon: 'fa fa-exclamation-circle',
+			message: '{{ error_title[language.language_id] }}'
+		},{
+			type: "danger"
+		});
+		{% endif %}
+		{% if error_success[language.language_id] %}
+		$.notify({
+			icon: 'fa fa-exclamation-circle',
+			message: '{{ error_success[language.language_id] }}'
+		},{
+			type: "danger"
+		});
+		{% endif %}
+		{% if error_text_button[language.language_id] %}
+		$.notify({
+			icon: 'fa fa-exclamation-circle',
+			message: '{{ error_text_button[language.language_id] }}'
+		},{
+			type: "danger"
+		});
+		{% endif %}
+	{% endfor %}
 </script>
 {{ footer }}
