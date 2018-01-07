@@ -1,7 +1,6 @@
 <?php
 // Heading
 $_['heading_title']			= 'Зворотний дзвінок';
-$_['text_materialize']		= 'Якщо у вас виникли проблеми з роботою модуля ласка створіть тему з проблемою на <a href="//github.com/trydalcoholic/opencart-materialize/issues" target="_blank" rel="noopener"><b>Github</b></a>.<hr><b>Materialize Template</b> — безкоштовна тема, якщо вам подобається виконана робота і у Вас є можливість, будь ласка, підтримайте фінансово розвиток проекту через <a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener"><b>Яндекс.Деньги</b></a> або <a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener"><b>PayPal</b></a>.<hr>Також ви можете допомогти розвитку шаблону, залишивши коментар і поставивши оцінку на <a href="//goo.gl/pSwwUR" target="_blank" rel="noopener"><b>Marketplace</b></a>.';
 
 // Text
 $_['text_сalled']			= 'Подзвонили';
@@ -45,3 +44,10 @@ $_['error_permission']		= 'Увага: у Вас немає прав для ре
 $_['error_telephone']		= 'Телефон повинен бути від 3 до 32 символів!';
 $_['error_name']			= 'Ім&#39;я не може бути довшим 32 символів!';
 $_['error_enquiry']			= 'Коментар не може бути довшим 360 символів!';
+
+// To appeal to users
+$_['appeal_marketplace']	= 'Будь ласка, поставте оцінку <ul><li>Зайдіть у ваш аккаунт на OpenCart Marketplace</li> <li>Виберіть &quot;Rate your Downloads&quot;</li> <li>Виберіть &quot;Materialize Template&quot;</li> <li>Поставте чесну оцінку і залиште відгук :)</li></ul>';
+$_['appeal_github']			= 'Якщо у вас виникли проблеми з роботою модуля, створіть тему з проблемою на Github.';
+$_['appeal_twitter']		= 'Слідкуйте за інформацією про оновлення в офіційному Twitter.';
+$_['appeal_paypal']			= 'Підтримка розробки шаблону через PayPal :)';
+$_['appeal_yandex_money']	= 'Підтримка розробки шаблону через Yandex.Money :)';

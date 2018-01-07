@@ -1,7 +1,4 @@
 <?php
-// Button
-$_['button_submit']			= 'Заказать звонок';
-
 // Entry
 $_['entry_name']			= 'Как вас зовут';
 $_['entry_telephone']		= 'Ваш номер телефона';

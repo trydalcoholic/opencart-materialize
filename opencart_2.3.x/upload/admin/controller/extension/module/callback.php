@@ -6,8 +6,12 @@ class ControllerExtensionModuleCallback extends Controller {
 		$this->load->language('extension/module/callback');
 
 		$this->document->setTitle($this->language->get('callback_title'));
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('setting/setting');
+
+		$this->load->model('extension/module/materialize');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('module_callback', $this->request->post);
@@ -42,11 +46,12 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['entry_success'] = $this->language->get('entry_success');
 		$data['entry_fields'] = $this->language->get('entry_fields');
 		$data['entry_title'] = $this->language->get('entry_title');
+		$data['entry_button_color'] = $this->language->get('entry_button_color');
+		$data['entry_text_button'] = $this->language->get('entry_text_button');
 		$data['entry_description'] = $this->language->get('entry_description');
 		$data['entry_time'] = $this->language->get('entry_time');
 		$data['entry_agreement'] = $this->language->get('entry_agreement');
 
-		$data['help_modaltitle'] = $this->language->get('help_modaltitle');
 		$data['help_time'] = $this->language->get('help_time');
 		$data['help_agreement'] = $this->language->get('help_agreement');
 
@@ -56,10 +61,28 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
 
+		$data['appeal_marketplace'] = $this->language->get('appeal_marketplace');
+		$data['appeal_github'] = $this->language->get('appeal_github');
+		$data['appeal_twitter'] = $this->language->get('appeal_twitter');
+		$data['appeal_paypal'] = $this->language->get('appeal_paypal');
+		$data['appeal_yandex_money'] = $this->language->get('appeal_yandex_money');
+
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
 			$data['error_warning'] = '';
+		}
+
+		if (isset($this->error['title'])) {
+			$data['error_title'] = $this->error['title'];
+		} else {
+			$data['error_title'] = array();
+		}
+
+		if (isset($this->error['text_button'])) {
+			$data['error_text_button'] = $this->error['text_button'];
+		} else {
+			$data['error_text_button'] = array();
 		}
 
 		if (isset($this->error['success'])) {
@@ -111,6 +134,25 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['module_callback'] = $this->config->get('module_callback');
 		} else {
 			$data['module_callback'] = '';
+		}
+
+		$data['module_callback_colors'] = $this->model_extension_module_materialize->getMaterializeColors();
+		$data['module_callback_colors_text'] = $this->model_extension_module_materialize->getMaterializeColorsText();
+
+		if (isset($this->request->post['module_callback_color_btn'])) {
+			$data['module_callback_color_btn'] = $this->request->post['module_callback_color_btn'];
+		} elseif ($this->config->get('module_callback_color_btn') == true) {
+			$data['module_callback_color_btn'] = $this->config->get('module_callback_color_btn');
+		} else {
+			$data['module_callback_color_btn'] = 'red';
+		}
+
+		if (isset($this->request->post['module_callback_color_btn_text'])) {
+			$data['module_callback_color_btn_text'] = $this->request->post['module_callback_color_btn_text'];
+		} elseif ($this->config->get('module_callback_color_btn_text') == true) {
+			$data['module_callback_color_btn_text'] = $this->config->get('module_callback_color_btn_text');
+		} else {
+			$data['module_callback_color_btn_text'] = 'white-text';
 		}
 
 		if (isset($this->request->post['module_callback_name'])) {
@@ -192,8 +234,14 @@ class ControllerExtensionModuleCallback extends Controller {
 		}
 
 		foreach ($this->request->post['module_callback'] as $language_id => $value) {
+			if (utf8_strlen($value['title']) < 1) {
+				$this->error['title'][$language_id] = $this->language->get('error_title');
+			}
 			if (utf8_strlen($value['success']) < 1) {
 				$this->error['success'][$language_id] = $this->language->get('error_success');
+			}
+			if (utf8_strlen($value['text_button']) < 1) {
+				$this->error['text_button'][$language_id] = $this->language->get('error_text_button');
 			}
 		}
 

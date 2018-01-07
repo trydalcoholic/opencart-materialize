@@ -8,11 +8,12 @@ class ControllerExtensionModuleCallback extends Controller {
 		$module_callback = $this->config->get('module_callback');
 
 		$data['module_callback_title'] = $module_callback[$this->config->get('config_language_id')]['title'];
+		$data['module_callback_text_button'] = $module_callback[$this->config->get('config_language_id')]['text_button'];
 		$data['module_callback_caption'] = $module_callback[$this->config->get('config_language_id')]['caption'];
 		$data['module_callback_description'] = $module_callback[$this->config->get('config_language_id')]['description'];
 		$data['module_callback_time'] = $this->config->get('module_callback_time');
-
-		$data['button_submit'] = $this->language->get('button_submit');
+		$data['module_callback_color_btn'] = $this->config->get('module_callback_color_btn');
+		$data['module_callback_color_btn_text'] = $this->config->get('module_callback_color_btn_text');
 
 		$data['entry_name'] = $this->language->get('entry_name');
 		$data['entry_telephone'] = $this->language->get('entry_telephone');
@@ -29,11 +30,7 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['error_enquiry'] = $this->language->get('error_enquiry');
 		$data['error_calltime'] = $this->language->get('error_calltime');
 
-		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
-			$data['order_page'] = 'https://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-		} else {
-			$data['order_page'] = 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-		}
+		$data['order_page'] = ($this->request->server['HTTPS'] ? 'https://' : 'http://') . $this->request->server['HTTP_HOST'] . $this->request->server['REQUEST_URI'];
 
 		if ($this->config->get('module_callback_name') == 1) {
 			$data['module_callback_name'] = $this->config->get('module_callback_name');

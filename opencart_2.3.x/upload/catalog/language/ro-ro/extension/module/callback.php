@@ -1,7 +1,4 @@
 <?php
-// Button
-$_['button_submit']			= 'Solicitare contact';
-
 // Entry
 $_['entry_name']			= 'Care este numele tau';
 $_['entry_telephone']		= 'Numarul de telefon';

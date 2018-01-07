@@ -121,7 +121,7 @@
 						<a class="href-underline text-bold flow-text block <?php echo $color_header_text; ?>" href="tel:<?php echo str_replace(array('(',')',' '),'', $telephone);?>"><?php echo $telephone; ?></a>
 						<ul class="right contact-info">
 							<li><a href="mailto:<?php echo $email; ?>" class="<?php echo $color_header_text; ?>"><i class="material-icons left">email</i><?php echo $email; ?></a></li>
-							<?php if ($callback_status) { ?><li><a class="modal-trigger activator <?php echo $color_header_text; ?>" href="#callback__modal" rel="nofollow"><i class="material-icons left">phone_in_talk</i><?php echo $text_call_back; ?></a></li><?php } ?>
+							<?php if ($callback_status) { ?><li><a class="modal-trigger activator <?php echo $color_header_text; ?>" href="#callback__modal" rel="nofollow"><i class="material-icons left">phone_in_talk</i><?php echo $callback_title; ?></a></li><?php } ?>
 							<?php if ($open) { ?>
 							<li><i class="material-icons left">access_time</i><?php echo $open; ?></li>
 							<?php } ?>
@@ -200,7 +200,7 @@
 					</div>
 				</div>
 			</li>
-			<?php if ($callback_status) { ?><li class="grey lighten-4"><a class="waves-effect waves-default modal-trigger activator" href="#callback__modal" rel="nofollow"><i class="material-icons">phone_in_talk</i><?php echo $text_call_back; ?></a></li><?php } ?>
+			<?php if ($callback_status) { ?><li class="grey lighten-4"><a class="waves-effect waves-default modal-trigger activator" href="#callback__modal" rel="nofollow"><i class="material-icons">phone_in_talk</i><?php echo $callback_title; ?></a></li><?php } ?>
 			<li>
 				<ul class="collapsible collapsible-accordion" data-collapsible="accordion">
 				<?php if ($categories) { ?>

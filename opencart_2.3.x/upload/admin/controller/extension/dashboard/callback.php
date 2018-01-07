@@ -6,6 +6,8 @@ class ControllerExtensionDashboardCallback extends Controller {
 		$this->load->language('extension/dashboard/callback');
 
 		$this->document->setTitle($this->language->get('callback_title'));
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('setting/setting');
 
@@ -30,6 +32,12 @@ class ControllerExtensionDashboardCallback extends Controller {
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
+
+		$data['appeal_marketplace'] = $this->language->get('appeal_marketplace');
+		$data['appeal_github'] = $this->language->get('appeal_github');
+		$data['appeal_twitter'] = $this->language->get('appeal_twitter');
+		$data['appeal_paypal'] = $this->language->get('appeal_paypal');
+		$data['appeal_yandex_money'] = $this->language->get('appeal_yandex_money');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];

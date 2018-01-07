@@ -367,14 +367,6 @@
 	});
 
 	// Notify
-	{% if success %}
-	$.notify({
-		icon: 'fa fa-exclamation-circle',
-		message: '{{ success }}'
-	},{
-		type: "success"
-	});
-	{% endif %}
 	{% if error_warning %}
 	$.notify({
 		icon: 'fa fa-exclamation-circle',

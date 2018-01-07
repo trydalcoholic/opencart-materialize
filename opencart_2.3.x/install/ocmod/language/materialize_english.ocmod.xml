@@ -129,12 +129,6 @@
 			<add position="after"><![CDATA[$_['text_callback']	= 'Call Back';]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/en-gb/common/header.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[$_['text_call_back']	= 'Call back me';]]></add>
-		</operation>
-	</file>
 	<!-- Custom map -->
 	<file path="catalog/language/en-gb/information/contact.php">
 		<operation error="skip">

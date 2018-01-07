@@ -6,6 +6,8 @@ class ControllerCustomerCallback extends Controller {
 		$this->load->language('customer/callback');
 
 		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('customer/callback');
 
@@ -16,6 +18,8 @@ class ControllerCustomerCallback extends Controller {
 		$this->load->language('customer/callback');
 
 		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('customer/callback');
 
@@ -277,6 +281,12 @@ class ControllerCustomerCallback extends Controller {
 		$data['button_delete'] = $this->language->get('button_delete');
 		$data['button_filter'] = $this->language->get('button_filter');
 
+		$data['appeal_marketplace'] = $this->language->get('appeal_marketplace');
+		$data['appeal_github'] = $this->language->get('appeal_github');
+		$data['appeal_twitter'] = $this->language->get('appeal_twitter');
+		$data['appeal_paypal'] = $this->language->get('appeal_paypal');
+		$data['appeal_yandex_money'] = $this->language->get('appeal_yandex_money');
+
 		$data['token'] = $this->session->data['token'];
 		
 		if (isset($this->error['warning'])) {
@@ -436,6 +446,12 @@ class ControllerCustomerCallback extends Controller {
 		$data['tab_data'] = $this->language->get('tab_data');
 
 		$data['text_form'] = sprintf($this->language->get('text_edit'), $this->request->get['callback_id']);
+
+		$data['appeal_marketplace'] = $this->language->get('appeal_marketplace');
+		$data['appeal_github'] = $this->language->get('appeal_github');
+		$data['appeal_twitter'] = $this->language->get('appeal_twitter');
+		$data['appeal_paypal'] = $this->language->get('appeal_paypal');
+		$data['appeal_yandex_money'] = $this->language->get('appeal_yandex_money');
 
 		$data['token'] = $this->session->data['token'];
 

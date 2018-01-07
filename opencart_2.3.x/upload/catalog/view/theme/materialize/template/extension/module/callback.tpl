@@ -45,7 +45,7 @@
 		<input type="hidden" name="order_page" value="<?php echo $order_page; ?>">
 	</div>
 	<div class="modal-footer href-underline">
-		<button type="button" id="callback__button" class="btn modal-action waves-effect waves-light red" value="<?php $button_submit; ?>"><?php echo $button_submit; ?></button>
+		<button type="button" id="callback__button" class="btn modal-action waves-effect waves-light <?php echo $module_callback_color_btn; ?> <?php echo $module_callback_color_btn_text; ?>" value="<?php echo $module_callback_text_button; ?>"><?php echo $module_callback_text_button; ?></button>
 	</div>
 </form>
 <?php if ($module_callback_callaction_status) { ?>

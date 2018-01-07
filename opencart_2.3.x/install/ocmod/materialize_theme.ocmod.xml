@@ -377,7 +377,10 @@
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
 			if ($this->config->get('module_callback_status') == 1) {
+				$module_callback = $this->config->get('module_callback');
+
 				$data['callback_status'] = true;
+				$data['callback_title'] = $module_callback[$this->config->get('config_language_id')]['title'];
 				$data['callback_module'] = $this->load->controller('extension/module/callback', $data);
 			} else {
 				$data['callback_status'] = false;
@@ -2308,8 +2311,6 @@
 			$data['text_contact'] = $this->language->get('text_contact');
 			$data['text_about'] = $this->language->get('text_about');
 			$data['text_delivery'] = $this->language->get('text_delivery');
-			$data['text_call_back'] = $this->language->get('text_call_back');
-			$data['text_call_free'] = $this->language->get('text_call_free');
 			]]></add>
 		</operation>
 		<operation error="skip">

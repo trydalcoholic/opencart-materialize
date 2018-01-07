@@ -129,12 +129,6 @@
 			<add position="after"><![CDATA[$_['text_callback']	= 'Звонок с сайта';]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/ru-ru/common/header.php">
-		<operation error="skip">
-			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[$_['text_call_back']	= 'Звонок с сайта';]]></add>
-		</operation>
-	</file>
 	<!-- Custom map -->
 	<file path="catalog/language/ru-ru/information/contact.php">
 		<operation error="skip">
