@@ -20,7 +20,6 @@ $_['tab_mobile']				= 'Mobil';
 // Text
 $_['text_extension']			= 'Modüller';
 $_['text_success']				= 'Modül ayarları güncellendi!';
-$_['text_materialize']			= 'Eğer modülün çalışması ile ilgili sorunlar varsa, <a href="//github.com/trydalcoholic/opencart-materialize/issues" target="_blank" rel="noopener"><b>Github</b></a> üzerinde bir sorunu olan bir tema oluşturun lütfen.<hr><b>Materialize Template</b> — ücretsiz bir temadır, işi beğendiyseniz ve fırsatınız varsa, lütfen projenin <a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener"><b>Yandex.Money</b></a> veya <a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener"><b>PayPal</b></a> aracılığıyla para ile geliştirilmesini destekleyin.<hr>Ayrıca şablon gelişimine yardımcı olmak, yorum bırakarak ve <a href="//goo.gl/pSwwUR" target="_blank" rel="noopener"><b>Pazar</b></a> yerinde bir değerlendirme koyarak.';
 
 // Entry
 $_['entry_status']				= 'Durumu';
@@ -91,3 +90,13 @@ $_['help_geocode']				= 'Enlem ve Boylam sırada koordinatları belirtin.';
 // Error
 $_['error_permission']			= 'Bu modül yönetmek için izniniz yok!';
 $_['error_percent_remainder']	= 'Sayısını belirtin ürün yüzdesini hesaplamak için bakiye mal!';
+$_['error_google_api']			= '<b>Google API</b> Anahtarınızı girin!';
+$_['error_geo_lat']				= '<b>Enlem</b> girin';
+$_['error_geo_lng']				= '<b>Boylamı</b> girin';
+
+// To appeal to users
+$_['appeal_marketplace']		= 'Koyunuz değerlendirme <ul><li>Gidin hesabınızı</li> <li>Seçin &quot;Rate your Downloads&quot;</li> <li>Seçin &quot;Materialize Template&quot;</li> <li>Dürüst bir değerlendirme yapın ve geribildirim bırakın :)</li></ul>';
+$_['appeal_github']				= 'Eğer herhangi bir sorun varsa, iş, modül, tema oluşturma ile bir sorun Github.';
+$_['appeal_twitter']			= 'Takip edin, bilgi güncellemeleri hakkında resmi Twitter.';
+$_['appeal_paypal']				= 'PayPal aracılığıyla şablon geliştirme desteği :)';
+$_['appeal_yandex_money']		= 'Yandex.Money aracılığıyla bir şablon geliştirme desteği :)';

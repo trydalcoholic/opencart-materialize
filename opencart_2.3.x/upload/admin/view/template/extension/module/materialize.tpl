@@ -16,7 +16,6 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> <?php echo $text_materialize; ?></div>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $materialize_title; ?></h3></div>
 			<div class="panel-body">
@@ -727,7 +726,7 @@
 									<div class="col-sm-10">
 										<input type="number" min="1" name="module_materialize_percent_remainder" value="<?php echo $module_materialize_percent_remainder; ?>" placeholder="" class="form-control" />
 										<?php if ($error_module_materialize_percent_remainder) { ?>
-										<div class="text-danger"><?php echo $error_module_materialize_percent_remainder; ?></div>
+										<div class="text-danger"><?php echo $error_percent_remainder; ?></div>
 										<?php } ?>
 									</div>
 								</div>
@@ -777,12 +776,12 @@
 									<label class="col-sm-2 control-label" for="input-maps"><?php echo $tab_map; ?>:</label>
 									<div class="col-sm-10">
 										<select name="module_materialize_map" id="input-maps" class="form-control">
-											<?php foreach ($module_materialize_maps as $map) { ?>
-											<?php if ($map['map_id'] == $module_materialize_map) { ?>
-											<option value="<?php echo $map['map_id']; ?>" selected="selected"><?php echo $map['name']; ?></option>
+											<?php if ($module_materialize_map == 'google_maps') { ?>
+											<option value="google_maps" selected="selected">Google Maps</option>
+											<option value="yandex_maps">Yandex.Maps</option>
 											<?php } else { ?>
-											<option value="<?php echo $map['map_id']; ?>"><?php echo $map['name']; ?></option>
-											<?php } ?>
+											<option value="google_maps">Google Maps</option>
+											<option value="yandex_maps" selected="selected">Yandex.Maps</option>
 											<?php } ?>
 										</select>
 									</div>
@@ -791,19 +790,21 @@
 									<label class="col-sm-2 control-label"><?php echo $entry_api; ?>:</label>
 									<div class="col-sm-10">
 										<input type="text" name="module_materialize_google_api" value="<?php echo $module_materialize_google_api; ?>" placeholder="<?php echo $entry_api; ?>" class="form-control" />
+										<?php if ($error_module_materialize_google_api) { ?><div class="text-danger"><?php echo $error_google_api; ?></div><?php } ?>
 									</div>
 								</div>
 								<div class="form-group required">
-									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_geocode; ?>"><?php echo $entry_geocode; ?>:</span></label>
+									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_geocode; ?>"><?php echo $entry_lat; ?>:</span></label>
 									<div class="col-sm-10">
-										<div class="row">
-											<div class="col-sm-6">
-												<input type="text" name="module_materialize_geo_lat" value="<?php echo $module_materialize_geo_lat; ?>" placeholder="<?php echo $entry_lat; ?>" class="form-control" />												
-											</div>
-											<div class="col-sm-6">
-												<input type="text" name="module_materialize_geo_lng" value="<?php echo $module_materialize_geo_lng; ?>" placeholder="<?php echo $entry_lng; ?>" class="form-control" />												
-											</div>
-										</div>
+										<input type="text" name="module_materialize_geo_lat" value="<?php echo $module_materialize_geo_lat; ?>" placeholder="<?php echo $entry_lat; ?>" class="form-control" />
+										<?php if ($error_module_materialize_geo_lat) { ?><div class="text-danger"><?php echo $error_geo_lat; ?></div><?php } ?>
+									</div>
+								</div>
+								<div class="form-group required">
+									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_geocode; ?>"><?php echo $entry_lng; ?>:</span></label>
+									<div class="col-sm-10">
+										<input type="text" name="module_materialize_geo_lng" value="<?php echo $module_materialize_geo_lng; ?>" placeholder="<?php echo $entry_lng; ?>" class="form-control" />
+										<?php if ($error_module_materialize_geo_lng) { ?><div class="text-danger"><?php echo $error_geo_lng; ?></div><?php } ?>
 									</div>
 								</div>
 								<div class="form-group">
@@ -841,15 +842,16 @@
 				</form>
 			</div>
 			<div class="panel-footer text-center">
-				<a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
+				<i class="fa fa-opencart"></i>&nbsp;
+				<a href="//goo.gl/bjyFAW" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Materialize Template</b>" data-content="<?php echo $appeal_marketplace; ?>"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
 				<i class="fa fa-github"></i>&nbsp;
-				<a href="//github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">GitHub</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/VAM4ww" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>GitHub</b>" data-content="<?php echo $appeal_github; ?>">GitHub</a>&nbsp;|&nbsp;
 				<i class="fa fa-twitter"></i>&nbsp;
-				<a href="//twitter.com/trydalcoholic" target="_blank" rel="noopener">Twitter</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/yG1AGS" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Twitter</b>" data-content="<?php echo $appeal_twitter; ?>">Twitter</a>&nbsp;|&nbsp;
 				<i class="fa fa-paypal"></i>&nbsp;
-				<a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/Ry4CeM" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>PayPal</b>" data-content="<?php echo $appeal_paypal; ?>">PayPal</a>&nbsp;|&nbsp;
 				<i class="fa fa-credit-card"></i>&nbsp;
-				<a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Yandex.Money</a>
+				<a href="//goo.gl/1C4gKu" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Yandex.Money</b>" data-content="<?php echo $appeal_yandex_money; ?>">Yandex.Money</a>
 			</div>
 		</div>
 	</div>
@@ -884,12 +886,12 @@
 		if (inputTypeRemainder.val() == 'progressbar') {$('.progressbar-settings').show();}
 	});
 
-	if (inputMaps.val() == 1) {$('.google-maps-settings').show();}
-	if (inputMaps.val() != 1) {$('.google-maps-settings').hide();}
+	if (inputMaps.val() == 'google_maps') {$('.google-maps-settings').show();}
+	if (inputMaps.val() != 'google_maps') {$('.google-maps-settings').hide();}
 
 	inputMaps.change(function(){
-		if (inputMaps.val() == 1) {$('.google-maps-settings').show();}
-		if (inputMaps.val() != 1) {$('.google-maps-settings').hide();}
+		if (inputMaps.val() == 'google_maps') {$('.google-maps-settings').show();}
+		if (inputMaps.val() != 'google_maps') {$('.google-maps-settings').hide();}
 	});
 
 	$('.selectpicker').selectpicker({
@@ -949,7 +951,31 @@
 	<?php if ($error_module_materialize_percent_remainder) { ?>
 	$.notify({
 		icon: 'fa fa-exclamation-circle',
-		message: '<?php echo $error_module_materialize_percent_remainder; ?>'
+		message: '<?php echo $error_percent_remainder; ?>'
+	},{
+		type: "danger"
+	});
+	<?php } ?>
+	<?php if ($error_module_materialize_google_api) { ?>
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '<?php echo $error_google_api; ?>'
+	},{
+		type: "danger"
+	});
+	<?php } ?>
+	<?php if ($error_module_materialize_geo_lat) { ?>
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '<?php echo $error_geo_lat; ?>'
+	},{
+		type: "danger"
+	});
+	<?php } ?>
+	<?php if ($error_module_materialize_geo_lng) { ?>
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '<?php echo $error_geo_lng; ?>'
 	},{
 		type: "danger"
 	});

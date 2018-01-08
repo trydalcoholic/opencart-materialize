@@ -670,7 +670,7 @@
 			<search><![CDATA[$this->load->model('tool/image');]]></search>
 			<add position="after"><![CDATA[
 			if ($this->config->get('module_materialize_status') == 1) {
-				if ($this->config->get('module_materialize_map') == 1) {
+				if ($this->config->get('module_materialize_map') == 'google_maps') {
 					$data['google'] = true;
 					$data['google_api'] = $this->config->get('module_materialize_google_api');
 					$data['yandex'] = '';
@@ -678,6 +678,7 @@
 					$data['yandex'] = true;
 					$data['google'] = '';
 				}
+
 				$materialize = $this->config->get('module_materialize');
 
 				$data['map_description'] = html_entity_decode($materialize[$this->config->get('config_language_id')]['map_description'], ENT_QUOTES, 'UTF-8');

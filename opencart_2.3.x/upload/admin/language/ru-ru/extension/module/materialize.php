@@ -20,7 +20,6 @@ $_['tab_mobile']				= 'Мобильные';
 // Text
 $_['text_extension']			= 'Модули';
 $_['text_success']				= 'Настройки модуля обновлены!';
-$_['text_materialize']			= 'Если у вас возникли проблемы с работой модуля, пожалуйста, создайте тему с проблемой на <a href="://github.com/trydalcoholic/opencart-materialize/issues" target="_blank" rel="noopener"><b>Github</b></a>.<hr><b>Materialize Template</b> — бесплатная тема, если вам нравится проделанная работа и у Вас есть возможность, пожалуйста, поддержите финансово развитие проекта через <a href="://money.yandex.ru/to/41001413377821" target="_blank" rel="noopener"><b>Яндекс.Деньги</b></a> или <a href="://www.paypal.me/trydalcoholic" target="_blank" rel="noopener"><b>PayPal</b></a>.<hr>Также вы можете помочь развитию шаблона, оставив комментарий и поставив оценку на <a href="://goo.gl/pSwwUR" target="_blank" rel="noopener"><b>Marketplace</b></a>.';
 
 // Entry
 $_['entry_status']				= 'Статус';
@@ -91,3 +90,13 @@ $_['help_geocode']				= 'Укажите координаты в порядке, 
 // Error
 $_['error_permission']			= 'У вас нет прав для управления этим модулем!';
 $_['error_percent_remainder']	= 'Укажите количество товара для расчета процента остатка товаров!';
+$_['error_google_api']			= 'Укажите ваш <b>Google API Key!</b>';
+$_['error_geo_lat']				= 'Укажите <b>широту!</b>';
+$_['error_geo_lng']				= 'Укажите <b>долготу!</b>';
+
+// To appeal to users
+$_['appeal_marketplace']		= 'Пожалуйста, поставьте оценку Materialize Template <ul><li>Зайдите в ваш аккаунт на OpenCart Marketplace</li> <li>Выберите &quot;Rate your Downloads&quot;</li> <li>Выберите &quot;Materialize Template&quot;</li> <li>Поставьте честную оценку и оставьте отзыв :)</li></ul>';
+$_['appeal_github']				= 'Если у вас возникли проблемы с работой модуля, создайте тему с проблемой на Github.';
+$_['appeal_twitter']			= 'Следите за информацией об обновлениях в официальном Twitter.';
+$_['appeal_paypal']				= 'Поддержка разработки шаблона через PayPal:)';
+$_['appeal_yandex_money']		= 'Поддержка разработки шаблона через Yandex.Money :)';
