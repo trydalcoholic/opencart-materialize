@@ -10,7 +10,7 @@ $(document).ready(function() {
 	$('ul.dropdown-menu.inner').each(function () {
 		$(this).children().children().each(function () {
 			var classes = $(this).attr('class');
-			if (classes.indexOf("darken") >= 0 || $(this).hasClass('black')) {
+			if (classes.indexOf("darken") >= 0 || $(this).hasClass('black') || $(this).hasClass('black-text')) {
 				$(this).children().css('color', 'rgba(255,255,255,.9');
 			} else {
 				$(this).children().css('color', 'rgba(0,0,0,.9');
