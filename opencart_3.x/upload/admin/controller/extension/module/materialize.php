@@ -48,6 +48,24 @@ class ControllerExtensionModuleMaterialize extends Controller {
 			$data['error_module_materialize_percent_remainder'] = '';
 		}
 
+		if (isset($this->error['error_module_materialize_geo_lat'])) {
+			$data['error_module_materialize_geo_lat'] = $this->error['error_module_materialize_geo_lat'];
+		} else {
+			$data['error_module_materialize_geo_lat'] = '';
+		}
+
+		if (isset($this->error['error_module_materialize_geo_lng'])) {
+			$data['error_module_materialize_geo_lng'] = $this->error['error_module_materialize_geo_lng'];
+		} else {
+			$data['error_module_materialize_geo_lng'] = '';
+		}
+
+		if (isset($this->error['error_module_materialize_google_api'])) {
+			$data['error_module_materialize_google_api'] = $this->error['error_module_materialize_google_api'];
+		} else {
+			$data['error_module_materialize_google_api'] = '';
+		}
+
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
 
@@ -489,8 +507,6 @@ class ControllerExtensionModuleMaterialize extends Controller {
 		}
 
 		/* Maps */
-		$data['module_materialize_maps'] = $this->model_extension_module_materialize->getMaterializeMaps();
-
 		if (isset($this->request->post['module_materialize_map'])) {
 			$data['module_materialize_map'] = $this->request->post['module_materialize_map'];
 		} else {
@@ -560,8 +576,22 @@ class ControllerExtensionModuleMaterialize extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if ($this->request->post['module_materialize_type_remainder'] && ((utf8_strlen($this->request->post['module_materialize_percent_remainder']) < 1) || ($this->request->post['module_materialize_percent_remainder'] < 1))) {
-			$this->error['error_module_materialize_percent_remainder'] = $this->language->get('error_percent_remainder');
+		if ($this->request->post['module_materialize_status'] == 1) {
+			if ($this->request->post['module_materialize_type_remainder'] && ((utf8_strlen($this->request->post['module_materialize_percent_remainder']) < 1) || ($this->request->post['module_materialize_percent_remainder'] < 1))) {
+				$this->error['error_module_materialize_percent_remainder'] = $this->language->get('error_percent_remainder');
+			}
+
+			if (utf8_strlen($this->request->post['module_materialize_geo_lat']) < 1) {
+				$this->error['error_module_materialize_geo_lat'] = $this->language->get('error_geo_lat');
+			}
+
+			if (utf8_strlen($this->request->post['module_materialize_geo_lng']) < 1) {
+				$this->error['error_module_materialize_geo_lng'] = $this->language->get('error_geo_lng');
+			}
+
+			if (($this->request->post['module_materialize_map'] == 'google_maps') && (utf8_strlen($this->request->post['module_materialize_google_api']) < 1)) {
+				$this->error['error_module_materialize_google_api'] = $this->language->get('error_google_api');
+			}
 		}
 
 		return !$this->error;

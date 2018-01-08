@@ -232,14 +232,6 @@ CREATE TABLE IF NOT EXISTS `oc_product_label` (
 
 /* Materialize Settings */
 
-CREATE TABLE IF NOT EXISTS `oc_materialize_maps` (
-	`map_id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255) NOT NULL,
-	PRIMARY KEY (`map_id`)
-) ENGINE = MyISAM;
-
-INSERT INTO `oc_materialize_maps` (`map_id`, `name`) VALUES ('1', 'Google Maps'), ('2', 'Yandex Maps');
-
 CREATE TABLE IF NOT EXISTS `oc_materialize_colors` (
 	`color_id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(25) NOT NULL,

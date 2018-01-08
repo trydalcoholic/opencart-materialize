@@ -16,7 +16,6 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> {{ text_materialize }}</div>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> {{ materialize_title }}</h3></div>
 			<div class="panel-body">
@@ -727,7 +726,7 @@
 									<div class="col-sm-10">
 										<input type="number" min="1" name="module_materialize_percent_remainder" value="{{ module_materialize_percent_remainder }}" placeholder="" class="form-control" />
 										{% if error_module_materialize_percent_remainder %}
-										<div class="text-danger">{{ error_module_materialize_percent_remainder }}</div>
+										<div class="text-danger">{{ error_percent_remainder }}</div>
 										{% endif %}
 									</div>
 								</div>
@@ -777,13 +776,13 @@
 									<label class="col-sm-2 control-label" for="input-maps">{{ tab_map }}:</label>
 									<div class="col-sm-10">
 										<select name="module_materialize_map" id="input-maps" class="form-control">
-											{% for map in module_materialize_maps %}
-											{% if map.map_id == module_materialize_map %}
-											<option value="{{ map.map_id }}" selected="selected">{{ map.name }}</option>
+											{% if module_materialize_map == 'google_maps' %}
+											<option value="google_maps" selected="selected">Google Maps</option>
+											<option value="yandex_maps">Yandex.Maps</option>
 											{% else %}
-											<option value="{{ map.map_id }}">{{ map.name }}</option>
+											<option value="google_maps">Google Maps</option>
+											<option value="yandex_maps" selected="selected">Yandex.Maps</option>
 											{% endif %}
-											{% endfor %}
 										</select>
 									</div>
 								</div>
@@ -791,19 +790,21 @@
 									<label class="col-sm-2 control-label">{{ entry_api }}:</label>
 									<div class="col-sm-10">
 										<input type="text" name="module_materialize_google_api" value="{{ module_materialize_google_api }}" placeholder="{{ entry_api }}" class="form-control" />
+										{% if error_module_materialize_google_api %}<div class="text-danger">{{ error_google_api }}</div>{% endif %}
 									</div>
 								</div>
 								<div class="form-group required">
-									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_geocode }}">{{ entry_geocode }}:</span></label>
+									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_geocode }}">{{ entry_lat }}:</span></label>
 									<div class="col-sm-10">
-										<div class="row">
-											<div class="col-sm-6">
-												<input type="text" name="module_materialize_geo_lat" value="{{ module_materialize_geo_lat }}" placeholder="{{ entry_lat }}" class="form-control" />
-											</div>
-											<div class="col-sm-6">
-												<input type="text" name="module_materialize_geo_lng" value="{{ module_materialize_geo_lng }}" placeholder="{{ entry_lng }}" class="form-control" />
-											</div>
-										</div>
+										<input type="text" name="module_materialize_geo_lat" value="{{ module_materialize_geo_lat }}" placeholder="{{ entry_lat }}" class="form-control" />
+										{% if error_module_materialize_geo_lat %}<div class="text-danger">{{ error_geo_lat }}</div>{% endif %}
+									</div>
+								</div>
+								<div class="form-group required">
+									<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_geocode }}">{{ entry_lng }}:</span></label>
+									<div class="col-sm-10">
+										<input type="text" name="module_materialize_geo_lng" value="{{ module_materialize_geo_lng }}" placeholder="{{ entry_lng }}" class="form-control" />
+										{% if error_module_materialize_geo_lng %}<div class="text-danger">{{ error_geo_lng }}</div>{% endif %}
 									</div>
 								</div>
 								<div class="form-group">
@@ -841,15 +842,16 @@
 				</form>
 			</div>
 			<div class="panel-footer text-center">
-				<a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
+				<i class="fa fa-opencart"></i>&nbsp;
+				<a href="//goo.gl/bjyFAW" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Materialize Template</b>" data-content="{{ appeal_marketplace }}"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
 				<i class="fa fa-github"></i>&nbsp;
-				<a href="//github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">GitHub</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/VAM4ww" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>GitHub</b>" data-content="{{ appeal_github }}">GitHub</a>&nbsp;|&nbsp;
 				<i class="fa fa-twitter"></i>&nbsp;
-				<a href="//twitter.com/trydalcoholic" target="_blank" rel="noopener">Twitter</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/yG1AGS" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Twitter</b>" data-content="{{ appeal_twitter }}">Twitter</a>&nbsp;|&nbsp;
 				<i class="fa fa-paypal"></i>&nbsp;
-				<a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/Ry4CeM" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>PayPal</b>" data-content="{{ appeal_paypal }}">PayPal</a>&nbsp;|&nbsp;
 				<i class="fa fa-credit-card"></i>&nbsp;
-				<a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Yandex.Money</a>
+				<a href="//goo.gl/1C4gKu" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Yandex.Money</b>" data-content="{{ appeal_yandex_money }}">Yandex.Money</a>
 			</div>
 		</div>
 	</div>
@@ -884,12 +886,12 @@
 		if (inputTypeRemainder.val() == 'progressbar') {$('.progressbar-settings').show();}
 	});
 
-	if (inputMaps.val() == 1) {$('.google-maps-settings').show();}
-	if (inputMaps.val() != 1) {$('.google-maps-settings').hide();}
+	if (inputMaps.val() == 'google_maps') {$('.google-maps-settings').show();}
+	if (inputMaps.val() != 'google_maps') {$('.google-maps-settings').hide();}
 
 	inputMaps.change(function(){
-		if (inputMaps.val() == 1) {$('.google-maps-settings').show();}
-		if (inputMaps.val() != 1) {$('.google-maps-settings').hide();}
+		if (inputMaps.val() == 'google_maps') {$('.google-maps-settings').show();}
+		if (inputMaps.val() != 'google_maps') {$('.google-maps-settings').hide();}
 	});
 
 	$('.selectpicker').selectpicker({
@@ -949,7 +951,31 @@
 	{% if error_module_materialize_percent_remainder %}
 	$.notify({
 		icon: 'fa fa-exclamation-circle',
-		message: '{{ error_module_materialize_percent_remainder }}'
+		message: '{{ error_percent_remainder }}'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+	{% if error_module_materialize_google_api %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ error_google_api }}'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+	{% if error_module_materialize_geo_lat %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ error_geo_lat }}'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+	{% if error_module_materialize_geo_lng %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ error_geo_lng }}'
 	},{
 		type: "danger"
 	});

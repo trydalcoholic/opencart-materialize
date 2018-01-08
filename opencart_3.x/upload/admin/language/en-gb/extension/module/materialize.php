@@ -20,7 +20,6 @@ $_['tab_mobile']				= 'Mobile';
 // Text
 $_['text_extension']			= 'Modules';
 $_['text_success']				= 'Module settings updated!';
-$_['text_materialize']			= 'If you have problems with the work of the module, please create a theme with a problem on <a href="//github.com/trydalcoholic/opencart-materialize/issues" target="_blank" rel="noopener"><b>Github</b></a>.<hr><b>Materialize Template</b> is a free theme, if you like the work done and you have the opportunity, please support the development of the project with money via <a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener"><b>Yandex.Money</b></a> or <a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener"><b>PayPal</b></a>.<hr>You can also help the development of the template, leaving a comment and putting a rating on the <a href="//goo.gl/pSwwUR" target="_blank" rel="noopener"><b>Marketplace</b></a>.';
 
 // Entry
 $_['entry_status']				= 'Status';
@@ -91,3 +90,13 @@ $_['help_geocode']				= 'Specify the coordinates in the order of Latitude, and L
 // Error
 $_['error_permission']			= 'You do not have permission to manage this module!';
 $_['error_percent_remainder']	= 'Specify the quantities of goods to calculate the percentage remainder of the goods!';
+$_['error_google_api']			= 'Enter your <b>Google API Key!</b>';
+$_['error_geo_lat']				= 'Enter <b>latitude!</b>';
+$_['error_geo_lng']				= 'Enter <b>longitude!</b>';
+
+// To appeal to users
+$_['appeal_marketplace']		= 'Please rate Materialize Template <ul><li>Open your account on the OpenCart Marketplace</li> <li>Select &quot;Rate your Downloads&quot;</li> <li>Select &quot;Materialize Template&quot;</li> <li>Post an honest assessment and leave your feedback :)</li></ul>';
+$_['appeal_github']				= 'If you have problems with the work of the module, please create a theme with a problem on Github.';
+$_['appeal_twitter']			= 'Watch for information on updates in the official Twitter.';
+$_['appeal_paypal']				= 'Support the development of a template via PayPal :)';
+$_['appeal_yandex_money']		= 'Support the development of a template via Yandex.Money :)';

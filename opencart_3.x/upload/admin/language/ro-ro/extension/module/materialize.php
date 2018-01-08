@@ -20,7 +20,6 @@ $_['tab_mobile']				= 'Mobil';
 // Text
 $_['text_extension']			= 'Modul';
 $_['text_success']				= 'Setarile moodulului actualizate!';
-$_['text_materialize']			= 'Dacă aveți probleme cu activitatea modulului, vă rugăm să creați o temă cu o problemă la <a href="//github.com/trydalcoholic/opencart-materialize/issues" target="_blank" rel="noopener"><b>Github</b></a>.<hr><b>Materialize Template</b> - este o temă gratuită, dacă vă place munca făcută și aveți ocazia, vă rugăm să sprijiniți dezvoltarea proiectului cu bani prin intermediul <a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener"><b>Yandex.Money</b></a> sau <a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener"><b>PayPal</b></a>.<hr>De asemenea, puteți ajuta la dezvoltarea șablonului, lăsând un comentariu și plasând un rating pe <a href="//goo.gl/pSwwUR" target="_blank" rel="noopener"><b>Marketplace</b></a>.';
 
 // Entry
 $_['entry_status']				= 'Stare';
@@ -91,3 +90,13 @@ $_['help_geocode']				= 'Specificați coordonatele în ordinea Latitude și Long
 // Error
 $_['error_permission']			= 'Nu aveți permisiunea de a gestiona acest modul!';
 $_['error_percent_remainder']	= 'Specificați cantitățile de mărfuri pentru a calcula procentajul restului de mărfuri!';
+$_['error_google_api']			= 'Introduceți cheia <b>API Google!</b>';
+$_['error_geo_lat']				= 'Introduceți <b>latitudine!</b>';
+$_['error_geo_lng']				= 'Introduceți <b>longitudine!</b>';
+
+// To appeal to users
+$_['appeal_marketplace']		= 'Vă rugăm să evaluați Materialalize Template <ul><li>Deschideți contul pe OpenCart Marketplace</li> <li>Selectați &quot;Rate your Downloads&quot;</li> <li>Selectați &quot;Materialize Template&quot;</li> <li>Trimiteți o evaluare sinceră și lăsați-vă feedbackul :)</li></ul>';
+$_['appeal_github']				= 'Dacă aveți probleme cu activitatea modulului, vă rugăm să creați o temă cu o problemă la Github.';
+$_['appeal_twitter']			= 'Urmăriți pentru informații despre actualizările din Twitter oficial.';
+$_['appeal_paypal']				= 'Sprijiniți dezvoltarea unui șablon prin PayPal :)';
+$_['appeal_yandex_money']		= 'Sprijiniți dezvoltarea unui șablon prin Yandex.Money :)';
