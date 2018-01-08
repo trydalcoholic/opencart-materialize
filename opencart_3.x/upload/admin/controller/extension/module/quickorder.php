@@ -6,8 +6,12 @@ class ControllerExtensionModuleQuickorder extends Controller {
 		$this->load->language('extension/module/quickorder');
 
 		$this->document->setTitle($this->language->get('quickorder_title'));
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('setting/setting');
+
+		$this->load->model('extension/module/materialize');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('module_quickorder', $this->request->post);
@@ -31,6 +35,12 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['error_success'] = $this->error['success'];
 		} else {
 			$data['error_success'] = array();
+		}
+
+		if (isset($this->error['text_button'])) {
+			$data['error_text_button'] = $this->error['text_button'];
+		} else {
+			$data['error_text_button'] = array();
 		}
 
 		$data['breadcrumbs'] = array();
@@ -70,6 +80,25 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['module_quickorder'] = $this->config->get('module_quickorder');
 		} else {
 			$data['module_quickorder'] = '';
+		}
+
+		$data['module_quickorder_colors'] = $this->model_extension_module_materialize->getMaterializeColors();
+		$data['module_quickorder_colors_text'] = $this->model_extension_module_materialize->getMaterializeColorsText();
+
+		if (isset($this->request->post['module_quickorder_color_btn'])) {
+			$data['module_quickorder_color_btn'] = $this->request->post['module_quickorder_color_btn'];
+		} elseif ($this->config->get('module_quickorder_color_btn') == true) {
+			$data['module_quickorder_color_btn'] = $this->config->get('module_quickorder_color_btn');
+		} else {
+			$data['module_quickorder_color_btn'] = 'blue';
+		}
+
+		if (isset($this->request->post['module_quickorder_color_btn_text'])) {
+			$data['module_quickorder_color_btn_text'] = $this->request->post['module_quickorder_color_btn_text'];
+		} elseif ($this->config->get('module_quickorder_color_btn_text') == true) {
+			$data['module_quickorder_color_btn_text'] = $this->config->get('module_quickorder_color_btn_text');
+		} else {
+			$data['module_quickorder_color_btn_text'] = 'white-text';
 		}
 
 		if (isset($this->request->post['module_quickorder_name'])) {
@@ -151,6 +180,9 @@ class ControllerExtensionModuleQuickorder extends Controller {
 		}
 
 		foreach ($this->request->post['module_quickorder'] as $language_id => $value) {
+			if (utf8_strlen($value['text_button']) < 1) {
+				$this->error['text_button'][$language_id] = $this->language->get('error_text_button');
+			}
 			if (utf8_strlen($value['success']) < 1) {
 				$this->error['success'][$language_id] = $this->language->get('error_success');
 			}

@@ -47,7 +47,7 @@
 								{% for language in languages %}
 								<div class="input-group">
 									<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
-									<input type="text" name="module_callback[{{ language.language_id }}][title]" value="{{ module_callback[language.language_id] ? module_callback[language.language_id].title }}" placeholder="{{ help_modaltitle }}" class="form-control" />
+									<input type="text" name="module_callback[{{ language.language_id }}][title]" value="{{ module_callback[language.language_id] ? module_callback[language.language_id].title }}" placeholder="{{ entry_title }}" class="form-control" />
 								</div>
 								{% if error_title[language.language_id] %}<div class="text-danger">{{ error_title[language.language_id] }}</div>{% endif %}
 								{% endfor %}
@@ -162,7 +162,7 @@
 								{% for language in languages %}
 								<div class="input-group">
 									<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
-									<input type="text" name="module_callback[{{ language.language_id }}][text_button]" value="{{ module_callback[language.language_id] ? module_callback[language.language_id].text_button }}" placeholder="{{ help_modaltitle }}" class="form-control" />
+									<input type="text" name="module_callback[{{ language.language_id }}][text_button]" value="{{ module_callback[language.language_id] ? module_callback[language.language_id].text_button }}" placeholder="{{ entry_text_button }}" class="form-control" />
 								</div>
 								{% if error_text_button[language.language_id] %}<div class="text-danger">{{ error_text_button[language.language_id] }}</div>{% endif %}
 								{% endfor %}
