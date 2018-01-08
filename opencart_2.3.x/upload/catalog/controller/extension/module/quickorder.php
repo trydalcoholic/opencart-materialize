@@ -30,8 +30,9 @@ class ControllerExtensionModuleQuickorder extends Controller {
 
 		$module_quickorder = $this->config->get('module_quickorder');
 
-		$data['module_quickorder_title'] = $module_quickorder[$this->config->get('config_language_id')]['title'];
-		$data['module_quickorder_button'] = $module_quickorder[$this->config->get('config_language_id')]['button'];
+		$data['module_quickorder_button'] = $module_quickorder[$this->config->get('config_language_id')]['text_button'];
+		$data['module_quickorder_color_btn'] = $this->config->get('module_quickorder_color_btn');
+		$data['module_quickorder_color_btn_text'] = $this->config->get('module_quickorder_color_btn_text');
 
 		if ($this->config->get('module_quickorder_name') == 1) {
 			$data['module_quickorder_name'] = $this->config->get('module_quickorder_name');

@@ -2,13 +2,13 @@
 <form id="quickorder__modal" class="modal white">
 	<div class="modal-content">
 		<i class="material-icons modal-action modal-close waves-effect waves-circle close-icon">close</i>
-		<h4><?php echo $module_quickorder_title; ?> — <?php echo $product_title; ?></h4>
+		<h4><?php echo $module_quickorder_button; ?> — <?php echo $product_title; ?></h4>
 		<div class="row">
 			<?php if ($thumb) { ?>
 			<div class="col s12 m6 center">
 				<figure>
-					<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb; ?>" alt="<?php echo $module_quickorder_title; ?> — <?php echo $product_title; ?>">
-					<figcaption><?php echo $module_quickorder_title; ?> — <?php echo $product_title; ?></figcaption>
+					<img class="responsive-img lazyload" src="<?php echo $img_loader; ?>" data-src="<?php echo $thumb; ?>" alt="<?php echo $module_quickorder_button; ?> — <?php echo $product_title; ?>">
+					<figcaption><?php echo $module_quickorder_button; ?> — <?php echo $product_title; ?></figcaption>
 				</figure>
 			</div>
 			<?php } ?>
@@ -70,7 +70,7 @@
 	</div>
 </form>
 <div class="section">
-	<button type="button" data-target="quickorder__modal" id="quickorder__btn" class="btn btn-large waves-effect waves-light blue width-max modal-trigger"><i class="material-icons left">shopping_cart</i><?php echo $module_quickorder_button; ?></button>
+	<button type="button" data-target="quickorder__modal" id="quickorder__btn" class="btn btn-large waves-effect waves-light width-max modal-trigger <?php echo $module_quickorder_color_btn; ?> <?php echo $module_quickorder_color_btn_text; ?>"><i class="material-icons left">shopping_cart</i><?php echo $module_quickorder_button; ?></button>
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {

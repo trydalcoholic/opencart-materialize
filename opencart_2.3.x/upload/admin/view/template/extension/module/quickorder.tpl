@@ -20,7 +20,6 @@
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 		</div>
 		<?php } ?>
-		<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;<?php echo $text_materialize; ?></div>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3></div>
 			<div class="panel-body">
@@ -41,17 +40,6 @@
 					</div>
 					<fieldset>
 						<legend><?php echo $text_popup; ?></legend>
-						<div class="form-group">
-							<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="<?php echo $help_modaltitle; ?>"><?php echo $entry_title; ?>:</span></label>
-							<div class="col-sm-10">
-								<?php foreach ($languages as $language) { ?>
-								<div class="input-group">
-									<span class="input-group-addon"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>"/></span>
-									<input type="text" name="module_quickorder[<?php echo $language['language_id']; ?>][title]" value="<?php echo isset($module_quickorder[$language['language_id']]) ? $module_quickorder[$language['language_id']]['title'] : ''; ?>" placeholder="<?php echo $help_modaltitle; ?>" class="form-control" />
-								</div>
-								<?php } ?>
-							</div>
-						</div>
 						<div class="form-group required">
 							<label class="col-sm-2 control-label"><?php echo $entry_success; ?>:</label>
 							<div class="col-sm-10">
@@ -64,14 +52,15 @@
 								<?php } ?>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group required">
 							<label class="col-sm-2 control-label"><?php echo $entry_button; ?>:</label>
 							<div class="col-sm-10">
 								<?php foreach ($languages as $language) { ?>
 								<div class="input-group">
 									<span class="input-group-addon"><img src="language/<?php echo $language['code']; ?>/<?php echo $language['code']; ?>.png" title="<?php echo $language['name']; ?>"/></span>
-									<input type="text" name="module_quickorder[<?php echo $language['language_id']; ?>][button]" value="<?php echo isset($module_quickorder[$language['language_id']]) ? $module_quickorder[$language['language_id']]['button'] : ''; ?>" placeholder="<?php echo $entry_button; ?>" class="form-control" />
+									<input type="text" name="module_quickorder[<?php echo $language['language_id']; ?>][text_button]" value="<?php echo isset($module_quickorder[$language['language_id']]) ? $module_quickorder[$language['language_id']]['text_button'] : ''; ?>" placeholder="<?php echo $entry_button; ?>" class="form-control" />
 								</div>
+								<?php if (isset($error_text_button[$language['language_id']])) { ?><div class="text-danger"><?php echo $error_text_button[$language['language_id']]; ?></div><?php } ?>
 								<?php } ?>
 							</div>
 						</div>
@@ -191,6 +180,29 @@
 								</table>
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"><?php echo $entry_button_color; ?>:</label>
+							<div class="col-sm-4">
+								<select name="module_quickorder_color_btn" class="selectpicker show-tick">
+									<?php foreach ($module_quickorder_colors as $color) { ?>
+									<?php if ($color['name'] == $module_quickorder_color_btn) { ?>
+									<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
+									<?php } else { ?>
+									<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
+									<?php } ?>
+									<?php } ?>
+								</select>
+								<select name="module_quickorder_color_btn_text" class="selectpicker show-tick">
+									<?php foreach ($module_quickorder_colors_text as $color) { ?>
+									<?php if ($color['name'] == $module_quickorder_color_btn_text) { ?>
+									<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;" selected="selected"><?php echo $color['name']; ?></option>
+									<?php } else { ?>
+									<option value="<?php echo $color['name']; ?>" class="<?php echo $color['name']; ?>" style="background: #<?php echo $color['hex']; ?>;"><?php echo $color['name']; ?></option>
+									<?php } ?>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
 					</fieldset>
 					<br>
 					<fieldset>
@@ -228,15 +240,16 @@
 				</form>
 			</div>
 			<div class="panel-footer text-center">
-				<a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
+				<i class="fa fa-opencart"></i>&nbsp;
+				<a href="//goo.gl/bjyFAW" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Materialize Template</b>" data-content="<?php echo $appeal_marketplace; ?>"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
 				<i class="fa fa-github"></i>&nbsp;
-				<a href="//github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">GitHub</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/VAM4ww" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>GitHub</b>" data-content="<?php echo $appeal_github; ?>">GitHub</a>&nbsp;|&nbsp;
 				<i class="fa fa-twitter"></i>&nbsp;
-				<a href="//twitter.com/trydalcoholic" target="_blank" rel="noopener">Twitter</a>&nbsp;|&nbsp;
+				<a href="//goo.gl/yG1AGS" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Twitter</b>" data-content="<?php echo $appeal_twitter; ?>">Twitter</a>&nbsp;|&nbsp;
 				<i class="fa fa-paypal"></i>&nbsp;
-				<a href="//www.paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a>&nbsp;|&nbsp;
-				<i class="fa fa-credit-card-alt"></i>&nbsp;
-				<a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Yandex.Money</a>
+				<a href="//goo.gl/Ry4CeM" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>PayPal</b>" data-content="<?php echo $appeal_paypal; ?>">PayPal</a>&nbsp;|&nbsp;
+				<i class="fa fa-credit-card"></i>&nbsp;
+				<a href="//goo.gl/1C4gKu" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Yandex.Money</b>" data-content="<?php echo $appeal_yandex_money; ?>">Yandex.Money</a>
 			</div>
 		</div>
 	</div>
@@ -325,5 +338,40 @@
 		if (inputStatus.val() == 0) {$('.quickorder-settings').hide();}
 		if (inputStatus.val() == 1) {$('.quickorder-settings').show();}
 	});
+
+	$('.selectpicker').selectpicker({
+		size: 10,
+		liveSearch: true,
+		iconBase: 'fa',
+		tickIcon: 'fa-check'
+	});
+
+	// Notify
+	<?php if ($error_warning) { ?>
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '<?php echo $error_warning; ?>'
+	},{
+		type: "danger"
+	});
+	<?php } ?>
+	<?php foreach ($languages as $language) { ?>
+		<?php if (isset($error_success[$language['language_id']])) { ?>
+		$.notify({
+			icon: 'fa fa-exclamation-circle',
+			message: '<?php echo $error_success[$language['language_id']]; ?>'
+		},{
+			type: "danger"
+		});
+		<?php } ?>
+		<?php if (isset($error_text_button[$language['language_id']])) { ?>
+		$.notify({
+			icon: 'fa fa-exclamation-circle',
+			message: '<?php echo $error_text_button[$language['language_id']]; ?>'
+		},{
+			type: "danger"
+		});
+		<?php } ?>
+	<?php } ?>
 </script>
 <?php echo $footer; ?> 
