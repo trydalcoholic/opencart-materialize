@@ -173,7 +173,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 
 		myPlacemark = new ymaps.Placemark([{{ lat }}, {{ lng }}], {
+			{% if map_description %}
 			balloonContent: '{{ map_description }}'
+			{% endif %}
 		});
 
 		myPin.add(myPlacemark);
@@ -200,9 +202,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			icon: '{{ icon_pin }}'
 		});
 
+		{% if map_description %}
 		infoWindow = new google.maps.InfoWindow({
 			content: '{{ map_description }}'
 		});
+		{% endif %}
 
 		myPlacemark.addListener('click', function() {
 			infoWindow.open(myMap, myPlacemark);

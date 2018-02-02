@@ -209,9 +209,19 @@
 				$data['lng'] = $this->config->get('module_map_geo_lng');
 
 				if ($this->config->get('module_map_icon_pin') == true) {
-					$data['icon_pin'] = $this->model_tool_image->resize($this->config->get('module_map_icon_pin'), $this->config->get('module_map_icon_pin_width'), $this->config->get('module_map_icon_pin_height'));
-					$data['icon_pin_width'] = $this->config->get('module_map_icon_pin_width');
-					$data['icon_pin_height'] = $this->config->get('module_map_icon_pin_height');
+					if ($this->config->get('module_map_icon_pin_width') == 1) {
+						$data['icon_pin_width'] = $this->config->get('module_map_icon_pin_width');
+					} else {
+						$data['icon_pin_width'] = '32';
+					}
+
+					if ($this->config->get('module_map_icon_pin_height') == 1) {
+						$data['icon_pin_height'] = $this->config->get('module_map_icon_pin_height');
+					} else {
+						$data['icon_pin_height'] = '32';
+					}
+
+					$data['icon_pin'] = $this->model_tool_image->resize($this->config->get('module_map_icon_pin'), $data['icon_pin_width'], $data['icon_pin_height'], 'crop');
 				} else {
 					$data['icon_pin'] = '';
 				}
