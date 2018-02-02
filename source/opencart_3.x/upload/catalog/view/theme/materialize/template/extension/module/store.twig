@@ -1,0 +1,11 @@
+<div class="collection with-header">
+	<div class="collection-header"><h4>{{ heading_title }}</h4></div>
+	<p class="collection-item">{{ text_store }}</p>
+	{% for store in stores %}
+	{% if store.store_id == store_id %}
+	<a class="collection-item blue-grey-text text-darken-4" href="{{ store.url }}"><b>{{ store.name }}</b></a>
+	{% else %}
+	<a class="collection-item blue-grey-text text-darken-4" href="{{ store.url }}">{{ store.name }}</a>
+	{% endif %}
+	{% endfor %}
+</div>

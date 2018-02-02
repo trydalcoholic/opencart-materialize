@@ -1,0 +1,117 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<span class="breadcrumb-blur hide-on-med-and-up"></span>
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+					{% else %}
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				<form action="{{ action }}" method="post" enctype="multipart/form-data">
+					<div class="card-panel">
+						<div class="input-field">
+							<input type="text" name="firstname" value="{{ firstname }}" id="input-firstname" class="validate">
+							<label for="input-firstname" class="required">{{ entry_firstname }}</label>
+						</div>
+						<div class="input-field">
+							<input type="text" name="lastname" value="{{ lastname }}" id="input-lastname" class="validate">
+							<label for="input-lastname" class="required">{{ entry_lastname }}</label>
+						</div>
+						<div class="input-field">
+							<input type="email" name="email" value="{{ email }}" id="input-email" class="validate">
+							<label for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}" class="required">{{ entry_email }}</label>
+						</div>
+						<div class="input-field">
+							<input type="tel" name="telephone" value="{{ telephone }}" id="input-telephone" class="validate" placeholder="+7_(___)___-____" data-inputmask="'alias':'phone'">
+							<label for="input-telephone" class="required">{{ entry_telephone }}</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s6">
+							<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
+						</div>
+						<div class="col s6">
+							<div class="flex-reverse no-padding">
+								<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if error_warning %}
+		Materialize.toast('{{ error_warning }}',7000)
+	{% endif %}
+	{% if error_firstname %}
+		Materialize.toast('{{ error_firstname }}',7000)
+	{% endif %}
+	{% if error_lastname %}
+		Materialize.toast('{{ error_lastname }}',7000)
+	{% endif %}
+	{% if error_email %}
+		Materialize.toast('{{ error_email }}',7000)
+	{% endif %}
+	{% if error_telephone %}
+		Materialize.toast('{{ error_telephone }}',7000)
+	{% endif %}
+});
+</script>
+{% endspaceless %}
+{{ footer }}

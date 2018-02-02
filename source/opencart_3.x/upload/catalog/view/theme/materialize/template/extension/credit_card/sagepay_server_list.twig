@@ -1,0 +1,139 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav class="breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						{% if key == 0 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text"><i class="material-icons">home</i></a>
+						{% else %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb black-text">{{ breadcrumb.text }}</a>
+						{% endif %}
+					{% else %}
+					<span class="breadcrumb black-text">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<div class="row">
+			{{ column_left }}
+			<div class="col {{ main }} section href-underline">
+				{{ content_top }}
+				<h1>{{ heading_title }}</h1>
+				<table class="responsive-table highlight striped bordered">
+					<thead>
+						<tr>
+							<th>{{ column_type }}</th>
+							<th>{{ column_digits }}</th>
+							<th>{{ column_expiry }}</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% if cards %}
+					{% for card in cards %}
+					<tr>
+						<td>{{ card.type }}</td>
+						<td>{{ card.digits }}</td>
+						<td>{{ card.expiry }}</td>
+						<td><a href="{{ delete }} {{ card.card_id }}" class="btn waves-effect waves-light red">{{ button_delete }}</a></td>
+					</tr>
+					{% endfor %}
+					{% else %}
+					<tr>
+						<td class="text-center" colspan="5">{{ text_empty }}</td>
+					</tr>
+					{% endif %}
+					</tbody>
+				</table>
+				{% if pagination %}
+				<div class="row"><div class="col s12">{{ pagination }}</div></div>
+				{% endif %}
+				<div class="row">
+					<div class="col s6">
+						<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
+					</div>
+					<div class="col s6">
+						<div class="flex-reverse no-padding">
+							<button type="submit" value="{{ button_new_card }}" id="button-add-card" class="btn waves-effect waves-light red">{{ button_new_card }}</button>
+						</div>
+					</div>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+	document.addEventListener("DOMContentLoaded", function(event) {
+		{% if success %}
+			Materialize.toast('<i class="material-icons left">check</i>{{ success }}',7000,'toast-success')
+		{% endif %}
+		{% if error_warning %}
+			Materialize.toast('<i class="material-icons left">warning</i>{{ error_warning }}',7000,'toast-warning')
+		{% endif %}
+		$('#button-add-card').bind('click', function () {
+			$.ajax({
+				url: 'index.php?route=extension/credit_card/sagepay_server_cards/addCard',
+				dataType: 'json',
+				cache: false,
+				success: function (json) {
+					if (json['redirect']) {
+						html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';
+						html += '  <input type="hidden" name="Status" value="' + json['Status'] + '">';
+						html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '">';
+						html += '</form>';
+						$('main').after(html);
+						$('#redirect').submit();
+					}
+					if (json['error']) {
+						Materialize.toast('<i class="material-icons left">warning</i>' + json['error'],7000,'toast-warning');
+					}
+				}
+			});
+		});
+	});
+</script>
+{% endspaceless %}
+{{ footer }}

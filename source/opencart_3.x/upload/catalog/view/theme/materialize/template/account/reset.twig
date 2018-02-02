@@ -1,0 +1,101 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<span class="breadcrumb-blur hide-on-med-and-up"></span>
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+					{% else %}
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				<div class="card-panel">
+					<p>{{ text_email }}</p>
+					<form action="{{ action }}" method="post" enctype="multipart/form-data">
+						<div class="input-field">
+							<input type="password" name="password" value="{{ password }}" id="input-password" class="validate">
+							<label for="input-password" class="required">{{ entry_password }}</label>
+						</div>
+						<div class="input-field">
+							<input type="password" name="confirm" value="{{ confirm }}" id="input-confirm" class="validate">
+							<label for="input-confirm" class="required">{{ entry_confirm }}</label>
+						</div>
+						<div class="row">
+							<div class="col s6">
+								<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
+							</div>
+							<div class="col s6">
+								<div class="flex-reverse no-padding">
+									<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if error_password %}
+		Materialize.toast('{{ error_password }}',7000)
+	{% endif %}
+	{% if error_confirm %}
+		Materialize.toast('{{ error_confirm }}',7000)
+	{% endif %}
+});
+</script>
+{% endspaceless %}
+{{ footer }}

@@ -1,0 +1,3036 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
+	<code>materialize-theme</code>
+	<version>0.80</version>
+	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
+	<link>//goo.gl/pSwwUR</link>
+	<!-- Materialize Pagination -->
+	<file path="catalog/controller/{account,product}/{download,order,recurring,return,reward,transaction,category,manufacturer,product,search,special}*.php">
+		<operation error="log">
+			<search><![CDATA[new Pagination();]]></search>
+			<add position="replace"><![CDATA[new MaterializePagination();]]></add>
+		</operation>
+	</file>
+	<!-- Materialize Admin Panel -->
+	<file path="admin/controller/common/column_left.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$this->load->language('extension/materialize/materialize');]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[$materialize = array();]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="after"><![CDATA[
+			if ($materialize) {
+				$data['menus'][] = array(
+					'id'		=> 'menu-materialize',
+					'icon'		=> 'fa fa-cogs',
+					'name'		=> $this->language->get('text_materialize'),
+					'href'		=> '',
+					'children'	=> $materialize
+				);
+			}
+			]]></add>
+		</operation>
+		<!-- Labels -->
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[
+			if ($this->user->hasPermission('access', 'extension/materialize/label/label')) {
+				$materialize[] = array(
+					'name'		=> $this->language->get('text_labels'),
+					'href'		=> $this->url->link('extension/materialize/label/label', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+			]]></add>
+		</operation>
+		<!-- Quickorder -->
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[
+			if ($this->user->hasPermission('access', 'extension/module/quickorder')) {
+				$materialize[] = array(
+					'name'		=> $this->language->get('text_quickorder'),
+					'href'		=> $this->url->link('extension/module/quickorder', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+			]]></add>
+		</operation>
+		<!-- Map -->
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[
+			if ($this->user->hasPermission('access', 'extension/module/map')) {
+				$materialize[] = array(
+					'name'		=> $this->language->get('text_map'),
+					'href'		=> $this->url->link('extension/module/map', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+			]]></add>
+		</operation>
+		<!-- Callback -->
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[
+			$callback = array();
+
+			if ($this->user->hasPermission('access', 'extension/materialize/callback/callback')) {
+				$callback[] = array(
+					'name'		=> $this->language->get('text_callback'),
+					'href'		=> $this->url->link('extension/materialize/callback/callback', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+
+			if ($this->user->hasPermission('access', 'extension/dashboard/callback')) {
+				$callback[] = array(
+					'name'		=> $this->language->get('text_callback_dashboard'),
+					'href'		=> $this->url->link('extension/dashboard/callback', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+
+			if ($this->user->hasPermission('access', 'extension/module/callback')) {
+				$callback[] = array(
+					'name'		=> $this->language->get('text_callback_settings'),
+					'href'		=> $this->url->link('extension/module/callback', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+
+			if ($callback) {
+				$materialize[] = array(
+					'name'		=> $this->language->get('text_callback'),
+					'href'		=> '',
+					'children'	=> $callback
+				);
+			}
+			]]></add>
+		</operation>
+		<!-- Blog -->
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[
+			$blog = array();
+
+			if ($this->user->hasPermission('access', 'extension/materialize/blog/category')) {
+				$blog[] = array(
+					'name'		=> $this->language->get('text_blog_category'),
+					'href'		=> $this->url->link('extension/materialize/blog/category', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+
+			if ($this->user->hasPermission('access', 'extension/materialize/blog/post')) {
+				$blog[] = array(
+					'name'		=> $this->language->get('text_blog_post'),
+					'href'		=> $this->url->link('extension/materialize/blog/post', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+
+			if ($this->user->hasPermission('access', 'extension/materialize/blog/author')) {
+				$blog[] = array(
+					'name'		=> $this->language->get('text_blog_author'),
+					'href'		=> $this->url->link('extension/materialize/blog/author', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+
+			if ($this->user->hasPermission('access', 'extension/materialize/blog/comment')) {
+				$blog[] = array(
+					'name'		=> $this->language->get('text_blog_comment'),
+					'href'		=> $this->url->link('extension/materialize/blog/comment', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+
+			if ($this->user->hasPermission('access', 'extension/module/blog')) {
+				$blog[] = array(
+					'name'		=> $this->language->get('text_blog_settings'),
+					'href'		=> $this->url->link('extension/module/blog', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+
+			if ($blog) {
+				$materialize[] = array(
+					'name'		=> $this->language->get('text_blog'),
+					'href'		=> '',
+					'children'	=> $blog
+				);
+			}
+			]]></add>
+		</operation>
+		<!-- Materialize Template Settings -->
+		<!-- <operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[
+			if ($this->user->hasPermission('access', 'extension/theme/materialize')) {
+				$materialize[] = array(
+					'name'		=> $this->language->get('text_materialize_settings'),
+					'href'		=> $this->url->link('extension/theme/materialize', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+			]]></add>
+		</operation> -->
+	</file>
+	<!-- Map -->
+	<file path="catalog/controller/information/contact.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('tool/image');]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_map_status') == 1) {
+				if ($this->config->get('module_map_maps') == 'google_maps') {
+					$data['google'] = true;
+					$data['google_api'] = $this->config->get('module_map_google_api');
+					$data['yandex'] = '';
+				} else {
+					$data['yandex'] = true;
+					$data['google'] = '';
+				}
+
+				$data['color_btn'] = $this->config->get('module_map_color_btn');
+				$data['color_btn_text'] = $this->config->get('module_map_color_btn_text');
+
+				$map = $this->config->get('module_map');
+
+				$data['map_description'] = html_entity_decode($map[$this->config->get('config_language_id')]['map_description'], ENT_QUOTES, 'UTF-8');
+
+				$data['lat'] = $this->config->get('module_map_geo_lat');
+				$data['lng'] = $this->config->get('module_map_geo_lng');
+
+				if ($this->config->get('module_map_icon_pin') == true) {
+					$data['icon_pin'] = $this->model_tool_image->resize($this->config->get('module_map_icon_pin'), $this->config->get('module_map_icon_pin_width'), $this->config->get('module_map_icon_pin_height'));
+					$data['icon_pin_width'] = $this->config->get('module_map_icon_pin_width');
+					$data['icon_pin_height'] = $this->config->get('module_map_icon_pin_height');
+				} else {
+					$data['icon_pin'] = '';
+				}
+			} else {
+				$data['yandex'] = '';
+				$data['google'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Labels -->
+	<file path="admin/controller/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('setting/store');]]></search>
+			<add position="before"><![CDATA[
+			$this->load->model('extension/materialize/label');
+
+			$data['labels'] = array();
+
+			$labels = $this->model_extension_materialize_label->getLabels();
+
+			foreach ($labels as $label) {
+				$data['labels'][] = array(
+					'label_id'	=> $label['label_id'],
+					'name'		=> $label['name']
+				);
+			}
+
+			if (isset($this->request->post['product_label'])) {
+				$data['product_label'] = $this->request->post['product_label'];
+			} elseif (isset($this->request->get['product_id'])) {
+				$data['product_label'] = $this->model_catalog_product->getProductLabels($this->request->get['product_id']);
+			} else {
+				$data['product_label'] = array();
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$product_id = $this->db->getLastId();]]></search>
+			<add position="after"><![CDATA[
+			if (isset($data['product_label'])) {
+				foreach ($data['product_label'] as $label_id) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_label SET product_id = '" . (int)$product_id . "', label_id = '" . (int)$label_id . "'");
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function editProduct($product_id, $data) {]]></search>
+			<add position="after"><![CDATA[
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");
+
+			if (isset($data['product_label'])) {
+				foreach ($data['product_label'] as $product_label) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_label SET product_id = '" . (int)$product_id . "', label_id = '" . (int)$product_label . "'");
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->addProduct($data);]]></search>
+			<add position="before"><![CDATA[$data['product_label'] = $this->getProductLabels($product_id);]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function deleteProduct($product_id) {]]></search>
+			<add position="after"><![CDATA[$this->db->query("DELETE FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[class ModelCatalogProduct extends Model {]]></search>
+			<add position="after"><![CDATA[
+			public function getProductLabels($product_id) {
+				$product_label_data = array();
+
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");
+
+				foreach ($query->rows as $result) {
+					$product_label_data[] = $result['label_id'];
+				}
+
+				return $product_label_data;
+			}
+
+			public function getTotalProductsByLabelId($label_id) {
+				$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "product_label WHERE label_id = '" . (int)$label_id . "'");
+
+				return $query->row['total'];
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.twig">
+		<operation error="log">
+			<search index="23"><![CDATA[<div class="form-group">]]></search>
+			<add position="before"><![CDATA[
+			<div class="form-group">
+				<label class="col-sm-2 control-label">{{ entry_labels }}</label>
+				<div class="col-sm-10">
+					<div class="well well-sm" style="height: 150px; overflow: auto;">
+						{% for label in labels %}
+						<div class="checkbox">
+							<label>
+								{% if label.label_id in product_label %}
+								<input type="checkbox" name="product_label[]" value="{{ label.label_id }}" checked="checked" />
+								{{ label.name }}
+								{% else %}
+								<input type="checkbox" name="product_label[]" value="{{ label.label_id }}" />
+								{{ label.name }}
+								{% endif %}
+							</label>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/{category,manufacturer,product,search,special}*.php">
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="before"><![CDATA[
+			$labels = array();
+
+			$labels_array = $this->model_catalog_product->getProductLabels($result['product_id']);
+
+			foreach ($labels_array as $label) {
+				$labels[] = array(
+					'name'			=> $label['name'],
+					'color'			=> $label['label_color'],
+					'color_text'	=> $label['label_color_text']
+				);
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['labels'	=> $labels,]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[
+			$data['labels'] = array();
+
+			$results = $this->model_catalog_product->getProductLabels($this->request->get['product_id']);
+
+			foreach ($results as $result) {
+				$data['labels'][] = array(
+					'name'			=> $result['name'],
+					'color'			=> $result['label_color'],
+					'color_text'	=> $result['label_color_text']
+				);
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/featured.php">
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="before"><![CDATA[
+			$labels = array();
+
+			$results = $this->model_catalog_product->getProductLabels($product_info['product_id']);
+
+			foreach ($results as $result) {
+				$labels[] = array(
+					'name'			=> $result['name'],
+					'color'			=> $result['label_color'],
+					'color_text'	=> $result['label_color_text']
+				);
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['labels'	=> $labels,]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/{bestseller,latest,special}*.php">
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="before"><![CDATA[
+			$labels = array();
+
+			$labels_array = $this->model_catalog_product->getProductLabels($result['product_id']);
+
+			foreach ($labels_array as $label) {
+				$labels[] = array(
+					'name'			=> $label['name'],
+					'color'			=> $label['label_color'],
+					'color_text'	=> $label['label_color_text']
+				);
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['labels'	=> $labels,]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[class ModelCatalogProduct extends Model {]]></search>
+			<add position="after"><![CDATA[
+			public function getProductLabels($product_id) {
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_label pl LEFT JOIN " . DB_PREFIX . "materialize_label_description mld ON (pl.label_id = mld.label_id) LEFT JOIN " . DB_PREFIX . "materialize_label ml ON (pl.label_id = ml.label_id) WHERE pl.product_id = '" . (int)$product_id . "' AND mld.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY sort_order ASC");
+
+				return $query->rows;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Size Chart -->
+	<file path="admin/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_description SET]]></search>
+			<add position="replace"><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_description SET size_chart = '" . $this->db->escape($value['size_chart']) . "',]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$product_description_data[$result['language_id']] = array(]]></search>
+			<add position="after"><![CDATA['size_chart'	=> $result['size_chart'],]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.twig">
+		<operation error="log">
+			<search><![CDATA[<li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>]]></search>
+			<add position="after"><![CDATA[<li><a href="#tab-size-chart" data-toggle="tab">{{ tab_size_chart }}</a></li>]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
+			<add position="before"><![CDATA[
+			<div class="tab-pane" id="tab-size-chart">
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="input-size-chart{{ language.language_id }}">{{ entry_size_chart }}</label>
+					<div class="col-sm-10">
+						{% for language in languages %}
+						<span class="input-group-addon" style="border:1px solid #ccc;border-top-right-radius:3px;border-bottom-left-radius:0;"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+						<textarea name="product_description[{{ language.language_id }}][size_chart]" placeholder="{{ entry_size_chart }}" data-toggle="summernote" data-lang="{{ summernote }}" id="input-size-chart{{ language.language_id }}" class="form-control" style="min-height:100px;resize:vertical;">{{ product_description[language.language_id] ? product_description[language.language_id].size_chart }}</textarea>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[$data['size_chart'] = html_entity_decode($product_info['size_chart'], ENT_QUOTES, 'UTF-8');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA['meta_description' => $query->row['meta_description'],]]></search>
+			<add position="after"><![CDATA['size_chart'	=> $query->row['size_chart'],]]></add>
+		</operation>
+	</file>
+	<!-- Callback -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_callback_status') == 1) {
+				$module_callback = $this->config->get('module_callback');
+
+				$data['callback_status'] = true;
+				$data['callback_title'] = $module_callback[$this->config->get('config_language_id')]['title'];
+				$data['callback_module'] = $this->load->controller('extension/module/callback', $data);
+			} else {
+				$data['callback_status'] = false;
+				$data['callback_module'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Materialize Template Settings -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$data['color_browser_bar'] = $this->config->get('theme_materialize_color_browser_bar_hex');
+				$data['color_background'] = $this->config->get('theme_materialize_color_background');
+				$data['color_top_menu'] = $this->config->get('theme_materialize_color_top_menu');
+				$data['color_top_menu_text'] = $this->config->get('theme_materialize_color_top_menu_text');
+				$data['color_header'] = $this->config->get('theme_materialize_color_header');
+				$data['color_header_text'] = $this->config->get('theme_materialize_color_header_text');
+				$data['color_nav_btn'] = $this->config->get('theme_materialize_color_nav_btn');
+				$data['color_nav_btn_text'] = $this->config->get('theme_materialize_color_nav_btn_text');
+				$data['color_navigation'] = $this->config->get('theme_materialize_color_navigation');
+				$data['color_sidebar'] = $this->config->get('theme_materialize_color_sidebar');
+				$data['color_sidebar_text'] = $this->config->get('theme_materialize_color_sidebar_text');
+				$data['color_compare'] = $this->config->get('theme_materialize_color_compare_btn');
+				$data['color_compare_text'] = $this->config->get('theme_materialize_color_compare_btn_text');
+				$data['color_compare_total'] = $this->config->get('theme_materialize_color_compare_total_btn');
+				$data['color_compare_total_text'] = $this->config->get('theme_materialize_color_compare_total_btn_text');
+			} else {
+				$data['color_browser_bar'] = '#263238';
+				$data['color_background'] = 'grey lighten-3';
+				$data['color_top_menu'] = 'blue-grey darken-4';
+				$data['color_top_menu_text'] = 'white-text';
+				$data['color_header'] = 'blue-grey darken-3';
+				$data['color_header_text'] = 'blue-grey-text text-lighten-5';
+				$data['color_nav_btn'] = 'blue-grey darken-2';
+				$data['color_nav_btn_text'] = 'white-text';
+				$data['color_navigation'] = 'blue-grey darken-2';
+				$data['color_sidebar'] = 'blue-grey darken-2';
+				$data['color_sidebar_text'] = 'white-text';
+				$data['color_compare'] = 'blue';
+				$data['color_compare_text'] = 'white-text';
+				$data['color_compare_total'] = 'light-blue darken-2';
+				$data['color_compare_total_text'] = 'white-text';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/cart.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$data['color_cart'] = $this->config->get('theme_materialize_color_cart_btn');
+				$data['color_cart_text'] = $this->config->get('theme_materialize_color_cart_btn_text');
+				$data['color_cart_total'] = $this->config->get('theme_materialize_color_total_btn');
+				$data['color_cart_total_text'] = $this->config->get('theme_materialize_color_total_btn_text');
+			} else {
+				$data['color_cart'] = 'red';
+				$data['color_cart_text'] = 'white-text';
+				$data['color_cart_total'] = 'light-blue darken-1';
+				$data['color_cart_total_text'] = 'white-text';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/currency.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$data['color_top_menu_text'] = $this->config->get('theme_materialize_color_top_menu_text');
+			} else {
+				$data['color_top_menu_text'] = 'white-text';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/menu.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$data['color_navigation_text'] = $this->config->get('theme_materialize_color_navigation_text');
+			} else {
+				$data['color_navigation_text'] = 'white-text';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/search.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$data['color_search'] = $this->config->get('theme_materialize_color_search');
+			} else {
+				$data['color_search'] = 'blue-grey darken-1';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/footer.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$materialize = $this->config->get('module_materialize');
+
+				$data['footer_title'] = $materialize[$this->config->get('config_language_id')]['footer_title'];
+				$data['footer_description'] = $materialize[$this->config->get('config_language_id')]['footer_description'];
+				$data['footer_contact'] = $this->config->get('theme_materialize_footer_contact');
+				$data['telephone'] = $this->config->get('config_telephone');
+				$data['open'] = nl2br($this->config->get('config_open'));
+				$data['email'] = $this->config->get('config_email');
+				$data['address'] = nl2br($this->config->get('config_address'));
+
+				if (($this->config->get('theme_materialize_sn_fb') == false) && ($this->config->get('theme_materialize_sn_g') == false) && ($this->config->get('theme_materialize_sn_inst') == false) && ($this->config->get('theme_materialize_sn_tw') == false) && ($this->config->get('theme_materialize_sn_yt') == false) && ($this->config->get('theme_materialize_sn_vk') == false) && ($this->config->get('theme_materialize_sn_ok') == false)) {
+					$data['social_network'] = false;
+				} else {
+					$data['social_network'] = true;
+					$data['sn_text'] = $materialize[$this->config->get('config_language_id')]['sn_text'];
+					$data['facebook'] = $this->config->get('theme_materialize_sn_fb');
+					$data['google'] = $this->config->get('theme_materialize_sn_g');
+					$data['instagram'] = $this->config->get('theme_materialize_sn_inst');
+					$data['twitter'] = $this->config->get('theme_materialize_sn_tw');
+					$data['youtube'] = $this->config->get('theme_materialize_sn_yt');
+					$data['vk'] = $this->config->get('theme_materialize_sn_vk');
+					$data['odnoklassniki'] = $this->config->get('theme_materialize_sn_ok');
+					if ($this->config->get('theme_materialize_sn_index') == 1) {
+						$data['no_index'] = ' nofollow';
+					} else {
+						$data['no_index'] = false;
+					}
+				}
+
+				$data['color_footer'] = $this->config->get('theme_materialize_color_footer');
+				$data['color_footer_text'] = $this->config->get('theme_materialize_color_footer_text');
+				$data['color_footer_sn'] = $this->config->get('theme_materialize_color_footer_text_sn');
+				$data['color_btt'] = $this->config->get('theme_materialize_color_btt_btn');
+				$data['color_btt_text'] = $this->config->get('theme_materialize_color_btt_btn_text');
+			} else {
+				$data['footer_title'] = '';
+				$data['footer_description'] = '';
+				$data['footer_contact'] = '';
+				$data['social_network'] = '';
+
+				$data['color_footer'] = 'blue-grey darken-3';
+				$data['color_footer_text'] = 'white-text';
+				$data['color_footer_sn'] = 'white-text';
+				$data['color_btt'] = 'red';
+				$data['color_btt_text'] = 'white-text';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('tool/image');]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$materialize = $this->config->get('module_materialize');
+
+				$data['payment_method'] = $materialize[$this->config->get('config_language_id')]['payment_text'];
+
+				if ($this->config->get('theme_materialize_payment_image') == true) {
+					$data['payment_image'] = $this->model_tool_image->resize($this->config->get('theme_materialize_payment_image'), $this->config->get('theme_materialize_payment_image_width'), $this->config->get('theme_materialize_payment_image_height'));
+				} else {
+					$data['payment_image'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_model') == 1) {
+					$data['model'] = $product_info['model'];
+				} else {
+					$data['model'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_sku') == 1) {
+					$data['sku'] = $product_info['sku'];
+				} else {
+					$data['sku'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_upc') == 1) {
+					$data['upc'] = $product_info['upc'];
+				} else {
+					$data['upc'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_ean') == 1) {
+					$data['ean'] = $product_info['ean'];
+				} else {
+					$data['ean'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_jan') == 1) {
+					$data['jan'] = $product_info['jan'];
+				} else {
+					$data['jan'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_isbn') == 1) {
+					$data['isbn'] = $product_info['isbn'];
+				} else {
+					$data['isbn'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_mpn') == 1) {
+					$data['mpn'] = $product_info['mpn'];
+				} else {
+					$data['mpn'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_location') == 1) {
+					$data['location'] = $product_info['location'];
+				} else {
+					$data['location'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_dimensions') == 1) {
+					$data['dimensions_length'] = $this->length->format($product_info['length'], $product_info['length_class_id']);
+					$data['dimensions_width'] = $this->length->format($product_info['width'], $product_info['length_class_id']);
+					$data['dimensions_height'] = $this->length->format($product_info['height'], $product_info['length_class_id']);
+				} else {
+					$data['dimensions_length'] = '';
+					$data['dimensions_width'] = '';
+					$data['dimensions_height'] = '';
+				}
+
+				if ($this->config->get('theme_materialize_show_weight') == 1) {
+					$data['weight'] = $this->weight->format($product_info['weight'], $product_info['weight_class_id']);
+				} else {
+					$data['weight'] = '';
+				}
+
+				if (!empty($this->config->get('theme_materialize_remainder'))) {
+					$data['remainder'] = $product_info['quantity'];
+
+					if ($this->config->get('theme_materialize_remainder') == 'numerical') {
+						$data['type_remainder'] = 'numerical';
+					} elseif ($this->config->get('theme_materialize_remainder') == 'progressbar') {
+						$data['type_remainder'] = 'progressbar';
+						$data['progressbar_percent'] = round(($product_info['quantity'] * 100)/$this->config->get('theme_materialize_percent_remainder'));
+
+						if ($data['progressbar_percent'] <= 5) {
+							$data['progressbar_color'] = 'red accent-4';
+						} elseif (($data['progressbar_percent'] > 5) && ($data['progressbar_percent'] <= 10)) {
+							$data['progressbar_color'] = 'red';
+						} elseif (($data['progressbar_percent'] > 11) && ($data['progressbar_percent'] <= 30)) {
+							$data['progressbar_color'] = 'yellow';
+						} elseif (($data['progressbar_percent'] > 30) && ($data['progressbar_percent'] <= 70)) {
+							$data['progressbar_color'] = 'green lighten-1';
+						} elseif (($data['progressbar_percent'] > 70) && ($data['progressbar_percent'] <= 100)) {
+							$data['progressbar_color'] = 'green';
+						} elseif ($data['progressbar_percent'] > 100) {
+							$data['progressbar_color'] = 'green';
+							$data['progressbar_percent'] = '100';
+						}
+					}
+				} else {
+					$data['type_remainder'] = '';
+				}
+			} else {
+				$data['payment_method'] = '';
+				$data['payment_image'] = '';
+				$data['model'] = '';
+				$data['sku'] = '';
+				$data['upc'] = '';
+				$data['ean'] = '';
+				$data['jan'] = '';
+				$data['isbn'] = '';
+				$data['mpn'] = '';
+				$data['location'] = '';
+				$data['dimensions_length'] = '';
+				$data['dimensions_width'] = '';
+				$data['dimensions_height'] = '';
+				$data['weight'] = '';
+				$data['type_remainder'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Disable button cart -->
+	<file path="catalog/controller/product/compare.php">
+		<operation error="log">
+			<search><![CDATA[if ($product_info['quantity'] <= 0) {]]></search>
+			<add position="before"><![CDATA[
+			if ($product_info['quantity'] <= 0) {
+				$data['add_cart'] = false;
+			} else {
+				$data['add_cart'] = true;
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][$product_id] = array(]]></search>
+			<add position="after"><![CDATA['add_cart'	=> $product_info['quantity'],]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[if ($product_info['quantity'] <= 0) {]]></search>
+			<add position="before"><![CDATA[
+			if ($product_info['quantity'] <= 0) {
+				$data['add_cart'] = false;
+			} else {
+				$data['add_cart'] = true;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/{category,manufacturer,product,search,special}*.php">
+		<operation error="log">
+			<search><![CDATA[if ($result['image']) {]]></search>
+			<add position="before"><![CDATA[
+			if ($result['quantity'] <= 0) {
+				$result['quantity'] = false;
+			} else {
+				$result['quantity'] = true;
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['add_cart'	=> $result['quantity'],]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/{bestseller,latest,special}*.php">
+		<operation error="log">
+			<search><![CDATA[if ($result['image']) {]]></search>
+			<add position="before"><![CDATA[
+			if ($result['quantity'] <= 0) {
+				$result['quantity'] = false;
+			} else {
+				$result['quantity'] = true;
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['add_cart'	=> $result['quantity'],]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/featured.php">
+		<operation error="log">
+			<search><![CDATA[if ($product_info['image']) {]]></search>
+			<add position="before"><![CDATA[
+			if ($product_info['quantity'] <= 0) {
+				$product_info['quantity'] = false;
+			} else {
+				$product_info['quantity'] = true;
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['add_cart'	=> $product_info['quantity'],]]></add>
+		</operation>
+	</file>
+	<!-- Quickorder -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/category');]]></search>
+			<add position="before"><![CDATA[$data['quickorder'] = $this->load->controller('extension/module/quickorder', $data);]]></add>
+		</operation>
+	</file>
+	<!-- Editing wishlist on the product page -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<add position="before"><![CDATA[
+			$this->load->model('account/wishlist');
+
+			$wishlist_product = $this->model_account_wishlist->selectWishlist($product_id);
+
+			if (isset($wishlist_product)) {
+				$data['wishlist_product'] = $wishlist_product;
+			} else {
+				$data['wishlist_product'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/account/wishlist.php">
+		<operation error="log">
+			<search><![CDATA[class ModelAccountWishlist extends Model {]]></search>
+			<add position="after"><![CDATA[
+			public function selectWishlist($product_id) {
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer_wishlist WHERE customer_id = '" . (int)$this->customer->getId() . "' AND product_id = '" . (int)$product_id . "'");
+
+				return $query->rows;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Default option -->
+	<file path="admin/{controller,model}/catalog/product.php">
+		<operation error="log">
+			<search index="0"><![CDATA[$product_option_value_data[] = array(]]></search>
+			<add position="after"><![CDATA['default_option'	=> $product_option_value['default_option'],]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "']]></search>
+			<add position="replace"><![CDATA[weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "', default_option = '" . $this->db->escape(isset($product_option_value['default_option']) ? $product_option_value['default_option'] : 0) . "']]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.twig">
+		<operation error="log">
+			<search index="0"><![CDATA[<td class="text-right">{{ entry_weight }}</td>]]></search>
+			<add position="after"><![CDATA[<td class="text-right">{{ entry_default_option }}</td>]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[html += '        <td class="text-right">{{ entry_weight }}</td>';]]></search>
+			<add position="after"><![CDATA[html += '	<td class="text-right">{{ entry_default_option }}</td>';]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<td class="text-right"><button type="button" onclick="$(this).tooltip('destroy');$('#option-value-row{{ option_value_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>]]></search>
+			<add position="before"><![CDATA[
+			<td class="text-center">
+				<div class="checkbox">
+					<label style="display: block">
+						<input type="checkbox" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][default_option]" value="1" value="1" {{ product_option_value.default_option ? 'checked="checked"' : ''}} onclick="defaultOption(this);" />
+					</label>
+				</div>
+			</td>
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[html += '  <td class="text-left"><button type="button" onclick="$(this).tooltip(\'destroy\');$(\'#option-value-row' + option_value_row + '\').remove();" data-toggle="tooltip" rel="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';]]></search>
+			<add position="before"><![CDATA[
+			html +=	'<td class="text-center">';
+			html +=		'<div class="checkbox">';
+			html +=			'<label>';
+			html +=			'<input type="checkbox" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][default_option]" value="1" value="1" onclick="defaultOption(this);" />';
+			html +=			'</label>';
+			html +=		'</div>';
+			html +=	'</td>';
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<td colspan="6"></td>]]></search>
+			<add position="replace"><![CDATA[<td colspan="7"></td>]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[{{ footer }}]]></search>
+			<add position="before"><![CDATA[
+			<script type="text/javascript"><!--
+			function defaultOption (elem) {
+				var tbody = elem.parentNode.parentNode.parentNode.parentNode.parentNode,
+					elems = tbody.getElementsByTagName("input"),
+					currentState = elem.checked,
+					elemsLength = elems.length;
+
+				for (i=0; i<elemsLength; i++) {
+					if (elems[i].type === "checkbox") {
+						elems[i].checked = false;
+					}
+				}
+
+				elem.checked = currentState;
+			}
+			//--></script>
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$product_option_value_data[] = array(]]></search>
+			<add position="after"><![CDATA['default_option'	=> $option_value['default_option'],]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/checkout/cart.php">
+		<operation error="log">
+			<search><![CDATA[foreach ($product_options as $product_option) {]]></search>
+			<add position="before"><![CDATA[$default_options = [];]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);]]></search>
+			<add position="replace"><![CDATA[
+			foreach ($product_option['product_option_value'] as $row => $val) {
+				if (1 == $val['default_option']) {
+					if ('checkbox' == $product_option['type']) {
+						$_default_val = [$val['product_option_value_id']];
+					} else {
+						$_default_val = (int)$val['product_option_value_id'];
+					}
+
+					$default_options[$product_option['product_option_id']] = $_default_val;
+				}
+			}
+
+			if (0 === count($default_options)) {
+				$json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[if (isset($this->request->post['recurring_id'])) {]]></search>
+			<add position="before"><![CDATA[
+			if (count($default_options) > 0) {
+				$filtered_default_options	= array_filter($default_options);
+				$new_option					= array_merge($option, $filtered_default_options);
+				$option						= $default_options;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$product_option_value_data[] = array(]]></search>
+			<add position="after" trim="true"><![CDATA['default_option'	=> $product_option_value['default_option'],]]></add>
+		</operation>
+	</file>
+	<!-- Blog resize image -->
+	<file path="catalog/model/tool/image.php">
+		<operation error="log">
+			<search><![CDATA[public function resize($filename, $width, $height) {]]></search>
+			<add position="before"><![CDATA[
+			public function resizeBlog($filename, $width, $height, $type = '') {
+				if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {
+					return;
+				}
+
+				$extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+				$image_old = $filename;
+				$image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . $type . '.' . $extension;
+
+				if (!is_file(DIR_IMAGE . $image_new) || (filectime(DIR_IMAGE . $image_old) > filectime(DIR_IMAGE . $image_new))) {
+					list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
+
+					if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
+						return DIR_IMAGE . $image_old;
+					}
+
+					$path = '';
+
+					$directories = explode('/', dirname($image_new));
+
+					foreach ($directories as $directory) {
+						$path = $path . '/' . $directory;
+
+						if (!is_dir(DIR_IMAGE . $path)) {
+							@mkdir(DIR_IMAGE . $path, 0777);
+						}
+					}
+
+					if ($width_orig != $width || $height_orig != $height) {
+						$image = new Image(DIR_IMAGE . $image_old);
+						$image->resizeBlog($width, $height, $type);
+						$image->save(DIR_IMAGE . $image_new);
+					} else {
+						copy(DIR_IMAGE . $image_old, DIR_IMAGE . $image_new);
+					}
+				}
+
+				$image_new = str_replace(' ', '%20', $image_new);
+
+				if ($this->request->server['HTTPS']) {
+					return $this->config->get('config_ssl') . 'image/' . $image_new;
+				} else {
+					return $this->config->get('config_url') . 'image/' . $image_new;
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="system/library/image.php">
+		<operation error="log">
+			<search><![CDATA[public function watermark($watermark, $position = 'bottomright') {]]></search>
+			<add position="before"><![CDATA[
+			public function resizeBlog($width = 0, $height = 0, $default = '') {
+				if (!$this->width || !$this->height) {
+					return;
+				}
+
+				$xpos = 0;
+				$ypos = 0;
+				$scale = 1;
+
+				$scale_w = $width / $this->width;
+				$scale_h = $height / $this->height;
+
+				$scale = $scale_w;
+
+				if ($scale == 1 && $scale_h == $scale_w && $this->mime != 'image/png') {
+					return;
+				}
+
+				$new_width = (int)($this->width * $scale);
+				$new_height = (int)($this->height * $scale);
+				$xpos = 0;
+				$ypos = 0;
+
+				$image_old = $this->image;
+				$this->image = imagecreatetruecolor($new_width, $new_height);
+
+				if (isset($this->mime) && $this->mime == 'image/png') {
+					imagealphablending($this->image, false);
+					imagesavealpha($this->image, true);
+					$background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
+					imagecolortransparent($this->image, $background);
+				} else {
+					$background = imagecolorallocate($this->image, 255, 255, 255);
+				}
+
+				imagefilledrectangle($this->image, 0, 0, $new_width, $new_height, $background);
+
+				imagecopyresampled($this->image, $image_old, $xpos, $ypos, 0, 0, $new_width, $new_height, $this->width, $this->height);
+				imagedestroy($image_old);
+
+				$this->width  = $new_width;
+				$this->height = $new_height;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Crop image -->
+	<file path="catalog/model/tool/image.php">
+		<operation error="log">
+			<search><![CDATA[public function resize($filename, $width, $height) {]]></search>
+			<add position="replace"><![CDATA[public function resize($filename, $width, $height, $type = '') {]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;]]></search>
+			<add position="replace"><![CDATA[$image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . $type . '.' . $extension;]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$image->resize($width, $height);]]></search>
+			<add position="replace"><![CDATA[$image->resize($width, $height, $type);]]></add>
+		</operation>
+	</file>
+	<file path="system/library/image.php">
+		<operation error="log">
+			<search><![CDATA[} elseif ($default == 'h') {]]></search>
+			<add position="after" offset="1"><![CDATA[
+			} elseif ($default == 'crop') {
+			if ($width/$height > $this->width/$this->height) {
+				$scale = $scale_w;
+			} elseif ($width/$height < $this->width/$this->height) {
+				$scale = $scale_h;
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[private function html2rgb($color) {]]></search>
+			<add position="before"><![CDATA[
+			private function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct) {
+				$w = imagesx($src_im);
+				$h = imagesy($src_im);
+
+				$cut = imagecreatetruecolor($src_w, $src_h);
+
+				imagecopy($cut, $dst_im, 0, 0, $dst_x, $dst_y, $src_w, $src_h);
+
+				imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h);
+				imagecopymerge($dst_im, $cut, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct);
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Blog -->
+	<file path="catalog/controller/startup/seo_url.php">
+		<operation error="log">
+			<search><![CDATA[if ($url[0] == 'category_id') {]]></search>
+			<add position="before"><![CDATA[
+			if ($url[0] == 'post_id') {
+				$this->request->get['post_id'] = $url[1];
+			}
+
+			if ($url[0] == 'author_id') {
+				$this->request->get['author_id'] = $url[1];
+			}
+
+			if ($url[0] == 'blog_category_id') {
+				if (!isset($this->request->get['blog_path'])) {
+					$this->request->get['blog_path'] = $url[1];
+				} else {
+					$this->request->get['blog_path'] .= '_' . $url[1];
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[if ($query->row['query'] && $url[0] != 'information_id' && $url[0] != 'manufacturer_id' && $url[0] != 'category_id' && $url[0] != 'product_id') {]]></search>
+			<add position="replace" trim="true"><![CDATA[if ($query->row['query'] && $url[0] != 'information_id' && $url[0] != 'manufacturer_id' && $url[0] != 'category_id' && $url[0] != 'product_id' && $url[0] != 'blog_category_id' && $url[0] != 'author_id' && $url[0] != 'post_id') {]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[} elseif (isset($this->request->get['path'])) {]]></search>
+			<add position="before"><![CDATA[
+			} elseif (isset($this->request->get['post_id'])) {
+				$this->request->get['route'] = 'extension/materialize/blog/post';
+			} elseif (isset($this->request->get['blog_path'])) {
+				$this->request->get['route'] = 'extension/materialize/blog/category';
+			} elseif (isset($this->request->get['author_id'])) {
+				$this->request->get['route'] = 'extension/materialize/blog/author/info';
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[if (($data['route'] == 'product/product' && $key == 'product_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || ($data['route'] == 'information/information' && $key == 'information_id')) {]]></search>
+			<add position="replace" trim="true"><![CDATA[
+			if (($data['route'] == 'product/product' && $key == 'product_id') || ($data['route'] == 'extension/materialize/blog/post' && $key == 'post_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || (($data['route'] == 'extension/materialize/blog/author/info' || $data['route'] == 'extension/materialize/blog/post') && $key == 'author_id') || ($data['route'] == 'information/information' && $key == 'information_id')) {
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[} elseif ($key == 'path') {]]></search>
+			<add position="before"><![CDATA[
+			} elseif ($key == 'blog_path') {
+				$categories = explode('_', $value);
+
+				foreach ($categories as $category) {
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE `query` = 'blog_category_id=" . (int)$category . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "' AND language_id = '" . (int)$this->config->get('config_language_id') . "'");
+
+					if ($query->num_rows && $query->row['keyword']) {
+						$url .= '/' . $query->row['keyword'];
+					} else {
+						$url = '';
+
+						break;
+					}
+				}
+
+				unset($data[$key]);
+			]]></add>
+		</operation>
+	</file>
+	<!-- <file path="catalog/controller/information/sitemap.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('blog/category');
+			$this->load->model('blog/post');
+	
+			$data['blog_categories'] = array();
+	
+			$categories_1 = $this->model_blog_category->getCategories(0);
+	
+			foreach ($categories_1 as $category_1) {
+				$level_2_data = array();
+	
+				$categories_2 = $this->model_blog_category->getCategories($category_1['category_id']);
+	
+				foreach ($categories_2 as $category_2) {
+					$level_3_data = array();
+	
+					$categories_3 = $this->model_blog_category->getCategories($category_2['category_id']);
+	
+					foreach ($categories_3 as $category_3) {
+						$level_3_data[] = array(
+							'name'	=> $category_3['name'],
+							'href'	=> $this->url->link('extension/materialize/blog/category', 'blog_path=' . $category_1['category_id'] . '_' . $category_2['category_id'] . '_' . $category_3['category_id'])
+						);
+					}
+	
+					$level_2_data[] = array(
+						'name'		=> $category_2['name'],
+						'children'	=> $level_3_data,
+						'href'		=> $this->url->link('extension/materialize/blog/category', 'blog_path=' . $category_1['category_id'] . '_' . $category_2['category_id'])
+					);
+				}
+	
+				$data['blog_categories'][] = array(
+					'name'		=> $category_1['name'],
+					'children'	=> $level_2_data,
+					'href'		=> $this->url->link('extension/materialize/blog/category', 'blog_path=' . $category_1['category_id'])
+				);
+			}
+			]]></add>
+		</operation>
+	</file> -->
+	<!-- <file path="catalog/controller/extension/feed/google_sitemap.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('blog/post');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$products = $this->model_catalog_product->getProducts();]]></search>
+			<add position="after"><![CDATA[
+			$posts = $this->model_blog_post->getPosts();
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search index="0"><![CDATA[foreach ($products as $product) {]]></search>
+			<add position="before"><![CDATA[
+			foreach ($posts as $post) {
+				if ($post['image']) {
+					$output .= '<url>';
+					$output .= '<loc>' . $this->url->link('blog/post', 'post_id=' . $post['post_id']) . '</loc>';
+					$output .= '<changefreq>weekly</changefreq>';
+					$output .= '<lastmod>' . date('Y-m-d\TH:i:sP', strtotime($post['date_modified'])) . '</lastmod>';
+					$output .= '<priority>1.0</priority>';
+					$output .= '<image:image>';
+					$output .= '<image:loc>' . $this->model_tool_image->resize($post['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'), 'crop') . '</image:loc>';
+					$output .= '<image:caption>' . $post['name'] . '</image:caption>';
+					$output .= '<image:title>' . $post['name'] . '</image:title>';
+					$output .= '</image:image>';
+					$output .= '</url>';
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/category');]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('blog/category');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$output .= $this->getCategories(0);]]></search>
+			<add position="after"><![CDATA[
+			$output .= $this->getBlogCategories(0);
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[protected function getCategories($parent_id, $current_path = '') {]]></search>
+			<add position="before"><![CDATA[
+			protected function getBlogCategories($parent_id, $current_path = '') {
+				$output = '';
+	
+				$results = $this->model_blog_category->getCategories($parent_id);
+	
+				foreach ($results as $result) {
+					if (!$current_path) {
+						$new_path = $result['category_id'];
+					} else {
+						$new_path = $current_path . '_' . $result['category_id'];
+					}
+	
+					$output .= '<url>';
+					$output .= '<loc>' . $this->url->link('blog/category', 'blog_path=' . $new_path) . '</loc>';
+					$output .= '<changefreq>weekly</changefreq>';
+					$output .= '<priority>0.7</priority>';
+					$output .= '</url>';
+	
+					$posts = $this->model_blog_post->getPosts(array('filter_category_id' => $result['category_id']));
+	
+					foreach ($posts as $post) {
+						$output .= '<url>';
+						$output .= '<loc>' . $this->url->link('blog/post', 'blog_path=' . $new_path . '&post_id=' . $post['post_id']) . '</loc>';
+						$output .= '<changefreq>weekly</changefreq>';
+						$output .= '<priority>1.0</priority>';
+						$output .= '</url>';
+					}
+	
+					$output .= $this->getCategories($result['category_id'], $new_path);
+				}
+	
+				return $output;
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/manufacturer');]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('blog/author');
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$manufacturers = $this->model_catalog_manufacturer->getManufacturers();]]></search>
+			<add position="after"><![CDATA[
+			$authors = $this->model_blog_author->getAuthors();
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[foreach ($manufacturers as $manufacturer) {]]></search>
+			<add position="before"><![CDATA[
+			foreach ($authors as $author) {
+				$output .= '<url>';
+				$output .= '<loc>' . $this->url->link('blog/author/info', 'author_id=' . $author['author_id']) . '</loc>';
+				$output .= '<changefreq>weekly</changefreq>';
+				$output .= '<priority>0.7</priority>';
+				$output .= '</url>';
+	
+				$posts = $this->model_blog_post->getPosts(array('filter_author_id' => $author['author_id']));
+	
+				foreach ($posts as $post) {
+					$output .= '<url>';
+					$output .= '<loc>' . $this->url->link('blog/post', 'author_id=' . $author['author_id'] . '&post_id=' . $post['post_id']) . '</loc>';
+					$output .= '<changefreq>weekly</changefreq>';
+					$output .= '<priority>1.0</priority>';
+					$output .= '</url>';
+				}
+			}
+			]]></add>
+		</operation>
+	</file> -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$data['home'] = $this->url->link('common/home');]]></search>
+			<add position="before"><![CDATA[
+			if ($this->config->get('module_blog_status') == 1) {
+				$data['blog'] = $this->url->link('extension/materialize/blog/blog');
+			} else {
+				$data['blog'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Additional Fields -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['images'] = array();]]></search>
+			<add position="before"><![CDATA[
+			$data['additionalfields'] = array();
+
+			$results = $this->model_catalog_product->getProductfields($this->request->get['product_id']);
+
+			foreach ($results as $result) {
+				$data['additionalfields'][] = array(
+					'title'	=> $result['title'],
+					'text'	=> $result['text'],
+				);
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[if (isset($this->request->post['image'])) {]]></search>
+			<add position="before"><![CDATA[
+			if (isset($this->request->post['product_additionalfield'])) {
+				$data['product_additionalfields'] = $this->request->post['product_additionalfield'];
+			} elseif (isset($this->request->get['product_id'])) {
+				$data['product_additionalfields'] = $this->model_catalog_product->getProductadditionalfields($this->request->get['product_id']);
+			} else {
+				$data['product_additionalfields'] = array();
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$product_id = $this->db->getLastId();]]></search>
+			<add position="after"><![CDATA[
+			if (isset($data['product_additionalfield'])) {
+				foreach ($data['product_additionalfield'] as $product_additionalfield) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_additionalfield SET product_id = '" . (int)$product_id . "', sort_order = '" . (int)$product_additionalfield['sort_order'] . "', status = '" . (int)$product_additionalfield['status'] . "'");
+
+					$product_additionalfield_id = $this->db->getLastId();
+
+					foreach ($product_additionalfield['product_additionalfield_text'] as $language_id => $product_additionalfield_text) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_additionalfield_text SET product_additionalfield_id = '" . (int)$product_additionalfield_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" . $this->db->escape($product_additionalfield_text['title']) . "', text = '" . $this->db->escape($product_additionalfield_text['text']) . "'");
+					}
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");]]></search>
+			<add position="after"><![CDATA[
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_additionalfield WHERE product_id = '" . (int)$product_id . "'");
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_additionalfield_text WHERE product_id = '" . (int)$product_id . "'");
+			if (isset($data['product_additionalfield'])) {
+				foreach ($data['product_additionalfield'] as $product_additionalfield) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_additionalfield SET product_id = '" . (int)$product_id . "', sort_order = '" . (int)$product_additionalfield['sort_order'] . "', status = '" . (int)$product_additionalfield['status'] . "'");
+
+					$product_additionalfield_id = $this->db->getLastId();
+
+					foreach ($product_additionalfield['product_additionalfield_text'] as $language_id => $product_additionalfield_text) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_additionalfield_text SET product_additionalfield_id = '" . (int)$product_additionalfield_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" . $this->db->escape($product_additionalfield_text['title']) . "', text = '" . $this->db->escape($product_additionalfield_text['text']) . "'");
+					}
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function getProductImages($product_id) {]]></search>
+			<add position="before"><![CDATA[
+			public function getProductadditionalfields($product_id) {
+				$product_additionalfield_data = array();
+
+				$product_additionalfield_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_additionalfield WHERE product_id = '" . (int)$product_id . "' ORDER BY sort_order ASC");
+				
+				foreach ($product_additionalfield_query->rows as $product_additionalfield) {
+					$product_additionalfield_text_data = array();
+					$product_additionalfield_text_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_additionalfield_text WHERE product_additionalfield_id = '" . (int)$product_additionalfield['product_additionalfield_id'] . "' AND product_id = '" . (int)$product_id . "'");
+
+					foreach ($product_additionalfield_text_query->rows as $product_additionalfield_text) {
+						$product_additionalfield_text_data[$product_additionalfield_text['language_id']] = array(
+							'title'	=> $product_additionalfield_text['title'],
+							'text'	=> $product_additionalfield_text['text'],
+						);
+					}
+
+					$product_additionalfield_data[] = array(
+						'product_additionalfield_text'	=> $product_additionalfield_text_data,
+						'status'						=> $product_additionalfield['status'],
+						'sort_order'					=> $product_additionalfield['sort_order']
+					);
+				}
+				return $product_additionalfield_data;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[public function getProductImages($product_id) {]]></search>
+			<add position="before"><![CDATA[
+			public function getProductfields($product_id) {
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_additionalfield pc LEFT JOIN " . DB_PREFIX . "product_additionalfield_text pcd ON (pc.product_additionalfield_id = pcd.product_additionalfield_id) WHERE pc.product_id = '" . (int)$product_id . "' AND pcd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND status > 0 ORDER BY sort_order ASC");
+
+				return $query->rows;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.twig">
+		<operation error="log">
+			<search><![CDATA[<li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>]]></search>
+			<add position="after"><![CDATA[<li><a href="#tab-additionalfieldmain" data-toggle="tab">{{ tab_additionalfield }}</a></li>]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
+			<add position="before"><![CDATA[
+			<div class="tab-pane" id="tab-additionalfieldmain">
+				<div class="col-sm-2">
+					<ul class="nav nav-pills nav-stacked" id="additionalfield">
+						{% set additionalfield_row = 0 %}
+						{% for product_additionalfield in product_additionalfields %}
+						<li><a href="#tab-additionalfield{{ additionalfield_row }}" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('a[href=\'#tab-additionalfield{{ additionalfield_row }}\']').parent().remove(); $('#tab-additionalfield{{ additionalfield_row }}').remove(); $('#additionalfield a:first').tab('show');"></i> {{ tab_additionalfield }} {{ additionalfield_row }}</a></li>
+						{% set additionalfield_row = additionalfield_row + 1 %}
+						{% endfor %}
+						<li id="additionalfield-add"><a onclick="addadditionalfield();"><i class="fa fa-plus-circle"></i> {{ button_additionalfield_add }}</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-10">
+					<div class="tab-content tab-content2">
+						{% set additionalfield_row = 0 %}
+						{% for product_additionalfield in product_additionalfields %}
+						<div class="tab-pane" id="tab-additionalfield{{ additionalfield_row }}">
+							<ul class="nav nav-tabs" id="clanguage{{ additionalfield_row }}">
+								{% for language in languages %}
+								<li><a href="#tab-additionalfield{{additionalfield_row }}-language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />  {{ language.name }}</a></li>
+								{% endfor %}
+							</ul>
+							<div class="tab-content">
+								{% for language in languages %}
+									<div class="tab-pane" id="tab-additionalfield{{additionalfield_row }}-language{{ language.language_id }}">
+										<div class="form-group">
+											<label class="col-sm-2 control-label" for="input-heading{{additionalfield_row }}-language{{ language.language_id }}">{{ entry_title_additional }}</label>
+											<div class="col-sm-10">
+												<input type="text" name="product_additionalfield[{{additionalfield_row }}][product_additionalfield_text][{{ language.language_id }}][title]" value="{{ product_additionalfield.product_additionalfield_text[language.language_id] ? product_additionalfield.product_additionalfield_text[language.language_id].title }}" class="form-control"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label" for="input-text{{additionalfield_row }}-language{{ language.language_id }}">{{ entry_text }}</label>
+											<div class="col-sm-10">
+												<input type="text" name="product_additionalfield[{{additionalfield_row }}][product_additionalfield_text][{{ language.language_id }}][text]" value="{{ product_additionalfield.product_additionalfield_text[language.language_id] ? product_additionalfield.product_additionalfield_text[language.language_id].text }}" placeholder="{{ entry_text }}" id="input-text{{additionalfield_row }}-language{{ language.language_id }}" class="form-control"/>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="input-sort_order{{ additionalfield_row }}">{{ entry_sort_order }}</label>
+								<div class="col-sm-10">
+									<input type="text" name="product_additionalfield[{{ additionalfield_row }}][sort_order]" value="{{ product_additionalfield.sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="input-status{{ additionalfield_row }}">{{ entry_status }}</label>
+								<div class="col-sm-10">
+									<select name="product_additionalfield[{{ additionalfield_row }}][status]" id="input-status" class="form-control">
+										{% if product_additionalfield.status %}
+										<option value="1" selected="selected">{{ text_enabled }}</option>
+										<option value="0">{{ text_disabled }}</option>
+										{% else %}
+										<option value="1">{{ text_enabled }}</option>
+										<option value="0" selected="selected">{{ text_disabled }}</option>
+										{% endif %}
+									</select>
+								</div>
+							</div>
+						</div>
+						{% set additionalfield_row = additionalfield_row + 1 %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[{{ footer }}]]></search>
+			<add position="before"><![CDATA[
+			<script type="text/javascript"><!--
+			{% set additionalfield_row = 0 %}
+			{% for product_additionalfield in product_additionalfields %}
+			{% for language in languages %}
+			$('#input-text{{ additionalfield_row }}-language{{ language.language_id }}');
+			{% endfor %}
+			{% set additionalfield_row = additionalfield_row + 1 %}
+			{% endfor %}
+			//--></script>
+
+			<script type="text/javascript"><!--
+			var additionalfield_row = {{ additionalfield_row }};
+
+			function addadditionalfield() {
+				html  = '<div id="tab-additionalfield' + additionalfield_row + '" class="tab-pane">';
+				html += '	<ul class="nav nav-tabs" id="clanguage' + additionalfield_row + '">';
+				{% for language in languages %}
+				html += '		<li><a href="#tab-additionalfield' + additionalfield_row + '-language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>';
+				{% endfor %}
+				html += '	</ul>';
+
+				html += '	<div class="tab-content">';
+				{% for language in languages %}
+				html += '		<div class="tab-pane" id="tab-additionalfield' + additionalfield_row + '-language{{ language.language_id }}">';
+				html += '			<div class="form-group">';
+				html += '				<label class="col-sm-2 control-label" for="input-title' + additionalfield_row + '-language{{ language.language_id }}">{{ entry_title }}</label>';
+				html += '				<div class="col-sm-10"><input type="text" name="product_additionalfield[' + additionalfield_row + '][product_additionalfield_text][{{ language.language_id }}][title]" placeholder="{{ entry_title }}" id="input-title' + additionalfield_row + '-language{{ language.language_id }}" value="" class="form-control"/></div>';
+				html += '			</div>';
+				html += '			<div class="form-group">';
+				html += '				<label class="col-sm-2 control-label" for="input-text' + additionalfield_row + '-language{{ language.language_id }}">{{ entry_description }}</label>';
+				html += '				<div class="col-sm-10"><input type="text" name="product_additionalfield[' + additionalfield_row + '][product_additionalfield_text][{{ language.language_id }}][text]" value="" id="input-text' + additionalfield_row + '-language{{ language.language_id }}" class="form-control"/></div>';
+				html += '			</div>';
+				html += '		</div>';
+				{% endfor %}
+				html += '	</div>';
+				html += '		<div class="form-group">';
+				html += '			<label class="col-sm-2 control-label" for="input-status' + additionalfield_row +'">{{ entry_status }}</label>';
+				html += '			<div class="col-sm-10"><select name="product_additionalfield[' + additionalfield_row + '][status]" class="form-control"><option value="1">{{ text_enabled }}</option><option value="0">{{ text_disabled }}</option></select></div>';
+				html += '		</div>';
+				html += '	<div class="form-group">';
+				html += '		<label class="col-sm-2 control-label" for="input-sort_order' + additionalfield_row +'">{{ entry_sort_order }}</label>';
+				html += '		<div class="col-sm-10"><input type="text" name="product_additionalfield[' + additionalfield_row + '][sort_order]" value="" class="form-control" /></div>';
+				html += '	</div>';
+				html += '</div>';
+
+				$('#tab-additionalfieldmain .tab-content2').append(html);
+
+				{% for language in languages %}
+				$('#input-text' + additionalfield_row + '-language{{ language.language_id }}');
+				{% endfor %}
+
+				$('#additionalfield a[href=\'#tab-additionalfield' + additionalfield_row + '\']').tab('show');
+
+				$('#clanguage' + additionalfield_row + ' li:first-child a').tab('show');
+
+				$('#additionalfield-add').before('<li><a href="#tab-additionalfield' + additionalfield_row + '" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$(\'a[href=\\\'#tab-additionalfield' + additionalfield_row + '\\\']\').parent().remove(); $(\'#tab-additionalfield' + additionalfield_row + '\').remove(); $(\'#additionalfield li a:first\').tab(\'show\');"></i> {{ tab_additionalfield }} ' + additionalfield_row + '</a></li>');
+
+
+				$('#additionalfield-' + additionalfield_row).trigger('click');
+
+				additionalfield_row++;
+			}
+			//--></script>
+
+			<script type="text/javascript"><!--
+			$('#additionalfield li:first-child a').tab('show');
+			{% set additionalfield_row = 0 %}
+			{% for product_additionalfield in product_additionalfields %}
+			$('#clanguage{{ additionalfield_row }} li:first-child a').tab('show');
+			{% set additionalfield_row = additionalfield_row + 1 %}
+			{% endfor %}
+			//--></script>
+			]]></add>
+		</operation>
+	</file>
+	<!-- Filter -->
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$sql .= " AND pf.filter_id IN (" . implode(',', $implode) . ")";]]></search>
+			<add position="after"><![CDATA[
+			$minq=$this->db->query("SELECT id.product_id FROM(SELECT product_id, count(i.product_id) as t, c.filter_group as b FROM (SELECT f.filter_id, f.product_id, p.filter_group_id FROM ". DB_PREFIX ."product_filter f left join ". DB_PREFIX ."filter p ON p.filter_id = f.filter_id where p.filter_id IN (" . implode(',', $implode) . ") GROUP BY product_id , filter_group_id) as i, (select count(distinct filter_group_id) as filter_group from ". DB_PREFIX ."filter_description f_b WHERE f_b.filter_id in (" . implode(',', $implode) . ")) as c GROUP BY product_id HAVING t = b) as id");
+			$min = array();
+			for ($x = 0; $x < count($minq->rows); $x++){
+				foreach($minq->rows[$x] as $value) {
+					$min[] = $value;
+				}
+			}
+			$imp = implode(',',$min);
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";]]></search>
+			<add position="after" offset="1"><![CDATA[
+			if (isset($filters)) {
+				if (!count($min)) {
+					$imp='0000000';
+				}
+				$sql .= " AND p.product_id IN(".$imp.")";
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Update price -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[public function getRecurringDescription() {]]></search>
+			<add position="before"><![CDATA[
+			public function updatePrice() {
+				$json = array();
+
+				$this->load->model('catalog/product');
+
+				$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
+				$option_price = 0;
+
+				if(isset($this->request->post['option']) && $this->request->post['option']) {
+					foreach($this->request->post['option'] as $product_option_id => $value) {
+						$result = $this->model_catalog_product->getUpdateOptionsList($this->request->get['product_id'], $product_option_id);
+						if($result) {
+							if($result['type'] == 'select' || $result['type'] == 'radio') {
+								$option_values = $this->model_catalog_product->getUpdateOptionValues($value, $product_option_id);
+								if($option_values) {
+									if ($option_values['price_prefix'] == '+') {
+										$option_price += $option_values['price'];
+									} elseif ($option_values['price_prefix'] == '-') {
+										$option_price -= $option_values['price'];
+									}
+								}
+							} elseif ($result['type'] == 'checkbox' && is_array($value)) {
+								foreach ($value as $product_option_value_id) {
+									$option_values = $this->model_catalog_product->getUpdateOptionChcekboxValues($product_option_value_id, $product_option_id);
+									if($option_values) {
+										if ($option_values['price_prefix'] == '+') {
+											$option_price += $option_values['price'];
+										} elseif ($option_values['price_prefix'] == '-') {
+											$option_price -= $option_values['price'];
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				$price = $product_info['price'];
+				$new_price_found = 0;
+
+				$discount_amount = $this->model_catalog_product->getDiscountAmountForUpdatePrice($this->request->get['product_id'], $this->request->post['quantity']);
+
+				if ($discount_amount) {
+					$price = $discount_amount;
+				}
+
+				if ($product_info['special']) {
+					$price = $product_info['special'];
+					$new_price_found = 1;
+				}
+
+				$total_price = $price + $option_price;
+
+				$unit_price = $this->tax->calculate($total_price, $product_info['tax_class_id'], $this->config->get('config_tax'));
+				$total = $this->currency->format($unit_price * $this->request->post['quantity'], $this->session->data['currency']);
+
+				$unit_tax = $this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax'));
+				$tax_total = $this->currency->format(((float)$product_info['special'] ? ($product_info['special'] + $option_price) : ($product_info['price'] + $option_price)) * $this->request->post['quantity'], $this->session->data['currency']);
+
+				$json['total_price'] = $total;
+				$json['new_price_found'] = $new_price_found;
+				$json['tax_price'] = $tax_total;
+				$this->response->addHeader('Content-Type: application/json');
+				$this->response->setOutput(json_encode($json));
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[public function getTotalProductSpecials() {]]></search>
+			<add position="before"><![CDATA[
+			public function getUpdateOptionsList($product_id, $product_option_id) {
+				$option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$product_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+				if($option_query->num_rows) {
+					return $option_query->row;
+				} else {
+					return '';
+				}
+			}
+
+			public function getUpdateOptionValues($value, $product_option_id) {
+				$option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$value . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+				if($option_value_query->num_rows) {
+					return $option_value_query->row;
+				} else {
+					return '';
+				}
+			}
+
+			public function getUpdateOptionChcekboxValues($product_option_value_id, $product_option_id) {
+				$option_value_query = $this->db->query("SELECT pov.option_value_id, ovd.name, pov.quantity, pov.subtract, pov.price, pov.price_prefix, pov.points, pov.points_prefix, pov.weight, pov.weight_prefix FROM " . DB_PREFIX . "product_option_value pov LEFT JOIN " . DB_PREFIX . "option_value ov ON (pov.option_value_id = ov.option_value_id) LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) WHERE pov.product_option_value_id = '" . (int)$product_option_value_id . "' AND pov.product_option_id = '" . (int)$product_option_id . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+				if($option_value_query->num_rows) {
+					return $option_value_query->row;
+				} else {
+					return '';
+				}
+			}
+
+			public function getDiscountAmountForUpdatePrice($product_id, $quantity) {
+				$product_discount_query = $this->db->query("SELECT price FROM " . DB_PREFIX . "product_discount WHERE product_id = '" . (int)$product_id . "' AND customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND quantity <= '" . (int)$quantity . "' AND ((date_start = '0000-00-00' OR date_start < NOW()) AND (date_end = '0000-00-00' OR date_end > NOW())) ORDER BY quantity DESC, priority ASC, price ASC LIMIT 1");
+				if($product_discount_query->num_rows) {
+					return $product_discount_query->row['price'];
+				} else {
+					return '';
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Live search -->
+	<file path="catalog/controller/common/search.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="before"><![CDATA[
+			public function autocomplete() {
+				$json = array();
+
+				if (isset($this->request->get['filter_name']) || isset($this->request->get['filter_model'])) {
+					$this->load->model('catalog/product');
+					$this->load->model('tool/image');
+
+					if (isset($this->request->get['filter_name'])) {
+						$filter_name = $this->request->get['filter_name'];
+					} else {
+						$filter_name = '';
+					}
+
+					if (isset($this->request->get['filter_model'])) {
+						$filter_model = $this->request->get['filter_model'];
+					} else {
+						$filter_model = '';
+					}
+
+					if (isset($this->request->get['limit'])) {
+						$limit = $this->request->get['limit'];
+					} else {
+						$limit = 5;
+					}
+
+					$filter_data = array(
+						'filter_name'	=> $filter_name,
+						'filter_child'	=> 1,
+						'start'			=> 0,
+						'limit'			=> $limit
+					);
+
+					$results = $this->model_catalog_product->getProductsSearch($filter_data);
+
+					foreach ($results as $result) {
+						if (is_file(DIR_IMAGE . $result['image'])) {
+							$image = $this->model_tool_image->resize($result['image'], 40, 40);
+							$img ='<img src='.$image.' class="right circle">';
+						} else {
+							$image = $this->model_tool_image->resize('no_image.png', 40, 40);
+							$img ='<img src='.$image.' class="right circle" width="40" height="40">';
+						}
+						$json[] = array(
+							'product_id'	=> $result['product_id'],
+							'name'			=> strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+							'img'			=> $img,
+							'sku'			=> $result['sku'],
+							'status'		=> $result['status']
+						);
+					}
+				}
+
+				$this->response->addHeader('Content-Type: application/json');
+				$this->response->setOutput(json_encode($json));
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$data['product_path'] = $this->url->link('product/product');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[public function getProduct($product_id) {]]></search>
+			<add position="before"><![CDATA[
+			public function getProductsSearch($data = array()) {
+				$sql="select distinct PD.product_id as product_id, PD.name as name,P.sku as sku, P.image as image,CD.name as category, P.status as status FROM " . DB_PREFIX . "product as P LEFT JOIN " . DB_PREFIX . "product_description as PD ON(P.product_id = PD.product_id) LEFT JOIN " . DB_PREFIX . "product_to_category as PTC ON(P.product_id = PTC.product_id) Left JOIN " . DB_PREFIX . "category_description as CD ON (PTC.category_id = CD.category_id) WHERE P.status = 1 AND (PD.name LIKE '%".$data['filter_name']."%' OR P.model LIKE '%".$data['filter_name']."%' OR P.sku LIKE '%".$data['filter_name']."%' OR CD.name LIKE '%".$data['filter_name']."%') GROUP BY P.product_id";
+
+				if (isset($data['start']) || isset($data['limit'])) {
+					if ($data['start'] < 0) {
+						$data['start'] = 0;
+					}
+					if ($data['limit'] < 1) {
+						$data['limit'] = 20;
+					}
+					$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+				}
+				$query = $this->db->query($sql);
+				return $query->rows;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/account/tracking.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<add position="after"><![CDATA[$this->load->model('tool/image');]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$json[] = array(]]></search>
+			<add position="before"><![CDATA[
+			if (is_file(DIR_IMAGE . $result['image'])) {
+				$image = $this->model_tool_image->resize($result['image'], 40, 40);
+				$img ='<img src='.$image.' class="right circle">';
+			} else {
+				$image = $this->model_tool_image->resize('no_image.png', 40, 40);
+				$img ='<img src='.$image.' class="right circle" width="40" height="40">';
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA['name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),]]></search>
+			<add position="after"><![CDATA['img'	=> $img,]]></add>
+		</operation>
+	</file>
+	<!-- Getting category ID -->
+	<file path="catalog/controller/common/menu.php">
+		<operation error="log">
+			<search><![CDATA[$data['categories'][] = array(]]></search>
+			<add position="after"><![CDATA['id'	=> $category['category_id'],]]></add>
+		</operation>
+	</file>
+	<!-- Integration of the logo module into invoices -->
+	<file path="admin/model/sale/order.php">
+		<operation error="log">
+			<search index="0"><![CDATA[return $query->row['total'];]]></search>
+			<add position="after" offset="2"><![CDATA[
+			public function getProductImage($product_id) {
+				$query = $this->db->query("SELECT image FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
+				return $query->row;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/sale/order.php">
+		<operation error="log">
+			<search><![CDATA[$store_fax = $store_info['config_fax'];]]></search>
+			<add position="after"><![CDATA[$store_logo = $store_info['config_logo'];]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[=> $order_info['store_name'],]]></search>
+			<add position="after"><![CDATA['logo'	=> HTTP_CATALOG . 'image/' .$store_info['config_logo'],]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$option_data = array();]]></search>
+			<add position="after"><![CDATA[$product['img'] = $this->model_sale_order->getProductImage($product['product_id']);]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$product_data[] = array(]]></search>
+			<add position="before"><![CDATA[$this->load->model('tool/image');]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$product_data[] = array(]]></search>
+			<add position="after"><![CDATA[
+			'image'	=> $this->model_tool_image->resize($product['img']['image'], $this->config->get($this->config->get('config_theme') . '_image_cart_width'), $this->config->get($this->config->get('config_theme') . '_image_cart_height')),
+			'width'	=> $this->config->get($this->config->get('config_theme') . '_image_cart_width'),
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/sale/order_shipping.twig">
+		<operation error="log">
+			<search><![CDATA[<div style="page-break-after: always;">]]></search>
+			<add position="after"><![CDATA[<img src={{ order.logo }} />]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<td><b>{{ column_product }}</b></td>]]></search>
+			<add position="replace"><![CDATA[<td colspan="2"><b>{{ column_product }}</b></td>]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<td>{{ product.name }}]]></search>
+			<add position="before"><![CDATA[<td style="width:{{ product.width }}px"><img src="{{ product.image }}"></td>]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/sale/order_invoice.twig">
+		<operation error="log">
+			<search><![CDATA[<div style="page-break-after: always;">]]></search>
+			<add position="after"><![CDATA[<img src={{ order.logo }} />]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<td><b>{{ column_product }}</b></td>]]></search>
+			<add position="replace"><![CDATA[<td colspan="2"><b>{{ column_product }}</b></td>]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<td>{{ product.name }}]]></search>
+			<add position="before"><![CDATA[<td style="width:{{ product.width }}px"><img src="{{ product.image }}"></td>]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[colspan="4"]]></search>
+			<add position="replace"><![CDATA[colspan="5"]]></add>
+		</operation>
+	</file>
+	<!-- Favicon -->
+	<file path="system/library/document.php">
+		<operation error="log">
+			<search><![CDATA[public function addLink($href, $rel) {]]></search>
+			<add position="replace"><![CDATA[public function addLink($href, $rel, $type='', $sizes = '') {]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA['rel'  => $rel]]></search>
+			<add position="replace"><![CDATA[
+			'rel'	=> $rel,
+			'type'	=> $type,
+			'sizes'	=> $sizes
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');]]></search>
+			<add position="replace"><![CDATA[
+			$this->load->model('tool/image');
+
+			$file = ($server . 'image/' . $this->config->get('config_icon'));
+			$info = getimagesize($file);
+			$icon_type = isset($info['mime']) ? $info['mime'] : '';
+
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 16, 16), 'icon', $icon_type, '16x16');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 32, 32), 'icon', $icon_type, '32x32');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 48, 48), 'icon', $icon_type, '48x48');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 96, 96), 'icon', $icon_type, '96x96');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 128, 128), 'icon', $icon_type, '128x128');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 160, 160), 'icon', $icon_type, '160x160');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 196, 196), 'icon', $icon_type, '196x196');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 228, 228), 'icon', $icon_type, '228x228');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 256, 256), 'icon', $icon_type, '256x256');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 57, 57), 'apple-touch-icon', $icon_type, '57x57');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 60, 60), 'apple-touch-icon', $icon_type, '60x60');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 72, 72), 'apple-touch-icon', $icon_type, '72x72');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 76, 76), 'apple-touch-icon', $icon_type, '76x76');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 114, 114), 'apple-touch-icon', $icon_type, '114x114');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 120, 120), 'apple-touch-icon', $icon_type, '120x120');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 144, 144), 'apple-touch-icon', $icon_type, '144x144');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 152, 152), 'apple-touch-icon', $icon_type, '152x152');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 167, 167), 'apple-touch-icon', $icon_type, '167x167');
+			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 180, 180), 'apple-touch-icon', $icon_type, '180x180');
+			]]></add>
+		</operation>
+	</file>
+	<!-- Subcategory chip -->
+	<file path="catalog/controller/product/category.php">
+		<operation error="log">
+			<search><![CDATA[$data['categories'][] = array(]]></search>
+			<add position="replace" offset="3"><![CDATA[
+			if ($result['image']) {
+				$image = $this->model_tool_image->resize($result['image'], 32, 32);
+			} else {
+				$image = '';
+			}
+
+			$data['categories'][] = array(
+				'name'	=> $result['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
+				'href'	=> $this->url->link('product/category', 'path=' . $this->request->get['path'] . '_' . $result['category_id'] . $url),
+				'thumb'	=> $image
+			);
+			]]></add>
+		</operation>
+	</file>
+	<!-- Other Materialize Settings -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			$css = file_get_contents('catalog/view/theme/materialize/stylesheet/style.css');
+			$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
+			$css = str_replace(': ', ':', $css);
+			$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
+			$data['css'] = $css;
+			$data['delivery'] = $this->url->link('information/information' . '&information_id=6');
+			$data['about'] = $this->url->link('information/information' . '&information_id=4');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
+			<add position="after"><![CDATA[$data['pricecurrency'] = $this->session->data['currency'];]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['rating'] = (int)$product_info['rating'];]]></search>
+			<add position="after"><![CDATA[$data['reviewCount'] = sprintf((int)$product_info['reviews']);]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/information/contact.php">
+		<operation error="log">
+			<search><![CDATA[$data['comment'] = $this->config->get('config_comment');]]></search>
+			<add position="before"><![CDATA[$data['email_store'] = $this->config->get('config_email');]]></add>
+		</operation>
+	</file>
+	<!-- Getting the size of the logo -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$data['logo'] = $server . 'image/' . $this->config->get('config_logo');]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('tool/image');
+			$file = $server . 'image/' . $this->config->get('config_logo');
+			$info = getimagesize($file);
+			$data['logo_width']  = $info[0];
+			$data['logo_height'] = $info[1];
+			]]></add>
+		</operation>
+	</file>
+	<!-- Common language settings Materialize -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[$data['name'] = $this->config->get('config_name');]]></search>
+			<add position="after"><![CDATA[
+			$data['email'] = $this->config->get('config_email');
+			$data['open'] = nl2br($this->config->get('config_open'));
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/cart.php">
+		<operation error="log">
+			<search><![CDATA[$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
+			<add position="replace"><![CDATA[$data['text_items'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/checkout/cart.php">
+		<operation error="log">
+			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
+			<add position="replace"><![CDATA[$json['total'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/compare.php">
+		<operation error="log">
+			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></search>
+			<add position="replace"><![CDATA[$json['total'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></add>
+		</operation>
+	</file>
+	<!-- Add base64 loader -->
+	<file path="catalog/controller/{common,checkout,product}/{header,cart,category,compare,manufacturer,product,search,special}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/manufacturer.php">
+		<operation error="log">
+			<search><![CDATA[public function info() {]]></search>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[public function review() {]]></search>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/{latest,carousel,banner,bestseller,featured,special}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index($setting) {]]></search>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/information/contact.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
+		</operation>
+	</file>
+	<!-- Add category in product card -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->document->setDescription($product_info['meta_description']);]]></search>
+			<add position="replace"><![CDATA[
+			$this->document->setDescription($product_info['meta_description']);
+			$this->load->model('catalog/category');
+			$catprod = array();
+			$product_category = $this->model_catalog_product->getCategories($product_id);
+			foreach ($product_category as $product_cat) {
+				$category_info = $this->model_catalog_category->getCategory($product_cat['category_id']);
+				if ($category_info) {
+					$data['category_products'][] = array(
+						'name'	=> $category_info['name'],
+						'href'	=> $this->url->link('product/category', 'path=' . $category_info['category_id'])
+					);
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- End of promotion -->
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[public function getProducts($data = array()) {]]></search>
+			<add position="before"><![CDATA[
+			public function getProductSpec($product_id) {
+				$sql = $this->db->query("SELECT ps.date_end FROM " . DB_PREFIX . "product_special ps WHERE product_id = '" . (int)$product_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC");
+				if ($sql->num_rows) {
+					return $sql->row['date_end'];
+				} else {
+					return false;
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$product_info = $this->model_catalog_product->getProduct($product_id);]]></search>
+			<add position="after"><![CDATA[$data['product_spec'] = $this->model_catalog_product->getProductSpec($product_id);]]></add>
+		</operation>
+	</file>
+	<!-- Add compare -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$data['home'] = $this->url->link('common/home');]]></search>
+			<add position="after"><![CDATA[
+			$data['compare'] = $this->url->link('product/compare');
+			$data['text_compare'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
+			]]></add>
+		</operation>
+	</file>
+	<!-- Sort by availability -->
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$sql .= " ORDER BY LCASE(" . $data['sort'] . ")";]]></search>
+			<add position="replace"><![CDATA[$sql .= " ORDER BY (p.quantity>0) DESC, LCASE(" . $data['sort'] . ")";]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$sql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";]]></search>
+			<add position="replace"><![CDATA[$sql .= " ORDER BY (p.quantity>0) DESC, (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$sql .= " ORDER BY " . $data['sort'];]]></search>
+			<add position="replace"><![CDATA[$sql .= " ORDER BY (p.quantity>0) DESC," . $data['sort'];]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$sql .= " ORDER BY p.sort_order";]]></search>
+			<add position="replace"><![CDATA[$sql .= " ORDER BY (p.quantity>0) DESC, p.sort_order";]]></add>
+		</operation>
+	</file>
+	<!-- Instock on category page -->
+	<file path="catalog/controller/product/category.php">
+		<operation error="log">
+			<search><![CDATA[$data['breadcrumbs'] = array();]]></search>
+			<add position="before"><![CDATA[
+			if (isset($this->request->get['instock'])) {
+				$instock = $this->request->get['instock'];
+			} else {
+				$instock = '';
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$filter,]]></search>
+			<add position="after"><![CDATA['filter_instock'     => $instock,]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['limit'] = $limit;]]></search>
+			<add position="after"><![CDATA[
+			$data['url'] = html_entity_decode($this->url->link('product/category', 'path=' . $this->request->get['path'] . $url), ENT_QUOTES, 'UTF-8');
+			$data['instock'] = $instock;
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[if (!empty($data['filter_name']) || !empty($data['filter_tag'])) {]]></search>
+			<add position="before"><![CDATA[
+			if (!empty($data['filter_instock'])) {
+				$sql .= " AND (p.stock_status_id = '7' OR p.quantity > 0)";
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Image compression off -->
+	<file path="system/library/image.php">
+		<operation error="log">
+			<search><![CDATA[public function save($file, $quality = 90) {]]></search>
+			<add position="replace"><![CDATA[public function save($file) {]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[imagejpeg($this->image, $file, $quality);]]></search>
+			<add position="replace"><![CDATA[imagejpeg($this->image, $file);]]></add>
+		</operation>
+	</file>
+	<!-- Display weight in product card -->
+	<file path="system/library/cart/weight.php">
+		<operation error="log">
+			<search><![CDATA[public function format($value, $weight_class_id, $decimal_point = '.', $thousand_point = ',') {]]></search>
+			<add position="replace"><![CDATA[public function format($value, $weight_class_id, $decimal_point = '.', $thousand_point = '') {]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[return number_format($value, 2, $decimal_point, $thousand_point) . $this->weights[$weight_class_id]['unit'];]]></search>
+			<add position="replace"><![CDATA[return number_format($value, 0, $decimal_point, $thousand_point) . $this->weights[$weight_class_id]['unit'];]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[return number_format($value, 2, $decimal_point, $thousand_point);]]></search>
+			<add position="replace"><![CDATA[return number_format($value, 0, $decimal_point, $thousand_point);]]></add>
+		</operation>
+	</file>
+	<!-- Add badges in category product count -->
+	<file path="catalog/controller/common/menu.php">
+		<operation error="log">
+			<search><![CDATA['name'  => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
+			<add position="replace"><![CDATA[
+			'name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/category.php">
+		<operation error="log">
+			<search><![CDATA['name' => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
+			<add position="replace"><![CDATA[
+			'name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA['name'        => $category['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
+			<add position="replace"><![CDATA[
+			'name'	=> ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $category['name'] . '</span>' : $category['name']),
+			]]></add>
+		</operation>
+	</file>
+	<!-- Related products -->
+	<file path="admin/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$related_id . "' AND related_id = '" . (int)$product_id . "'");]]></search>
+			<add position="replace"><![CDATA[]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_related SET product_id = '" . (int)$related_id . "', related_id = '" . (int)$product_id . "'");]]></search>
+			<add position="replace"><![CDATA[]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE related_id = '" . (int)$product_id . "'");]]></search>
+			<add position="replace"><![CDATA[]]></add>
+		</operation>
+	</file>
+	<!-- Displays the discount percentage -->
+	<file path="catalog/controller/product/{category,manufacturer,product,search,special}*.php">
+		<operation error="log">
+			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
+			<add position="after"><![CDATA[$percent_discount = round(100-($result['special']/($result['price']/100)));]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$special = false;]]></search>
+			<add position="after"><![CDATA[$percent_discount = false;]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA['special'     => $special,]]></search>
+			<add position="after"><![CDATA['percent_discount'	=> $percent_discount,]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
+			<add position="after"><![CDATA[$data['percent_discount'] = round(100-($product_info['special']/($product_info['price']/100)));]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['special'] = false;]]></search>
+			<add position="after"><![CDATA[$data['percent_discount'] = false;]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/{bestseller,latest,special}*.php">
+		<operation error="log">
+			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
+			<add position="after"><![CDATA[$percent_discount = round(100-($result['special']/($result['price']/100)));]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$special = false;]]></search>
+			<add position="after"><![CDATA[$percent_discount = false;]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA['special'     => $special,]]></search>
+			<add position="after"><![CDATA['percent_discount'	=> $percent_discount,]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/featured.php">
+		<operation error="log">
+			<search><![CDATA[$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
+			<add position="after"><![CDATA[$percent_discount = round(100-($product_info['special']/($product_info['price']/100)));]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$special = false;]]></search>
+			<add position="after"><![CDATA[$percent_discount = false;]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['percent_discount'	=> $percent_discount,]]></add>
+		</operation>
+	</file>
+	<!-- Adding the manufacturer's logo on the product card -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$this->load->model('tool/image');]]></search>
+			<add position="after"><![CDATA[
+			$manufacturer_image = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
+			if ($manufacturer_image) {
+				$data['manufacturers_img'] = $this->model_tool_image->resize($manufacturer_image['image'], 100, 100);
+				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+			} else {
+				$data['manufacturers_img'] = false;
+			}
+			]]>
+			</add>
+		</operation>
+	</file>
+	<!-- Adding the manufacturer's logo on the manufacturer's list -->
+	<file path="catalog/controller/product/manufacturer.php">
+		<operation error="log">
+			<search><![CDATA['href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])]]></search>
+			<add position="before"><![CDATA[
+			'logo' => $this->model_tool_image->resize($result['image'], 100, 100),
+			]]>
+			</add>
+		</operation>
+	</file>
+	<!-- Stock Statuses -->
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA['stock_status'     => $query->row['stock_status'],]]></search>
+			<add position="after"><![CDATA[
+			'stock_status_id'  => $query->row['stock_status_id'],
+			]]>
+			</add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
+			<add position="after"><![CDATA[
+			$data['stock_status_id'] = $product_info['stock_status_id'];
+			]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['stock'] = $product_info['quantity'];]]></search>
+			<add position="after"><![CDATA[
+			$data['stock_color'] = "green";
+			$data['stock_status'] = "http://schema.org/InStock";
+			]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['stock'] = $this->language->get('text_instock');]]></search>
+			<add position="after"><![CDATA[
+			$data['stock_color'] = "green";
+			$data['stock_status'] = "http://schema.org/InStock";
+			]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['stock'] = $product_info['stock_status'];]]></search>
+			<add position="after"><![CDATA[
+			if($data['stock_status_id'] == 5) {
+				$data['stock_color'] = "red";
+				$data['stock_status'] = "http://schema.org/OutOfStock";
+			} elseif ($data['stock_status_id'] == 8) {
+				$data['stock_color'] = "orange";
+				$data['stock_status'] = "http://schema.org/PreOrder";
+			} elseif ($data['stock_status_id'] == 6) {
+				$data['stock_color'] = "lime";
+				$data['stock_status'] = "http://schema.org/OutOfStock";
+			} elseif ($data['stock_status_id'] == 7) {
+				$data['stock_color'] = "green";
+				$data['stock_status'] = "http://schema.org/InStock";
+			} else {
+				$data['stock_color'] = "grey";
+				$data['stock_status'] = "";
+			}
+			]]>
+			</add>
+		</operation>
+	</file>
+	<!-- Slider images on the product card -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['popup'] = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height'));]]></search>
+			<add position="after"><![CDATA[
+			$data['popup_size'] = $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width').'x'.$this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height');
+			]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['images'] = array();]]></search>
+			<add position="before"><![CDATA[
+			if ($product_info['image']) {
+				$data['thumb_small'] = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'));
+			} else {
+				$data['thumb_small'] = '';
+			}
+			]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA['popup' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),]]></search>
+			<add position="before"><![CDATA[
+			'thumb_array' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height')),
+			]]>
+			</add>
+		</operation>
+	</file>
+	<!-- Custom Tab -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[$data['images'] = array();]]></search>
+			<add position="before"><![CDATA[
+			$data['customtabs'] = array();
+
+			$results = $this->model_catalog_product->getProducttabs($this->request->get['product_id']);
+
+			foreach ($results as $result) {
+				$data['customtabs'][] = array(
+					'title'			=> $result['title'],
+					'description'	=> html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'),
+				);
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[public function getProductImages($product_id) {]]></search>
+			<add position="before"><![CDATA[
+			public function getProducttabs($product_id) {
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab pc LEFT JOIN " . DB_PREFIX . "product_customtab_description pcd ON (pc.product_customtab_id  = pcd.product_customtab_id) WHERE pc.product_id = '" . (int)$product_id . "'  AND pcd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND status > 0 ORDER BY sort_order ASC");
+
+				return $query->rows;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[if (isset($this->request->post['image'])) {]]></search>
+			<add position="before"><![CDATA[
+			if (isset($this->request->post['product_customtab'])) {
+				$data['product_customtabs'] = $this->request->post['product_customtab'];
+			} elseif (isset($this->request->get['product_id'])) {
+				$data['product_customtabs'] = $this->model_catalog_product->getProductcustomtabs($this->request->get['product_id']);
+			} else {
+				$data['product_customtabs'] = array();
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$product_id = $this->db->getLastId();]]></search>
+			<add position="after"><![CDATA[
+			if (isset($data['product_customtab'])) {
+				foreach ($data['product_customtab'] as $product_customtab) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_customtab['sort_order'] . "', status = '" . (int)$product_customtab['status'] . "'");
+
+					$product_customtab_id = $this->db->getLastId();
+
+					foreach ($product_customtab['product_customtab_description'] as $language_id => $product_customtab_description) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab_description SET product_customtab_id = '" . (int)$product_customtab_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" .  $this->db->escape($product_customtab_description['title']) . "', description = '" .  $this->db->escape($product_customtab_description['description']) . "'");
+					}
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");]]></search>
+			<add position="after"><![CDATA[
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_customtab WHERE product_id = '" . (int)$product_id . "'");
+			$this->db->query("DELETE FROM " . DB_PREFIX . "product_customtab_description WHERE product_id = '" . (int)$product_id . "'");
+			if (isset($data['product_customtab'])) {
+				foreach ($data['product_customtab'] as $product_customtab) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_customtab['sort_order'] . "', status = '" . (int)$product_customtab['status'] . "'");
+
+					$product_customtab_id = $this->db->getLastId();
+
+					foreach ($product_customtab['product_customtab_description'] as $language_id => $product_customtab_description) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_customtab_description SET product_customtab_id = '" . (int)$product_customtab_id . "', language_id = '" . (int)$language_id . "', product_id = '" . (int)$product_id . "', title = '" .  $this->db->escape($product_customtab_description['title']) . "', description = '" .  $this->db->escape($product_customtab_description['description']) . "'");
+					}
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function getProductImages($product_id) {]]></search>
+			<add position="before"><![CDATA[
+			public function getProductcustomtabs($product_id) {
+				$product_customtab_data = array();
+
+				$product_customtab_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab WHERE product_id = '" . (int)$product_id . "' ORDER BY sort_order ASC");
+
+					foreach ($product_customtab_query->rows as $product_customtab) {
+						$product_customtab_description_data = array();
+						$product_customtab_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_customtab_description WHERE product_customtab_id = '" . (int)$product_customtab['product_customtab_id'] . "' AND product_id = '" . (int)$product_id . "'");
+
+						foreach ($product_customtab_description_query->rows as $product_customtab_description) {
+							$product_customtab_description_data[$product_customtab_description['language_id']] = array(
+								'title' => $product_customtab_description['title'],
+								'description' => $product_customtab_description['description'],
+							);
+						}
+
+						$product_customtab_data[] = array(
+							'product_customtab_description'	=> $product_customtab_description_data,
+							'status'						=> $product_customtab['status'],
+							'sort_order'					=> $product_customtab['sort_order']
+						);
+					}
+
+				return $product_customtab_data;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.twig">
+		<operation error="log">
+			<search><![CDATA[<li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>]]></search>
+			<add position="after"><![CDATA[
+			<li><a href="#tab-customtabmain" data-toggle="tab">{{ tab_customtab }}</a></li>
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
+			<add position="before"><![CDATA[
+			<div class="tab-pane" id="tab-customtabmain">
+				<div class="col-sm-2">
+					<ul class="nav nav-pills nav-stacked" id="customtab">
+						{% set customtab_row = 0 %}
+						{% for product_customtab in product_customtabs %}
+						<li><a href="#tab-customtab{{ customtab_row }}" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('a[href=\'#tab-customtab{{ customtab_row }}\']').parent().remove(); $('#tab-customtab{{ customtab_row }}').remove(); $('#customtab a:first').tab('show');"></i> {{ tab_customtab }} {{ customtab_row }}</a></li>
+						{% set customtab_row = customtab_row + 1 %}
+						{% endfor %}
+						<li id="customtab-add"><a onclick="addCustomtab();"><i class="fa fa-plus-circle"></i> {{ button_customtab_add }}</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-10">
+					<div class="tab-content tab-content2">
+						{% set customtab_row = 0 %}
+						{% for product_customtab in product_customtabs %}
+						<div class="tab-pane" id="tab-customtab{{ customtab_row }}">
+							<ul class="nav nav-tabs" id="clanguage{{ customtab_row }}">
+								{% for language in languages %}
+								<li><a href="#tab-customtab{{customtab_row }}-language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />  {{ language.name }}</a></li>
+								{% endfor %}
+							</ul>
+							<div class="tab-content">
+								{% for language in languages %}
+									<div class="tab-pane" id="tab-customtab{{customtab_row }}-language{{ language.language_id }}">
+										<div class="form-group">
+											<label class="col-sm-2 control-label" for="input-heading{{customtab_row }}-language{{ language.language_id }}">{{ entry_title }}</label>
+											<div class="col-sm-10">
+												<input type="text" name="product_customtab[{{customtab_row }}][product_customtab_description][{{ language.language_id }}][title]" value="{{ product_customtab.product_customtab_description[language.language_id] ? product_customtab.product_customtab_description[language.language_id].title }}" class="form-control"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label" for="input-description{{customtab_row }}-language{{ language.language_id }}">{{ entry_description }}</label>
+											<div class="col-sm-10">
+												<textarea name="product_customtab[{{customtab_row }}][product_customtab_description][{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{customtab_row }}-language{{ language.language_id }}" class="form-control">{{ product_customtab.product_customtab_description[language.language_id] ? product_customtab.product_customtab_description[language.language_id].description }}</textarea>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="input-sort_order{{ customtab_row }}">{{ entry_sort_order }}</label>
+								<div class="col-sm-10">
+									<input type="text" name="product_customtab[{{ customtab_row }}][sort_order]" value="{{ product_customtab.sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="input-status{{ customtab_row }}">{{ entry_status }}</label>
+								<div class="col-sm-10">
+									<select name="product_customtab[{{ customtab_row }}][status]" id="input-status" class="form-control">
+										{% if product_customtab.status %}
+										<option value="1" selected="selected">{{ text_enabled }}</option>
+										<option value="0">{{ text_disabled }}</option>
+										{% else %}
+										<option value="1">{{ text_enabled }}</option>
+										<option value="0" selected="selected">{{ text_disabled }}</option>
+										{% endif %}
+									</select>
+								</div>
+							</div>
+						</div>
+						{% set customtab_row = customtab_row + 1 %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[{{ footer }}]]></search>
+			<add position="before"><![CDATA[
+			<script type="text/javascript"><!--
+			{% set customtab_row = 0 %}
+			{% for product_customtab in product_customtabs %}
+			{% for language in languages %}
+			$('#input-description{{ customtab_row }}-language{{ language.language_id }}').summernote({
+				height: 300
+			});
+			{% endfor %}
+			{% set customtab_row = customtab_row + 1 %}
+			{% endfor %}
+			//--></script>
+
+			<script type="text/javascript"><!--
+			var customtab_row = {{ customtab_row }};
+
+			function addCustomtab() {
+				html  = '<div id="tab-customtab' + customtab_row + '" class="tab-pane">';
+				html += '	<ul class="nav nav-tabs" id="clanguage' + customtab_row + '">';
+				{% for language in languages %}
+				html += '		<li><a href="#tab-customtab' + customtab_row + '-language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>';
+				{% endfor %}
+				html += '	</ul>';
+
+				html += '	<div class="tab-content">';
+				{% for language in languages %}
+				html += '		<div class="tab-pane" id="tab-customtab' + customtab_row + '-language{{ language.language_id }}">';
+				html += '			<div class="form-group">';
+				html += '				<label class="col-sm-2 control-label" for="input-title' + customtab_row + '-language{{ language.language_id }}">{{ entry_title }}</label>';
+				html += '				<div class="col-sm-10"><input type="text" name="product_customtab[' + customtab_row + '][product_customtab_description][{{ language.language_id }}][title]" placeholder="{{ entry_title }}" id="input-title' + customtab_row + '-language{{ language.language_id }}" value="" class="form-control"/></div>';
+				html += '			</div>';
+				html += '			<div class="form-group">';
+				html += '				<label class="col-sm-2 control-label" for="input-description' + customtab_row + '-language{{ language.language_id }}">{{ entry_description }}</label>';
+				html += '				<div class="col-sm-10"><textarea name="product_customtab[' + customtab_row + '][product_customtab_description][{{ language.language_id }}][description]" id="input-description' + customtab_row + '-language{{ language.language_id }}"></textarea></div>';
+				html += '			</div>';
+				html += '		</div>';
+				{% endfor %}
+				html += '	</div>';
+				html += '		<div class="form-group">';
+				html += '			<label class="col-sm-2 control-label" for="input-status' + customtab_row +'">{{ entry_status }}</label>';
+				html += '			<div class="col-sm-10"><select name="product_customtab[' + customtab_row + '][status]" class="form-control"><option value="1">{{ text_enabled }}</option><option value="0">{{ text_disabled }}</option></select></div>';
+				html += '		</div>';
+				html += '	<div class="form-group">';
+				html += '		<label class="col-sm-2 control-label" for="input-sort_order' + customtab_row +'">{{ entry_sort_order }}</label>';
+				html += '		<div class="col-sm-10"><input type="text" name="product_customtab[' + customtab_row + '][sort_order]" value="" class="form-control" /></div>';
+				html += '	</div>';
+				html += '</div>';
+
+				$('#tab-customtabmain .tab-content2').append(html);
+
+				{% for language in languages %}
+				$('#input-description' + customtab_row + '-language{{ language.language_id }}').summernote({
+					height: 300
+				});
+				{% endfor %}
+
+				$('#customtab a[href=\'#tab-customtab' + customtab_row + '\']').tab('show');
+
+				$('#clanguage' + customtab_row + ' li:first-child a').tab('show');
+
+				$('#customtab-add').before('<li><a href="#tab-customtab' + customtab_row + '" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$(\'a[href=\\\'#tab-customtab' + customtab_row + '\\\']\').parent().remove(); $(\'#tab-customtab' + customtab_row + '\').remove(); $(\'#customtab li a:first\').tab(\'show\');"></i> {{ tab_customtab }} ' + customtab_row + '</a></li>');
+
+
+				$('#customtab-' + customtab_row).trigger('click');
+
+				customtab_row++;
+			}
+			//--></script>
+
+			<script type="text/javascript"><!--
+			$('#customtab li:first-child a').tab('show');
+			{% set customtab_row = 0 %}
+			{% for product_customtab in product_customtabs %}
+			$('#clanguage{{ customtab_row }} li:first-child a').tab('show');
+			{% set customtab_row = customtab_row + 1 %}
+			{% endfor %}
+			//--></script>
+			]]></add>
+		</operation>
+	</file>
+	<!-- Apply button -->
+	<file path="admin/controller/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[public function autocomplete()]]></search>
+			<add position="before"><![CDATA[
+			public function apply() {
+				$this->load->language('catalog/product');
+
+				$this->document->setTitle($this->language->get('heading_title'));
+
+				$this->load->model('catalog/product');
+
+				if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+					$this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);
+
+					$this->session->data['success'] = $this->language->get('text_success');
+
+					$url = '';
+
+				if (isset($this->request->get['product_id'])) {
+					$url .= '&product_id=' . $this->request->get['product_id'];
+				}
+					$this->response->redirect($this->url->link('catalog/product/edit', 'user_token=' . $this->session->data['user_token'] . $url, true));
+				}
+
+				$this->getForm();
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search index="0"><![CDATA[$data['action']]]></search>
+			<add position="after"><![CDATA[$data['apply'] = $this->url->link('catalog/product/add', 'user_token=' . $this->session->data['user_token'] . $url, true);]]></add>
+		</operation>
+		<operation error="log">
+			<search index="1"><![CDATA[$data['action']]]></search>
+			<add position="after"><![CDATA[$data['apply'] = $this->url->link('catalog/product/apply', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $this->request->get['product_id'] . $url, true);]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['footer'] = $this->load->controller('common/footer');]]></search>
+			<add position="after"><![CDATA[
+			if (isset($this->session->data['success'])) {
+				$data['success'] = $this->session->data['success'];
+				unset($this->session->data['success']);
+			} else {
+				$data['success'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/product_form.twig">
+		<operation error="log">
+			<search><![CDATA[<div class="panel panel-default">]]></search>
+			<add position="before"><![CDATA[
+			{% if success %}
+			<div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+			{% endif %}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">]]></search>
+			<add position="replace"><![CDATA[<form action="{{ action }}" data-action="{{ apply|raw }}" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<ul class="nav nav-tabs">]]></search>
+			<add position="replace"><![CDATA[<ul class="nav nav-tabs" id="apply-tab">]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<div class="pull-right">]]></search>
+			<add position="after"><![CDATA[<button type="button" form="form-product" id="apply-btn" data-toggle="tooltip" title="{{ text_apply }}" class="btn btn-success"><i class="fa fa-repeat"></i></button>]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[{{ footer }}]]></search>
+			<add position="before"><![CDATA[
+			<script type="text/javascript">
+				var applyBtn = $('#apply-btn'),
+					formProduct = $('#form-product'),
+					dataAction = formProduct.attr('data-action');
+
+				if (sessionStorage['index_p']) {
+					var index_p = sessionStorage['index_p'];
+				} else {
+					var index_p = 0;
+				}
+
+				$('#apply-tab li:eq(' + index_p + ') a').tab('show');
+				sessionStorage['index_p'] = 0;
+
+				applyBtn.click(function() {
+					sessionStorage['index_p'] = $(".nav-tabs .active").index();
+
+					formProduct.attr({'action':dataAction});
+					formProduct.submit();
+
+					e.preventDefault();
+				});
+
+				document.addEventListener("keydown", function(event) {
+					if (event.keyCode == 83 && (navigator.platform.match("Mac") ? event.metaKey : event.ctrlKey)) {
+						event.preventDefault();
+						applyBtn.trigger('click');
+					}
+				}, false);
+			</script>
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/catalog/category.php">
+		<operation error="log">
+			<search><![CDATA[public function autocomplete()]]></search>
+			<add position="before"><![CDATA[
+			public function apply() {
+				$this->load->language('catalog/category');
+
+				$this->document->setTitle($this->language->get('heading_title'));
+
+				$this->load->model('catalog/category');
+
+				if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+					$this->model_catalog_category->editCategory($this->request->get['category_id'], $this->request->post);
+
+					$this->session->data['success'] = $this->language->get('text_success');
+
+					$url = '';
+
+				if (isset($this->request->get['category_id'])) {
+					$url .= '&category_id=' . $this->request->get['category_id'];
+				}
+					$this->response->redirect($this->url->link('catalog/category/edit', 'user_token=' . $this->session->data['user_token'] . $url, true));
+				}
+
+				$this->getForm();
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search index="0"><![CDATA[$data['action']]]></search>
+			<add position="after"><![CDATA[$data['apply'] = $this->url->link('catalog/category/add', 'user_token=' . $this->session->data['user_token'] . $url, true);]]></add>
+		</operation>
+		<operation error="log">
+			<search index="1"><![CDATA[$data['action']]]></search>
+			<add position="after"><![CDATA[$data['apply'] = $this->url->link('catalog/category/apply', 'user_token=' . $this->session->data['user_token'] . '&category_id=' . $this->request->get['category_id'] . $url, true);]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['footer'] = $this->load->controller('common/footer');]]></search>
+			<add position="after"><![CDATA[
+			if (isset($this->session->data['success'])) {
+				$data['success'] = $this->session->data['success'];
+				unset($this->session->data['success']);
+			} else {
+				$data['success'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/category_form.twig">
+		<operation error="log">
+			<search><![CDATA[<div class="panel panel-default">]]></search>
+			<add position="before"><![CDATA[
+			{% if success %}
+			<div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+			{% endif %}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-category" class="form-horizontal">]]></search>
+			<add position="replace"><![CDATA[<form action="{{ action }}" data-action="{{ apply|raw }}" method="post" enctype="multipart/form-data" id="form-category" class="form-horizontal">]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<ul class="nav nav-tabs">]]></search>
+			<add position="replace"><![CDATA[<ul class="nav nav-tabs" id="apply-tab">]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[<div class="pull-right">]]></search>
+			<add position="after"><![CDATA[<button type="button" form="form-category" id="apply-btn" data-toggle="tooltip" title="{{ text_apply }}" class="btn btn-success"><i class="fa fa-repeat"></i></button>]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[{{ footer }]]></search>
+			<add position="before"><![CDATA[
+			<script type="text/javascript">
+				var applyBtn = $('#apply-btn'),
+					formProduct = $('#form-category'),
+					dataAction = formProduct.attr('data-action');
+
+				if (sessionStorage['index_p']) {
+					var index_p = sessionStorage['index_p'];
+				} else {
+					var index_p = 0;
+				}
+
+				$('#apply-tab li:eq(' + index_p + ') a').tab('show');
+				sessionStorage['index_p'] = 0;
+
+				applyBtn.click(function() {
+					sessionStorage['index_p'] = $(".nav-tabs .active").index();
+
+					formProduct.attr({'action':dataAction});
+					formProduct.submit();
+
+					e.preventDefault();
+				});
+
+				document.addEventListener("keydown", function(event) {
+					if (event.keyCode == 83 && (navigator.platform.match("Mac") ? event.metaKey : event.ctrlKey)) {
+						event.preventDefault();
+						applyBtn.trigger('click');
+					}
+				}, false);
+			</script>
+			]]></add>
+		</operation>
+	</file>
+	<!-- Add side menu -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$data['menu'] = $this->load->controller('common/menu');]]></search>
+			<add position="after"><![CDATA[$data['menu_side'] = $this->load->controller('extension/materialize/common/menu_side');]]></add>
+		</operation>
+	</file>
+	<!-- Add side search -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$data['menu'] = $this->load->controller('common/menu');]]></search>
+			<add position="after"><![CDATA[$data['search_side'] = $this->load->controller('extension/materialize/common/search_side');]]></add>
+		</operation>
+	</file>
+	<!-- Languages settings -->
+	<file path="admin/controller/{catalog,common}/{product,category,column_left}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$this->load->language('materialize/materialize');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/{cart,header}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$this->load->language('common/materialize');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/information/contact.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$this->load->language('information/materialize');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/{information,checkout,affiliate,account}/{contact,checkout,register,login,edit}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$this->load->language('materialize/materialize');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/{category,manufacturer,product,search,special}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$this->load->language('product/materialize');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/manufacturer.php">
+		<operation error="log">
+			<search><![CDATA[public function info() {]]></search>
+			<add position="after"><![CDATA[$this->load->language('product/materialize');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/{bestseller,latest,featured,special}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index($setting) {]]></search>
+			<add position="after"><![CDATA[$this->load->language('product/materialize');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk}/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk}*.php">
+		<operation error="log">
+			<search><![CDATA[<i class="fa fa-home"></i>]]></search>
+			<add position="replace"><![CDATA[<i class="material-icons">home</i>]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk}/common/footer.php">
+		<operation error="skip">
+			<search><![CDATA[<a target="_blank" href="]]></search>
+			<add position="replace"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
+		</operation>
+	</file>
+</modification>

@@ -1,0 +1,8 @@
+<div class="flex-reverse">
+	<button type="button" value="{{ button_confirm }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
+</div>
+<script>
+$('#button-confirm').bind('click', function() {
+	location.href = "{{ redirect }}";
+});
+</script>

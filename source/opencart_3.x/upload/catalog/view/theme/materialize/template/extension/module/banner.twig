@@ -1,0 +1,23 @@
+<div id="banner{{ module }}"  class="slick-banner z-depth-2 center">
+	{% for banner in banners %}
+	<div>
+		{% if banner.link %}
+		<a href="{{ banner.link }}" class="waves-effect waves-light"><img class="width-max lazyload" src="{{ img_loader }}" data-src="{{ banner.image }}" alt="{{ banner.title }}"></a>
+		{% else %}
+		<img class="width-max waves-effect waves-light lazyload" src="{{ img_loader }}" data-src="{{ banner.image }}" alt="{{ banner.title }}">
+		{% endif %}
+	</div>
+	{% endfor %}
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	$('.slick-banner').not('.slick-initialized').slick({
+		infinite: true,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		infinite: true,
+		speed: 300,
+		autoplay: true
+	});
+});
+</script>

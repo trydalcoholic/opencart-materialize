@@ -1,0 +1,215 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main, goods = 's12 l6', 's12' %}
+{% elseif column_left or column_right %}
+	{% set main, goods = 's12 l9', 's12 m6' %}
+{% else %}
+	{% set main, goods = 's12', 's12 m6 l4' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<span class="breadcrumb-blur hide-on-med-and-up"></span>
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+					{% else %}
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }} section href-underline">
+				{{ content_top }}
+				{% if products %}
+				<div class="card-panel" style="overflow-x:scroll;">
+					<table class="bordered striped centered">
+						<thead>
+							<tr>
+								<th colspan="{{ products|length + 1 }}" style="text-align:left;"><strong>{{ text_product }}</strong></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><b>{{ text_name }}</b></td>
+								{% for product in products %}
+								<td><a href="{{ product.href }}" rel="nofollow noopener" target="_blank"><strong>{{ product.name }}</strong></a></td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<td><b>{{ text_image }}</b></td>
+								{% for product in products %}
+								<td>
+								{% if product.thumb %}
+									<img src="{{ img_loader }}" data-src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="responsive-img lazyload">
+								{% endif %}
+								</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<td><b>{{ text_price }}</b></td>
+								{% for product in products %}
+								<td>
+								{% if product.price %}
+									{% if not product.special %}
+										{{ product.price }}
+									{% else %}
+									<strike>{{ product.price }}</strike> {{ product.special }}
+									{% endif %}
+								{% endif %}
+								</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<td><b>{{ text_model }}</b></td>
+								{% for product in products %}
+								<td>{{ product.model }}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<td><b>{{ text_manufacturer }}</b></td>
+								{% for product in products %}
+								<td>{{ product.manufacturer }}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<td><b>{{ text_availability }}</b></td>
+								{% for product in products %}
+								<td>{{ product.availability }}</td>
+								{% endfor %}
+							</tr>
+							{% if review_status %}
+							<tr>
+								<td><b>{{ text_rating }}</b></td>
+								{% for product in products %}
+								<td>
+									<div class="rating">
+										<span>
+											{% if product.rating %}
+												{% for i in 1..5 %}
+													{% if product.rating < i %}
+													<i class="material-icons">star_border</i>
+													{% else %}
+													<i class="material-icons">star</i>
+													{% endif %}
+												{% endfor %}
+												{% else %}
+												<i class="material-icons">star_border</i>
+												<i class="material-icons">star_border</i>
+												<i class="material-icons">star_border</i>
+												<i class="material-icons">star_border</i>
+												<i class="material-icons">star_border</i>
+											{% endif %}
+										</span>
+									</div>
+									<small>{{ product.reviews }}</small>
+								</td>
+								{% endfor %}
+							</tr>
+							{% endif %}
+							<tr>
+								<td><b>{{ text_summary }}</b></td>
+								{% for product in products %}
+								<td>{{ product.description }}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<td><b>{{ text_weight }}</b></td>
+								{% for product in products %}
+								<td>{{ product.weight }}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<td><b>{{ text_dimension }}</b></td>
+								{% for product in products %}
+								<td>{{ product.length }} x {{ product.width }} x {{ product.height }}</td>
+								{% endfor %}
+							</tr>
+						</tbody>
+						{% for attribute_group in attribute_groups %}
+						<thead>
+							<tr>
+								<td colspan="{{ products|length + 1 }}" style="text-align:left;"><strong>{{ attribute_group.name }}</strong></td>
+							</tr>
+						</thead>
+						{% for key, attribute in attribute_group.attribute %}
+						<tbody>
+							<tr>
+								<td>{{ attribute.name }}</td>
+								{% for product in products %}
+								{% if product.attribute[key] %}
+								<td>{{ product.attribute[key] }}</td>
+								{% else %}
+								<td></td>
+								{% endif %}
+								{% endfor %}
+							</tr>
+						</tbody>
+						{% endfor %}
+						{% endfor %}
+						<tr>
+							<td></td>
+							{% for product in products %}
+							<td>
+								{% if product.add_cart %}
+								<button type="button" value="{{ button_cart }}" class="btn waves-effect waves-light blue" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><i class="material-icons">add_shopping_cart</i></button>
+								{% else %}
+								<button class="btn" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
+								{% endif %}
+								<a href="{{ product.remove }}" class="btn waves-effect waves-light red" title="{{ button_remove }}"><i class="material-icons">delete_sweep</i></a>
+							</td>
+							{% endfor %}
+						</tr>
+					</table>
+				</div>
+				{% else %}
+				<div class="card-panel center">
+					<p class="flow-text text-bold">{{ text_empty }}</p>
+					<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="catalog/view/theme/materialize/image/search-empty.png" alt="">
+				</div>
+				{% endif %}
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+{% endspaceless %}
+{{ footer }}

@@ -1,0 +1,84 @@
+<form id="payment" class="card-panel">
+	<div class="input-field">
+		<input type="text" name="holder" id="input-holder" class="validate">
+		<label for="input-holder" class="required">{{ entry_holder }}</label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="pan" id="input-pan" class="validate">
+		<label for="input-pan" class="required">{{ entry_pan }}</label>
+	</div>
+	<div id="expiry-date-group" class="section">
+		<div class="input-field">
+			<select name="exp_month" id="select-exp-month">
+				{% for month in months %}
+				<option value="{{ month.value }}">{{ month.text }}</option>
+				{% endfor %}
+			</select>
+			<label for="select-exp-month" class="required">{{ entry_expires }}</label>
+		</div>
+		<div class="input-field">
+			<select name="exp_year">
+				{% for year in years %}
+				<option value="{{ year.value }}">{{ year.text }}</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+	<div class="input-field">
+		<input type="text" name="cvc" id="input-cvc" class="validate">
+		<label for="input-cvc" class="required">{{ entry_cvc }}</label>
+	</div>
+	<div class="flex-reverse">
+		<button type="button" value="{{ button_confirm }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
+	</div>
+</form>
+<div id="cardinity-3ds"></div>
+<script>
+$('#button-confirm').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=extension/payment/cardinity/send',
+		type: 'post',
+		data: $('#payment :input'),
+		dataType: 'json',
+		success: function(json) {
+			if (json['error']) {
+				if (json['error']['warning']) {
+					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['warning'],7000,'toast-warning');
+				}
+
+				if (json['error']['holder']) {
+					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['holder'],7000,'toast-warning');
+				}
+
+				if (json['error']['pan']) {
+					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['pan'],7000,'toast-warning');
+				}
+
+				if (json['error']['expiry_date']) {
+					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['expiry_date'],7000,'toast-warning');
+				}
+
+				if (json['error']['cvc']) {
+					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['cvc'],7000,'toast-warning');
+				}
+			}
+
+			if (json['3ds']) {
+				$.ajax({
+					url: 'index.php?route=extension/payment/cardinity/threeDSecureForm',
+					type: 'post',
+					data: json['3ds'],
+					dataType: 'html',
+					success: function(html) {
+						$('#cardinity-3ds').html(html);
+					}
+				});
+			}
+
+			if (json['redirect']) {
+				location = json['redirect'];
+			}
+		}
+	});
+});
+</script>

@@ -1,0 +1,55 @@
+{% if not redirect %}
+<table class="bordered card-panel">
+	<thead class="grey lighten-4">
+		<tr>
+			<th><small>{{ column_name }}</small></th>
+			<th><small>{{ column_model }}</small></th>
+			<th><small>{{ column_quantity }}</small></th>
+			<th><small>{{ column_price }}</small></th>
+			<th><small>{{ column_total }}</small></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for product in products %}
+		<tr>
+			<td><a href="{{ product.href }}" target="_blank" rel="noopener">{{ product.name }}</a>
+			{% for option in product.option %}
+			<br>
+			&nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
+			{% endfor %}
+			{% if product.recurring %}
+			<br>
+			<span>{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small>
+			{% endif %}
+			</td>
+			<td>{{ product.model }}</td>
+			<td>{{ product.quantity }}</td>
+			<td>{{ product.price }}</td>
+			<td>{{ product.total }}</td>
+		</tr>
+		{% endfor %}
+		{% for voucher in vouchers %}
+		<tr>
+			<td>{{ voucher.description }}</td>
+			<td></td>
+			<td>1</td>
+			<td>{{ voucher.amount }}</td>
+			<td>{{ voucher.amount }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		{% for total in totals %}
+		<tr>
+			<td colspan="4"><strong>{{ total.title }}:</strong></td>
+			<td>{{ total.text }}</td>
+		</tr>
+		{% endfor %}
+	</tfoot>
+</table>
+{{ payment }}
+{% else %}
+<script>
+	location = '{{ redirect }}';
+</script>
+{% endif %}

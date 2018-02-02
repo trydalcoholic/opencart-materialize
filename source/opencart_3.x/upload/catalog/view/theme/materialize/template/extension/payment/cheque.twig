@@ -1,0 +1,29 @@
+<div class="card-panel">
+	<h2>{{ text_instruction }}</h2>
+	<p><b>{{ text_payable }}</b></p>
+	<p>{{ payable }}</p>
+	<p><b>{{ text_address }}</b></p>
+	<p>{{ address }}</p>
+	<p>{{ text_payment }}</p>
+</div>
+<div class="flex-reverse">
+	<button type="button" value="{{ button_confirm }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
+</div>
+<script>
+$('#button-confirm').on('click', function() {
+	$.ajax({
+		type: 'get',
+		url: 'index.php?route=extension/payment/cheque/confirm',
+		cache: false,
+		success: function() {
+			if (json['redirect']) {
+				location = json['redirect'];
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+</script>

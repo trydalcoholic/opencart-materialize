@@ -1,0 +1,56 @@
+<form id="payment" class="card-panel">
+	<h3>{{ text_credit_card }}</h3>
+	<div class="input-field">
+		<input type="text" name="cc_owner" value="" id="input-cc-owner" class="validate">
+		<label for="input-cc-owner" class="required">{{ entry_cc_owner }}</label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="cc_number" value="" id="input-cc-number" class="validate">
+		<label for="input-cc-number" class="required">{{ entry_cc_number }}</label>
+	</div>
+	<div class="section">
+		<div class="input-field">
+			<select name="cc_expire_date_month" id="input-cc-expire-date">
+				{% for month in months %}
+				<option value="{{ month.value }}">{{ month.text }}</option>
+				{% endfor %}
+			</select>
+			<label for="input-cc-expire-date" class="required">{{ entry_cc_expire_date }}</label>
+		</div>
+		<div class="input-field">
+			<select name="cc_expire_date_year">
+				{% for year in year_expire %}
+				<option value="{{ year.value }}">{{ year.text }}</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+	<div class="input-field">
+		<input type="text" name="cc_cvv2" value="" id="input-cc-cvv2" class="validate">
+		<label for="input-cc-cvv2" class="required">{{ entry_cc_cvv2 }}</label>
+	</div>
+</form>
+<div class="flex-reverse">
+	<button type="submit" value="{{ button_confirm }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
+</div>
+<script>
+$('#button-confirm').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=extension/payment/authorizenet_aim/send',
+		type: 'post',
+		data: $('#payment :input'),
+		dataType: 'json',
+		cache: false,
+		success: function(json) {
+			if (json['error']) {
+				alert(json['error']);
+			}
+
+			if (json['redirect']) {
+				location = json['redirect'];
+			}
+		}
+	});
+});
+$('select').material_select();
+</script>

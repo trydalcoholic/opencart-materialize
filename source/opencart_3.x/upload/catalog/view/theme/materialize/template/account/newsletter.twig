@@ -1,0 +1,113 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<span class="breadcrumb-blur hide-on-med-and-up"></span>
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+					{% else %}
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				<form action="{{ action }}" method="post" enctype="multipart/form-data">
+					<div class="card-panel">
+						<div class="row">
+							<div class="col s12 m6 switch">
+								<div class="row">
+									<div class="col s8">
+										<span class="text-bold">{{ entry_newsletter }}:</span>
+									</div>
+									<div class="col s4">
+										{% if newsletter %}
+										<label>
+										<input type="checkbox" checked="checked">
+										<span class="lever"></span>
+										</label>
+										<input name="newsletter" id="newsletter" value="1" type="hidden">
+										{% else %}
+										<label>
+										<input type="checkbox">
+										<span class="lever"></span>
+										</label>
+										<input name="newsletter" id="newsletter" value="0" type="hidden">
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s6">
+							<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
+						</div>
+						<div class="col s6">
+							<div class="flex-reverse no-padding">
+								<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	$('.switch input[type="checkbox"]').click(function(){
+		$('#newsletter').attr('value', ($('#newsletter').attr('value')==0) ? '1' : '0');
+	});
+});
+</script>
+{% endspaceless %}
+{{ footer }}

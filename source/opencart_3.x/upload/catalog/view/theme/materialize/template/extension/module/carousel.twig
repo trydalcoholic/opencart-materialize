@@ -1,0 +1,55 @@
+<div id="carousel{{ module }}" class="slick-carousel card-panel">
+	{% for banner in banners %}
+	<div>
+		{% if banner.link %}
+		<a href="{{ banner.link }}"><img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ banner.image }}" alt="{{ banner.title }}"></a>
+		{% else %}
+		<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ banner.image }}" alt="{{ banner.title }}">
+		{% endif %}
+	</div>
+	{% endfor %}
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	$('.slick-carousel').not('.slick-initialized').slick({
+		infinite: true,
+		slidesToShow: 6,
+		slidesToScroll: 3,
+		dots: true,
+		infinite: true,
+		speed: 300,
+		autoplay: true,
+		lazyLoad: 'ondemand',
+		responsive: [
+		{
+			breakpoint: 460,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1
+			}
+		},
+		{
+			breakpoint: 600,
+			settings: {
+				slidesToShow: 2,
+				slidesToScroll: 2
+			}
+		},
+		{
+			breakpoint: 992,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 3
+			}
+		},
+		{
+			breakpoint: 1240,
+			settings: {
+				slidesToShow: 4,
+				slidesToScroll: 4
+			}
+		},
+		]
+	});
+});
+</script>

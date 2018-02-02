@@ -1,0 +1,69 @@
+<section class="section href-underline">
+	<h2>{{ heading_title }}</h2>
+	<div class="row">
+		{% for product in products %}
+		<div class="col s12 m6 xl4">
+			<div class="card sticky-action large hoverable">
+				{% if product.labels %}
+				<ul class="labels-wrap">
+					{% for label in product.labels %}
+					<li class="labels-wrap__item"><span class="waves-effect badge {{ label.color }} {{ label.color_text }}">{{ label.name }}</span></li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+				{% if product.special %}<span class="white-text badge red lighten-1 percent">{{ text_percent }} {{ product.percent_discount }}%</span>{% endif %}
+				<div class="card-image">
+					<i class="material-icons waves-effect waves-circle close-icon activator">more_vert</i>
+					<a href="{{ product.href }}"><img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"></a>
+				</div>
+				<div class="card-content center-align">
+					<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a></span>
+				</div>
+				<div class="card-action center-align grey lighten-5">
+					{% if product.add_cart %}
+						<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
+					{% else %}
+						<button class="btn btn-floating btn-large add-cart" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
+					{% endif %}
+					{% if product.price %}
+						{% if not product.special %}
+							<span class="card-price">{{ product.price }}</span>
+						{% else %}
+							<span class="card-price old-price grey-text">{{ product.price }}</span>
+							<span class="card-price red-text text-darken-2">{{ product.special }}</span>
+						{% endif %}
+						{% if product.tax %}
+							<span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+						{% endif %}
+					{% endif %}
+					<div class="rating">
+						<hr>
+						<span class="grey lighten-5">
+							{% if product.rating %}
+								{% for i in 1..5 %}
+									{% if product.rating < i %}
+									<i class="material-icons">star_border</i>
+									{% else %}
+									<i class="material-icons">star</i>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<i class="material-icons">star_border</i>
+								<i class="material-icons">star_border</i>
+								<i class="material-icons">star_border</i>
+								<i class="material-icons">star_border</i>
+								<i class="material-icons">star_border</i>
+							{% endif %}
+						</span>
+					</div>
+					<a href="{{ product.href }}" class="btn waves-effect waves-light red width-max">{{ text_more_detailed }}</a>
+				</div>
+				<div class="card-reveal">
+					<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a><i class="material-icons waves-effect waves-circle close-icon">close</i></span>
+					<p>{{ product.description }}</p>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</section>

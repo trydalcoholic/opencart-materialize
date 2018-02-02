@@ -1,0 +1,25 @@
+<div class="card-panel">
+	<h2>{{ text_instruction }}</h2>
+	<p><b>{{ text_description }}</b></p>
+	<p>{{ bank }}</p>
+	<p>{{ text_payment }}</p>
+</div>
+<div class="flex-reverse">
+	<button type="button" value="{{ button_confirm }}" id="button-confirm" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
+</div>
+<script>
+$('#button-confirm').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=extension/payment/bank_transfer/confirm',
+		dataType: 'json',
+		success: function(json) {
+			if (json['redirect']) {
+				location = json['redirect'];	
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+</script>

@@ -1,0 +1,104 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main, goods = 's12 l6', 's12' %}
+{% elseif column_left or column_right %}
+	{% set main, goods = 's12 l9', 's12 m6' %}
+{% else %}
+	{% set main, goods = 's12', 's12 m6 l4' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<span class="breadcrumb-blur hide-on-med-and-up"></span>
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+					{% else %}
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div class="col {{ main }}">
+				<div class="card-panel">
+					{{ content_top }}
+					{% if categories %}
+						<p>
+							<strong>{{ text_index }}</strong>
+							<ul class="manufacturer-list section">
+							{% for category in categories %}
+								<li class="waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="{{ text_manufacturers_starting }} &#34;{{ category.name }}&#34;"><a href="index.php?route=product/manufacturer#{{ category.name }}">{{ category.name }}</a></li>&nbsp;
+							{% endfor %}
+							</ul>
+						</p>
+						{% for category in categories %}
+							<h2 id="{{ category.name }}">{{ category.name }}</h2>
+							<hr>
+							{% if category.manufacturer %}
+								{% for manufacturers in category.manufacturer|batch(4) %}
+								<div class="row">
+									{% for manufacturer in manufacturers %}
+										<div class="col s6 m4 l3 ">
+											<div class="section center tooltipped" data-position="top" data-delay="50" data-tooltip="{{ text_view_all_products }} &#34;{{ manufacturer.name }}&#34;">
+											{% if manufacturer.logo %}
+											<a class="waves-effect waves-light" href="{{ manufacturer.href }}"><img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ manufacturer.logo }}" alt="{{ manufacturer.name }}"></a>
+											<br>
+											{% endif %}
+											<a class="grey-text text-darken-4 text-bold" href="{{ manufacturer.href }}">{{ manufacturer.name }}</a>
+											</div>
+										</div>
+									{% endfor %}
+								</div>
+								{% endfor %}
+							{% endif %}
+						{% endfor %}
+					{% else %}
+						<p class="flow-text text-bold">{{ text_empty }}</p>
+						<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="catalog/view/theme/materialize/img/search-empty.png" alt="">
+					{% endif %}
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+{% endspaceless %}
+{{ footer }}

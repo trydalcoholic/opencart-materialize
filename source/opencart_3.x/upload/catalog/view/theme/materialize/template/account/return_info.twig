@@ -1,0 +1,176 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<span class="breadcrumb-blur hide-on-med-and-up"></span>
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+					{% else %}
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			<div id="content" class="col {{ main }}">
+				{{ content_top }}
+				<div class="card-panel">
+					<h2>{{ heading_title }}</h2>
+					<div class="section" style="overflow-x:scroll;">
+						<table class="bordered">
+							<thead class="grey lighten-4">
+								<tr>
+									<th colspan="2"><small>{{ text_return_detail }}</small></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="width:50%;">
+										<b>{{ text_return_id }} #{{ return_id }}<br>
+										<b>{{ text_date_added }}</b> {{ date_added }}
+									</td>
+									<td style="width:50%;">
+										<b>{{ text_order_id }}</b> #{{ order_id }}<br>
+										<b>{{ text_date_ordered }}</b> {{ date_ordered }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="section" style="overflow-x:scroll;">
+						<h3>{{ text_product }}</h3>
+						<table class="bordered">
+							<thead class="grey lighten-4">
+								<tr>
+									<th style="width:33.3%;"><small>{{ column_product }}</small></th>
+									<th style="width:33.3%;"><small>{{ column_model }}</small></th>
+									<th style="width:33.3%;"><small>{{ column_quantity }}</small></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="width:33.3%;">{{ product }}</td>
+									<td style="width:33.3%;">{{ model }}</td>
+									<td style="width:33.3%;">{{ quantity }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="section" style="overflow-x:scroll;">
+						<h3>{{ text_reason }}</h3>
+						<table class="bordered centered">
+							<thead class="grey lighten-4">
+								<tr>
+									<th style="width:33.3%;"><small>{{ column_reason }}</small></th>
+									<th style="width:33.3%;"><small>{{ column_opened }}</small></th>
+									<th style="width:33.3%;"><small>{{ column_action }}</small></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{ reason }}</td>
+									<td>{{ opened }}</td>
+									<td>{{ action }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					{% if comment %}
+					<div class="section" style="overflow-x:scroll;">
+						<table class="bordered centered">
+							<thead class="grey lighten-4">
+								<tr>
+									<th><small>{{ text_comment }}</small></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{ comment }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					{% endif %}
+					<div class="section" style="overflow-x:scroll;">
+						<h3>{{ text_history }}</h3>
+						<table class="bordered centered">
+							<thead class="grey lighten-4">
+								<tr>
+									<th style="width:33.3%;"><small>{{ column_date_added }}</small></th>
+									<th style="width:33.3%;"><small>{{ column_status }}</small></th>
+									<th style="width:33.3%;"><small>{{ column_comment }}</small></th>
+								</tr>
+							</thead>
+							<tbody>
+								{% if histories %}
+								{% for history in histories %}
+								<tr>
+									<td>{{ history.date_added }}</td>
+									<td>{{ history.status }}</td>
+									<td>{{ history.comment }}</td>
+								</tr>
+								{% endfor %}
+								{% else %}
+								<tr>
+									<td colspan="3" class="text-center">{{ text_no_results }}</td>
+								</tr>
+								{% endif %}
+							</tbody>
+						</table>
+					</div>
+					<div class="flex-reverse">
+						<a href="{{ continue }}" class="btn waves-effect waves-light red href-underline">{{ button_continue }}</a>
+					</div>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+{% endspaceless %}
+{{ footer }}

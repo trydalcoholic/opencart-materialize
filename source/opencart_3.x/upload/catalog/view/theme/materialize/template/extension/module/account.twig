@@ -1,0 +1,24 @@
+<div class="collection z-depth-1">
+	{% if not logged %}
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ login }}" rel="nofollow">{{ text_login }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ register }}" rel="nofollow">{{ text_register }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ forgotten }}" rel="nofollow">{{ text_forgotten }}</a>
+	{% endif %}
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ account }}" rel="nofollow">{{ text_account }}</a>
+	{% if logged %}
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ edit }}" rel="nofollow">{{ text_edit }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ password }}" rel="nofollow">{{ text_password }}</a>
+	{% endif %}
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ address }}" rel="nofollow">{{ text_address }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ wishlist }}" rel="nofollow">{{ text_wishlist }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ order }}" rel="nofollow">{{ text_order }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ download }}" rel="nofollow">{{ text_download }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ recurring }}" rel="nofollow">{{ text_recurring }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ reward }}" rel="nofollow">{{ text_reward }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ return }}" rel="nofollow">{{ text_return }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ transaction }}" rel="nofollow">{{ text_transaction }}</a>
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ newsletter }}" rel="nofollow">{{ text_newsletter }}</a>
+	{% if logged %}
+	<a class="collection-item waves-effect blue-grey-text text-darken-4" href="{{ logout }}" rel="nofollow">{{ text_logout }}</a>
+	{% endif %}
+</div>

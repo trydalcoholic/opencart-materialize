@@ -1,0 +1,190 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main, goods = 's12 l6', 's12' %}
+{% elseif column_left or column_right %}
+	{% set main, goods = 's12 l9', 's12 m6' %}
+{% else %}
+	{% set main, goods = 's12', 's12 m6 l4' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<span class="breadcrumb-blur hide-on-med-and-up"></span>
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+					{% else %}
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<h1>{{ heading_title }}</h1>
+		<div class="row">
+			{{ column_left }}
+			{% if products %}
+			<div class="col {{ main }} section href-underline">
+				{{ content_top }}
+				<ul class="collapsible" data-collapsible="expandable">
+					<li>
+						<div class="collapsible-header text-bold arrow-rotate">{{ text_sort_short }}</div>
+						<div class="collapsible-body white">
+							<div class="row">
+								<div class="col s6 m6 input-field inline">
+									<select id="input-sort" onchange="location = this.value;">
+										{% for sorts in sorts %}
+										{% if sorts.value == '%s-%s'|format(sort, order) %}
+										<option value="{{ sorts.href }}" selected>{{ sorts.text }}</option>
+										{% else %}
+										<option value="{{ sorts.href }}">{{ sorts.text }}</option>
+										{% endif %}
+										{% endfor %}
+									</select>
+									<label class="text-bold" for="input-sort">{{ text_sort }}</label>
+								</div>
+								<div class="col s6 m6 input-field inline">
+									<select id="input-limit" onchange="location = this.value;">
+									{% for limits in limits %}
+									{% if limits.value == limit %}
+									<option value="{{ limits.href }}" selected>{{ limits.text }}</option>
+									{% else %}
+									<option value="{{ limits.href }}">{{ limits.text }}</option>
+									{% endif %}
+									{% endfor %}
+									</select>
+									<label class="text-bold">{{ text_limit }}</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="row">
+					{% for product in products %}
+					<div class="col {{ goods }}">
+						<div class="card sticky-action large hoverable href-underline">
+							{% if product.labels %}
+							<ul class="labels-wrap">
+								{% for label in product.labels %}
+								<li class="labels-wrap__item"><span class="waves-effect badge {{ label.color }} {{ label.color_text }}">{{ label.name }}</span></li>
+								{% endfor %}
+							</ul>
+							{% endif %}
+							{% if product.special %}<span class="white-text badge red lighten-1 percent">{{ text_percent }} {{ product.percent_discount }}%</span>{% endif %}
+							<div class="card-image">
+								<i class="material-icons waves-effect waves-circle close-icon activator">more_vert</i>
+								<a href="{{ product.href }}"><img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"></a>
+							</div>
+							<div class="card-content center-align">
+								<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a></span>
+							</div>
+							<div class="card-action center-align grey lighten-5">
+								{% if product.add_cart %}
+								<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
+								{% else %}
+								<button class="btn btn-floating btn-large add-cart" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
+								{% endif %}
+								{% if product.price %}
+									{% if not product.special %}
+									<span class="card-price">{{ product.price }}</span>
+									{% else %}
+									<span class="card-price old-price grey-text">{{ product.price }}</span>
+									<span class="card-price red-text text-darken-2">{{ product.special }}</span>
+									{% endif %}
+									{% if product.tax %}
+									<span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+									{% endif %}
+								{% endif %}
+								<div class="rating">
+									<hr>
+									<span class="grey lighten-5">
+									{% if product.rating %}
+										{% for i in 1..5 %}
+											{% if product.rating < i %}
+											<i class="material-icons">star_border</i>
+											{% else %}
+											<i class="material-icons">star</i>
+											{% endif %}
+										{% endfor %}
+										{% else %}
+										<i class="material-icons">star_border</i>
+										<i class="material-icons">star_border</i>
+										<i class="material-icons">star_border</i>
+										<i class="material-icons">star_border</i>
+										<i class="material-icons">star_border</i>
+									{% endif %}
+									</span>
+								</div>
+								<a href="{{ product.href }}" class="btn waves-effect waves-light red width-max">{{ text_more_detailed }}</a>
+							</div>
+							<div class="card-reveal">
+								<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a><i class="material-icons waves-effect waves-circle close-icon">close</i></span>
+								<p>{{ product.description }}</p>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				{% if pagination %}
+				<div class="row">{{ pagination }}</div>
+				{% endif %}
+				{% if description %}
+				<div class="card-panel z-depth-1">
+					<div class="row valign-wrapper section">
+						{% if description and thumb %}
+						<div class="col s4 m2 center">
+							<img src="{{ img_loader }}" data-src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="responsive-img lazyload">
+						</div>
+						<div class="col s8 m10">
+							{{ description }}
+						</div>
+						{% else %}
+						<div class="col s12">
+							{{ description }}
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				{% endif %}
+				{{ content_bottom }}
+			</div>
+			{% endif %}
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+{% endspaceless %}
+{{ footer }}

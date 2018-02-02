@@ -1,0 +1,95 @@
+{{ header }}
+{% spaceless %}
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{% for key, breadcrumb in breadcrumbs %}
+		{% if key < breadcrumbs|length - 1 %}
+			{% if key == 0 %}
+			{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			},
+			{% endif %}
+		{% else %}
+			{
+				"@type": "ListItem",
+				"position": {{ key }},
+				"item": {
+					"@id": "{{ breadcrumb.href }}",
+					"name": "{{ breadcrumb.text }}"
+				}
+			}
+		{% endif %}
+	{% endfor %}
+	]
+}
+</script>
+{% if column_left and column_right %}
+	{% set main = 's12 l6' %}
+{% elseif column_left or column_right %}
+	{% set main = 's12 l9' %}
+{% else %}
+	{% set main = 's12' %}
+{% endif %}
+<main>
+	<div class="container">
+		<nav id="breadcrumbs" class="breadcrumb-wrapper transparent z-depth-0">
+			<span class="breadcrumb-blur hide-on-med-and-up"></span>
+			<div class="nav-wrapper breadcrumb-wrap href-underline">
+				{% for key, breadcrumb in breadcrumbs %}
+					{% if key < breadcrumbs|length - 1 %}
+						<a href="{{ breadcrumb.href }}" class="breadcrumb waves-effect black-text">{{ breadcrumb.text }}</a>
+					{% else %}
+						<span class="breadcrumb blue-grey-text text-darken-3">{{ breadcrumb.text }}</span>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</nav>
+		<div class="row">
+			{{ column_left }}
+			<div class="col {{ main }} section href-underline">
+				{{ content_top }}
+				<h1>{{ heading_title }}</h1>
+				<div class="card-panel">
+					<p>Please enter your shipping tracking No. below:</p>
+					<div class="input-field">
+						<input type="text" name="code" value="{{ code }}" placeholder="{{ entry_code }}" id="input-code" class="validate">
+						<label class="required" for="input-code">{{ entry_code }}</label>
+					</div>
+				</div>
+				{{ content_bottom }}
+			</div>
+			{{ column_right }}
+		</div>
+	</div>
+</main>
+<script>
+	document.addEventListener("DOMContentLoaded", function(event) {
+		$('#button-tracking').on('click', function() {
+			$.ajax({
+				url: 'index.php?route=information/tracking/tracking&code=' + $('input[name="code"]').val(),
+				dataType: 'json',
+				success: function(json) {
+					if (json['redirect']) {
+						location = json['redirect'];
+					} else if (json['error']) {
+						Materialize.toast(json['error']['warning'],4000);
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		});
+	});
+</script>
+{% endspaceless %}
+{{ footer }}

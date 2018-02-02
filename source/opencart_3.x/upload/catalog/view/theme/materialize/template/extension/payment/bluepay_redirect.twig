@@ -1,0 +1,112 @@
+<form id="payment" class="card-panel" action="https://secure.bluepay.com/interfaces/bp10emu" method="POST">
+	<h3>{{ text_credit_card }}</h3>
+	{% if not existing_cards %}
+	<h4>{{ entry_card }}</h4>
+	<p>
+		<input name="new-existing" value="existing" type="radio" id="id-new-existing-checked" class="with-gap" checked>
+		<label for="id-new-existing-checked">{{ entry_card_existing }}</label>
+	</p>
+	<p>
+		<input name="new-existing" value="new" type="radio" id="id-new-existing" class="with-gap" checked>
+		<label for="id-new-existing">{{ entry_card_new }}</label>
+	</p>
+	<div id="card-existing">
+		<div class="section">
+			<div class="input-field">
+				<select name="RRNO" id="Token">
+					{% for existing_card in existing_cards %}
+					<option value="{{ existing_card.token }}">{{ text_card_type }} {{ existing_card.type }}, {{ text_card_digits }} {{ existing_card.digits }}, {{ text_card_expiry }} {{ existing_card.expiry }}</option>
+					{% endfor %}
+				</select>
+				<label for="Token" class="required">{{ entry_cc_choice }}</label>
+			</div>
+		</div>
+		<div class="input-field">
+			<input type="text" name="CVCCVV2" value="" id="input-cc-cvv2" class="validate">
+			<label for="input-cc-cvv2" class="required">{{ entry_cc_cvv2 }}</label>
+		</div>
+	</div>
+	<div style="display: none" id="card-new">
+		{% else %}
+		<div id="card-new">
+		{% endif %}
+			<div class="input-field">
+				<input type="text" name="CC_NUM" value="" id="input-cc-number" class="validate">
+				<label for="input-cc-number" class="required">{{ entry_cc_number }}</label>
+			</div>
+			<div class="section">
+				<div class="input-field">
+					<select name="CC_EXPIRES_MONTH" id="input-cc-expire-date">
+						{% for month in months %}
+						<option value="{{ month.value }}">{{ month.text }}</option>
+						{% endfor %}
+					</select>
+					<label for="input-cc-expire-date" class="required">{{ entry_cc_choice }}</label>
+					<select name="CC_EXPIRES_YEAR">
+						{% for year in year_expire %}
+						<option value="{{ year.value }}">{{ year.text }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="input-field">
+			<input type="text" name="CVCCVV2" value="" id="input-cc-cvv2" class="validate">
+			<label for="input-cc-cvv2" class="required">{{ entry_cc_cvv2 }}</label>
+		</div>
+		{% if bluepay_redirect_card %}
+			<p>
+				<input type="checkbox" name="CreateToken" value="1" class="filled-in" id="input-cc-save">
+				<label for="input-cc-save">{{ entry_card_save }}</label>
+			</p>
+		{% endif %}
+	</div>
+	<div class="flex-reverse">
+		<button type="submit" value="{{ button_confirm }}" class="btn waves-effect waves-light red">{{ button_confirm }}</button>
+	</div>
+</form>
+<script>
+	{% if existing_cards %}
+	$('#card-new input').prop('disabled', true);
+	$('#card-new input').prop('disabled', true);
+	$('#card-new select').prop('disabled', true);
+	{% endif %}
+
+	$('input[name=\'new-existing\']').on('change', function() {
+		if (this.value === 'existing') {
+			$('#card-existing').show();
+			$('#card-new').hide();
+			$('#card-new input').prop('disabled', true);
+			$('#card-new select').prop('disabled', true);
+			$('#card-existing select').prop('disabled', false);
+			$('#input-cc-cvv2').prop('disabled', false);
+		} else {
+			$('#card-existing').hide();
+			$('#card-new').show();
+			$('#card-new input').prop('disabled', false);
+			$('#card-new select').prop('disabled', false);
+			$('#card-existing select').prop('disabled', true);
+			$('#card-existing input').prop('disabled', true);
+		}
+	});
+
+	$('#button-confirm').bind('click', function() {
+		$.ajax({
+			url: 'index.php?route=extension/payment/bluepay_redirect/send',
+			type: 'post',
+			data: $('#card-new :input[type=\'text\']:enabled, #card-new select:enabled, #card-new :input[type=\'checkbox\']:checked:enabled, #payment select:enabled, #card-existing :input:enabled'),
+			dataType: 'json',
+			cache: false,
+			success: function(json) {
+				if (json['error']) {
+					alert(json['error']);
+				}
+
+				if (json['redirect']) {
+					location = json['redirect'];
+				}
+			}
+		});
+	});
+	$('select').material_select();
+</script>

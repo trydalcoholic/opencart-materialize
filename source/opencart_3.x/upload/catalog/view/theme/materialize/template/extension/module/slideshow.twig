@@ -1,0 +1,26 @@
+<div class="section">
+	<div id="slideshow{{ module }}" class="slick-slider slick-slider-slideshow z-depth-1">
+	{% for banner in banners %}
+		{% if banner.link %}
+		<a href="{{ banner.link }}"><img class="responsive-img" src="{{ banner.image }}" alt="{{ banner.title }}"></a>
+		{% else %}
+		<img class="responsive-img z-depth-1" src="{{ banner.image }}" alt="{{ banner.title }}">
+		{% endif %}
+	{% endfor %}
+	</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	$('.slick-slider').not('.slick-initialized').slick({
+		infinite: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		slidesToShow: 1,
+		adaptiveHeight: true,
+		fade: true,
+		cssEase: 'linear',
+		dots: true,
+		arrows: true
+	});
+});
+</script>
