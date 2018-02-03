@@ -52,19 +52,20 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		/* Install Materialize Modules */
 
+		$this->load->model('extension/materialize/materialize');
+
+		$this->model_extension_materialize_materialize->install();
+
 		$this->load->model('extension/materialize/callback');
 		$this->load->model('extension/materialize/label');
-		$this->load->model('extension/materialize/materialize');
 
 		$this->model_extension_materialize_callback->install();
 		$this->model_extension_materialize_label->install();
-		$this->model_extension_materialize_materialize->install();
 
 		$this->load->model('setting/extension');
 
 		$this->model_setting_extension->install('dashboard', 'callback');
 		$this->model_setting_extension->install('module', 'callback');
-		$this->model_setting_extension->install('module', 'map');
 
 		/* Add permission */
 
@@ -75,9 +76,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/module/callback');
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/module/callback');
-
-		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/module/map');
-		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/module/map');
 
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/materialize');
@@ -104,19 +102,20 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		/* Uninstall Materialize Modules */
 
+		$this->load->model('extension/materialize/materialize');
+
+		$this->model_extension_materialize_materialize->uninstall();
+
 		$this->load->model('extension/materialize/callback');
 		$this->load->model('extension/materialize/label');
-		$this->load->model('extension/materialize/materialize');
 
 		$this->model_extension_materialize_callback->uninstall();
 		$this->model_extension_materialize_label->uninstall();
-		$this->model_extension_materialize_materialize->uninstall();
 
 		$this->load->model('setting/extension');
 
 		$this->model_setting_extension->uninstall('dashboard', 'callback');
 		$this->model_setting_extension->uninstall('module', 'callback');
-		$this->model_setting_extension->uninstall('module', 'map');
 
 		/* Remove permission */
 
@@ -127,9 +126,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/callback');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/module/callback');
-
-		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/map');
-		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/module/map');
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize');
