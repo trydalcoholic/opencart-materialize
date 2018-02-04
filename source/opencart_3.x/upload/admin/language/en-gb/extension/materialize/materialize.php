@@ -20,8 +20,8 @@ $_['text_apply']					= 'Apply';
 $_['entry_labels']					= 'Labels';
 $_['entry_size_chart']				= 'Size Chart';
 $_['entry_default_option']			= 'Default';
-$_['entry_title_additional']		= 'Field Title';
-$_['entry_title']					= 'Tab Title';
+$_['entry_tab_title_additional']	= 'Field Title';
+$_['entry_tab_title']				= 'Tab Title';
 
 // Tabs
 $_['tab_size_chart']				= 'Size Chart';

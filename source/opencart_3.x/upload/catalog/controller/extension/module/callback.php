@@ -14,6 +14,8 @@ class ControllerExtensionModuleCallback extends Controller {
 		$data['module_callback_time'] = $this->config->get('module_callback_time');
 		$data['module_callback_color_btn'] = $this->config->get('module_callback_color_btn');
 		$data['module_callback_color_btn_text'] = $this->config->get('module_callback_color_btn_text');
+		$data['module_callback_color_bubble'] = $this->config->get('module_callback_color_bubble');
+		$data['module_callback_color_bubble_text'] = $this->config->get('module_callback_color_bubble_text');
 
 		$data['order_page'] = ($this->request->server['HTTPS'] ? 'https://' : 'http://') . $this->request->server['HTTP_HOST'] . $this->request->server['REQUEST_URI'];
 

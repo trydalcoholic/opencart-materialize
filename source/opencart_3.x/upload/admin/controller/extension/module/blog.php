@@ -260,6 +260,9 @@ class ControllerExtensionModuleBlog extends Controller {
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize/blog/comment');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize/blog/comment');
 
+
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/blog');
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/module/blog');
 	}
 
 	public function index() {

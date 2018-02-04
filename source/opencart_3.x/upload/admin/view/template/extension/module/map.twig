@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-maps" class="form-horizontal">
+		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-map" class="form-horizontal">
 			<div class="row">
 				<div class="col-sm-12 col-md-8">
 					<div class="panel panel-default">
@@ -135,7 +135,7 @@
 					<div class="panel panel-default" id="panel-data">
 						<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-power-off"></i> {{ entry_status }}</h3></div>
 						<div class="panel-body">
-							<select name="module_map_status" id="blog-status" class="selectpicker show-tick" data-width="100%">
+							<select name="module_map_status" id="map-status" class="selectpicker show-tick" data-width="100%">
 								{% if module_map_status %}
 								<option value="1" selected="selected" data-icon="fa-toggle-on">{{ text_enabled }}</option>
 								<option value="0" data-icon="fa-toggle-off">{{ text_disabled }}</option>
@@ -151,7 +151,7 @@
 									<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i> {{ button_cancel }}</a>
 								</div>
 								<div class="col-sm-6 text-right">
-									<button type="submit" form="form-blog" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i> {{ button_save }}</button>
+									<button type="submit" form="form-map" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i> {{ button_save }}</button>
 								</div>
 							</div>
 						</div>
@@ -185,6 +185,14 @@
 	});
 
 	// Notify
+	{% if error_warning %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ error_warning }}'
+	},{
+		type: "danger"
+	});
+	{% endif %}
 	{% if error_google_api %}
 	$.notify({
 		icon: 'fa fa-exclamation-circle',

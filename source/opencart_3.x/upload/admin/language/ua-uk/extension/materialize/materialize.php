@@ -20,8 +20,8 @@ $_['text_apply']					= 'Застосувати';
 $_['entry_labels']					= 'Етикетки';
 $_['entry_size_chart']				= 'Таблиця розмірів';
 $_['entry_default_option']			= 'За замовчуванням';
-$_['entry_title_additional']		= 'Назва поля';
-$_['entry_title']					= 'Назва вкладки';
+$_['entry_tab_title_additional']	= 'Назва поля';
+$_['entry_tab_title']				= 'Назва вкладки';
 
 // Tabs
 $_['tab_size_chart']				= 'Таблиця розмірів';

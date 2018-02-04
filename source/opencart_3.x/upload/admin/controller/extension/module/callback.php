@@ -2,6 +2,23 @@
 class ControllerExtensionModuleCallback extends Controller {
 	private $error = array();
 
+	public function install() {
+		$this->load->model('user/user_group');
+
+		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize/callback/callback');
+		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/materialize/callback/callback');
+	}
+
+	public function uninstall() {
+		$this->load->model('user/user_group');
+
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize/callback/callback');
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize/callback/callback');
+
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/callback');
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/module/callback');
+	}
+
 	public function index() {
 		$this->load->language('extension/module/callback');
 		$this->load->language('extension/materialize/materialize');
@@ -50,10 +67,22 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['error_success'] = array();
 		}
 
-		if (isset($this->error['error_module_callback_time'])) {
-			$data['error_module_callback_time'] = $this->error['error_module_callback_time'];
+		if (isset($this->error['caption'])) {
+			$data['error_caption'] = $this->error['caption'];
 		} else {
-			$data['error_module_callback_time'] = '';
+			$data['error_caption'] = array();
+		}
+
+		if (isset($this->error['description'])) {
+			$data['error_description'] = $this->error['description'];
+		} else {
+			$data['error_description'] = array();
+		}
+
+		if (isset($this->error['error_callback_time'])) {
+			$data['error_callback_time'] = $this->error['error_callback_time'];
+		} else {
+			$data['error_callback_time'] = '';
 		}
 
 		$data['breadcrumbs'] = array();
@@ -103,7 +132,7 @@ class ControllerExtensionModuleCallback extends Controller {
 		} elseif ($this->config->get('module_callback_color_btn') == true) {
 			$data['module_callback_color_btn'] = $this->config->get('module_callback_color_btn');
 		} else {
-			$data['module_callback_color_btn'] = 'red';
+			$data['module_callback_color_btn'] = 'green darken-1';
 		}
 
 		if (isset($this->request->post['module_callback_color_btn_text'])) {
@@ -112,6 +141,22 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['module_callback_color_btn_text'] = $this->config->get('module_callback_color_btn_text');
 		} else {
 			$data['module_callback_color_btn_text'] = 'white-text';
+		}
+
+		if (isset($this->request->post['module_callback_color_bubble'])) {
+			$data['module_callback_color_bubble'] = $this->request->post['module_callback_color_bubble'];
+		} elseif ($this->config->get('module_callback_color_bubble') == true) {
+			$data['module_callback_color_bubble'] = $this->config->get('module_callback_color_bubble');
+		} else {
+			$data['module_callback_color_bubble'] = 'green lighten-1';
+		}
+
+		if (isset($this->request->post['module_callback_color_bubble_text'])) {
+			$data['module_callback_color_bubble_text'] = $this->request->post['module_callback_color_bubble_text'];
+		} elseif ($this->config->get('module_callback_color_bubble_text') == true) {
+			$data['module_callback_color_bubble_text'] = $this->config->get('module_callback_color_bubble_text');
+		} else {
+			$data['module_callback_color_bubble_text'] = 'white-text';
 		}
 
 		if (isset($this->request->post['module_callback_name'])) {
@@ -205,8 +250,19 @@ class ControllerExtensionModuleCallback extends Controller {
 				}
 			}
 
-			if ($this->request->post['module_callback_callaction_status'] && ((utf8_strlen($this->request->post['module_callback_time']) < 1) || ($this->request->post['module_callback_time'] < 1))) {
-				$this->error['error_module_callback_time'] = $this->language->get('error_time');
+			if ($this->request->post['module_callback_callaction_status'] == 1) {
+				foreach ($this->request->post['module_callback'] as $language_id => $value) {
+					if (utf8_strlen($value['caption']) < 1) {
+						$this->error['caption'][$language_id] = $this->language->get('error_title');
+					}
+					if (utf8_strlen($value['description']) < 1) {
+						$this->error['description'][$language_id] = $this->language->get('error_description');
+					}
+				}
+
+				if (utf8_strlen($this->request->post['module_callback_time']) < 1 || $this->request->post['module_callback_time'] < 1) {
+					$this->error['error_callback_time'] = $this->language->get('error_time');
+				}
 			}
 		}
 

@@ -20,8 +20,8 @@ $_['text_apply']					= 'Aplica';
 $_['entry_labels']					= 'Etichete';
 $_['entry_size_chart']				= 'Tabel cu marimi';
 $_['entry_default_option']			= 'Default';
-$_['entry_title_additional']		= 'Titlul câmpului';
-$_['entry_title']					= 'Titlu filei';
+$_['entry_tab_title_additional']	= 'Titlul câmpului';
+$_['entry_tab_title']				= 'Titlu filei';
 
 // Tabs
 $_['tab_size_chart']				= 'Tabel cu marimi';

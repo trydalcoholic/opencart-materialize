@@ -23,6 +23,7 @@ $_['entry_fields']			= 'Дополнительные поля';
 $_['entry_title']			= 'Заголовок';
 $_['entry_text_button']		= 'Текст кнопки';
 $_['entry_button_color']	= 'Цвет кнопки';
+$_['entry_bubble_color']	= 'Цвет пузыря';
 $_['entry_description']		= 'Описание';
 $_['entry_time']			= 'Время до появления';
 $_['entry_agreement']		= 'Соглашение с правилами';

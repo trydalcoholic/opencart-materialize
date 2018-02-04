@@ -2,6 +2,13 @@
 class ControllerExtensionModuleMap extends Controller {
 	private $error = array();
 
+	public function uninstall() {
+		$this->load->model('user/user_group');
+
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/map');
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/module/map');
+	}
+
 	public function index() {
 		$this->load->language('extension/module/map');
 		$this->load->language('extension/materialize/materialize');

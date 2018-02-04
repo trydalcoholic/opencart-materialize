@@ -20,8 +20,8 @@ $_['text_apply']					= 'Uygula';
 $_['entry_labels']					= 'Etiketler';
 $_['entry_size_chart']				= 'Beden Tablosu';
 $_['entry_default_option']			= 'Varsayılan';
-$_['entry_title_additional']		= 'Alan Başlığı';
-$_['entry_title']					= 'Sekme Başlığıe';
+$_['entry_tab_title_additional']	= 'Alan Başlığı';
+$_['entry_tab_title']				= 'Sekme Başlığıe';
 
 // Tabs
 $_['tab_size_chart']				= 'Beden Tablosu';

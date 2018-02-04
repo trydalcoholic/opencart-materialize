@@ -2,6 +2,13 @@
 class ControllerExtensionDashboardCallback extends Controller {
 	private $error = array();
 
+	public function uninstall() {
+		$this->load->model('user/user_group');
+
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/dashboard/callback');
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/dashboard/callback');
+	}
+
 	public function index() {
 		$this->load->language('extension/dashboard/callback');
 		$this->load->language('extension/materialize/materialize');
@@ -29,18 +36,18 @@ class ControllerExtensionDashboardCallback extends Controller {
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+			'text'	=> $this->language->get('text_home'),
+			'href'	=> $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_extension'),
-			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
+			'text'	=> $this->language->get('text_extension'),
+			'href'	=> $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
 		);
 
 		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/dashboard/callback', 'user_token=' . $this->session->data['user_token'], true)
+			'text'	=> $this->language->get('heading_title'),
+			'href'	=> $this->url->link('extension/dashboard/callback', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
 		$data['action'] = $this->url->link('extension/dashboard/callback', 'user_token=' . $this->session->data['user_token'], true);
@@ -54,11 +61,11 @@ class ControllerExtensionDashboardCallback extends Controller {
 		}
 
 		$data['columns'] = array();
-		
+
 		for ($i = 3; $i <= 12; $i++) {
 			$data['columns'][] = $i;
 		}
-				
+
 		if (isset($this->request->post['dashboard_callback_status'])) {
 			$data['dashboard_callback_status'] = $this->request->post['dashboard_callback_status'];
 		} else {
@@ -85,7 +92,7 @@ class ControllerExtensionDashboardCallback extends Controller {
 
 		return !$this->error;
 	}
-		
+
 	public function dashboard() {
 		$this->load->language('extension/dashboard/callback');
 

@@ -16,13 +16,14 @@ $_['text_call_time']		= 'Uygun bir zamanda çağrı';
 
 // Entry
 $_['entry_phonemask']		= 'Telefon giriş maskesi';
-$_['entry_status']			= 'Durum:';
-$_['entry_required']		= 'Gereklidir:';
+$_['entry_status']			= 'Durum';
+$_['entry_required']		= 'Gereklidir';
 $_['entry_success']			= 'Göndermeden sonra metin';
-$_['entry_fields']			= 'Ek alanlar:';
+$_['entry_fields']			= 'Ek alanlar';
 $_['entry_title']			= 'Başlık';
 $_['entry_text_button']		= 'Düğme metni';
 $_['entry_button_color']	= 'Renkli düğmeler';
+$_['entry_bubble_color']	= 'Kabarcık rengi';
 $_['entry_description']		= 'Tanım';
 $_['entry_time']			= 'Görünüm zamanı';
 $_['entry_agreement']		= 'Kurallarla anlaşma yapmak';

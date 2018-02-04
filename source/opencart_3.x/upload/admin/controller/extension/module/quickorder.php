@@ -2,6 +2,13 @@
 class ControllerExtensionModuleQuickorder extends Controller {
 	private $error = array();
 
+	public function uninstall() {
+		$this->load->model('user/user_group');
+
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/quickorder');
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/module/quickorder');
+	}
+
 	public function index() {
 		$this->load->language('extension/module/quickorder');
 		$this->load->language('extension/materialize/materialize');

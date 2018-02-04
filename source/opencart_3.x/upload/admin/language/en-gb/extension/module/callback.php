@@ -23,6 +23,7 @@ $_['entry_fields']			= 'Additional fields';
 $_['entry_title']			= 'Title';
 $_['entry_text_button']		= 'Button text';
 $_['entry_button_color']	= 'Button color';
+$_['entry_bubble_color']	= 'Bubble color';
 $_['entry_description']		= 'Description';
 $_['entry_time']			= 'Time to Appearance';
 $_['entry_agreement']		= 'Agreement with the rules';

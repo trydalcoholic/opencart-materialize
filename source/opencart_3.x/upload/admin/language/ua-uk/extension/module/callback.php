@@ -16,15 +16,16 @@ $_['text_call_time']		= 'Зручний час для дзвінка';
 
 // Entry
 $_['entry_phonemask']		= 'Маска введення телефону';
-$_['entry_status']			= 'Статус:';
-$_['entry_required']		= 'Обов&#39;язково:';
+$_['entry_status']			= 'Статус';
+$_['entry_required']		= 'Обов&#39;язково';
 $_['entry_success']			= 'Текст після відправки';
-$_['entry_fields']			= 'Додаткові поля:';
+$_['entry_fields']			= 'Додаткові поля';
 $_['entry_title']			= 'Заголовок';
 $_['entry_text_button']		= 'Текст кнопки';
 $_['entry_button_color']	= 'Колір кнопки';
-$_['entry_description']		= 'Опис:';
-$_['entry_time']			= 'Час до появи:';
+$_['entry_bubble_color']	= 'Колір пузир';
+$_['entry_description']		= 'Опис';
+$_['entry_time']			= 'Час до появи';
 $_['entry_agreement']		= 'Угода з правилами';
 
 // Help

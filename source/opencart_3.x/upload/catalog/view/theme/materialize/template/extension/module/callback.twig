@@ -45,13 +45,13 @@
 		<input type="hidden" name="order_page" value="{{ order_page }}">
 	</div>
 	<div class="modal-footer href-underline">
-		<button type="button" id="callback__button" class="btn modal-action waves-effect waves-light {{ module_callback_color_btn }} {{ module_callback_color_btn_text }}" value="{{ module_callback_text_button }}">{{ module_callback_text_button }}</button>
+		<button type="button" id="callback__button" class="btn modal-action waves-effect waves-light red white-text" value="{{ module_callback_text_button }}">{{ module_callback_text_button }}</button>
 	</div>
 </form>
 {% if module_callback_callaction_status %}
-<button type="button" data-target="callback__modal" id="callback__btn" class="btn-floating btn-large green darken-1 z-depth-4 waves-effect waves-light pulse modal-trigger"><i id="callback__phone-icon" class="material-icons">phone</i></button>
-<div id="callback__attract" class="tap-target green lighten-1" data-activates="callback__btn">
-	<div class="tap-target-content white-text">
+<button type="button" data-target="callback__modal" id="callback__btn" class="btn-floating btn-large {{ module_callback_color_btn }} z-depth-4 waves-effect waves-light pulse modal-trigger"><i id="callback__phone-icon" class="material-icons {{ module_callback_color_btn_text }}">phone</i></button>
+<div id="callback__attract" class="tap-target {{ module_callback_color_bubble }}" data-activates="callback__btn">
+	<div class="tap-target-content {{ module_callback_color_bubble_text }}">
 		<i id="callback__attract-close" class="material-icons waves-effect waves-circle right">close</i>
 		<h5 class="text-bold">{{ module_callback_caption }}</h5>
 		<p>{{ module_callback_description }}</p>
