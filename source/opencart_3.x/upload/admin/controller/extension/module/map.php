@@ -212,7 +212,7 @@ class ControllerExtensionModuleMap extends Controller {
 	}
 
 	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'extension/module/blog')) {
+		if (!$this->user->hasPermission('modify', 'extension/module/map')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 

@@ -36,11 +36,24 @@
 			}
 			]]></add>
 		</operation>
+		<!-- Materialize Template Settings -->
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[
+			if ($this->user->hasPermission('access', 'extension/theme/materialize')) {
+				$materialize[] = array(
+					'name'		=> $this->language->get('text_materialize_settings'),
+					'href'		=> $this->url->link('extension/theme/materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=0', true),
+					'children'	=> array()
+				);
+			}
+			]]></add>
+		</operation>
 		<!-- Labels -->
 		<operation error="log">
 			<search><![CDATA[$marketplace = array();]]></search>
 			<add position="before"><![CDATA[
-			if ($this->user->hasPermission('access', 'extension/materialize/label/label')) {
+			if ($this->user->hasPermission('access', 'extension/materialize/label/label') && $this->config->get('module_label_status') == 1) {
 				$materialize[] = array(
 					'name'		=> $this->language->get('text_labels'),
 					'href'		=> $this->url->link('extension/materialize/label/label', 'user_token=' . $this->session->data['user_token'], true),
@@ -53,7 +66,7 @@
 		<operation error="log">
 			<search><![CDATA[$marketplace = array();]]></search>
 			<add position="before"><![CDATA[
-			if ($this->user->hasPermission('access', 'extension/module/quickorder')) {
+			if ($this->user->hasPermission('access', 'extension/module/quickorder') && $this->config->get('module_quickorder_status') == 1) {
 				$materialize[] = array(
 					'name'		=> $this->language->get('text_quickorder'),
 					'href'		=> $this->url->link('extension/module/quickorder', 'user_token=' . $this->session->data['user_token'], true),
@@ -66,7 +79,7 @@
 		<operation error="log">
 			<search><![CDATA[$marketplace = array();]]></search>
 			<add position="before"><![CDATA[
-			if ($this->user->hasPermission('access', 'extension/module/map')) {
+			if ($this->user->hasPermission('access', 'extension/module/map') && $this->config->get('module_map_status') == 1) {
 				$materialize[] = array(
 					'name'		=> $this->language->get('text_map'),
 					'href'		=> $this->url->link('extension/module/map', 'user_token=' . $this->session->data['user_token'], true),
@@ -105,7 +118,7 @@
 				);
 			}
 
-			if ($callback) {
+			if ($callback && $this->config->get('module_callback_status') == 1) {
 				$materialize[] = array(
 					'name'		=> $this->language->get('text_callback'),
 					'href'		=> '',
@@ -160,7 +173,7 @@
 				);
 			}
 
-			if ($blog) {
+			if ($blog && $this->config->get('module_blog_status') == 1) {
 				$materialize[] = array(
 					'name'		=> $this->language->get('text_blog'),
 					'href'		=> '',
@@ -169,19 +182,6 @@
 			}
 			]]></add>
 		</operation>
-		<!-- Materialize Template Settings -->
-		<!-- <operation error="log">
-			<search><![CDATA[$marketplace = array();]]></search>
-			<add position="before"><![CDATA[
-			if ($this->user->hasPermission('access', 'extension/theme/materialize')) {
-				$materialize[] = array(
-					'name'		=> $this->language->get('text_materialize_settings'),
-					'href'		=> $this->url->link('extension/theme/materialize', 'user_token=' . $this->session->data['user_token'], true),
-					'children'	=> array()
-				);
-			}
-			]]></add>
-		</operation> -->
 	</file>
 	<!-- Map -->
 	<file path="catalog/controller/information/contact.php">
@@ -237,25 +237,31 @@
 		<operation error="log">
 			<search><![CDATA[$this->load->model('setting/store');]]></search>
 			<add position="before"><![CDATA[
-			$this->load->model('extension/materialize/label');
+			if ($this->config->get('module_label_status') == 1) {
+				$data['module_label'] = true;
 
-			$data['labels'] = array();
+				$this->load->model('extension/materialize/label');
 
-			$labels = $this->model_extension_materialize_label->getLabels();
+				$data['labels'] = array();
 
-			foreach ($labels as $label) {
-				$data['labels'][] = array(
-					'label_id'	=> $label['label_id'],
-					'name'		=> $label['name']
-				);
-			}
+				$labels = $this->model_extension_materialize_label->getLabels();
 
-			if (isset($this->request->post['product_label'])) {
-				$data['product_label'] = $this->request->post['product_label'];
-			} elseif (isset($this->request->get['product_id'])) {
-				$data['product_label'] = $this->model_catalog_product->getProductLabels($this->request->get['product_id']);
+				foreach ($labels as $label) {
+					$data['labels'][] = array(
+						'label_id'	=> $label['label_id'],
+						'name'		=> $label['name']
+					);
+				}
+
+				if (isset($this->request->post['product_label'])) {
+					$data['product_label'] = $this->request->post['product_label'];
+				} elseif (isset($this->request->get['product_id'])) {
+					$data['product_label'] = $this->model_catalog_product->getProductLabels($this->request->get['product_id']);
+				} else {
+					$data['product_label'] = array();
+				}
 			} else {
-				$data['product_label'] = array();
+				$data['module_label'] = false;
 			}
 			]]></add>
 		</operation>
@@ -264,9 +270,11 @@
 		<operation error="log">
 			<search><![CDATA[$product_id = $this->db->getLastId();]]></search>
 			<add position="after"><![CDATA[
-			if (isset($data['product_label'])) {
-				foreach ($data['product_label'] as $label_id) {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "product_label SET product_id = '" . (int)$product_id . "', label_id = '" . (int)$label_id . "'");
+			if ($this->config->get('module_label_status') == 1) {
+				if (isset($data['product_label'])) {
+					foreach ($data['product_label'] as $label_id) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_label SET product_id = '" . (int)$product_id . "', label_id = '" . (int)$label_id . "'");
+					}
 				}
 			}
 			]]></add>
@@ -274,22 +282,32 @@
 		<operation error="log">
 			<search><![CDATA[public function editProduct($product_id, $data) {]]></search>
 			<add position="after"><![CDATA[
-			$this->db->query("DELETE FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");
+			if ($this->config->get('module_label_status') == 1) {
+				$this->db->query("DELETE FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");
 
-			if (isset($data['product_label'])) {
-				foreach ($data['product_label'] as $product_label) {
-					$this->db->query("INSERT INTO " . DB_PREFIX . "product_label SET product_id = '" . (int)$product_id . "', label_id = '" . (int)$product_label . "'");
+				if (isset($data['product_label'])) {
+					foreach ($data['product_label'] as $product_label) {
+						$this->db->query("INSERT INTO " . DB_PREFIX . "product_label SET product_id = '" . (int)$product_id . "', label_id = '" . (int)$product_label . "'");
+					}
 				}
 			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$this->addProduct($data);]]></search>
-			<add position="before"><![CDATA[$data['product_label'] = $this->getProductLabels($product_id);]]></add>
+			<add position="before"><![CDATA[
+			if ($this->config->get('module_label_status') == 1) {
+				$data['product_label'] = $this->getProductLabels($product_id);
+			}
+			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[public function deleteProduct($product_id) {]]></search>
-			<add position="after"><![CDATA[$this->db->query("DELETE FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");]]></add>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_label_status') == 1) {
+				$this->db->query("DELETE FROM " . DB_PREFIX . "product_label WHERE product_id = '" . (int)$product_id . "'");
+			}
+			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[class ModelCatalogProduct extends Model {]]></search>
@@ -318,26 +336,28 @@
 		<operation error="log">
 			<search index="23"><![CDATA[<div class="form-group">]]></search>
 			<add position="before"><![CDATA[
-			<div class="form-group">
-				<label class="col-sm-2 control-label">{{ entry_labels }}</label>
-				<div class="col-sm-10">
-					<div class="well well-sm" style="height: 150px; overflow: auto;">
-						{% for label in labels %}
-						<div class="checkbox">
-							<label>
-								{% if label.label_id in product_label %}
-								<input type="checkbox" name="product_label[]" value="{{ label.label_id }}" checked="checked" />
-								{{ label.name }}
-								{% else %}
-								<input type="checkbox" name="product_label[]" value="{{ label.label_id }}" />
-								{{ label.name }}
-								{% endif %}
-							</label>
+			{% if module_label %}
+				<div class="form-group">
+					<label class="col-sm-2 control-label">{{ entry_labels }}</label>
+					<div class="col-sm-10">
+						<div class="well well-sm" style="height: 150px; overflow: auto;">
+							{% for label in labels %}
+							<div class="checkbox">
+								<label>
+									{% if label.label_id in product_label %}
+									<input type="checkbox" name="product_label[]" value="{{ label.label_id }}" checked="checked" />
+									{{ label.name }}
+									{% else %}
+									<input type="checkbox" name="product_label[]" value="{{ label.label_id }}" />
+									{{ label.name }}
+									{% endif %}
+								</label>
+							</div>
+							{% endfor %}
 						</div>
-						{% endfor %}
 					</div>
 				</div>
-			</div>
+			{% endif %}
 			]]></add>
 		</operation>
 	</file>
@@ -347,14 +367,16 @@
 			<add position="before"><![CDATA[
 			$labels = array();
 
-			$labels_array = $this->model_catalog_product->getProductLabels($result['product_id']);
+			if ($this->config->get('module_label_status') == 1) {
+				$labels_array = $this->model_catalog_product->getProductLabels($result['product_id']);
 
-			foreach ($labels_array as $label) {
-				$labels[] = array(
-					'name'			=> $label['name'],
-					'color'			=> $label['label_color'],
-					'color_text'	=> $label['label_color_text']
-				);
+				foreach ($labels_array as $label) {
+					$labels[] = array(
+						'name'			=> $label['name'],
+						'color'			=> $label['label_color'],
+						'color_text'	=> $label['label_color_text']
+					);
+				}
 			}
 			]]></add>
 		</operation>
@@ -369,14 +391,16 @@
 			<add position="after"><![CDATA[
 			$data['labels'] = array();
 
-			$results = $this->model_catalog_product->getProductLabels($this->request->get['product_id']);
+			if ($this->config->get('module_label_status') == 1) {
+				$results = $this->model_catalog_product->getProductLabels($this->request->get['product_id']);
 
-			foreach ($results as $result) {
-				$data['labels'][] = array(
-					'name'			=> $result['name'],
-					'color'			=> $result['label_color'],
-					'color_text'	=> $result['label_color_text']
-				);
+				foreach ($results as $result) {
+					$data['labels'][] = array(
+						'name'			=> $result['name'],
+						'color'			=> $result['label_color'],
+						'color_text'	=> $result['label_color_text']
+					);
+				}
 			}
 			]]></add>
 		</operation>
@@ -387,14 +411,16 @@
 			<add position="before"><![CDATA[
 			$labels = array();
 
-			$results = $this->model_catalog_product->getProductLabels($product_info['product_id']);
+			if ($this->config->get('module_label_status') == 1) {
+				$results = $this->model_catalog_product->getProductLabels($product_info['product_id']);
 
-			foreach ($results as $result) {
-				$labels[] = array(
-					'name'			=> $result['name'],
-					'color'			=> $result['label_color'],
-					'color_text'	=> $result['label_color_text']
-				);
+				foreach ($results as $result) {
+					$labels[] = array(
+						'name'			=> $result['name'],
+						'color'			=> $result['label_color'],
+						'color_text'	=> $result['label_color_text']
+					);
+				}
 			}
 			]]></add>
 		</operation>
@@ -409,14 +435,16 @@
 			<add position="before"><![CDATA[
 			$labels = array();
 
-			$labels_array = $this->model_catalog_product->getProductLabels($result['product_id']);
+			if ($this->config->get('module_label_status') == 1) {
+				$labels_array = $this->model_catalog_product->getProductLabels($result['product_id']);
 
-			foreach ($labels_array as $label) {
-				$labels[] = array(
-					'name'			=> $label['name'],
-					'color'			=> $label['label_color'],
-					'color_text'	=> $label['label_color_text']
-				);
+				foreach ($labels_array as $label) {
+					$labels[] = array(
+						'name'			=> $label['name'],
+						'color'			=> $label['label_color'],
+						'color_text'	=> $label['label_color_text']
+					);
+				}
 			}
 			]]></add>
 		</operation>

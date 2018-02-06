@@ -1,44 +1,5 @@
 <?php
 class ModelExtensionMaterializeLabel extends Model {
-	public function install() {
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "materialize_label` (
-				`label_id` INT(11) NOT NULL AUTO_INCREMENT,
-				`label_color` VARCHAR(25) NOT NULL,
-				`label_color_text` VARCHAR(35) NOT NULL,
-				`sort_order` INT(3) NOT NULL,
-				PRIMARY KEY (`label_id`)
-			) ENGINE = MyISAM;
-		");
-
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "materialize_label_description` (
-				`label_id` INT(11) NOT NULL,
-				`language_id` INT(11) NOT NULL,
-				`name` VARCHAR(20) NOT NULL,
-				PRIMARY KEY (`label_id`, `language_id`)
-			) ENGINE = MyISAM;
-		");
-
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "product_label` (
-				`product_id` INT(11) NOT NULL,
-				`label_id` INT(11) NOT NULL,
-				PRIMARY KEY (`product_id`,`label_id`)
-			) ENGINE = MyISAM;
-		");
-	}
-
-	public function uninstall() {
-		$this->db->query("
-			DROP TABLE IF EXISTS
-				`" . DB_PREFIX . "materialize_label`,
-				`" . DB_PREFIX . "materialize_label_description`,
-				`" . DB_PREFIX . "product_label`
-			;
-		");
-	}
-
 	public function addLabel($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "materialize_label SET label_color = '" . $this->db->escape($data['label_color']) . "', label_color_text = '" . $this->db->escape($data['label_color_text']) . "', sort_order = '" . (int)$data['sort_order'] . "'");
 

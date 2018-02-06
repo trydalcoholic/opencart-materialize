@@ -220,7 +220,6 @@ class ControllerExtensionModuleBlog extends Controller {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'extension/materialize/blog/blog'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'extension/materialize/blog/author'");
 
-
 		$this->db->query("
 			DROP TABLE IF EXISTS
 				`" . DB_PREFIX . "blog_author`,
