@@ -6,7 +6,7 @@
 				<button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
 				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
 			</div>
-			<h1>{{ label_title }}</h1>
+			<h1>{{ sizechart_title }}</h1>
 			<ul class="breadcrumb">
 				{% for breadcrumb in breadcrumbs %}
 				<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
@@ -22,8 +22,8 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
 						<div class="col-sm-10">
-							<select name="module_label_status" id="input-status" class="selectpicker show-tick" data-width="100%">
-								{% if module_label_status %}
+							<select name="module_sizechart_status" id="input-status" class="selectpicker show-tick" data-width="100%">
+								{% if module_sizechart_status %}
 								<option value="1" selected="selected" data-icon="fa-toggle-on">{{ text_enabled }}</option>
 								<option value="0" data-icon="fa-toggle-off">{{ text_disabled }}</option>
 								{% else %}

@@ -3,6 +3,7 @@
 $_['text_materialize']				= 'Materialize Template';
 $_['text_materialize_settings']		= 'Ayarlar';
 $_['text_labels']					= 'Etiketler';
+$_['text_sizechart']				= 'Boyut Tabloları';
 $_['text_callback']					= 'Geri arama';
 $_['text_callback_dashboard']		= 'Paneli Geri arama';
 $_['text_callback_settings']		= 'Geri Arama Ayarları';

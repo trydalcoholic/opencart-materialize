@@ -1,0 +1,207 @@
+{{ header }}{{ column_left }}
+<div id="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="pull-right">
+				<button type="submit" form="form-sizechart" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+			</div>
+			<h1>{{ heading_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+				<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3></div>
+			<div class="panel-body">
+				<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-sizechart" class="form-horizontal">
+					<fieldset>
+						<legend>{{ text_group }}</legend>
+						<div class="form-group required">
+							<label class="col-sm-2 control-label">{{ entry_group }}:</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+								<div class="input-group">
+									<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+									<input type="text" name="sizechart_group_description[{{ language.language_id }}][name]" value="{{ sizechart_group_description[language.language_id] ? sizechart_group_description[language.language_id].name }}" placeholder="{{ entry_group }}" class="form-control" />
+								</div>
+								{% if error_group[language.language_id] %}<div class="text-danger">{{ error_group[language.language_id] }}</div>{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}:</label>
+							<div class="col-sm-10">
+								<input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+							</div>
+						</div>
+					</fieldset>
+					<br>
+					<fieldset>
+						<legend>{{ text_value }}</legend>
+						<div class="form-group">
+							<div class="col-sm-2">
+								<ul class="nav nav-pills nav-stacked" id="sizechart">
+									{% set sizechart_row = 0 %}
+									{% for sizechart in sizecharts %}
+									<li><a href="#tab-sizechart{{ sizechart_row }}" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('a[href=\'#tab-sizechart{{ sizechart_row }}\']').parent().remove(); $('#tab-sizechart{{ sizechart_row }}').remove(); $('#sizechart a:first').tab('show');"></i> {{ sizechart.sizechart_description[current_language] ? sizechart.sizechart_description[current_language].name }}</a></li>
+									{% set sizechart_row = sizechart_row + 1 %}
+									{% endfor %}
+									<li id="sizechart-add"><a onclick="addSizechart();"><i class="fa fa-plus-circle"></i> {{ text_add }}</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-10">
+								<div class="tab-content sizechart-content">
+									{% set sizechart_row = 0 %}
+									{% for sizechart in sizecharts %}
+									<div class="tab-pane" id="tab-sizechart{{ sizechart_row }}">
+										<input type="hidden" name="sizechart[{{ sizechart_row }}][sizechart_id]" value="{{ sizechart.sizechart_id }}" />
+										<ul class="nav nav-tabs" id="language{{ sizechart_row }}">
+											{% for language in languages %}
+											<li><a href="#tab-sizechart{{ sizechart_row }}-language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />  {{ language.name }}</a></li>
+											{% endfor %}
+										</ul>
+										<div class="tab-content">
+											{% for language in languages %}
+											<div class="tab-pane" id="tab-sizechart{{ sizechart_row }}-language{{ language.language_id }}">
+												<div class="form-group required">
+													<label class="col-sm-2 control-label">{{ entry_name }}:</label>
+													<div class="col-sm-10">
+														<input type="text" name="sizechart[{{ sizechart_row }}][sizechart_description][{{ language.language_id }}][name]" value="{{ sizechart.sizechart_description[language.language_id] ? sizechart.sizechart_description[language.language_id].name }}" class="form-control"/>
+														{% if error_sizechart[sizechart_row][language.language_id] %}
+															<div class="text-danger">{{ error_sizechart[sizechart_row][language.language_id] }}</div>
+															<script type="text/javascript">
+																$.notify({
+																	icon: 'fa fa-exclamation-circle',
+																	message: '{{ error_sizechart[sizechart_row][language.language_id] }}'
+																},{
+																	type: "danger"
+																});
+															</script>
+														{% endif %}
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label">{{ entry_description }}:</label>
+													<div class="col-sm-10">
+														<textarea name="sizechart[{{ sizechart_row }}][sizechart_description][{{ language.language_id }}][description]" placeholder="{{ entry_description }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ sizechart.sizechart_description[language.language_id] ? sizechart.sizechart_description[language.language_id].description }}</textarea>
+													</div>
+												</div>
+											</div>
+											{% endfor %}
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label">{{ entry_sort_order }}:</label>
+											<div class="col-sm-10">
+												<input type="text" name="sizechart[{{ sizechart_row }}][sort_order]" value="{{ sizechart.sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" />
+											</div>
+										</div>
+									</div>
+									{% set sizechart_row = sizechart_row + 1 %}
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="panel-footer text-center">
+				<i class="fa fa-opencart"></i>&nbsp;
+				<a href="//goo.gl/bjyFAW" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Materialize Template</b>" data-content="{{ appeal_marketplace }}"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
+				<i class="fa fa-github"></i>&nbsp;
+				<a href="//goo.gl/VAM4ww" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>GitHub</b>" data-content="{{ appeal_github }}">GitHub</a>&nbsp;|&nbsp;
+				<i class="fa fa-twitter"></i>&nbsp;
+				<a href="//goo.gl/yG1AGS" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Twitter</b>" data-content="{{ appeal_twitter }}">Twitter</a>&nbsp;|&nbsp;
+				<i class="fa fa-paypal"></i>&nbsp;
+				<a href="//goo.gl/Ry4CeM" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>PayPal</b>" data-content="{{ appeal_paypal }}">PayPal</a>&nbsp;|&nbsp;
+				<i class="fa fa-credit-card"></i>&nbsp;
+				<a href="//goo.gl/1C4gKu" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Yandex.Money</b>" data-content="{{ appeal_yandex_money }}">Yandex.Money</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var sizechart_row = {{ sizechart_row }};
+
+	function addSizechart() {
+		html  = '<div class="tab-pane" id="tab-sizechart' + sizechart_row + '">';
+		html +=	'	<input type="hidden" name="sizechart[' + sizechart_row + '][sizechart_id]" value="" />';
+		html += '	<ul class="nav nav-tabs" id="language' + sizechart_row + '">';
+		{% for language in languages %}
+		html += '		<li><a href="#tab-sizechart' + sizechart_row + '-language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />  {{ language.name }}</a></li>';
+		{% endfor %}
+		html += '	</ul>';
+		html += '	<div class="tab-content">';
+		{% for language in languages %}
+		html += '		<div class="tab-pane" id="tab-sizechart' + sizechart_row + '-language{{ language.language_id }}">';
+		html += '			<div class="form-group required">';
+		html += '				<label class="col-sm-2 control-label">{{ entry_name }}:</label>';
+		html += '				<div class="col-sm-10">';
+		html += '					<input type="text" name="sizechart[' + sizechart_row + '][sizechart_description][{{ language.language_id }}][name]" value="{{ sizechart.sizechart_description[language.language_id] ? sizechart.sizechart_description[language.language_id].name }}" class="form-control"/>';
+		html += '				</div>';
+		html += '			</div>';
+		html += '			<div class="form-group">';
+		html += '				<label class="col-sm-2 control-label">{{ entry_description }}:</label>';
+		html += '				<div class="col-sm-10">';
+		html += '					<textarea name="sizechart[' + sizechart_row + '][sizechart_description][{{ language.language_id }}][description]" placeholder="{{ entry_description }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control summernote">{{ sizechart.sizechart_description[language.language_id] ? sizechart.sizechart_description[language.language_id].description }}</textarea>';
+		html += '				</div>';
+		html += '			</div>';
+		html += '		</div>';
+		{% endfor %}
+		html += '	</div>';
+		html += '	<div class="form-group">';
+		html += '		<label class="col-sm-2 control-label">{{ entry_sort_order }}:</label>';
+		html += '		<div class="col-sm-10">';
+		html += '			<input type="text" name="sizechart[' + sizechart_row + '][sort_order]" value="{{ sizechart.sort_order }}" placeholder="{{ entry_sort_order }}" class="form-control" />';
+		html += '		</div>';
+		html += '	</div>';
+		html += '</div>';
+
+		$('.sizechart-content').append(html);
+
+		$('.summernote').summernote({
+			height: 300
+		});
+
+		$('#sizechart-add').before('<li><a href="#tab-sizechart' + sizechart_row + '" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$(\'#sizechart a:first\').tab(\'show\'); $(\'a[href=\\\'#tab-sizechart' + sizechart_row + '\\\']\').parent().remove(); $(\'#tab-sizechart' + sizechart_row + '\').remove();"></i> {{ tab_sizechart }}</a></li>');
+
+		$('#tab-sizechart' + sizechart_row + ' li:first-child a').tab('show');
+
+		$('#sizechart a[href=\'#tab-sizechart' + sizechart_row + '\']').tab('show');
+
+		sizechart_row++;
+	}
+
+	$('#sizechart li:first-child a').tab('show');
+	{% set sizechart_row = 0 %}
+	{% for sizechart in sizecharts %}
+	$('#language{{ sizechart_row }} li:first-child a').tab('show');
+	{% set sizechart_row = sizechart_row + 1 %}
+	{% endfor %}
+
+	// Notify
+	{% if error_warning %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ error_warning }}'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+
+	{% for language in languages %}
+		{% if error_group[language.language_id] %}
+		$.notify({
+			icon: 'fa fa-exclamation-circle',
+			message: '{{ error_group[language.language_id] }}'
+		},{
+			type: "danger"
+		});
+		{% endif %}
+	{% endfor %}
+</script>
+{{ footer }}

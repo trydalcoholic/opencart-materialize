@@ -88,6 +88,19 @@
 			}
 			]]></add>
 		</operation>
+		<!-- Size Chart -->
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[
+			if ($this->user->hasPermission('access', 'extension/materialize/sizechart/sizechart') && $this->config->get('module_sizechart_status') == 1) {
+				$materialize[] = array(
+					'name'		=> $this->language->get('text_sizechart'),
+					'href'		=> $this->url->link('extension/materialize/sizechart/sizechart', 'user_token=' . $this->session->data['user_token'], true),
+					'children'	=> array()
+				);
+			}
+			]]></add>
+		</operation>
 		<!-- Callback -->
 		<operation error="log">
 			<search><![CDATA[$marketplace = array();]]></search>
@@ -334,8 +347,8 @@
 	</file>
 	<file path="admin/view/template/catalog/product_form.twig">
 		<operation error="log">
-			<search index="23"><![CDATA[<div class="form-group">]]></search>
-			<add position="before"><![CDATA[
+			<search><![CDATA[<div class="tab-pane" id="tab-links">]]></search>
+			<add position="after"><![CDATA[
 			{% if module_label %}
 				<div class="form-group">
 					<label class="col-sm-2 control-label">{{ entry_labels }}</label>
@@ -466,48 +479,147 @@
 		</operation>
 	</file>
 	<!-- Size Chart -->
+	<file path="admin/controller/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[protected function getForm() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_sizechart_status') == 1) {
+				$data['module_sizechart'] = true;
+
+				$this->load->model('extension/materialize/sizechart');
+
+				if (isset($this->request->post['sizechart_id'])) {
+					$data['sizechart_id'] = $this->request->post['sizechart_id'];
+				} elseif (isset($this->request->get['product_id'])) {
+					$data['sizechart_id'] = $this->model_catalog_product->getProductSizecharts($this->request->get['product_id']);
+				} else {
+					$data['sizechart_id'] = 0;
+				}
+
+				$data['product_sizechart'] = array();
+
+				$sizechart_info = $this->model_extension_materialize_sizechart->getSizechart($data['sizechart_id']);
+
+				if ($sizechart_info) {
+					$data['product_sizechart'][] = array(
+						'sizechart_id'	=> $sizechart_info['sizechart_id'],
+						'name'			=> $sizechart_info['group'] . ' &gt; ' . $sizechart_info['name']
+					);
+				}
+			} else {
+				$data['module_sizechart'] = false;
+			}
+			]]></add>
+		</operation>
+	</file>
 	<file path="admin/model/catalog/product.php">
 		<operation error="log">
-			<search><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_description SET]]></search>
-			<add position="replace"><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "product_description SET size_chart = '" . $this->db->escape($value['size_chart']) . "',]]></add>
+			<search><![CDATA[class ModelCatalogProduct extends Model {]]></search>
+			<add position="after"><![CDATA[
+			public function getProductSizecharts($product_id) {
+				$sizechart_id = array();
+
+				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_materialize_sizechart WHERE product_id = '" . (int)$product_id . "'");
+
+				foreach ($query->rows as $result) {
+					$sizechart_id = $result['sizechart_id'];
+				}
+
+				return $sizechart_id;
+			}
+			]]></add>
 		</operation>
 		<operation error="log">
-			<search><![CDATA[$product_description_data[$result['language_id']] = array(]]></search>
-			<add position="after"><![CDATA['size_chart'	=> $result['size_chart'],]]></add>
+			<search><![CDATA[$product_id = $this->db->getLastId();]]></search>
+			<add position="after"><![CDATA[
+			if (isset($data['sizechart_id'])) {
+				$this->db->query("INSERT INTO " . DB_PREFIX . "product_materialize_sizechart SET product_id = '" . (int)$product_id . "', sizechart_id = '" . (int)$data['sizechart_id'] . "'");
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function editProduct($product_id, $data) {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_sizechart_status') == 1) {
+				$this->db->query("DELETE FROM " . DB_PREFIX . "product_materialize_sizechart WHERE product_id = '" . (int)$product_id . "'");
+
+				if (isset($data['sizechart_id'])) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "product_materialize_sizechart SET product_id = '" . (int)$product_id . "', sizechart_id = '" . (int)$data['sizechart_id'] . "'");
+				}
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[public function deleteProduct($product_id) {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_sizechart_status') == 1) {
+				$this->db->query("DELETE FROM " . DB_PREFIX . "product_materialize_sizechart WHERE product_id = '" . (int)$product_id . "'");
+			}
+			]]></add>
 		</operation>
 	</file>
 	<file path="admin/view/template/catalog/product_form.twig">
 		<operation error="log">
-			<search><![CDATA[<li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>]]></search>
-			<add position="after"><![CDATA[<li><a href="#tab-size-chart" data-toggle="tab">{{ tab_size_chart }}</a></li>]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
-			<add position="before"><![CDATA[
-			<div class="tab-pane" id="tab-size-chart">
+			<search><![CDATA[<div class="tab-pane" id="tab-links">]]></search>
+			<add position="after"><![CDATA[
+			{% if module_sizechart %}
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="input-size-chart{{ language.language_id }}">{{ entry_size_chart }}</label>
+					<label class="col-sm-2 control-label" for="input-sizechart">{{ text_sizechart }}</label>
 					<div class="col-sm-10">
-						{% for language in languages %}
-						<span class="input-group-addon" style="border:1px solid #ccc;border-top-right-radius:3px;border-bottom-left-radius:0;"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
-						<textarea name="product_description[{{ language.language_id }}][size_chart]" placeholder="{{ entry_size_chart }}" data-toggle="summernote" data-lang="{{ summernote }}" id="input-size-chart{{ language.language_id }}" class="form-control" style="min-height:100px;resize:vertical;">{{ product_description[language.language_id] ? product_description[language.language_id].size_chart }}</textarea>
+						{% if product_sizechart %}
+						{% for sizechart in product_sizechart %}
+						<input type="text" name="sizechart" value="{{ sizechart.name }}" placeholder="{{ entry_sizechart }}" id="input-sizechart" class="form-control" />
+						<input type="hidden" name="sizechart_id" value="{{ sizechart.sizechart_id }}" />
 						{% endfor %}
+						{% else %}
+						<input type="text" name="sizechart" value="" placeholder="{{ entry_sizechart }}" id="input-sizechart" class="form-control" />
+						<input type="hidden" name="sizechart_id" value="" />
+						{% endif %}
 					</div>
 				</div>
-			</div>
+			{% endif %}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[{{ footer }}]]></search>
+			<add position="before"><![CDATA[
+			{% if module_sizechart %}
+			<script type="text/javascript">
+				$('input[name=\'sizechart\']').autocomplete({
+					'source': function(request, response) {
+						$.ajax({
+							url: 'index.php?route=extension/materialize/sizechart/sizechart/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
+							dataType: 'json',
+							success: function(json) {
+								response($.map(json, function(item) {
+									return {
+										label: item['name'],
+										value: item['sizechart_id']
+									}
+								}));
+							}
+						});
+					},
+					'select': function(item) {
+						$('input[name=\'sizechart\']').val(item['label']);
+						$('input[name=\'sizechart_id\']').val(item['value']);
+					}
+				});
+			</script>
+			{% endif %}
 			]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[if ($product_info) {]]></search>
-			<add position="after"><![CDATA[$data['size_chart'] = html_entity_decode($product_info['size_chart'], ENT_QUOTES, 'UTF-8');]]></add>
-		</operation>
-	</file>
-	<file path="catalog/model/catalog/product.php">
-		<operation error="log">
-			<search><![CDATA['meta_description' => $query->row['meta_description'],]]></search>
-			<add position="after"><![CDATA['size_chart'	=> $query->row['size_chart'],]]></add>
+			<add position="after"><![CDATA[
+			if ($this->config->get('module_sizechart_status') == 1) {
+				$data['sizechart'] = $this->load->controller('extension/module/sizechart', $data);
+			} else {
+				$data['sizechart'] = false;
+			}
+			]]></add>
 		</operation>
 	</file>
 	<!-- Callback -->

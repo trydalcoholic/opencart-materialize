@@ -3,6 +3,7 @@
 $_['text_materialize']				= 'Materialize Template';
 $_['text_materialize_settings']		= 'Настроювання';
 $_['text_labels']					= 'Етикетки';
+$_['text_sizechart']				= 'Таблиці розмірів';
 $_['text_callback']					= 'Зворотний дзвінок';
 $_['text_callback_dashboard']		= 'Панель Зворотного дзвінка';
 $_['text_callback_settings']		= 'Назад Налаштування';

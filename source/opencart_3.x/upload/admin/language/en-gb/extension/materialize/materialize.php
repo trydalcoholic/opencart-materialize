@@ -3,6 +3,7 @@
 $_['text_materialize']				= 'Materialize Template';
 $_['text_materialize_settings']		= 'Settings';
 $_['text_labels']					= 'Labels';
+$_['text_sizechart']				= 'Size Charts';
 $_['text_callback']					= 'Call Back';
 $_['text_callback_dashboard']		= 'Call Back Dashboard';
 $_['text_callback_settings']		= 'Call Back Settings';

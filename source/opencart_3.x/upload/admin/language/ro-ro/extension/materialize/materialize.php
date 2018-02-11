@@ -3,6 +3,7 @@
 $_['text_materialize']				= 'Materialize Template';
 $_['text_materialize_settings']		= 'Setări';
 $_['text_labels']					= 'Etichete';
+$_['text_sizechart']				= 'Mărimea graficelor';
 $_['text_callback']					= 'Suna inapoi';
 $_['text_callback_dashboard']		= 'Panou de apel';
 $_['text_callback_settings']		= 'Setări apel înapoi';
