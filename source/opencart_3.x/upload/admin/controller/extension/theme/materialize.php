@@ -3,52 +3,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	private $error = array();
 
 	public function install() {
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_description` ADD `size_chart` TEXT NOT NULL;");
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_option_value` ADD `default_option` TINYINT(1) NOT NULL DEFAULT '0';");
-
-		/* Custom Tabs */
-
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "product_customtab` (
-				`product_customtab_id` INT(11) NOT NULL AUTO_INCREMENT,
-				`product_id` INT(11) NOT NULL,
-				`sort_order` INT(11) NOT NULL,
-				`status` TINYINT(1) NOT NULL,
-				PRIMARY KEY (`product_customtab_id`)
-			) ENGINE=MyISAM;
-		");
-
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "product_customtab_description` (
-				`product_customtab_id` INT(11) NOT NULL,
-				`language_id` INT(11) NOT NULL,
-				`product_id` INT(11) NOT NULL,
-				`title` VARCHAR(255) CHARACTER SET utf8 NOT NULL,
-				`description` TEXT CHARACTER SET utf8 NOT NULL
-			) ENGINE=MyISAM;
-		");
-
-		/* Additional Fields */
-
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "product_additionalfield` (
-				`product_additionalfield_id` INT(11) NOT NULL AUTO_INCREMENT,
-				`product_id` INT(11) NOT NULL,
-				`sort_order` INT(11) NOT NULL,
-				`status` TINYINT(1) NOT NULL,
-				PRIMARY KEY (`product_additionalfield_id`)
-			) ENGINE=MyISAM;
-		");
-
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "product_additionalfield_text` (
-				`product_additionalfield_id` INT(11) NOT NULL,
-				`language_id` INT(11) NOT NULL,
-				`product_id` INT(11) NOT NULL,
-				`title` VARCHAR(255) CHARACTER SET utf8 NOT NULL,
-				`text` VARCHAR(255) CHARACTER SET utf8 NOT NULL
-			) ENGINE=MyISAM;
-		");
 
 		/* Install for Materialize Modules */
 
@@ -65,17 +20,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	}
 
 	public function uninstall() {
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_description` DROP `size_chart`;");
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_option_value` DROP `default_option`;");
-
-		$this->db->query("
-			DROP TABLE IF EXISTS
-				`" . DB_PREFIX . "product_customtab`,
-				`" . DB_PREFIX . "product_customtab_description`,
-				`" . DB_PREFIX . "product_additionalfield`,
-				`" . DB_PREFIX . "product_additionalfield_text`
-			;
-		");
 
 		/* Uninstall Materialize Modules */
 

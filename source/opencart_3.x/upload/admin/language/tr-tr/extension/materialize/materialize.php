@@ -16,22 +16,12 @@ $_['text_blog_author']				= 'Yazarlar';
 $_['text_blog_comment']				= 'Yorumlar';
 $_['text_blog_settings']			= 'Blog ayarları';
 $_['text_apply']					= 'Uygula';
-
-// Entry
-$_['entry_labels']					= 'Etiketler';
-$_['entry_size_chart']				= 'Beden Tablosu';
-$_['entry_default_option']			= 'Varsayılan';
-$_['entry_tab_title_additional']	= 'Alan Başlığı';
-$_['entry_tab_title']				= 'Sekme Başlığıe';
-
-// Tabs
-$_['tab_size_chart']				= 'Beden Tablosu';
-$_['tab_additionalfield']			= 'Ek alanlar';
-$_['tab_customtab']					= 'Özel Sekme';
-
-// Buttons
-$_['button_additionalfield_add']	= 'Alan ekle';
-$_['button_customtab_add']			= 'Sekme ekle';
+$_['text_customtab']				= 'Özel Sekme';
+$_['text_add_tab']					= 'Sekme Ekle';
+$_['text_tab_title']				= 'Sekme Başlığı';
+$_['text_additionalfield']			= 'İlave Alan';
+$_['text_add_additionalfield']		= 'Ek Alan Ekle';
+$_['text_additionalfield_title']	= 'İlave Saha Başlığı';
 
 // To appeal to users
 $_['appeal_marketplace']			= 'Koyunuz değerlendirme <ul><li>Gidin hesabınızı</li> <li>Seçin &quot;Rate your Downloads&quot;</li> <li>Seçin &quot;Materialize Template&quot;</li> <li>Dürüst bir değerlendirme yapın ve geribildirim bırakın :)</li></ul>';

@@ -16,22 +16,12 @@ $_['text_blog_author']				= 'Авторы';
 $_['text_blog_comment']				= 'Комментарии';
 $_['text_blog_settings']			= 'Настройки Блога';
 $_['text_apply']					= 'Применить';
-
-// Entry
-$_['entry_labels']					= 'Этикетки';
-$_['entry_size_chart']				= 'Таблица размеров';
-$_['entry_default_option']			= 'По умолчанию';
-$_['entry_tab_title_additional']	= 'Название поля';
-$_['entry_tab_title']				= 'Название вкладки';
-
-// Tabs
-$_['tab_size_chart']				= 'Таблица размеров';
-$_['tab_additionalfield']			= 'Дополнительные поля';
-$_['tab_customtab']					= 'Дополнительные вкладки';
-
-// Buttons
-$_['button_additionalfield_add']	= 'Добавить поле';
-$_['button_customtab_add']			= 'Добавить вкладку';
+$_['text_customtab']				= 'Дополнительная вкладка';
+$_['text_add_tab']					= 'Добавить вкладку';
+$_['text_tab_title']				= 'Название вкладки';
+$_['text_additionalfield']			= 'Дополнительное поле';
+$_['text_add_additionalfield']		= 'Добавить Дополнительное поле';
+$_['text_additionalfield_title']	= 'Название Дополнительного поля';
 
 // To appeal to users
 $_['appeal_marketplace']			= 'Пожалуйста, поставьте оценку Materialize Template <ul><li>Зайдите в ваш аккаунт на OpenCart Marketplace</li> <li>Выберите &quot;Rate your Downloads&quot;</li> <li>Выберите &quot;Materialize Template&quot;</li> <li>Поставьте честную оценку и оставьте отзыв :)</li></ul>';

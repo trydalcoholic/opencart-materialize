@@ -4,8 +4,8 @@ $_['heading_title']		= '<font color="#263238"><b><i class="fa fa-table"></i>&nbs
 $_['sizechart_title']	= 'Materialize "Beden tablosu"';
 
 // Text
-$_['text_module']		= 'Modules';
-$_['text_success']		= 'Module settings updated!';
+$_['text_module']		= 'Modüller';
+$_['text_success']		= 'Modül ayarları güncellendi!';
 $_['text_edit']			= 'Materialize Beden tablosu modülünü düzenle';
 
 // Status

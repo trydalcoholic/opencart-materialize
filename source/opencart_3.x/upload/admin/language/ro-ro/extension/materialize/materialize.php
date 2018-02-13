@@ -16,22 +16,12 @@ $_['text_blog_author']				= 'Autori';
 $_['text_blog_comment']				= 'Comentarii';
 $_['text_blog_settings']			= 'Setări blog';
 $_['text_apply']					= 'Aplica';
-
-// Entry
-$_['entry_labels']					= 'Etichete';
-$_['entry_size_chart']				= 'Tabel cu marimi';
-$_['entry_default_option']			= 'Default';
-$_['entry_tab_title_additional']	= 'Titlul câmpului';
-$_['entry_tab_title']				= 'Titlu filei';
-
-// Tabs
-$_['tab_size_chart']				= 'Tabel cu marimi';
-$_['tab_additionalfield']			= 'Câmpuri suplimentare';
-$_['tab_customtab']					= 'Fila personalizata';
-
-// Buttons
-$_['button_additionalfield_add']	= 'Adăugați câmp';
-$_['button_customtab_add']			= 'Adauga fila';
+$_['text_customtab']				= 'Fila personalizată';
+$_['text_add_tab']					= 'Adăugați fila';
+$_['text_tab_title']				= 'Titlul fila';
+$_['text_additionalfield']			= 'Câmp suplimentar';
+$_['text_add_additionalfield']		= 'Adăugați câmpul suplimentar';
+$_['text_additionalfield_title']	= 'Titlu suplimentar de câmp';
 
 // To appeal to users
 $_['appeal_marketplace']			= 'Vă rugăm să evaluați Materialalize Template <ul><li>Deschideți contul pe OpenCart Marketplace</li> <li>Selectați &quot;Rate your Downloads&quot;</li> <li>Selectați &quot;Materialize Template&quot;</li> <li>Trimiteți o evaluare sinceră și lăsați-vă feedbackul :)</li></ul>';

@@ -16,22 +16,12 @@ $_['text_blog_author']				= 'Authors';
 $_['text_blog_comment']				= 'Comments';
 $_['text_blog_settings']			= 'Blog Settings';
 $_['text_apply']					= 'Apply';
-
-// Entry
-$_['entry_labels']					= 'Labels';
-$_['entry_size_chart']				= 'Size Chart';
-$_['entry_default_option']			= 'Default';
-$_['entry_tab_title_additional']	= 'Field Title';
-$_['entry_tab_title']				= 'Tab Title';
-
-// Tabs
-$_['tab_size_chart']				= 'Size Chart';
-$_['tab_additionalfield']			= 'Additional fields';
-$_['tab_customtab']					= 'Custom Tab';
-
-// Buttons
-$_['button_additionalfield_add']	= 'Add field';
-$_['button_customtab_add']			= 'Add tab';
+$_['text_customtab']				= 'Custom Tab';
+$_['text_add_tab']					= 'Add Tab';
+$_['text_tab_title']				= 'Tab Title';
+$_['text_additionalfield']			= 'Additional Field';
+$_['text_add_additionalfield']		= 'Add Additional Field';
+$_['text_additionalfield_title']	= 'Additional Field Title';
 
 // To appeal to users
 $_['appeal_marketplace']			= 'Please rate Materialize Template <ul><li>Open your account on the OpenCart Marketplace</li> <li>Select &quot;Rate your Downloads&quot;</li> <li>Select &quot;Materialize Template&quot;</li> <li>Post an honest assessment and leave your feedback :)</li></ul>';
