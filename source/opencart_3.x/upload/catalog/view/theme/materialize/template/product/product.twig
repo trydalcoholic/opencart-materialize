@@ -275,7 +275,9 @@
 										<ul class="product-option">
 											{% for option_value in option.product_option_value %}
 											<li>
-												{% if option_value.image %}<img src="{{ img_loader }}" data-src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="responsive-img lazyload">{% endif %}
+												{% if option_value.image %}
+												<img src="{{ img_loader }}" data-src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="responsive-img lazyload">
+												{% endif %}
 												<input type="radio" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" id="radio-{{ option_value.product_option_value_id }}" class="with-gap">
 												<label for="radio-{{ option_value.product_option_value_id }}">{{ option_value.name }} {% if option_value.price %} ({{ option_value.price_prefix }}{{ option_value.price }}) {% endif %}</label>
 											</li>

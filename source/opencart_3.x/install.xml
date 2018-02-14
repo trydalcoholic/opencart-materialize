@@ -946,7 +946,7 @@
 	</file>
 	<file path="catalog/controller/product/{category,manufacturer,product,search,special}*.php">
 		<operation error="log">
-			<search><![CDATA[if ($result['image']) {]]></search>
+			<search><![CDATA[$data['products'][] = array(]]></search>
 			<add position="before"><![CDATA[
 			if ($result['quantity'] <= 0) {
 				$result['quantity'] = false;
@@ -962,7 +962,7 @@
 	</file>
 	<file path="catalog/controller/extension/module/{bestseller,latest,special}*.php">
 		<operation error="log">
-			<search><![CDATA[if ($result['image']) {]]></search>
+			<search><![CDATA[$data['products'][] = array(]]></search>
 			<add position="before"><![CDATA[
 			if ($result['quantity'] <= 0) {
 				$result['quantity'] = false;
@@ -978,8 +978,8 @@
 	</file>
 	<file path="catalog/controller/extension/module/featured.php">
 		<operation error="log">
-			<search><![CDATA[if ($product_info['image']) {]]></search>
-			<add position="before"><![CDATA[
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[
 			if ($product_info['quantity'] <= 0) {
 				$product_info['quantity'] = false;
 			} else {
@@ -1026,126 +1026,6 @@
 				return $query->rows;
 			}
 			]]></add>
-		</operation>
-	</file>
-	<!-- Default option -->
-	<file path="admin/{controller,model}/catalog/product.php">
-		<operation error="log">
-			<search index="0"><![CDATA[$product_option_value_data[] = array(]]></search>
-			<add position="after"><![CDATA['default_option'	=> $product_option_value['default_option'],]]></add>
-		</operation>
-	</file>
-	<file path="admin/model/catalog/product.php">
-		<operation error="log">
-			<search><![CDATA[weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "']]></search>
-			<add position="replace"><![CDATA[weight_prefix = '" . $this->db->escape($product_option_value['weight_prefix']) . "', default_option = '" . $this->db->escape(isset($product_option_value['default_option']) ? $product_option_value['default_option'] : 0) . "']]></add>
-		</operation>
-	</file>
-	<file path="admin/view/template/catalog/product_form.twig">
-		<operation error="log">
-			<search index="0"><![CDATA[<td class="text-right">{{ entry_weight }}</td>]]></search>
-			<add position="after"><![CDATA[<td class="text-right">{{ entry_default_option }}</td>]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[html += '        <td class="text-right">{{ entry_weight }}</td>';]]></search>
-			<add position="after"><![CDATA[html += '	<td class="text-right">{{ entry_default_option }}</td>';]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[<td class="text-right"><button type="button" onclick="$(this).tooltip('destroy');$('#option-value-row{{ option_value_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>]]></search>
-			<add position="before"><![CDATA[
-			<td class="text-center">
-				<div class="checkbox">
-					<label style="display: block">
-						<input type="checkbox" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][default_option]" value="1" value="1" {{ product_option_value.default_option ? 'checked="checked"' : ''}} onclick="defaultOption(this);" />
-					</label>
-				</div>
-			</td>
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[html += '  <td class="text-left"><button type="button" onclick="$(this).tooltip(\'destroy\');$(\'#option-value-row' + option_value_row + '\').remove();" data-toggle="tooltip" rel="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';]]></search>
-			<add position="before"><![CDATA[
-			html +=	'<td class="text-center">';
-			html +=		'<div class="checkbox">';
-			html +=			'<label>';
-			html +=			'<input type="checkbox" name="product_option[' + option_row + '][product_option_value][' + option_value_row + '][default_option]" value="1" value="1" onclick="defaultOption(this);" />';
-			html +=			'</label>';
-			html +=		'</div>';
-			html +=	'</td>';
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[<td colspan="6"></td>]]></search>
-			<add position="replace"><![CDATA[<td colspan="7"></td>]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[{{ footer }}]]></search>
-			<add position="before"><![CDATA[
-			<script type="text/javascript"><!--
-			function defaultOption (elem) {
-				var tbody = elem.parentNode.parentNode.parentNode.parentNode.parentNode,
-					elems = tbody.getElementsByTagName("input"),
-					currentState = elem.checked,
-					elemsLength = elems.length;
-
-				for (i=0; i<elemsLength; i++) {
-					if (elems[i].type === "checkbox") {
-						elems[i].checked = false;
-					}
-				}
-
-				elem.checked = currentState;
-			}
-			//--></script>
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/product/product.php">
-		<operation error="log">
-			<search><![CDATA[$product_option_value_data[] = array(]]></search>
-			<add position="after"><![CDATA['default_option'	=> $option_value['default_option'],]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/checkout/cart.php">
-		<operation error="log">
-			<search><![CDATA[foreach ($product_options as $product_option) {]]></search>
-			<add position="before"><![CDATA[$default_options = [];]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[$json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);]]></search>
-			<add position="replace"><![CDATA[
-			foreach ($product_option['product_option_value'] as $row => $val) {
-				if (1 == $val['default_option']) {
-					if ('checkbox' == $product_option['type']) {
-						$_default_val = [$val['product_option_value_id']];
-					} else {
-						$_default_val = (int)$val['product_option_value_id'];
-					}
-
-					$default_options[$product_option['product_option_id']] = $_default_val;
-				}
-			}
-
-			if (0 === count($default_options)) {
-				$json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
-			}
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[if (isset($this->request->post['recurring_id'])) {]]></search>
-			<add position="before"><![CDATA[
-			if (count($default_options) > 0) {
-				$filtered_default_options	= array_filter($default_options);
-				$new_option					= array_merge($option, $filtered_default_options);
-				$option						= $default_options;
-			}
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/model/catalog/product.php">
-		<operation error="log">
-			<search><![CDATA[$product_option_value_data[] = array(]]></search>
-			<add position="after" trim="true"><![CDATA['default_option'	=> $product_option_value['default_option'],]]></add>
 		</operation>
 	</file>
 	<!-- Blog resize image -->
@@ -1525,8 +1405,8 @@
 	</file> -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
-			<search><![CDATA[$data['home'] = $this->url->link('common/home');]]></search>
-			<add position="before"><![CDATA[
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
 			if ($this->config->get('module_blog_status') == 1) {
 				$data['blog'] = $this->url->link('extension/materialize/blog/blog');
 			} else {
@@ -2079,7 +1959,7 @@
 	<!-- Add compare -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
-			<search><![CDATA[$data['home'] = $this->url->link('common/home');]]></search>
+			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
 			$data['compare'] = $this->url->link('product/compare');
 			$data['text_compare'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
