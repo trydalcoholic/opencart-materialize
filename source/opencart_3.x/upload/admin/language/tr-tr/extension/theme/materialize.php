@@ -109,3 +109,6 @@ $_['error_image_wishlist']				= 'Alışveriş Listesi Görsel Boyutu gerekli!';
 $_['error_image_cart']					= 'Alışveriş Sepeti Görsel Boyutu!';
 $_['error_image_location']				= 'Mağaza Görsel Boyutu gerekli!';
 $_['error_percent_remainder']			= 'Sayısını belirtin ürün yüzdesini hesaplamak için bakiye mal!';
+
+// To appeal to users from modal
+$_['modal_title']						= 'Materialize Template&#39;i yüklediğiniz için teşekkür ederiz!';

@@ -29,3 +29,9 @@ $_['appeal_github']					= 'If you have problems with the work of the module, ple
 $_['appeal_twitter']				= 'Watch for information on updates in the official Twitter.';
 $_['appeal_paypal']					= 'Support the development of a template via PayPal :)';
 $_['appeal_yandex_money']			= 'Support the development of a template via Yandex.Money :)';
+
+// To appeal to users from modal
+$_['modal_alert']					= '<p>Hello!</p> <p>Thanks for installing Materialize Template! If you enjoy this work, please support the development of the project. Leave a feedback or make a donation.</p> <p>Pleasant use!</p> <p>Regards, <a href="//goo.gl/whkvt3" target="_blank" rel="noopener">Anton</a>.</p>';
+$_['modal_review']					= 'Leave a review';
+$_['modal_donations_title']			= 'Donations';
+$_['modal_donations_text']			= 'Please support the development of the template with your donations.';

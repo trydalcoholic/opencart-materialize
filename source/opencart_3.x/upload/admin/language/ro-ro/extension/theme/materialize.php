@@ -109,3 +109,6 @@ $_['error_image_wishlist']				= 'Dimensiunea imaginilor este necesară!';
 $_['error_image_cart']					= 'Dimensiunea imaginilor este necesară!';
 $_['error_image_location']				= 'Specifică dimensiunile imaginii!';
 $_['error_percent_remainder']			= 'Specificați cantitățile de mărfuri pentru a calcula procentajul restului de mărfuri!';
+
+// To appeal to users from modal
+$_['modal_title']						= 'Vă mulțumim pentru instalarea Materialize Template!';

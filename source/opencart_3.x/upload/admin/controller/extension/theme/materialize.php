@@ -3,37 +3,39 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	private $error = array();
 
 	public function install() {
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_option_value` ADD `default_option` TINYINT(1) NOT NULL DEFAULT '0';");
-
-		/* Install for Materialize Modules */
-
 		$this->load->model('extension/materialize/materialize');
+		$this->load->model('user/user_group');
 
 		$this->model_extension_materialize_materialize->install();
 
-		/* Add permission Materialize Modules */
-
-		$this->load->model('user/user_group');
-
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/materialize');
+
+		$materialize_install = $this->cache->get('materialize.template.installed');
+
+		if (!$materialize_install) {
+			$materialize_install = 'Materialize Template is installed';
+
+			$this->cache->set('materialize.template.installed', $materialize_install);
+		}
+
+		return $materialize_install;
 	}
 
 	public function uninstall() {
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_option_value` DROP `default_option`;");
-
-		/* Uninstall Materialize Modules */
-
 		$this->load->model('extension/materialize/materialize');
+		$this->load->model('user/user_group');
 
 		$this->model_extension_materialize_materialize->uninstall();
 
-		/* Remove permission Materialize Modules */
-
-		$this->load->model('user/user_group');
-
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize');
+
+		$materialize_install = $this->cache->get('materialize.template.installed');
+
+		if ($materialize_install) {
+			$this->cache->delete('materialize.template.installed');
+		}
 	}
 
 	public function index() {
@@ -71,6 +73,16 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			} else {
 				$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=theme', true));
 			}
+		}
+
+		$new_install = $this->cache->get('materialize.template.installed');
+
+		if (!$new_install) {
+			$data['materialize_installed'] = false;
+		} else {
+			$data['materialize_installed'] = true;
+
+			$this->cache->delete('materialize.template.installed');
 		}
 
 		if (isset($this->error['warning'])) {

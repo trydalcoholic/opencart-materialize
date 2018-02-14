@@ -908,7 +908,37 @@
 		</form>
 	</div>
 </div>
+{% if materialize_installed %}
+<div id="modal-materialize-installed" class="modal fade modal-materialize" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">{{ modal_title }}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-info" role="alert">{{ modal_alert }}</div>
+				<div class="list-group">
+					<a href="//goo.gl/WYB4yC" target="_blank" rel="noopener" class="list-group-item">
+						<h4 class="list-group-item-heading">{{ modal_review }} <span class="label label-primary"><i class="fa fa-comment"></i></span></h4>
+						<p class="list-group-item-text">
+							<p>{{ appeal_marketplace }}</p>
+						</p>
+					</a>
+					<a href="//goo.gl/4Myeis" target="_blank" rel="noopener" class="list-group-item">
+						<h4 class="list-group-item-heading">{{ modal_donations_title }} <span class="label label-primary"><i class="fa fa-credit-card"></i></h4>
+						<p class="list-group-item-text">{{ modal_donations_text }}</p>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
 <script type="text/javascript">
+	{% if materialize_installed %}
+	$('#modal-materialize-installed').modal('show');
+	{% endif %}
 	$('#language a:first').tab('show');
 	$('#tab-colors-pills a:first').tab('show');
 	$('#foter-descriptions-language a:first').tab('show');
