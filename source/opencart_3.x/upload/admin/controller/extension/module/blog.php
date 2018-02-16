@@ -5,10 +5,11 @@ class ControllerExtensionModuleBlog extends Controller {
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "blog_author` (
-				`author_id` int(11) NOT NULL,
+				`author_id` int(11) NOT NULL AUTO_INCREMENT,
 				`name` varchar(64) NOT NULL,
 				`image` varchar(255) DEFAULT NULL,
-				`sort_order` int(3) NOT NULL
+				`sort_order` int(3) NOT NULL,
+				PRIMARY KEY (`author_id`)
 			) ENGINE=MyISAM;
 		");
 
@@ -21,26 +22,30 @@ class ControllerExtensionModuleBlog extends Controller {
 				`meta_title` varchar(255) NOT NULL,
 				`meta_h1` varchar(255) NOT NULL,
 				`meta_description` varchar(255) NOT NULL,
-				`meta_keyword` varchar(255) NOT NULL
+				`meta_keyword` varchar(255) NOT NULL,
+				PRIMARY KEY (`author_id`, `language_id`)
 			) ENGINE=MyISAM;
 		");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "blog_author_to_store` (
 				`author_id` int(11) NOT NULL,
-				`store_id` int(11) NOT NULL
+				`store_id` int(11) NOT NULL,
+				PRIMARY KEY (`author_id`, `store_id`)
 			) ENGINE=MyISAM;
 		");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "blog_category` (
-				`blog_category_id` int(11) NOT NULL,
+				`blog_category_id` int(11) NOT NULL AUTO_INCREMENT,
 				`image` varchar(255) DEFAULT NULL,
 				`parent_id` int(11) NOT NULL DEFAULT '0',
 				`sort_order` int(3) NOT NULL DEFAULT '0',
 				`status` tinyint(1) NOT NULL,
 				`date_added` datetime NOT NULL,
-				`date_modified` datetime NOT NULL
+				`date_modified` datetime NOT NULL,
+				PRIMARY KEY (`blog_category_id`),
+				INDEX (`parent_id`)
 			) ENGINE=MyISAM;
 		");
 
@@ -53,7 +58,9 @@ class ControllerExtensionModuleBlog extends Controller {
 				`meta_title` varchar(255) NOT NULL,
 				`meta_h1` varchar(255) NOT NULL,
 				`meta_description` varchar(255) NOT NULL,
-				`meta_keyword` varchar(255) NOT NULL
+				`meta_keyword` varchar(255) NOT NULL,
+				PRIMARY KEY (`blog_category_id`, `language_id`),
+				INDEX (`name`)
 			) ENGINE=MyISAM;
 		");
 
@@ -61,7 +68,8 @@ class ControllerExtensionModuleBlog extends Controller {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "blog_category_path` (
 				`blog_category_id` int(11) NOT NULL,
 				`path_id` int(11) NOT NULL,
-				`level` int(11) NOT NULL
+				`level` int(11) NOT NULL,
+				PRIMARY KEY (`blog_category_id`, `path_id`)
 			) ENGINE=MyISAM;
 		");
 
@@ -69,20 +77,22 @@ class ControllerExtensionModuleBlog extends Controller {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "blog_category_to_layout` (
 				`blog_category_id` int(11) NOT NULL,
 				`store_id` int(11) NOT NULL,
-				`layout_id` int(11) NOT NULL
+				`layout_id` int(11) NOT NULL,
+				PRIMARY KEY (`blog_category_id`, `store_id`)
 			) ENGINE=MyISAM;
 		");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "blog_category_to_store` (
 				`blog_category_id` int(11) NOT NULL,
-				`store_id` int(11) NOT NULL
+				`store_id` int(11) NOT NULL,
+				PRIMARY KEY (`blog_category_id`, `store_id`)
 			) ENGINE=MyISAM;
 		");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "post` (
-				`post_id` int(11) NOT NULL,
+				`post_id` int(11) NOT NULL AUTO_INCREMENT,
 				`image` varchar(255) DEFAULT NULL,
 				`sort_order` int(11) NOT NULL DEFAULT '0',
 				`author_id` int(11) NOT NULL,
@@ -90,20 +100,23 @@ class ControllerExtensionModuleBlog extends Controller {
 				`comment_status` tinyint(1) NOT NULL DEFAULT '1',
 				`viewed` int(5) NOT NULL DEFAULT '0',
 				`date_added` datetime NOT NULL,
-				`date_modified` datetime NOT NULL
+				`date_modified` datetime NOT NULL,
+				PRIMARY KEY (`post_id`)
 			) ENGINE=MyISAM;
 		");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "post_comment` (
-				`comment_id` int(11) NOT NULL,
+				`comment_id` int(11) NOT NULL AUTO_INCREMENT,
 				`post_id` int(11) NOT NULL,
 				`author` varchar(64) NOT NULL,
 				`email` varchar(32) NOT NULL,
 				`text` text NOT NULL,
 				`status` tinyint(1) NOT NULL DEFAULT '0',
 				`date_added` datetime NOT NULL,
-				`date_modified` datetime NOT NULL
+				`date_modified` datetime NOT NULL,
+				PRIMARY KEY (`comment_id`),
+				INDEX (`post_id`)
 			) ENGINE=MyISAM;
 		");
 
@@ -117,21 +130,26 @@ class ControllerExtensionModuleBlog extends Controller {
 				`meta_title` varchar(255) NOT NULL,
 				`meta_h1` varchar(255) NOT NULL,
 				`meta_description` varchar(255) NOT NULL,
-				`meta_keyword` varchar(255) NOT NULL
+				`meta_keyword` varchar(255) NOT NULL,
+				PRIMARY KEY (`post_id`, `language_id`),
+				INDEX (`name`)
 			) ENGINE=MyISAM;
 		");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "post_related` (
 				`post_id` int(11) NOT NULL,
-				`related_id` int(11) NOT NULL
+				`related_id` int(11) NOT NULL,
+				PRIMARY KEY (`post_id`, `related_id`)
 			) ENGINE=MyISAM;
 		");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "post_to_author` (
 				`post_id` int(11) NOT NULL,
-				`author_id` int(11) NOT NULL
+				`author_id` int(11) NOT NULL,
+				PRIMARY KEY (`post_id`, `author_id`),
+				INDEX (`author_id`)
 			) ENGINE=MyISAM;
 		");
 
@@ -139,7 +157,9 @@ class ControllerExtensionModuleBlog extends Controller {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "post_to_category` (
 				`post_id` int(11) NOT NULL,
 				`blog_category_id` int(11) NOT NULL,
-				`main_category` tinyint(1) NOT NULL DEFAULT '0'
+				`main_category` tinyint(1) NOT NULL DEFAULT '0',
+				PRIMARY KEY (`post_id`, `blog_category_id`),
+				INDEX (`blog_category_id`)
 			) ENGINE=MyISAM;
 		");
 
@@ -147,39 +167,37 @@ class ControllerExtensionModuleBlog extends Controller {
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "post_to_layout` (
 				`post_id` int(11) NOT NULL,
 				`store_id` int(11) NOT NULL,
-				`layout_id` int(11) NOT NULL
+				`layout_id` int(11) NOT NULL,
+				PRIMARY KEY (`post_id`, `store_id`)
 			) ENGINE=MyISAM;
 		");
 
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "post_to_store` (
 				`post_id` int(11) NOT NULL,
-				`store_id` int(11) NOT NULL DEFAULT '0'
+				`store_id` int(11) NOT NULL DEFAULT '0',
+				PRIMARY KEY (`post_id`, `store_id`)
 			) ENGINE=MyISAM;
 		");
 
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_author` ADD PRIMARY KEY (`author_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_author_description` ADD PRIMARY KEY (`author_id`,`language_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_author_to_store` ADD PRIMARY KEY (`author_id`,`store_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_category` ADD PRIMARY KEY (`blog_category_id`), ADD KEY `parent_id` (`parent_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_category_description` ADD PRIMARY KEY (`blog_category_id`,`language_id`), ADD KEY `name` (`name`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_category_path` ADD PRIMARY KEY (`blog_category_id`,`path_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_category_to_layout` ADD PRIMARY KEY (`blog_category_id`,`store_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_category_to_store` ADD PRIMARY KEY (`blog_category_id`,`store_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post` ADD PRIMARY KEY (`post_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post_comment` ADD PRIMARY KEY (`comment_id`), ADD KEY `post_id` (`post_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post_description` ADD PRIMARY KEY (`post_id`,`language_id`), ADD KEY `name` (`name`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post_related` ADD PRIMARY KEY (`post_id`,`related_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post_to_author` ADD PRIMARY KEY (`post_id`,`author_id`), ADD KEY `author_id` (`author_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post_to_category` ADD PRIMARY KEY (`post_id`,`blog_category_id`), ADD KEY `blog_category_id` (`blog_category_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post_to_layout` ADD PRIMARY KEY (`post_id`,`store_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post_to_store` ADD PRIMARY KEY (`post_id`,`store_id`);");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_author` MODIFY `author_id` int(11) NOT NULL AUTO_INCREMENT;");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "blog_category` MODIFY `blog_category_id` int(11) NOT NULL AUTO_INCREMENT;");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post` MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;");
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "post_comment` MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;");
+		$this->load->model('setting/setting');
 
-		$this->db->query("INSERT INTO " . DB_PREFIX . "layout SET name = 'Blog'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "layout SET name = 'Blog';");
+
+		$data['module_blog_layout_id'] = $this->db->getLastId();
+
+		$layout_routes = array(
+			'extension/materialize/blog/blog',
+			'extension/materialize/blog/category',
+			'extension/materialize/blog/search',
+			'extension/materialize/blog/author',
+			'extension/materialize/blog/author/info',
+			'extension/materialize/blog/post'
+		);
+
+		foreach ($layout_routes as $layout_route) {
+			$this->db->query("INSERT INTO " . DB_PREFIX . "layout_route SET layout_id = '" . (int)$data['module_blog_layout_id'] . "', store_id = '0', route = '" . $layout_route . "'");
+		}
 
 		$this->load->model('user/user_group');
 
@@ -194,6 +212,10 @@ class ControllerExtensionModuleBlog extends Controller {
 
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize/blog/comment');
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/materialize/blog/comment');
+
+		$data['module_blog_installed_appeal'] = true;
+
+		$this->model_setting_setting->editSetting('module_blog', $data);
 	}
 
 	public function uninstall() {
@@ -217,9 +239,6 @@ class ControllerExtensionModuleBlog extends Controller {
 			$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'post_id=" . (int)$post_id . "'");
 		}
 
-		$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'extension/materialize/blog/blog'");
-		$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'extension/materialize/blog/author'");
-
 		$this->db->query("
 			DROP TABLE IF EXISTS
 				`" . DB_PREFIX . "blog_author`,
@@ -241,9 +260,15 @@ class ControllerExtensionModuleBlog extends Controller {
 			;
 		");
 
-		$this->cache->delete('blog_author');
-		$this->cache->delete('blog_category');
-		$this->cache->delete('post');
+		$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'extension/materialize/blog/blog';");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'extension/materialize/blog/author';");
+
+		$this->load->model('setting/setting');
+
+		$data['module_blog_layout_id'] = $this->config->get('module_blog_layout_id');
+
+		$this->db->query("DELETE FROM " . DB_PREFIX . "layout WHERE layout_id = '" . (int)$data['module_blog_layout_id'] . "'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "layout_route WHERE layout_id = '" . (int)$data['module_blog_layout_id'] . "'");
 
 		$this->load->model('user/user_group');
 
@@ -258,7 +283,6 @@ class ControllerExtensionModuleBlog extends Controller {
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize/blog/comment');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize/blog/comment');
-
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/blog');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/module/blog');
@@ -323,6 +347,8 @@ class ControllerExtensionModuleBlog extends Controller {
 			$data['error_keyword'] = '';
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -362,6 +388,18 @@ class ControllerExtensionModuleBlog extends Controller {
 			$data['module_blog'] = $this->config->get('module_blog');
 		} else {
 			$data['module_blog'] = '';
+		}
+
+		if (isset($this->request->post['module_blog_layout_id'])) {
+			$data['module_blog_layout_id'] = $this->config->get('module_blog_layout_id');
+		} else {
+			$data['module_blog_layout_id'] = $this->config->get('module_blog_layout_id');
+		}
+
+		if (isset($this->request->post['module_blog_installed_appeal'])) {
+			$data['module_blog_installed_appeal'] = $this->request->post['module_blog_installed_appeal'];
+		} else {
+			$data['module_blog_installed_appeal'] = $this->config->get('module_blog_installed_appeal');
 		}
 
 		/* Options */

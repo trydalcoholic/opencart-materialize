@@ -15,9 +15,7 @@
 			<div class="row">
 				<div class="col-sm-12 col-md-8">
 					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
-						</div>
+						<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3></div>
 						<div class="panel-body">
 							<div class="form-horizontal">
 								<ul class="nav nav-tabs" id="apply-tab">
@@ -247,18 +245,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="panel-footer text-center">
-							<i class="fa fa-opencart"></i>&nbsp;
-							<a href="//goo.gl/bjyFAW" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Materialize Template</b>" data-content="{{ appeal_marketplace }}"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
-							<i class="fa fa-github"></i>&nbsp;
-							<a href="//goo.gl/VAM4ww" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>GitHub</b>" data-content="{{ appeal_github }}">GitHub</a>&nbsp;|&nbsp;
-							<i class="fa fa-twitter"></i>&nbsp;
-							<a href="//goo.gl/yG1AGS" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Twitter</b>" data-content="{{ appeal_twitter }}">Twitter</a>&nbsp;|&nbsp;
-							<i class="fa fa-paypal"></i>&nbsp;
-							<a href="//goo.gl/Ry4CeM" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>PayPal</b>" data-content="{{ appeal_paypal }}">PayPal</a>&nbsp;|&nbsp;
-							<i class="fa fa-credit-card"></i>&nbsp;
-							<a href="//goo.gl/1C4gKu" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Yandex.Money</b>" data-content="{{ appeal_yandex_money }}">Yandex.Money</a>
-						</div>
+						<div id="footer-appeal-users" class="panel-footer text-center"></div>
 					</div>
 				</div>
 				<div class="col-sm-12 col-md-4">
@@ -288,6 +275,8 @@
 					</div>
 				</div>
 			</div>
+			<input type="hidden" name="module_blog_layout_id" value="{{ module_blog_layout_id }}">
+			<input type="hidden" name="module_blog_installed_appeal" value="0">
 		</form>
 	</div>
 </div>
@@ -334,5 +323,24 @@
 			{% endif %}
 		{% endfor %}
 	{% endfor %}
+
+	$('#footer-appeal-users').load('index.php?route=extension/materialize/appeal/installed/footer&user_token={{ user_token }}');
+
+	{% if module_blog_installed_appeal %}
+	$.ajax({
+		url: 'index.php?route=extension/materialize/appeal/installed&modal_title={{ blog_title }}&user_token={{ user_token }}',
+		dataType: 'html',
+		success: function(html) {
+			$('#modal-materialize-installed').remove();
+
+			$('body').prepend(html);
+
+			$('#modal-materialize-installed').modal('show');
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+	{% endif %}
 </script>
 {{ footer }}

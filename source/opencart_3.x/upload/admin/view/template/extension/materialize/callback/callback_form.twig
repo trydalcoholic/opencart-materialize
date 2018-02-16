@@ -154,18 +154,7 @@
 								{% endif %}
 							</div>
 						</div>
-						<div class="panel-footer text-center">
-							<i class="fa fa-opencart"></i>&nbsp;
-							<a href="//goo.gl/bjyFAW" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Materialize Template</b>" data-content="{{ appeal_marketplace }}"><strong>Materialize Template</strong></a>&nbsp;|&nbsp;
-							<i class="fa fa-github"></i>&nbsp;
-							<a href="//goo.gl/VAM4ww" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>GitHub</b>" data-content="{{ appeal_github }}">GitHub</a>&nbsp;|&nbsp;
-							<i class="fa fa-twitter"></i>&nbsp;
-							<a href="//goo.gl/yG1AGS" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Twitter</b>" data-content="{{ appeal_twitter }}">Twitter</a>&nbsp;|&nbsp;
-							<i class="fa fa-paypal"></i>&nbsp;
-							<a href="//goo.gl/Ry4CeM" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>PayPal</b>" data-content="{{ appeal_paypal }}">PayPal</a>&nbsp;|&nbsp;
-							<i class="fa fa-credit-card"></i>&nbsp;
-							<a href="//goo.gl/1C4gKu" target="_blank" rel="noopener" class="dotted materialize-appeal__popover" title="<b>Yandex.Money</b>" data-content="{{ appeal_yandex_money }}">Yandex.Money</a>
-						</div>
+						<div id="footer-appeal-users" class="panel-footer text-center"></div>
 					</div>
 				</div>
 			</div>
@@ -173,66 +162,68 @@
 	</div>
 </div>
 <script type="text/javascript">
-$('.time').datetimepicker({
-	language: '{{ datepicker }}',
-	pickDate: false,
-	icons: {
-		time: "fa fa-clock-o",
-		date: "fa fa-calendar",
-		up: "fa fa-arrow-up",
-		down: "fa fa-arrow-down"
-	}
-});
-
-$('#history').delegate('.pagination a', 'click', function(e) {
-	e.preventDefault();
-
-	$('#history').load(this.href);
-});
-
-$('#history').load('index.php?route=extension/materialize/callback/callback/history&user_token={{ user_token }}&callback_id={{ callback_id }}');
-
-$('#button-history').on('click', function(e) {
-	e.preventDefault();
-
-	$.ajax({
-		url: 'index.php?route=extension/materialize/callback/callback/addhistory&user_token={{ user_token }}&callback_id={{ callback_id }}',
-		type: 'post',
-		dataType: 'json',
-		data: 'comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
-		beforeSend: function() {
-			$('#button-history').button('loading');
-		},
-		complete: function() {
-			$('#button-history').button('reset');
-		},
-		success: function(json) {
-			if (json['error']) {
-				$.notify({
-					icon: 'fa fa-exclamation-circle',
-					message: json['error']
-				},{
-					type: "danger"
-				});
-			}
-
-			if (json['success']) {
-				$.notify({
-					icon: 'fa fa-exclamation-circle',
-					message: json['success']
-				},{
-					type: "success"
-				});
-
-				$('#history').load('index.php?route=extension/materialize/callback/callback/history&user_token={{ user_token }}&callback_id={{ callback_id }}');
-
-				$('#tab-history textarea[name=\'comment\']').val('');
-			}
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+	$('.time').datetimepicker({
+		language: '{{ datepicker }}',
+		pickDate: false,
+		icons: {
+			time: "fa fa-clock-o",
+			date: "fa fa-calendar",
+			up: "fa fa-arrow-up",
+			down: "fa fa-arrow-down"
 		}
 	});
-});
-</script> 
-{{ footer }} 
+
+	$('#history').delegate('.pagination a', 'click', function(e) {
+		e.preventDefault();
+
+		$('#history').load(this.href);
+	});
+
+	$('#history').load('index.php?route=extension/materialize/callback/callback/history&user_token={{ user_token }}&callback_id={{ callback_id }}');
+
+	$('#button-history').on('click', function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			url: 'index.php?route=extension/materialize/callback/callback/addhistory&user_token={{ user_token }}&callback_id={{ callback_id }}',
+			type: 'post',
+			dataType: 'json',
+			data: 'comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
+			beforeSend: function() {
+				$('#button-history').button('loading');
+			},
+			complete: function() {
+				$('#button-history').button('reset');
+			},
+			success: function(json) {
+				if (json['error']) {
+					$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: json['error']
+					},{
+						type: "danger"
+					});
+				}
+
+				if (json['success']) {
+					$.notify({
+						icon: 'fa fa-exclamation-circle',
+						message: json['success']
+					},{
+						type: "success"
+					});
+
+					$('#history').load('index.php?route=extension/materialize/callback/callback/history&user_token={{ user_token }}&callback_id={{ callback_id }}');
+
+					$('#tab-history textarea[name=\'comment\']').val('');
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
+
+	$('#footer-appeal-users').load('index.php?route=extension/materialize/appeal/installed/footer&user_token={{ user_token }}');
+</script>
+{{ footer }}

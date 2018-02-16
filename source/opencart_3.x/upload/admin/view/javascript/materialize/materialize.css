@@ -54,3 +54,51 @@ a.dotted:hover {border-bottom: 1px dashed #14628c;;}
 }
 
 .modal-materialize .modal-title,.modal-materialize .list-group-item-heading {font-weight:bold;}
+
+.shake {
+	-webkit-animation-name: shake;
+	animation-name: shake;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+	animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+@keyframes shake {
+	10% {
+		-webkit-transform: translateX(-1px);
+		transform: translateX(-1px);
+	}
+	20% {
+		-webkit-transform: translateX(1px);
+		transform: translateX(1px);
+	}
+	30% {
+		-webkit-transform: translateX(-1px);
+		transform: translateX(-1px);
+	}
+	40% {
+		-webkit-transform: translateX(1px);
+		transform: translateX(1px);
+	}
+	50% {
+		-webkit-transform: translateX(-1px);
+		transform: translateX(-1px);
+	}
+	60% {
+		-webkit-transform: translateX(1px);
+		transform: translateX(1px);
+	}
+	70% {
+		-webkit-transform: translateX(-1px);
+		transform: translateX(-1px);
+	}
+	80% {
+		-webkit-transform: translateX(1px);
+		transform: translateX(1px);
+	}
+	90% {
+		-webkit-transform: translateX(-1px);
+		transform: translateX(-1px);
+	}
+}

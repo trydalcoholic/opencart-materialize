@@ -20,12 +20,6 @@ $(document).ready(function() {
 
 /*========== Common ==========*/
 $(document).ready(function() {
-	$('.materialize-appeal__popover').popover({
-		placement: 'right',
-		trigger: 'hover',
-		html: true
-	});
-
 	$('.selectpicker').selectpicker({
 		iconBase: 'fa',
 		tickIcon: 'fa-check'
