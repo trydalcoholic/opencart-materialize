@@ -3,6 +3,12 @@ class ControllerExtensionModuleCallback extends Controller {
 	private $error = array();
 
 	public function install() {
+		$this->load->model('setting/setting');
+
+		$data['module_callback_installed_appeal'] = true;
+
+		$this->model_setting_setting->editSetting('module_callback', $data);
+
 		$this->load->model('user/user_group');
 
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize/callback/callback');
@@ -85,6 +91,8 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['error_callback_time'] = '';
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -122,6 +130,12 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['module_callback'] = $this->config->get('module_callback');
 		} else {
 			$data['module_callback'] = '';
+		}
+
+		if (isset($this->request->post['module_callback_installed_appeal'])) {
+			$data['module_callback_installed_appeal'] = $this->request->post['module_callback_installed_appeal'];
+		} else {
+			$data['module_callback_installed_appeal'] = $this->config->get('module_callback_installed_appeal');
 		}
 
 		$data['module_callback_colors'] = $this->model_extension_materialize_materialize->getMaterializeColors();

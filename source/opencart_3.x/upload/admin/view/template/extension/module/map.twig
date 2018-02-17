@@ -147,6 +147,7 @@
 					</div>
 				</div>
 			</div>
+			<input type="hidden" name="module_map_installed_appeal" value="0">
 		</form>
 	</div>
 </div>
@@ -182,6 +183,7 @@
 		type: "danger"
 	});
 	{% endif %}
+
 	{% if error_google_api %}
 	$.notify({
 		icon: 'fa fa-exclamation-circle',
@@ -190,6 +192,7 @@
 		type: "danger"
 	});
 	{% endif %}
+
 	{% if error_geo_lat %}
 	$.notify({
 		icon: 'fa fa-exclamation-circle',
@@ -198,6 +201,7 @@
 		type: "danger"
 	});
 	{% endif %}
+
 	{% if error_geo_lng %}
 	$.notify({
 		icon: 'fa fa-exclamation-circle',
@@ -208,5 +212,22 @@
 	{% endif %}
 
 	$('#footer-appeal-users').load('index.php?route=extension/materialize/appeal/installed/footer&user_token={{ user_token }}');
+
+	{% if module_map_installed_appeal %}
+	$.ajax({
+		url: 'index.php?route=extension/materialize/appeal/installed&modal_title={{ map_title }}&user_token={{ user_token }}',
+		dataType: 'html',
+		success: function(html) {
+			$('#modal-materialize-installed').remove();
+
+			$('body').prepend(html);
+
+			$('#modal-materialize-installed').modal('show');
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+	{% endif %}
 </script>
 {{ footer }}

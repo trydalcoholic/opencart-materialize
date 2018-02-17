@@ -2,6 +2,14 @@
 class ControllerExtensionModuleMap extends Controller {
 	private $error = array();
 
+	public function install() {
+		$this->load->model('setting/setting');
+
+		$data['module_map_installed_appeal'] = true;
+
+		$this->model_setting_setting->editSetting('module_map', $data);
+	}
+
 	public function uninstall() {
 		$this->load->model('user/user_group');
 
@@ -66,6 +74,8 @@ class ControllerExtensionModuleMap extends Controller {
 			$data['error_google_api'] = '';
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -103,6 +113,12 @@ class ControllerExtensionModuleMap extends Controller {
 			$data['module_map'] = $this->config->get('module_map');
 		} else {
 			$data['module_map'] = '';
+		}
+
+		if (isset($this->request->post['module_map_installed_appeal'])) {
+			$data['module_map_installed_appeal'] = $this->request->post['module_map_installed_appeal'];
+		} else {
+			$data['module_map_installed_appeal'] = $this->config->get('module_map_installed_appeal');
 		}
 
 		/* Maps */

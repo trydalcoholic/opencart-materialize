@@ -569,31 +569,33 @@ class ControllerExtensionModuleBlog extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		foreach ($this->request->post['module_blog'] as $language_id => $value) {
-			if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 64)) {
-				$this->error['name'][$language_id] = $this->language->get('error_name');
+		if ($this->request->post['module_blog_status'] == 1) {
+			foreach ($this->request->post['module_blog'] as $language_id => $value) {
+				if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 64)) {
+					$this->error['name'][$language_id] = $this->language->get('error_name');
+				}
 			}
-		}
 
-		if ($this->request->post['module_blog_seo_url']) {
-			$this->load->model('design/seo_url');
+			if ($this->request->post['module_blog_seo_url']) {
+				$this->load->model('design/seo_url');
 
-			$query = 'extension/materialize/blog/blog';
+				$query = 'extension/materialize/blog/blog';
 
-			foreach ($this->request->post['module_blog_seo_url'] as $store_id => $language) {
-				foreach ($language as $language_id => $keyword) {
-					if (!empty($keyword)) {
-						if (count(array_keys($language, $keyword)) > 1) {
-							$this->error['keyword'][$store_id][$language_id] = $this->language->get('error_unique');
-						}
+				foreach ($this->request->post['module_blog_seo_url'] as $store_id => $language) {
+					foreach ($language as $language_id => $keyword) {
+						if (!empty($keyword)) {
+							if (count(array_keys($language, $keyword)) > 1) {
+								$this->error['keyword'][$store_id][$language_id] = $this->language->get('error_unique');
+							}
 
-						$seo_urls = $this->model_design_seo_url->getSeoUrlsByKeyword($keyword);
+							$seo_urls = $this->model_design_seo_url->getSeoUrlsByKeyword($keyword);
 
-						foreach ($seo_urls as $seo_url) {
-							if (($seo_url['store_id'] == $store_id) && ($seo_url['query'] != $query)) {
-								$this->error['keyword'][$store_id][$language_id] = $this->language->get('error_keyword');
+							foreach ($seo_urls as $seo_url) {
+								if (($seo_url['store_id'] == $store_id) && ($seo_url['query'] != $query)) {
+									$this->error['keyword'][$store_id][$language_id] = $this->language->get('error_keyword');
 
-								break;
+									break;
+								}
 							}
 						}
 					}

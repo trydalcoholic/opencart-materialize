@@ -22,6 +22,12 @@ class ControllerExtensionModuleCustomtabs extends Controller {
 				`description` TEXT CHARACTER SET utf8 NOT NULL
 			) ENGINE=MyISAM;
 		");
+
+		$this->load->model('setting/setting');
+
+		$data['module_customtabs_installed_appeal'] = true;
+
+		$this->model_setting_setting->editSetting('module_customtabs', $data);
 	}
 
 	public function uninstall() {
@@ -62,6 +68,8 @@ class ControllerExtensionModuleCustomtabs extends Controller {
 			$data['error_warning'] = '';
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -82,6 +90,12 @@ class ControllerExtensionModuleCustomtabs extends Controller {
 		$data['action'] = $this->url->link('extension/module/customtabs', 'user_token=' . $this->session->data['user_token'], true);
 
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
+
+		if (isset($this->request->post['module_customtabs_installed_appeal'])) {
+			$data['module_customtabs_installed_appeal'] = $this->request->post['module_customtabs_installed_appeal'];
+		} else {
+			$data['module_customtabs_installed_appeal'] = $this->config->get('module_customtabs_installed_appeal');
+		}
 
 		if (isset($this->request->post['module_customtabs_status'])) {
 			$data['module_customtabs_status'] = $this->request->post['module_customtabs_status'];

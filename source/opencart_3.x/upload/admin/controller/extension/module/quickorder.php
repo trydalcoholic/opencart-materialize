@@ -3,6 +3,12 @@ class ControllerExtensionModuleQuickorder extends Controller {
 	private $error = array();
 
 	public function uninstall() {
+		$this->load->model('setting/setting');
+
+		$data['module_quickorder_installed_appeal'] = true;
+
+		$this->model_setting_setting->editSetting('module_quickorder', $data);
+
 		$this->load->model('user/user_group');
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/quickorder');
@@ -51,6 +57,8 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['error_text_button'] = array();
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -88,6 +96,12 @@ class ControllerExtensionModuleQuickorder extends Controller {
 			$data['module_quickorder'] = $this->config->get('module_quickorder');
 		} else {
 			$data['module_quickorder'] = '';
+		}
+
+		if (isset($this->request->post['module_quickorder_installed_appeal'])) {
+			$data['module_quickorder_installed_appeal'] = $this->request->post['module_quickorder_installed_appeal'];
+		} else {
+			$data['module_quickorder_installed_appeal'] = $this->config->get('module_quickorder_installed_appeal');
 		}
 
 		$data['module_quickorder_colors'] = $this->model_extension_materialize_materialize->getMaterializeColors();

@@ -33,6 +33,7 @@
 							</select>
 						</div>
 					</div>
+					<input type="hidden" name="module_customtabs_installed_appeal" value="0">
 				</form>
 			</div>
 			<div id="footer-appeal-users" class="panel-footer text-center"></div>
@@ -51,5 +52,22 @@
 	{% endif %}
 
 	$('#footer-appeal-users').load('index.php?route=extension/materialize/appeal/installed/footer&user_token={{ user_token }}');
+
+	{% if module_customtabs_installed_appeal %}
+	$.ajax({
+		url: 'index.php?route=extension/materialize/appeal/installed&modal_title={{ customtabs_title }}&user_token={{ user_token }}',
+		dataType: 'html',
+		success: function(html) {
+			$('#modal-materialize-installed').remove();
+
+			$('body').prepend(html);
+
+			$('#modal-materialize-installed').modal('show');
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+	{% endif %}
 </script>
 {{ footer }}

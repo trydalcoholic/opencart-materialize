@@ -30,6 +30,12 @@ class ControllerExtensionModuleLabel extends Controller {
 			) ENGINE = MyISAM;
 		");
 
+		$this->load->model('setting/setting');
+
+		$data['module_label_installed_appeal'] = true;
+
+		$this->model_setting_setting->editSetting('module_label', $data);
+
 		$this->load->model('user/user_group');
 
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize/label/label');
@@ -80,6 +86,8 @@ class ControllerExtensionModuleLabel extends Controller {
 			$data['error_warning'] = '';
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -100,6 +108,12 @@ class ControllerExtensionModuleLabel extends Controller {
 		$data['action'] = $this->url->link('extension/module/label', 'user_token=' . $this->session->data['user_token'], true);
 
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
+
+		if (isset($this->request->post['module_label_installed_appeal'])) {
+			$data['module_label_installed_appeal'] = $this->request->post['module_label_installed_appeal'];
+		} else {
+			$data['module_label_installed_appeal'] = $this->config->get('module_label_installed_appeal');
+		}
 
 		if (isset($this->request->post['module_label_status'])) {
 			$data['module_label_status'] = $this->request->post['module_label_status'];
