@@ -1,41 +1,5 @@
 <?php
 class ModelExtensionMaterializeCallback extends Model {
-	public function install() {
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "materialize_callback` (
-				`callback_id` INT NOT NULL AUTO_INCREMENT,
-				`telephone` VARCHAR(32) NOT NULL,
-				`name` VARCHAR(32) NOT NULL,
-				`enquiry` VARCHAR(360) NOT NULL,
-				`call_time` TIME NOT NULL,
-				`ip` VARCHAR(40) NOT NULL,
-				`date_added` DATETIME NOT NULL,
-				`order_page` TEXT NOT NULL,
-				`status` TINYINT(1) NOT NULL,
-				PRIMARY KEY (`callback_id`)
-			) ENGINE = MyISAM;
-		");
-
-		$this->db->query("
-			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "materialize_callback_history` (
-				`callback_history_id` INT(11) NOT NULL AUTO_INCREMENT,
-				`callback_id` INT NOT NULL,
-				`comment` TEXT NOT NULL,
-				`date_added` DATETIME NOT NULL,
-				PRIMARY KEY (`callback_history_id`)
-			) ENGINE = MyISAM;
-		");
-	}
-
-	public function uninstall() {
-		$this->db->query("
-			DROP TABLE IF EXISTS
-				`" . DB_PREFIX . "materialize_callback`,
-				`" . DB_PREFIX . "materialize_callback_history`
-			;
-		");
-	}
-
 	public function editMaterializeCallback($callback_id, $data) {
 		$this->db->query("UPDATE " . DB_PREFIX . "materialize_callback SET telephone = '" . $this->db->escape($data['telephone']) . "', name = '" . $this->db->escape($data['name']) . "', enquiry = '" . $this->db->escape($data['enquiry']) . "', call_time = '" . $this->db->escape($data['call_time']) . "', status = '" . (int)$data['status'] . "' WHERE callback_id = '" . (int)$callback_id . "'");
 	}
@@ -53,7 +17,7 @@ class ModelExtensionMaterializeCallback extends Model {
 
 	public function getMaterializeCallbacks($data = array()) {
 		$sql = "SELECT * FROM " . DB_PREFIX . "materialize_callback";
-		
+
 		$implode = array();
 
 		if (isset($data['filter_id']) && $data['filter_id'] !== '') {

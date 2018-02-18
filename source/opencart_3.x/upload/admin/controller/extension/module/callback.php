@@ -3,6 +3,31 @@ class ControllerExtensionModuleCallback extends Controller {
 	private $error = array();
 
 	public function install() {
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "materialize_callback` (
+				`callback_id` INT NOT NULL AUTO_INCREMENT,
+				`telephone` VARCHAR(32) NOT NULL,
+				`name` VARCHAR(32) NOT NULL,
+				`enquiry` VARCHAR(360) NOT NULL,
+				`call_time` TIME NOT NULL,
+				`ip` VARCHAR(40) NOT NULL,
+				`date_added` DATETIME NOT NULL,
+				`order_page` TEXT NOT NULL,
+				`status` TINYINT(1) NOT NULL,
+				PRIMARY KEY (`callback_id`)
+			) ENGINE = MyISAM;
+		");
+
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "materialize_callback_history` (
+				`callback_history_id` INT(11) NOT NULL AUTO_INCREMENT,
+				`callback_id` INT NOT NULL,
+				`comment` TEXT NOT NULL,
+				`date_added` DATETIME NOT NULL,
+				PRIMARY KEY (`callback_history_id`)
+			) ENGINE = MyISAM;
+		");
+
 		$this->load->model('setting/setting');
 
 		$data['module_callback_installed_appeal'] = true;
@@ -16,6 +41,13 @@ class ControllerExtensionModuleCallback extends Controller {
 	}
 
 	public function uninstall() {
+		$this->db->query("
+			DROP TABLE IF EXISTS
+				`" . DB_PREFIX . "materialize_callback`,
+				`" . DB_PREFIX . "materialize_callback_history`
+			;
+		");
+
 		$this->load->model('user/user_group');
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize/callback/callback');
