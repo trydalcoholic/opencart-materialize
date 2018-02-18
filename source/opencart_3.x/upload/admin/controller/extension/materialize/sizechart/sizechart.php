@@ -173,6 +173,8 @@ class ControllerExtensionMaterializeSizechartSizechart extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(

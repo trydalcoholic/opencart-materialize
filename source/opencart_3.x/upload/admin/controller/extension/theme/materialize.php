@@ -5,21 +5,16 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	public function install() {
 		$this->load->model('extension/materialize/materialize');
 		$this->load->model('user/user_group');
+		$this->load->model('setting/setting');
 
 		$this->model_extension_materialize_materialize->install();
 
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/materialize');
 
-		$materialize_install = $this->cache->get('materialize.template.installed');
+		$data['theme_materialize_installed_appeal'] = true;
 
-		if (!$materialize_install) {
-			$materialize_install = 'Materialize Template is installed';
-
-			$this->cache->set('materialize.template.installed', $materialize_install);
-		}
-
-		return $materialize_install;
+		$this->model_setting_setting->editSetting('theme_materialize', $data);
 	}
 
 	public function uninstall() {
@@ -30,12 +25,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize');
-
-		$materialize_install = $this->cache->get('materialize.template.installed');
-
-		if ($materialize_install) {
-			$this->cache->delete('materialize.template.installed');
-		}
 	}
 
 	public function index() {
@@ -73,16 +62,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			} else {
 				$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=theme', true));
 			}
-		}
-
-		$new_install = $this->cache->get('materialize.template.installed');
-
-		if (!$new_install) {
-			$data['materialize_installed'] = false;
-		} else {
-			$data['materialize_installed'] = true;
-
-			$this->cache->delete('materialize.template.installed');
 		}
 
 		if (isset($this->error['warning'])) {
@@ -177,6 +156,8 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['success'] = '';
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -206,12 +187,10 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$data['theme_materialize_directory'] = 'materialize';
 
-		if (isset($this->request->post['theme_materialize_product_limit'])) {
-			$data['theme_materialize_product_limit'] = $this->request->post['theme_materialize_product_limit'];
-		} elseif (isset($setting_info['theme_materialize_product_limit'])) {
-			$data['theme_materialize_product_limit'] = $setting_info['theme_materialize_product_limit'];
+		if (isset($this->request->post['theme_materialize_installed_appeal'])) {
+			$data['theme_materialize_installed_appeal'] = $this->request->post['theme_materialize_installed_appeal'];
 		} else {
-			$data['theme_materialize_product_limit'] = 18;
+			$data['theme_materialize_installed_appeal'] = $this->config->get('theme_materialize_installed_appeal');
 		}
 
 		if (isset($this->request->post['theme_materialize_status'])) {
@@ -220,6 +199,14 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_status'] = $setting_info['theme_materialize_status'];
 		} else {
 			$data['theme_materialize_status'] = '';
+		}
+
+		if (isset($this->request->post['theme_materialize_product_limit'])) {
+			$data['theme_materialize_product_limit'] = $this->request->post['theme_materialize_product_limit'];
+		} elseif (isset($setting_info['theme_materialize_product_limit'])) {
+			$data['theme_materialize_product_limit'] = $setting_info['theme_materialize_product_limit'];
+		} else {
+			$data['theme_materialize_product_limit'] = 18;
 		}
 
 		if (isset($this->request->post['theme_materialize_product_description_length'])) {

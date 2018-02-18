@@ -109,6 +109,3 @@ $_['error_image_wishlist']				= 'Вкажіть розмір зображень 
 $_['error_image_cart']					= 'Вкажіть розмір зображень товару для кошика!';
 $_['error_image_location']				= 'Вкажіть розмір зображень магазину!';
 $_['error_percent_remainder']			= 'Вкажіть кількість товару для розрахунку відсотка залишку товарів!';
-
-// To appeal to users from modal
-$_['modal_title']						= 'Спасибі, що встановили Materialize Template!';

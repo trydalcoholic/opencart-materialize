@@ -90,7 +90,7 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label" for="input-enquiry">{{ entry_enquiry }}:</label>
 											<div class="col-sm-10">
-												<textarea name="enquiry" rows="5" placeholder="{{ entry_enquiry }}" id="input-enquiry" class="form-control" style="min-height:100px;resize:vertical;">{{ enquiry }}</textarea>
+												<textarea name="enquiry" placeholder="{{ entry_enquiry }}" id="input-enquiry" class="form-control textarea-resize-vertical">{{ enquiry }}</textarea>
 												{% if error_enquiry %}
 												<div class="text-danger">{{ error_enquiry }}</div>
 												{% endif %}
@@ -130,7 +130,7 @@
 										</div>
 									</fieldset>
 									{% endif %}
-								</div>			 
+								</div>
 								{% if callback_id %}
 								<div class="tab-pane" id="tab-history">
 									<fieldset>
@@ -143,7 +143,7 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label" for="input-comment">{{ entry_comment }}</label>
 											<div class="col-sm-10">
-												<textarea name="comment" rows="8" placeholder="{{ entry_comment }}" id="input-comment" class="form-control" style="min-height:100px;resize:vertical;"></textarea>
+												<textarea name="comment" placeholder="{{ entry_comment }}" id="input-comment" class="form-control textarea-resize-vertical"></textarea>
 											</div>
 										</div>
 									</fieldset>

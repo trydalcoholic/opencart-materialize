@@ -208,6 +208,8 @@ class ControllerExtensionMaterializeBlogCategory extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -358,6 +360,8 @@ class ControllerExtensionMaterializeBlogCategory extends Controller {
 		if (isset($this->request->get['page'])) {
 			$url .= '&page=' . $this->request->get['page'];
 		}
+
+		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['breadcrumbs'] = array();
 

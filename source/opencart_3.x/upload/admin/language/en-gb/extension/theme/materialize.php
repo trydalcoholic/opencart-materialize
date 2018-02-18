@@ -109,6 +109,3 @@ $_['error_image_wishlist']				= 'Wish List Image Size dimensions required!';
 $_['error_image_cart']					= 'Cart Image Size dimensions required!';
 $_['error_image_location']				= 'Store Image Size dimensions required!';
 $_['error_percent_remainder']			= 'Specify the quantities of goods to calculate the percentage remainder of the goods!';
-
-// To appeal to users from modal
-$_['modal_title']						= 'Thanks for installing Materialize Template!';
