@@ -73,6 +73,8 @@ figcaption {padding:1rem 0;}
 	transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out, -moz-transform 0.3s ease-in-out, -o-transform 0.3s ease-in-out;
 }
 #modal-loading .row {margin-bottom:0;}
+.toast-undo-remove__text {margin-left:1rem;}
+.toast-undo-remove__action {height:48px;margin-right:0 !important;}
 
 /*========== Site header ==========*/
 .top-menu,.top-menu .nav-wrapper i {height:32px;line-height:32px;}

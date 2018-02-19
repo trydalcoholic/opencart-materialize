@@ -67,7 +67,7 @@
 							{% endif %}
 						</div>
 						<div class="card-stacked">
-							<button type="button" class="btn-floating waves-effect transparent z-depth-0 remove-item" title="<?php echo $button_remove; ?>" onclick="cart.remove('{{ product.cart_id }}');"><i class="material-icons black-text">close</i></button>
+							<button type="button" class="btn-floating waves-effect transparent z-depth-0 remove-item" title="{{ button_remove }}" onclick="cart.remove('{{ product.cart_id }}');"><i class="material-icons black-text">close</i></button>
 							<div class="card-content">
 								<a href="{{ product.href }}" class="text-bold">{{ product.name }}</a> x {{ product.quantity }}{% if not product.stock %}<span class="red-text">***</span>{% endif %}
 								<br>

@@ -89,7 +89,7 @@ var cart = {
 			}
 		});
 	},
-	'remove': function(key) {
+	'remove': function(key, product_id, quantity, message, cancel) {
 		$.ajax({
 			url: 'index.php?route=checkout/cart/remove',
 			type: 'post',
@@ -99,12 +99,20 @@ var cart = {
 				setTimeout(function () {
 					$('#cart-total').html(json['total']);
 				}, 100);
-				var now_location = String(document.location.pathname);
-				if ((now_location == '/cart/') || (now_location == '/checkout/') || (getURLVar('route') == 'checkout/cart') || (getURLVar('route') == 'checkout/checkout')) {
+
+				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
 					$('#modal-cart-content').load('index.php?route=common/cart/info .modal-content .container');
+
+					Materialize.toast('<span class="toast-undo-remove__text">' + message + '</span><button id="toast-undo-remove__' + key + '" class="btn-flat waves-effect toast-action toast-undo-remove__action cyan-text text-accent-3">' + cancel + '</button>', 7000, 'no-padding');
+
+					$('#toast-undo-remove__' + key + '').click( function() {
+						cart.add(product_id, quantity);
+						$(this).parent().first()[0].M_Toast.remove();
+					});
 				}
+
 				if (json['total'] == 0) {
 					$('#cart').removeClass('pulse');
 					$('#cart-total').removeClass('pulse');
@@ -130,8 +138,8 @@ var voucher = {
 				setTimeout(function () {
 					$('#cart-total').html(json['total']);
 				}, 100);
-				var now_location = String(document.location.pathname);
-				if ((now_location == '/cart/') || (now_location == '/checkout/') || (getURLVar('route') == 'checkout/cart') || (getURLVar('route') == 'checkout/checkout')) {
+
+				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
 					$('#modal-cart-content').load('index.php?route=common/cart/info .modal-content .container');

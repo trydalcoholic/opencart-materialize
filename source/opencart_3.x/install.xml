@@ -5,6 +5,13 @@
 	<version>0.80</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Canceling a remote product -->
+	<file path="catalog/controller/common/cart.php">
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['product_id'	=> $product['product_id'],]]></add>
+		</operation>
+	</file>
 	<!-- Materialize Pagination -->
 	<file path="catalog/controller/{account,product}/{download,order,recurring,return,reward,transaction,category,manufacturer,product,search,special}*.php">
 		<operation error="log">

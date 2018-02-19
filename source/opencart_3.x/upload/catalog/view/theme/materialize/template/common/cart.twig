@@ -34,7 +34,7 @@
 						- <small>{{ text_recurring }}: {{ product.recurring }}</small>
 						{% endif %}
 					</p>
-					<button onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}" class="btn-floating transparent z-depth-0 waves-effect secondary-content activator"><i class="material-icons black-text">remove_shopping_cart</i></button>
+					<button onclick="cart.remove('{{ product.cart_id }}', '{{ product.product_id }}', '{{ product.quantity }}', '{{ text_product_removed }}', '{{ text_cancel }}');" title="{{ button_remove }}" class="btn-floating transparent z-depth-0 waves-effect secondary-content activator"><i class="material-icons black-text">remove_shopping_cart</i></button>
 				</li>
 				{% endfor %}
 				{% for voucher in vouchers %}
