@@ -214,10 +214,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	                }
 					for (i in json['error']) {
 						var element = $('#input-payment-' + i.replace('_', '-'));
-						if ($(element).parent().hasClass('input-group')) {
-							Materialize.toast(json['error']['i'], 7000);
+
+						if ($(element).parent()) {
+							Materialize.toast(json['error'][i], 7000);
 						} else {
-							Materialize.toast(json['error']['i'], 7000);
+							Materialize.toast(json['error'][i], 7000);
 						}
 					}
 	            } else {

@@ -10,7 +10,7 @@
 					{% if filter.filter_id in filter_category %}
 					<input type="checkbox" class="filled-in" id="filled-in-{{ filter.filter_id }}"  name="filter[]" value="{{ filter.filter_id }}" checked="checked">
 					<label for="filled-in-{{ filter.filter_id }}">{{ filter.name }}</label>
-					{% else %}>
+					{% else %}
 					<input type="checkbox" class="filled-in" id="filled-in-{{ filter.filter_id }}"  name="filter[]" value="{{ filter.filter_id }}">
 					<label for="filled-in-{{ filter.filter_id }}">{{ filter.name }}</label>
 					{% endif %}

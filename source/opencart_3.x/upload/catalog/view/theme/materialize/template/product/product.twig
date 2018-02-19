@@ -73,37 +73,22 @@
 							{% endif %}
 							{% if special %}<span class="white-text badge red lighten-1 product-card-badge-percent z-depth-1">{{ text_percent }} <b>{{ percent_discount }}%</b></span>{% endif %}
 							<span class="{{ stock_color }} white-text badge availability">{{ stock }}</span>
-							{% if thumb or images %}
-								<div class="slider-for photo-swipe" itemscope itemtype="http://schema.org/ImageGallery">
-									{% if thumb %}
-									<figure class="waves-effect waves-light" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-										<a href="{{ popup }}" itemprop="contentUrl" data-size="{{ popup_size }}">
-											<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ thumb }}" itemprop="thumbnail" title="{{ heading_title }}" alt="{{ heading_title }}">
-										</a>
-										<figcaption class="center" itemprop="caption description">{{ heading_title }}</figcaption>
-									</figure>
-									{% endif %}
-									{% if images %}
-										{% for image in images %}
-										<figure class="waves-effect waves-light" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-											<a href="{{ image.popup }}" itemprop="contentUrl" data-size="{{ popup_size }}">
-												<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ image.thumb_array }}" itemprop="thumbnail" title="{{ heading_title }}" alt="{{ heading_title }}">
-											</a>
-											<figcaption class="center" itemprop="caption description">{{ heading_title }}</figcaption>
-										</figure>
-										{% endfor %}
-									{% endif %}
-								</div>
-								{% if images %}
-								<div class="slider-nav">
-									{% if thumb_small %}
-									<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ thumb_small }}" title="{{ heading_title }}" alt="{{ heading_title }}">
-									{% endif %}
-									{% for image in images %}
-									<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}">
-									{% endfor %}
-								</div>
-								{% endif %}
+							{% if images %}
+							<div class="slider-for photo-swipe" itemscope itemtype="http://schema.org/ImageGallery">
+								{% for image in images %}
+								<figure class="waves-effect waves-light" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+									<a href="{{ image.popup }}" itemprop="contentUrl" data-size="{{ data_size }}">
+										<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ image.preview }}" itemprop="thumbnail" title="{{ heading_title }}" alt="{{ heading_title }}">
+									</a>
+									<figcaption class="center" itemprop="caption description">{{ heading_title }}</figcaption>
+								</figure>
+								{% endfor %}
+							</div>
+							<div class="slider-nav">
+								{% for image in images %}
+								<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}">
+								{% endfor %}
+							</div>
 							{% endif %}
 						</div>
 					</div>
@@ -619,6 +604,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 	// Share side
 	$('.share-btn').sideNav({edge:'right'});
+	{% if images %}
 	// Photo slider
 	$('.slider-for').not('.slick-initialized').slick({
 		slidesToShow: 1,
@@ -628,7 +614,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		mobileFirst: true,
 		asNavFor: '.slider-nav'
 	});
-	{% if images %}
 	$('.slider-nav').not('.slick-initialized').slick({
 		slidesToShow: 4,
 		slidesToScroll: 4,

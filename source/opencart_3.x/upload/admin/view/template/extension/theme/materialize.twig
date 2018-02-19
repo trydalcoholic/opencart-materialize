@@ -709,7 +709,7 @@
 												{% for language in languages %}
 												<div class="input-group">
 													<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
-													<input type="text" name="module_materialize[{{ language.language_id }}][payment_text]" value="{{ module_materialize[language.language_id] ? module_materialize[language.language_id].payment_text }}" placeholder="{{ entry_text }}" class="form-control" />
+													<input type="text" name="theme_materialize[{{ language.language_id }}][payment_text]" value="{{ theme_materialize[language.language_id] ? theme_materialize[language.language_id].payment_text }}" placeholder="{{ entry_text }}" class="form-control" />
 												</div>
 												{% endfor %}
 											</div>
@@ -750,13 +750,13 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label">{{ entry_footer_title }}:</label>
 													<div class="col-sm-10">
-														<input type="text" name="module_materialize[{{ language.language_id }}][footer_title]" value="{{ module_materialize[language.language_id] ? module_materialize[language.language_id].footer_title }}" placeholder="{{ entry_title }}" class="form-control" />
+														<input type="text" name="theme_materialize[{{ language.language_id }}][footer_title]" value="{{ theme_materialize[language.language_id] ? theme_materialize[language.language_id].footer_title }}" placeholder="{{ entry_title }}" class="form-control" />
 													</div>
 												</div>
 												<div class="form-group">
 													<label class="col-sm-2 control-label">{{ entry_description }}:</label>
 													<div class="col-sm-10">
-														<textarea name="module_materialize[{{ language.language_id }}][footer_description]" placeholder="{{ entry_description }}" class="form-control textarea-resize-vertical">{{ module_materialize[language.language_id] ? module_materialize[language.language_id].footer_description }}</textarea>
+														<textarea name="theme_materialize[{{ language.language_id }}][footer_description]" placeholder="{{ entry_description }}" class="form-control textarea-resize-vertical">{{ theme_materialize[language.language_id] ? theme_materialize[language.language_id].footer_description }}</textarea>
 													</div>
 												</div>
 											</div>
@@ -784,7 +784,7 @@
 												{% for language in languages %}
 												<div class="input-group">
 													<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
-													<input type="text" name="module_materialize[{{ language.language_id }}][sn_text]" value="{{ module_materialize[language.language_id] ? module_materialize[language.language_id].sn_text }}" placeholder="{{ entry_text }}" class="form-control" />
+													<input type="text" name="theme_materialize[{{ language.language_id }}][sn_text]" value="{{ theme_materialize[language.language_id] ? theme_materialize[language.language_id].sn_text }}" placeholder="{{ entry_text }}" class="form-control" />
 												</div>
 												{% endfor %}
 											</div>

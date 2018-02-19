@@ -1,5 +1,4 @@
-{% for blog_block in blog_blocks %}
-	{% if blog_block == 'search' %}
+
 		<ul class="collapsible collapsible-accordion collection with-header z-depth-1" data-collapsible="accordion">
 			<li class="collection-header blue-grey white-text"><h5>{{ heading_search }}</h5></li>
 			<li class="collection-item">
@@ -13,10 +12,10 @@
 		<script>
 		document.addEventListener("DOMContentLoaded", function(event) {
 			$('#label-search-blog').on('click', function() {
-				var url = $('base').attr('href') + 'index.php?route=blog/search';
+				var url = $('base').attr('href') + 'index.php?route=extension/materialize/blog/search';
 				var value = $('#search-input-blog').val();
 				if (value) {
-					url += '&search=' + encodeURIComponent(value);
+					url += '&blog_search=' + encodeURIComponent(value);
 				}
 				location = url;
 			});
@@ -27,7 +26,6 @@
 			});
 		});
 		</script>
-	{% endif %}
 	{% if blog_block == 'categories' %}
 		<ul class="collapsible collapsible-accordion collection with-header z-depth-1" data-collapsible="accordion">
 			<li class="collection-header blue-grey white-text"><h5>{{ heading_category }}</h5></li>
@@ -71,4 +69,3 @@
 			{% endfor %}
 		</ul>
 	{% endif %}
-{% endfor %}

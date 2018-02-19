@@ -5,6 +5,56 @@
 	<version>0.80</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Google Searchbox -->
+	<file path="catalog/controller/common/home.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->request->server['HTTPS']) {
+				$server = $this->config->get('config_ssl');
+			} else {
+				$server = $this->config->get('config_url');
+			}
+
+			$data['base'] = $server;
+			]]></add>
+		</operation>
+	</file>
+	<!-- Slider images on the product card -->
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search index="0"><![CDATA[if ($product_info['image']) {]]></search>
+			<add position="before"><![CDATA[if ($this->config->get('theme_materialize_status') == 0) {]]></add>
+		</operation>
+		<operation error="log">
+			<search index="0"><![CDATA[if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {]]></search>
+			<add position="before"><![CDATA[
+			} else {
+				$data['images'] = array();
+
+				$data['data_size'] = $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width').'x'.$this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height');
+
+				if ($product_info['image']) {
+					$data['images'][] = array(
+						'popup' => $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),
+						'preview' => $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height')),
+						'thumb' => $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'))
+					);
+				}
+
+				$results = $this->model_catalog_product->getProductImages($this->request->get['product_id']);
+
+				foreach ($results as $result) {
+					$data['images'][] = array(
+						'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),
+						'preview' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height')),
+						'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'))
+					);
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
 	<!-- Canceling a remote product -->
 	<file path="catalog/controller/common/cart.php">
 		<operation error="log">
@@ -747,7 +797,7 @@
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
 			if ($this->config->get('theme_materialize_status') == 1) {
-				$materialize = $this->config->get('module_materialize');
+				$materialize = $this->config->get('theme_materialize');
 
 				$data['footer_title'] = $materialize[$this->config->get('config_language_id')]['footer_title'];
 				$data['footer_description'] = $materialize[$this->config->get('config_language_id')]['footer_description'];
@@ -801,7 +851,7 @@
 			<search><![CDATA[$this->load->model('tool/image');]]></search>
 			<add position="after"><![CDATA[
 			if ($this->config->get('theme_materialize_status') == 1) {
-				$materialize = $this->config->get('module_materialize');
+				$materialize = $this->config->get('theme_materialize');
 
 				$data['payment_method'] = $materialize[$this->config->get('config_language_id')]['payment_text'];
 
@@ -2226,34 +2276,6 @@
 			</add>
 		</operation>
 	</file>
-	<!-- Slider images on the product card -->
-	<file path="catalog/controller/product/product.php">
-		<operation error="log">
-			<search><![CDATA[$data['popup'] = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height'));]]></search>
-			<add position="after"><![CDATA[
-			$data['popup_size'] = $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width').'x'.$this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height');
-			]]>
-			</add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[$data['images'] = array();]]></search>
-			<add position="before"><![CDATA[
-			if ($product_info['image']) {
-				$data['thumb_small'] = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'));
-			} else {
-				$data['thumb_small'] = '';
-			}
-			]]>
-			</add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA['popup' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),]]></search>
-			<add position="before"><![CDATA[
-			'thumb_array' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height')),
-			]]>
-			</add>
-		</operation>
-	</file>
 	<!-- Additional Fields https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=25379 -->
 	<file path="admin/controller/catalog/product.php">
 		<operation error="log">
@@ -2508,8 +2530,8 @@
 	</file>
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
-			<search><![CDATA[$data['images'] = array();]]></search>
-			<add position="before"><![CDATA[
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[
 			if ($this->config->get('module_additionalfields_status') == 1) {
 				$data['additionalfields'] = array();
 

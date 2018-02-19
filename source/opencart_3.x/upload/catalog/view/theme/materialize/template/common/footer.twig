@@ -1,10 +1,24 @@
 {% spaceless %}
+{% if footer_title or footer_description or footer_contact %}
+	{% if social_network %}
+		{% set col_information, col_extra, col_account, col_social_network = 's12 m6','s12 m6', 's12 m6', 's12 m6' %}
+	{% else %}
+		{% set col_information, col_extra, col_account = 's12 m6', 's12 m6', 's12 m6' %}
+	{% endif %}
+{% else %}
+	{% if social_network %}
+		{% set col_information, col_extra, col_account, col_social_network = 's6 m4 l3','s6 m4 l3', 's6 m4 l3', 's6 m4 l3' %}
+	{% else %}
+		{% set col_information, col_extra, col_account = 's6 m4','s6 m4', 's6 m4' %}
+	{% endif %}
+{% endif %}
 <footer class="page-footer {{ color_footer }} {{ color_footer_text }}">
 	<div class="container">
 		<div class="row">
+			{% if footer_title or footer_description or footer_contact %} <!-- Open footer info -->
 			<div class="col l6 s12 {{ color_footer_text }}">
-				<h5 class="text-bold">{{ footer_title }}</h5>
-				<p>{{ footer_description }}</p>
+				{% if footer_title %}<h5 class="text-bold">{{ footer_title }}</h5>{% endif %}
+				{% if footer_description %}<p>{{ footer_description }}</p>{% endif %}
 				{% if footer_contact %}
 				<ul class="collection footer-info">
 					<li class="collection-item">
@@ -26,8 +40,9 @@
 			</div>
 			<div class="col s12 l5 offset-l1">
 				<div class="row">
+				{% endif %} <!-- ./ end footer info -->
 					{% if informations %}
-					<section class="col s6">
+					<section class="col {{ col_information }}">
 						<h5 class="text-bold">{{ text_information }}</h5>
 						<ul>
 							{% for information in informations %}
@@ -37,7 +52,7 @@
 						</ul>
 					</section>
 					{% endif %}
-					<section class="col s6">
+					<section class="col {{ col_extra }}">
 						<h5 class="text-bold">{{ text_extra }}</h5>
 						<ul>
 							<li><a class="{{ color_footer_text }}" href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>
@@ -46,9 +61,11 @@
 							<li><a class="{{ color_footer_text }}" href="{{ special }}">{{ text_special }}</a></li>
 						</ul>
 					</section>
+				{% if footer_title or footer_description or footer_contact %} <!-- Open footer info -->
 				</div>
 				<div class="row">
-					<section class="col s6">
+				{% endif %} <!-- ./ end footer info -->
+					<section class="col {{ col_account }}">
 						<h5 class="text-bold">{{ text_account }}</h5>
 						<ul>
 							<li><a class="{{ color_footer_text }}" href="{{ account }}" rel="nofollow">{{ text_account }}</a></li>
@@ -58,7 +75,7 @@
 						</ul>
 					</section>
 					{% if social_network %}
-					<section class="col s6">
+					<section class="col {{ col_social_network }}">
 						<h5 class="text-bold">{{ sn_text }}</h5>
 						<ul class="footer-sn">
 							{% if facebook %}
@@ -127,14 +144,16 @@
 						</ul>
 					</section>
 					{% endif %}
+				{% if footer_title or footer_description or footer_contact %} <!-- Open footer info -->
 				</div>
 			</div>
+			{% endif %} <!-- ./ end footer info -->
 		</div>
 	</div>
 	<div class="footer-copyright">
 		<div class="container {{ color_footer_text }}">
 			{{ powered }}
-			<a class="right {{ color_footer_text }}" href="//github.com/trydalcoholic/opencart-materialize" target="_blank" rel="noopener">Materialize Template</a>
+			<a class="right {{ color_footer_text }}" href="//goo.gl/YpctDE" target="_blank" rel="noopener">Materialize Template</a>
 		</div>
 	</div>
 </footer>
