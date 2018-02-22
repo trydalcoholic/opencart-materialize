@@ -5,7 +5,138 @@
 	<version>0.80</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
-	<!-- Google Searchbox -->
+	<!-- Metadata -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			$this->load->model('tool/image');
+
+			$this->load->model('extension/materialize/materialize');
+
+			$data['social_links'] = $this->model_extension_materialize_materialize->getSocialLinks();
+
+			$facebook_share_image_width = 600;
+			$facebook_share_image_height = 315;
+
+			if($this->document->getImage()){
+				$facebook_share_image = $this->model_tool_image->resize($this->document->getImage(), $facebook_share_image_width, $facebook_share_image_height);
+			} else {
+				$facebook_share_image = $this->model_tool_image->resize($this->config->get('config_logo'), $facebook_share_image_width, $facebook_share_image_height);
+			}
+
+			$data['facebook_site_name'] = $this->config->get('config_name');
+			$data['facebook_share_url'] = ($this->request->server['HTTPS'] ? 'https://' : 'http://') . $this->request->server['HTTP_HOST'] . $this->request->server['REQUEST_URI'];
+			$data['facebook_share_type'] = ($this->document->getType()) ? $this->document->getType() : 'website';
+			$data['facebook_share_title'] = $this->document->getTitle();
+			$data['facebook_share_description'] = $this->document->getDescription();
+			$data['facebook_share_image'] = $facebook_share_image;
+			$data['facebook_share_image_width'] = $facebook_share_image_width;
+			$data['facebook_share_image_height'] = $facebook_share_image_height;
+			$data['facebook_product_price_amount'] = $this->document->getPrice();
+			$data['facebook_product_price_currency'] = $this->config->get('config_currency');
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/category.php">
+		<operation error="log">
+			<search><![CDATA[if ($category_info) {]]></search>
+			<add position="after"><![CDATA[
+			$this->document->setImage($category_info['image']);
+
+			if($category_info['image']){
+				$share_image = $this->model_tool_image->resize($category_info['image'], 600, 315);
+			} else {
+				$share_image = $this->model_tool_image->resize($this->config->get('config_image'), 600, 315);
+			}
+
+			$this->document->setImage($share_image);
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/manufacturer.php">
+		<operation error="log">
+			<search><![CDATA[if ($manufacturer_info) {]]></search>
+			<add position="after"><![CDATA[$this->document->setImage($manufacturer_info['image']);]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/product.php">
+		<operation error="log">
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[
+			$this->document->setType('product');
+			$this->document->setImage($product_info['image']);
+			$this->document->setPrice($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')));
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$this->load->model('tool/image');]]></search>
+			<add position="after"><![CDATA[
+			if($product_info['image']){
+				$share_image = $this->model_tool_image->resize($product_info['image'], 600, 315);
+			} else {
+				$share_image = $this->model_tool_image->resize($this->config->get('config_image'), 600, 315);
+			}
+
+			$this->document->setImage($share_image);
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['price'] = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
+			<add position="after"><![CDATA[$data['meta_price'] = $product_info['price'];]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
+			<add position="after"><![CDATA[$data['meta_special'] = $product_info['price'];]]></add>
+		</operation>
+	</file>
+	<file path="system/library/document.php">
+		<operation error="log">
+			<search><![CDATA[class Document {]]></search>
+			<add position="after"><![CDATA[
+			private $image;
+			private $url;
+			private $type;
+			private $price;
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[private $scripts = array();]]></search>
+			<add position="after"><![CDATA[
+			public function setImage($image) {
+				$this->image = $image;
+			}
+
+			public function getImage() {
+				return $this->image;
+			}
+
+			public function setUrl($url) {
+				$this->url = $url;
+			}
+
+			public function getUrl() {
+				return $this->url;
+			}
+
+			public function setType($type) {
+				$this->type = $type;
+			}
+
+			public function getType() {
+				return $this->type;
+			}
+
+			public function setPrice($price) {
+				$this->price = $price;
+			}
+
+			public function getPrice() {
+				return $this->price;
+			}
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/controller/common/home.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
@@ -806,29 +937,41 @@
 				$data['open'] = nl2br($this->config->get('config_open'));
 				$data['email'] = $this->config->get('config_email');
 				$data['address'] = nl2br($this->config->get('config_address'));
+				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+				$data['sn_text'] = $materialize[$this->config->get('config_language_id')]['sn_text'];
 
-				if (($this->config->get('theme_materialize_sn_fb') == false) && ($this->config->get('theme_materialize_sn_g') == false) && ($this->config->get('theme_materialize_sn_inst') == false) && ($this->config->get('theme_materialize_sn_tw') == false) && ($this->config->get('theme_materialize_sn_yt') == false) && ($this->config->get('theme_materialize_sn_vk') == false) && ($this->config->get('theme_materialize_sn_ok') == false)) {
-					$data['social_network'] = false;
-				} else {
-					$data['social_network'] = true;
-					$data['sn_text'] = $materialize[$this->config->get('config_language_id')]['sn_text'];
-					$data['facebook'] = $this->config->get('theme_materialize_sn_fb');
-					$data['google'] = $this->config->get('theme_materialize_sn_g');
-					$data['instagram'] = $this->config->get('theme_materialize_sn_inst');
-					$data['twitter'] = $this->config->get('theme_materialize_sn_tw');
-					$data['youtube'] = $this->config->get('theme_materialize_sn_yt');
-					$data['vk'] = $this->config->get('theme_materialize_sn_vk');
-					$data['odnoklassniki'] = $this->config->get('theme_materialize_sn_ok');
-					if ($this->config->get('theme_materialize_sn_index') == 1) {
-						$data['no_index'] = ' nofollow';
-					} else {
-						$data['no_index'] = false;
+				$this->load->model('tool/image');
+
+				$this->load->model('extension/materialize/materialize');
+
+				$data['social_network'] = true;
+
+				$data['social_icons'] = array();
+
+				$results = $this->model_extension_materialize_materialize->getSocialIcons();
+
+				foreach ($results as $result) {
+					if (is_file(DIR_IMAGE . $result['icon'])) {
+						$data['social_icons'][] = array(
+							'title'	=> $result['title'],
+							'link'	=> $result['link'],
+							'icon'	=> $this->model_tool_image->resize($result['icon'], 75, 75)
+						);
 					}
+				}
+
+				if ($this->config->get('theme_materialize_sn_index') == 1) {
+					$data['no_index'] = ' nofollow';
+				} else {
+					$data['no_index'] = false;
+				}
+
+				if (empty($data['sn_text']) && empty($data['social_icons'])) {
+					$data['social_network'] = false;
 				}
 
 				$data['color_footer'] = $this->config->get('theme_materialize_color_footer');
 				$data['color_footer_text'] = $this->config->get('theme_materialize_color_footer_text');
-				$data['color_footer_sn'] = $this->config->get('theme_materialize_color_footer_text_sn');
 				$data['color_btt'] = $this->config->get('theme_materialize_color_btt_btn');
 				$data['color_btt_text'] = $this->config->get('theme_materialize_color_btt_btn_text');
 			} else {
@@ -839,7 +982,6 @@
 
 				$data['color_footer'] = 'blue-grey darken-3';
 				$data['color_footer_text'] = 'white-text';
-				$data['color_footer_sn'] = 'white-text';
 				$data['color_btt'] = 'red';
 				$data['color_btt_text'] = 'white-text';
 			}

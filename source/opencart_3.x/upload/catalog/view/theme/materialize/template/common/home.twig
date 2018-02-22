@@ -1,9 +1,10 @@
 {{ header }}
+{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
 	"@type": "WebSite",
-	"url": "{{ base }}>",
+	"url": "{{ base }}",
 	"potentialAction": {
 		"@type": "SearchAction",
 		"target": "{{ base }}index.php?route=product/search&search={query}",
@@ -11,7 +12,6 @@
 	}
 }
 </script>
-{% spaceless %}
 {% if column_left and column_right %}
 	{% set main, goods = 's12 l6', 's12' %}
 {% elseif column_left or column_right %}

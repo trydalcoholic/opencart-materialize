@@ -84,15 +84,15 @@ $_['entry_payment_height']				= 'Image Height';
 
 $_['entry_footer_title']				= 'Footer title';
 $_['entry_contact']						= 'Contact Information';
-$_['entry_socials']						= 'Social Networks';
+$_['entry_icon']						= 'Icon';
 $_['entry_link']						= 'Link';
 $_['entry_not_index']					= 'Do not index';
+$_['entry_sort_order']					= 'Sort Order';
 
 // Help
 $_['help_product_limit']				= 'Determines how many catalog items are shown per page (products, categories, etc)';
 $_['help_product_description_length']	= 'In the list view, short description character limit (categories, special etc)';
 $_['help_colors']						= 'The colors of the template are already embedded in the CSS styles. Customize the colors of the site according to your desire based on the existing color palette. You can see the color palette on the website of the developers of the <a href="//goo.gl/T8bJtN" target="_blank" rel="noopener"><b>Materialize framework.</b></a>';
-$_['help_not_index']					= 'Sets the rel="nofollow';
 $_['help_payment']						= 'Here you can configure only the output of information about available payment methods on the products page.';
 
 // Error

@@ -464,10 +464,9 @@ figcaption {padding:1rem 0;}
 	display: flex;
 	flex-flow: row wrap;
 }
-.footer-sn__item {flex-basis:25%;}
-.footer-sn__item-svg {
-	width: 2em;
-	height: 2em;
+.footer-sn__item {
+	flex-basis: 25%;
+	padding: 10px;
 }
 
 /*========== Inputs - color adjustment ==========*/

@@ -84,15 +84,15 @@ $_['entry_payment_height']				= 'Görüntü Yüksekliği';
 
 $_['entry_footer_title']				= 'Altbilgi başlığı';
 $_['entry_contact']						= 'İletişim Bilgileri';
-$_['entry_socials']						= 'Sosyal Ağlar';
+$_['entry_icon']						= 'Ikon';
 $_['entry_link']						= 'Bağlantı';
 $_['entry_not_index']					= 'Dizin yok';
+$_['entry_sort_order']					= 'Sıralama düzeni';
 
 // Help
 $_['help_product_limit']				= 'Sayfa başına kaç tane katalog öğesi gösterildiğini belirler (ürünler, kategoriler, vb.)';
 $_['help_product_description_length']	= 'Liste görünümünde, kısa açıklama karakter sınırı (kategoriler, özel vs.)';
 $_['help_colors']						= 'Şablonun renkleri zaten CSS stilleri içinde gömülü. Mevcut renk paleti dayalı arzuya göre sitenin renkleri özelleştirin. <a href="//goo.gl/T8bJtN" target="_blank" rel="noopener"><b>Materialize çerçeve</b></a> geliştiriciler web sitesinde renk paleti görebilirsiniz.';
-$_['help_not_index']					= 'Ayarlar rel="nofollow';
 $_['help_payment']						= 'Burada Ürün sayfasında mevcut ödeme yöntemleri hakkında bilgi tek çıkış yapılandırabilirsiniz.';
 
 // Error

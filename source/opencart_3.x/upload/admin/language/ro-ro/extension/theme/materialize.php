@@ -84,15 +84,15 @@ $_['entry_payment_height']				= 'Înălțime imagine';
 
 $_['entry_footer_title']				= 'Titlul Footerului';
 $_['entry_contact']						= 'Informatii de contact';
-$_['entry_socials']						= 'Retele sociale';
+$_['entry_icon']						= 'Icoană';
 $_['entry_link']						= 'Legătură';
 $_['entry_not_index']					= 'Nu indexați';
+$_['entry_sort_order']					= 'Ordinea de sortare';
 
 // Help
 $_['help_product_limit']				= 'Câte obiecte (produse,categorii) sunt afisate pe pagina in catalog';
 $_['help_product_description_length']	= 'Se refera la scurta descriere a produsului in lista de produse. Specifici numarul de caractere ce va fi afișat.';
 $_['help_colors']						= 'Culorile șablonului sunt deja încorporate în stilurile CSS. Personalizați culorile site-ului în funcție de dorința dvs., pe baza paletei de culori existente. Puteți vedea paleta de culori pe site-ul dezvoltatorilor din cadrul <a href="//goo.gl/T8bJtN" target="_blank" rel="noopener"><b>Materialize framework.</b></a>';
-$_['help_not_index']					= 'Seteaza rel="nofollow"';
 $_['help_payment']						= 'Aici puteți configura numai rezultatul informațiilor despre metodele de plată disponibile pe pagina de produse.';
 
 // Error

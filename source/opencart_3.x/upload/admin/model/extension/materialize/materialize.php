@@ -539,13 +539,26 @@ class ModelExtensionMaterializeMaterialize extends Model {
 			(255, 'black-text', '000000'),
 			(256, 'white-text', 'ffffff');
 		");
+
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "materialize_social_networks` (
+				`icon_id` int(11) NOT NULL AUTO_INCREMENT,
+				`language_id` int(11) NOT NULL,
+				`title` varchar(128) DEFAULT NULL,
+				`link` varchar(255) DEFAULT NULL,
+				`icon` varchar(255) DEFAULT NULL,
+				`sort_order` int(3) NOT NULL,
+				PRIMARY KEY (`icon_id`)
+			) ENGINE=MyISAM;
+		");
 	}
 
 	public function uninstall() {
 		$this->db->query("
 			DROP TABLE IF EXISTS
 				`" . DB_PREFIX . "materialize_colors`,
-				`" . DB_PREFIX . "materialize_colors_text`
+				`" . DB_PREFIX . "materialize_colors_text`,
+				`" . DB_PREFIX . "materialize_social_networks`
 			;
 		");
 	}
@@ -560,5 +573,34 @@ class ModelExtensionMaterializeMaterialize extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "materialize_colors_text ORDER BY name ASC");
 
 		return $query->rows;
+	}
+
+	public function editSocialIcon($data) {
+		$this->db->query("DELETE FROM " . DB_PREFIX . "materialize_social_networks");
+
+		if (isset($data['theme_materialize_social_icon'])) {
+			foreach ($data['theme_materialize_social_icon'] as $language_id => $value) {
+				foreach ($value as $theme_materialize_social_icon) {
+					$this->db->query("INSERT INTO " . DB_PREFIX . "materialize_social_networks SET language_id = '" . (int)$language_id . "', title = '" .  $this->db->escape($theme_materialize_social_icon['title']) . "', link = '" .  $this->db->escape($theme_materialize_social_icon['link']) . "', icon = '" .  $this->db->escape($theme_materialize_social_icon['icon']) . "', sort_order = '" . (int)$theme_materialize_social_icon['sort_order'] . "'");
+				}
+			}
+		}
+	}
+
+	public function getSocialIcons() {
+		$social_icon_data = array();
+
+		$social_icon_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "materialize_social_networks ORDER BY sort_order ASC");
+
+		foreach ($social_icon_query->rows as $social_icon) {
+			$social_icon_data[$social_icon['language_id']][] = array(
+				'title'			=> $social_icon['title'],
+				'link'			=> $social_icon['link'],
+				'icon'			=> $social_icon['icon'],
+				'sort_order'	=> $social_icon['sort_order']
+			);
+		}
+
+		return $social_icon_data;
 	}
 }

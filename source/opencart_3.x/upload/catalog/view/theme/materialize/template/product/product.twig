@@ -148,10 +148,10 @@
 										<span class="card-price new-prices red-text text-darken-2">{{ special }}</span>
 										<meta itemprop="price" content="{{ meta_special }}">
 										{% endif %}
-										{% endif %}
-										<meta itemprop="pricecurrency" content="{{ pricecurrency }}">
-										<link itemprop="availability" href="{{ stock_status }}">
-										{% if product_spec and product_spec != '0000-00-00' %}
+									{% endif %}
+									<meta itemprop="pricecurrency" content="{{ pricecurrency }}">
+									<link itemprop="availability" href="{{ stock_status }}">
+									{% if product_spec and product_spec != '0000-00-00' %}
 										<meta itemprop="priceValidUntil" content="{{ product_spec }}">
 									{% endif %}
 								</div>
@@ -184,13 +184,13 @@
 									<li><span class="text-bold">{{ text_model }}</span>&nbsp;{{ model }}</li>
 									{% endif %}
 									{% if sku %}
-									<li><span class="text-bold">{{ text_sku }}</span>:&nbsp;{{ sku }}</li>
+									<li><span class="text-bold">{{ text_sku }}</span>:&nbsp;<span itemprop="sku">{{ sku }}</span></li>
 									{% endif %}
 									{% if upc %}
 									<li><span class="text-bold">{{ text_upc }}</span>:&nbsp;{{ upc }}</li>
 									{% endif %}
 									{% if ean %}
-									<li><span class="text-bold">{{ text_ean }}</span>:&nbsp;{{ ean }}</li>
+									<li><span class="text-bold" >{{ text_ean }}</span>:&nbsp;{{ ean }}</li>
 									{% endif %}
 									{% if jan %}
 									<li><span class="text-bold">{{ text_jan }}</span>:&nbsp;{{ jan }}</li>
@@ -199,7 +199,7 @@
 									<li><span class="text-bold">{{ text_isbn }}</span>:&nbsp;{{ isbn }}</li>
 									{% endif %}
 									{% if mpn %}
-									<li><span class="text-bold">{{ text_mpn }}</span>:&nbsp;{{ mpn }}</li>
+									<li><span class="text-bold">{{ text_mpn }}</span>:&nbsp;<span itemprop="mpn">{{ mpn }}</span></li>
 									{% endif %}
 									{% if location %}
 									<li><span class="text-bold">{{ text_location }}</span>:&nbsp;{{ location }}</li>
