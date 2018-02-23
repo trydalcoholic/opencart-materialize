@@ -253,7 +253,9 @@ class ControllerExtensionMaterializeBlogBlog extends Controller {
 
 			$this->response->setOutput($this->load->view('blog/blog', $data));
 		} else {
-			$this->load->language('blog/category');
+			$this->load->language('error/not_found');
+
+			$this->document->setTitle($this->language->get('heading_title'));
 
 			$data['breadcrumbs'] = array();
 
@@ -262,16 +264,26 @@ class ControllerExtensionMaterializeBlogBlog extends Controller {
 				'href'	=> $this->url->link('common/home')
 			);
 
-			$data['breadcrumbs'][] = array(
-				'text'	=> $this->language->get('text_error'),
-				'href'	=> $this->url->link('extension/materialize/blog/category')
-			);
+			if (isset($this->request->get['route'])) {
+				$url_data = $this->request->get;
 
-			$this->document->setTitle($this->language->get('text_error'));
+				unset($url_data['_route_']);
 
-			$data['continue'] = $this->url->link('common/home');
+				$route = $url_data['route'];
 
-			$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
+				unset($url_data['route']);
+
+				$url = '';
+
+				if ($url_data) {
+					$url = '&' . urldecode(http_build_query($url_data, '', '&'));
+				}
+
+				$data['breadcrumbs'][] = array(
+					'text'	=> $this->language->get('heading_title'),
+					'href'	=> $this->url->link($route, $url, $this->request->server['HTTPS'])
+				);
+			}
 
 			$data['column_left'] = $this->load->controller('common/column_left');
 			$data['column_right'] = $this->load->controller('common/column_right');
@@ -279,6 +291,8 @@ class ControllerExtensionMaterializeBlogBlog extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
+
+			$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 
 			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}

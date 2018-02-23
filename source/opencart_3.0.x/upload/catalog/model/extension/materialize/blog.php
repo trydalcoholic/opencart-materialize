@@ -381,12 +381,6 @@ class ModelExtensionMaterializeBlog extends Model {
 		}
 	}
 
-/*	public function getCategories($post_id) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . (int)$post_id . "'");
-
-		return $query->rows;
-	}*/
-
 	public function getPostAuthors($post_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "post_to_author WHERE post_id = '" . (int)$post_id . "'");
 

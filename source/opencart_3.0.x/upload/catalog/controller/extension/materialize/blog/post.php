@@ -433,51 +433,9 @@ class ControllerExtensionMaterializeBlogPost extends Controller {
 				$this->response->setOutput($this->load->view('error/not_found', $data));
 			}
 		} else {
-			$url = '';
+			$this->load->language('error/not_found');
 
-			if (isset($this->request->get['blog_path'])) {
-				$url .= '&blog_path=' . $this->request->get['blog_path'];
-			}
-
-			if (isset($this->request->get['author_id'])) {
-				$url .= '&author_id=' . $this->request->get['author_id'];
-			}
-
-			if (isset($this->request->get['search'])) {
-				$url .= '&search=' . $this->request->get['search'];
-			}
-
-			if (isset($this->request->get['tag'])) {
-				$url .= '&tag=' . $this->request->get['tag'];
-			}
-
-			if (isset($this->request->get['description'])) {
-				$url .= '&description=' . $this->request->get['description'];
-			}
-
-			if (isset($this->request->get['blog_category_id'])) {
-				$url .= '&blog_category_id=' . $this->request->get['blog_category_id'];
-			}
-
-			if (isset($this->request->get['sub_category'])) {
-				$url .= '&sub_category=' . $this->request->get['sub_category'];
-			}
-
-			if (isset($this->request->get['sort'])) {
-				$url .= '&sort=' . $this->request->get['sort'];
-			}
-
-			if (isset($this->request->get['order'])) {
-				$url .= '&order=' . $this->request->get['order'];
-			}
-
-			if (isset($this->request->get['page'])) {
-				$url .= '&page=' . $this->request->get['page'];
-			}
-
-			if (isset($this->request->get['limit'])) {
-				$url .= '&limit=' . $this->request->get['limit'];
-			}
+			$this->document->setTitle($this->language->get('heading_title'));
 
 			$data['breadcrumbs'] = array();
 
@@ -486,11 +444,26 @@ class ControllerExtensionMaterializeBlogPost extends Controller {
 				'href'	=> $this->url->link('common/home')
 			);
 
-			$this->document->setTitle($this->language->get('text_error'));
+			if (isset($this->request->get['route'])) {
+				$url_data = $this->request->get;
 
-			$data['continue'] = $this->url->link('common/home');
+				unset($url_data['_route_']);
 
-			$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
+				$route = $url_data['route'];
+
+				unset($url_data['route']);
+
+				$url = '';
+
+				if ($url_data) {
+					$url = '&' . urldecode(http_build_query($url_data, '', '&'));
+				}
+
+				$data['breadcrumbs'][] = array(
+					'text'	=> $this->language->get('heading_title'),
+					'href'	=> $this->url->link($route, $url, $this->request->server['HTTPS'])
+				);
+			}
 
 			$data['column_left'] = $this->load->controller('common/column_left');
 			$data['column_right'] = $this->load->controller('common/column_right');
@@ -498,6 +471,8 @@ class ControllerExtensionMaterializeBlogPost extends Controller {
 			$data['content_bottom'] = $this->load->controller('common/content_bottom');
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
+
+			$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 
 			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}

@@ -32,29 +32,29 @@
 						<div class="collapsible-body white">
 							<div class="row">
 								<div class="col s6 input-field">
-									<input type="text" name="search" value="{{ search }}" placeholder="{{ text_keyword }}" id="input-search">
+									<input type="text" name="blog_search" value="{{ blog_search }}" placeholder="{{ text_keyword }}" id="input-blog-search">
 									<label class="text-bold">{{ text_searched }}</label>
 								</div>
 								<div class="col s6 input-field">
-									<select name="category_id" class="form-control">
+									<select name="blog_category_id" class="form-control">
 										<option value="0">{{ text_category }}</option>
 										{% for category_1 in categories %}
-										{% if category_1.category_id == category_id %}
-										<option value="{{ category_1.category_id }}" selected="selected">{{ category_1.name }}</option>
+										{% if category_1.blog_category_id == blog_category_id %}
+										<option value="{{ category_1.blog_category_id }}" selected="selected">{{ category_1.name }}</option>
 										{% else %}
-										<option value="{{ category_1.category_id }}">{{ category_1.name }}</option>
+										<option value="{{ category_1.blog_category_id }}">{{ category_1.name }}</option>
 										{% endif %}
 										{% for category_2 in category_1.children %}
-										{% if category_2.category_id == category_id %}
-										<option value="{{ category_2.category_id }}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_2.name }}</option>
+										{% if category_2.blog_category_id == blog_category_id %}
+										<option value="{{ category_2.blog_category_id }}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_2.name }}</option>
 										{% else %}
-										<option value="{{ category_2.category_id }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_2.name }}</option>
+										<option value="{{ category_2.blog_category_id }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_2.name }}</option>
 										{% endif %}
 										{% for category_3 in category_2.children %}
-										{% if category_3.category_id == category_id %}
-										<option value="{{ category_3.category_id }}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_3.name }}</option>
+										{% if category_3.blog_category_id == blog_category_id %}
+										<option value="{{ category_3.blog_category_id }}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_3.name }}</option>
 										{% else %}
-										<option value="{{ category_3.category_id }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_3.name }}</option>
+										<option value="{{ category_3.blog_category_id }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ category_3.name }}</option>
 										{% endif %}
 										{% endfor %}
 										{% endfor %}
@@ -98,7 +98,7 @@
 										</div>
 									</div>
 									<div class="flex-reverse">
-										<button type="button" value="{{ button_search }}" id="button-search" class="btn waves-effect waves-light red">{{ button_search }}</button>
+										<button type="button" value="{{ button_search }}" id="button-blog-search" class="btn waves-effect waves-light red">{{ button_search }}</button>
 									</div>
 								</div>
 							</div>
@@ -145,7 +145,7 @@
 						<div class="card-image">
 							<div class="blog-image-wrap"><img class="scale transition lazyload" src="{{ img_loader }}" data-src="{{ post.thumb }}"></div>
 							{% if post.author_image %}
-							<span class="btn-floating btn-large halfway-fab waves-effect waves-light transparent"><img class="circle" src="{{ post.author_image }}" alt="{{ post.author }}"></span>
+							<a href="{{ post.author_link }}" class="btn-floating btn-large halfway-fab waves-effect waves-light transparent"><img class="circle" src="{{ post.author_image }}" alt="{{ post.author }}"></a>
 							{% endif %}
 						</div>
 						<div class="card-content {{ color_snippet }}">
@@ -195,15 +195,15 @@
 </main>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	$('#button-search').bind('click', function() {
-		url = 'index.php?route=blog/search';
-		var search = $('#content input[name=\'search\']').prop('value');
+	$('#button-blog-search').bind('click', function() {
+		url = 'index.php?route=extension/materialize/blog/search';
+		var search = $('#content input[name=\'blog_search\']').prop('value');
 		if (search) {
-			url += '&search=' + encodeURIComponent(search);
+			url += '&blog_search=' + encodeURIComponent(search);
 		}
-		var category_id = $('#content select[name=\'category_id\']').prop('value');
+		var category_id = $('#content select[name=\'blog_category_id\']').prop('value');
 		if (category_id > 0) {
-			url += '&category_id=' + encodeURIComponent(category_id);
+			url += '&blog_category_id=' + encodeURIComponent(category_id);
 		}
 		var sub_category = $('#content input[name=\'sub_category\']:checked').prop('value');
 		if (sub_category) {
@@ -215,19 +215,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 		location = url;
 	});
-	$('#content input[name=\'search\']').bind('keydown', function(e) {
+	$('#content input[name=\'blog_search\']').bind('keydown', function(e) {
 		if (e.keyCode == 13) {
-			$('#button-search').trigger('click');
+			$('#button-blog-search').trigger('click');
 		}
 	});
-	$('select[name=\'category_id\']').on('change', function() {
+	$('select[name=\'blog_category_id\']').on('change', function() {
 		if (this.value == '0') {
 			$('input[name=\'sub_category\']').prop('disabled', true);
 		} else {
 			$('input[name=\'sub_category\']').prop('disabled', false);
 		}
 	});
-	$('select[name=\'category_id\']').trigger('change');
+	$('select[name=\'blog_category_id\']').trigger('change');
 });
 </script>
 <style>.blog-card-tabs .tabs .indicator {background-color:{{ color_tabs_icon  }};}</style>
