@@ -687,10 +687,10 @@ class ModelExtensionMaterializeBlog extends Model {
 			}
 		}
 
-		if(isset($data['main_blog_category_id']) && $data['main_blog_category_id'] > 0) {
-			$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . (int)$post_id . "' AND blog_category_id = '" . (int)$data['main_blog_category_id'] . "'");
-			$this->db->query("INSERT INTO " . DB_PREFIX . "post_to_category SET post_id = '" . (int)$post_id . "', blog_category_id = '" . (int)$data['main_blog_category_id'] . "', main_category = 1");
-		} elseif(isset($data['post_category'][0])) {
+		if( isset($data['main_category_id']) && $data['main_category_id'] > 0) {
+			$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . (int)$post_id . "' AND blog_category_id = '" . (int)$data['main_category_id'] . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "post_to_category SET post_id = '" . (int)$post_id . "', blog_category_id = '" . (int)$data['main_category_id'] . "', main_category = 1");
+		} elseif (isset($data['post_category'][0])) {
 			$this->db->query("UPDATE " . DB_PREFIX . "post_to_category SET main_category = 1 WHERE post_id = '" . (int)$post_id . "' AND blog_category_id = '" . (int)$data['post_category'][0] . "'");
 		}
 
@@ -759,10 +759,10 @@ class ModelExtensionMaterializeBlog extends Model {
 			}
 		}
 
-		if(isset($data['main_blog_category_id']) && $data['main_blog_category_id'] > 0) {
-			$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . (int)$post_id . "' AND blog_category_id = '" . (int)$data['main_blog_category_id'] . "'");
-			$this->db->query("INSERT INTO " . DB_PREFIX . "post_to_category SET post_id = '" . (int)$post_id . "', blog_category_id = '" . (int)$data['main_blog_category_id'] . "', main_category = 1");
-		} elseif(isset($data['post_category'][0])) {
+		if (isset($data['main_category_id']) && $data['main_category_id'] > 0) {
+			$this->db->query("DELETE FROM " . DB_PREFIX . "post_to_category WHERE post_id = '" . (int)$post_id . "' AND blog_category_id = '" . (int)$data['main_category_id'] . "'");
+			$this->db->query("INSERT INTO " . DB_PREFIX . "post_to_category SET post_id = '" . (int)$post_id . "', blog_category_id = '" . (int)$data['main_category_id'] . "', main_category = 1");
+		} elseif (isset($data['post_category'][0])) {
 			$this->db->query("UPDATE " . DB_PREFIX . "post_to_category SET main_category = 1 WHERE post_id = '" . (int)$post_id . "' AND blog_category_id = '" . (int)$data['post_category'][0] . "'");
 		}
 
@@ -815,7 +815,7 @@ class ModelExtensionMaterializeBlog extends Model {
 			$data['post_author'] = $this->getPostAuthors($post_id);
 			$data['post_layout'] = $this->getPostLayouts($post_id);
 			$data['post_store'] = $this->getPostStores($post_id);
-			$data['main_blog_category_id'] = $this->getPostMainCategoryId($post_id);
+			$data['main_category_id'] = $this->getPostMainCategoryId($post_id);
 
 			$this->addPost($data);
 		}

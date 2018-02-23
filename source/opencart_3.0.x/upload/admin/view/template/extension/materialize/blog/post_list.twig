@@ -31,17 +31,17 @@
 											<td class="text-center">{{ column_image }}</td>
 											<td class="text-left">
 												{% if sort == 'pd.name' %}
-													<a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
+												<a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
 												{% else %}
-													<a href="{{ sort_name }}">{{ column_name }}</a>
+												<a href="{{ sort_name }}">{{ column_name }}</a>
 												{% endif %}
 											</td>
 											<td class="text-left">{{ column_category }}</td>
 											<td class="text-left">
 												{% if sort == 'p.status' %}
-													<a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
+												<a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
 												{% else %}
-													<a href="{{ sort_status }}">{{ column_status }}</a>
+												<a href="{{ sort_status }}">{{ column_status }}</a>
 												{% endif %}
 											</td>
 											<td class="text-right">{{ column_action }}</td>
@@ -68,7 +68,7 @@
 											<td class="text-left">{{ post.name }}</td>
 											<td class="text-left">
 												{% for category in categories %}
-												{% if category.category_id in post.category %}
+												{% if category.blog_category_id in post.category %}
 												{{ category.name }}<br>
 												{% endif %}
 												{% endfor %}
@@ -108,10 +108,10 @@
 								<option value="*"></option>
 								{% for category in categories %}
 								{% if category.post_count >= 1 %}
-								{% if category.category_id == filter_category %}
-								<option value="{{ category.category_id }}" selected="selected">{{ category.name }}&nbsp;&nbsp;&nbsp;&nbsp;</option>
+								{% if category.blog_category_id == filter_category %}
+								<option value="{{ category.blog_category_id }}" selected="selected">{{ category.name }}&nbsp;&nbsp;&nbsp;&nbsp;</option>
 								{% else %}
-								<option value="{{ category.category_id }}">&nbsp;&nbsp;{{ category.name }}&nbsp;&nbsp;&nbsp;&nbsp;</option>
+								<option value="{{ category.blog_category_id }}">&nbsp;&nbsp;{{ category.name }}&nbsp;&nbsp;&nbsp;&nbsp;</option>
 								{% endif %}
 								{% endif %}
 								{% endfor %}

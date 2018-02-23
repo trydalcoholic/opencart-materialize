@@ -285,13 +285,13 @@
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane fade" id="categories-main">
-										<select id="main_category_id" name="main_category_id" class="form-control">
+										<select id="main_category_id" name="main_category_id" class="selectpicker show-tick" data-width="100%">
 											<option value="0" selected="selected">{{ text_none }}</option>
 											{% for category in categories %}
-											{% if category.category_id == main_category_id %}
-											<option value="{{ category.category_id }}" selected="selected">{{ category.name }}</option>
+											{% if category.blog_category_id == main_category_id %}
+											<option value="{{ category.blog_category_id }}" selected="selected">{{ category.name }}</option>
 											{% else %}
-											<option value="{{ category.category_id }}">{{ category.name }}</option>
+											<option value="{{ category.blog_category_id }}">{{ category.name }}</option>
 											{% endif %}
 											{% endfor %}
 										</select>
@@ -300,8 +300,8 @@
 										<input type="text" name="category" value="" placeholder="{{ entry_category }}" id="input-category" class="form-control" />
 										<div id="post-category" class="well well-sm" style="height: 150px; overflow: auto;">
 											{% for post_category in post_categories %}
-											<div id="post-category{{ post_category.category_id }}"><i class="fa fa-minus-circle"></i> {{ post_category.name }}
-												<input type="hidden" name="post_category[]" value="{{ post_category.category_id }}" />
+											<div id="post-category{{ post_category.blog_category_id }}"><i class="fa fa-minus-circle"></i> {{ post_category.name }}
+												<input type="hidden" name="post_category[]" value="{{ post_category.blog_category_id }}" />
 											</div>
 											{% endfor %}
 										</div>
@@ -404,7 +404,7 @@
 					response($.map(json, function(item) {
 						return {
 							label: item['name'],
-							value: item['category_id']
+							value: item['blog_category_id']
 						}
 					}));
 				}

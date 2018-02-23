@@ -675,12 +675,12 @@ class ControllerExtensionMaterializeBlogPost extends Controller {
 
 		$data['post_categories'] = array();
 
-		foreach ($categories as $category_id) {
-			$category_info = $this->model_extension_materialize_blog->getCategory($category_id);
+		foreach ($categories as $blog_category_id) {
+			$category_info = $this->model_extension_materialize_blog->getCategory($blog_category_id);
 
 			if ($category_info) {
 				$data['post_categories'][] = array(
-					'blog_category_id'	=> $category_info['category_id'],
+					'blog_category_id'	=> $category_info['blog_category_id'],
 					'name'				=> ($category_info['path']) ? $category_info['path'] . ' &gt; ' . $category_info['name'] : $category_info['name']
 				);
 			}

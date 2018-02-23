@@ -47,10 +47,10 @@
 								{% for category in categories %}
 								<tr>
 									<td class="text-center">
-										{% if category.category_id in selected %}
-										<input type="checkbox" name="selected[]" value="{{ category.category_id }}" checked="checked" />
+										{% if category.blog_category_id in selected %}
+										<input type="checkbox" name="selected[]" value="{{ category.blog_category_id }}" checked="checked" />
 										{% else %}
-										<input type="checkbox" name="selected[]" value="{{ category.category_id }}" />
+										<input type="checkbox" name="selected[]" value="{{ category.blog_category_id }}" />
 										{% endif %}
 									</td>
 									<td class="left">{{ category.name }}</td>

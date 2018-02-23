@@ -245,13 +245,13 @@
 				dataType: 'json',
 				success: function(json) {
 					json.unshift({
-						category_id: 0,
+						blog_category_id: 0,
 						name: '{{ text_none }}'
 					});
 					response($.map(json, function(item) {
 						return {
 							label: item['name'],
-							value: item['category_id']
+							value: item['blog_category_id']
 						}
 					}));
 				}
