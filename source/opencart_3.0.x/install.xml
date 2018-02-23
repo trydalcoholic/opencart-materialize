@@ -1574,93 +1574,102 @@
 			]]></add>
 		</operation>
 	</file>
-	<!-- <file path="catalog/controller/information/sitemap.php">
+	<file path="catalog/controller/information/sitemap.php">
 		<operation error="log">
-			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
-			$this->load->model('blog/category');
-			$this->load->model('blog/post');
-	
-			$data['blog_categories'] = array();
-	
-			$categories_1 = $this->model_blog_category->getCategories(0);
-	
-			foreach ($categories_1 as $category_1) {
-				$level_2_data = array();
-	
-				$categories_2 = $this->model_blog_category->getCategories($category_1['category_id']);
-	
-				foreach ($categories_2 as $category_2) {
-					$level_3_data = array();
-	
-					$categories_3 = $this->model_blog_category->getCategories($category_2['category_id']);
-	
-					foreach ($categories_3 as $category_3) {
-						$level_3_data[] = array(
-							'name'	=> $category_3['name'],
-							'href'	=> $this->url->link('extension/materialize/blog/category', 'blog_path=' . $category_1['category_id'] . '_' . $category_2['category_id'] . '_' . $category_3['category_id'])
+			if ($this->config->get('module_blog_status') == 1) {
+			 	$data['module_blog'] = true;
+
+				$this->load->model('extension/materialize/blog');
+
+				$data['blog_categories'] = array();
+
+				$categories_1 = $this->model_extension_materialize_blog->getCategories(0);
+
+				foreach ($categories_1 as $category_1) {
+					$level_2_data = array();
+
+					$categories_2 = $this->model_extension_materialize_blog->getCategories($category_1['blog_category_id']);
+
+					foreach ($categories_2 as $category_2) {
+						$level_3_data = array();
+
+						$categories_3 = $this->model_extension_materialize_blog->getCategories($category_2['blog_category_id']);
+
+						foreach ($categories_3 as $category_3) {
+							$level_3_data[] = array(
+								'name'	=> $category_3['name'],
+								'href'	=> $this->url->link('extension/materialize/blog/category', 'blog_path=' . $category_1['blog_category_id'] . '_' . $category_2['blog_category_id'] . '_' . $category_3['blog_category_id'])
+							);
+						}
+
+						$level_2_data[] = array(
+							'name'		=> $category_2['name'],
+							'children'	=> $level_3_data,
+							'href'		=> $this->url->link('extension/materialize/blog/category', 'blog_path=' . $category_1['blog_category_id'] . '_' . $category_2['blog_category_id'])
 						);
 					}
-	
-					$level_2_data[] = array(
-						'name'		=> $category_2['name'],
-						'children'	=> $level_3_data,
-						'href'		=> $this->url->link('extension/materialize/blog/category', 'blog_path=' . $category_1['category_id'] . '_' . $category_2['category_id'])
+
+					$data['blog_categories'][] = array(
+						'name'		=> $category_1['name'],
+						'children'	=> $level_2_data,
+						'href'		=> $this->url->link('extension/materialize/blog/category', 'blog_path=' . $category_1['blog_category_id'])
 					);
 				}
-	
-				$data['blog_categories'][] = array(
-					'name'		=> $category_1['name'],
-					'children'	=> $level_2_data,
-					'href'		=> $this->url->link('extension/materialize/blog/category', 'blog_path=' . $category_1['category_id'])
-				);
+			} else {
+			 	$data['module_blog'] = false;
 			}
 			]]></add>
 		</operation>
-	</file> -->
-	<!-- <file path="catalog/controller/extension/feed/google_sitemap.php">
+	</file>
+	<file path="catalog/controller/extension/feed/google_sitemap.php">
 		<operation error="log">
-			<search><![CDATA[$this->load->model('catalog/product');]]></search>
+			<search><![CDATA[$this->load->model('tool/image');]]></search>
 			<add position="after"><![CDATA[
-			$this->load->model('blog/post');
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[$products = $this->model_catalog_product->getProducts();]]></search>
-			<add position="after"><![CDATA[
-			$posts = $this->model_blog_post->getPosts();
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search index="0"><![CDATA[foreach ($products as $product) {]]></search>
-			<add position="before"><![CDATA[
-			foreach ($posts as $post) {
-				if ($post['image']) {
-					$output .= '<url>';
-					$output .= '<loc>' . $this->url->link('blog/post', 'post_id=' . $post['post_id']) . '</loc>';
-					$output .= '<changefreq>weekly</changefreq>';
-					$output .= '<lastmod>' . date('Y-m-d\TH:i:sP', strtotime($post['date_modified'])) . '</lastmod>';
-					$output .= '<priority>1.0</priority>';
-					$output .= '<image:image>';
-					$output .= '<image:loc>' . $this->model_tool_image->resize($post['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'), 'crop') . '</image:loc>';
-					$output .= '<image:caption>' . $post['name'] . '</image:caption>';
-					$output .= '<image:title>' . $post['name'] . '</image:title>';
-					$output .= '</image:image>';
-					$output .= '</url>';
+			if ($this->config->get('module_blog_status') == 1) {
+				$this->load->model('extension/materialize/blog');
+
+				$posts = $this->model_extension_materialize_blog->getPosts();
+
+				foreach ($posts as $post) {
+					if ($post['image']) {
+						$output .= '<url>';
+						$output .= '<loc>' . $this->url->link('extension/materialize/blog/post', 'post_id=' . $post['post_id']) . '</loc>';
+						$output .= '<changefreq>weekly</changefreq>';
+						$output .= '<lastmod>' . date('Y-m-d\TH:i:sP', strtotime($post['date_modified'])) . '</lastmod>';
+						$output .= '<priority>1.0</priority>';
+						$output .= '<image:image>';
+						$output .= '<image:loc>' . $this->model_tool_image->resize($post['image'], 1000, 800, 'crop') . '</image:loc>';
+						$output .= '<image:caption>' . $post['name'] . '</image:caption>';
+						$output .= '<image:title>' . $post['name'] . '</image:title>';
+						$output .= '</image:image>';
+						$output .= '</url>';
+					}
 				}
+
+				$authors = $this->model_extension_materialize_blog->getAuthors();
+
+				foreach ($authors as $author) {
+					$output .= '<url>';
+					$output .= '<loc>' . $this->url->link('extension/materialize/blog/author/info', 'author_id=' . $author['author_id']) . '</loc>';
+					$output .= '<changefreq>weekly</changefreq>';
+					$output .= '<priority>0.7</priority>';
+					$output .= '</url>';
+
+					$posts = $this->model_extension_materialize_blog->getPosts(array('filter_author_id' => $author['author_id']));
+
+					foreach ($posts as $post) {
+						$output .= '<url>';
+						$output .= '<loc>' . $this->url->link('extension/materialize/blog/post', 'author_id=' . $author['author_id'] . '&post_id=' . $post['post_id']) . '</loc>';
+						$output .= '<changefreq>weekly</changefreq>';
+						$output .= '<priority>1.0</priority>';
+						$output .= '</url>';
+					}
+				}
+
+				$output .= $this->getBlogCategories(0);
 			}
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[$this->load->model('catalog/category');]]></search>
-			<add position="after"><![CDATA[
-			$this->load->model('blog/category');
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[$output .= $this->getCategories(0);]]></search>
-			<add position="after"><![CDATA[
-			$output .= $this->getBlogCategories(0);
 			]]></add>
 		</operation>
 		<operation error="log">
@@ -1668,74 +1677,40 @@
 			<add position="before"><![CDATA[
 			protected function getBlogCategories($parent_id, $current_path = '') {
 				$output = '';
-	
-				$results = $this->model_blog_category->getCategories($parent_id);
-	
+
+				$results = $this->model_extension_materialize_blog->getCategories($parent_id);
+
 				foreach ($results as $result) {
 					if (!$current_path) {
-						$new_path = $result['category_id'];
+						$new_path = $result['blog_category_id'];
 					} else {
-						$new_path = $current_path . '_' . $result['category_id'];
+						$new_path = $current_path . '_' . $result['blog_category_id'];
 					}
-	
+
 					$output .= '<url>';
-					$output .= '<loc>' . $this->url->link('blog/category', 'blog_path=' . $new_path) . '</loc>';
+					$output .= '<loc>' . $this->url->link('extension/materialize/blog/category', 'blog_path=' . $new_path) . '</loc>';
 					$output .= '<changefreq>weekly</changefreq>';
 					$output .= '<priority>0.7</priority>';
 					$output .= '</url>';
-	
-					$posts = $this->model_blog_post->getPosts(array('filter_category_id' => $result['category_id']));
-	
+
+					$posts = $this->model_extension_materialize_blog->getPosts(array('filter_category_id' => $result['blog_category_id']));
+
 					foreach ($posts as $post) {
 						$output .= '<url>';
-						$output .= '<loc>' . $this->url->link('blog/post', 'blog_path=' . $new_path . '&post_id=' . $post['post_id']) . '</loc>';
+						$output .= '<loc>' . $this->url->link('extension/materialize/blog/post', 'blog_path=' . $new_path . '&post_id=' . $post['post_id']) . '</loc>';
 						$output .= '<changefreq>weekly</changefreq>';
 						$output .= '<priority>1.0</priority>';
 						$output .= '</url>';
 					}
-	
-					$output .= $this->getCategories($result['category_id'], $new_path);
+
+					$output .= $this->getBlogCategories($result['blog_category_id'], $new_path);
 				}
-	
+
 				return $output;
 			}
 			]]></add>
 		</operation>
-		<operation error="log">
-			<search><![CDATA[$this->load->model('catalog/manufacturer');]]></search>
-			<add position="after"><![CDATA[
-			$this->load->model('blog/author');
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[$manufacturers = $this->model_catalog_manufacturer->getManufacturers();]]></search>
-			<add position="after"><![CDATA[
-			$authors = $this->model_blog_author->getAuthors();
-			]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[foreach ($manufacturers as $manufacturer) {]]></search>
-			<add position="before"><![CDATA[
-			foreach ($authors as $author) {
-				$output .= '<url>';
-				$output .= '<loc>' . $this->url->link('blog/author/info', 'author_id=' . $author['author_id']) . '</loc>';
-				$output .= '<changefreq>weekly</changefreq>';
-				$output .= '<priority>0.7</priority>';
-				$output .= '</url>';
-	
-				$posts = $this->model_blog_post->getPosts(array('filter_author_id' => $author['author_id']));
-	
-				foreach ($posts as $post) {
-					$output .= '<url>';
-					$output .= '<loc>' . $this->url->link('blog/post', 'author_id=' . $author['author_id'] . '&post_id=' . $post['post_id']) . '</loc>';
-					$output .= '<changefreq>weekly</changefreq>';
-					$output .= '<priority>1.0</priority>';
-					$output .= '</url>';
-				}
-			}
-			]]></add>
-		</operation>
-	</file> -->
+	</file>
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
