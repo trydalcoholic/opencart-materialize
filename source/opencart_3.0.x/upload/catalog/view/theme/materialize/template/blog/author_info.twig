@@ -79,8 +79,8 @@
 			<div class="col {{ main }} section href-underline">
 				{{ content_top }}
 				<ul class="collapsible" data-collapsible="expandable">
-					<li>
-						<div class="collapsible-header text-bold arrow-rotate">{{ text_sort }}</div>
+					<li class="arrow-rotate">
+						<div class="collapsible-header text-bold">{{ text_sort }}</div>
 						<div class="collapsible-body white">
 							<div class="row">
 								<div class="col s6 m6 input-field inline">
@@ -125,7 +125,7 @@
 								<a href="{{ post.href }}" class="{{ color_title }}"><span class="card-title truncate">{{ post.name }}</span></a>
 							</div>
 							<div class="blog-card-tabs">
-								<ul class="tabs tabs-fixed-width tabs-swipe {{ color_tabs }}">
+								<ul class="tabs tabs-fixed-width {{ color_tabs }}">
 									<li class="tab"><a class="waves-effect waves-default" href="#tab-description-card{{ post.post_id }}" class="active"><i class="material-icons {{ color_tabs_icon }}">description</i></a></li>
 									<li class="tab"><a class="waves-effect waves-default" href="#tab-time-card{{ post.post_id }}"><i class="material-icons {{ color_tabs_icon }}">info</i></a></li>
 								</ul>
@@ -151,9 +151,7 @@
 					</div>
 				</div>
 				{% if pagination %}
-				<div class="row">
-					{{ pagination }}
-				</div>
+				{{ pagination }}
 				{% endif %}
 				{{ content_bottom }}
 			</div>
@@ -162,6 +160,6 @@
 		</div>
 	</div>
 </main>
-<style>.blog-card-tabs .tabs .indicator {background-color:{{ color_tabs_icon  }};}</style>
+<style>.blog-card-tabs .tabs .indicator {background-color:{{ color_tabs_icon }};}</style>
 {% endspaceless %}
 {{ footer }}

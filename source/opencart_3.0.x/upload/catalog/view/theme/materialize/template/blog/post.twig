@@ -85,7 +85,7 @@
 						<h1 itemprop="headline">{{ heading_title }}</h1>
 						<div class="section"><div class="divider"></div></div>
 						<blockquote class="right blockquote-note blockquote-note-blog no-padding blue-grey lighten-5 z-depth-1" style="width: 50%;">
-							<div class="blockquote-icon blue-grey lighten-4 tooltipped share-icon waves-effect waves-circle" data-position="top" data-delay="50" data-tooltip="{{ button_share }}" data-activates="side-share"><i class="material-icons">share</i></div>
+							<div class="blockquote-icon blue-grey lighten-4 tooltipped sidenav-trigger share-icon waves-effect waves-circle" data-position="top" data-delay="50" data-tooltip="{{ button_share }}" data-target="side-share"><i class="material-icons">share</i></div>
 							<ul class="collection article-info">
 								{% if author %}
 								<li class="collection-item">
@@ -160,41 +160,40 @@
 				{% endif %}
 				{% if comment_status %}
 				<div class="card-panel">
-					<div class="row">
-						<ul class="collapsible" data-collapsible="accordion">
-							<li>
-								<div class="collapsible-header arrow-rotate"><i class="material-icons left">mode_edit</i>{{ text_write }}</div>
-								<div class="collapsible-body no-padding">
-									<div class="row">
-										<div class="col s12 offset-l2 l8">
-											<form id="form-comment" class="card-panel z-depth-2">
-												<div class="input-field">
-													<i class="material-icons prefix">account_circle</i>
-													<input type="text" name="name" id="input-name" class="validate">
-													<label for="input-name">{{ entry_name }}</label>
-												</div>
-												<div class="input-field">
-													<i class="material-icons prefix">email</i>
-													<input type="email" name="email" id="input-email" class="validate tooltipped" data-position="top" data-delay="50" data-tooltip="{{ help_email }}">
-													<label for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}">{{ entry_email }}</label>
-												</div>
-												<div class="input-field">
-													<i class="material-icons prefix">mode_edit</i>
-													<textarea name="text" rows="5" id="input-comment" class="materialize-textarea"></textarea>
-													<label for="input-comment">{{ entry_comment }}</label>
-													<small>{{ text_note }}</small>
-												</div>
-												{{ captcha }}
-												<div class="flex-reverse">
-													<button type="button" id="button-comment" class="btn waves-effect waves-light red right">{{ button_continue }}</button>
-												</div>
-											</form>
-										</div>
+					<form id="form-comment">
+						<div class="flex-reverse">
+							<button type="button" class="btn-flat waves-effect modal-trigger text-bold" data-target="modal-comment">{{ text_write }}<i class="material-icons right">mode_edit</i></button>
+						</div>
+						<div id="modal-comment" class="modal">
+							<div class="modal-content">
+								<i class="material-icons modal-action modal-close waves-effect waves-circle close-icon">close</i>
+								<h4>{{ text_write }}</h4>
+								<div class="row">
+									<div class="input-field col s12">
+										<i class="material-icons prefix">account_circle</i>
+										<input type="text" name="name" id="input-name" class="validate">
+										<label for="input-name">{{ entry_name }}</label>
+									</div>
+									<div class="input-field col s12">
+										<i class="material-icons prefix">email</i>
+										<input type="email" name="email" id="input-email" class="validate tooltipped" data-position="top" data-delay="50" data-tooltip="{{ help_email }}">
+										<label for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}">{{ entry_email }}</label>
+									</div>
+									<div class="input-field col s12">
+										<i class="material-icons prefix">mode_edit</i>
+										<textarea name="text" rows="5" id="input-comment" class="materialize-textarea"></textarea>
+										<label for="input-comment">{{ entry_comment }}</label>
+										<small>{{ text_note }}</small>
 									</div>
 								</div>
-							</li>
-						</ul>
-					</div>
+								{{ captcha }}
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="button-comment" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+							</div>
+						</div>
+						<div id="review"></div>
+					</form>
 					<div id="comment"></div>
 				</div>
 				{% endif %}
@@ -204,8 +203,7 @@
 		</div>
 	</div>
 	<aside>
-		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"><div class="pswp__bg"></div><div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div><div class="pswp__item"></div><div class="pswp__item"></div></div><div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="{{ button_pswp_close }}"></button><button class="pswp__button pswp__button--share" title="{{ button_share }}"></button><button class="pswp__button pswp__button--fs" title="{{ button_pswp_toggle_fullscreen }}"></button><button class="pswp__button pswp__button--zoom" title="{{ button_pswp_zoom }}"></button><div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div><button class="pswp__button pswp__button--arrow--left" title="{{ button_pswp_prev }}"></button><button class="pswp__button pswp__button--arrow--right" title="{{ button_pswp_next }}"></button><div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div></div>
-		<ul id="side-share" class="side-nav href-underline">
+		<ul id="side-share" class="sidenav href-underline">
 			<li>
 				<a class="waves-effect waves-default" href="https://vk.com/share.php?url={{ share }}" rel="nofollow noopener" target="_blank">
 					<span class="side-share__item">
@@ -302,7 +300,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
 	// Share side
-	$('.share-icon').sideNav({edge:'right'});
+	$('#side-share').sidenav({edge:'right'});
 	// Image hover
 	$('.post-image-block figure').hover(
 		function(){$('.post-info').css('opacity','1');},
@@ -312,23 +310,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var copyUrl = new Clipboard('#copy-url');
 
 	copyUrl.on('success', function(e) {
-		Materialize.toast('<span><i class="material-icons left">check</i>{{ text_сlipboard_succeess }}</span>',7000,'toast-success');
+		M.toast({html: '<i class="material-icons left">check</i>{{ text_сlipboard_succeess }}', classes: 'toast-success'});
 	});
 
 	copyUrl.on('error', function(e) {
-		Materialize.toast('<span><i class="material-icons left">warning</i>{{ text_сlipboard_error }}</span>',7000,'toast-warning');
-	});
-	{% if comment_status %}
-	// Comment
-	$('#comment').load('index.php?route=extension/materialize/blog/post/comment&post_id={{ post_id }}');
-	$('#comment').delegate('.pagination a', 'click', function(e) {
-		e.preventDefault();
-		$('#comment').fadeOut('slow');
-		$('#comment').load(this.href);
-		$('#comment').fadeIn('slow');
+		M.toast({html: '<i class="material-icons left">warning</i>{{ text_сlipboard_error }}', classes: 'toast-warning'});
 	});
 
-	$('#button-comment').on('click', function() {
+	{% if comment_status %}
+	var comment = $('#comment'),
+		buttonComment = $('#button-comment'),
+		inputName = $('input[name=\'name\']'),
+		inputEmail = $('input[name=\'email\']'),
+		inputText = $('textarea[name=\'text\']'),
+		modalComment = $('#modal-comment');
+
+	comment.load('index.php?route=extension/materialize/blog/post/comment&post_id={{ post_id }}');
+	comment.delegate('.pagination a', 'click', function(e) {
+		e.preventDefault();
+		comment.load(this.href);
+	});
+
+	buttonComment.on('click', function() {
 		$.ajax({
 			url: 'index.php?route=extension/materialize/blog/post/write&post_id={{ post_id }}',
 			type: 'post',
@@ -336,14 +339,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			data: $("#form-comment").serialize(),
 			success: function(json) {
 				if (json['error']) {
-					Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 				}
 				if (json['success']) {
-					Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success');
-					$('input[name=\'name\']').val('');
-					$('input[name=\'email\']').val('');
-					$('textarea[name=\'text\']').val('');
-					$('textarea[name=\'text\']').trigger('autoresize');
+					M.toast({html: '<i class="material-icons left">check</i>' + json['success'], classes: 'toast-success'});
+					inputName.val('').removeClass('valid');
+					inputName.next().removeClass('active');
+					inputEmail.val('').removeClass('valid');
+					inputEmail.next().removeClass('active');
+					inputText.val('');
+					M.textareaAutoResize(inputText);
+					inputText.next().removeClass('active');
+					modalComment.modal('close');
 				}
 			}
 		});

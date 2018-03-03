@@ -207,7 +207,6 @@ var compare = {
 /*========== Initialization Materialize JS ==========*/
 var collapsible = $('.collapsible'),
 	tabs = $('.tabs'),
-	tabsSwipe = $('.tabs-swipe'),
 	modal = $('.modal'),
 	tooltipped = $('.tooltipped'),
 	dropdown = $('.dropdown-trigger'),
@@ -215,7 +214,6 @@ var collapsible = $('.collapsible'),
 
 collapsible.collapsible();
 tabs.tabs();
-tabsSwipe.tabs({swipeable:true});
 modal.modal();
 tooltipped.tooltip();
 dropdown.dropdown();

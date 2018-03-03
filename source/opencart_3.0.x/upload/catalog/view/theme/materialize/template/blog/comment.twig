@@ -1,16 +1,17 @@
 {% if comments %}
 {% for comment in comments %}
-<div class="row">
-	<div class="col s4 m3 l2 center">
-		<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="catalog/view/theme/materialize/image/comment.png" alt="" width="175" height="175">
-	</div>
-	<div class="col s8 m9 l10 grey lighten-3 z-depth-1 comment-body">
-		<p class="text-bold">{{ comment.author }}&nbsp;&nbsp;&nbsp;<span class="grey-text">{{ comment.date_added }}</span></p>
-		<p class="section">{{ comment.text }}</p>
-	</div>
-</div>
+<ul class="collection">
+	<li class="collection-item avatar">
+		<img class="circle lazyload" src="{{ img_loader }}" data-src="catalog/view/theme/materialize/image/comment.png" alt="">
+		<span class="title text-bold">{{ comment.author }}</span>
+		<p>
+			<span class="grey-text text-darken">{{ comment.date_added }}</span><br>
+			{{ comment.text }}
+		</p>
+	</li>
+</ul>
 {% endfor %}
-<div class="row">{{ pagination }}</div>
+{{ pagination }}
 {% else %}
 <div class="card-panel center">
 	<p class="flow-text text-bold">{{ text_no_comments }}</p>
