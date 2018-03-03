@@ -58,118 +58,142 @@
 			{{ column_left }}
 			<div id="content" class="col {{ main }}">
 				{{ content_top }}
-				<div class="card-panel">
-					<p class="text-bold">{{ text_description }}</p>
-					<form action="{{ action }}" method="post" enctype="multipart/form-data">
-						<p>{{ text_order }}</p>
+				<form action="{{ action }}" method="post" enctype="multipart/form-data">
+					<div class="card-panel">
+						<h2>{{ text_order }}</h2>
+						{{ text_description }}
 						<div class="row">
 							<div class="input-field col s12 l6">
 								<i class="material-icons prefix">account_circle</i>
 								<input type="text" name="firstname" value="{{ firstname }}" id="input-firstname" class="validate">
-								<label for="input-firstname">{{ entry_firstname }}</label>
+								<label for="input-firstname" class="text-bold">{{ entry_firstname }}</label>
 							</div>
 							<div class="input-field col s12 l6">
 								<i class="material-icons prefix">account_circle</i>
 								<input type="text" name="lastname" value="{{ lastname }}" id="input-lastname" class="validate">
-								<label for="input-lastname">{{ entry_lastname }}</label>
+								<label for="input-lastname" class="text-bold">{{ entry_lastname }}</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12 l6">
 								<i class="material-icons prefix">phone</i>
 								<input type="text" name="telephone" value="{{ telephone }}" id="input-telephone" class="fvalidate">
-								<label for="input-telephone">{{ entry_telephone }}</label>
+								<label for="input-telephone" class="text-bold">{{ entry_telephone }}</label>
 							</div>
 							<div class="input-field col s12 l6">
 								<i class="material-icons prefix">email</i>
-								<input type="text" name="email" value="{{ email }}" id="input-email" class="fvalidate">
-								<label for="input-email">{{ entry_email }}</label>
+								<input type="text" name="email" value="{{ email }}" id="input-email" class="validate">
+								<label for="input-email" class="text-bold">{{ entry_email }}</label>
+								<span class="helper-text" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}"></span>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12 l6">
 								<i class="material-icons prefix">info</i>
 								<input type="text" name="order_id" value="{{ order_id }}" id="input-order-id" class="validate">
-								<label for="input-order-id">{{ entry_order_id }}</label>
+								<label for="input-order-id" class="text-bold">{{ entry_order_id }}</label>
 							</div>
 							<div class="input-field col s12 l6">
 								<i class="material-icons prefix">date_range</i>
-								<input type="date" name="date_ordered" value="{{ date_ordered }}" id="input-date-ordered" class="datepicker">
-								<label for="input-date-ordered">{{ entry_date_ordered }}</label>
+								<input type="text" name="date_ordered" value="{{ date_ordered }}" id="input-date-ordered" class="datepicker">
+								<label for="input-date-ordered" class="text-bold">{{ entry_date_ordered }}</label>
 							</div>
 						</div>
-						<p>{{ text_product }}</p>
+						<p class="text-bold">{{ text_product }}</p>
 						<div class="row">
 							<div class="input-field col s12 l6">
 								<input type="text" name="product" value="{{ product }}" id="input-product" class="validate">
-								<label for="input-product">{{ entry_product }}</label>
+								<label for="input-product" class="text-bold">{{ entry_product }}</label>
 							</div>
 							<div class="input-field col s12 l6">
 								<input type="text" name="model" value="{{ model }}"  id="input-model" class="validate">
-								<label for="input-model">{{ entry_model }}</label>
+								<label for="input-model" class="text-bold">{{ entry_model }}</label>
 							</div>
 							<div class="input-field col s12">
 								<input type="text" name="quantity" value="{{ quantity }}" id="input-quantity" class="validate">
-								<label for="input-quantity">{{ entry_quantity }}</label>
+								<label for="input-quantity" class="text-bold">{{ entry_quantity }}</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<p>{{ entry_reason }}</p>
-								{% for return_reason in return_reasons %}
-									{% if return_reason.return_reason_id == return_reason_id %}
-										<input id="{{ return_reason.return_reason_id }}" class="with-gap" type="radio" name="return_reason_id" value="{{ return_reason.return_reason_id }}" checked="checked">
-										<label for="{{ return_reason.return_reason_id }}">{{ return_reason.name }}</label><br>
-									{% else %}
-										<input id="{{ return_reason.return_reason_id }}" class="with-gap" type="radio" name="return_reason_id" value="{{ return_reason.return_reason_id }}">
-										<label for="{{ return_reason.return_reason_id }}">{{ return_reason.name }}</label><br>
-									{% endif %}
-								{% endfor %}
+								<p class="text-bold">{{ entry_reason }}</p>
+								<ul>
+									{% for return_reason in return_reasons %}
+									<li>
+										{% if return_reason.return_reason_id == return_reason_id %}
+										<label for="{{ return_reason.return_reason_id }}">
+											<input id="{{ return_reason.return_reason_id }}" class="with-gap" type="radio" name="return_reason_id" value="{{ return_reason.return_reason_id }}" checked="checked">
+											<span>{{ return_reason.name }}</span>
+										</label>
+										{% else %}
+										<label for="{{ return_reason.return_reason_id }}">
+											<input id="{{ return_reason.return_reason_id }}" class="with-gap" type="radio" name="return_reason_id" value="{{ return_reason.return_reason_id }}">
+											<span>{{ return_reason.name }}</span>
+										</label>
+										{% endif %}
+									</li>
+									{% endfor %}
+								</ul>
 							</div>
 							<div class="input-field col s12">
-								<p>{{ entry_opened }}</p>
-								{% if opened %}
-									<input id="opened" type="radio" name="opened" value="1" class="with-gap" checked="checked">
-								{% else %}
-									<input id="opened" type="radio" name="opened" value="1" class="with-gap">
-								{% endif %}
-								<label for="opened">{{ text_yes }}</label>
-								{% if not opened %}
-									<input id="non-opened" type="radio" name="opened" value="0" class="with-gap" checked="checked">
-								{% else %}
-									<input id="non-opened" type="radio" name="opened" value="0" class="with-gap">
-								{% endif %}
-								<label for="non-opened">{{ text_no }}</label>
+								<p class="text-bold">{{ entry_opened }}</p>
+								<ul>
+									<li>
+										<label for="radio-opened">
+											{% if opened %}
+											<input class="with-gap" id="radio-opened" type="radio" name="opened" value="1" checked="checked">
+											{% else %}
+											<input class="with-gap" id="radio-opened" type="radio" name="opened" value="1">
+											{% endif %}
+											<span>{{ text_yes }}</span>
+										</label>
+									</li>
+									<li>
+										<label for="radio-not-opened">
+											{% if not opened %}
+											<input class="with-gap" id="radio-not-opened" type="radio" name="opened" value="0" checked="checked">
+											{% else %}
+											<input class="with-gap" id="radio-not-opened" type="radio" name="opened" value="0">
+											{% endif %}
+											<span>{{ text_no }}</span>
+										</label>
+									</li>
+								</ul>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<label for="input-comment">{{ entry_fault_detail }}</label>
-								<textarea name="comment" rows="10" id="input-comment" class="materialize-textarea">{{ comment }}</textarea>
+								<label for="input-comment" class="text-bold">{{ entry_fault_detail }}</label>
+								<textarea name="comment" id="input-comment" class="materialize-textarea">{{ comment }}</textarea>
 							</div>
 						</div>
 						{{ captcha }}
 						{% if text_agree %}
-							<div class="row">
-								<div class="col s12">
+						<div class="row">
+							<div class="col s12">
+								<label for="text-agree">
 									{% if agree %}
-										<input type="checkbox" name="agree" value="1" class="filled-in" id="text-agree" checked="checked">
+									<input type="checkbox" name="agree" value="1" class="filled-in" id="text-agree" checked="checked">
 									{% else %}
-										<input type="checkbox" name="agree" value="1" class="filled-in" id="text-agree">
+									<input type="checkbox" name="agree" value="1" class="filled-in" id="text-agree">
 									{% endif %}
-									<label for="text-agree">{{ text_agree }}</label>
-								</div>
+									<span>{{ text_agree }}</span>
+								</label>
 							</div>
-							<div class="flex-reverse">
-								<button type="submit" value="{{ button_submit }}" class="btn waves-effect waves-light red">{{ button_submit }}</button>
-							</div>
-						{% else %}
-							<div class="flex-reverse">
-								<button type="submit" value="{{ button_submit }}" class="btn waves-effect waves-light red">{{ button_submit }}</button>
-							</div>
+						</div>
 						{% endif %}
-					</form>
-				</div>
+					</div>
+					<div class="row">
+						<div class="col s6">
+							<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
+						</div>
+						<div class="col s6">
+							<div class="flex-reverse no-padding">
+								<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+							</div>
+						</div>
+					</div>
+				</form>
 				{{ content_bottom }}
 			</div>
 			{{ column_right }}
@@ -178,33 +202,29 @@
 </main>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	{% if error_warning %}
-		Materialize.toast('{{ error_warning }}',7000)
-	{% endif %}
-	{% if error_firstname %}
-		Materialize.toast('{{ error_firstname }}',7000)
-	{% endif %}
-	{% if error_lastname %}
-		Materialize.toast('{{ error_lastname }}',7000)
-	{% endif %}
-	{% if error_telephone %}
-		Materialize.toast('{{ error_telephone }}',7000)
-	{% endif %}
-	{% if error_email %}
-		Materialize.toast('{{ error_email }}',7000)
-	{% endif %}
-	{% if error_order_id %}
-		Materialize.toast('{{ error_order_id }}',7000)
-	{% endif %}
-	{% if error_product %}
-		Materialize.toast('{{ error_product }}',7000)
-	{% endif %}
-	{% if error_model %}
-		Materialize.toast('{{ error_model }}',7000)
-	{% endif %}
-	{% if error_reason %}
-		Materialize.toast('{{ error_reason }}',7000)
-	{% endif %}
+	{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
+	{% if error_firstname %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_firstname }}', classes: 'toast-warning'});{% endif %}
+	{% if error_lastname %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_lastname }}', classes: 'toast-warning'});{% endif %}
+	{% if error_telephone %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_telephone }}', classes: 'toast-warning'});{% endif %}
+	{% if error_email %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_email }}', classes: 'toast-warning'});{% endif %}
+	{% if error_order_id %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_order_id }}', classes: 'toast-warning'});{% endif %}
+	{% if error_product %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_product }}', classes: 'toast-warning'});{% endif %}
+	{% if error_model %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_model }}', classes: 'toast-warning'});{% endif %}
+	{% if error_reason %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_reason }}', classes: 'toast-warning'});{% endif %}
+	$('.datepicker').datepicker({
+		format: 'yyyy-mm-dd',
+		firstDay: {{ first_day }},
+		i18n: {
+			clear: '{{ button_datetime_clear }}',
+			today: '{{ button_date_today }}',
+			done: '{{ button_datetime_done }}',
+			months: ['{{ text_months_full_january }}', '{{ text_months_full_february }}', '{{ text_months_full_march }}', '{{ text_months_full_april }}', '{{ text_months_full_may }}', '{{ text_months_full_june }}', '{{ text_months_full_july }}', '{{ text_months_full_august }}', '{{ text_months_full_september }}', '{{ text_months_full_october }}', '{{ text_months_full_november }}', '{{ text_months_full_december }}'],
+			monthsShort: ['{{ text_months_short_january }}', '{{ text_months_short_february }}', '{{ text_months_short_march }}', '{{ text_months_short_april }}', '{{ text_months_short_may }}', '{{ text_months_short_june }}', '{{ text_months_short_july }}', '{{ text_months_short_august }}', '{{ text_months_short_september }}', '{{ text_months_short_october }}', '{{ text_months_short_november }}', '{{ text_months_short_december }}'],
+			weekdays: ['{{ text_weekdays_full_sunday }}', '{{ text_weekdays_full_monday }}', '{{ text_weekdays_full_tuesday }}', '{{ text_weekdays_full_wednesday }}', '{{ text_weekdays_full_thursday }}', '{{ text_weekdays_full_friday }}', '{{ text_weekdays_full_saturday }}'],
+			weekdaysShort: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}'],
+			weekdaysAbbrev: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}']
+		}
+	});
 });
 </script>
 {% endspaceless %}

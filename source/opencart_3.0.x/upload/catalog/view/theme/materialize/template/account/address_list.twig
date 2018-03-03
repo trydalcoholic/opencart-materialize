@@ -61,20 +61,18 @@
 				<div class="card-panel">
 					<h2>{{ text_address_book }}</h2>
 					{% if addresses %}
-					<div class="section">
-						<table>
-							{% for result in addresses %}
-							<tr>
-								<td>{{ result.address }}</td>
-								<td>
-									<a href="{{ result.update }}"><i class="material-icons blue-grey-text text-darken-4">mode_edit</i></a>
-									&nbsp;
-									<a href="{{ result.delete }}"><i class="material-icons blue-grey-text text-darken-4">delete_forever</i></a>
-								</td>
-							</tr>
-							{% endfor %}
-						</table>
-					</div>
+					<ul class="collection">
+						{% for result in addresses %}
+						<li class="collection-item avatar">
+							<i class="material-icons circle">home</i>
+							<p>{{ result.address }}</p>
+							<span class="secondary-content">
+								<a href="{{ result.update }}"><i class="material-icons blue-grey-text text-darken-4 waves-effect waves-effect-15 waves-circle">mode_edit</i></a>
+								<a href="{{ result.delete }}"><i class="material-icons blue-grey-text text-darken-4 waves-effect waves-effect-15 waves-circle">delete_forever</i></a>
+							</span>
+						</li>
+						{% endfor %}
+					</ul>
 					{% else %}
 						<p>{{ text_empty }}</p>
 					{% endif %}
@@ -97,12 +95,8 @@
 </main>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	{% if success %}
-		Materialize.toast('{{ success }}',7000)
-	{% endif %}
-	{% if error_warning %}
-		Materialize.toast('{{ error_warning }}',7000)
-	{% endif %}
+	{% if success %}M.toast({html: '<i class="material-icons left">check</i>{{ success }}', classes: 'toast-success'});{% endif %}
+	{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
 });
 </script>
 {% endspaceless %}

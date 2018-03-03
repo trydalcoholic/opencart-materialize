@@ -58,29 +58,29 @@
 			{{ column_left }}
 			<div id="content" class="col {{ main }}">
 				{{ content_top }}
-				<div class="card-panel">
-					<p>{{ text_password }}</p>
-					<form action="{{ action }}" method="post" enctype="multipart/form-data">
+				<form action="{{ action }}" method="post" enctype="multipart/form-data">
+					<div class="card-panel">
+						<h2>{{ text_password }}</h2>
 						<div class="input-field">
 							<input type="password" name="password" value="{{ password }}" id="input-password" class="validate">
-							<label for="input-password" class="required">{{ entry_password }}</label>
+							<label for="input-password" class="text-bold required">{{ entry_password }}</label>
 						</div>
 						<div class="input-field">
 							<input type="password" name="confirm" value="{{ confirm }}" id="input-confirm" class="validate">
-							<label for="input-confirm" class="required">{{ entry_confirm }}</label>
+							<label for="input-confirm" class="text-bold required">{{ entry_confirm }}</label>
 						</div>
-						<div class="row">
-							<div class="col s6">
-								<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
-							</div>
-							<div class="col s6">
-								<div class="flex-reverse no-padding">
-									<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
-								</div>
+					</div>
+					<div class="row">
+						<div class="col s6">
+							<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
+						</div>
+						<div class="col s6">
+							<div class="flex-reverse no-padding">
+								<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
 							</div>
 						</div>
+					</div>
 					</form>
-				</div>
 				{{ content_bottom }}
 			</div>
 			{{ column_right }}
@@ -89,12 +89,8 @@
 </main>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	{% if error_password %}
-		Materialize.toast('{{ error_password }}',7000)
-	{% endif %}
-	{% if error_confirm %}
-		Materialize.toast('{{ error_confirm }}',7000)
-	{% endif %}
+	{% if error_password %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_password }}', classes: 'toast-warning'});{% endif %}
+	{% if error_confirm %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_confirm }}', classes: 'toast-warning'});{% endif %}
 });
 </script>
 {% endspaceless %}

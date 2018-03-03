@@ -1,8 +1,6 @@
 <?php
 // Text
 $_['text_agree']			= 'I have read and agree to the <a href="%s" class="agree"><b>%s</b></a>';
-$_['text_email_error']		= 'Wrong e-mail';
-$_['text_email_success']	= 'E-mail Valid';
 
 // Entry
 $_['entry_name']			= 'What is your name';
@@ -10,12 +8,6 @@ $_['entry_email']			= 'E-mail';
 $_['entry_telephone']		= 'Your phone number';
 $_['entry_enquiry']			= 'Comment';
 $_['entry_calltime']		= 'Convenient time for a call';
-
-// Time picker
-$_['button_time_done']		= 'Select';
-$_['button_time_clear']		= 'Clear';
-$_['button_time_cancel']	= 'Close';
-$_['twelve_hour']			= 'true';
 
 // Error
 $_['error_telephone']		= 'Phone must be from 4 to 24 characters!';

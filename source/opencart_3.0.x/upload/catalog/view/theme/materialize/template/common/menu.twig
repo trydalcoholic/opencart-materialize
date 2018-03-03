@@ -1,24 +1,9 @@
 {% if categories %}
-<a id="main-dd-nav" class="dropdown-button text-uppercase {{ color_navigation_text }}" data-activates="dropdown-nav-top" rel="nofollow">{{ text_category }}</a>
-<ul id="dropdown-nav-top" class="dropdown-content z-depth-5 dropdown-parent" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
-{% for category in categories %}
-	{% if category.children %}
-	<li>
-		<a class="dropdown-button waves-effect dropdown-child" href="{{ category.href }}" data-constrainwidth="true" data-activates="dropdown-nav-top-{{ category.id }}" itemprop="url"><span itemprop="name">{{ category.name }}</span></a>
-		{% for children in category.children|batch(category.children|length) %}
-		<ul id="dropdown-nav-top-{{ category.id }}" class="dropdown-content dropdown-overflow z-depth-5">
-			{% for child in children %}
-			<li><a class="waves-effect truncate" href="{{ child.href }}">{{ child.name }}</a></li>
-			<li class="divider"></li>
-			{% endfor %}
-		</ul>
-		{% endfor %}
-	</li>
-	<li class="divider"></li>
-	{% else %}
+<a id="main-dd-nav" class="dropdown-trigger text-uppercase {{ color_navigation_text }}" rel="nofollow" data-target="dropdown-nav-top">{{ text_category }}</a>
+<ul id="dropdown-nav-top" class="dropdown-content z-depth-5" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
+	{% for category in categories %}
 	<li><a class="waves-effect" href="{{ category.href }}" itemprop="url"><span itemprop="name">{{ category.name }}</span></a></li>
 	<li class="divider"></li>
-	{% endif %}
-{% endfor %}
+	{% endfor %}
 </ul>
 {% endif %}

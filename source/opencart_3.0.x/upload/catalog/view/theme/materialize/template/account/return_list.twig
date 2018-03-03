@@ -60,40 +60,41 @@
 				{{ content_top }}
 				<div class="card-panel">
 					{% if returns %}
-					<div style="overflow-x:scroll;">
-						<table class="bordered centered">
-							<thead class="grey lighten-4">
-								<tr>
-									<th><small>{{ column_return_id }}</small></th>
-									<th><small>{{ column_status }}</small></th>
-									<th><small>{{ column_date_added }}</small></th>
-									<th><small>{{ column_order_id }}</small></th>
-									<th><small>{{ column_customer }}</small></th>
-									<th>&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for return in returns %}
-								<tr>
-									<td>#{{ return.return_id }}</td>
-									<td>{{ return.status }}</td>
-									<td>{{ return.date_added }}</td>
-									<td>{{ return.order_id }}</td>
-									<td>{{ return.name }}</td>
-									<td><a href="{{ return.href }}" title="{{ button_view }}" class="btn waves-effect waves-light blue"><i class="material-icons">remove_red_eye</i></a></td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
+					<ul class="collection">
+						{% for return in returns %}
+						<li class="collection-item avatar">
+							<a href="{{ return.href }}" title="{{ button_view }}"><i class="material-icons waves-effect circle">cached</i></a>
+							<p>
+								<table class="highlight responsive-table">
+									<thead>
+										<tr>
+											<th>{{ column_return_id }}</th>
+											<th>{{ column_status }}</th>
+											<th>{{ column_date_added }}</th>
+											<th>{{ column_order_id }}</th>
+											<th>{{ column_customer }}</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="center"><a href="{{ return.href }}" title="{{ button_view }}">#{{ return.return_id }}</a></td>
+											<td>{{ return.status }}</td>
+											<td>{{ return.date_added }}</td>
+											<td>{{ return.order_id }}</td>
+											<td>{{ return.name }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</p>
+						</li>
+						{% endfor %}
+					</ul>
 					{{ pagination }}
 					{% else %}
 						<p>{{ text_empty }}</p>
 					{% endif %}
 				</div>
-				<div class="flex-reverse">
-					<a href="{{ continue }}" class="btn waves-effect waves-light red href-underline">{{ button_continue }}</a>
-				</div>
+				<a href="{{ continue }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
 				{{ content_bottom }}
 			</div>
 			{{ column_right }}

@@ -2,6 +2,7 @@
 class ControllerExtensionModuleCallback extends Controller {
 	public function index() {
 		$this->load->language('extension/module/callback');
+		$this->load->language('materialize/materialize');
 
 		$data['lang'] = $this->language->get('code');
 

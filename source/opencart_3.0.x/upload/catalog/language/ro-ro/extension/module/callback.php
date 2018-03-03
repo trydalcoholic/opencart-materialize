@@ -5,12 +5,6 @@ $_['entry_telephone']		= 'Numarul de telefon';
 $_['entry_enquiry']			= 'Comentariu';
 $_['entry_calltime']		= 'Timp convenabil pentru un apel';
 
-// Time picker
-$_['button_time_done']		= 'Selectați';
-$_['button_time_clear']		= 'Clar';
-$_['button_time_cancel']	= 'Închide';
-$_['twelve_hour']			= 'true';
-
 // Text
 $_['text_agree']			= 'Am citit si sunt de acord cu <a href="%s" class="agree"><b>%s</b></a>';
 

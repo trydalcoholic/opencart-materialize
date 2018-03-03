@@ -71,7 +71,7 @@
 								<label class="text-bold tooltipped" for="input-generator" data-position="top" data-tooltip="{{ help_generator }}">{{ entry_generator }}</label>
 							</div>
 							<div class="input-field">
-								<textarea id="input-link" name="link" placeholder="{{ entry_link }}" class="materialize-textarea"></textarea>
+								<textarea id="input-link" name="link" placeholder="{{ entry_link }}" raws="10" class="materialize-textarea"></textarea>
 								<label class="text-bold" for="input-link">{{ entry_link }}</label>
 							</div>
 						</div>
@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			'select': function(item) {
 				$('input[name=\'product\']').val(item['label']);
 				$('textarea[name=\'link\']').val(item['value']);
+				M.textareaAutoResize($('textarea[name=\'link\']'));
 			}
 		});
 	});

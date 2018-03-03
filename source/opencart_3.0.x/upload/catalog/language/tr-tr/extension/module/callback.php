@@ -5,12 +5,6 @@ $_['entry_telephone']		= 'Telefon numaranız';
 $_['entry_enquiry']			= 'Yorum Yap';
 $_['entry_calltime']		= 'Bir görüşme yapmak için uygun zaman';
 
-// Time picker
-$_['button_time_done']		= 'Seçin';
-$_['button_time_clear']		= 'Açık';
-$_['button_time_cancel']	= 'Yakın';
-$_['twelve_hour']			= 'true';
-
 // Text
 $_['text_agree']			= 'Okudum ve kabul ediyorum <a href="%s" class="agree"><b>%s</b></a>';
 

@@ -87,14 +87,17 @@
 						<p>{{ text_empty }}</p>
 					</div>
 				{% endif %}
-				<div class="flex-reverse">
-					<a href="{{ continue }}" class="btn waves-effect waves-light red href-underline">{{ button_continue }}</a>
-				</div>
+				<a href="{{ continue }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
 				{{ content_bottom }}
 			</div>
 			{{ column_right }}
 		</div>
 	</div>
 </main>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	{% if success %}M.toast({html: '<i class="material-icons left">check</i>{{ success }}', classes: 'toast-success'});{% endif %}
+});
+</script>
 {% endspaceless %}
 {{ footer }}

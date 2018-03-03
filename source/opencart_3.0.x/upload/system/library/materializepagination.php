@@ -30,7 +30,7 @@ class MaterializePagination {
 
 		$this->url = str_replace('%7Bpage%7D', '{page}', $this->url);
 
-		$output = '<ul class="pagination section center">';
+		$output = '<ul class="pagination section center href-underline">';
 
 		if ($page > 1) {
 			$output .= '<li class="waves-effect"><a href="' . str_replace(array('&amp;page={page}', '?page={page}', '&page={page}'), '', $this->url) . '">' . $this->text_first . '</a></li>';

@@ -2,6 +2,7 @@
 class ControllerExtensionModuleQuickorder extends Controller {
 	public function index() {
 		$this->load->language('extension/module/quickorder');
+		$this->load->language('materialize/materialize');
 
 		$data['lang'] = $this->language->get('code');
 

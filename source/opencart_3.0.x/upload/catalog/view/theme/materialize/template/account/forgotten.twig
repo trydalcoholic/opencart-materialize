@@ -58,25 +58,26 @@
 			{{ column_left }}
 			<div id="content" class="col {{ main }}">
 				{{ content_top }}
-				<div class="card-panel">
-					<p>{{ text_email }}</p>
-					<form action="{{ action }}" method="post" enctype="multipart/form-data">
+				<form action="{{ action }}" method="post" enctype="multipart/form-data">
+					<div class="card-panel">
+						<p>{{ text_email }}</p>
 						<div class="input-field">
 							<input type="email" name="email" value="{{ email }}" id="input-email" class="validate">
-							<label for="input-email" class="required">{{ entry_email }}</label>
+							<label for="input-email" class="text-bold required">{{ entry_email }}</label>
+							<span class="helper-text" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}"></span>
 						</div>
-						<div class="row">
-							<div class="col s6">
-								<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
-							</div>
-							<div class="col s6">
-								<div class="flex-reverse no-padding">
-									<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
-								</div>
+					</div>
+					<div class="row">
+						<div class="col s6">
+							<a href="{{ back }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
+						</div>
+						<div class="col s6">
+							<div class="flex-reverse no-padding">
+								<button type="submit" value="{{ button_continue }}" class="btn waves-effect waves-light red">{{ button_continue }}</button>
 							</div>
 						</div>
-					</form>
-				</div>
+					</div>
+				</form>
 				{{ content_bottom }}
 			</div>
 			{{ column_right }}
@@ -85,9 +86,7 @@
 </main>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	{% if error_warning %}
-		Materialize.toast('{{ error_warning }}',7000)
-	{% endif %}
+	{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
 });
 </script>
 {% endspaceless %}

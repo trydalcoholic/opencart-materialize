@@ -1,8 +1,6 @@
 <?php
 // Text
 $_['text_agree']			= 'Я прочитав <a href="%s" class="agree"><b>%s</b></a> і згоден з умовами';
-$_['text_email_error']		= 'Помилка при введенні E-mail';
-$_['text_email_success']	= 'E-mail введений вірно';
 
 // Entry
 $_['entry_name']			= 'Як вас звати';
@@ -10,12 +8,6 @@ $_['entry_email']			= 'E-mail';
 $_['entry_telephone']		= 'Ваш номер телефону';
 $_['entry_enquiry']			= 'Коментар';
 $_['entry_calltime']		= 'Зручний час дзвінка';
-
-// Time picker
-$_['button_time_done']		= 'Вибрати';
-$_['button_time_clear']		= 'Очистити';
-$_['button_time_cancel']	= 'Закрити';
-$_['twelve_hour']			= 'false';
 
 // Error
 $_['error_telephone']		= 'Телефон повинен бути від 4 до 24 символів!';

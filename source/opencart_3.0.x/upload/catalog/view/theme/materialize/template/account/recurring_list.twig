@@ -60,38 +60,34 @@
 				{{ content_top }}
 				<div class="card-panel">
 					{% if recurrings %}
-					<div style="overflow-x:scroll;">
-						<table class="bordered centered">
-							<thead class="grey lighten-4">
-								<tr>
-									<th><small>{{ column_order_recurring_id }}</small></th>
-									<th><small>{{ column_product }}</small></th>
-									<th><small>{{ column_status }}</small></th>
-									<th><small>{{ column_date_added }}</small></th>
-									<th>&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for recurring in recurrings %}
-								<tr>
-									<td>#{{ recurring.order_recurring_id }}</td>
-									<td>{{ recurring.product }}</td>
-									<td>{{ recurring.status }}</td>
-									<td>{{ recurring.date_added }}</td>
-									<td><a href="{{ recurring.view }}" title="{{ button_view }}" class="btn waves-effect waves-light blue"><i class="material-icons">remove_red_eye</i></a></td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
+					<table class="highlight responsive-table">
+						<thead>
+							<tr>
+								<th>{{ column_order_recurring_id }}</th>
+								<th>{{ column_product }}</th>
+								<th>{{ column_status }}</th>
+								<th>{{ column_date_added }}</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for recurring in recurrings %}
+							<tr>
+								<td>#{{ recurring.order_recurring_id }}</td>
+								<td>{{ recurring.product }}</td>
+								<td>{{ recurring.status }}</td>
+								<td>{{ recurring.date_added }}</td>
+								<td><a href="{{ recurring.view }}" title="{{ button_view }}" class="btn waves-effect waves-light blue"><i class="material-icons">remove_red_eye</i></a></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
 					{{ pagination }}
 					{% else %}
 						<p>{{ text_empty }}</p>
 					{% endif %}
 				</div>
-				<div class="flex-reverse">
-					<a href="{{ continue }}" class="btn waves-effect waves-light red right href-underline">{{ button_continue }}</a>
-				</div>
+				<a href="{{ continue }}" class="btn-flat waves-effect waves-light href-underline">{{ button_back }}</a>
 				{{ content_bottom }}
 			</div>
 			{{ column_right }}

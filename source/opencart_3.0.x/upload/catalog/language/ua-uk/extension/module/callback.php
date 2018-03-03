@@ -5,12 +5,6 @@ $_['entry_telephone']		= 'Ваш номер телефону';
 $_['entry_enquiry']			= 'Коментар';
 $_['entry_calltime']		= 'Зручний час дзвінка';
 
-// Time picker
-$_['button_time_done']		= 'Вибрати';
-$_['button_time_clear']		= 'Очистити';
-$_['button_time_cancel']	= 'Закрити';
-$_['twelve_hour']			= 'false';
-
 // Text
 $_['text_agree']			= 'Я прочитав і погодився з <a href="%s" class="agree"><b>%s</b></a>';
 
