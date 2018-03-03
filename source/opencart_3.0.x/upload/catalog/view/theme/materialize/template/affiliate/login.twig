@@ -81,7 +81,8 @@
 								<div class="input-field">
 									<i class="material-icons prefix">email</i>
 									<input type="email" name="email" value="{{ email }}" id="input-email" class="validate">
-									<label for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}">{{ entry_email }}</label>
+									<label for="input-email">{{ entry_email }}</label>
+									<span class="helper-text" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}"></span>
 								</div>
 								<div class="input-field">
 									<i class="material-icons prefix">lock</i>
@@ -107,12 +108,8 @@
 </main>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	{% if success %}
-		Materialize.toast('{{ success }}',7000)
-	{% endif %}
-	{% if error_warning %}
-		Materialize.toast('{{ error_warning }}',7000)
-	{% endif %}
+	{% if success %}M.toast({html: '<i class="material-icons left">check</i>{{ success }}', classes: 'toast-success'});{% endif %}
+	{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
 });
 </script>
 {% endspaceless %}
