@@ -1,26 +1,27 @@
 {% if not redirect %}
-<table class="bordered card-panel">
-	<thead class="grey lighten-4">
+<table class="highlight responsive-table">
+	<thead>
 		<tr>
-			<th><small>{{ column_name }}</small></th>
-			<th><small>{{ column_model }}</small></th>
-			<th><small>{{ column_quantity }}</small></th>
-			<th><small>{{ column_price }}</small></th>
-			<th><small>{{ column_total }}</small></th>
+			<th>{{ column_name }}</th>
+			<th>{{ column_model }}</th>
+			<th>{{ column_quantity }}</th>
+			<th>{{ column_price }}</th>
+			<th>{{ column_total }}</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for product in products %}
 		<tr>
-			<td><a href="{{ product.href }}" target="_blank" rel="noopener">{{ product.name }}</a>
-			{% for option in product.option %}
-			<br>
-			&nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
-			{% endfor %}
-			{% if product.recurring %}
-			<br>
-			<span>{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small>
-			{% endif %}
+			<td>
+				<a href="{{ product.href }}" target="_blank" rel="noopener">{{ product.name }}</a>
+				{% for option in product.option %}
+				<br>
+				&nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
+				{% endfor %}
+				{% if product.recurring %}
+				<br>
+				<span>{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small>
+				{% endif %}
 			</td>
 			<td>{{ product.model }}</td>
 			<td>{{ product.quantity }}</td>
@@ -38,18 +39,20 @@
 		</tr>
 		{% endfor %}
 	</tbody>
-	<tfoot>
-		{% for total in totals %}
-		<tr>
-			<td colspan="4"><strong>{{ total.title }}:</strong></td>
-			<td>{{ total.text }}</td>
-		</tr>
-		{% endfor %}
-	</tfoot>
 </table>
+<div class="section">
+	<div class="card-panel">
+		<table class="bordered">
+			{% for total in totals %}
+			<tr>
+				<th>{{ total.title }}:</th>
+				<td>{{ total.text }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
 {{ payment }}
 {% else %}
-<script>
-	location = '{{ redirect }}';
-</script>
+<script>location = '{{ redirect }}';</script>
 {% endif %}

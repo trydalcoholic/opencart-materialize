@@ -1,47 +1,37 @@
-<div class="row">
-	<div class="col s12 l6 offset-l3">
-		<div class="card-panel">
-			{% if shipping_methods %}
-				<h4 class="text-bold">{{ text_shipping_method }}</h4>
-				<div class="section">
-				{% for shipping_method in shipping_methods %}
-					{% if not shipping_method.error %}
-						{% for quote in shipping_method.quote %}
-						{% if quote.code == code or not code %}
-						{% set code = quote.code %}
-							<input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked" id="{{ quote.code }}" class="with-gap">
-						{% else %}
-							<input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}" class="with-gap">
-						{% endif %}
-							<label for="{{ quote.code }}">{{ quote.title }} – {{ quote.text }}</label><br>
-						{% endfor %}
+{% if shipping_methods %}
+	<h4 class="text-bold">{{ text_shipping_method }}</h4>
+	<div class="section">
+	{% for shipping_method in shipping_methods %}
+		{% if not shipping_method.error %}
+		<ul>
+			{% for quote in shipping_method.quote %}
+			<li>
+				<label for="{{ quote.code }}">
+					{% if quote.code == code or not code %}
+					{% set code = quote.code %}
+					<input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked" id="{{ quote.code }}" class="with-gap">
 					{% else %}
-						<script>
-						document.addEventListener("DOMContentLoaded", function(event) {
-							Materialize.toast('<span><i class="material-icons left">warning</i>{{ shipping_method.error }}</span>',7000,'toast-warning')
-						});
-						</script>
+					<input type="radio" name="shipping_method" value="{{ quote.code }}" id="{{ quote.code }}" class="with-gap">
 					{% endif %}
-				{% endfor %}
-				</div>
-			{% endif %}
-			<div class="section">
-				<strong>{{ text_comments }}</strong>
-				<div class="input-field">
-					<i class="material-icons prefix">message</i>
-					<textarea name="comment" rows="8" class="materialize-textarea"></textarea>
-				</div>
-			</div>
-			<div class="flex-reverse">
-				<button type="button" value="{{ button_continue }}" id="button-shipping-method" class="btn waves-effect waves-light red">{{ button_continue }}</button>
-			</div>
-		</div>
+					<span>{{ quote.title }} – {{ quote.text }}</span>
+				</label>
+			</li>
+			{% endfor %}
+		</ul>
+		{% else %}
+		<script>M.toast({html: '<i class="material-icons left">warning</i>{{ shipping_method.error }}', classes: 'toast-warning'});</script>
+		{% endif %}
+	{% endfor %}
+	</div>
+{% endif %}
+<div class="section">
+	<strong>{{ text_comments }}</strong>
+	<div class="input-field">
+		<i class="material-icons prefix">message</i>
+		<textarea name="comment" class="materialize-textarea"></textarea>
 	</div>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	{% if error_warning %}
-		Materialize.toast('<span><i class="material-icons left">warning</i>{{ error_warning }}</span>',7000,'toast-warning')
-	{% endif %}
-});
-</script>
+<div class="flex-reverse">
+	<button type="button" value="{{ button_continue }}" id="button-shipping-method" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+</div>
+<script>{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}</script>

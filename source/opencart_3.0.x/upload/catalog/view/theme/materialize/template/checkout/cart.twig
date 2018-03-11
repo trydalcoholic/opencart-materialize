@@ -67,7 +67,14 @@
 							{% endif %}
 						</div>
 						<div class="card-stacked">
-							<button type="button" class="btn-floating waves-effect transparent z-depth-0 remove-item" title="{{ button_remove }}" onclick="cart.remove('{{ product.cart_id }}');"><i class="material-icons black-text">close</i></button>
+							<div class="cart-list-buttons">
+								<button type="submit" class="btn-floating waves-effect transparent z-depth-0" title="{{ button_update }}">
+									<i class="material-icons black-text">refresh</i>
+								</button>
+								<button type="button" class="btn-floating waves-effect transparent z-depth-0" title="{{ button_remove }}" onclick="cart.remove('{{ product.cart_id }}');">
+									<i class="material-icons black-text">close</i>
+								</button>
+							</div>
 							<div class="card-content">
 								<a href="{{ product.href }}" class="text-bold">{{ product.name }}</a> x {{ product.quantity }}{% if not product.stock %}<span class="red-text">***</span>{% endif %}
 								<br>
@@ -78,15 +85,14 @@
 								{% endif %}
 								{% if product.recurring %}
 									<br>
-									<span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small>
+									<span class="badge">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small>
 								{% endif %}
 								<br>
-								<div class="input-filed inline">
-									<label for="input-quantity">
-										{{ column_quantity }}:
-										<button id="update-btn" type="submit" title="{{ button_update }}" style="display:none;"><i class="material-icons">refresh</i></button>
-									</label>
-									<input id="input-quantity" class="center" type="text" name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}" size="1" style="max-width:50px;height:inherit;">
+								<div class="input-number input-number-cart">
+									<label class="text-bold" for="input-quantity">{{ column_quantity }}:</label>
+									<i id="quantity-minus{{ product.cart_id }}" class="material-icons waves-effect waves-circle input-quantity-minus">remove_circle_outline</i>
+									<input id="input-quantity" type="number" name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}">
+									<i id="quantity-plus{{ product.cart_id }}" class="material-icons waves-effect waves-circle input-quantity-plus">add_circle_outline</i>
 								</div>
 							</div>
 						</div>
@@ -98,17 +104,16 @@
 							<div><img src="{{ img_loader }}" data-src="catalog/view/theme/materialize/image/cart-voucher.png" class="lazyload" width="75" height="75"></div>
 						</div>
 						<div class="card-stacked">
-							<button type="button" class="btn-floating transparent z-depth-0 remove-item" title="{{ button_remove }}" onclick="voucher.remove('{{ voucher.key }}');"><i class="material-icons black-text">close</i></button>
+							<div class="cart-list-buttons">
+								<button type="button" class="btn-floating waves-effect transparent z-depth-0" title="{{ button_remove }}" onclick="voucher.remove('{{ voucher.key }}');">
+									<i class="material-icons black-text">close</i>
+								</button>
+							</div>
 							<div class="card-content">
-								{{ voucher.description }}
-								<br>
-								<span class="text-bold">{{ voucher.amount }}</span>
-								<br>
+								<p class="text-bold">{{ voucher.description }}</p>
+								<p class="text-bold">{{ voucher.amount }}</p>
 								<div class="input-filed inline">
-									<label for="input-quantity">
-										{{ column_quantity }}:
-										<button id="update-btn" type="submit" title="{{ button_update }}" style="display:none;"><i class="material-icons">refresh</i></button>
-									</label>
+									<label for="input-quantity">{{ column_quantity }}:</label>
 									<input type="text" name="" value="1" size="1" class="center" disabled="disabled" style="max-width:50px;height:inherit;">
 								</div>
 							</div>
@@ -116,31 +121,31 @@
 					</div>
 					{% endfor %}
 				</form>
+				{% if modules %}
 				<div class="card-panel">
-					{% if modules %}
-						<h2>{{ text_next }}</h2>
-						<p>{{ text_next_choice }}</p>
-						<ul class="collapsible collapsible-modules" data-collapsible="accordion">
-							{% for module in modules %}{{ module }}{% endfor %}
-						</ul>
-					{% endif %}
-					<div class="row">
-						<div class="col s12 m6 offset-m6 l5 offset-l7">
-							<div class="table-responsive card-panel">
-								<table class="bordered">
-									{% for total in totals %}
-									<tr>
-										<th>{{ total.title }}:</th>
-										<td>{{ total.text }}</td>
-									</tr>
-									{% endfor %}
-								</table>
-							</div>
+					<h2>{{ text_next }}</h2>
+					<p>{{ text_next_choice }}</p>
+					<ul class="collapsible collapsible-modules" data-collapsible="accordion">
+						{% for module in modules %}{{ module }}{% endfor %}
+					</ul>
+				</div>
+				{% endif %}
+				<div class="row">
+					<div class="col s12 m6 offset-m6 l5 offset-l7">
+						<div class="card-panel">
+							<table class="bordered">
+								{% for total in totals %}
+								<tr>
+									<th>{{ total.title }}:</th>
+									<td>{{ total.text }}</td>
+								</tr>
+								{% endfor %}
+							</table>
 						</div>
 					</div>
-					<div class="flex-reverse">
-						<a href="{{ checkout }}" class="btn waves-effect waves-light red right">{{ button_checkout }}</a>
-					</div>
+				</div>
+				<div class="flex-reverse">
+					<a href="{{ checkout }}" class="btn waves-effect waves-light red right">{{ button_checkout }}</a>
 				</div>
 				{{ content_bottom }}
 			</div>
@@ -150,17 +155,30 @@
 </main>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	{% if attention %}
-		Materialize.toast('<span><i class="material-icons left">info</i>{{ attention }}</span>',7000,'toast-info')
-	{% endif %}
-	{% if success %}
-		Materialize.toast('<span><i class="material-icons left">check</i>{{ success }}</span>',7000,'toast-success')
-	{% endif %}
-	{% if error_warning %}
-		Materialize.toast('<span><i class="material-icons left">warning</i>{{ error_warning }}</span>',7000,'toast-warning')
-	{% endif %}
+	{% if attention %}M.toast({html: '<i class="material-icons left">info</i>{{ attention }}', classes: 'toast-info'});{% endif %}
+	{% if success %}M.toast({html: '<i class="material-icons left">check</i>{{ success }}', classes: 'toast-success'});{% endif %}
+	{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
+
 	$('input#input-quantity').change(function() {
 		$('#update-btn').trigger('click');
+	});
+
+	$('i[id^=\'quantity-minus\']').on('click', function() {
+		var quantity = $(this).parent().find('input');
+
+		if (isNaN(quantity.val())) {
+			quantity.val(1);
+		}
+
+		if (quantity.val() > 1) {
+			quantity.val(parseInt(quantity.val()) - 1);
+		}
+	});
+
+	$('i[id^=\'quantity-plus\']').on('click', function() {
+		var quantity = $(this).parent().find('input');
+
+		quantity.val(parseInt(quantity.val()) + 1);
 	});
 });
 </script>

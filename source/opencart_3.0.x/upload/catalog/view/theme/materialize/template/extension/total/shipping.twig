@@ -1,7 +1,7 @@
-<li>
-	<div class="collapsible-header grey lighten-5 arrow-rotate"><i class="material-icons">local_shipping</i><span class="text-bold">{{ heading_title }}</span></div>
+<li class="arrow-rotate">
+	<div class="collapsible-header grey lighten-5"><i class="material-icons">local_shipping</i><span class="text-bold">{{ heading_title }}</span></div>
 	<div class="collapsible-body">
-		<p>{{ text_shipping }}</p>
+		<p class="text-bold">{{ text_shipping }}</p>
 		<div class="section">
 			<div class="input-field">
 				<select name="country_id" id="input-country">
@@ -46,16 +46,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			success: function(json) {
 				if (json['error']) {
 					if (json['error']['warning']) {
-						Materialize.toast('<i class="material-icons left">warning</i>'+json['error']['warning'],7000,'toast-warning');
+						M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['warning'], classes: 'toast-warning'});
 					}
 					if (json['error']['country']) {
-						Materialize.toast('<i class="material-icons left">warning</i>'+json['error']['country'],7000,'toast-warning');
+						M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['country'], classes: 'toast-warning'});
 					}
 					if (json['error']['zone']) {
-						Materialize.toast('<i class="material-icons left">warning</i>'+json['error']['zone'],7000,'toast-warning');
+						M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['zone'], classes: 'toast-warning'});
 					}
 					if (json['error']['postcode']) {
-						Materialize.toast('<i class="material-icons left">warning</i>'+json['error']['postcode'],7000,'toast-warning');
+						M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['postcode'], classes: 'toast-warning'});
 					}
 				}
 
@@ -65,22 +65,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					html  = '<div id="modal-shipping" class="modal">';
 					html += '	<div class="modal-content">';
 					html += '		<h4 class="text-bold">{{ text_shipping_method }}</h4>';
+					html +=	'			<ul>';
 
 					for (i in json['shipping_method']) {
 						if (!json['shipping_method'][i]['error']) {
 							for (j in json['shipping_method'][i]['quote']) {
-								html += '';
+								html +=	'<li>';
+								html +=		'<label for="radio-'+json['shipping_method'][i]['quote'][j]['code']+'">';
 								if (json['shipping_method'][i]['quote'][j]['code'] == '{{ shipping_method }}') {
-									html += '<input type="radio" name="shipping_method" value="' + json['shipping_method'][i]['quote'][j]['code'] + '" checked="checked" id="radio-'+json['shipping_method'][i]['quote'][j]['code']+'" class="with-gap">';
+									html +=		'<input type="radio" name="shipping_method" value="' + json['shipping_method'][i]['quote'][j]['code'] + '" checked="checked" id="radio-'+json['shipping_method'][i]['quote'][j]['code']+'" class="with-gap">';
 								} else {
-									html += '<input type="radio" name="shipping_method" value="' + json['shipping_method'][i]['quote'][j]['code'] + '" id="radio-'+json['shipping_method'][i]['quote'][j]['code']+'" class="with-gap">';
+									html +=		'<input type="radio" name="shipping_method" value="' + json['shipping_method'][i]['quote'][j]['code'] + '" id="radio-'+json['shipping_method'][i]['quote'][j]['code']+'" class="with-gap">';
 								}
-								html += '<label for="radio-'+json['shipping_method'][i]['quote'][j]['code']+'">' + json['shipping_method'][i]['quote'][j]['title'] + ' - ' + json['shipping_method'][i]['quote'][j]['text'] + '</label><br>';
+								html +=			'<span>' + json['shipping_method'][i]['quote'][j]['title'] + ' - ' + json['shipping_method'][i]['quote'][j]['text'] + '</span>';
+								html += 	'</label>';
+								html +=	'</li>';
 							}
 						} else {
-							Materialize.toast('<i class="material-icons left">warning</i>'+json['shipping_method'][i]['error'],7000,'toast-warning');
+							M.toast({html: '<i class="material-icons left">warning</i>' + json['shipping_method'][i]['error'], classes: 'toast-warning'});
 						}
 					}
+					html += '	</ul>';
 
 					html += '	</div>';
 					html += '	<div class="modal-footer">';
@@ -119,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			dataType: 'json',
 			success: function(json) {
 				if (json['error']) {
-					Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 				}
 				if (json['redirect']) {
 					location = json['redirect'];
@@ -159,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				}
 
 				$('select[name=\'zone_id\']').html(html);
-				$('select').material_select();
+				$('select').formSelect();
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -168,6 +173,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	$('select[name=\'country_id\']').trigger('change');
-	$('select').material_select();
+	$('select').formSelect();
 });
 </script>

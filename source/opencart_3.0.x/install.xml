@@ -2116,34 +2116,6 @@
 			]]></add>
 		</operation>
 	</file>
-	<!-- Common language settings Materialize -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="skip">
-			<search><![CDATA[$data['name'] = $this->config->get('config_name');]]></search>
-			<add position="after"><![CDATA[
-			$data['email'] = $this->config->get('config_email');
-			$data['open'] = nl2br($this->config->get('config_open'));
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/common/cart.php">
-		<operation error="log">
-			<search><![CDATA[$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
-			<add position="replace"><![CDATA[$data['text_items'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/checkout/cart.php">
-		<operation error="log">
-			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
-			<add position="replace"><![CDATA[$json['total'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/product/compare.php">
-		<operation error="log">
-			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></search>
-			<add position="replace"><![CDATA[$json['total'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></add>
-		</operation>
-	</file>
 	<!-- Add base64 loader -->
 	<file path="catalog/controller/{common,checkout,product}/{header,cart,category,compare,manufacturer,product,search,special}*.php">
 		<operation error="log">
@@ -3273,6 +3245,33 @@
 		</operation>
 	</file>
 	<!-- Languages settings -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="skip">
+			<search><![CDATA[$data['name'] = $this->config->get('config_name');]]></search>
+			<add position="after"><![CDATA[
+			$data['email'] = $this->config->get('config_email');
+			$data['open'] = nl2br($this->config->get('config_open'));
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/common/cart.php">
+		<operation error="log">
+			<search><![CDATA[$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
+			<add position="replace"><![CDATA[$data['text_items'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/checkout/cart.php">
+		<operation error="log">
+			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
+			<add position="replace"><![CDATA[$json['total'] = sprintf($this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0));]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/compare.php">
+		<operation error="log">
+			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></search>
+			<add position="replace"><![CDATA[$json['total'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></add>
+		</operation>
+	</file>
 	<file path="admin/controller/{catalog,common}/{product,category,column_left}*.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
@@ -3291,9 +3290,21 @@
 			<add position="after"><![CDATA[$this->load->language('information/materialize');]]></add>
 		</operation>
 	</file>
-	<file path="catalog/controller/{information,checkout,affiliate,account}/{address,contact,checkout,register,login,edit}*.php">
+	<file path="catalog/controller/{information,checkout,affiliate,account}/{contact,checkout,guest,register,login,payment_address,shipping_address,edit}*.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[$this->load->language('materialize/materialize');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/account/address.php">
+		<operation error="log">
+			<search><![CDATA[protected function getForm() {]]></search>
+			<add position="after"><![CDATA[$this->load->language('materialize/materialize');]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/account/affiliate.php">
+		<operation error="log">
+			<search><![CDATA[public function getForm() {]]></search>
 			<add position="after"><![CDATA[$this->load->language('materialize/materialize');]]></add>
 		</operation>
 	</file>

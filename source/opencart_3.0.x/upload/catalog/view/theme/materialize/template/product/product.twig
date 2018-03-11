@@ -95,7 +95,7 @@
 										<i class="material-icons waves-effect waves-circle tooltipped activator" onclick="compare.add('{{ product_id }}');" data-position="top" data-tooltip="{{ button_compare }}">compare_arrows</i>
 									</li>
 								</ul>
-								<i class="material-icons waves-effect waves-circle tooltipped sidenav-trigger share-btn" data-target="side-share" data-position="top" data-tooltip="{{ button_share }}" data-activates="side-share">share</i>
+								<i class="material-icons waves-effect waves-circle tooltipped sidenav-trigger share-btn" data-target="side-share" data-position="top" data-tooltip="{{ button_share }}">share</i>
 							</div>
 							<h1 class="center" itemprop="name">{{ heading_title }}</h1>
 							<div class="rating">
@@ -427,52 +427,52 @@
 					<form id="form-review">
 						<div class="flex-reverse">
 							<button type="button" class="btn-flat waves-effect modal-trigger text-bold" data-target="modal-review">{{ text_write }}<i class="material-icons right">mode_edit</i></button>
-							<div id="modal-review" class="modal">
-								<div class="modal-content">
-									<i class="material-icons modal-action modal-close waves-effect waves-circle close-icon">close</i>
-									<h4>{{ text_write }}</h4>
-									{% if review_guest %}
-										<div class="row">
-											<div class="input-field col s12">
-												<i class="material-icons prefix">account_circle</i>
-												<input type="text" name="name" value="{{ customer_name }}" id="input-name" class="validate">
-												<label for="input-name">{{ entry_name }}</label>
-											</div>
-										</div>
-										<div class="row">
-											<div class="input-field col s12">
-												<i class="material-icons prefix">mode_edit</i>
-												<textarea name="text" rows="5" id="input-review" class="materialize-textarea"></textarea>
-												<label for="input-review">{{ entry_review }}</label>
-												<small>{{ text_note }}</small>
-											</div>
-										</div>
-										<div class="section">
-											<div class="rating-input center">
-												<input id="rating-1" type="radio" name="rating" value="1">
-												<label for="rating-1"><i class="material-icons">star</i></label>
-												<input id="rating-2" type="radio" name="rating" value="2">
-												<label for="rating-2"><i class="material-icons">star</i></label>
-												<input id="rating-3" type="radio" name="rating" value="3">
-												<label for="rating-3"><i class="material-icons">star</i></label>
-												<input id="rating-4" type="radio" name="rating" value="4">
-												<label for="rating-4"><i class="material-icons">star</i></label>
-												<input id="rating-5" type="radio" name="rating" value="5">
-												<label for="rating-5"><i class="material-icons">star</i></label>
-											</div>
-										</div>
-										{{ captcha }}
-									{% else %}
-									{{ text_login }}
-									{% endif %}
+						</div>
+						<div id="modal-review" class="modal">
+							<div class="modal-content">
+								<i class="material-icons modal-action modal-close waves-effect waves-circle close-icon">close</i>
+								<h4>{{ text_write }}</h4>
+								{% if review_guest %}
+								<div class="row">
+									<div class="input-field col s12">
+										<i class="material-icons prefix">account_circle</i>
+										<input type="text" name="name" value="{{ customer_name }}" id="input-name" class="validate">
+										<label for="input-name">{{ entry_name }}</label>
+									</div>
 								</div>
-								<div class="modal-footer">
-									<button type="button" id="button-review" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+								<div class="row">
+									<div class="input-field col s12">
+										<i class="material-icons prefix">mode_edit</i>
+										<textarea name="text" id="input-review" class="materialize-textarea"></textarea>
+										<label for="input-review">{{ entry_review }}</label>
+										<small>{{ text_note }}</small>
+									</div>
 								</div>
+								<div class="section">
+									<div class="rating-input center">
+										<input id="rating-1" type="radio" name="rating" value="1">
+										<label for="rating-1"><i class="material-icons">star</i></label>
+										<input id="rating-2" type="radio" name="rating" value="2">
+										<label for="rating-2"><i class="material-icons">star</i></label>
+										<input id="rating-3" type="radio" name="rating" value="3">
+										<label for="rating-3"><i class="material-icons">star</i></label>
+										<input id="rating-4" type="radio" name="rating" value="4">
+										<label for="rating-4"><i class="material-icons">star</i></label>
+										<input id="rating-5" type="radio" name="rating" value="5">
+										<label for="rating-5"><i class="material-icons">star</i></label>
+									</div>
+								</div>
+								{{ captcha }}
+								{% else %}
+								{{ text_login }}
+								{% endif %}
+							</div>
+							<div class="modal-footer">
+								<button type="button" id="button-review" class="btn waves-effect waves-light red">{{ button_continue }}</button>
 							</div>
 						</div>
-						<div id="review"></div>
 					</form>
+					<div id="review"></div>
 				</div>
 				{% endif %}
 				</div>
@@ -657,13 +657,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// Reviews
 	var modalReview = $('#modal-review'),
 		inputName = $('#input-name'),
-		inputReview = $('#input-review');
+		inputReview = $('#input-review'),
+		review = $('#review');
 
-	$('#review').delegate('.pagination a', 'click', function(e) {
+	review.delegate('.pagination a', 'click', function(e) {
 		e.preventDefault();
-		$('#review').fadeOut('slow');
-		$('#review').load(this.href);
-		$('#review').fadeIn('slow');
+		review.load(this.href);
 	});
 	$('.rating-input label').hover(function() {
 		$(this).addClass('rating-input-active');
@@ -680,7 +679,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		$(this).addClass('rating-input-checked');
 		$(this).prevAll('.rating-input label').addClass('rating-input-checked');
 	});
-	$('#review').load('index.php?route=product/product/review&product_id={{ product_id }}');
+	review.load('index.php?route=product/product/review&product_id={{ product_id }}');
 	$('#button-review').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=product/product/write&product_id={{ product_id }}',
@@ -696,6 +695,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					inputName.val('');
 					inputName.parent().find('label').removeClass('active');
 					inputReview.val('');
+					M.textareaAutoResize(inputReview);
 					inputReview.parent().find('label').removeClass('active');
 					modalReview.modal('close');
 				}
@@ -722,80 +722,74 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	{% endif %}
 	{% if options %}
-	{% for option in options %}
-		{% if option.type == 'file' %}
-			$('div[id^=\'button-upload\']').on('click', function() {
-				var node = this;
-				$('#form-upload').remove();
-				$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display:none;"><input type="file" name="file"></form><div id="modal-loading" class="modal"><div class="modal-content"><div class="row valign-wrapper"><div class="col s4 m3 center"><div class="preloader-wrapper active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div><div class="col s10 m9"><p id="loading-text" class="flow-text text-bold">{{ text_loading }}</p></div></div></div></div>');
-				$('#form-upload input[name=\'file\']').trigger('click');
-				if (typeof timer != 'undefined') {
-					clearInterval(timer);
-				}
-				timer = setInterval(function() {
-					if ($('#form-upload input[name=\'file\']').val() != '') {
-						clearInterval(timer);
-						$('#modal-loading').modal({
-							dismissible: false,
-							opacity: .7,
-							endingTop: '40%',
-						}).modal('open');
-						$.ajax({
-							url: 'index.php?route=tool/upload',
-							type: 'post',
-							dataType: 'json',
-							data: new FormData($('#form-upload')[0]),
-							cache: false,
-							contentType: false,
-							processData: false,
-							success: function(json) {
-								if (json['error']) {
-									$('#modal-loading').modal('close').remove();
-									M.toast({html: '<span><i class="material-icons left">warning</i>'+json["error"]+'</span>', classes: 'toast-warning'});
-								}
-								if (json['success']) {
-									$('#modal-loading').modal('close').remove();
-									M.toast({html: '<span><i class="material-icons left">check</i>'+json["success"]+'</span>', classes: 'toast-success'});
-									$(node).parent().find('input').val(json['code']);
-								}
-							},
-							error: function(xhr, ajaxOptions, thrownError) {
-								alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-							}
-						});
+	$('div[id^=\'button-upload\']').on('click', function() {
+		var node = this;
+		$('#form-upload').remove();
+		$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display:none;"><input type="file" name="file"></form><div id="modal-loading" class="modal"><div class="modal-content"><div class="row valign-wrapper"><div class="col s4 m3 center"><div class="preloader-wrapper active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div><div class="col s10 m9"><p id="loading-text" class="flow-text text-bold">{{ text_loading }}</p></div></div></div></div>');
+		$('#form-upload input[name=\'file\']').trigger('click');
+		if (typeof timer != 'undefined') {
+			clearInterval(timer);
+		}
+		timer = setInterval(function() {
+			if ($('#form-upload input[name=\'file\']').val() != '') {
+				clearInterval(timer);
+				$('#modal-loading').modal({
+					dismissible: false,
+					opacity: .7,
+					endingTop: '40%',
+				}).modal('open');
+				$.ajax({
+					url: 'index.php?route=tool/upload',
+					type: 'post',
+					dataType: 'json',
+					data: new FormData($('#form-upload')[0]),
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(json) {
+						if (json['error']) {
+							$('#modal-loading').modal('close').remove();
+							M.toast({html: '<span><i class="material-icons left">warning</i>'+json["error"]+'</span>', classes: 'toast-warning'});
+						}
+						if (json['success']) {
+							$('#modal-loading').modal('close').remove();
+							M.toast({html: '<span><i class="material-icons left">check</i>'+json["success"]+'</span>', classes: 'toast-success'});
+							$(node).parent().find('input').val(json['code']);
+						}
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
-				}, 500);
-			});
-		{% endif %}
-		{% if option.type == 'date' %}
-		$('.datepicker').datepicker({
-			format: 'yyyy-mm-dd',
-			firstDay: {{ first_day }},
-			i18n: {
-				clear: '{{ button_datetime_clear }}',
-				today: '{{ button_date_today }}',
-				done: '{{ button_datetime_done }}',
-				months: ['{{ text_months_full_january }}', '{{ text_months_full_february }}', '{{ text_months_full_march }}', '{{ text_months_full_april }}', '{{ text_months_full_may }}', '{{ text_months_full_june }}', '{{ text_months_full_july }}', '{{ text_months_full_august }}', '{{ text_months_full_september }}', '{{ text_months_full_october }}', '{{ text_months_full_november }}', '{{ text_months_full_december }}'],
-				monthsShort: ['{{ text_months_short_january }}', '{{ text_months_short_february }}', '{{ text_months_short_march }}', '{{ text_months_short_april }}', '{{ text_months_short_may }}', '{{ text_months_short_june }}', '{{ text_months_short_july }}', '{{ text_months_short_august }}', '{{ text_months_short_september }}', '{{ text_months_short_october }}', '{{ text_months_short_november }}', '{{ text_months_short_december }}'],
-				weekdays: ['{{ text_weekdays_full_sunday }}', '{{ text_weekdays_full_monday }}', '{{ text_weekdays_full_tuesday }}', '{{ text_weekdays_full_wednesday }}', '{{ text_weekdays_full_thursday }}', '{{ text_weekdays_full_friday }}', '{{ text_weekdays_full_saturday }}'],
-				weekdaysShort: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}'],
-				weekdaysAbbrev: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}']
+				});
 			}
-		});
-		{% endif %}
-		{% if option.type == 'time' %}
-		$('.timepicker').timepicker({
-			defaultTime: 'now',
-			autoclose: true,
-			i18n: {
-				clear: '{{ button_datetime_clear }}',
-				cancel: '{{ button_datetime_done }}',
-				done: '{{ button_time_done }}',
-				twelvehour: {{ twelve_hour }}
-			}
-		});
-		{% endif %}
-	{% endfor %}
+		}, 500);
+	});
+
+	$('.datepicker').datepicker({
+		format: 'yyyy-mm-dd',
+		firstDay: {{ first_day }},
+		i18n: {
+			clear: '{{ button_datetime_clear }}',
+			today: '{{ button_date_today }}',
+			done: '{{ button_datetime_done }}',
+			months: ['{{ text_months_full_january }}', '{{ text_months_full_february }}', '{{ text_months_full_march }}', '{{ text_months_full_april }}', '{{ text_months_full_may }}', '{{ text_months_full_june }}', '{{ text_months_full_july }}', '{{ text_months_full_august }}', '{{ text_months_full_september }}', '{{ text_months_full_october }}', '{{ text_months_full_november }}', '{{ text_months_full_december }}'],
+			monthsShort: ['{{ text_months_short_january }}', '{{ text_months_short_february }}', '{{ text_months_short_march }}', '{{ text_months_short_april }}', '{{ text_months_short_may }}', '{{ text_months_short_june }}', '{{ text_months_short_july }}', '{{ text_months_short_august }}', '{{ text_months_short_september }}', '{{ text_months_short_october }}', '{{ text_months_short_november }}', '{{ text_months_short_december }}'],
+			weekdays: ['{{ text_weekdays_full_sunday }}', '{{ text_weekdays_full_monday }}', '{{ text_weekdays_full_tuesday }}', '{{ text_weekdays_full_wednesday }}', '{{ text_weekdays_full_thursday }}', '{{ text_weekdays_full_friday }}', '{{ text_weekdays_full_saturday }}'],
+			weekdaysShort: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}'],
+			weekdaysAbbrev: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}']
+		}
+	});
+
+	$('.timepicker').timepicker({
+		defaultTime: 'now',
+		autoclose: true,
+		i18n: {
+			clear: '{{ button_datetime_clear }}',
+			cancel: '{{ button_datetime_done }}',
+			done: '{{ button_time_done }}',
+			twelvehour: {{ twelve_hour }}
+		}
+	});
 	{% endif %}
 
 	// Add to cart

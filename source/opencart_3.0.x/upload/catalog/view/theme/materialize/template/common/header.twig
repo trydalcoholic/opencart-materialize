@@ -62,6 +62,7 @@
 	}
 	</script>
 	<style>{{ css }}</style>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	{% for link in links %}<link href="{{ link.href }}" rel="{{ link.rel }}" {% if link.type or link.sizes %}type="{{ link.type }}" sizes="{{ link.sizes }}" {% endif %}>{% endfor %}
 	{% for analytic in analytics %}{{ analytic }}{% endfor %}

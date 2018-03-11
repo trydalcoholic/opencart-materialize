@@ -1,29 +1,18 @@
 {% if payment_pp_express_incontext_disable != 1 %}
-<div class="buttons">
-	<div class="pull-right">
-		<a id="button-confirm" href="{{ continue }}"></a>
-	</div>
+<div class="flex-reverse">
+	<a id="button-confirm" href="{{ continue }}"></a>
 </div>
-<script type="text/javascript"><!--
+<script>
 window.paypalCheckoutReady = function () {
 	paypal.checkout.setup('{{ username }}', {
 		container: 'button-confirm',
-		environment: '{{ environment }}'
+		environment: 'sandbox'
 	});
 };
-//--></script>
+</script>
 <script src="//www.paypalobjects.com/api/checkout.js" async></script>
 {% else %}
 <div class="flex-reverse">
-		<a href="{{ continue }}" class="btn waves-effect waves-light blue" id="button-confirm">{{ button_continue }}</a>
+	<a href="{{ continue }}" class="btn waves-effect waves-light blue" id="button-confirm">{{ button_continue }}</a>
 </div>
-<div class="buttons">
-	<div class="pull-right">
-	</div>
-</div>
-<script type="text/javascript"><!--
-		$('#button-confirm').on('click', function() {
-				$('#button-confirm').button('loading');
-		});
-//--></script>
 {% endif %}

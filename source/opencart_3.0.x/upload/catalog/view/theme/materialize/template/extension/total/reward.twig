@@ -1,5 +1,5 @@
-<li>
-	<div class="collapsible-header grey lighten-5 arrow-rotate"><i class="material-icons">account_balance_wallet</i><span class="text-bold">{{ heading_title }}</span></div>
+<li class="arrow-rotate">
+	<div class="collapsible-header grey lighten-5"><i class="material-icons">account_balance_wallet</i><span class="text-bold">{{ heading_title }}</span></div>
 	<div class="collapsible-body">
 		<div class="input-field">
 			<input type="text" name="reward" value="{{ reward }}" id="input-reward">
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			dataType: 'json',
 			success: function(json) {
 				if (json['error']) {
-					Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>'+json['error'], classes: 'toast-warning'});
 				}
 				if (json['redirect']) {
 					location = json['redirect'];

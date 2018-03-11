@@ -21,9 +21,7 @@
 	</li>
 </ul>
 {% endfor %}
-{% if pagination %}
-<div class="row">{{ pagination }}</div>
-{% endif %}
+{{ pagination }}
 {% else %}
 <div class="center">
 	<p class="flow-text text-bold">{{ text_no_reviews }}</p>

@@ -346,6 +346,7 @@ span.collapsible-header {
 		align-items: center;
 		justify-content: center;
 	}
+	.input-number-cart {justify-content:flex-start;}
 	.input-number input[type="number"] {
 		margin: 0;
 		width: 50px;
@@ -405,7 +406,11 @@ span.collapsible-header {
 	padding: 24px;
 }
 .card-stacked {position:relative;border-left:1px #d8d8d8 solid;}
-.card-stacked>button.remove-item,.card-stacked>a.remove-item {position:absolute;top:0;right:0;}
+.cart-list-buttons {
+	position: absolute;
+	right: 0;
+	direction: flex;
+}
 
 /*========== List of producers ==========*/
 .manufacturer-list li,.author-list li {

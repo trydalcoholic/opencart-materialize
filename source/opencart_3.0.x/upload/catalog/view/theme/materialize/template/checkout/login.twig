@@ -3,22 +3,34 @@
 		<div class="card-panel z-depth-2">
 			<h2>{{ text_new_customer }}</h2>
 			<div class="section">
-				{% if account == 'register' %}
-					<input type="radio" name="account" value="register" checked="checked" id="register" class="with-gap">
-					{% else %}
-					<input type="radio" name="account" value="register" id="register" class="with-gap">
-				{% endif %}
-				<label for="register">{{ text_register }}</label><br>
-				{% if checkout_guest %}
-					{% if account == 'guest' %}
-					<input type="radio" name="account" value="guest" checked="checked" id="guest" class="with-gap">
-					{% else %}
-					<input type="radio" name="account" value="guest" id="guest" class="with-gap">
+				<ul>
+					<li>
+						<label for="register">
+							{% if account == 'register' %}
+							<input type="radio" name="account" value="register" checked="checked" id="register" class="with-gap">
+							{% else %}
+							<input type="radio" name="account" value="register" id="register" class="with-gap">
+							{% endif %}
+							<span>{{ text_register }}</span>
+						</label>
+					</li>
+					{% if checkout_guest %}
+					<li>
+						<label for="guest">
+							{% if account == 'guest' %}
+							<input type="radio" name="account" value="guest" checked="checked" id="guest" class="with-gap">
+							{% else %}
+							<input type="radio" name="account" value="guest" id="guest" class="with-gap">
+							{% endif %}
+							<span>{{ text_guest }}</span>
+						</label>
+					</li>
 					{% endif %}
-				<label for="guest">{{ text_guest }}</label>
-				{% endif %}
+				</ul>
 			</div>
-			<button type="button" value="{{ button_continue }}" id="button-account" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+			<div class="flex-reverse">
+				<button type="button" value="{{ button_continue }}" id="button-account" class="btn waves-effect waves-light red">{{ button_continue }}</button>
+			</div>
 		</div>
 	</div>
 	<div class="col s12 m6">
@@ -29,7 +41,8 @@
 				<div class="input-field">
 					<i class="material-icons prefix">email</i>
 					<input type="email" name="email" value="" id="input-email" id="input-email" class="validate">
-					<label for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}">{{ entry_email }}</label>
+					<label for="input-email">{{ entry_email }}</label>
+					<span class="helper-text" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}"></span>
 				</div>
 				<div class="input-field">
 					<i class="material-icons prefix">lock</i>
