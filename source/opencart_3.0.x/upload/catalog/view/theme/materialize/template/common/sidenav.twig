@@ -20,14 +20,14 @@
 				<a class="{{ color_sidebar_text }}" href="tel:{{ telephone }}" rel="nofollow"><i class="material-icons left">phone</i>{{ telephone }}</a>
 				<a class="{{ color_sidebar_text }}" href="mailto:{{ email }}" rel="nofollow"><i class="material-icons left">email</i>{{ email }}</a>
 			</div>
-			<div class="col s3 no-padding" style="overflow-x: hidden;">
+			<div class="col s3 no-padding">
 				{% if language or currency %}
-				<div id="side-settings" class="btn-floating waves-effect waves-light transparent z-depth-0 dropdown-button" data-activates="dropdown-side-settings" data-alignment="left" data-constrainWidth="false">
+				<div id="side-settings" class="btn-floating waves-effect waves-light transparent z-depth-0 dropdown-trigger" data-target="dropdown-side-settings">
 					<i class="material-icons {{ color_sidebar_text }}">settings</i>
 				</div>
 				<ul id="dropdown-side-settings" class="dropdown-content">
-					{% if language %}<li>{{ language }}</li>{% endif %}
-					{% if currency %}<li>{{ currency }}</li>{% endif %}
+					{% if language %}<li><a class="waves-effect waves-light modal-trigger" href="#modal-language" rel="nofollow"><i class="material-icons">language</i>{{ text_language }}</a></li>{% endif %}
+					{% if currency %}<li><a class="waves-effect waves-light modal-trigger" href="#modal-currency" rel="nofollow"><i class="material-icons">monetization_on</i>{{ text_currency }}</a></li>{% endif %}
 				</ul>
 				{% endif %}
 			</div>
@@ -87,10 +87,15 @@
 <li><a class="waves-effect" href="{{ about }}" rel="nofollow"><i class="material-icons">store</i>{{ text_about }}</a></li>
 <script>
 	var collapsible = $('.collapsible'),
+		sideSettings = $('#side-settings'),
 		inputSearchSidebar = $('#input-search-side'),
 		searchClear = $('.search-buttons__clear');
 
 	collapsible.collapsible();
+	sideSettings.dropdown({
+		alignment: 'right',
+		constrainWidth: false
+	});
 
 	inputSearchSidebar.parent().find('label').on('click', function() {
 		var url = $('base').attr('href') + 'index.php?route=product/search',

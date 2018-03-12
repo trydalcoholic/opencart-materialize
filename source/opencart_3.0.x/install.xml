@@ -87,7 +87,7 @@
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);]]></search>
-			<add position="after"><![CDATA[$data['meta_special'] = $product_info['price'];]]></add>
+			<add position="after"><![CDATA[$data['meta_special'] = $product_info['special'];]]></add>
 		</operation>
 	</file>
 	<file path="system/library/document.php">
@@ -172,8 +172,10 @@
 						'thumb' => $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height')),
 						'zoom_id' => 0
 					);
+					$data['product_image'] = true;
 				} else {
 					$data['placeholder'] = $this->model_tool_image->resize('no_image.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height'));
+					$data['product_image'] = false;
 				}
 
 				$results = $this->model_catalog_product->getProductImages($this->request->get['product_id']);
@@ -2187,7 +2189,10 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[if ($product_info) {]]></search>
-			<add position="after"><![CDATA[$data['product_spec'] = $this->model_catalog_product->getProductSpec($product_id);]]></add>
+			<add position="after"><![CDATA[
+			$data['product_spec'] = $this->model_catalog_product->getProductSpec($product_id);
+			$data['end_promotion'] = date($this->language->get('date_format_short'), strtotime($this->model_catalog_product->getProductSpec($product_id)));
+			]]></add>
 		</operation>
 	</file>
 	<!-- Add compare -->

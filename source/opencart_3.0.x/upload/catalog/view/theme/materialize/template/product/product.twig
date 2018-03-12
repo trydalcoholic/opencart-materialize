@@ -57,8 +57,8 @@
 			{{ column_left }}
 			<div class="col {{ main }}" itemscope itemtype="http://schema.org/Product">
 				<meta itemprop="url" content="{{ share }}">
-				{% if thumb_small %}
-				<meta itemprop="image" content="{{ popup }}">
+				{% if product_image %}
+				<meta itemprop="image" content="{{ images.0.popup }}">
 				{% endif %}
 				{{ content_top }}
 				<div class="row">
@@ -86,9 +86,9 @@
 								<ul class="user-btn">
 									<li>
 										{% if wishlist_product %}
-											<i id="wishlist-btn" class="material-icons waves-effect waves-circle tooltipped red-text activator" data-position="top" data-tooltip="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');">favorite</i>
+										<i id="wishlist-btn" class="material-icons waves-effect waves-circle tooltipped red-text activator" data-position="top" data-tooltip="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');">favorite</i>
 										{% else %}
-											<i id="wishlist-btn" class="material-icons waves-effect waves-circle tooltipped activator" data-position="top" data-tooltip="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');">favorite_border</i>
+										<i id="wishlist-btn" class="material-icons waves-effect waves-circle tooltipped activator" data-position="top" data-tooltip="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');">favorite_border</i>
 										{% endif %}
 									</li>
 									<li>
@@ -140,7 +140,7 @@
 									<meta itemprop="pricecurrency" content="{{ pricecurrency }}">
 									<link itemprop="availability" href="{{ stock_status }}">
 									{% if product_spec and product_spec != '0000-00-00' %}
-										<meta itemprop="priceValidUntil" content="{{ product_spec }}">
+									<meta itemprop="priceValidUntil" content="{{ product_spec }}">
 									{% endif %}
 								</div>
 								<div class="col s4 center">
@@ -156,7 +156,7 @@
 							</div>
 							{% if product_spec and product_spec != '0000-00-00' %}
 							<div class="section center grey lighten-3 end-promotion">
-								<span><i class="material-icons left">info</i>{{ text_end_promotion }} <span class="text-bold">{{ product_spec|date('d.m.Y') }}</span></span>
+								<span><i class="material-icons left">info</i>{{ text_end_promotion }} <span class="text-bold">{{ end_promotion }}</span></span>
 							</div>
 							{% endif %}
 							<blockquote class="blockquote-note blue-grey lighten-5 z-depth-1">
@@ -808,21 +808,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				if (json['error']) {
 					if (json['error']['option']) {
 						for (i in json['error']['option']) {
-							M.toast({html: '<span><i class="material-icons left">warning</i>'+json["error"]["option"][i]+'</span>', classes: 'toast-warning'});
+							M.toast({html: '<span><i class="material-icons left">warning</i>' + json["error"]["option"][i] + '</span>', classes: 'toast-warning'});
 						}
 					}
 					if (json['error']['recurring']) {
-						M.toast({html: '<span><i class="material-icons left">warning</i>'+json["error"]["recurring"]+'</span>', classes: 'toast-warning'});
+						M.toast({html: '<span><i class="material-icons left">warning</i>' + json["error"]["recurring"] + '</span>', classes: 'toast-warning'});
 					}
 				}
 				if (json['success']) {
-					M.toast({html: '<span><i class="material-icons left">check</i>'+json['success']+'</span>', classes: 'toast-success'});
+					M.toast({html: '<span><i class="material-icons left">check</i>' + json['success'] + '</span>', classes: 'toast-success'});
 					setTimeout(function () {
 						$('#cart-total').html(json['total']);
 					}, 100);
 					buttonCart.addClass('pulse');
 					cartTotal.addClass('pulse');
-					modalCartContent.load('index.php?route=common/cart/info .modal-content .container');
+					modalCartContent.load('index.php?route=common/cart/info #modal-cart-list');
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError) {

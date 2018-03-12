@@ -1,37 +1,39 @@
 {% if currencies|length > 1 %}
-<a class="modal-currency-btn {{ color_top_menu_text }}" rel="nofollow">
-	{{ text_currency }}:
-	{% for currency in currencies %}
-		{% if currency.symbol_left and currency.code == code %}
-			{{ currency.symbol_left }}
-		{% elseif currency.symbol_right and currency.code == code %}
-			{{ currency.symbol_right }}
-		{% endif %}
-	{% endfor %}
-</a>
+<div id="modal-currency" class="modal">
+	<div class="modal-content">
+		<i class="material-icons modal-action modal-close waves-effect waves-circle close-icon">close</i>
+		<h4>{{ text_currency }}</h4>
+		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency">
+			<ul>
+				{% for currency in currencies %}
+				{% if currency.symbol_left %}
+				<li>
+					<label for="{{ currency.code }}">
+						<input id="{{ currency.code }}" class="with-gap currency-select" type="radio" name="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}>
+						<span>{{ currency.symbol_left }} {{ currency.title }}</span>
+					</label>
+				</li>
+				{% else %}
+				<li>
+					<label for="{{ currency.code }}">
+						<input id="{{ currency.code }}" class="with-gap currency-select" type="radio" name="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}>
+						<span>{{ currency.symbol_right }} {{ currency.title }}</span>
+					</label>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+			<input type="hidden" name="code" value="">
+			<input type="hidden" name="redirect" value="{{ redirect }}">
+		</form>
+	</div>
+</div>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	$(".modal-currency-btn").click(function() {
-		html =	'<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency" class="modal">';
-		html +=		'<div class="modal-content">';
-		html +=			'<h4>{{ text_currency }}</h4>';
-		{% for currency in currencies %}
-			{% if currency.symbol_left %}
-		html +=			'<input class="with-gap currency-select" name="{{ currency.code }}" type="radio" id="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}><label for="{{ currency.code }}">{{ currency.symbol_left }} {{ currency.title }}</label><br>';
-			{% else %}
-		html +=			'<input class="with-gap currency-select" name="{{ currency.code }}" type="radio" id="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}><label for="{{ currency.code }}">{{ currency.symbol_right }} {{ currency.title }}</label><br>';
-			{% endif %}
-		{% endfor %}
-		html +=		'</div>';
-		html += 	'<input type="hidden" name="code" value=""><input type="hidden" name="redirect" value="{{ redirect }}">';
-		html +=	'</form>';
-		$('body').append(html);
-		$('#form-currency').modal().modal('open');
-		$('#form-currency .currency-select').on('click', function(e) {
-			e.preventDefault();
-			$('#form-currency input[name=\'code\']').val($(this).attr('name'));
-			$('#form-currency').submit();
-		});
+	$('#form-currency .currency-select').on('click', function(e) {
+		e.preventDefault();
+		$('#form-currency input[name=\'code\']').val($(this).attr('name'));
+		$('#form-currency').submit();
 	});
 });
 </script>

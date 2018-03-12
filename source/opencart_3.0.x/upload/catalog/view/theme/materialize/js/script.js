@@ -58,13 +58,13 @@ var cart = {
 					location = json['redirect'];
 				}
 				if (json['success']) {
-					M.toast({html: '<span><i class="material-icons left">check</i>'+json['success']+'</span>', classes: 'toast-success'});
+					M.toast({html: '<span><i class="material-icons left">check</i>' + json['success'] + '</span>', classes: 'toast-success'});
 					setTimeout(function () {
 						totalCart.html(json['total']);
 					}, 100);
 					buttonCart.addClass('pulse');
 					totalCart.addClass('pulse');
-					modalCartContent.load('index.php?route=common/cart/info .modal-content .container');
+					modalCartContent.load('index.php?route=common/cart/info #modal-cart-list');
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
@@ -82,7 +82,7 @@ var cart = {
 				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
-					modalCartContent.load('index.php?route=common/cart/info .modal-content .container');
+					modalCartContent.load('index.php?route=common/cart/info #modal-cart-list');
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
@@ -104,7 +104,7 @@ var cart = {
 				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
-					modalCartContent.load('index.php?route=common/cart/info .modal-content .container');
+					modalCartContent.load('index.php?route=common/cart/info #modal-cart-list');
 
 					M.toast({html: '<span class="toast-undo-remove__text">' + message + '</span><button id="toast-undo-remove__' + key + '" class="btn-flat waves-effect toast-action toast-undo-remove__action cyan-text text-accent-3">' + cancel + '</button>', classes: 'no-padding'});
 
@@ -143,7 +143,7 @@ var voucher = {
 				if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
-					modalCartContent.load('index.php?route=common/cart/info .modal-content .container');
+					modalCartContent.load('index.php?route=common/cart/info #modal-cart-list');
 				}
 				if (json['total'] == 0) {
 					buttonCart.removeClass('pulse');
@@ -168,7 +168,7 @@ var wishlist = {
 					location = json['redirect'];
 				}
 				if (json['success']) {
-					M.toast({html: '<span><i class="material-icons left">info</i>'+json['success']+'</span>', classes: 'toast-info'});
+					M.toast({html: '<span><i class="material-icons left">info</i>' + json['success'] + '</span>', classes: 'toast-info'});
 				}
 				$('#wishlist-total span').html(json['total']);
 				$('#wishlist-total').attr('title', json['total']);
@@ -190,7 +190,7 @@ var compare = {
 			dataType: 'json',
 			success: function(json) {
 				if (json['success']) {
-					M.toast({html: '<span><i class="material-icons left">check</i>'+json['success']+'</span>', classes: 'toast-success'});
+					M.toast({html: '<span><i class="material-icons left">check</i>' + json['success'] + '</span>', classes: 'toast-success'});
 					$('#compare-btn').removeClass('scale-out');
 					$('#compare-total').html(json['total']);
 				}
@@ -204,90 +204,90 @@ var compare = {
 	}
 }
 
-/*========== Initialization Materialize JS ==========*/
-var collapsible = $('.collapsible'),
-	tabs = $('.tabs'),
-	modal = $('.modal'),
-	tooltipped = $('.tooltipped'),
-	dropdown = $('.dropdown-trigger'),
-	select = $('select');
-
-collapsible.collapsible();
-tabs.tabs();
-modal.modal();
-tooltipped.tooltip();
-dropdown.dropdown();
-select.formSelect();
-M.updateTextFields();
-
-var btnSideMenu = $('#btn-side-menu'),
-	sideMenu = $('#slide-out'),
-	dropdownLk = $('#dropdown-lk'),
-	categoryDropdown = $('#main-dd-nav');
-
-btnSideMenu.click(function() {
-	sideMenu.sidenav();
-	sideMenu.load('index.php?route=extension/materialize/common/sidenav');
-});
-
-dropdownLk.dropdown({
-	hover: true,
-	coverTrigger: false,
-	constrainWidth: false
-});
-
-categoryDropdown.dropdown({
-	hover: true,
-	coverTrigger: false
-});
-
-/*========== Back to top ==========*/
-var offset = 300,
-	scrollTopDuration = 700,
-	backToTop = $('#back-to-top');
-
-$(window).scroll(function(){
-	($(this).scrollTop() > offset) ? backToTop.removeClass('scale-out') : backToTop.addClass('scale-out');
-});
-
-backToTop.on('click', function(event){
-	event.preventDefault();
-	$('body,html').animate({scrollTop:0}, scrollTopDuration);
-});
-
-/*========== Sticky Navigation ==========*/
-var headerNavigation = $('#header-navigation');
-if (headerNavigation.length) {
-	headerNavigation.pushpin({
-		top: headerNavigation.offset().top
-	});
-}
-
-/*========== Initialization Open Cart ==========*/
-// Global site search
-var inputSearchHeader = $('#input-search');
-
-inputSearchHeader.parent().find('label').on('click', function() {
-	var url = $('base').attr('href') + 'index.php?route=product/search',
-		value = inputSearchHeader.val();
-	if (value) {
-		url += '&search=' + encodeURIComponent(value);
-	}
-	location = url;
-});
-
-inputSearchHeader.on('keydown', function(e) {
-	if (e.keyCode == 13) {
-		inputSearchHeader.parent().find('label').trigger('click');
-	}
-});
-
-// Clear search form
-var searchClear = $('.search-buttons__clear');
-
-searchClear.click(function() {searchClear.parent().find('input').val('');});
-
 $(document).ready(function() {
+	/*========== Initialization Materialize JS ==========*/
+	var collapsible = $('.collapsible'),
+		tabs = $('.tabs'),
+		modal = $('.modal'),
+		tooltipped = $('.tooltipped'),
+		dropdown = $('.dropdown-trigger'),
+		select = $('select');
+
+	collapsible.collapsible();
+	tabs.tabs();
+	modal.modal();
+	tooltipped.tooltip();
+	dropdown.dropdown();
+	select.formSelect();
+	M.updateTextFields();
+
+	var btnSideMenu = $('#btn-side-menu'),
+		sideMenu = $('#slide-out'),
+		dropdownLk = $('#dropdown-lk'),
+		categoryDropdown = $('#main-dd-nav');
+
+	btnSideMenu.on('click', function() {
+		sideMenu.sidenav();
+		sideMenu.load('index.php?route=extension/materialize/common/sidenav');
+	});
+
+
+	dropdownLk.dropdown({
+		hover: true,
+		coverTrigger: false,
+		constrainWidth: false
+	});
+
+	categoryDropdown.dropdown({
+		hover: true,
+		coverTrigger: false
+	});
+
+	/*========== Back to top ==========*/
+	var offset = 300,
+		scrollTopDuration = 700,
+		backToTop = $('#back-to-top');
+
+	$(window).scroll(function(){
+		$(this).scrollTop() > offset ? backToTop.removeClass('scale-out') : backToTop.addClass('scale-out');
+	});
+
+	backToTop.on('click', function(event){
+		event.preventDefault();
+		$('body,html').animate({scrollTop:0}, scrollTopDuration);
+	});
+
+	/*========== Sticky Navigation ==========*/
+	var headerNavigation = $('#header-navigation');
+	if (headerNavigation.length) {
+		headerNavigation.pushpin({
+			top: headerNavigation.offset().top
+		});
+	}
+
+	/*========== Initialization Open Cart ==========*/
+	// Global site search
+	var inputSearchHeader = $('#input-search');
+
+	inputSearchHeader.parent().find('label').on('click', function() {
+		var url = $('base').attr('href') + 'index.php?route=product/search',
+			value = inputSearchHeader.val();
+		if (value) {
+			url += '&search=' + encodeURIComponent(value);
+		}
+		location = url;
+	});
+
+	inputSearchHeader.on('keydown', function(e) {
+		if (e.keyCode == 13) {
+			inputSearchHeader.parent().find('label').trigger('click');
+		}
+	});
+
+	// Clear search form
+	var searchClear = $('.search-buttons__clear');
+
+	searchClear.click(function() {searchClear.parent().find('input').val('');});
 
 	/*========== Gif image ==========*/
 	$('.gifplay').each(function(el) {

@@ -4,15 +4,9 @@
 </button>
 <div id="modal-cart" class="modal bottom-sheet modal-fixed-footer">
 	<div id="modal-cart-content" class="modal-content">
-		<div class="container">
+		<div id="modal-cart-list" class="container">
 			<h4 class="flow-text text-bold">{{ text_shopping_cart }}</h4>
 			{% if products or vouchers %}
-			<script>
-				document.addEventListener("DOMContentLoaded", function(event) {
-					$('#cart').addClass('pulse');
-					$('#cart-total').addClass('pulse');
-				});
-			</script>
 			<ul class="collection z-depth-2">
 				{% for product in products %}
 				<li class="collection-item avatar">
@@ -44,17 +38,21 @@
 					<button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}" class="btn-flat no-padding secondary-content activator black-text"><i class="material-icons">remove_shopping_cart</i></button>
 				</li>
 				{% endfor %}
-				<li class="collection-item">
-					<table class="bordered">
-						{% for total in totals %}
-						<tr>
-							<td class="text-right"><strong>{{ total.title }}</strong></td>
-							<td class="text-right">{{ total.text }}</td>
-						</tr>
-						{% endfor %}
-					</table>
-				</li>
 			</ul>
+			<div class="row">
+				<div class="col s12 m6 offset-m6 l5 offset-l7">
+					<div class="card-panel">
+						<table class="bordered">
+							{% for total in totals %}
+							<tr>
+								<th>{{ total.title }}:</th>
+								<td>{{ total.text }}</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
 			{% else %}
 			<div class="card-panel">
 				<p class="flow-text text-bold">{{ text_empty }}</p>
@@ -76,3 +74,10 @@
 		</div>
 	</div>
 </div>
+{% if products or vouchers %}
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	$('#cart').addClass('pulse');
+	$('#cart-total').addClass('pulse');
+});
+{% endif %}

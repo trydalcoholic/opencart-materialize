@@ -47,9 +47,9 @@
 				"contactType": "sales",
 				"areaServed": ["{{ lang }}"]
 			}
-		],
+		]
 		{% if social_links %}
-		"sameAs": [
+		,"sameAs": [
 		{% for i in range(0, social_links|length - 1) %}
 			{% if i < (social_links|length - 1) %}
 			"{{ social_links[i].link }}",
@@ -63,6 +63,7 @@
 	</script>
 	<style>{{ css }}</style>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="preload" href="//fonts.googleapis.com/icon?family=Material+Icons" as="style">
 	<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	{% for link in links %}<link href="{{ link.href }}" rel="{{ link.rel }}" {% if link.type or link.sizes %}type="{{ link.type }}" sizes="{{ link.sizes }}" {% endif %}>{% endfor %}
 	{% for analytic in analytics %}{{ analytic }}{% endfor %}
@@ -77,8 +78,8 @@
 				<div class="nav-wrapper">
 					{% if language or currency %}
 					<ul class="left">
-						{% if language %}<li class="waves-effect waves-light">{{ language }}</li>{% endif %}
-						{% if currency %}<li class="waves-effect waves-light">{{ currency }}</li>{% endif %}
+						{% if language %}<li><a class="waves-effect waves-light modal-trigger" href="#modal-language" rel="nofollow"><i class="material-icons">language</i></a></li>{% endif %}
+						{% if currency %}<li><a class="waves-effect waves-light modal-trigger" href="#modal-currency" rel="nofollow"><i class="material-icons">monetization_on</i></a></li>{% endif %}
 					</ul>
 					{% endif %}
 					<ul class="right">
@@ -118,7 +119,7 @@
 							<img id="logo-img" class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ logo }}" title="{{ name }}" alt="{{ name }}">
 						</a>
 						{% else %}
-							<strong><a href="{{ home }}" class="{{ color_header_text }}">{{ name }}</a></strong>
+						<strong><a href="{{ home }}" class="{{ color_header_text }}">{{ name }}</a></strong>
 						{% endif %}
 					</div>
 					<div class="col m8 right-align hide-on-small-only {{ color_header_text }}">
@@ -154,6 +155,8 @@
 		</div>
 	</header>
 	{{ cart }}
+	{{ language }}
+	{{ currency }}
 	{{ callback_module }}
 	<a id="compare-btn" href="{{ compare }}" class="btn-floating btn-large waves-effect waves-light scale-transition pulse {{ color_compare }} {{ text_compare == '0' ? 'scale-out' : '' }}" title="{{ text_comparison_list }}" rel="nofollow">
 		<i class="material-icons {{ color_compare_text }}">compare_arrows</i>

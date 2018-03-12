@@ -61,8 +61,8 @@
 				<div class="card-panel">
 					<p>Please enter your shipping tracking No. below:</p>
 					<div class="input-field">
-						<input type="text" name="code" value="{{ code }}" placeholder="{{ entry_code }}" id="input-code" class="validate">
 						<label class="required" for="input-code">{{ entry_code }}</label>
+						<input type="text" name="code" value="{{ code }}" placeholder="{{ entry_code }}" id="input-code" class="validate">
 					</div>
 				</div>
 				{{ content_bottom }}
@@ -72,24 +72,24 @@
 	</div>
 </main>
 <script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		$('#button-tracking').on('click', function() {
-			$.ajax({
-				url: 'index.php?route=information/tracking/tracking&code=' + $('input[name="code"]').val(),
-				dataType: 'json',
-				success: function(json) {
-					if (json['redirect']) {
-						location = json['redirect'];
-					} else if (json['error']) {
-						Materialize.toast(json['error']['warning'],4000);
-					}
-				},
-				error: function(xhr, ajaxOptions, thrownError) {
-					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+document.addEventListener("DOMContentLoaded", function(event) {
+	$('#button-tracking').on('click', function() {
+		$.ajax({
+			url: 'index.php?route=information/tracking/tracking&code=' + $('input[name="code"]').val(),
+			dataType: 'json',
+			success: function(json) {
+				if (json['redirect']) {
+					location = json['redirect'];
+				} else if (json['error']) {
+					Materialize.toast(json['error']['warning'],4000);
 				}
-			});
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
 		});
 	});
+});
 </script>
 {% endspaceless %}
 {{ footer }}

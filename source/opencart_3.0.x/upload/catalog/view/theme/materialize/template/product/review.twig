@@ -1,14 +1,8 @@
 {% spaceless %}
 {% if reviews %}
 {% for review in reviews %}
-<ul class="collection">
+<ul class="collection reviews">
 	<li class="collection-item avatar">
-		<img class="circle lazyload" src="{{ img_loader }}" data-src="catalog/view/theme/materialize/image/comment.png" alt="{{ review.author }}">
-		<span class="title text-bold">{{ review.author }}</span>
-		<p>
-			<span class="grey-text text-darken">{{ review.date_added }}</span><br>
-			{{ review.text }}
-		</p>
 		<span class="secondary-content yellow-text text-accent-4">
 			{% for i in 1..5 %}
 			{% if review.rating < i %}
@@ -18,6 +12,12 @@
 			{% endif %}
 			{% endfor %}
 		</span>
+		<img class="circle lazyload" src="{{ img_loader }}" data-src="catalog/view/theme/materialize/image/comment.png" alt="{{ review.author }}">
+		<span class="title text-bold">{{ review.author }}</span>
+		<p>
+			<span class="grey-text text-darken">{{ review.date_added }}</span><br>
+			{{ review.text }}
+		</p>
 	</li>
 </ul>
 {% endfor %}

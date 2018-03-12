@@ -88,7 +88,7 @@ figcaption {padding:1rem 0;}
 }
 .contact-info {margin:0;}
 .contact-info li {float:left;margin-left:10px;}
-.contact-info li i {margin:-5px 5px 0 0;}
+.contact-info li i {margin-right:5px;}
 
 /*========== Navigation ==========*/
 #dropdown-nav-top {overflow-y:visible !important;}
@@ -380,6 +380,11 @@ span.collapsible-header {
 		border-radius: 25px;
 	}
 	/* Comments */
+	.reviews .secondary-content {
+		position: relative !important;
+		top: 0 !important;
+		right: 0 !important;
+	}
 	.comment-body {position: relative;}
 	.comment-body::after {
 		content: '';
