@@ -6,39 +6,41 @@
 			{% if module_callback_name %}
 			<div class="input-field col s12">
 				<i class="material-icons prefix">account_circle</i>
-				<input id="callback-name" name="module_callback_name" type="text" class="validate" {{ module_callback_name_required ? 'required' : '' }}>
-				<label for="callback-name" {{ module_callback_name_required ? 'class="required"' : '' }}>{{ entry_name }}</label>
+				<input id="callback-name" name="module_callback_name" type="text" class="validate">
+				<label for="callback-name" class="text-bold{{ module_callback_name_required ? ' required' }}">{{ entry_name }}</label>
 			</div>
 			{% endif %}
 			<div class="input-field col s12">
 				<i class="material-icons prefix">phone</i>
-				<input id="callback-telephone" name="module_callback_telephone" type="tel" class="validate" {{ module_callback_phonemask_status ? 'data-inputmask="\'alias\':\'phone\'"' : '' }}required>
-				<label for="callback-telephone" class="required">{{ entry_telephone }}</label>
+				<input id="callback-telephone" name="module_callback_telephone" type="tel" class="validate">
+				<label for="callback-telephone" class="text-bold required">{{ entry_telephone }}</label>
 			</div>
 			{% if module_callback_enquiry %}
 			<div class="input-field col s12">
 				<i class="material-icons prefix">chat</i>
-				<textarea id="callback-enquiry" name="module_callback_enquiry" class="materialize-textarea" data-length="360" {{ module_callback_enquiry_required ? 'required' : '' }}></textarea>
-				<label for="callback-enquiry" {{ module_callback_enquiry_required ? 'class="required"' : '' }}>{{ entry_enquiry }}</label>
+				<textarea id="callback-enquiry" name="module_callback_enquiry" class="materialize-textarea" data-length="360"></textarea>
+				<label for="callback-enquiry" class="text-bold{{ module_callback_enquiry_required ? ' required'}}">{{ entry_enquiry }}</label>
 			</div>
 			{% endif %}
 			{% if module_callback_calltime %}
 			<div class="input-field col s12">
 				<i class="material-icons prefix">av_timer</i>
 				<input type="text" id="callback-calltime" class="timepicker" name="module_callback_calltime" value="">
-				<label for="callback-calltime" {{ module_callback_calltime_required ? 'class="required"' : '' }}>{{ entry_calltime }}</label>
+				<label for="callback-calltime" class="text-bold{{ module_callback_calltime_required ? ' required' }}">{{ entry_calltime }}</label>
 			</div>
 			{% endif %}
 		</div>
 		{% if text_agree %}
 		<div class="row">
 			<div class="col s12">
-				{% if module_callback_agree %}
-				<input type="checkbox" name="module_callback_agree" value="1" checked="checked" id="agreement-check-callback" class="filled-in">
-				{% else %}
-				<input type="checkbox" name="module_callback_agree" value="1" id="agreement-check-callback" class="filled-in">
-				{% endif %}
-				<label for="agreement-check-callback">{{ text_agree }}</label>
+				<label for="agreement-check-callback">
+					{% if module_callback_agree %}
+					<input type="checkbox" name="module_callback_agree" value="1" checked="checked" id="agreement-check-callback" class="filled-in">
+					{% else %}
+					<input type="checkbox" name="module_callback_agree" value="1" id="agreement-check-callback" class="filled-in">
+					{% endif %}
+					<span>{{ text_agree }}</span>
+				</label>
 			</div>
 		</div>
 		{% endif %}
@@ -50,9 +52,8 @@
 </form>
 {% if module_callback_callaction_status %}
 <button type="button" data-target="callback__modal" id="callback__btn" class="btn-floating btn-large {{ module_callback_color_btn }} z-depth-4 waves-effect waves-light pulse modal-trigger"><i id="callback__phone-icon" class="material-icons {{ module_callback_color_btn_text }}">phone</i></button>
-<div id="callback__attract" class="tap-target {{ module_callback_color_bubble }}" data-activates="callback__btn">
+<div id="callback__attract" class="tap-target {{ module_callback_color_bubble }}" data-target="callback__btn">
 	<div class="tap-target-content {{ module_callback_color_bubble_text }}">
-		<i id="callback__attract-close" class="material-icons waves-effect waves-circle right">close</i>
 		<h5 class="text-bold">{{ module_callback_caption }}</h5>
 		<p>{{ module_callback_description }}</p>
 	</div>
@@ -60,22 +61,25 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
 	var callbackAttract = $('#callback__attract'),
-		callbackPhoneIcon = $('#callback__phone-icon');
+		callbackPhoneIcon = $('#callback__phone-icon'),
+		callbackAttractClose = $('#callback__attract-close');
 
 	setInterval(function() {
 		callbackPhoneIcon.toggleClass('callback-shake');
 	}, 2500);
 
-	idleTimer = null;
-	idleState = false;
-	idleWait = {{ module_callback_time }}000;
+	var idleTimer = null,
+		idleState = false,
+		idleWait = {{ module_callback_time }}000;
+
+	callbackAttract.featureDiscovery();
 
 	$(document).bind('mousemove keydown scroll', function() {
 		clearTimeout(idleTimer);
 
 		idleState = false;
 		idleTimer = setTimeout(function() {
-			callbackAttract.tapTarget('open');
+			callbackAttract.featureDiscovery('open');
 			idleState = true;
 		}, idleWait);
 	});
@@ -87,13 +91,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
 	{% if module_callback_calltime %}
-	$('.timepicker').pickatime({
-		default: 'now',
-		twelvehour: {{ twelve_hour }},
-		donetext: '{{ button_time_done }}',
-		cleartext: '{{ button_datetime_clear }}',
-		canceltext: '{{ button_datetime_done }}',
-		autoclose: true
+	$('.timepicker').timepicker({
+		defaultTime: 'now',
+		autoclose: true,
+		i18n: {
+			clear: '{{ button_datetime_clear }}',
+			cancel: '{{ button_datetime_done }}',
+			done: '{{ button_time_done }}',
+			twelvehour: {{ twelve_hour }}
+		}
 	});
 	{% endif %}
 	$('#callback__button').on('click', function() {
@@ -104,10 +110,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			data: $("#callback__modal").serialize(),
 			success: function(json) {
 				if (json['error']) {
-					Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 				}
 				if (json['success']) {
-					Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success');
+					M.toast({html: '<i class="material-icons left">check</i>' + json['success'], classes: 'toast-success'});
 					$('input[name=\'module_callback_telephone\']').val('').blur();
 					{% if module_callback_name %}
 					$('input[name=\'module_callback_name\']').val('').blur();

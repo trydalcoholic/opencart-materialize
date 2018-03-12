@@ -253,12 +253,6 @@ class ControllerExtensionModuleCallback extends Controller {
 			$data['module_callback_callaction_status'] = $this->config->get('module_callback_callaction_status');
 		}
 
-		if (isset($this->request->post['module_callback_phonemask_status'])) {
-			$data['module_callback_phonemask_status'] = $this->request->post['module_callback_phonemask_status'];
-		} else {
-			$data['module_callback_phonemask_status'] = $this->config->get('module_callback_phonemask_status');
-		}
-
 		if (isset($this->request->post['module_callback_agreement'])) {
 			$data['module_callback_agreement'] = $this->request->post['module_callback_agreement'];
 		} else {

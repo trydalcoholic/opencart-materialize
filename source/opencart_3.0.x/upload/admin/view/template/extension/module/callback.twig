@@ -177,17 +177,17 @@
 												{% if error_description[language.language_id] %}<div class="text-danger">{{ error_description[language.language_id] }}</div>{% endif %}
 											</div>
 										</div>
-										<div class="form-group required callback-settings">
-											<label class="col-sm-2 control-label" for="module_callback_time"><span data-toggle="tooltip" title="{{ help_time }}">{{ entry_time }}:</span></label>
-											<div class="col-sm-10">
-												<input type="text" name="module_callback_time" placeholder="{{ entry_time }}" id="module_callback_time" value="{{ module_callback_time }}" class="form-control" />
-												{% if error_callback_time %}
-												<div class="text-danger">{{ error_callback_time }}</div>
-												{% endif %}
-											</div>
-										</div>
 									</div>
 									{% endfor %}
+								</div>
+								<div class="form-group required callback-settings">
+									<label class="col-sm-2 control-label" for="module_callback_time"><span data-toggle="tooltip" title="{{ help_time }}">{{ entry_time }}:</span></label>
+									<div class="col-sm-10">
+										<input type="text" name="module_callback_time" placeholder="{{ entry_time }}" id="module_callback_time" value="{{ module_callback_time }}" class="form-control" />
+										{% if error_callback_time %}
+										<div class="text-danger">{{ error_callback_time }}</div>
+										{% endif %}
+									</div>
 								</div>
 								<div class="form-group callback-settings">
 									<label class="col-sm-2 control-label">{{ entry_button_color }}:</label>
@@ -239,20 +239,6 @@
 							<br>
 							<fieldset>
 								<legend>{{ text_settings }}</legend>
-								<div class="form-group">
-									<label class="col-sm-2 control-label" for="phonemask-status">{{ entry_phonemask }}</label>
-									<div class="col-sm-10">
-										<select name="module_callback_phonemask_status" id="phonemask-status" class="selectpicker show-tick" data-width="100%">
-											{% if module_callback_phonemask_status %}
-											<option value="1" selected="selected">{{ text_enabled }}</option>
-											<option value="0">{{ text_disabled }}</option>
-											{% else %}
-											<option value="1">{{ text_enabled }}</option>
-											<option value="0" selected="selected">{{ text_disabled }}</option>
-											{% endif %}
-										</select>
-									</div>
-								</div>
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="callback-agreement"><span data-toggle="tooltip" title="{{ help_agreement }}">{{ entry_agreement }}:</span></label>
 									<div class="col-sm-10">
