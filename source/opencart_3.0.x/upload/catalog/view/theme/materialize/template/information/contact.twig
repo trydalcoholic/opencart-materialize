@@ -144,13 +144,13 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
 	{% if error_name %}
-		Materialize.toast('{{ error_name }}',4000)
+		M.toast({html: '<i class="material-icons left">warning</i>{{ error_name }}', classes: 'toast-warning'});
 	{% endif %}
 	{% if error_email %}
-		Materialize.toast('{{ error_email }}',4000)
+		M.toast({html: '<i class="material-icons left">warning</i>{{ error_email }}', classes: 'toast-warning'});
 	{% endif %}
 	{% if error_enquiry %}
-		Materialize.toast('{{ error_enquiry }}',4000)
+		M.toast({html: '<i class="material-icons left">warning</i>{{ error_enquiry }}', classes: 'toast-warning'});
 	{% endif %}
 	{% if yandex %}
 	ymaps.ready(init);

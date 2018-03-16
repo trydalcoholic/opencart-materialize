@@ -203,6 +203,14 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_status'] = '';
 		}
 
+		if (isset($this->request->post['theme_materialize_image_zoom'])) {
+			$data['theme_materialize_image_zoom'] = $this->request->post['theme_materialize_image_zoom'];
+		} elseif (isset($setting_info['theme_materialize_image_zoom'])) {
+			$data['theme_materialize_image_zoom'] = $setting_info['theme_materialize_image_zoom'];
+		} else {
+			$data['theme_materialize_image_zoom'] = '';
+		}
+
 		if (isset($this->request->post['theme_materialize_product_limit'])) {
 			$data['theme_materialize_product_limit'] = $this->request->post['theme_materialize_product_limit'];
 		} elseif (isset($setting_info['theme_materialize_product_limit'])) {
@@ -781,11 +789,29 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_payment_image_height'] = $this->config->get('theme_materialize_payment_image_height');
 		}
 
+		/* Common */
+
+		if (isset($this->request->post['theme_materialize_cache_css'])) {
+			$data['theme_materialize_cache_css'] = $this->request->post['theme_materialize_cache_css'];
+		} else {
+			$data['theme_materialize_cache_css'] = $this->config->get('theme_materialize_cache_css');
+		}
+
+		$data['clear_css'] = $this->url->link('extension/theme/materialize/clearCss', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true);
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
 		$this->response->setOutput($this->load->view('extension/theme/materialize', $data));
+	}
+
+	public function clearCss() {
+		$this->cache->delete('compressed.css');
+
+		$this->session->data['success'] = 'Кэш Css Очищен!';
+
+		$this->response->redirect($this->url->link('extension/theme/materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true));
 	}
 
 	protected function validate() {

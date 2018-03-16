@@ -179,20 +179,6 @@
 							<fieldset>
 								<legend>{{ text_settings }}</legend>
 								<div class="form-group">
-									<label class="col-sm-2 control-label" for="input-phonemask-status">{{ entry_phonemask }}:</label>
-									<div class="col-sm-10">
-										<select name="module_quickorder_phonemask_status" id="input-phonemask-status" class="selectpicker show-tick" data-width="100%">
-											{% if module_quickorder_phonemask_status %}
-											<option value="1" selected="selected">{{ text_enabled }}</option>
-											<option value="0">{{ text_disabled }}</option>
-											{% else %}
-											<option value="1">{{ text_enabled }}</option>
-											<option value="0" selected="selected">{{ text_disabled }}</option>
-											{% endif %}
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
 									<label class="col-sm-2 control-label" for="quickorder-agreement"><span data-toggle="tooltip" title="{{ help_checkout }}">{{ entry_checkout }}:</span></label>
 									<div class="col-sm-10">
 										<select name="module_quickorder_agreement" id="quickorder-agreement" class="selectpicker show-tick" data-width="100%">

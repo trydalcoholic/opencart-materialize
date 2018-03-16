@@ -17,34 +17,35 @@
 					{% if module_quickorder_name %}
 					<div class="input-field col s12">
 						<i class="material-icons prefix">account_circle</i>
-						<input id="quickorder-name" name="module_quickorder_name" type="text" class="validate" {{ module_quickorder_name_required ? 'required' : '' }}>
-						<label for="quickorder-name" {{ module_quickorder_name_required ? 'class="required"' : '' }}>{{ entry_name }}</label>
+						<input id="quickorder-name" name="module_quickorder_name" type="text" class="validate">
+						<label for="quickorder-name" class="text-bold{{ module_quickorder_name_required ? ' required' }}">{{ entry_name }}</label>
 					</div>
 					{% endif %}
 					<div class="input-field col s12">
 						<i class="material-icons prefix">phone</i>
-						<input id="quickorder-telephone" name="module_quickorder_telephone" type="tel" class="validate" {{ module_quickorder_phonemask_status ? 'data-inputmask="\'alias\':\'phone\'"' : '' }} required>
-						<label for="quickorder-telephone" class="required">{{ entry_telephone }}</label>
+						<input id="quickorder-telephone" name="module_quickorder_telephone" type="tel" class="validate">
+						<label for="quickorder-telephone" class="text-bold required">{{ entry_telephone }}</label>
 					</div>
 					{% if module_quickorder_email %}
 					<div class="input-field col s12">
 						<i class="material-icons prefix">email</i>
-						<input id="quickorder-email" name="module_quickorder_email" type="email" class="validate" {{ module_quickorder_email_required ? 'required' : '' }}>
-						<label for="quickorder-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}" {{ module_quickorder_email_required ? 'class="required"' : '' }}>{{ entry_email }}</label>
+						<input id="quickorder-email" name="module_quickorder_email" type="email" class="validate">
+						<label for="quickorder-email" class="text-bold{{ module_quickorder_email_required ? ' required' }}">{{ entry_email }}</label>
+						<span class="helper-text" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}"></span>
 					</div>
 					{% endif %}
 					{% if module_quickorder_enquiry %}
 					<div class="input-field col s12">
 						<i class="material-icons prefix">chat</i>
-						<textarea id="quickorder-enquiry" name="module_quickorder_enquiry" class="materialize-textarea" data-length="360" {{ module_quickorder_enquiry_required ? 'required' : '' }}></textarea>
-						<label for="quickorder-enquiry" {{ module_quickorder_enquiry_required ? 'class="required"' : '' }}>{{ entry_enquiry }}</label>
+						<textarea id="quickorder-enquiry" name="module_quickorder_enquiry" class="materialize-textarea character-counter" data-length="360"></textarea>
+						<label for="quickorder-enquiry" class="text-bold{{ module_quickorder_enquiry_required ? ' required' }}">{{ entry_enquiry }}</label>
 					</div>
 					{% endif %}
 					{% if module_quickorder_calltime %}
 					<div class="input-field col s12">
 						<i class="material-icons prefix">av_timer</i>
 						<input type="text" id="quickorder-calltime" class="timepicker" name="module_quickorder_calltime" value="">
-						<label for="quickorder-calltime" {{ module_quickorder_calltime_required ? 'class="required"' : '' }}>{{ entry_calltime }}</label>
+						<label for="quickorder-calltime" class="text-bold{{ module_quickorder_calltime_required ? ' required' }}">{{ entry_calltime }}</label>
 					</div>
 					{% endif %}
 				</div>
@@ -53,12 +54,14 @@
 		{% if text_agree %}
 		<div class="row">
 			<div class="col s12">
-				{% if module_quickorder_agree %}
-				<input type="checkbox" name="module_quickorder_agree" value="1" checked="checked" id="agreement-check-quickorder" class="filled-in">
-				{% else %}
-				<input type="checkbox" name="module_quickorder_agree" value="1" id="agreement-check-quickorder" class="filled-in">
-				{% endif %}
-				<label for="agreement-check-quickorder">{{ text_agree }}</label>
+				<label for="agreement-check-quickorder">
+					{% if module_quickorder_agree %}
+					<input type="checkbox" name="module_quickorder_agree" value="1" checked="checked" id="agreement-check-quickorder" class="filled-in">
+					{% else %}
+					<input type="checkbox" name="module_quickorder_agree" value="1" id="agreement-check-quickorder" class="filled-in">
+					{% endif %}
+					<span>{{ text_agree }}</span>
+				</label>
 			</div>
 		</div>
 		{% endif %}
@@ -74,14 +77,17 @@
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
+	{% if module_quickorder_enquiry %}$('.character-counter').characterCounter();{% endif %}
 	{% if module_quickorder_calltime %}
-	$('.timepicker').pickatime({
-		default: 'now',
-		twelvehour: {{ twelve_hour }},
-		donetext: '{{ button_time_done }}',
-		cleartext: '{{ button_datetime_clear }}',
-		canceltext: '{{ button_datetime_done }}',
-		autoclose: true
+	$('.timepicker').timepicker({
+		defaultTime: 'now',
+		autoclose: true,
+		i18n: {
+			clear: '{{ button_datetime_clear }}',
+			cancel: '{{ button_datetime_done }}',
+			done: '{{ button_time_done }}',
+			twelvehour: {{ twelve_hour }}
+		}
 	});
 	{% endif %}
 	$('#quickorder__button').on('click', function() {
@@ -92,26 +98,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			data: $("#quickorder__modal").serialize(),
 			success: function(json) {
 				if (json['error']) {
-					Materialize.toast('<i class="material-icons left">warning</i>'+json['error'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 				}
 				if (json['success']) {
-					Materialize.toast('<i class="material-icons left">check</i>'+json['success'],7000,'toast-success');
-					$('input[name=\'module_quickorder_telephone \']').val('').blur();
+					M.toast({html: '<i class="material-icons left">check</i>' + json['success'], classes: 'toast-success'});
+					$('#quickorder-telephone').val('').removeClass('valid');
+					$('#quickorder-telephone').parent().find('label').removeClass('active');
 					{% if module_quickorder_name %}
-					$('input[name=\'module_quickorder_name\']').val('').blur();
+					$('#quickorder-name').val('').removeClass('valid');
+					$('#quickorder-name').parent().find('label').removeClass('active');
 					{% endif %}
 					{% if module_quickorder_email %}
-					$('input[name=\'module_quickorder_email\']').val('').blur();
+					$('#quickorder-email').val('').removeClass('valid');
+					$('#quickorder-email').parent().find('label').removeClass('active');
 					{% endif %}
 					{% if module_quickorder_enquiry %}
-					$('textarea[name=\'module_quickorder_enquiry\']').val('').blur();
-					$('textarea[name=\'module_quickorder_enquiry\']').trigger('autoresize');
+					$('#quickorder-enquiry').val('');
+					$('#quickorder-enquiry').parent().find('label').removeClass('active');
+					$('#quickorder-enquiry').parent().find('.character-counter').empty();
+					M.textareaAutoResize($('#quickorder-enquiry'));
 					{% endif %}
 					{% if module_quickorder_calltime %}
-					$('input[name=\'module_quickorder_calltime\']').val('').blur();
+					$('#quickorder-calltime').val('');
+					$('#quickorder-calltime').parent().find('label').removeClass('active');
 					{% endif %}
 					{% if text_agree %}
-					$('input[name=\'module_quickorder_agree\']').prop('checked', false);
+					$('#agreement-check-quickorder').prop('checked', false);
 					{% endif %}
 					$('#quickorder__modal').modal('close');
 				}

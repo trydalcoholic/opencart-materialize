@@ -18,7 +18,7 @@
 			{% if module_callback_enquiry %}
 			<div class="input-field col s12">
 				<i class="material-icons prefix">chat</i>
-				<textarea id="callback-enquiry" name="module_callback_enquiry" class="materialize-textarea" data-length="360"></textarea>
+				<textarea id="callback-enquiry" name="module_callback_enquiry" class="materialize-textarea character-counter" data-length="360"></textarea>
 				<label for="callback-enquiry" class="text-bold{{ module_callback_enquiry_required ? ' required'}}">{{ entry_enquiry }}</label>
 			</div>
 			{% endif %}
@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 {% endif %}
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
+	{% if module_callback_enquiry %}$('.character-counter').characterCounter();{% endif %}
 	{% if module_callback_calltime %}
 	$('.timepicker').timepicker({
 		defaultTime: 'now',
@@ -114,19 +115,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				}
 				if (json['success']) {
 					M.toast({html: '<i class="material-icons left">check</i>' + json['success'], classes: 'toast-success'});
-					$('input[name=\'module_callback_telephone\']').val('').blur();
+					$('#callback-telephone').val('').removeClass('valid');
+					$('#callback-telephone').parent().find('label').removeClass('active');
 					{% if module_callback_name %}
-					$('input[name=\'module_callback_name\']').val('').blur();
+					$('#callback-name').val('').removeClass('valid');
+					$('#callback-name').parent().find('label').removeClass('active');
 					{% endif %}
 					{% if module_callback_enquiry %}
-					$('textarea[name=\'module_callback_enquiry\']').val('').blur();
-					$('textarea[name=\'module_callback_enquiry\']').trigger('autoresize');
+					$('#callback-enquiry').val('');
+					$('#callback-enquiry').parent().find('label').removeClass('active');
+					$('#callback-enquiry').parent().find('.character-counter').empty();
+					M.textareaAutoResize($('#callback-enquiry'));
 					{% endif %}
 					{% if module_callback_calltime %}
-					$('input[name=\'module_callback_calltime\']').val('').blur();
+					$('#callback-calltime').val('');
+					$('#callback-calltime').parent().find('label').removeClass('active');
 					{% endif %}
 					{% if text_agree %}
-					$('input[name=\'module_callback_agree\']').prop('checked', false);
+					$('#agreement-check-callback').prop('checked', false);
 					{% endif %}
 					$('#callback__modal').modal('close');
 				}
