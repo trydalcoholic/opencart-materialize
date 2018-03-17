@@ -37,4 +37,5 @@ $_['help_keyword']				= 'Do not use spaces, instead replace spaces with - and ma
 $_['error_permission']			= 'Warning: You do not have permission to modify authors!';
 $_['error_name']				= 'Author Name must be between 2 and 64 characters!';
 $_['error_keyword']				= 'SEO URL already in use!';
+$_['error_unique']				= 'SEO URL must be unique!';
 $_['error_post']				= 'Warning: This author cannot be deleted as it is currently assigned to %s products!';

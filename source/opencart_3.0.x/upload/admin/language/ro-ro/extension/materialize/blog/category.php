@@ -40,4 +40,5 @@ $_['error_warning']				= 'Atenție: verificați cu atenție formularul pentru er
 $_['error_permission']			= 'Avertisment: Nu aveți permisiunea de a modifica categoriile!';
 $_['error_name']				= 'Numele categoriei trebuie să aibă între 2 și 255 de caractere!';
 $_['error_keyword']				= 'Adresa URL SEO deja în uz!';
+$_['error_unique']				= 'Adresa URL de SEO trebuie să fie unică!';
 $_['error_parent']				= 'Categoria părinte pe care ați ales-o este un copil al celei actuale!';

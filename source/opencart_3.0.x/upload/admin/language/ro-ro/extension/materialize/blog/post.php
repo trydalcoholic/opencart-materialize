@@ -51,5 +51,6 @@ $_['help_tag']					= 'Separate prin virgulă';
 // Error
 $_['error_warning']				= 'Atenție: verificați cu atenție formularul pentru erori!';
 $_['error_keyword']				= 'Adresa URL SEO deja în uz!';
+$_['error_unique']				= 'Adresa URL de SEO trebuie să fie unică!';
 $_['error_permission']			= 'Avertisment: Nu aveți permisiunea de a modifica postările!';
 $_['error_name']				= 'Numele postului trebuie să fie mai mare de 3 și mai puțin de 255 de caractere!';

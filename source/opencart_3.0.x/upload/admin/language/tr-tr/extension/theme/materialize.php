@@ -21,6 +21,7 @@ $_['text_desktop']						= 'PC';
 $_['text_mobile']						= 'Seyyar';
 $_['text_numerical']					= 'Sayısal';
 $_['text_progressbar']					= 'İlerleme çubuğu';
+$_['text_imagezoom']					= 'ImageZoom';
 
 // Entry
 $_['entry_status']						= 'Durumu';
@@ -88,6 +89,10 @@ $_['entry_icon']						= 'Ikon';
 $_['entry_link']						= 'Bağlantı';
 $_['entry_not_index']					= 'Dizin yok';
 $_['entry_sort_order']					= 'Sıralama düzeni';
+
+$_['text_caching']						= 'Caching';
+$_['text_caching_css']					= 'CSS\'yi önbelleğe alma';
+$_['text_clear_cache']					= 'Önbelleği temizle';
 
 // Help
 $_['help_product_limit']				= 'Sayfa başına kaç tane katalog öğesi gösterildiğini belirler (ürünler, kategoriler, vb.)';

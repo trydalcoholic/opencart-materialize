@@ -21,6 +21,7 @@ $_['text_desktop']						= 'PC';
 $_['text_mobile']						= 'Mobile';
 $_['text_numerical']					= 'Numerical';
 $_['text_progressbar']					= 'Progressbar';
+$_['text_imagezoom']					= 'ImageZoom';
 
 // Entry
 $_['entry_status']						= 'Status';
@@ -88,6 +89,10 @@ $_['entry_icon']						= 'Icon';
 $_['entry_link']						= 'Link';
 $_['entry_not_index']					= 'Do not index';
 $_['entry_sort_order']					= 'Sort Order';
+
+$_['text_caching']						= 'Caching';
+$_['text_caching_css']					= 'Caching CSS';
+$_['text_clear_cache']					= 'Clear cache';
 
 // Help
 $_['help_product_limit']				= 'Determines how many catalog items are shown per page (products, categories, etc)';

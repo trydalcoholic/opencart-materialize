@@ -51,5 +51,6 @@ $_['help_tag']					= 'Virgülle ayırın';
 // Error
 $_['error_warning']				= 'Uyarı: Formları hatalara karşı dikkatlice kontrol edin!';
 $_['error_keyword']				= 'SEO URL zaten kullanılıyor!';
+$_['error_unique']				= 'SEO URL\'si benzersiz olmalı!';
 $_['error_permission']			= 'Uyarı: Gönderileri değiştirme izniniz yok!';
 $_['error_name']				= 'Gönderi Adı 3 den büyük ve 255 karakterden az olmalıdır!';

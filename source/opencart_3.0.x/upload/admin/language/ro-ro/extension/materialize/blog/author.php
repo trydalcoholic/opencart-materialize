@@ -37,4 +37,5 @@ $_['help_keyword']				= 'Nu utilizați spații, înlocuiți locurile cu - și as
 $_['error_permission']			= 'Avertisment: Nu aveți permisiunea de a modifica autorii!';
 $_['error_name']				= 'Numele autorului trebuie să aibă între 2 și 64 de caractere!';
 $_['error_keyword']				= 'Adresa URL SEO deja în uz!';
+$_['error_unique']				= 'Adresa URL de SEO trebuie să fie unică!';
 $_['error_post']				= 'Avertisment: Acest autor nu poate fi șters deoarece este atribuit în prezent %s produselor!';

@@ -21,6 +21,7 @@ $_['text_desktop']						= 'ПК';
 $_['text_mobile']						= 'Мобильные';
 $_['text_numerical']					= 'Цифровой';
 $_['text_progressbar']					= 'Индикатор';
+$_['text_imagezoom']					= 'ImageZoom';
 
 // Entry
 $_['entry_status']						= 'Статус';
@@ -88,6 +89,10 @@ $_['entry_icon']						= 'Иконка';
 $_['entry_link']						= 'Ссылка';
 $_['entry_not_index']					= 'Не индексировать';
 $_['entry_sort_order']					= 'Порядок сортировки';
+
+$_['text_caching']						= 'Кэширование';
+$_['text_caching_css']					= 'Кэшировать CSS';
+$_['text_clear_cache']					= 'Очистить кэш';
 
 // Help
 $_['help_product_limit']				= 'Сколько элементов показывать на одной странице (товары, категории, и т.п.)';

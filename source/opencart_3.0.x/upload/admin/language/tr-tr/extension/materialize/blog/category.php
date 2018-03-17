@@ -40,4 +40,5 @@ $_['error_warning']				= 'Uyarı: Formları hatalar için dikkatlice kontrol edi
 $_['error_permission']			= 'Uyarı: Kategorileri değiştirmek için izniniz yok!';
 $_['error_name']				= 'Kategori Adı 2 ile 255 karakter arasında olmalıdır!';
 $_['error_keyword']				= 'SEO URL zaten kullanımda!';
+$_['error_unique']				= 'SEO URL\'si benzersiz olmalı!';
 $_['error_parent']				= 'Seçmiş olduğunuz ana kategori, bu kategoriye bağlı!';

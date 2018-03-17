@@ -26,6 +26,7 @@ $_['button_pswp_toggle_fullscreen']	= 'Tam Ekrana geç';
 $_['button_pswp_zoom']				= 'Zoom Yakınlaştır / uzaklaştır';
 $_['button_pswp_prev']				= 'Önceki (sol ok)';
 $_['button_pswp_next']				= 'Sonraki (sağ ok)';
+$_['button_share']					= 'Pay';
 
 // Help
 $_['help_email']					= 'E-posta hesabınız yayımlanmayacak!';

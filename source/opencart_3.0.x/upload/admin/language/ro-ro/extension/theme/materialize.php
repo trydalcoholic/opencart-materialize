@@ -21,6 +21,7 @@ $_['text_desktop']						= 'PC';
 $_['text_mobile']						= 'Mobil';
 $_['text_numerical']					= 'Numeric';
 $_['text_progressbar']					= 'Bara de progres';
+$_['text_imagezoom']					= 'ImageZoom';
 
 // Entry
 $_['entry_status']						= 'Status';
@@ -88,6 +89,10 @@ $_['entry_icon']						= 'Icoană';
 $_['entry_link']						= 'Legătură';
 $_['entry_not_index']					= 'Nu indexați';
 $_['entry_sort_order']					= 'Ordinea de sortare';
+
+$_['text_caching']						= 'Caching';
+$_['text_caching_css']					= 'Caching CSS';
+$_['text_clear_cache']					= 'Ștergeți memoria cache';
 
 // Help
 $_['help_product_limit']				= 'Câte obiecte (produse,categorii) sunt afisate pe pagina in catalog';

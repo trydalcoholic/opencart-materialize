@@ -25,7 +25,7 @@
 								<li><a href="#tab-image" data-toggle="tab">{{ text_image }}</a></li>
 								<li><a href="#tab-product" data-toggle="tab">{{ text_product }}</a></li>
 								<li><a href="#tab-footer" data-toggle="tab">{{ text_footer }}</a></li>
-								<li><a href="#tab-common" data-toggle="tab">Общие</a></li>
+								<li><a href="#tab-common" data-toggle="tab">{{ text_common }}</a></li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab-colors">
@@ -394,15 +394,15 @@
 									<fieldset>
 										<legend>{{ text_image }}</legend>
 										<div class="form-group required">
-											<label class="col-sm-2 control-label" for="input-image-zoom">Включить ImageZoom:</label>
+											<label class="col-sm-2 control-label" for="input-image-zoom">{{ text_imagezoom }}:</label>
 											<div class="col-sm-10">
 												<select name="theme_materialize_image_zoom" id="input-image-zoom" class="selectpicker show-tick" data-width="100%">
 													{% if theme_materialize_image_zoom %}
-													<option value="1" selected="selected" data-icon="fa-toggle-on">{{ text_enabled }}</option>
-													<option value="0" data-icon="fa-toggle-off">{{ text_disabled }}</option>
+													<option value="1" selected="selected">{{ text_enabled }}</option>
+													<option value="0">{{ text_disabled }}</option>
 													{% else %}
-													<option value="1" data-icon="fa-toggle-on">{{ text_enabled }}</option>
-													<option value="0" selected="selected" data-icon="fa-toggle-off">{{ text_disabled }}</option>
+													<option value="1">{{ text_enabled }}</option>
+													<option value="0" selected="selected">{{ text_disabled }}</option>
 													{% endif %}
 												</select>
 											</div>
@@ -874,7 +874,7 @@
 								</div>
 								<div class="tab-pane" id="tab-common">
 									<fieldset>
-										<legend>Кэширование</legend>
+										<legend>{{ text_caching }}</legend>
 										<div class="form-group">
 											<div class="col-sm-10 col-sm-push-2">
 												<div class="checkbox checkbox-primary">
@@ -883,13 +883,13 @@
 													{% else %}
 													<input type="checkbox" name="theme_materialize_cache_css" value="1" id="cache-css" class="styled" />
 													{% endif %}
-													<label for="cache-css">Кэшировать CSS</label>
+													<label for="cache-css">{{ text_caching_css }}</label>
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="col-sm-10 col-sm-push-2">
-												<a id="clear-css" class="btn btn-danger" href="{{ clear_css }}"><i class="fa fa-eraser fa-lg"></i> Очистить кэш</a>
+												<a id="clear-css" class="btn btn-danger" href="{{ clear_css }}"><i class="fa fa-eraser fa-lg"></i> {{ text_clear_cache }}</a>
 											</div>
 										</div>
 									</fieldset>

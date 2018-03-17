@@ -37,4 +37,5 @@ $_['help_keyword']				= 'Boşluk kullanmayın, boşluk yerine - ile değiştirin
 $_['error_permission']			= 'Uyarı: Yazarları değiştirme izniniz yok!';
 $_['error_name']				= 'Yazar Adı 2 ile 64 karakter arasında olmalıdır.!';
 $_['error_keyword']				= 'SEO URL zaten kullanımda!';
+$_['error_unique']				= 'SEO URL\'si benzersiz olmalı!';
 $_['error_post']				= 'Uyarı: Şu anda %s ürüne atandığından bu yazar silinemiyor!';
