@@ -1,15 +1,13 @@
-<ul class="collapsible collapsible-accordion collection with-header z-depth-1" data-collapsible="accordion">
-	<li class="collection-header blue-grey white-text"><h5>{{ heading_search }}</h5></li>
-	<li class="collection-item">
+<nav class="search-wrapper white">
+	<div class="nav-wrapper">
 		<div id="blog-search" class="input-field">
-			<input id="search-input-blog" type="search" name="blog_search" value="{{ blog_search }}" placeholder="{{ text_search }}" required>
-			<label id="label-search-blog" class="activator waves-effect waves-circle label-icon label-icon-search" for="search-input-blog"><i class="material-icons">search</i></label>
-			<i id="reset-search-blog" class="material-icons">close</i>
+			<input id="search-input-blog" class="search-input grey-text text-darken-1" type="search" name="blog_search" value="{{ blog_search }}" placeholder="{{ text_search }}" autocomplete="off">
+			<label id="label-search-blog" class="label-icon search-buttons search-buttons__search waves-effect waves-circle" for="input-search"><i class="material-icons grey-text text-darken-1">search</i></label>
+			<i id="reset-search-blog" class="material-icons search-buttons search-buttons__clear waves-effect waves-circle grey-text text-darken-1">close</i>
 		</div>
-	</li>
-</ul>
+	</div>
+</nav>
 <ul class="collapsible collapsible-accordion collection with-header z-depth-1" data-collapsible="accordion">
-	<li class="collection-header blue-grey white-text"><h5>{{ heading_category }}</h5></li>
 	{% for category in categories %}
 		{% if category.blog_category_id == blog_category_id %}
 		<li>
@@ -36,7 +34,6 @@
 	{% endfor %}
 </ul>
 <ul class="collection collapsible-accordion collection with-header z-depth-1">
-	<li class="collection-header blue-grey white-text"><h5>{{ heading_post }}</h5></li>
 	{% for latest_post in latest_posts %}
 	<li class="collection-item avatar">
 		<a href="{{ latest_post.href }}"><img src="{{ img_loader }}" data-src="{{ latest_post.thumb }}" alt="{{ latest_post.name }}" class="circle lazyload"></a>

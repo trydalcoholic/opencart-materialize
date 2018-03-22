@@ -146,8 +146,8 @@ class ControllerExtensionMaterializeBlogCategory extends Controller {
 
 				foreach ($results as $result) {
 					$filter_data = array(
-						'filter_category_id'	=> $result['blog_category_id'],
-						'filter_sub_category'	=> true
+						'filter_blog_category_id'	=> $result['blog_category_id'],
+						'filter_sub_category'		=> true
 					);
 
 					$data['categories'][] = array(
@@ -159,11 +159,11 @@ class ControllerExtensionMaterializeBlogCategory extends Controller {
 				$data['posts'] = array();
 
 				$filter_data = array(
-					'filter_category_id'	=> $blog_category_id,
-					'sort'					=> $sort,
-					'order'					=> $order,
-					'start'					=> ($page - 1) * $limit,
-					'limit'					=> $limit
+					'filter_blog_category_id'	=> $blog_category_id,
+					'sort'						=> $sort,
+					'order'						=> $order,
+					'start'						=> ($page - 1) * $limit,
+					'limit'						=> $limit
 				);
 
 				$post_total = $this->model_extension_materialize_blog->getTotalPosts($filter_data);

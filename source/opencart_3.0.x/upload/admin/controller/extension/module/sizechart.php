@@ -114,7 +114,7 @@ class ControllerExtensionModuleSizechart extends Controller {
 		);
 
 		$data['breadcrumbs'][] = array(
-			'text'	=> $this->language->get('text_extension'),
+			'text'	=> $this->language->get('text_module'),
 			'href'	=> $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true)
 		);
 

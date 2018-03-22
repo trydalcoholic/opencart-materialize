@@ -659,11 +659,6 @@ span.collapsible-header {
 @media only screen and (min-width:601px) and (max-width:1200px) {.masonry[data-columns]::before {content:'2 .col.m6';}}
 @media only screen and (min-width:1201px) {.masonry[data-columns]::before {content:'3 .col.xl4';}}
 
-#search-input-blog {margin-left:1.2rem;}
-#search-input-blog:focus {width:calc(100% - 2rem);}
-#label-search-blog {top:-21px !important;left:-25px !important;}
-#reset-search-blog {top:-5px !important;right:-15px !important;}
-
 .post-content {
 	display: flex;
 	flex-direction: column;

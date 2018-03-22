@@ -3358,13 +3358,13 @@
 			<add position="after"><![CDATA[$this->load->language('product/materialize');]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk}/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk}*.php">
+	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}*.php">
 		<operation error="log">
 			<search><![CDATA[<i class="fa fa-home"></i>]]></search>
 			<add position="replace"><![CDATA[<i class="material-icons">home</i>]]></add>
 		</operation>
 	</file>
-	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk}/common/footer.php">
+	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}/common/footer.php">
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
 			<add position="replace"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
