@@ -1,18 +1,22 @@
-<ul class="collapsible collection with-header z-depth-1" data-collapsible="expandable">
+<ul class="collapsible expandable collection with-header z-depth-1">
 	<li class="collection-header blue-grey white-text"><h5 class="text-bold">{{ heading_title }}</h5></li>
 	{% for filter_group in filter_groups %}
-	<li>
-		<div class="collapsible-header active text-bold blue-grey lighten-4 arrow-rotate">{{ filter_group.name }}</div>
+	<li class="arrow-rotate">
+		<div class="collapsible-header active blue-grey lighten-4">{{ filter_group.name }}</div>
 		<div class="collapsible-body no-padding">
-			<ul id="filter-group{{ filter_group.filter_group_id }}" class="collection">
+			<ul id="filter-group{{ filter_group.filter_group_id }}" class="collection ">
 				{% for filter in filter_group.filter %}
 				<li class="collection-item">
 					{% if filter.filter_id in filter_category %}
-					<input type="checkbox" class="filled-in" id="filled-in-{{ filter.filter_id }}"  name="filter[]" value="{{ filter.filter_id }}" checked="checked">
-					<label for="filled-in-{{ filter.filter_id }}">{{ filter.name }}</label>
+					<label for="filled-in-{{ filter.filter_id }}">
+						<input type="checkbox" class="filled-in" id="filled-in-{{ filter.filter_id }}"  name="filter[]" value="{{ filter.filter_id }}" checked="checked">
+						<span>{{ filter.name }}</span>
+					</label>
 					{% else %}
-					<input type="checkbox" class="filled-in" id="filled-in-{{ filter.filter_id }}"  name="filter[]" value="{{ filter.filter_id }}">
-					<label for="filled-in-{{ filter.filter_id }}">{{ filter.name }}</label>
+					<label for="filled-in-{{ filter.filter_id }}">
+						<input type="checkbox" class="filled-in" id="filled-in-{{ filter.filter_id }}"  name="filter[]" value="{{ filter.filter_id }}">
+						<span>{{ filter.name }}</span>
+					</label>
 					{% endif %}
 				</li>
 				{% endfor %}
@@ -22,27 +26,27 @@
 	{% endfor %}
 </ul>
 <script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		$("input[name^=\'filter\']").change(function() {
-			filter = [];
-			$('input[name^=\'filter\']:checked').each(function(element) {
-				filter.push(this.value);
-			});
-			href = '{{ action }}&filter=' + filter.join(',');
-			div = ' #content';
-			load_href = href + div;
-			$(div).load(load_href, function() {
-				$(this).children(':first').unwrap();
-			});
-			setLocation(href);
-			return false;
+document.addEventListener("DOMContentLoaded", function(event) {
+	$("input[name^=\'filter\']").change(function() {
+		filter = [];
+		$('input[name^=\'filter\']:checked').each(function(element) {
+			filter.push(this.value);
 		});
-		function setLocation(curLoc){
-			try {
-				history.pushState(null, null, curLoc);
-				return;
-			} catch(e) {}
-			location.hash = '#' + curLoc;
-		}
+		href = '{{ action }}&filter=' + filter.join(',');
+		div = ' #content';
+		load_href = href + div;
+		$(div).load(load_href, function() {
+			$(this).children(':first').unwrap();
+		});
+		setLocation(href);
+		return false;
 	});
+	function setLocation(curLoc){
+		try {
+			history.pushState(null, null, curLoc);
+			return;
+		} catch(e) {}
+		location.hash = '#' + curLoc;
+	}
+});
 </script>

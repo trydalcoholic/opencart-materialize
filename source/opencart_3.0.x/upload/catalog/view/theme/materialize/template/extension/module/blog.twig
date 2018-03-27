@@ -7,6 +7,7 @@
 		</div>
 	</div>
 </nav>
+{% if categories %}
 <ul class="collapsible collapsible-accordion collection with-header z-depth-1" data-collapsible="accordion">
 	{% for category in categories %}
 		{% if category.blog_category_id == blog_category_id %}
@@ -33,6 +34,8 @@
 		{% endif %}
 	{% endfor %}
 </ul>
+{% endif %}
+{% if latest_posts %}
 <ul class="collection collapsible-accordion collection with-header z-depth-1">
 	{% for latest_post in latest_posts %}
 	<li class="collection-item avatar">
@@ -44,6 +47,7 @@
 	</li>
 	{% endfor %}
 </ul>
+{% endif %}
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
 	$('#label-search-blog').on('click', function() {

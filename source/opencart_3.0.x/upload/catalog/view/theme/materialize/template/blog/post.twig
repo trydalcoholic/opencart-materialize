@@ -124,7 +124,7 @@
 					</div>
 					<div class="post-footer grey lighten-4">
 						{% if tags %}
-							<span class="blue-text text-lighten-1">{{ text_tags }}:</span>&nbsp;
+							<i class="material-icons">local_offer</i>:&nbsp;
 							{% for i in range(0, tags|length-1) %}
 								{% if i < (tags|length - 1) %}
 								<a class="chip waves-effect waves-default" href="{{ tags[i].href|replace(' ', '%20') }}" rel="nofollow">{{ tags[i].tag }}</a>,

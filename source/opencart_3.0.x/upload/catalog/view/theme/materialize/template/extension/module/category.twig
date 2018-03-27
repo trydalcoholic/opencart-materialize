@@ -1,8 +1,8 @@
 <ul class="collapsible collapsible-accordion collection with-header z-depth-1" data-collapsible="accordion">
-	<li class="collection-header blue-grey white-text"><h5>{{ heading_title }}</h5></li>
+	<li class="collection-header blue-grey white-text"><h5 class="text-bold">{{ heading_title }}</h5></li>
 	{% for category in categories %}
 	{% if category.category_id == category_id %}
-	<li>
+	<li class="active">
 		<a href="{{ category.href }}" class="collapsible-header waves-effect blue-grey-text text-darken-4 text-bold active" onclick="return false;">{{ category.name }}</a>
 		{% if category.children %}
 		<div class="collapsible-body no-padding">

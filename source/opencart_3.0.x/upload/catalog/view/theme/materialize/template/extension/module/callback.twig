@@ -61,8 +61,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
 	var callbackAttract = $('#callback__attract'),
-		callbackPhoneIcon = $('#callback__phone-icon'),
-		callbackAttractClose = $('#callback__attract-close');
+		callbackPhoneIcon = $('#callback__phone-icon');
 
 	setInterval(function() {
 		callbackPhoneIcon.toggleClass('callback-shake');
@@ -72,14 +71,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		idleState = false,
 		idleWait = {{ module_callback_time }}000;
 
-	callbackAttract.featureDiscovery();
+	callbackAttract.tapTarget();
 
 	$(document).bind('mousemove keydown scroll', function() {
 		clearTimeout(idleTimer);
 
 		idleState = false;
 		idleTimer = setTimeout(function() {
-			callbackAttract.featureDiscovery('open');
+			callbackAttract.tapTarget('open');
 			idleState = true;
 		}, idleWait);
 	});

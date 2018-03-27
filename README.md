@@ -1,15 +1,15 @@
 # Materialize template for OpenCart 2.3.x and OpenCart 3.x
-![OpenCart Materialize Logo](http://techtwitt.ru/image/OpenCart-Materialize-logo.jpg)
+![OpenCart Materialize Logo](http://materialize.myefforts.ru/image/OpenCart-Materialize-logo.jpg)
 Most of the topics for OpenCart (OCStore) used Bootstrap as the main framework.
 In this theme used the same [Materialize](https://github.com/Dogfalo/materialize) CSS framework.
 ## How it looks like
 The demo site is closed for updating. Soon everything will work...
-<!-- | **Main page** | **Card product** | **Category page** |
+| **Main page** | **Card product** | **Category page** |
 | --- | --- | --- |
-| [Main page](https://materialize.myefforts.ru/) | [Card product](https://materialize.myefforts.ru/smartphones/iphone-smart/iphone-7-plus-red-special-edition-256gb)  | [Category page](https://materialize.myefforts.ru/smartphones/) | -->
+| [Main page](https://materialize.myefforts.ru/) | [Card product](https://materialize.myefforts.ru/iphone-7-plus-red-special-edition-256gb-en)  | [Category page](https://materialize.myefforts.ru/smartphones) |
 
 ***
-![A good example of a working site](https://techtwitt.ru/image/opencart-materialize-template-github.gif)
+![A good example of a working site](https://materialize.myefforts.ru/image/opencart-materialize-template-github.gif)
 ***
 
 ## Differences from standard features OpenCart
@@ -60,19 +60,16 @@ Due to the large number of changes, in order to support multilingual, some compo
 * disabled automatic reverse linking for related products.
 
 ## Several real-time tests
-* Micro-Marking Testing: [Product card](https://search.google.com/structured-data/testing-tool/u/0/#url=https%3A%2F%2Fmaterialize.myefforts.ru%2Fsmartphones%2Fiphone-smart%2Fiphone-7-plus-red-special-edition-256gb)
+* Micro-Marking Testing: [Product card](https://search.google.com/structured-data/testing-tool/u/0/#url=https%3A%2F%2Fmaterialize.myefforts.ru%2Fsmartphones%2Fiphone-7-plus-red-special-edition-256gb-en)
 * The site is quickly loaded. Check the various pages of the site:
   - [Google PageSpeed](https://developers.google.com/speed/pagespeed/insights/)
   - [Pingdom Website Speed Test](https://tools.pingdom.com/)
   - [GTmetrix](https://gtmetrix.com/)
-<!-- * Check out some other site tests:
-  - Markup Validation Service: [main page](https://validator.w3.org/nu/?doc=https%3A%2F%2Fmaterialize.myefforts.ru%2F) and [product card](https://validator.w3.org/nu/?doc=https%3A%2F%2Fmaterialize.myefforts.ru%2Fsmartphones%2Fiphone-smart%2Fiphone-7-plus-red-special-edition-256gb)
-  - Google Mobile-Friendly Test: [main page](https://search.google.com/search-console/mobile-friendly?id=aWnZIZ8aLvbIVq4R2tpuPQ) and [product card](https://search.google.com/search-console/mobile-friendly?id=zIJ0V8Q2y1WuyUJhOpN91w) -->
 
 ## Installation and removal
 For a secure installation, you use the local theme folder and 2 installer files (OCMod.xml and SQL), which allows you to rollback changes in the event of conflict ituations. In order to avoid unforeseen errors, make sure you back up the site.
-* [Documentation in English](https://github.com/trydalcoholic/opencart-materialize/blob/master/Documentation_eng.pdf)
-* [Documentation in Russian](https://github.com/trydalcoholic/opencart-materialize/blob/master/Documentation_rus.pdf)
+* [Documentation in English](https://github.com/trydalcoholic/opencart-materialize/blob/master/docs/Documentation_Materialize_Template_ENG.pdf)
+* [Documentation in Russian](https://github.com/trydalcoholic/opencart-materialize/blob/master/docs/Documentation_Materialize_Template_RUS.pdf)
 ## Technologies used
 * [jQuery](https://github.com/jquery/jquery)
 * [Materialize](https://github.com/Dogfalo/materialize)
