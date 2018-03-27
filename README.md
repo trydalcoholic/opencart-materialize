@@ -3,7 +3,6 @@
 Most of the topics for OpenCart (OCStore) used Bootstrap as the main framework.
 In this theme used the same [Materialize](https://github.com/Dogfalo/materialize) CSS framework.
 ## How it looks like
-The demo site is closed for updating. Soon everything will work...
 | **Main page** | **Card product** | **Category page** |
 | --- | --- | --- |
 | [Main page](https://materialize.myefforts.ru/) | [Card product](https://materialize.myefforts.ru/iphone-7-plus-red-special-edition-256gb-en)  | [Category page](https://materialize.myefforts.ru/smartphones) |
