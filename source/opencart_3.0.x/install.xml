@@ -2,9 +2,27 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.80</version>
+	<version>0.80.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Materialize Permissions -->
+	<file path="admin/controller/user/user_permission.php">
+		<operation error="log">
+			<search><![CDATA[$data['permissions'] = array();]]></search>
+			<add position="after"><![CDATA[
+			$data['permissions'] = array(
+				'extension/materialize',
+				'extension/materialize/blog/category',
+				'extension/materialize/blog/post',
+				'extension/materialize/blog/author',
+				'extension/materialize/blog/comment',
+				'extension/materialize/callback/callback',
+				'extension/materialize/label/label',
+				'extension/materialize/sizechart/sizechart'
+			);
+			]]></add>
+		</operation>
+	</file>
 	<!-- Compressed CSS -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">

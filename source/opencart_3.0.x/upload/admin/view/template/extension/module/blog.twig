@@ -324,11 +324,11 @@
 		{% endfor %}
 	{% endfor %}
 
-	$('#footer-appeal-users').load('index.php?route=extension/materialize/appeal/installed/footer&user_token={{ user_token }}');
+	$('#footer-appeal-users').load('index.php?route=extension/theme/materialize/appealFooter&user_token={{ user_token }}');
 
 	{% if module_blog_installed_appeal %}
 	$.ajax({
-		url: 'index.php?route=extension/materialize/appeal/installed&modal_title={{ blog_title }}&user_token={{ user_token }}',
+		url: 'index.php?route=extension/theme/materialize/appealInstall&modal_title={{ blog_title }}&user_token={{ user_token }}',
 		dataType: 'html',
 		success: function(html) {
 			$('#modal-materialize-installed').remove();

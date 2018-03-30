@@ -814,6 +814,23 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->response->redirect($this->url->link('extension/theme/materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true));
 	}
 
+	public function appealInstall() {
+		$this->load->language('extension/module/materialize/appeal/appeal');
+
+		$data['modal_title'] = sprintf($this->language->get('modal_title'), $this->request->get['modal_title']);
+		$data['modal_alert'] = sprintf($this->language->get('modal_alert'), $this->request->get['modal_title']);
+
+		$this->response->setOutput($this->load->view('extension/materialize/appeal/installed', $data));
+	}
+
+	public function appealFooter() {
+		$this->load->language('extension/module/materialize/appeal/appeal');
+
+		$data['appeal_footer'] = true;
+
+		$this->response->setOutput($this->load->view('extension/materialize/appeal/footer', $data));
+	}
+
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
 			$this->error['warning'] = $this->language->get('error_permission');
