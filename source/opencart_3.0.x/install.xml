@@ -5,22 +5,72 @@
 	<version>0.80.1</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- 3lvl vategory -->
+	<file path="catalog/controller/common/menu.php">
+		<operation error="log">
+			<search><![CDATA[$data['categories'] = array();]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$categories_1 = $this->model_catalog_category->getCategories(0);
+
+				foreach ($categories_1 as $category_1) {
+					$filter_data = array(
+						'filter_category_id'	=> $category_1['category_id'],
+						'filter_sub_category'	=> true
+					);
+
+					$level_2_data = array();
+
+					$categories_2 = $this->model_catalog_category->getCategories($category_1['category_id']);
+
+					foreach ($categories_2 as $category_2) {
+						$filter_data = array(
+							'filter_category_id'	=> $category_2['category_id'],
+							'filter_sub_category'	=> true
+						);
+
+						$level_3_data = array();
+
+						$categories_3 = $this->model_catalog_category->getCategories($category_2['category_id']);
+
+						foreach ($categories_3 as $category_3) {
+							$filter_data = array(
+								'filter_category_id'	=> $category_3['category_id'],
+								'filter_sub_category'	=> true
+							);
+
+							$level_3_data[] = array(
+								'name'	=> ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $category_3['name'] . '</span>' : $category_3['name']),
+								'href'	=> $this->url->link('product/category', 'path=' . $category_3['category_id'])
+							);
+						}
+
+						$level_2_data[] = array(
+							'name'		=> ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $category_2['name'] . '</span>' : $category_2['name']),
+							'href'		=> $this->url->link('product/category', 'path=' . $category_2['category_id']),
+							'children'	=> $level_3_data
+						);
+					}
+
+					$data['categories'][] = array(
+						'name'		=> $category_1['name'],
+						'href'		=> $this->url->link('product/category', 'path=' . $category_1['category_id']),
+						'children'	=> $level_2_data
+					);
+				}
+			} else {
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[return $this->load->view('common/menu', $data);]]></search>
+			<add position="before"><![CDATA[}]]></add>
+		</operation>
+	</file>
 	<!-- Materialize Permissions -->
 	<file path="admin/controller/user/user_permission.php">
 		<operation error="log">
 			<search><![CDATA[$data['permissions'] = array();]]></search>
-			<add position="after"><![CDATA[
-			$data['permissions'] = array(
-				'extension/materialize',
-				'extension/materialize/blog/category',
-				'extension/materialize/blog/post',
-				'extension/materialize/blog/author',
-				'extension/materialize/blog/comment',
-				'extension/materialize/callback/callback',
-				'extension/materialize/label/label',
-				'extension/materialize/sizechart/sizechart'
-			);
-			]]></add>
+			<add position="after"><![CDATA[$data['permissions'] = array('extension/materialize');]]></add>
 		</operation>
 	</file>
 	<!-- Compressed CSS -->
@@ -1977,13 +2027,6 @@
 		<operation error="log">
 			<search><![CDATA['name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),]]></search>
 			<add position="after"><![CDATA['img'	=> $img,]]></add>
-		</operation>
-	</file>
-	<!-- Getting category ID -->
-	<file path="catalog/controller/common/menu.php">
-		<operation error="log">
-			<search><![CDATA[$data['categories'][] = array(]]></search>
-			<add position="after"><![CDATA['id'	=> $category['category_id'],]]></add>
 		</operation>
 	</file>
 	<!-- Integration of the logo module into invoices -->
