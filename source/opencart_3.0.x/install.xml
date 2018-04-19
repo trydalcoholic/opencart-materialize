@@ -2,15 +2,48 @@
 <modification>
 	<name><![CDATA[<font color="#263238"><b>Materialize Theme</b></font>]]></name>
 	<code>materialize-theme</code>
-	<version>0.80.1</version>
+	<version>0.81</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Materialize Megamenu -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[$data['menu'] = $this->load->controller('common/menu');]]></search>
+			<add position="replace"><![CDATA[
+			if ($this->config->get('module_megamenu_status') == 1) {
+				$data['menu'] = $this->load->controller('extension/module/megamenu');
+			} else {
+				$data['menu'] = $this->load->controller('common/menu');
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/model/catalog/manufacturer.php">
+		<operation error="log">
+			<search><![CDATA[class ModelCatalogManufacturer extends Model {]]></search>
+			<add position="after"><![CDATA[
+			public function getMegamenuManufacturersByCategoryId($category_id) {
+				$manufacturers = array();
+
+				$query = $this->db->query("SELECT DISTINCT p.manufacturer_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) WHERE p2c.category_id = ' " . $category_id . "'");
+
+				foreach($query->rows as $manufacturer_id){
+					$manufacturers[$manufacturer_id['manufacturer_id']] = $this->getManufacturer($manufacturer_id['manufacturer_id']);
+				}
+
+				return $manufacturers;
+			}
+			]]></add>
+		</operation>
+	</file>
 	<!-- 3lvl vategory -->
 	<file path="catalog/controller/common/menu.php">
 		<operation error="log">
 			<search><![CDATA[$data['categories'] = array();]]></search>
 			<add position="after"><![CDATA[
 			if ($this->config->get('theme_materialize_status') == 1) {
+				$data['color_navigation'] = $this->config->get('theme_materialize_color_navigation');
+
 				$categories_1 = $this->model_catalog_category->getCategories(0);
 
 				foreach ($categories_1 as $category_1) {
@@ -349,6 +382,19 @@
 				$materialize[] = array(
 					'name'		=> $this->language->get('text_materialize_settings'),
 					'href'		=> $this->url->link('extension/theme/materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=0', true),
+					'children'	=> array()
+				);
+			}
+			]]></add>
+		</operation>
+		<!-- Mega menu -->
+		<operation error="log">
+			<search><![CDATA[$marketplace = array();]]></search>
+			<add position="before"><![CDATA[
+			if ($this->user->hasPermission('access', 'extension/module/megamenu') && $this->config->get('module_megamenu_status') == 1) {
+				$materialize[] = array(
+					'name'		=> 'Мега меню',
+					'href'		=> $this->url->link('extension/module/megamenu', 'user_token=' . $this->session->data['user_token'], true),
 					'children'	=> array()
 				);
 			}
@@ -959,7 +1005,6 @@
 				$data['color_header_text'] = $this->config->get('theme_materialize_color_header_text');
 				$data['color_nav_btn'] = $this->config->get('theme_materialize_color_nav_btn');
 				$data['color_nav_btn_text'] = $this->config->get('theme_materialize_color_nav_btn_text');
-				$data['color_navigation'] = $this->config->get('theme_materialize_color_navigation');
 				$data['color_sidebar'] = $this->config->get('theme_materialize_color_sidebar');
 				$data['color_sidebar_text'] = $this->config->get('theme_materialize_color_sidebar_text');
 				$data['color_compare'] = $this->config->get('theme_materialize_color_compare_btn');
@@ -1009,6 +1054,7 @@
 			<add position="after"><![CDATA[
 			if ($this->config->get('theme_materialize_status') == 1) {
 				$data['color_search'] = $this->config->get('theme_materialize_color_search');
+				$data['color_search_text'] = $this->config->get('theme_materialize_color_search_text');
 			}
 			]]></add>
 		</operation>

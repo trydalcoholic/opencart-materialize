@@ -275,7 +275,15 @@ $(document).ready(function() {
 	});
 
 	/*========== Sticky Navigation ==========*/
-	var headerNavigation = $('#header-navigation');
+	var headerNavigation = $('#header-navigation'),
+		fixedNavWrapper = $('#fixed-nav-wrapper');
+
+	fixedNavWrapper.height(headerNavigation.outerHeight());
+
+	$(window).resize(function() {
+		fixedNavWrapper.height(headerNavigation.outerHeight());
+	});
+
 	if (headerNavigation.length) {
 		headerNavigation.pushpin({
 			top: headerNavigation.offset().top

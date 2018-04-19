@@ -69,45 +69,51 @@
 	<![endif]-->
 </head>
 <body class="{{ color_background }}">
-	<header class="href-underline">
-		<div class="row hide-on-small-only {{ color_top_menu }}">
-			<nav class="container transparent z-depth-0 top-menu">
-				<div class="nav-wrapper">
-					{% if language or currency %}
-					<ul class="left">
-						{% if language %}<li><a class="waves-effect waves-light modal-trigger" href="#modal-language" rel="nofollow"><i class="material-icons">language</i></a></li>{% endif %}
-						{% if currency %}<li><a class="waves-effect waves-light modal-trigger" href="#modal-currency" rel="nofollow"><i class="material-icons">monetization_on</i></a></li>{% endif %}
-					</ul>
-					{% endif %}
-					<ul class="right">
-						{% if blog %}<li><a class="waves-effect waves-light {{ color_top_menu_text }}" href="{{ blog }}">{{ text_blog }}</a></li>{% endif %}
-						<li><a class="waves-effect waves-light {{ color_top_menu_text }}" href="{{ delivery }}">{{ text_delivery }}</a></li>
-						<li><a class="waves-effect waves-light {{ color_top_menu_text }}" href="{{ contact }}">{{ text_contact }}</a></li>
-						<li><a class="waves-effect waves-light {{ color_top_menu_text }}" href="{{ about }}">{{ text_about }}</a></li>
-						<li>
-							<a id="dropdown-lk" class="dropdown-trigger waves-effect waves-light {{ color_top_menu_text }}" href="{{ account }}" data-target="dropdown-top-lk" rel="nofollow">{{ text_account }}</a>
-							<ul id="dropdown-top-lk" class="dropdown-content">
-								{% if logged %}
-								<li><a class="waves-effect" href="{{ account }}" rel="nofollow">{{ text_account }}</a></li>
-								<li class="divider"></li>
-								<li><a class="waves-effect" href="{{ wishlist }}" rel="nofollow">{{ text_wishlist }}</a></li>
-								<li class="divider"></li>
-								<li><a class="waves-effect" href="{{ order }}" rel="nofollow">{{ text_order }}</a></li>
-								<li class="divider"></li>
-								<li><a class="waves-effect" href="{{ logout }}" rel="nofollow">{{ text_logout }}</a></li>
-								<li class="divider"></li>
-								{% else %}
-								<li><a class="waves-effect" href="{{ register }}" rel="nofollow">{{ text_register }}</a></li>
-								<li class="divider"></li>
-								<li><a class="waves-effect" href="{{ login }}" rel="nofollow">{{ text_login }}</a></li>
+	<header class="href-underline {{ color_header }}">
+		<div class="hide-on-small-only {{ color_top_menu }}">
+			<div class="container">
+				<div class="row no-margin-bottom">
+					<div class="col s12">
+						<nav class="transparent z-depth-0 top-menu">
+							<div class="nav-wrapper">
+								{% if language or currency %}
+								<ul class="left">
+									{% if language %}<li class="waves-effect waves-light"><a class="modal-trigger" href="#modal-language" rel="nofollow"><i class="material-icons">language</i></a></li>{% endif %}
+									{% if currency %}<li class="waves-effect waves-light"><a class="modal-trigger" href="#modal-currency" rel="nofollow"><i class="material-icons">monetization_on</i></a></li>{% endif %}
+								</ul>
 								{% endif %}
-							</ul>
-						</li>
-					</ul>
+								<ul class="right">
+									{% if blog %}<li class="waves-effect waves-light"><a class="{{ color_top_menu_text }}" href="{{ blog }}">{{ text_blog }}</a></li>{% endif %}
+									<li class="waves-effect waves-light"><a class="{{ color_top_menu_text }}" href="{{ delivery }}">{{ text_delivery }}</a></li>
+									<li class="waves-effect waves-light"><a class="{{ color_top_menu_text }}" href="{{ contact }}">{{ text_contact }}</a></li>
+									<li class="waves-effect waves-light"><a class="{{ color_top_menu_text }}" href="{{ about }}">{{ text_about }}</a></li>
+									<li class="waves-effect waves-light reset-position">
+										<a id="dropdown-lk" class="dropdown-trigger {{ color_top_menu_text }}" href="{{ account }}" data-target="dropdown-top-lk" rel="nofollow">{{ text_account }}</a>
+										<ul id="dropdown-top-lk" class="dropdown-content">
+											{% if logged %}
+											<li><a class="waves-effect" href="{{ account }}" rel="nofollow">{{ text_account }}</a></li>
+											<li class="divider"></li>
+											<li><a class="waves-effect" href="{{ wishlist }}" rel="nofollow">{{ text_wishlist }}</a></li>
+											<li class="divider"></li>
+											<li><a class="waves-effect" href="{{ order }}" rel="nofollow">{{ text_order }}</a></li>
+											<li class="divider"></li>
+											<li><a class="waves-effect" href="{{ logout }}" rel="nofollow">{{ text_logout }}</a></li>
+											<li class="divider"></li>
+											{% else %}
+											<li><a class="waves-effect" href="{{ register }}" rel="nofollow">{{ text_register }}</a></li>
+											<li class="divider"></li>
+											<li><a class="waves-effect" href="{{ login }}" rel="nofollow">{{ text_login }}</a></li>
+											{% endif %}
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</nav>
+					</div>
 				</div>
-			</nav>
+			</div>
 		</div>
-		<div class="row top-container {{ color_header }}">
+		<div class="row no-margin-bottom top-container">
 			<div class="container">
 				<div class="valign-wrapper">
 					<div class="col s12 m4">
@@ -132,30 +138,16 @@
 				</div>
 			</div>
 		</div>
-		<div id="fixed-nav-wrapper">
-			<nav id="header-navigation" class="hide-on-small-only pin-top {{ color_navigation }}">
-				<div class="nav-wrapper container">
-					<div class="row">
-						<ul>
-							<li class="col m3">
-							{{ menu }}
-							</li>
-							<li class="col m9">
-							{{ search }}
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-			<button type="button" data-target="slide-out" id="btn-side-menu" class="sidenav-trigger hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light z-depth-4 {{ color_nav_btn }}"><i class="material-icons {{ color_nav_btn_text }}">menu</i></button>
-			<ul id="slide-out" class="sidenav"><li class="progress"><div class="indeterminate"></div></li></ul>
-		</div>
+		{{ search }}
+		{{ menu }}
+		<button type="button" data-target="slide-out" id="btn-side-menu" class="sidenav-trigger hide-on-med-and-up btn-floating btn-large waves-effect waves-circle waves-light z-depth-4 {{ color_nav_btn }}"><i class="material-icons {{ color_nav_btn_text }}">menu</i></button>
+		<ul id="slide-out" class="sidenav"><li class="progress"><div class="indeterminate"></div></li></ul>
 	</header>
 	{{ cart }}
 	{{ language }}
 	{{ currency }}
 	{{ callback_module }}
-	<a id="compare-btn" href="{{ compare }}" class="btn-floating btn-large waves-effect waves-light scale-transition pulse {{ color_compare }} {{ text_compare == '0' ? 'scale-out' : '' }}" title="{{ text_comparison_list }}" rel="nofollow">
+	<a id="compare-btn" href="{{ compare }}" class="btn-floating btn-large waves-effect waves-light scale-transition pulse {{ color_compare }} {{ text_compare == '0' ? 'scale-out' }}" title="{{ text_comparison_list }}" rel="nofollow">
 		<i class="material-icons {{ color_compare_text }}">compare_arrows</i>
 		<small id="compare-total" class="btn-floating z-depth-1 pulse {{ color_compare_total }} {{ color_compare_total_text }}">{{ text_compare }}</small>
 	</a>

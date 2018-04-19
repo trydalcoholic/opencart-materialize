@@ -309,6 +309,15 @@
 																			{% endif %}
 																			{% endfor %}
 																		</select>
+																		<select name="theme_materialize_color_search_text" class="selectpicker selectpicker-live-search show-tick">
+																			{% for color in theme_materialize_colors_text %}
+																			{% if color.name == theme_materialize_color_search_text %}
+																			<option value="{{ color.name }}" class="{{ color.name }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+																			{% else %}
+																			<option value="{{ color.name }}" class="{{ color.name }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+																			{% endif %}
+																			{% endfor %}
+																		</select>
 																	</div>
 																</div>
 															</div>

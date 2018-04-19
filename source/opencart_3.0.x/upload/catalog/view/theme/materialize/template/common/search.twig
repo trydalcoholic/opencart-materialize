@@ -1,35 +1,41 @@
-<nav class="search-wrapper z-depth-0 {{ color_search }}">
-	<div class="nav-wrapper">
-		<div id="search" class="input-field">
-			<input id="input-search" class="search-input autocomplete" type="search" name="search" value="{{ search }}" autocomplete="off">
-			<label class="label-icon search-buttons search-buttons__search waves-effect waves-circle" for="input-search"><i class="material-icons">search</i></label>
-			<i class="material-icons search-buttons search-buttons__clear waves-effect waves-circle">close</i>
+<div class="hide-on-small-only">
+	<div class="container">
+		<div class="row no-margin-bottom">
+			<div class="col s12">
+				<div class="nav-wrapper search-wrapper z-depth-0 {{ color_search }}">
+					<div id="search" class="input-field">
+						<input id="input-search" class="search-input autocomplete" type="search" name="search" value="{{ search }}" autocomplete="off">
+						<label class="label-icon search-buttons search-buttons__search waves-effect waves-circle" for="input-search"><i class="material-icons {{ color_search_text }}">search</i></label>
+						<i class="material-icons search-buttons search-buttons__clear waves-effect waves-circle">close</i>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</nav>
-<script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$(document).ready(function() {
-		$('input[name=\'search\']').autocomplete({
-			'source': function(request, response) {
-				$.ajax({
-					url: 'index.php?route=common/search/autocomplete&filter_name=' + encodeURIComponent(request),
-					dataType: 'json',
-					success: function(json) {
-						response($.map(json, function(item) {
-							return {
-								label: item['name'],
-								img: item['img'],
-								value: item['product_id']
-							}
-						}));
-					}
-				});
-			},
-			'select': function(item) {
-				window.location = "{{ product_path }}&product_id="+item['value'];
-			}
+	<script>
+	document.addEventListener("DOMContentLoaded", function(event) {
+		$(document).ready(function() {
+			$('input[name=\'search\']').autocomplete({
+				'source': function(request, response) {
+					$.ajax({
+						url: 'index.php?route=common/search/autocomplete&filter_name=' + encodeURIComponent(request),
+						dataType: 'json',
+						success: function(json) {
+							response($.map(json, function(item) {
+								return {
+									label: item['name'],
+									img: item['img'],
+									value: item['product_id']
+								}
+							}));
+						}
+					});
+				},
+				'select': function(item) {
+					window.location = "{{ product_path }}&product_id="+item['value'];
+				}
+			});
 		});
 	});
-});
-</script>
+	</script>
+</div>

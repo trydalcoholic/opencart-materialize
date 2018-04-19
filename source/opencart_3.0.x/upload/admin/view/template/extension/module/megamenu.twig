@@ -1,0 +1,247 @@
+{{ header }}{{ column_left }}
+<div id="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>{{ megamenu_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+				<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+			<div class="row">
+				<div class="col-md-4 col-md-push-8">
+					<div class="panel panel-default" id="panel-data">
+						<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-power-off"></i> {{ entry_status }}</h3></div>
+						<div class="panel-body">
+							<select name="module_megamenu_status" id="input-status" class="selectpicker show-tick" data-width="100%">
+								{% if module_megamenu_status %}
+								<option value="1" selected="selected">{{ text_enabled }}</option>
+								<option value="0">{{ text_disabled }}</option>
+								{% else %}
+								<option value="1">{{ text_enabled }}</option>
+								<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-sm-6">
+									<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i> {{ button_cancel }}</a>
+								</div>
+								<div class="col-sm-6 text-right">
+									<button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i> {{ button_save }}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 col-md-pull-4">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3></div>
+						<div class="panel-body">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#tab-settings" data-toggle="tab">Настройки</a></li>
+								<li><a href="#tab-category" data-toggle="tab">Категории</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="tab-settings">
+									<fieldset>
+										<legend>Настройки</legend>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-left media-middle">
+													<label class="form-switch pull-right">
+														<input name="module_megamenu_fix" type="checkbox" {{ module_megamenu_fix ? 'checked="checked"' }}>
+														<i></i>
+													</label>
+												</div>
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Фиксировать при прокрутке</h4>
+													<p>При прокручивании страниц сайта меню будет фиксироваться вверху сайта.</p>
+												</div>
+											</div>
+										</div>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-left media-middle">
+													<label class="form-switch pull-right">
+														<input name="module_megamenu_center" type="checkbox" {{ module_megamenu_center ? 'checked="checked"' }}>
+														<i></i>
+													</label>
+												</div>
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Центрировать</h4>
+													<p>Список категорий будет фиксироваться по центру. Отключение этой опции позволяет размещать большее количество категорий в одну строку.</p>
+												</div>
+											</div>
+										</div>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-left media-middle">
+													<label class="form-switch pull-right">
+														<input name="module_megamenu_home" type="checkbox" {{ module_megamenu_home ? 'checked="checked"' }}>
+														<i></i>
+													</label>
+												</div>
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Кнопка "Домой"</h4>
+													<p>Добавляет в самое начало ссылку на главную страницу сайта.</p>
+												</div>
+											</div>
+										</div>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-left media-middle">
+													<label class="form-switch pull-right">
+														<input name="module_megamenu_category_title" type="checkbox" {{ module_megamenu_category_title ? 'checked="checked"' }}>
+														<i></i>
+													</label>
+												</div>
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Заголовок</h4>
+													<p>Вверху списка категорий будет заголовок категории со ссылкой на категорию.</p>
+												</div>
+											</div>
+										</div>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-left media-middle">
+													<label class="form-switch pull-right">
+														<input name="module_megamenu_see_all" type="checkbox" {{ module_megamenu_see_all ? 'checked="checked"' }}>
+														<i></i>
+													</label>
+												</div>
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Показать все...</h4>
+													<p>Внизу списка категорий будет ссылка с текстом "Показать все Название категории".</p>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+									<br>
+									<fieldset>
+										<legend>Кэширование</legend>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-left media-middle">
+													<label class="form-switch pull-right">
+														<input name="module_megamenu_category_cache" type="checkbox" {{ module_megamenu_category_cache ? 'checked="checked"' }}>
+														<i></i>
+													</label>
+												</div>
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Кэширование</h4>
+													<p>Результаты запросов на категории к базе данных будут кэшироваться. Изменения в списке категорий будут видны через каждый час с момента создания кэша.</p>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+								<div class="tab-pane" id="tab-category">
+									{% for category in categories %}
+									<div class="list-group-item">
+										<div class="media overflow-visible">
+											<div class="media-left media-middle">
+												<label class="form-switch">
+													<input type="checkbox" id="megamenu-category-status{{ category.category_id }}" {{ module_megamenu_category[category.category_id].megamenu ? 'checked="checked"' }}>
+													<i></i>
+												</label>
+												<input type="hidden" name="module_megamenu_category[{{ category.category_id }}][megamenu]" value="{{ module_megamenu_category[category.category_id].megamenu }}">
+											</div>
+											<div class="media-body overflow-visible">
+												<h4 class="media-heading text-medium">{{ category.name }}</h4>
+												<hr>
+												<div class="media overflow-visible">
+													<div class="media-body overflow-visible">
+														<div id="megamenu-category-settings" class="row">
+															<div class="col-md-6">
+																<label class="form-switch">
+																	<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="0" {{ module_megamenu_category[category.category_id].type == 0 ? 'checked="checked"' }}>
+																	<i></i>
+																	{{ text_none }}
+																</label>
+																<br>
+																<label class="form-switch">
+																	<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="image" {{ module_megamenu_category[category.category_id].type == 'image' ? 'checked="checked"' }}>
+																	<i></i>
+																	Изображение категории
+																</label>
+																<br>
+																<label class="form-switch">
+																	<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="manufacturers" {{ module_megamenu_category[category.category_id].type == 'manufacturers' ? 'checked="checked"' }}>
+																	<i></i>
+																	Производители
+																</label>
+																<br>
+																<label class="form-switch">
+																	<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="banner" {{ module_megamenu_category[category.category_id].type == 'banner' ? 'checked="checked"' }}>
+																	<i></i>
+																	Баннер
+																</label>
+															</div>
+															<div class="col-md-6 banners">
+																{% if banners %}
+																<select name="module_megamenu_category[{{ category.category_id }}][banner_id]" class="selectpicker show-tick" data-width="100%">
+																	{% for banner in banners %}
+																	<option value="{{ banner.banner_id }}" {{ banner.banner_id == module_megamenu_category[category.category_id].banner_id ? 'selected="selected"' }}>{{ banner.name }}</option>
+																	{% endfor %}
+																</select>
+																{% endif %}
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+							<input type="hidden" name="module_megamenu_installed_appeal" value="0">
+						</div>
+						<div id="footer-appeal-users" class="panel-footer text-center"></div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	// Notify
+	{% if error_warning %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ error_warning }}'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+
+	$('input[id^=\'megamenu-category-status\']').click(function() {
+		$(this).parent().next().attr('value', ($(this).parent().next().attr('value') == 0) ? '1' : '0');
+	});
+
+	$('#footer-appeal-users').load('index.php?route=extension/theme/materialize/appealFooter&user_token={{ user_token }}');
+
+	{% if module_megamenu_installed_appeal %}
+	$.ajax({
+		url: 'index.php?route=extension/theme/materialize/appealInstall&modal_title={{ megamenu_title }}&user_token={{ user_token }}',
+		dataType: 'html',
+		success: function(html) {
+			$('#modal-materialize-installed').remove();
+
+			$('body').prepend(html);
+
+			$('#modal-materialize-installed').modal('show');
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+	{% endif %}
+</script>
+{{ footer }}
