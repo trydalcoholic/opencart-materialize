@@ -43,6 +43,7 @@
 			<add position="after"><![CDATA[
 			if ($this->config->get('theme_materialize_status') == 1) {
 				$data['color_navigation'] = $this->config->get('theme_materialize_color_navigation');
+				$data['color_navigation_text'] = $this->config->get('theme_materialize_color_navigation_text');
 
 				$categories_1 = $this->model_catalog_category->getCategories(0);
 
@@ -1024,26 +1025,6 @@
 				$data['color_cart_text'] = $this->config->get('theme_materialize_color_cart_btn_text');
 				$data['color_cart_total'] = $this->config->get('theme_materialize_color_total_btn');
 				$data['color_cart_total_text'] = $this->config->get('theme_materialize_color_total_btn_text');
-			}
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/common/currency.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_status') == 1) {
-				$data['color_top_menu_text'] = $this->config->get('theme_materialize_color_top_menu_text');
-			}
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/common/menu.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_status') == 1) {
-				$data['color_navigation_text'] = $this->config->get('theme_materialize_color_navigation_text');
 			}
 			]]></add>
 		</operation>

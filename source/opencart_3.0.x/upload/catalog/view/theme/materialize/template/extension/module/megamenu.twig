@@ -4,14 +4,14 @@
 		<div class="{{ module_megamenu_center ? 'container' }}">
 			<div class="row no-margin-bottom">
 				<div class="col s12">
-					<nav class="transparent z-depth-0">
+					<nav class="transparent z-depth-0" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
 						<ul class="sf-menu">
-							{% if module_megamenu_home %}<li><a href="{{ module_megamenu_home }}" class="waves-effect"><i class="material-icons">home</i></a></li>{% endif %}
+							{% if module_megamenu_home %}<li><a href="{{ module_megamenu_home }}" class="waves-effect"><i class="material-icons {{ color_navigation_text }}">home</i></a></li>{% endif %}
 							{% for category_1 in categories %}
 								{% if category_1.children %}
 									{% if module_megamenu_category[category_1.category_id].megamenu %}
 									<li class="mega-dropdown-parent">
-										<a href="{{ category_1.href }}" class="dropdown-with-child dropdown-child-down waves-effect">{{ category_1.name }}</a>
+										<a href="{{ category_1.href }}" class="dropdown-with-child dropdown-child-down waves-effect {{ color_navigation_text }}" itemprop="url"><span itemprop="name">{{ category_1.name }}</span></a>
 										<div class="sf-mega white black-text z-depth-2">
 											<div class="row">
 												{% if not module_megamenu_category[category_1.category_id].type == 0 %}
@@ -98,7 +98,7 @@
 									</li>
 									{% else %}
 									<li>
-										<a href="{{ category_1.href }}" class="dropdown-with-child dropdown-child-down waves-effect">{{ category_1.name }}</a>
+										<a href="{{ category_1.href }}" class="dropdown-with-child dropdown-child-down waves-effect {{ color_navigation_text }}" itemprop="url"><span itemprop="name">{{ category_1.name }}</span></a>
 										<ul class="category-dropdown white z-depth-2">
 											{% for category_2 in category_1.children %}
 												{% if category_2.children %}
@@ -121,7 +121,7 @@
 									</li>
 									{% endif %}
 								{% else %}
-								<li><a href="{{ category_1.href }}" class="waves-effect">{{ category_1.name }}</a></li>
+								<li><a href="{{ category_1.href }}" class="waves-effect {{ color_navigation_text }}" itemprop="url"><span itemprop="name">{{ category_1.name }}</span></a></li>
 								{% endif %}
 							{% endfor %}
 						</ul>
