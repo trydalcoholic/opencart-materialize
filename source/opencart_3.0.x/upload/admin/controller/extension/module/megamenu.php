@@ -82,46 +82,18 @@ class ControllerExtensionModuleMegamenu extends Controller {
 
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
+		if (isset($this->request->post['module_megamenu_settings'])) {
+			$data['module_megamenu_settings'] = $this->request->post['module_megamenu_settings'];
+		} elseif ($this->config->get('module_megamenu_settings') == true) {
+			$data['module_megamenu_settings'] = $this->config->get('module_megamenu_settings');
+		} else {
+			$data['module_megamenu_settings'] = '';
+		}
+
 		if (isset($this->request->post['module_megamenu_installed_appeal'])) {
 			$data['module_megamenu_installed_appeal'] = $this->request->post['module_megamenu_installed_appeal'];
 		} else {
 			$data['module_megamenu_installed_appeal'] = $this->config->get('module_megamenu_installed_appeal');
-		}
-
-		if (isset($this->request->post['module_megamenu_fix'])) {
-			$data['module_megamenu_fix'] = $this->request->post['module_megamenu_fix'];
-		} else {
-			$data['module_megamenu_fix'] = $this->config->get('module_megamenu_fix');
-		}
-
-		if (isset($this->request->post['module_megamenu_center'])) {
-			$data['module_megamenu_center'] = $this->request->post['module_megamenu_center'];
-		} else {
-			$data['module_megamenu_center'] = $this->config->get('module_megamenu_center');
-		}
-
-		if (isset($this->request->post['module_megamenu_home'])) {
-			$data['module_megamenu_home'] = $this->request->post['module_megamenu_home'];
-		} else {
-			$data['module_megamenu_home'] = $this->config->get('module_megamenu_home');
-		}
-
-		if (isset($this->request->post['module_megamenu_category_title'])) {
-			$data['module_megamenu_category_title'] = $this->request->post['module_megamenu_category_title'];
-		} else {
-			$data['module_megamenu_category_title'] = $this->config->get('module_megamenu_category_title');
-		}
-
-		if (isset($this->request->post['module_megamenu_see_all'])) {
-			$data['module_megamenu_see_all'] = $this->request->post['module_megamenu_see_all'];
-		} else {
-			$data['module_megamenu_see_all'] = $this->config->get('module_megamenu_see_all');
-		}
-
-		if (isset($this->request->post['module_megamenu_category_cache'])) {
-			$data['module_megamenu_category_cache'] = $this->request->post['module_megamenu_category_cache'];
-		} else {
-			$data['module_megamenu_category_cache'] = $this->config->get('module_megamenu_category_cache');
 		}
 
 		if (isset($this->request->post['module_megamenu_status'])) {

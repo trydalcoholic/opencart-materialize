@@ -55,7 +55,7 @@
 											<div class="media">
 												<div class="media-left media-middle">
 													<label class="form-switch pull-right">
-														<input name="module_megamenu_fix" type="checkbox" {{ module_megamenu_fix ? 'checked="checked"' }}>
+														<input name="module_megamenu_settings[fix]" type="checkbox" {{ module_megamenu_settings.fix == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
 												</div>
@@ -69,7 +69,7 @@
 											<div class="media">
 												<div class="media-left media-middle">
 													<label class="form-switch pull-right">
-														<input name="module_megamenu_center" type="checkbox" {{ module_megamenu_center ? 'checked="checked"' }}>
+														<input name="module_megamenu_settings[center]" type="checkbox" {{ module_megamenu_settings.center == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
 												</div>
@@ -83,7 +83,7 @@
 											<div class="media">
 												<div class="media-left media-middle">
 													<label class="form-switch pull-right">
-														<input name="module_megamenu_home" type="checkbox" {{ module_megamenu_home ? 'checked="checked"' }}>
+														<input name="module_megamenu_settings[home]" type="checkbox" {{ module_megamenu_settings.home == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
 												</div>
@@ -97,7 +97,7 @@
 											<div class="media">
 												<div class="media-left media-middle">
 													<label class="form-switch pull-right">
-														<input name="module_megamenu_category_title" type="checkbox" {{ module_megamenu_category_title ? 'checked="checked"' }}>
+														<input name="module_megamenu_settings[category_title]" type="checkbox" {{ module_megamenu_settings.category_title == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
 												</div>
@@ -111,31 +111,13 @@
 											<div class="media">
 												<div class="media-left media-middle">
 													<label class="form-switch pull-right">
-														<input name="module_megamenu_see_all" type="checkbox" {{ module_megamenu_see_all ? 'checked="checked"' }}>
+														<input name="module_megamenu_settings[see_all]" type="checkbox" {{ module_megamenu_settings.see_all == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
 												</div>
 												<div class="media-body">
 													<h4 class="media-heading text-medium">Показать все...</h4>
 													<p>Внизу списка категорий будет ссылка с текстом "Показать все Название категории".</p>
-												</div>
-											</div>
-										</div>
-									</fieldset>
-									<br>
-									<fieldset>
-										<legend>Кэширование</legend>
-										<div class="list-group-item">
-											<div class="media">
-												<div class="media-left media-middle">
-													<label class="form-switch pull-right">
-														<input name="module_megamenu_category_cache" type="checkbox" {{ module_megamenu_category_cache ? 'checked="checked"' }}>
-														<i></i>
-													</label>
-												</div>
-												<div class="media-body">
-													<h4 class="media-heading text-medium">Кэширование</h4>
-													<p>Результаты запросов на категории к базе данных будут кэшироваться. Изменения в списке категорий будут видны через каждый час с момента создания кэша.</p>
 												</div>
 											</div>
 										</div>

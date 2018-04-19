@@ -225,6 +225,7 @@ class ControllerExtensionMaterializeBlogPost extends Controller {
 				$this->document->setTitle($post_info['meta_title']);
 				$this->document->setDescription($post_info['meta_description']);
 				$this->document->setKeywords($post_info['meta_keyword']);
+				$this->document->setType('article');
 				$this->document->addLink($this->url->link('extension/materialize/blog/post', 'post_id=' . $this->request->get['post_id']), 'canonical');
 
 				if (empty($post_info['meta_h1'])) {
@@ -254,12 +255,16 @@ class ControllerExtensionMaterializeBlogPost extends Controller {
 				}
 
 				if ($post_info['image']) {
+					$share_image = $this->model_tool_image->resize($post_info['image'], 600, 315);
 					$data['post_image'] = $this->model_tool_image->resize($post_info['image'], 1000, 800, 'crop');
 					$data['post_image_width'] = 1000;
 					$data['post_image_height'] = 800;
 				} else {
+					$share_image = $this->model_tool_image->resize($this->config->get('config_image'), 600, 315);
 					$data['post_image'] = '';
 				}
+
+				$this->document->setImage($share_image);
 
 				if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
 					$server = $this->config->get('config_ssl');

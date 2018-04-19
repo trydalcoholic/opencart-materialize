@@ -1,27 +1,27 @@
 {% if categories %}
 <div id="fixed-nav-wrapper">
-	<div id="{{ module_megamenu_fix ? 'header-navigation' }}" class="hide-on-small-only pin-top width-max z-depth-2 {{ color_navigation }}">
-		<div class="{{ module_megamenu_center ? 'container' }}">
+	<div id="{{ fix ? 'header-navigation' }}" class="hide-on-small-only pin-top width-max z-depth-2 {{ color_navigation }}">
+		<div class="{{ center ? 'container' }}">
 			<div class="row no-margin-bottom">
 				<div class="col s12">
 					<nav class="transparent z-depth-0" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
 						<ul class="sf-menu">
-							{% if module_megamenu_home %}<li><a href="{{ module_megamenu_home }}" class="waves-effect"><i class="material-icons {{ color_navigation_text }}">home</i></a></li>{% endif %}
+							{% if home %}<li><a href="{{ home }}" class="waves-effect"><i class="material-icons {{ color_navigation_text }}">home</i></a></li>{% endif %}
 							{% for category_1 in categories %}
 								{% if category_1.children %}
-									{% if module_megamenu_category[category_1.category_id].megamenu %}
+									{% if category_1.megamenu %}
 									<li class="mega-dropdown-parent">
 										<a href="{{ category_1.href }}" class="dropdown-with-child dropdown-child-down waves-effect {{ color_navigation_text }}" itemprop="url"><span itemprop="name">{{ category_1.name }}</span></a>
 										<div class="sf-mega white black-text z-depth-2">
 											<div class="row">
-												{% if not module_megamenu_category[category_1.category_id].type == 0 %}
+												{% if category_1.type %}
 													{% set categoires_block, side_block = 'm8', 'm4' %}
 												{% else %}
 													{% set categoires_block, side_block = 'm12', '' %}
 												{% endif %}
 												<div class="col {{ categoires_block }}">
 													<div class="sf-mega-wrapper">
-														{% if module_megamenu_category_title %}
+														{% if category_title %}
 														<a href="{{ category_1.href }}" class="mega-title">{{ category_1.name }}</a>
 														{% endif %}
 														<div class="row">
@@ -42,21 +42,21 @@
 																	</div>
 																</div>
 															</div>
+															{% if loop.index is divisibleby(2) %}<div class="clearfix"></div>{% endif %}
 															{% endfor %}
-															<div class="clearfix"></div> <!-- After every second -->
 														</div>
 													</div>
 												</div>
-												{% if category_1.category_type %}
+												{% if category_1.type %}
 												<div class="col {{ side_block }}">
-													{% if module_megamenu_category[category_1.category_id].type == 'image' %}
+													{% if category_1.type == 'image' %}
 													<div class="megamenu-sideblock">
-														<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ category_1.category_type }}" alt="{{ category_1.name }}" title="{{ category_1.name }}">
+														<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ category_1.content }}" alt="{{ category_1.name }}" title="{{ category_1.name }}">
 													</div>
-													{% elseif module_megamenu_category[category_1.category_id].type == 'banner' %}
+													{% elseif category_1.type == 'banner' %}
 													<div class="megamenu-sideblock__slideshow">
 														<div class="megamenu-slideshow">
-															{% for banner in category_1.category_type %}
+															{% for banner in category_1.content %}
 															<div>
 																{% if banner.link %}
 																<a href="{{ banner.link }}"><img src="{{ banner.image }}" alt="{{ banner.title }}"></a>
@@ -77,10 +77,10 @@
 														});
 													});
 													</script>
-													{% elseif module_megamenu_category[category_1.category_id].type == 'manufacturers' %}
+													{% elseif category_1.type == 'manufacturers' %}
 													<div class="megamenu-sideblock">
 														<div class="megamenu-sideblock__manufacturers">
-															{% for manufacturer in category_1.category_type %}
+															{% for manufacturer in category_1.content %}
 															<a href="{{ manufacturer.href }}" class="border-grey tooltipped" data-position="right" data-tooltip="{{ manufacturer.name }}"><img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}" title="{{ manufacturer.name }}"></a>
 															{% endfor %}
 														</div>
@@ -89,7 +89,7 @@
 												</div>
 												{% endif %}
 											</div>
-											{% if module_megamenu_see_all %}
+											{% if see_all %}
 											<div class="section center">
 												<a href="{{ category_1.href }}" class="btn-flat waves-effect margin-reset">{{ text_all }}</a>
 											</div>
