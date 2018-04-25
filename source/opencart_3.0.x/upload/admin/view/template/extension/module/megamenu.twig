@@ -53,71 +53,71 @@
 										<legend>Настройки</legend>
 										<div class="list-group-item">
 											<div class="media">
-												<div class="media-left media-middle">
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Фиксировать при прокрутке</h4>
+													<p>При прокручивании страниц сайта меню будет фиксироваться вверху сайта.</p>
+												</div>
+												<div class="media-right media-middle">
 													<label class="form-switch pull-right">
 														<input name="module_megamenu_settings[fix]" type="checkbox" {{ module_megamenu_settings.fix == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
 												</div>
-												<div class="media-body">
-													<h4 class="media-heading text-medium">Фиксировать при прокрутке</h4>
-													<p>При прокручивании страниц сайта меню будет фиксироваться вверху сайта.</p>
-												</div>
 											</div>
 										</div>
 										<div class="list-group-item">
 											<div class="media">
-												<div class="media-left media-middle">
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Центрировать</h4>
+													<p>Список категорий будет фиксироваться по центру. Отключение этой опции позволяет размещать большее количество категорий в одну строку.</p>
+												</div>
+												<div class="media-right media-middle">
 													<label class="form-switch pull-right">
 														<input name="module_megamenu_settings[center]" type="checkbox" {{ module_megamenu_settings.center == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
 												</div>
-												<div class="media-body">
-													<h4 class="media-heading text-medium">Центрировать</h4>
-													<p>Список категорий будет фиксироваться по центру. Отключение этой опции позволяет размещать большее количество категорий в одну строку.</p>
-												</div>
 											</div>
 										</div>
 										<div class="list-group-item">
 											<div class="media">
-												<div class="media-left media-middle">
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Кнопка "Домой"</h4>
+													<p>Добавляет в самое начало ссылку на главную страницу сайта.</p>
+												</div>
+												<div class="media-right media-middle">
 													<label class="form-switch pull-right">
 														<input name="module_megamenu_settings[home]" type="checkbox" {{ module_megamenu_settings.home == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
 												</div>
-												<div class="media-body">
-													<h4 class="media-heading text-medium">Кнопка "Домой"</h4>
-													<p>Добавляет в самое начало ссылку на главную страницу сайта.</p>
-												</div>
 											</div>
 										</div>
 										<div class="list-group-item">
 											<div class="media">
-												<div class="media-left media-middle">
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Заголовок</h4>
+													<p>Вверху списка категорий будет заголовок категории со ссылкой на категорию.</p>
+												</div>
+												<div class="media-right media-middle">
 													<label class="form-switch pull-right">
 														<input name="module_megamenu_settings[category_title]" type="checkbox" {{ module_megamenu_settings.category_title == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
 												</div>
-												<div class="media-body">
-													<h4 class="media-heading text-medium">Заголовок</h4>
-													<p>Вверху списка категорий будет заголовок категории со ссылкой на категорию.</p>
-												</div>
 											</div>
 										</div>
 										<div class="list-group-item">
 											<div class="media">
-												<div class="media-left media-middle">
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Показать все...</h4>
+													<p>Внизу списка категорий будет ссылка с текстом "Показать все Название категории".</p>
+												</div>
+												<div class="media-right media-middle">
 													<label class="form-switch pull-right">
 														<input name="module_megamenu_settings[see_all]" type="checkbox" {{ module_megamenu_settings.see_all == 'on' ? 'checked="checked"' }}>
 														<i></i>
 													</label>
-												</div>
-												<div class="media-body">
-													<h4 class="media-heading text-medium">Показать все...</h4>
-													<p>Внизу списка категорий будет ссылка с текстом "Показать все Название категории".</p>
 												</div>
 											</div>
 										</div>
@@ -127,56 +127,52 @@
 									{% for category in categories %}
 									<div class="list-group-item">
 										<div class="media overflow-visible">
-											<div class="media-left media-middle">
-												<label class="form-switch">
-													<input type="checkbox" id="megamenu-category-status{{ category.category_id }}" {{ module_megamenu_category[category.category_id].megamenu ? 'checked="checked"' }}>
-													<i></i>
-												</label>
-												<input type="hidden" name="module_megamenu_category[{{ category.category_id }}][megamenu]" value="{{ module_megamenu_category[category.category_id].megamenu }}">
-											</div>
 											<div class="media-body overflow-visible">
 												<h4 class="media-heading text-medium">{{ category.name }}</h4>
 												<hr>
 												<div class="media overflow-visible">
 													<div class="media-body overflow-visible">
-														<div id="megamenu-category-settings" class="row">
-															<div class="col-md-6">
-																<label class="form-switch">
-																	<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="0" {{ module_megamenu_category[category.category_id].type == 0 ? 'checked="checked"' }}>
-																	<i></i>
-																	{{ text_none }}
-																</label>
-																<br>
-																<label class="form-switch">
-																	<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="image" {{ module_megamenu_category[category.category_id].type == 'image' ? 'checked="checked"' }}>
-																	<i></i>
-																	Изображение категории
-																</label>
-																<br>
-																<label class="form-switch">
-																	<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="manufacturers" {{ module_megamenu_category[category.category_id].type == 'manufacturers' ? 'checked="checked"' }}>
-																	<i></i>
-																	Производители
-																</label>
-																<br>
-																<label class="form-switch">
-																	<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="banner" {{ module_megamenu_category[category.category_id].type == 'banner' ? 'checked="checked"' }}>
-																	<i></i>
-																	Баннер
-																</label>
-															</div>
-															<div class="col-md-6 banners">
-																{% if banners %}
-																<select name="module_megamenu_category[{{ category.category_id }}][banner_id]" class="selectpicker show-tick" data-width="100%">
-																	{% for banner in banners %}
-																	<option value="{{ banner.banner_id }}" {{ banner.banner_id == module_megamenu_category[category.category_id].banner_id ? 'selected="selected"' }}>{{ banner.name }}</option>
-																	{% endfor %}
-																</select>
-																{% endif %}
-															</div>
-														</div>
+														<label class="form-switch">
+															<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="0" {{ module_megamenu_category[category.category_id].type == 0 ? 'checked="checked"' }}>
+															<i></i>
+															{{ text_none }}
+														</label>
+														<br>
+														<label class="form-switch">
+															<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="image" {{ module_megamenu_category[category.category_id].type == 'image' ? 'checked="checked"' }}>
+															<i></i>
+															Изображение категории
+														</label>
+														<br>
+														<label class="form-switch">
+															<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="manufacturers" {{ module_megamenu_category[category.category_id].type == 'manufacturers' ? 'checked="checked"' }}>
+															<i></i>
+															Производители
+														</label>
+														<br>
+														<label class="form-switch">
+															<input type="radio" name="module_megamenu_category[{{ category.category_id }}][type]" value="banner" {{ module_megamenu_category[category.category_id].type == 'banner' ? 'checked="checked"' }}>
+															<i></i>
+															Баннер
+														</label>
+														{% if banners %}
+														<hr>
+														<select name="module_megamenu_category[{{ category.category_id }}][banner_id]" class="selectpicker show-tick" data-width="100%">
+															{% for banner in banners %}
+															<option value="{{ banner.banner_id }}" {{ banner.banner_id == module_megamenu_category[category.category_id].banner_id ? 'selected="selected"' }}>{{ banner.name }}</option>
+															{% endfor %}
+														</select>
+														<hr>
+														{% endif %}
 													</div>
 												</div>
+											</div>
+											<div class="media-right media-middle">
+												<label class="form-switch">
+													<input type="checkbox" id="megamenu-category-status{{ category.category_id }}" {{ module_megamenu_category[category.category_id].megamenu ? 'checked="checked"' }}>
+													<i></i>
+												</label>
+												<input type="hidden" name="module_megamenu_category[{{ category.category_id }}][megamenu]" value="{{ module_megamenu_category[category.category_id].megamenu }}">
 											</div>
 										</div>
 									</div>

@@ -144,12 +144,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['error_image_location'] = '';
 		}
 
-		if (isset($this->error['percent_remainder'])) {
-			$data['error_percent_remainder'] = $this->error['percent_remainder'];
-		} else {
-			$data['error_percent_remainder'] = '';
-		}
-
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
 
@@ -201,14 +195,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_status'] = $setting_info['theme_materialize_status'];
 		} else {
 			$data['theme_materialize_status'] = '';
-		}
-
-		if (isset($this->request->post['theme_materialize_image_zoom'])) {
-			$data['theme_materialize_image_zoom'] = $this->request->post['theme_materialize_image_zoom'];
-		} elseif (isset($setting_info['theme_materialize_image_zoom'])) {
-			$data['theme_materialize_image_zoom'] = $setting_info['theme_materialize_image_zoom'];
-		} else {
-			$data['theme_materialize_image_zoom'] = '';
 		}
 
 		if (isset($this->request->post['theme_materialize_product_limit'])) {
@@ -391,11 +377,11 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
-		$theme_materialize = array();
+		/*$theme_materialize = array();
 
 		foreach ($data['languages'] as $key => $language) {
 			$theme_materialize[$language['language_id']][] = $this->language->get('theme_materialize');
-		}
+		}*/
 
 		if (isset($this->request->post['theme_materialize'])) {
 			$data['theme_materialize'] = $this->request->post['theme_materialize'];
@@ -405,249 +391,91 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize'] = '';
 		}
 
-		/* General */
+		/* Common */
 
-		$data['theme_materialize_colors'] = $this->model_extension_materialize_materialize->getMaterializeColors();
-
-		$data['theme_materialize_colors_text'] = $this->model_extension_materialize_materialize->getMaterializeColorsText();
-
-		if (isset($this->request->post['theme_materialize_color_background'])) {
-			$data['theme_materialize_color_background'] = $this->request->post['theme_materialize_color_background'];
-		} elseif ($this->config->get('theme_materialize_color_background') == true) {
-			$data['theme_materialize_color_background'] = $this->config->get('theme_materialize_color_background');
+		if (isset($this->request->post['theme_materialize_settings'])) {
+			$data['theme_materialize_settings'] = $this->request->post['theme_materialize_settings'];
+		} elseif ($this->config->get('theme_materialize_settings') == true) {
+			$data['theme_materialize_settings'] = $this->config->get('theme_materialize_settings');
 		} else {
-			$data['theme_materialize_color_background'] = 'grey lighten-3';
+			$data['theme_materialize_settings'] = array();
+
+			$data['theme_materialize_settings']['header'] = array(
+				'phone'			=> 'on',
+				'email'			=> 'on',
+				'working_hours'	=> 'on',
+			);
+
+			$data['theme_materialize_settings']['footer'] = array(
+				'contact_information'	=> '',
+			);
+
+			$data['theme_materialize_settings']['social'] = array(
+				'show_footer'	=> '',
+				'not_index'		=> '',
+				'meta_data'		=> 'on',
+			);
+
+			$data['theme_materialize_settings']['adult_content'] = array(
+				'status'	=> '',
+				'agreement'	=> '',
+			);
+
+			$data['theme_materialize_settings']['cache'] = array(
+				'css'	=> '',
+			);
 		}
 
-		if (isset($this->request->post['theme_materialize_color_nav_btn'])) {
-			$data['theme_materialize_color_nav_btn'] = $this->request->post['theme_materialize_color_nav_btn'];
-		} elseif ($this->config->get('theme_materialize_color_nav_btn') == true) {
-			$data['theme_materialize_color_nav_btn'] = $this->config->get('theme_materialize_color_nav_btn');
+		/* Colors */
+
+		$data['theme_materialize_get_colors'] = $this->model_extension_materialize_materialize->getMaterializeColors();
+
+		$data['theme_materialize_get_colors_text'] = $this->model_extension_materialize_materialize->getMaterializeColorsText();
+
+		if (isset($this->request->post['theme_materialize_colors'])) {
+			$data['theme_materialize_colors'] = $this->request->post['theme_materialize_colors'];
+		} elseif ($this->config->get('theme_materialize_colors') == true) {
+			$data['theme_materialize_colors'] = $this->config->get('theme_materialize_colors');
 		} else {
-			$data['theme_materialize_color_nav_btn'] = 'blue-grey darken-2';
+			$data['theme_materialize_colors'] = array();
+
+			$data['theme_materialize_colors'] = array(
+				'background'				=> 'grey lighten-3',
+				'add_cart'					=> 'red',
+				'add_cart_text'				=> 'white-text',
+				'more_detailed'				=> 'red',
+				'more_detailed_text'		=> 'white-text',
+				'cart_btn'					=> 'red',
+				'cart_btn_text'				=> 'white-text',
+				'total_btn'					=> 'light-blue darken-1',
+				'total_btn_text'			=> 'white-text',
+				'compare_btn'				=> 'blue',
+				'compare_btn_text'			=> 'white-text',
+				'compare_total_btn'			=> 'light-blue darken-2',
+				'compare_total_btn_text'	=> 'white-text',
+				'btt_btn'					=> 'red',
+				'btt_btn_text'				=> 'white-text',
+				'browser_bar'				=> 'blue-grey darken-4',
+				'browser_bar_hex'			=> '#263238',
+				'nav_btn'					=> 'blue-grey darken-2',
+				'nav_btn_text'				=> 'white-text',
+				'top_menu'					=> 'blue-grey darken-4',
+				'top_menu_text'				=> 'white-text',
+				'header'					=> 'blue-grey darken-3',
+				'header_text'				=> 'blue-grey-text text-lighten-5',
+				'navigation'				=> 'blue-grey darken-2',
+				'navigation_text'			=> 'white-text',
+				'search'					=> 'white',
+				'search_text'				=> 'blue-grey-text text-darken-4',
+				'sidebar'					=> 'blue-grey darken-2',
+				'sidebar_text'				=> 'white-text',
+				'mobile_search'				=> 'blue-grey lighten-1',
+				'footer'					=> 'blue-grey darken-3',
+				'footer_text'				=> 'grey-text text-lighten-3',
+			);
 		}
 
-		if (isset($this->request->post['theme_materialize_color_nav_btn_text'])) {
-			$data['theme_materialize_color_nav_btn_text'] = $this->request->post['theme_materialize_color_nav_btn_text'];
-		} elseif ($this->config->get('theme_materialize_color_nav_btn_text') == true) {
-			$data['theme_materialize_color_nav_btn_text'] = $this->config->get('theme_materialize_color_nav_btn_text');
-		} else {
-			$data['theme_materialize_color_nav_btn_text'] = 'white-text';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_cart_btn'])) {
-			$data['theme_materialize_color_cart_btn'] = $this->request->post['theme_materialize_color_cart_btn'];
-		} elseif ($this->config->get('theme_materialize_color_cart_btn') == true) {
-			$data['theme_materialize_color_cart_btn'] = $this->config->get('theme_materialize_color_cart_btn');
-		} else {
-			$data['theme_materialize_color_cart_btn'] = 'red';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_cart_btn_text'])) {
-			$data['theme_materialize_color_cart_btn_text'] = $this->request->post['theme_materialize_color_cart_btn_text'];
-		} elseif ($this->config->get('theme_materialize_color_cart_btn_text') == true) {
-			$data['theme_materialize_color_cart_btn_text'] = $this->config->get('theme_materialize_color_cart_btn_text');
-		} else {
-			$data['theme_materialize_color_cart_btn_text'] = 'white-text';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_total_btn'])) {
-			$data['theme_materialize_color_total_btn'] = $this->request->post['theme_materialize_color_total_btn'];
-		} elseif ($this->config->get('theme_materialize_color_total_btn') == true) {
-			$data['theme_materialize_color_total_btn'] = $this->config->get('theme_materialize_color_total_btn');
-		} else {
-			$data['theme_materialize_color_total_btn'] = 'light-blue darken-1';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_total_btn_text'])) {
-			$data['theme_materialize_color_total_btn_text'] = $this->request->post['theme_materialize_color_total_btn_text'];
-		} elseif ($this->config->get('theme_materialize_color_total_btn_text') == true) {
-			$data['theme_materialize_color_total_btn_text'] = $this->config->get('theme_materialize_color_total_btn_text');
-		} else {
-			$data['theme_materialize_color_total_btn_text'] = 'white-text';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_compare_btn'])) {
-			$data['theme_materialize_color_compare_btn'] = $this->request->post['theme_materialize_color_compare_btn'];
-		} elseif ($this->config->get('theme_materialize_color_compare_btn') == true) {
-			$data['theme_materialize_color_compare_btn'] = $this->config->get('theme_materialize_color_compare_btn');
-		} else {
-			$data['theme_materialize_color_compare_btn'] = 'blue';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_compare_btn_text'])) {
-			$data['theme_materialize_color_compare_btn_text'] = $this->request->post['theme_materialize_color_compare_btn_text'];
-		} elseif ($this->config->get('theme_materialize_color_compare_btn_text') == true) {
-			$data['theme_materialize_color_compare_btn_text'] = $this->config->get('theme_materialize_color_compare_btn_text');
-		} else {
-			$data['theme_materialize_color_compare_btn_text'] = 'white-text';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_compare_total_btn'])) {
-			$data['theme_materialize_color_compare_total_btn'] = $this->request->post['theme_materialize_color_compare_total_btn'];
-		} elseif ($this->config->get('theme_materialize_color_compare_total_btn') == true) {
-			$data['theme_materialize_color_compare_total_btn'] = $this->config->get('theme_materialize_color_compare_total_btn');
-		} else {
-			$data['theme_materialize_color_compare_total_btn'] = 'light-blue darken-2';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_compare_total_btn_text'])) {
-			$data['theme_materialize_color_compare_total_btn_text'] = $this->request->post['theme_materialize_color_compare_total_btn_text'];
-		} elseif ($this->config->get('theme_materialize_color_compare_total_btn_text') == true) {
-			$data['theme_materialize_color_compare_total_btn_text'] = $this->config->get('theme_materialize_color_compare_total_btn_text');
-		} else {
-			$data['theme_materialize_color_compare_total_btn_text'] = 'white-text';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_btt_btn'])) {
-			$data['theme_materialize_color_btt_btn'] = $this->request->post['theme_materialize_color_btt_btn'];
-		} elseif ($this->config->get('theme_materialize_color_btt_btn') == true) {
-			$data['theme_materialize_color_btt_btn'] = $this->config->get('theme_materialize_color_btt_btn');
-		} else {
-			$data['theme_materialize_color_btt_btn'] = 'red';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_btt_btn_text'])) {
-			$data['theme_materialize_color_btt_btn_text'] = $this->request->post['theme_materialize_color_btt_btn_text'];
-		} elseif ($this->config->get('theme_materialize_color_btt_btn_text') == true) {
-			$data['theme_materialize_color_btt_btn_text'] = $this->config->get('theme_materialize_color_btt_btn_text');
-		} else {
-			$data['theme_materialize_color_btt_btn_text'] = 'white-text';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_browser_bar'])) {
-			$data['theme_materialize_color_browser_bar'] = $this->request->post['theme_materialize_color_browser_bar'];
-		} elseif ($this->config->get('theme_materialize_color_browser_bar') == true) {
-			$data['theme_materialize_color_browser_bar'] = $this->config->get('theme_materialize_color_browser_bar');
-		} else {
-			$data['theme_materialize_color_browser_bar'] = 'blue-grey darken-4';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_browser_bar_hex'])) {
-			$data['theme_materialize_color_browser_bar_hex'] = $this->request->post['theme_materialize_color_browser_bar_hex'];
-		} elseif ($this->config->get('theme_materialize_color_browser_bar_hex') == true) {
-			$data['theme_materialize_color_browser_bar_hex'] = $this->config->get('theme_materialize_color_browser_bar_hex');
-		} else {
-			$data['theme_materialize_color_browser_bar_hex'] = '#263238';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_top_menu'])) {
-			$data['theme_materialize_color_top_menu'] = $this->request->post['theme_materialize_color_top_menu'];
-		} elseif ($this->config->get('theme_materialize_color_top_menu') == true) {
-			$data['theme_materialize_color_top_menu'] = $this->config->get('theme_materialize_color_top_menu');
-		} else {
-			$data['theme_materialize_color_top_menu'] = 'blue-grey darken-4';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_top_menu_text'])) {
-			$data['theme_materialize_color_top_menu_text'] = $this->request->post['theme_materialize_color_top_menu_text'];
-		} elseif ($this->config->get('theme_materialize_color_top_menu_text') == true) {
-			$data['theme_materialize_color_top_menu_text'] = $this->config->get('theme_materialize_color_top_menu_text');
-		} else {
-			$data['theme_materialize_color_top_menu_text'] = 'white-text';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_header'])) {
-			$data['theme_materialize_color_header'] = $this->request->post['theme_materialize_color_header'];
-		} elseif ($this->config->get('theme_materialize_color_header') == true) {
-			$data['theme_materialize_color_header'] = $this->config->get('theme_materialize_color_header');
-		} else {
-			$data['theme_materialize_color_header'] = 'blue-grey darken-3';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_header_text'])) {
-			$data['theme_materialize_color_header_text'] = $this->request->post['theme_materialize_color_header_text'];
-		} elseif ($this->config->get('theme_materialize_color_header_text') == true) {
-			$data['theme_materialize_color_header_text'] = $this->config->get('theme_materialize_color_header_text');
-		} else {
-			$data['theme_materialize_color_header_text'] = 'blue-grey-text text-lighten-5';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_navigation'])) {
-			$data['theme_materialize_color_navigation'] = $this->request->post['theme_materialize_color_navigation'];
-		} elseif ($this->config->get('theme_materialize_color_navigation') == true) {
-			$data['theme_materialize_color_navigation'] = $this->config->get('theme_materialize_color_navigation');
-		} else {
-			$data['theme_materialize_color_navigation'] = 'blue-grey darken-2';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_navigation_text'])) {
-			$data['theme_materialize_color_navigation_text'] = $this->request->post['theme_materialize_color_navigation_text'];
-		} elseif ($this->config->get('theme_materialize_color_navigation_text') == true) {
-			$data['theme_materialize_color_navigation_text'] = $this->config->get('theme_materialize_color_navigation_text');
-		} else {
-			$data['theme_materialize_color_navigation_text'] = 'white-text';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_search'])) {
-			$data['theme_materialize_color_search'] = $this->request->post['theme_materialize_color_search'];
-		} elseif ($this->config->get('theme_materialize_color_search') == true) {
-			$data['theme_materialize_color_search'] = $this->config->get('theme_materialize_color_search');
-		} else {
-			$data['theme_materialize_color_search'] = 'white';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_search_text'])) {
-			$data['theme_materialize_color_search_text'] = $this->request->post['theme_materialize_color_search_text'];
-		} elseif ($this->config->get('theme_materialize_color_search_text') == true) {
-			$data['theme_materialize_color_search_text'] = $this->config->get('theme_materialize_color_search_text');
-		} else {
-			$data['theme_materialize_color_search_text'] = 'blue-grey-text text-darken-4';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_sidebar'])) {
-			$data['theme_materialize_color_sidebar'] = $this->request->post['theme_materialize_color_sidebar'];
-		} elseif ($this->config->get('theme_materialize_color_sidebar') == true) {
-			$data['theme_materialize_color_sidebar'] = $this->config->get('theme_materialize_color_sidebar');
-		} else {
-			$data['theme_materialize_color_sidebar'] = 'blue-grey darken-2';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_sidebar_text'])) {
-			$data['theme_materialize_color_sidebar_text'] = $this->request->post['theme_materialize_color_sidebar_text'];
-		} elseif ($this->config->get('theme_materialize_color_sidebar_text') == true) {
-			$data['theme_materialize_color_sidebar_text'] = $this->config->get('theme_materialize_color_sidebar_text');
-		} else {
-			$data['theme_materialize_color_sidebar_text'] = 'white-text';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_mobile_search'])) {
-			$data['theme_materialize_color_mobile_search'] = $this->request->post['theme_materialize_color_mobile_search'];
-		} elseif ($this->config->get('theme_materialize_color_mobile_search') == true) {
-			$data['theme_materialize_color_mobile_search'] = $this->config->get('theme_materialize_color_mobile_search');
-		} else {
-			$data['theme_materialize_color_mobile_search'] = 'blue-grey lighten-1';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_footer'])) {
-			$data['theme_materialize_color_footer'] = $this->request->post['theme_materialize_color_footer'];
-		} elseif ($this->config->get('theme_materialize_color_footer') == true) {
-			$data['theme_materialize_color_footer'] = $this->config->get('theme_materialize_color_footer');
-		} else {
-			$data['theme_materialize_color_footer'] = 'blue-grey darken-3';
-		}
-
-		if (isset($this->request->post['theme_materialize_color_footer_text'])) {
-			$data['theme_materialize_color_footer_text'] = $this->request->post['theme_materialize_color_footer_text'];
-		} elseif ($this->config->get('theme_materialize_color_footer_text') == true) {
-			$data['theme_materialize_color_footer_text'] = $this->config->get('theme_materialize_color_footer_text');
-		} else {
-			$data['theme_materialize_color_footer_text'] = 'grey-text text-lighten-3';
-		}
-
-		/* Footer */
-
-		if (isset($this->request->post['theme_materialize_footer_contact'])) {
-			$data['theme_materialize_footer_contact'] = $this->request->post['theme_materialize_footer_contact'];
-		} else {
-			$data['theme_materialize_footer_contact'] = $this->config->get('theme_materialize_footer_contact');
-		}
-
-		if (isset($this->request->post['theme_materialize_sn_index'])) {
-			$data['theme_materialize_sn_index'] = $this->request->post['theme_materialize_sn_index'];
-		} else {
-			$data['theme_materialize_sn_index'] = $this->config->get('theme_materialize_sn_index');
-		}
+		/* Social icons */
 
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
@@ -681,90 +509,32 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			}
 		}
 
-		/* Show fields */
+		/* Products */
 
-		if (isset($this->request->post['theme_materialize_show_model'])) {
-			$data['theme_materialize_show_model'] = $this->request->post['theme_materialize_show_model'];
+		if (isset($this->request->post['theme_materialize_products'])) {
+			$data['theme_materialize_products'] = $this->request->post['theme_materialize_products'];
+		} elseif ($this->config->get('theme_materialize_products') == true) {
+			$data['theme_materialize_products'] = $this->config->get('theme_materialize_products');
 		} else {
-			$data['theme_materialize_show_model'] = $this->config->get('theme_materialize_show_model');
-		}
+			$data['theme_materialize_products'] = array();
 
-		if (isset($this->request->post['theme_materialize_show_sku'])) {
-			$data['theme_materialize_show_sku'] = $this->request->post['theme_materialize_show_sku'];
-		} else {
-			$data['theme_materialize_show_sku'] = $this->config->get('theme_materialize_show_sku');
-		}
+			$data['theme_materialize_products']['fields'] = array(
+				'model'			=> '',
+				'sku'			=> '',
+				'upc'			=> '',
+				'ean'			=> '',
+				'jan'			=> '',
+				'isbn'			=> '',
+				'mpn'			=> '',
+				'location'		=> '',
+				'dimension'		=> '',
+				'weight'		=> '',
+				'progressbar'	=> '',
+			);
 
-		if (isset($this->request->post['theme_materialize_show_upc'])) {
-			$data['theme_materialize_show_upc'] = $this->request->post['theme_materialize_show_upc'];
-		} else {
-			$data['theme_materialize_show_upc'] = $this->config->get('theme_materialize_show_upc');
-		}
-
-		if (isset($this->request->post['theme_materialize_show_ean'])) {
-			$data['theme_materialize_show_ean'] = $this->request->post['theme_materialize_show_ean'];
-		} else {
-			$data['theme_materialize_show_ean'] = $this->config->get('theme_materialize_show_ean');
-		}
-
-		if (isset($this->request->post['theme_materialize_show_jan'])) {
-			$data['theme_materialize_show_jan'] = $this->request->post['theme_materialize_show_jan'];
-		} else {
-			$data['theme_materialize_show_jan'] = $this->config->get('theme_materialize_show_jan');
-		}
-
-		if (isset($this->request->post['theme_materialize_show_isbn'])) {
-			$data['theme_materialize_show_isbn'] = $this->request->post['theme_materialize_show_isbn'];
-		} else {
-			$data['theme_materialize_show_isbn'] = $this->config->get('theme_materialize_show_isbn');
-		}
-
-		if (isset($this->request->post['theme_materialize_show_mpn'])) {
-			$data['theme_materialize_show_mpn'] = $this->request->post['theme_materialize_show_mpn'];
-		} else {
-			$data['theme_materialize_show_mpn'] = $this->config->get('theme_materialize_show_mpn');
-		}
-
-		if (isset($this->request->post['theme_materialize_show_location'])) {
-			$data['theme_materialize_show_location'] = $this->request->post['theme_materialize_show_location'];
-		} else {
-			$data['theme_materialize_show_location'] = $this->config->get('theme_materialize_show_location');
-		}
-
-		if (isset($this->request->post['theme_materialize_show_dimensions'])) {
-			$data['theme_materialize_show_dimensions'] = $this->request->post['theme_materialize_show_dimensions'];
-		} else {
-			$data['theme_materialize_show_dimensions'] = $this->config->get('theme_materialize_show_dimensions');
-		}
-
-		if (isset($this->request->post['theme_materialize_show_weight'])) {
-			$data['theme_materialize_show_weight'] = $this->request->post['theme_materialize_show_weight'];
-		} else {
-			$data['theme_materialize_show_weight'] = $this->config->get('theme_materialize_show_weight');
-		}
-
-		if (isset($this->request->post['theme_materialize_remainder'])) {
-			$data['theme_materialize_remainder'] = $this->request->post['theme_materialize_remainder'];
-		} else {
-			$data['theme_materialize_remainder'] = $this->config->get('theme_materialize_remainder');
-		}
-
-		$data['remainders'] = array();
-
-		$data['remainders'][] = array(
-			'text'	=> $this->language->get('text_numerical'),
-			'value'	=> 'numerical'
-		);
-
-		$data['remainders'][] = array(
-			'text'	=> $this->language->get('text_progressbar'),
-			'value'	=> 'progressbar'
-		);
-
-		if (isset($this->request->post['theme_materialize_percent_remainder'])) {
-			$data['theme_materialize_percent_remainder'] = $this->request->post['theme_materialize_percent_remainder'];
-		} else {
-			$data['theme_materialize_percent_remainder'] = $this->config->get('theme_materialize_percent_remainder');
+			$data['theme_materialize_products']['image'] = array(
+				'imagezoom'	=> '',
+			);
 		}
 
 		/* Payment methods */
@@ -795,14 +565,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_payment_image_height'] = $this->request->post['theme_materialize_payment_image_height'];
 		} else {
 			$data['theme_materialize_payment_image_height'] = $this->config->get('theme_materialize_payment_image_height');
-		}
-
-		/* Common */
-
-		if (isset($this->request->post['theme_materialize_cache_css'])) {
-			$data['theme_materialize_cache_css'] = $this->request->post['theme_materialize_cache_css'];
-		} else {
-			$data['theme_materialize_cache_css'] = $this->config->get('theme_materialize_cache_css');
 		}
 
 		$data['clear_css'] = $this->url->link('extension/theme/materialize/clearCss', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true);
@@ -891,10 +653,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 			if (!$this->request->post['theme_materialize_image_location_width'] || !$this->request->post['theme_materialize_image_location_height']) {
 				$this->error['image_location'] = $this->language->get('error_image_location');
-			}
-
-			if (($this->request->post['theme_materialize_remainder'] == 'progressbar') && ((utf8_strlen($this->request->post['theme_materialize_percent_remainder']) < 1) || ($this->request->post['theme_materialize_percent_remainder'] < 1))) {
-				$this->error['percent_remainder'] = $this->language->get('error_percent_remainder');
 			}
 		}
 

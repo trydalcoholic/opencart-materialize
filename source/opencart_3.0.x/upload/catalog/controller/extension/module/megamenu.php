@@ -11,8 +11,10 @@ class ControllerExtensionModuleMegamenu extends Controller {
 
 		$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
-		$data['color_navigation'] = $this->config->get('theme_materialize_color_navigation');
-		$data['color_navigation_text'] = $this->config->get('theme_materialize_color_navigation_text');
+		$colors = $this->config->get('theme_materialize_colors');
+
+		$data['color_navigation'] = $colors['navigation'];
+		$data['color_navigation_text'] = $colors['navigation_text'];
 
 		$module_megamenu_settings = $this->config->get('module_megamenu_settings');
 

@@ -42,8 +42,10 @@
 			<search><![CDATA[$data['categories'] = array();]]></search>
 			<add position="after"><![CDATA[
 			if ($this->config->get('theme_materialize_status') == 1) {
-				$data['color_navigation'] = $this->config->get('theme_materialize_color_navigation');
-				$data['color_navigation_text'] = $this->config->get('theme_materialize_color_navigation_text');
+				$colors = $this->config->get('theme_materialize_colors');
+
+				$data['color_navigation'] = $colors['navigation'];
+				$data['color_navigation_text'] = $colors['navigation_text'];
 
 				$categories_1 = $this->model_catalog_category->getCategories(0);
 
@@ -998,20 +1000,22 @@
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
 			if ($this->config->get('theme_materialize_status') == 1) {
-				$data['color_browser_bar'] = $this->config->get('theme_materialize_color_browser_bar_hex');
-				$data['color_background'] = $this->config->get('theme_materialize_color_background');
-				$data['color_top_menu'] = $this->config->get('theme_materialize_color_top_menu');
-				$data['color_top_menu_text'] = $this->config->get('theme_materialize_color_top_menu_text');
-				$data['color_header'] = $this->config->get('theme_materialize_color_header');
-				$data['color_header_text'] = $this->config->get('theme_materialize_color_header_text');
-				$data['color_nav_btn'] = $this->config->get('theme_materialize_color_nav_btn');
-				$data['color_nav_btn_text'] = $this->config->get('theme_materialize_color_nav_btn_text');
-				$data['color_sidebar'] = $this->config->get('theme_materialize_color_sidebar');
-				$data['color_sidebar_text'] = $this->config->get('theme_materialize_color_sidebar_text');
-				$data['color_compare'] = $this->config->get('theme_materialize_color_compare_btn');
-				$data['color_compare_text'] = $this->config->get('theme_materialize_color_compare_btn_text');
-				$data['color_compare_total'] = $this->config->get('theme_materialize_color_compare_total_btn');
-				$data['color_compare_total_text'] = $this->config->get('theme_materialize_color_compare_total_btn_text');
+				$colors = $this->config->get('theme_materialize_colors');
+
+				$data['color_browser_bar'] = $colors['browser_bar'];
+				$data['color_background'] = $colors['background'];
+				$data['color_top_menu'] = $colors['top_menu'];
+				$data['color_top_menu_text'] = $colors['top_menu_text'];
+				$data['color_header'] = $colors['header'];
+				$data['color_header_text'] = $colors['header_text'];
+				$data['color_nav_btn'] = $colors['nav_btn'];
+				$data['color_nav_btn_text'] = $colors['nav_btn_text'];
+				$data['color_sidebar'] = $colors['sidebar'];
+				$data['color_sidebar_text'] = $colors['sidebar_text'];
+				$data['color_compare'] = $colors['compare_btn'];
+				$data['color_compare_text'] = $colors['compare_btn_text'];
+				$data['color_compare_total'] = $colors['compare_total_btn'];
+				$data['color_compare_total_text'] = $colors['compare_total_btn_text'];
 			}
 			]]></add>
 		</operation>
@@ -1021,10 +1025,12 @@
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
 			if ($this->config->get('theme_materialize_status') == 1) {
-				$data['color_cart'] = $this->config->get('theme_materialize_color_cart_btn');
-				$data['color_cart_text'] = $this->config->get('theme_materialize_color_cart_btn_text');
-				$data['color_cart_total'] = $this->config->get('theme_materialize_color_total_btn');
-				$data['color_cart_total_text'] = $this->config->get('theme_materialize_color_total_btn_text');
+				$colors = $this->config->get('theme_materialize_colors');
+
+				$data['color_cart'] = $colors['cart_btn'];
+				$data['color_cart_text'] = $colors['cart_btn_text'];
+				$data['color_cart_total'] = $colors['total_btn'];
+				$data['color_cart_total_text'] = $colors['total_btn_text'];
 			}
 			]]></add>
 		</operation>
@@ -1034,8 +1040,10 @@
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
 			if ($this->config->get('theme_materialize_status') == 1) {
-				$data['color_search'] = $this->config->get('theme_materialize_color_search');
-				$data['color_search_text'] = $this->config->get('theme_materialize_color_search_text');
+				$colors = $this->config->get('theme_materialize_colors');
+
+				$data['color_search'] = $colors['search'];
+				$data['color_search_text'] = $colors['search_text'];
 			}
 			]]></add>
 		</operation>
@@ -1087,10 +1095,12 @@
 					$data['social_network'] = false;
 				}
 
-				$data['color_footer'] = $this->config->get('theme_materialize_color_footer');
-				$data['color_footer_text'] = $this->config->get('theme_materialize_color_footer_text');
-				$data['color_btt'] = $this->config->get('theme_materialize_color_btt_btn');
-				$data['color_btt_text'] = $this->config->get('theme_materialize_color_btt_btn_text');
+				$colors = $this->config->get('theme_materialize_colors');
+
+				$data['color_footer'] = $colors['footer'];
+				$data['color_footer_text'] = $colors['footer_text'];
+				$data['color_btt'] = $colors['btt_btn'];
+				$data['color_btt_text'] = $colors['btt_btn_text'];
 			}
 			]]></add>
 		</operation>

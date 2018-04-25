@@ -11,8 +11,13 @@ class ControllerExtensionMaterializeCommonSidenav extends Controller {
 
 		$this->load->language('common/search');
 
-		$data['color_sidebar'] = $this->config->get('theme_materialize_color_sidebar');
-		$data['color_sidebar_text'] = $this->config->get('theme_materialize_color_sidebar_text');
+		$settings_colors = $this->config->get('theme_materialize_settings');
+
+		$colors = $settings_colors['colors'];
+
+		$data['color_sidebar'] = $colors['sidebar'];
+		$data['color_sidebar_text'] = $colors['sidebar_text'];
+		$data['color_mobile_search'] = $colors['mobile_search'];
 
 		if ($this->request->server['HTTPS']) {
 			$server = $this->config->get('config_ssl');
@@ -44,7 +49,6 @@ class ControllerExtensionMaterializeCommonSidenav extends Controller {
 		}
 
 		$data['product_path'] = $this->url->link('product/product');
-		$data['color_mobile_search'] = $this->config->get('theme_materialize_color_mobile_search');
 
 		// Callback module
 		if ($this->config->get('module_callback_status') == 1) {
