@@ -17,8 +17,8 @@
 		</nav>
 		<div class="row no-margin-bottom">
 			<div class="col s9 side-info no-padding">
-				<a class="{{ color_sidebar_text }}" href="tel:{{ telephone }}" rel="nofollow"><i class="material-icons left">phone</i>{{ telephone }}</a>
-				<a class="{{ color_sidebar_text }}" href="mailto:{{ email }}" rel="nofollow"><i class="material-icons left">email</i>{{ email }}</a>
+				{% if telephone %}<a class="{{ color_sidebar_text }}" href="tel:{{ telephone }}" rel="nofollow"><i class="material-icons left">phone</i>{{ telephone }}</a>{% endif %}
+				{% if email %}<a class="{{ color_sidebar_text }}" href="mailto:{{ email }}" rel="nofollow"><i class="material-icons left">email</i>{{ email }}</a>{% endif %}
 			</div>
 			<div class="col s3 no-padding">
 				{% if language or currency %}
@@ -81,10 +81,13 @@
 	</ul>
 </li>
 <li><a class="waves-effect" href="{{ cart }}" rel="nofollow"><i class="material-icons">shopping_cart</i>{{ text_cart }}</a></li>
-<li><a class="waves-effect" href="{{ delivery }}" rel="nofollow"><i class="material-icons">local_shipping</i>{{ text_delivery }}</a></li>
 <li><a class="waves-effect" href="{{ contact }}" rel="nofollow"><i class="material-icons">email</i>{{ text_contact }}</a></li>
+{% if informations %}
+	{% for information in informations %}
+	<li><a class="waves-effect" href="{{ information.href }}" rel="nofollow">{{ information.title }}</a></li>
+	{% endfor %}
+{% endif %}
 {% if blog %}<li><a class="waves-effect" href="{{ blog }}" rel="nofollow"><i class="material-icons">chrome_reader_mode</i>{{ text_blog }}</a></li>{% endif %}
-<li><a class="waves-effect" href="{{ about }}" rel="nofollow"><i class="material-icons">store</i>{{ text_about }}</a></li>
 <script>
 	var collapsible = $('.collapsible'),
 		sideSettings = $('#side-settings'),

@@ -120,17 +120,22 @@
 														</ul>
 														<div class="tab-content">
 															{% for language in languages %}
-															<div class="tab-pane fade" id="foter-descriptions{{ language.language_id }}">
-																<div class="form-group">
-																	<label class="col-sm-2 control-label">{{ entry_footer_title }}:</label>
-																	<div class="col-sm-10">
-																		<input type="text" name="theme_materialize[{{ language.language_id }}][footer_title]" value="{{ theme_materialize[language.language_id] ? theme_materialize[language.language_id].footer_title }}" placeholder="{{ entry_title }}" class="form-control" />
+															<div class="tab-pane fade" id="foter-descriptions{{ language.language_id }}"><div class="list-group-item">
+																<div class="media">
+																		<div class="media-body">
+																			<h4 class="media-heading text-medium">{{ entry_footer_title }}</h4>
+																			<hr>
+																			<input type="text" name="theme_materialize_settings[footer][{{ language.language_id }}][title]" value="{{ theme_materialize_settings.footer[language.language_id] ? theme_materialize_settings.footer[language.language_id].title }}" placeholder="{{ entry_title }}" class="form-control" />
+																		</div>
 																	</div>
 																</div>
-																<div class="form-group">
-																	<label class="col-sm-2 control-label">{{ entry_description }}:</label>
-																	<div class="col-sm-10">
-																		<textarea name="theme_materialize[{{ language.language_id }}][footer_description]" placeholder="{{ entry_description }}" class="form-control textarea-resize-vertical">{{ theme_materialize[language.language_id] ? theme_materialize[language.language_id].footer_description }}</textarea>
+																<div class="list-group-item">
+																	<div class="media">
+																		<div class="media-body">
+																			<h4 class="media-heading text-medium">{{ entry_description }}</h4>
+																			<hr>
+																			<textarea name="theme_materialize_settings[footer][{{ language.language_id }}][description]" placeholder="{{ entry_description }}" class="form-control textarea-resize-vertical">{{ theme_materialize_settings.footer[language.language_id] ? theme_materialize_settings.footer[language.language_id].description }}</textarea>
+																		</div>
 																	</div>
 																</div>
 															</div>
@@ -163,7 +168,7 @@
 																	{% for language in languages %}
 																	<div class="input-group">
 																		<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
-																		<input type="text" name="theme_materialize[{{ language.language_id }}][sn_text]" value="{{ theme_materialize[language.language_id] ? theme_materialize[language.language_id].sn_text }}" placeholder="{{ entry_text }}" class="form-control" />
+																		<input type="text" name="theme_materialize_settings[social][{{ language.language_id }}][title]" value="{{ theme_materialize_settings.social[language.language_id] ? theme_materialize_settings.social[language.language_id].title }}" placeholder="{{ entry_text }}" class="form-control" />
 																	</div>
 																	{% endfor %}
 																</p>
@@ -840,164 +845,204 @@
 									</div>
 								</div>
 								<div class="tab-pane" id="tab-image">
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-category-width">{{ entry_image_category }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_category_width" value="{{ theme_materialize_image_category_width }}" placeholder="{{ entry_width }}" id="input-image-category-width" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_category }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_category_width" value="{{ theme_materialize_image_category_width }}" placeholder="{{ entry_width }}" id="input-image-category-width" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_category_height" value="{{ theme_materialize_image_category_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_category_height" value="{{ theme_materialize_image_category_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_category %}
+												<div class="text-danger">{{ error_image_category }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_category %}
-											<div class="text-danger">{{ error_image_category }}</div>
-											{% endif %}
 										</div>
 									</div>
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-thumb-width">{{ entry_image_thumb }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_thumb_width" value="{{ theme_materialize_image_thumb_width }}" placeholder="{{ entry_width }}" id="input-image-thumb-width" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_thumb }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_thumb_width" value="{{ theme_materialize_image_thumb_width }}" placeholder="{{ entry_width }}" id="input-image-thumb-width" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_thumb_height" value="{{ theme_materialize_image_thumb_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_thumb_height" value="{{ theme_materialize_image_thumb_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_thumb %}
+												<div class="text-danger">{{ error_image_thumb }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_thumb %}
-											<div class="text-danger">{{ error_image_thumb }}</div>
-											{% endif %}
 										</div>
 									</div>
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-popup-width">{{ entry_image_popup }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_popup_width" value="{{ theme_materialize_image_popup_width }}" placeholder="{{ entry_width }}" id="input-image-popup-width" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_popup }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_popup_width" value="{{ theme_materialize_image_popup_width }}" placeholder="{{ entry_width }}" id="input-image-popup-width" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_popup_height" value="{{ theme_materialize_image_popup_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_popup_height" value="{{ theme_materialize_image_popup_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_popup %}
+												<div class="text-danger">{{ error_image_popup }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_popup %}
-											<div class="text-danger">{{ error_image_popup }}</div>
-											{% endif %}
 										</div>
 									</div>
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-product-width">{{ entry_image_product }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_product_width" value="{{ theme_materialize_image_product_width }}" placeholder="{{ entry_width }}" id="input-image-product-width" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_product }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_product_width" value="{{ theme_materialize_image_product_width }}" placeholder="{{ entry_width }}" id="input-image-product-width" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_product_height" value="{{ theme_materialize_image_product_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_product_height" value="{{ theme_materialize_image_product_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_product %}
+												<div class="text-danger">{{ error_image_product }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_product %}
-											<div class="text-danger">{{ error_image_product }}</div>
-											{% endif %}
 										</div>
 									</div>
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-additional-width">{{ entry_image_additional }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_additional_width" value="{{ theme_materialize_image_additional_width }}" placeholder="{{ entry_width }}" id="input-image-additional-width" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_additional }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_additional_width" value="{{ theme_materialize_image_additional_width }}" placeholder="{{ entry_width }}" id="input-image-additional-width" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_additional_height" value="{{ theme_materialize_image_additional_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_additional_height" value="{{ theme_materialize_image_additional_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_additional %}
+												<div class="text-danger">{{ error_image_additional }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_additional %}
-											<div class="text-danger">{{ error_image_additional }}</div>
-											{% endif %}
 										</div>
 									</div>
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-related">{{ entry_image_related }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_related_width" value="{{ theme_materialize_image_related_width }}" placeholder="{{ entry_width }}" id="input-image-related" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_related }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_related_width" value="{{ theme_materialize_image_related_width }}" placeholder="{{ entry_width }}" id="input-image-related" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_related_height" value="{{ theme_materialize_image_related_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_related_height" value="{{ theme_materialize_image_related_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_additional %}
+												<div class="text-danger">{{ error_image_additional }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_related %}
-											<div class="text-danger">{{ error_image_related }}</div>
-											{% endif %}
 										</div>
 									</div>
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-compare">{{ entry_image_compare }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_compare_width" value="{{ theme_materialize_image_compare_width }}" placeholder="{{ entry_width }}" id="input-image-compare" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_compare }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_compare_width" value="{{ theme_materialize_image_compare_width }}" placeholder="{{ entry_width }}" id="input-image-compare" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_compare_height" value="{{ theme_materialize_image_compare_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_compare_height" value="{{ theme_materialize_image_compare_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_compare %}
+												<div class="text-danger">{{ error_image_compare }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_compare %}
-											<div class="text-danger">{{ error_image_compare }}</div>
-											{% endif %}
 										</div>
 									</div>
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-wishlist">{{ entry_image_wishlist }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_wishlist_width" value="{{ theme_materialize_image_wishlist_width }}" placeholder="{{ entry_width }}" id="input-image-wishlist" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_wishlist }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_wishlist_width" value="{{ theme_materialize_image_wishlist_width }}" placeholder="{{ entry_width }}" id="input-image-wishlist" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_wishlist_height" value="{{ theme_materialize_image_wishlist_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_wishlist_height" value="{{ theme_materialize_image_wishlist_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_wishlist %}
+												<div class="text-danger">{{ error_image_wishlist }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_wishlist %}
-											<div class="text-danger">{{ error_image_wishlist }}</div>
-											{% endif %}
 										</div>
 									</div>
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-cart">{{ entry_image_cart }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_cart_width" value="{{ theme_materialize_image_cart_width }}" placeholder="{{ entry_width }}" id="input-image-cart" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_cart }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_cart_width" value="{{ theme_materialize_image_cart_width }}" placeholder="{{ entry_width }}" id="input-image-cart" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_cart_height" value="{{ theme_materialize_image_cart_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_cart_height" value="{{ theme_materialize_image_cart_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_cart %}
+												<div class="text-danger">{{ error_image_cart }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_cart %}
-											<div class="text-danger">{{ error_image_cart }}</div>
-											{% endif %}
 										</div>
 									</div>
-									<div class="form-group required">
-										<label class="col-sm-2 control-label" for="input-image-location">{{ entry_image_location }}:</label>
-										<div class="col-sm-10">
-											<div class="row">
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_location_width" value="{{ theme_materialize_image_location_width }}" placeholder="{{ entry_width }}" id="input-image-location" class="form-control" />
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium required">{{ entry_image_location }}</h4>
+												<hr>
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_location_width" value="{{ theme_materialize_image_location_width }}" placeholder="{{ entry_width }}" id="input-image-location" class="form-control" />
+													</div>
+													<div class="col-sm-6">
+														<input type="text" name="theme_materialize_image_location_height" value="{{ theme_materialize_image_location_height }}" placeholder="{{ entry_height }}" class="form-control" />
+													</div>
 												</div>
-												<div class="col-sm-6">
-													<input type="text" name="theme_materialize_image_location_height" value="{{ theme_materialize_image_location_height }}" placeholder="{{ entry_height }}" class="form-control" />
-												</div>
+												{% if error_image_location %}
+												<div class="text-danger">{{ error_image_location }}</div>
+												{% endif %}
+												<hr>
 											</div>
-											{% if error_image_location %}
-											<div class="text-danger">{{ error_image_location }}</div>
-											{% endif %}
 										</div>
 									</div>
 								</div>
@@ -1014,22 +1059,30 @@
 										<div class="col-sm-9">
 											<div class="tab-content">
 												<div class="tab-pane" id="tab-product-default">
-													<div class="form-group required">
-														<label class="col-sm-2 control-label" for="input-catalog-limit"><span data-toggle="tooltip" title="{{ help_product_limit }}">{{ entry_product_limit }}:</span></label>
-														<div class="col-sm-10">
-															<input type="text" name="theme_materialize_product_limit" value="{{ theme_materialize_product_limit }}" placeholder="{{ entry_product_limit }}" id="input-catalog-limit" class="form-control" />
-															{% if error_product_limit %}
-															<div class="text-danger">{{ error_product_limit }}</div>
-															{% endif %}
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium required" data-toggle="tooltip" title="{{ help_product_limit }}">{{ entry_product_limit }}</h4>
+																<hr>
+																<input type="text" name="theme_materialize_product_limit" value="{{ theme_materialize_product_limit }}" placeholder="{{ entry_product_limit }}" id="input-catalog-limit" class="form-control" />
+																{% if error_product_limit %}
+																<div class="text-danger">{{ error_product_limit }}</div>
+																{% endif %}
+																<hr>
+															</div>
 														</div>
 													</div>
-													<div class="form-group required">
-														<label class="col-sm-2 control-label" for="input-description-limit"><span data-toggle="tooltip" title="{{ help_product_description_length }}">{{ entry_product_description_length }}:</span></label>
-														<div class="col-sm-10">
-															<input type="text" name="theme_materialize_product_description_length" value="{{ theme_materialize_product_description_length }}" placeholder="{{ entry_product_description_length }}" id="input-description-limit" class="form-control" />
-															{% if error_product_description_length %}
-															<div class="text-danger">{{ error_product_description_length }}</div>
-															{% endif %}
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium required" data-toggle="tooltip" title="{{ help_product_description_length }}">{{ entry_product_description_length }}</h4>
+																<hr>
+																<input type="text" name="theme_materialize_product_description_length" value="{{ theme_materialize_product_description_length }}" placeholder="{{ entry_product_description_length }}" id="input-description-limit" class="form-control" />
+																{% if error_product_description_length %}
+																<div class="text-danger">{{ error_product_description_length }}</div>
+																{% endif %}
+																<hr>
+															</div>
 														</div>
 													</div>
 												</div>
@@ -1198,7 +1251,7 @@
 															</div>
 															<div class="media-right media-middle">
 																<label class="form-switch pull-right">
-																	<input name="theme_materialize_products[image][imagezoom]" type="checkbox" {{ theme_materialize_products.image.imagezoom == 'on' ? 'checked="checked"' }}>
+																	<input name="theme_materialize_products[imagezoom]" type="checkbox" {{ theme_materialize_products.imagezoom == 'on' ? 'checked="checked"' }}>
 																	<i></i>
 																</label>
 															</div>
@@ -1207,34 +1260,39 @@
 												</div>
 												<div class="tab-pane" id="tab-info-payment">
 													<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;{{ help_payment }}</div>
-													<div class="form-group">
-														<label class="col-sm-2 control-label">{{ entry_text }}:</label>
-														<div class="col-sm-10">
-															{% for language in languages %}
-															<div class="input-group">
-																<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
-																<input type="text" name="theme_materialize[{{ language.language_id }}][payment_text]" value="{{ theme_materialize[language.language_id] ? theme_materialize[language.language_id].payment_text }}" placeholder="{{ entry_text }}" class="form-control" />
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium required">{{ entry_text }}</h4>
+																<hr>
+																{% for language in languages %}
+																<div class="input-group">
+																	<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																	<input type="text" name="theme_materialize_products[payment][{{ language.language_id }}][text]" value="{{ theme_materialize_products.payment[language.language_id] ? theme_materialize_products.payment[language.language_id].text }}" placeholder="{{ entry_text }}" class="form-control" />
+																</div>
+																{% endfor %}
+																<hr>
 															</div>
-															{% endfor %}
 														</div>
 													</div>
-													<div class="form-group">
-														<label class="col-sm-2 control-label">{{ entry_payment_image }}:</label>
-														<div class="col-sm-10">
-															<a href="" id="thumb-payment-image" data-toggle="image" class="img-thumbnail"><img src="{{ theme_materialize_payment_thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
-															<input type="hidden" name="theme_materialize_payment_image" value="{{ theme_materialize_payment_image }}" id="input-payment-image" />
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_image_size }}">{{ entry_payment_image }}:</span></label>
-														<div class="col-sm-10">
-															<div class="row">
-																<div class="col-sm-6">
-																	<input type="text" name="theme_materialize_payment_image_width" value="{{ theme_materialize_payment_image_width }}" placeholder="{{ entry_payment_width }}" class="form-control" />
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium required">{{ entry_payment_image }}</h4>
+																<hr>
+																<div class="row">
+																	<div class="col-sm-6">
+																		<input type="text" name="theme_materialize_products[payment][image_width]" value="{{ theme_materialize_products.payment.image_width }}" placeholder="{{ entry_payment_width }}" class="form-control" />
+																	</div>
+																	<div class="col-sm-6">
+																		<input type="text" name="theme_materialize_products[payment][image_height]" value="{{ theme_materialize_products.payment.image_height }}" placeholder="{{ entry_payment_height }}" class="form-control" />
+																	</div>
 																</div>
-																<div class="col-sm-6">
-																	<input type="text" name="theme_materialize_payment_image_height" value="{{ theme_materialize_payment_image_height }}" placeholder="{{ entry_payment_height }}" class="form-control" />
-																</div>
+																<hr>
+															</div>
+															<div class="media-right media-middle">
+																<a href="" id="thumb-payment-image" data-toggle="image" class="img-thumbnail materialize-color-thumbnail"><img src="{{ theme_materialize_payment_thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+																<input type="hidden" name="theme_materialize_products[payment][image]" value="{{ theme_materialize_products.payment.image }}" id="input-payment-image" />
 															</div>
 														</div>
 													</div>

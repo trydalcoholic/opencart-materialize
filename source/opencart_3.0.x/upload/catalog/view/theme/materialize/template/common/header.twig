@@ -69,7 +69,7 @@
 	<![endif]-->
 </head>
 <body class="{{ color_background }}">
-	<header class="href-underline {{ color_header }}">
+	<header class="href-underline">
 		<div class="hide-on-small-only {{ color_top_menu }}">
 			<div class="container">
 				<div class="row no-margin-bottom">
@@ -84,9 +84,12 @@
 								{% endif %}
 								<ul class="right">
 									{% if blog %}<li class="waves-effect waves-light"><a class="{{ color_top_menu_text }}" href="{{ blog }}">{{ text_blog }}</a></li>{% endif %}
-									<li class="waves-effect waves-light"><a class="{{ color_top_menu_text }}" href="{{ delivery }}">{{ text_delivery }}</a></li>
+									{% if informations %}
+										{% for information in informations %}
+										<li class="waves-effect waves-light"><a class="{{ color_top_menu_text }}" href="{{ information.href }}">{{ information.title }}</a></li>
+										{% endfor %}
+									{% endif %}
 									<li class="waves-effect waves-light"><a class="{{ color_top_menu_text }}" href="{{ contact }}">{{ text_contact }}</a></li>
-									<li class="waves-effect waves-light"><a class="{{ color_top_menu_text }}" href="{{ about }}">{{ text_about }}</a></li>
 									<li class="waves-effect waves-light reset-position">
 										<a id="dropdown-lk" class="dropdown-trigger {{ color_top_menu_text }}" href="{{ account }}" data-target="dropdown-top-lk" rel="nofollow">{{ text_account }}</a>
 										<ul id="dropdown-top-lk" class="dropdown-content">
@@ -113,7 +116,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row no-margin-bottom top-container">
+		<div class="row no-margin-bottom top-container {{ color_header }}">
 			<div class="container">
 				<div class="valign-wrapper">
 					<div class="col s12 m4">
@@ -126,13 +129,11 @@
 						{% endif %}
 					</div>
 					<div class="col m8 right-align hide-on-small-only {{ color_header_text }}">
-						<a class="href-underline text-bold flow-text block {{ color_header_text }}" href="tel:{{ telephone }}">{{ telephone }}</a>
+						{% if telephone_status %}<a class="href-underline text-bold flow-text block {{ color_header_text }}" href="tel:{{ telephone }}">{{ telephone }}</a>{% endif %}
 						<ul class="right contact-info">
-							<li><a href="mailto:{{ email }}" class="{{ color_header_text }}"><i class="material-icons left">email</i>{{ email }}</a></li>
+							{% if email %}<li><a href="mailto:{{ email }}" class="{{ color_header_text }}"><i class="material-icons left">email</i>{{ email }}</a></li>{% endif %}
 							{% if callback_status %}<li><a href="#callback__modal" class="modal-trigger activator {{ color_header_text }}" rel="nofollow"><i class="material-icons left">phone_in_talk</i>{{ callback_title }}</a></li>{% endif %}
-							{% if open %}
-							<li><i class="material-icons left">access_time</i>{{ open }}</li>
-							{% endif %}
+							{% if open %}<li><i class="material-icons left">access_time</i>{{ open }}</li>{% endif %}
 						</ul>
 					</div>
 				</div>

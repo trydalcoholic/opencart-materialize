@@ -113,7 +113,7 @@
 							</div>
 							<div class="card-action center-align grey lighten-5">
 								{% if product.add_cart %}
-								<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
+								<button class="btn btn-floating btn-large waves-effect waves-light add-cart {{ color_add_cart }} {{ color_add_cart_text }}" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
 								{% else %}
 								<button class="btn btn-floating btn-large add-cart" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
 								{% endif %}
@@ -148,7 +148,7 @@
 									{% endif %}
 									</span>
 								</div>
-								<a href="{{ product.href }}" class="btn waves-effect waves-light red width-max">{{ text_more_detailed }}</a>
+								<a href="{{ product.href }}" class="btn waves-effect waves-light width-max {{ color_more_detailed }} {{ color_more_detailed_text }}">{{ text_more_detailed }}</a>
 							</div>
 							<div class="card-reveal">
 								<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a><i class="material-icons waves-effect waves-circle close-icon">close</i></span>

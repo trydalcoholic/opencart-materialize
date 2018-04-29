@@ -68,12 +68,9 @@
 	left: 100%;
 }
 
-
-/*** DEMO SKIN ***/
-
 .sf-menu ul {
-	min-width: 12em; /* allow long menu items to determine submenu width */
-	*width: 12em; /* no auto sub width for IE7, see white-space comment below */
+	min-width: 12em;
+	*width: 12em;
 }
 .sf-menu ul li.divider {
     min-height: 0;
@@ -81,11 +78,11 @@
 }
 .sf-menu a {
 	text-decoration: none;
-	zoom: 1; /* IE7 */
+	zoom: 1;
 }
 .sf-menu li {
-	white-space: nowrap; /* no need for Supersubs plugin */
-	*white-space: normal; /* ...unless you support IE7 (let it wrap) */
+	white-space: nowrap;
+	*white-space: normal;
 }
 
 
@@ -113,11 +110,8 @@
   position: relative;
 }
 
-
-/*** DEMO SKIN ***/
-
 .sf-menu .sf-mega {
-  width: 100%; /* allow long menu items to determine submenu width */
+  width: 100%;
 }
 .sf-menu > li > a {
 	text-decoration: none;
@@ -131,9 +125,6 @@
 	cursor: pointer;
 }
 
-
-
-/*** mega menu dropdown ***/
 .sf-mega {
   box-sizing: border-box;
   width: 100%;
@@ -143,12 +134,7 @@
   width: 8em; /* optional */
 }
 
-.sf-menu {
-	/*position: static;*/
-}
-
 .sf-menu li {
-	/*position: static;*/
 	white-space: normal;
 }
 
@@ -456,6 +442,7 @@ figcaption {padding:1rem 0;}
 .side-info a {display:block;margin-top:16px;padding:0;font-size:14px;line-height:24px;}
 .side-info a:last-child {padding-bottom:16px;}
 .sidenav li>a {padding:0 16px;}
+#search-side ul.autocomplete-content img {width:40px !important;height:40px !important;}
 span.collapsible-header>.material-icons {
 	float: left;
 	height: 48px;
@@ -896,6 +883,8 @@ span.collapsible-header {
 	.collection-item.child {padding-left:30px;}
 	/* Google reCaptcha */
 	.g-recaptcha>div:first-child {margin:0 auto;}
+	/* Google reCaptcha */
+	.slick-slider-slideshow ul.slick-dots {bottom:5px !important;}
 
 /*========== Blog ==========*/
 .blog-card .card .card-title {font-weight:400 !important;}

@@ -74,14 +74,14 @@
 							<li><a class="{{ color_footer_text }}" href="{{ newsletter }}" rel="nofollow">{{ text_newsletter }}</a></li>
 						</ul>
 					</section>
-					{% if social_network %}
+					{% if social_show %}
 					<section class="col {{ col_social_network }}">
-						<h5 class="text-bold">{{ sn_text }}</h5>
+						<h5 class="text-bold">{{ social_title }}</h5>
 						{% if social_icons %}
 						<ul class="footer-sn">
 							{% for social_icon in social_icons %}
 							<li class="footer-sn__item">
-								<a class="{{ color_footer_text }}" href="{{ social_icon.link }}" title="{{ social_icon.title }}" target="_blank" rel="noopener{{ no_index }}">
+								<a class="{{ color_footer_text }}" href="{{ social_icon.link }}" title="{{ social_icon.title }}" target="_blank" rel="noopener{{ social_not_index }}">
 									<img class="width-max waves-effect waves-light lazyload" src="{{ img_loader }}" data-src="{{ social_icon.icon }}" alt="{{ social_icon.title }}">
 								</a>
 							</li>

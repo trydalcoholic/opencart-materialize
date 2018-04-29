@@ -5,6 +5,49 @@
 	<version>0.81</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Information page in the top menu -->
+	<file path="admin/controller/catalog/information.php">
+		<operation error="log">
+			<search><![CDATA[$this->response->setOutput($this->load->view('catalog/information_form', $data));]]></search>
+			<add position="before"><![CDATA[
+			if (isset($this->request->post['top'])) {
+				$data['top'] = $this->request->post['top'];
+			} elseif (!empty($information_info)) {
+				$data['top'] = $information_info['top'];
+			} else {
+				$data['top'] = 0;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/catalog/information.php">
+		<operation error="log">
+			<search><![CDATA[bottom = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "',]]></search>
+			<add position="replace"><![CDATA[bottom = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', top = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "',]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/catalog/information_form.twig">
+		<operation error="log">
+			<search index="3"><![CDATA[<div class="form-group">]]></search>
+			<add position="before"><![CDATA[
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="input-top"><span data-toggle="tooltip" title="{{ help_top }}">{{ entry_top }}</span></label>
+				<div class="col-sm-10">
+					<div class="checkbox">
+						<label>
+							{% if top %}
+							<input type="checkbox" name="top" value="1" checked="checked" id="input-top" />
+							{% else %}
+							<input type="checkbox" name="top" value="1" id="input-top" />
+							{% endif %}
+							&nbsp;
+						</label>
+					</div>
+				</div>
+			</div>
+			]]></add>
+		</operation>
+	</file>
 	<!-- Materialize Megamenu -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
@@ -41,7 +84,7 @@
 		<operation error="log">
 			<search><![CDATA[$data['categories'] = array();]]></search>
 			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_status') == 1) {
+			if ($materialize) {
 				$colors = $this->config->get('theme_materialize_colors');
 
 				$data['color_navigation'] = $colors['navigation'];
@@ -109,45 +152,24 @@
 			<add position="after"><![CDATA[$data['permissions'] = array('extension/materialize');]]></add>
 		</operation>
 	</file>
-	<!-- Compressed CSS -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_cache_css') == 1) {
-				$css = $this->cache->get('compressed.css');
-
-				if (!$css) {
-					$css = file_get_contents('catalog/view/theme/materialize/stylesheet/style.css');
-					$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
-					$css = str_replace(': ', ':', $css);
-					$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
-
-					$this->cache->set('compressed.css', $css);
-				}
-
-				$data['css'] = $css;
-			} else {
-				$css = file_get_contents('catalog/view/theme/materialize/stylesheet/style.css');
-				$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
-				$css = str_replace(': ', ':', $css);
-				$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
-
-				$data['css'] = $css;
-			}
-			]]></add>
-		</operation>
-	</file>
 	<!-- Metadata -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
+			$materialize_settings = $this->config->get('theme_materialize_settings');
+
+			$materialize_social = $materialize_settings['social'];
+
+			if (!empty($materialize_social['meta_data'])) {
+				$this->load->model('extension/materialize/materialize');
+
+				$data['social_links'] = $this->model_extension_materialize_materialize->getSocialLinks();
+			} else {
+				$data['social_links'] = false;
+			}
+
 			$this->load->model('tool/image');
-
-			$this->load->model('extension/materialize/materialize');
-
-			$data['social_links'] = $this->model_extension_materialize_materialize->getSocialLinks();
 
 			$facebook_share_image_width = 600;
 			$facebook_share_image_height = 315;
@@ -288,7 +310,7 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search index="0"><![CDATA[if ($product_info['image']) {]]></search>
-			<add position="before"><![CDATA[if ($this->config->get('theme_materialize_status') == 0) {]]></add>
+			<add position="before"><![CDATA[if (!$materialize) {]]></add>
 		</operation>
 		<operation error="log">
 			<search index="0"><![CDATA[if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {]]></search>
@@ -328,7 +350,9 @@
 					$data['thumb_images'] = false;
 				}
 
-				if ($this->config->get('theme_materialize_image_zoom') == 1) {
+				$image_info = $this->config->get('theme_materialize_products');
+
+				if (isset($image_info['imagezoom'])) {
 					$data['image_zoom'] = true;
 				} else {
 					$data['image_zoom'] = false;
@@ -999,7 +1023,7 @@
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_status') == 1) {
+			if ($materialize) {
 				$colors = $this->config->get('theme_materialize_colors');
 
 				$data['color_browser_bar'] = $colors['browser_bar'];
@@ -1016,6 +1040,32 @@
 				$data['color_compare_text'] = $colors['compare_btn_text'];
 				$data['color_compare_total'] = $colors['compare_total_btn'];
 				$data['color_compare_total_text'] = $colors['compare_total_btn_text'];
+
+				$materialize_settings = $this->config->get('theme_materialize_settings');
+
+				$materialize_cache = $materialize_settings['cache']['css'];
+
+				if (!empty($materialize_cache)) {
+					$css = $this->cache->get('compressed.css');
+
+					if (!$css) {
+						$css = file_get_contents('catalog/view/theme/materialize/stylesheet/style.css');
+						$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
+						$css = str_replace(': ', ':', $css);
+						$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
+
+						$this->cache->set('compressed.css', $css);
+					}
+
+					$data['css'] = $css;
+				} else {
+					$css = file_get_contents('catalog/view/theme/materialize/stylesheet/style.css');
+					$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
+					$css = str_replace(': ', ':', $css);
+					$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
+
+					$data['css'] = $css;
+				}
 			}
 			]]></add>
 		</operation>
@@ -1024,7 +1074,7 @@
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_status') == 1) {
+			if ($materialize) {
 				$colors = $this->config->get('theme_materialize_colors');
 
 				$data['color_cart'] = $colors['cart_btn'];
@@ -1039,9 +1089,10 @@
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_status') == 1) {
+			if ($materialize) {
 				$colors = $this->config->get('theme_materialize_colors');
 
+				$data['color_header'] = $colors['header'];
 				$data['color_search'] = $colors['search'];
 				$data['color_search_text'] = $colors['search_text'];
 			}
@@ -1052,55 +1103,111 @@
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_status') == 1) {
-				$materialize = $this->config->get('theme_materialize');
-
-				$data['footer_title'] = $materialize[$this->config->get('config_language_id')]['footer_title'];
-				$data['footer_description'] = $materialize[$this->config->get('config_language_id')]['footer_description'];
-				$data['footer_contact'] = $this->config->get('theme_materialize_footer_contact');
-				$data['telephone'] = $this->config->get('config_telephone');
-				$data['open'] = nl2br($this->config->get('config_open'));
-				$data['email'] = $this->config->get('config_email');
-				$data['address'] = nl2br($this->config->get('config_address'));
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-				$data['sn_text'] = $materialize[$this->config->get('config_language_id')]['sn_text'];
-
-				$this->load->model('tool/image');
-
-				$this->load->model('extension/materialize/materialize');
-
-				$data['social_network'] = true;
-
-				$data['social_icons'] = array();
-
-				$results = $this->model_extension_materialize_materialize->getSocialIcons();
-
-				foreach ($results as $result) {
-					if (is_file(DIR_IMAGE . $result['icon'])) {
-						$data['social_icons'][] = array(
-							'title'	=> $result['title'],
-							'link'	=> $result['link'],
-							'icon'	=> $this->model_tool_image->resize($result['icon'], 75, 75)
-						);
-					}
-				}
-
-				if ($this->config->get('theme_materialize_sn_index') == 1) {
-					$data['no_index'] = ' nofollow';
-				} else {
-					$data['no_index'] = false;
-				}
-
-				if (empty($data['sn_text']) && empty($data['social_icons'])) {
-					$data['social_network'] = false;
-				}
-
+			if ($materialize) {
 				$colors = $this->config->get('theme_materialize_colors');
 
 				$data['color_footer'] = $colors['footer'];
 				$data['color_footer_text'] = $colors['footer_text'];
 				$data['color_btt'] = $colors['btt_btn'];
 				$data['color_btt_text'] = $colors['btt_btn_text'];
+
+				$materialize_settings = $this->config->get('theme_materialize_settings');
+
+				$materialize_footer = $materialize_settings['footer'];
+
+				$data['footer_title'] = $materialize_footer[$this->config->get('config_language_id')]['title'];
+				$data['footer_description'] = $materialize_footer[$this->config->get('config_language_id')]['description'];
+
+				if (!empty($materialize_footer['contact_information'])) {
+					$data['footer_contact'] = $materialize_footer['contact_information'];
+					$data['email'] = $this->config->get('config_email');
+					$data['telephone'] = $this->config->get('config_telephone');
+					$data['open'] = nl2br($this->config->get('config_open'));
+					$data['address'] = nl2br($this->config->get('config_address'));
+				} else {
+					$data['footer_contact'] = '';
+				}
+
+				$materialize_social = $materialize_settings['social'];
+
+				if (!empty($materialize_social['show_footer'])) {
+					$data['social_show'] = true;
+					$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+					$data['social_title'] = $materialize_social[$this->config->get('config_language_id')]['title'];
+
+					if (!empty($materialize_social['not_index'])) {
+						$data['social_not_index'] = ' nofollow';
+					} else {
+						$data['social_not_index'] = false;
+					}
+
+					$this->load->model('tool/image');
+
+					$this->load->model('extension/materialize/materialize');
+
+					$data['social_network'] = true;
+
+					$data['social_icons'] = array();
+
+					$results = $this->model_extension_materialize_materialize->getSocialIcons();
+
+					foreach ($results as $result) {
+						if (is_file(DIR_IMAGE . $result['icon'])) {
+							$data['social_icons'][] = array(
+								'title'	=> $result['title'],
+								'link'	=> $result['link'],
+								'icon'	=> $this->model_tool_image->resize($result['icon'], 75, 75)
+							);
+						}
+					}
+				} else {
+					$data['social_show'] = false;
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/{bestseller,featured,latest,special}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index($setting) {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == true) {
+				$colors = $this->config->get('theme_materialize_colors');
+
+				$data['color_add_cart'] = $colors['add_cart'];
+				$data['color_add_cart_text'] = $colors['add_cart_text'];
+				$data['color_more_detailed'] = $colors['more_detailed'];
+				$data['color_more_detailed_text'] = $colors['more_detailed_text'];
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/{category,search,special}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($materialize) {
+				$colors = $this->config->get('theme_materialize_colors');
+
+				$data['color_add_cart'] = $colors['add_cart'];
+				$data['color_add_cart_text'] = $colors['add_cart_text'];
+				$data['color_more_detailed'] = $colors['more_detailed'];
+				$data['color_more_detailed_text'] = $colors['more_detailed_text'];
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/manufacturer.php">
+		<operation error="log">
+			<search><![CDATA[public function info() {]]></search>
+			<add position="after"><![CDATA[
+			if ($materialize) {
+				$colors = $this->config->get('theme_materialize_colors');
+
+				$data['color_add_cart'] = $colors['add_cart'];
+				$data['color_add_cart_text'] = $colors['add_cart_text'];
+				$data['color_more_detailed'] = $colors['more_detailed'];
+				$data['color_more_detailed_text'] = $colors['more_detailed_text'];
 			}
 			]]></add>
 		</operation>
@@ -1109,66 +1216,69 @@
 		<operation error="log">
 			<search><![CDATA[$this->load->model('tool/image');]]></search>
 			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_status') == 1) {
-				$materialize = $this->config->get('theme_materialize');
+			if ($materialize) {
+				$colors = $this->config->get('theme_materialize_colors');
 
-				$data['payment_method'] = $materialize[$this->config->get('config_language_id')]['payment_text'];
+				$data['color_add_cart'] = $colors['add_cart'];
+				$data['color_add_cart_text'] = $colors['add_cart_text'];
+				$data['color_more_detailed'] = $colors['more_detailed'];
+				$data['color_more_detailed_text'] = $colors['more_detailed_text'];
 
-				if ($this->config->get('theme_materialize_payment_image') == true) {
-					$data['payment_image'] = $this->model_tool_image->resize($this->config->get('theme_materialize_payment_image'), $this->config->get('theme_materialize_payment_image_width'), $this->config->get('theme_materialize_payment_image_height'));
-				} else {
-					$data['payment_image'] = '';
-				}
+				$materialize_settings = $this->config->get('theme_materialize_products');
 
-				if ($this->config->get('theme_materialize_show_model') == 1) {
+				$materialize_fields = $materialize_settings['fields'];
+
+				$materialize_payment = $materialize_settings['payment'];
+
+				if (isset($materialize_fields['model'])) {
 					$data['model'] = $product_info['model'];
 				} else {
 					$data['model'] = '';
 				}
 
-				if ($this->config->get('theme_materialize_show_sku') == 1) {
+				if (isset($materialize_fields['sku'])) {
 					$data['sku'] = $product_info['sku'];
 				} else {
 					$data['sku'] = '';
 				}
 
-				if ($this->config->get('theme_materialize_show_upc') == 1) {
+				if (isset($materialize_fields['upc'])) {
 					$data['upc'] = $product_info['upc'];
 				} else {
 					$data['upc'] = '';
 				}
 
-				if ($this->config->get('theme_materialize_show_ean') == 1) {
+				if (isset($materialize_fields['ean'])) {
 					$data['ean'] = $product_info['ean'];
 				} else {
 					$data['ean'] = '';
 				}
 
-				if ($this->config->get('theme_materialize_show_jan') == 1) {
+				if (isset($materialize_fields['jan'])) {
 					$data['jan'] = $product_info['jan'];
 				} else {
 					$data['jan'] = '';
 				}
 
-				if ($this->config->get('theme_materialize_show_isbn') == 1) {
+				if (isset($materialize_fields['isbn'])) {
 					$data['isbn'] = $product_info['isbn'];
 				} else {
 					$data['isbn'] = '';
 				}
 
-				if ($this->config->get('theme_materialize_show_mpn') == 1) {
+				if (isset($materialize_fields['mpn'])) {
 					$data['mpn'] = $product_info['mpn'];
 				} else {
 					$data['mpn'] = '';
 				}
 
-				if ($this->config->get('theme_materialize_show_location') == 1) {
+				if (isset($materialize_fields['location'])) {
 					$data['location'] = $product_info['location'];
 				} else {
 					$data['location'] = '';
 				}
 
-				if ($this->config->get('theme_materialize_show_dimensions') == 1) {
+				if (isset($materialize_fields['dimension'])) {
 					$data['dimensions_length'] = $this->length->format($product_info['length'], $product_info['length_class_id']);
 					$data['dimensions_width'] = $this->length->format($product_info['width'], $product_info['length_class_id']);
 					$data['dimensions_height'] = $this->length->format($product_info['height'], $product_info['length_class_id']);
@@ -1178,38 +1288,19 @@
 					$data['dimensions_height'] = '';
 				}
 
-				if ($this->config->get('theme_materialize_show_weight') == 1) {
+				if (isset($materialize_fields['weight'])) {
 					$data['weight'] = $this->weight->format($product_info['weight'], $product_info['weight_class_id']);
 				} else {
 					$data['weight'] = '';
 				}
 
-				if (!empty($this->config->get('theme_materialize_remainder'))) {
-					$data['remainder'] = $product_info['quantity'];
 
-					if ($this->config->get('theme_materialize_remainder') == 'numerical') {
-						$data['type_remainder'] = 'numerical';
-					} elseif ($this->config->get('theme_materialize_remainder') == 'progressbar') {
-						$data['type_remainder'] = 'progressbar';
-						$data['progressbar_percent'] = round(($product_info['quantity'] * 100)/$this->config->get('theme_materialize_percent_remainder'));
-
-						if ($data['progressbar_percent'] <= 5) {
-							$data['progressbar_color'] = 'red accent-4';
-						} elseif (($data['progressbar_percent'] > 5) && ($data['progressbar_percent'] <= 10)) {
-							$data['progressbar_color'] = 'red';
-						} elseif (($data['progressbar_percent'] > 11) && ($data['progressbar_percent'] <= 30)) {
-							$data['progressbar_color'] = 'yellow';
-						} elseif (($data['progressbar_percent'] > 30) && ($data['progressbar_percent'] <= 70)) {
-							$data['progressbar_color'] = 'green lighten-1';
-						} elseif (($data['progressbar_percent'] > 70) && ($data['progressbar_percent'] <= 100)) {
-							$data['progressbar_color'] = 'green';
-						} elseif ($data['progressbar_percent'] > 100) {
-							$data['progressbar_color'] = 'green';
-							$data['progressbar_percent'] = '100';
-						}
-					}
+				if (isset($materialize_payment['image'])) {
+					$data['payment_text'] = $materialize_settings['payment'][$this->config->get('config_language_id')]['text'];
+					$data['payment_image'] = $this->model_tool_image->resize($materialize_settings['payment']['image'], $materialize_settings['payment']['image_width'], $materialize_settings['payment']['image_height']);
 				} else {
-					$data['type_remainder'] = '';
+					$data['payment_text'] = '';
+					$data['payment_image'] = '';
 				}
 			}
 			]]></add>
@@ -2201,42 +2292,13 @@
 			]]></add>
 		</operation>
 	</file>
-	<!-- Other Materialize Settings -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			$data['delivery'] = $this->url->link('information/information' . '&information_id=6');
-			$data['about'] = $this->url->link('information/information' . '&information_id=4');
-			]]></add>
-		</operation>
-	</file>
+	<!-- Product meta data -->
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
-			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
-			<add position="after"><![CDATA[$data['pricecurrency'] = $this->session->data['currency'];]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[$data['rating'] = (int)$product_info['rating'];]]></search>
-			<add position="after"><![CDATA[$data['reviewCount'] = sprintf((int)$product_info['reviews']);]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/information/contact.php">
-		<operation error="log">
-			<search><![CDATA[$data['comment'] = $this->config->get('config_comment');]]></search>
-			<add position="before"><![CDATA[$data['email_store'] = $this->config->get('config_email');]]></add>
-		</operation>
-	</file>
-	<!-- Getting the size of the logo -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="log">
-			<search><![CDATA[$data['logo'] = $server . 'image/' . $this->config->get('config_logo');]]></search>
+			<search><![CDATA[if ($product_info) {]]></search>
 			<add position="after"><![CDATA[
-			$this->load->model('tool/image');
-			$file = $server . 'image/' . $this->config->get('config_logo');
-			$info = getimagesize($file);
-			$data['logo_width']  = $info[0];
-			$data['logo_height'] = $info[1];
+			$data['pricecurrency'] = $this->session->data['currency'];
+			$data['reviewCount'] = (int)$product_info['reviews'];
 			]]></add>
 		</operation>
 	</file>
@@ -2274,14 +2336,15 @@
 	<!-- Add category in product card -->
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
-			<search><![CDATA[$this->document->setDescription($product_info['meta_description']);]]></search>
-			<add position="replace"><![CDATA[
-			$this->document->setDescription($product_info['meta_description']);
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[
 			$this->load->model('catalog/category');
-			$catprod = array();
-			$product_category = $this->model_catalog_product->getCategories($product_id);
-			foreach ($product_category as $product_cat) {
-				$category_info = $this->model_catalog_category->getCategory($product_cat['category_id']);
+
+			$product_categories = $this->model_catalog_product->getCategories($product_id);
+
+			foreach ($product_categories as $product_category) {
+				$category_info = $this->model_catalog_category->getCategory($product_category['category_id']);
+
 				if ($category_info) {
 					$data['category_products'][] = array(
 						'name'	=> $category_info['name'],
@@ -2314,16 +2377,6 @@
 			<add position="after"><![CDATA[
 			$data['product_spec'] = $this->model_catalog_product->getProductSpec($product_id);
 			$data['end_promotion'] = date($this->language->get('date_format_short'), strtotime($this->model_catalog_product->getProductSpec($product_id)));
-			]]></add>
-		</operation>
-	</file>
-	<!-- Add compare -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			$data['compare'] = $this->url->link('product/compare');
-			$data['text_compare'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
 			]]></add>
 		</operation>
 	</file>
@@ -2384,11 +2437,7 @@
 	<file path="system/library/image.php">
 		<operation error="log">
 			<search><![CDATA[public function save($file, $quality = 90) {]]></search>
-			<add position="replace"><![CDATA[public function save($file) {]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA[imagejpeg($this->image, $file, $quality);]]></search>
-			<add position="replace"><![CDATA[imagejpeg($this->image, $file);]]></add>
+			<add position="replace"><![CDATA[public function save($file, $quality = 100) {]]></add>
 		</operation>
 	</file>
 	<!-- Display weight in product card -->
@@ -2410,23 +2459,17 @@
 	<file path="catalog/controller/common/menu.php">
 		<operation error="log">
 			<search><![CDATA['name'  => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
-			<add position="replace"><![CDATA[
-			'name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),
-			]]></add>
+			<add position="replace"><![CDATA['name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/category.php">
 		<operation error="log">
 			<search><![CDATA['name' => $child['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
-			<add position="replace"><![CDATA[
-			'name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),
-			]]></add>
+			<add position="replace"><![CDATA['name' => ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $child['name'] . '</span>' : $child['name']),]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA['name'        => $category['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),]]></search>
-			<add position="replace"><![CDATA[
-			'name'	=> ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $category['name'] . '</span>' : $category['name']),
-			]]></add>
+			<add position="replace"><![CDATA['name'	=> ($this->config->get('config_product_count') ? '<span class="new-badge" data-badge="' . $this->model_catalog_product->getTotalProducts($filter_data) . '">' . $category['name'] . '</span>' : $category['name']),]]></add>
 		</operation>
 	</file>
 	<!-- Related products -->
@@ -2503,9 +2546,9 @@
 			<search><![CDATA[$this->load->model('tool/image');]]></search>
 			<add position="after"><![CDATA[
 			$manufacturer_image = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
+
 			if ($manufacturer_image) {
 				$data['manufacturers_img'] = $this->model_tool_image->resize($manufacturer_image['image'], 100, 100);
-				$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 			} else {
 				$data['manufacturers_img'] = false;
 			}
@@ -2516,29 +2559,23 @@
 	<!-- Adding the manufacturer's logo on the manufacturer's list -->
 	<file path="catalog/controller/product/manufacturer.php">
 		<operation error="log">
-			<search><![CDATA['href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])]]></search>
-			<add position="before"><![CDATA[
-			'logo' => $this->model_tool_image->resize($result['image'], 100, 100),
-			]]>
+			<search><![CDATA['name' => $result['name'],]]></search>
+			<add position="after"><![CDATA['logo' => $this->model_tool_image->resize($result['image'], 100, 100),]]>
 			</add>
 		</operation>
 	</file>
 	<!-- Stock Statuses -->
 	<file path="catalog/model/catalog/product.php">
 		<operation error="log">
-			<search><![CDATA['stock_status'     => $query->row['stock_status'],]]></search>
-			<add position="after"><![CDATA[
-			'stock_status_id'  => $query->row['stock_status_id'],
-			]]>
+			<search><![CDATA[return array(]]></search>
+			<add position="after"><![CDATA['stock_status_id'  => $query->row['stock_status_id'],]]>
 			</add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
-			<search><![CDATA[$data['points'] = $product_info['points'];]]></search>
-			<add position="after"><![CDATA[
-			$data['stock_status_id'] = $product_info['stock_status_id'];
-			]]>
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[$data['stock_status_id'] = $product_info['stock_status_id'];]]>
 			</add>
 		</operation>
 		<operation error="log">
@@ -3125,7 +3162,7 @@
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[if ($product_info) {]]></search>
-			<add position="before"><![CDATA[
+			<add position="after"><![CDATA[
 			if ($this->config->get('module_customtabs_status') == 1) {
 				$data['customtabs'] = array();
 
@@ -3372,15 +3409,6 @@
 		</operation>
 	</file>
 	<!-- Languages settings -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="skip">
-			<search><![CDATA[$data['name'] = $this->config->get('config_name');]]></search>
-			<add position="after"><![CDATA[
-			$data['email'] = $this->config->get('config_email');
-			$data['open'] = nl2br($this->config->get('config_open'));
-			]]></add>
-		</operation>
-	</file>
 	<file path="catalog/controller/common/cart.php">
 		<operation error="log">
 			<search><![CDATA[$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
@@ -3396,7 +3424,7 @@
 	<file path="catalog/controller/product/compare.php">
 		<operation error="log">
 			<search><![CDATA[$json['total'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></search>
-			<add position="replace"><![CDATA[$json['total'] = sprintf((isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));]]></add>
+			<add position="replace"><![CDATA[$json['total'] = (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);]]></add>
 		</operation>
 	</file>
 	<file path="admin/controller/{catalog,common}/{product,category,column_left}*.php">
@@ -3466,6 +3494,88 @@
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
 			<add position="replace"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
+		</operation>
+	</file>
+	<!-- Template settings -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($materialize) {
+				$this->load->model('catalog/information');
+
+				$data['informations'] = array();
+
+				foreach ($this->model_catalog_information->getInformations() as $result) {
+					if ($result['top']) {
+						$data['informations'][] = array(
+							'title'	=> $result['title'],
+							'href'	=> $this->url->link('information/information', 'information_id=' . $result['information_id'])
+						);
+					}
+				}
+
+				$data['compare'] = $this->url->link('product/compare');
+				$data['text_compare'] = (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
+
+				$materialize_header = $this->config->get('theme_materialize_settings');
+
+				if (isset($materialize_header['header']['phone'])) {
+					$data['telephone_status'] = true;
+				} else {
+					$data['telephone_status'] = false;
+				}
+
+				if (isset($materialize_header['header']['email'])) {
+					$data['email'] = $this->config->get('config_email');
+				} else {
+					$data['email'] = false;
+				}
+
+				if (isset($materialize_header['header']['working_hours'])) {
+					$data['open'] = nl2br($this->config->get('config_open'));
+				} else {
+					$data['open'] = false;
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+	<!-- Register a template installation -->
+	<file path="catalog/controller/common/{cart,footer,header,menu,search}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$materialize = true;
+			} else {
+				$materialize = false;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/{category,compare,product,search,special}*.php">
+		<operation error="log">
+			<search><![CDATA[public function index() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$materialize = true;
+			} else {
+				$materialize = false;
+			}
+			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/manufacturer.php">
+		<operation error="log">
+			<search><![CDATA[public function info() {]]></search>
+			<add position="after"><![CDATA[
+			if ($this->config->get('theme_materialize_status') == 1) {
+				$materialize = true;
+			} else {
+				$materialize = false;
+			}
+			]]></add>
 		</operation>
 	</file>
 </modification>

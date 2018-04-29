@@ -383,20 +383,20 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$theme_materialize[$language['language_id']][] = $this->language->get('theme_materialize');
 		}*/
 
-		if (isset($this->request->post['theme_materialize'])) {
+		/*if (isset($this->request->post['theme_materialize'])) {
 			$data['theme_materialize'] = $this->request->post['theme_materialize'];
 		} elseif ($this->config->get('theme_materialize') == true) {
 			$data['theme_materialize'] = $this->config->get('theme_materialize');
 		} else {
 			$data['theme_materialize'] = '';
-		}
+		}*/
 
 		/* Common */
 
 		if (isset($this->request->post['theme_materialize_settings'])) {
 			$data['theme_materialize_settings'] = $this->request->post['theme_materialize_settings'];
-		} elseif ($this->config->get('theme_materialize_settings') == true) {
-			$data['theme_materialize_settings'] = $this->config->get('theme_materialize_settings');
+		} elseif (isset($setting_info['theme_materialize_settings'])) {
+			$data['theme_materialize_settings'] = $setting_info['theme_materialize_settings'];
 		} else {
 			$data['theme_materialize_settings'] = array();
 
@@ -434,8 +434,8 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		if (isset($this->request->post['theme_materialize_colors'])) {
 			$data['theme_materialize_colors'] = $this->request->post['theme_materialize_colors'];
-		} elseif ($this->config->get('theme_materialize_colors') == true) {
-			$data['theme_materialize_colors'] = $this->config->get('theme_materialize_colors');
+		} elseif (isset($setting_info['theme_materialize_colors'])) {
+			$data['theme_materialize_colors'] = $setting_info['theme_materialize_colors'];
 		} else {
 			$data['theme_materialize_colors'] = array();
 
@@ -513,8 +513,14 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		if (isset($this->request->post['theme_materialize_products'])) {
 			$data['theme_materialize_products'] = $this->request->post['theme_materialize_products'];
-		} elseif ($this->config->get('theme_materialize_products') == true) {
-			$data['theme_materialize_products'] = $this->config->get('theme_materialize_products');
+		} elseif (isset($setting_info['theme_materialize_products'])) {
+			$data['theme_materialize_products'] = $setting_info['theme_materialize_products'];
+
+			if (!empty($data['theme_materialize_products']['payment']['image'])) {
+				$data['theme_materialize_payment_thumb'] = $this->model_tool_image->resize($data['theme_materialize_products']['payment']['image'], 100, 100);
+			} else {
+				$data['theme_materialize_payment_thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+			}
 		} else {
 			$data['theme_materialize_products'] = array();
 
@@ -532,40 +538,12 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'progressbar'	=> '',
 			);
 
-			$data['theme_materialize_products']['image'] = array(
-				'imagezoom'	=> '',
-			);
-		}
+			$data['theme_materialize_products']['imagezoom'] = '';
 
-		/* Payment methods */
-
-		if (isset($this->request->post['theme_materialize_payment_image'])) {
-			$data['theme_materialize_payment_image'] = $this->request->post['theme_materialize_payment_image'];
-		} else {
-			$data['theme_materialize_payment_image'] = $this->config->get('theme_materialize_payment_image');
-		}
-
-		if (isset($this->request->post['theme_materialize_payment_thumb']) && is_file(DIR_IMAGE . $this->request->post['theme_materialize_payment_thumb'])) {
-			$data['theme_materialize_payment_thumb'] = $this->model_tool_image->resize($this->request->post['theme_materialize_payment_image'], 100, 100);
-		} elseif ($this->config->get('theme_materialize_payment_image') == true) {
-			$data['theme_materialize_payment_thumb'] = $this->model_tool_image->resize($this->config->get('theme_materialize_payment_image'), 100, 100);
-		} else {
-			$data['theme_materialize_payment_thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+			$data['theme_materialize_products']['payment'] = array();
 		}
 
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
-
-		if (isset($this->request->post['theme_materialize_payment_image_width'])) {
-			$data['theme_materialize_payment_image_width'] = $this->request->post['theme_materialize_payment_image_width'];
-		} else {
-			$data['theme_materialize_payment_image_width'] = $this->config->get('theme_materialize_payment_image_width');
-		}
-
-		if (isset($this->request->post['theme_materialize_payment_image_height'])) {
-			$data['theme_materialize_payment_image_height'] = $this->request->post['theme_materialize_payment_image_height'];
-		} else {
-			$data['theme_materialize_payment_image_height'] = $this->config->get('theme_materialize_payment_image_height');
-		}
 
 		$data['clear_css'] = $this->url->link('extension/theme/materialize/clearCss', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true);
 

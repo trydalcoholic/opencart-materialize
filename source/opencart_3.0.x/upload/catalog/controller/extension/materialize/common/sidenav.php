@@ -11,9 +11,15 @@ class ControllerExtensionMaterializeCommonSidenav extends Controller {
 
 		$this->load->language('common/search');
 
+		$this->load->model('catalog/category');
+
+		$this->load->model('catalog/product');
+
+		$this->load->model('catalog/information');
+
 		$settings_colors = $this->config->get('theme_materialize_settings');
 
-		$colors = $settings_colors['colors'];
+		$colors = $this->config->get('theme_materialize_colors');
 
 		$data['color_sidebar'] = $colors['sidebar'];
 		$data['color_sidebar_text'] = $colors['sidebar_text'];
@@ -32,14 +38,8 @@ class ControllerExtensionMaterializeCommonSidenav extends Controller {
 		}
 
 		$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-		$data['email'] = $this->config->get('config_email');
-		$data['telephone'] = $this->config->get('config_telephone');
 
 		// Search
-		$this->load->model('catalog/category');
-
-		$this->load->model('catalog/product');
-
 		$data['text_search'] = $this->language->get('text_search');
 
 		if (isset($this->request->get['search'])) {
@@ -104,17 +104,41 @@ class ControllerExtensionMaterializeCommonSidenav extends Controller {
 		}
 
 		$data['logged'] = $this->customer->isLogged();
+		$data['language'] = $this->load->controller('common/language');
+		$data['currency'] = $this->load->controller('common/currency');
 		$data['account'] = $this->url->link('account/account', '', true);
 		$data['wishlist'] = $this->url->link('account/wishlist', '', true);
 		$data['order'] = $this->url->link('account/order', '', true);
 		$data['logout'] = $this->url->link('account/logout', '', true);
 		$data['register'] = $this->url->link('account/register', '', true);
 		$data['login'] = $this->url->link('account/login', '', true);
-
 		$data['cart'] = $this->url->link('checkout/cart');
 		$data['contact'] = $this->url->link('information/contact');
-		$data['delivery'] = $this->url->link('information/information' . '&information_id=6');
-		$data['about'] = $this->url->link('information/information' . '&information_id=4');
+
+		$materialize_header = $this->config->get('theme_materialize_settings');
+
+		if (isset($materialize_header['header']['phone'])) {
+			$data['telephone'] = $this->config->get('config_telephone');
+		} else {
+			$data['telephone'] = false;
+		}
+
+		if (isset($materialize_header['header']['email'])) {
+			$data['email'] = $this->config->get('config_email');
+		} else {
+			$data['email'] = false;
+		}
+
+		$data['informations'] = array();
+
+		foreach ($this->model_catalog_information->getInformations() as $result) {
+			if ($result['top']) {
+				$data['informations'][] = array(
+					'title'	=> $result['title'],
+					'href'	=> $this->url->link('information/information', 'information_id=' . $result['information_id'])
+				);
+			}
+		}
 
 		if ($this->config->get('module_blog_status') == 1) {
 			$data['blog'] = $this->url->link('extension/materialize/blog/blog');

@@ -551,6 +551,8 @@ class ModelExtensionMaterializeMaterialize extends Model {
 				PRIMARY KEY (`icon_id`)
 			) ENGINE=MyISAM;
 		");
+
+		$this->db->query("ALTER TABLE `" . DB_PREFIX . "information` ADD `top` INT(1) NOT NULL DEFAULT '0';");
 	}
 
 	public function uninstall() {
@@ -561,6 +563,8 @@ class ModelExtensionMaterializeMaterialize extends Model {
 				`" . DB_PREFIX . "materialize_social_networks`
 			;
 		");
+
+		$this->db->query("ALTER TABLE `" . DB_PREFIX . "information` DROP `top`;");
 	}
 
 	public function getMaterializeColors() {

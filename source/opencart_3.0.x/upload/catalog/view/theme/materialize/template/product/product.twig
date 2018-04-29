@@ -232,9 +232,9 @@
 								{% endif %}
 							</ul>
 							{% endif %}
-							{% if payment_method or payment_image %}
+							{% if payment_image %}
 							<div class="section">
-								{% if payment_method %}<h6 class="center">{{ payment_method }}</h6>{% endif %}
+								{% if payment_text %}<h6 class="center">{{ payment_text }}</h6>{% endif %}
 								{% if payment_image %}<img class="responsive-img center-block lazyload" src="{{ img_loader }}" data-src="{{ payment_image }}" alt="{{ payment_method }}">{% endif %}
 							</div>
 							{% endif %}
@@ -368,9 +368,9 @@
 								{% endif %}
 								<div class="section">
 									{% if add_cart %}
-									<button type="button" id="button-cart" class="btn btn-large waves-effect waves-light red href-underline width-max"><i class="material-icons left">add_shopping_cart</i>{{ button_cart }}</button>
+									<button type="button" id="button-cart" class="btn btn-large waves-effect waves-light width-max {{ color_add_cart }} {{ color_add_cart_text }}"><i class="material-icons left">add_shopping_cart</i>{{ button_cart }}</button>
 									{% else %}
-									<button type="button" id="button-cart" class="btn btn-large href-underline width-max" disabled="disabled"><i class="material-icons left">add_shopping_cart</i>{{ button_cart }}</button>
+									<button type="button" id="button-cart" class="btn btn-large width-max" disabled="disabled"><i class="material-icons left">add_shopping_cart</i>{{ button_cart }}</button>
 									{% endif %}
 								</div>
 								{{ quickorder }}
@@ -493,7 +493,9 @@
 		</div>
 		{% if products %}
 		<section class="section">
-			<h3>{{ text_related }}</h3>
+			<div class="row">
+				<div class="col s12"><h3>{{ text_related }}</h3></div>
+			</div>
 			<div class="row slick-goods">
 				{% for product in products %}
 				<div class="col s12 m4">
@@ -515,7 +517,7 @@
 						</div>
 						<div class="card-action center-align grey lighten-5">
 							{% if product.add_cart %}
-							<button class="btn btn-floating btn-large waves-effect waves-light red add-cart" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
+							<button class="btn btn-floating btn-large waves-effect waves-light add-cart {{ color_add_cart }} {{ color_add_cart_text }}" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
 							{% else %}
 							<button class="btn btn-floating btn-large add-cart" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
 							{% endif %}
@@ -550,7 +552,7 @@
 									{% endif %}
 								</span>
 							</div>
-							<a href="{{ product.href }}" class="btn waves-effect waves-light red width-max">{{ text_more_detailed }}</a>
+							<a href="{{ product.href }}" class="btn waves-effect waves-light width-max {{ color_more_detailed }} {{ color_more_detailed_text }}">{{ text_more_detailed }}</a>
 						</div>
 						<div class="card-reveal">
 							<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a><i class="material-icons waves-effect waves-circle close-icon">close</i></span>
