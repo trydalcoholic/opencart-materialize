@@ -1241,6 +1241,20 @@
 															</div>
 														</div>
 													</div>
+													<div class="list-group-item">
+														<div class="media overflow-visible">
+															<div class="media-body overflow-visible">
+																<h4 class="media-heading text-medium">Теги товара</h4>
+																<p>Если вы используете теги товара для внутренней поисковой оптимизации и их количество на странице товара избыточно, отключите данную опцию.</p>
+															</div>
+															<div class="media-right media-middle">
+																<label class="form-switch pull-right">
+																	<input name="theme_materialize_products[fields][tags]" type="checkbox" {{ theme_materialize_products.fields.tags == 'on' ? 'checked="checked"' }}>
+																	<i></i>
+																</label>
+															</div>
+														</div>
+													</div>
 												</div>
 												<div class="tab-pane" id="tab-imagezoom">
 													<div class="list-group-item">
@@ -1543,6 +1557,23 @@
 			$('body').prepend(html);
 
 			$('#modal-materialize-installed').modal('show');
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+	{% endif %}
+
+	{% if theme_materialize_updates_appeal %}
+	$.ajax({
+		url: 'index.php?route=extension/theme/materialize/appealUpdate&modal_title={{ materialize_title }}&user_token={{ user_token }}',
+		dataType: 'html',
+		success: function(html) {
+			$('#modal-materialize-updated').remove();
+
+			$('body').prepend(html);
+
+			$('#modal-materialize-updated').modal('show');
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

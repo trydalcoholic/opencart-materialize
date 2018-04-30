@@ -6,6 +6,10 @@ $_['modal_review']					= 'İnceleme bırak';
 $_['modal_donations_title']			= 'Bağışlar';
 $_['modal_donations_text']			= 'Bağışlarınızla birlikte şablonun geliştirilmesini destekleyin.';
 
+// Modal Update
+$_['modal_title_update']			= '%s güncellemesi için teşekkürler';
+$_['modal_alert_update']			= '<p>Merhaba!</p> <p>%s güncellemesi için teşekkür ederiz! Bu işten hoşlanıyorsanız, lütfen projenin geliştirilmesini destekleyin. Bir geri bildirim bırakın veya bağış yapın.</p> <p>Keyifli kullanın!</p> <p>Saygılar, <a href="//goo.gl/whkvt3" target="_blank" rel="noopener">Anton</a>.</p>';
+
 // To appeal to users
 $_['appeal_marketplace']			= 'Koyunuz değerlendirme <ul><li>Gidin hesabınızı</li> <li>Seçin &quot;Rate your Downloads&quot;</li> <li>Seçin &quot;Materialize Template&quot;</li> <li>Dürüst bir değerlendirme yapın ve geribildirim bırakın :)</li></ul>';
 $_['appeal_github']					= 'Eğer herhangi bir sorun varsa, iş, modül, tema oluşturma ile bir sorun Github.';

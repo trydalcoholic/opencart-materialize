@@ -6,6 +6,10 @@ $_['modal_review']					= 'Залиште відгук';
 $_['modal_donations_title']			= 'Пожертви';
 $_['modal_donations_text']			= 'Будь ласка, підтримайте розробку шаблону своїми пожертвами.';
 
+// Modal Update
+$_['modal_title_update']			= 'Спасибі, що оновили %s!';
+$_['modal_alert_update']			= '<p>Вітання! Спасибі, що оновили %s! Якщо вам сподобається ця робота, будь ласка, підтримайте розвиток проекту. Залиште будь ласка відгук або зробіть пожертву.</p> <p>Приємного використання!</p> <p>З повагою, <a href="//goo.gl/whkvt3" target="_blank" rel="noopener">Антон</a>.</p>';
+
 // To appeal to users
 $_['appeal_marketplace']			= 'Будь ласка, поставте оцінку <ul><li>Зайдіть у ваш аккаунт на OpenCart Marketplace</li> <li>Виберіть &quot;Rate your Downloads&quot;</li> <li>Виберіть &quot;Materialize Template&quot;</li> <li>Поставте чесну оцінку і залиште відгук :)</li></ul>';
 $_['appeal_github']					= 'Якщо у вас виникли проблеми з роботою модуля, створіть тему з проблемою на Github.';

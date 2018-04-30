@@ -157,18 +157,6 @@
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
-			$materialize_settings = $this->config->get('theme_materialize_settings');
-
-			$materialize_social = $materialize_settings['social'];
-
-			if (!empty($materialize_social['meta_data'])) {
-				$this->load->model('extension/materialize/materialize');
-
-				$data['social_links'] = $this->model_extension_materialize_materialize->getSocialLinks();
-			} else {
-				$data['social_links'] = false;
-			}
-
 			$this->load->model('tool/image');
 
 			$facebook_share_image_width = 600;
@@ -401,7 +389,7 @@
 			}
 			]]></add>
 		</operation>
-		<!-- Materialize Template Settings -->
+		<!-- Materialize Template Settings backend -->
 		<operation error="log">
 			<search><![CDATA[$marketplace = array();]]></search>
 			<add position="before"><![CDATA[
@@ -1018,7 +1006,7 @@
 			]]></add>
 		</operation>
 	</file>
-	<!-- Materialize Template Settings -->
+	<!-- Materialize Template Settings frontend -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
@@ -1043,9 +1031,33 @@
 
 				$materialize_settings = $this->config->get('theme_materialize_settings');
 
-				$materialize_cache = $materialize_settings['cache']['css'];
+				if (isset($materialize_settings['social'])) {
+					$materialize_social = $materialize_settings['social'];
+				} else {
+					$materialize_social = '';
+				}
 
-				if (!empty($materialize_cache)) {
+				if (isset($materialize_social['meta_data'])) {
+					$this->load->model('extension/materialize/materialize');
+
+					$data['social_links'] = $this->model_extension_materialize_materialize->getSocialLinks();
+				} else {
+					$data['social_links'] = false;
+				}
+
+				if (isset($materialize_settings['cache'])) {
+					$materialize_cache = $materialize_settings['cache'];
+				} else {
+					$materialize_cache = '';
+				}
+
+				if (isset($materialize_cache['css'])) {
+					$materialize_cache_css = true;
+				} else {
+					$materialize_cache_css = false;
+				}
+
+				if ($materialize_cache_css) {
 					$css = $this->cache->get('compressed.css');
 
 					if (!$css) {
@@ -1065,6 +1077,46 @@
 					$css = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $css);
 
 					$data['css'] = $css;
+				}
+
+				$this->load->model('catalog/information');
+
+				$data['informations'] = array();
+
+				foreach ($this->model_catalog_information->getInformations() as $result) {
+					if ($result['top']) {
+						$data['informations'][] = array(
+							'title'	=> $result['title'],
+							'href'	=> $this->url->link('information/information', 'information_id=' . $result['information_id'])
+						);
+					}
+				}
+
+				$data['compare'] = $this->url->link('product/compare');
+				$data['text_compare'] = (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
+
+				if (isset($materialize_settings['header'])) {
+					$materialize_header = $materialize_settings['header'];
+				} else {
+					$materialize_header = '';
+				}
+
+				if (isset($materialize_header['phone'])) {
+					$data['telephone_status'] = true;
+				} else {
+					$data['telephone_status'] = false;
+				}
+
+				if (isset($materialize_header['email'])) {
+					$data['email'] = $this->config->get('config_email');
+				} else {
+					$data['email'] = false;
+				}
+
+				if (isset($materialize_header['working_hours'])) {
+					$data['open'] = nl2br($this->config->get('config_open'));
+				} else {
+					$data['open'] = false;
 				}
 			}
 			]]></add>
@@ -1118,7 +1170,7 @@
 				$data['footer_title'] = $materialize_footer[$this->config->get('config_language_id')]['title'];
 				$data['footer_description'] = $materialize_footer[$this->config->get('config_language_id')]['description'];
 
-				if (!empty($materialize_footer['contact_information'])) {
+				if (isset($materialize_footer['contact_information'])) {
 					$data['footer_contact'] = $materialize_footer['contact_information'];
 					$data['email'] = $this->config->get('config_email');
 					$data['telephone'] = $this->config->get('config_telephone');
@@ -1128,14 +1180,18 @@
 					$data['footer_contact'] = '';
 				}
 
-				$materialize_social = $materialize_settings['social'];
+				if (isset($materialize_settings['social'])) {
+					$materialize_social = $materialize_settings['social'];
+				} else {
+					$materialize_social = '';
+				}
 
-				if (!empty($materialize_social['show_footer'])) {
+				if (isset($materialize_social['show_footer'])) {
 					$data['social_show'] = true;
 					$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 					$data['social_title'] = $materialize_social[$this->config->get('config_language_id')]['title'];
 
-					if (!empty($materialize_social['not_index'])) {
+					if (isset($materialize_social['not_index'])) {
 						$data['social_not_index'] = ' nofollow';
 					} else {
 						$data['social_not_index'] = false;
@@ -1226,9 +1282,11 @@
 
 				$materialize_settings = $this->config->get('theme_materialize_products');
 
-				$materialize_fields = $materialize_settings['fields'];
-
-				$materialize_payment = $materialize_settings['payment'];
+				if (isset($materialize_settings['fields'])) {
+					$materialize_fields = $materialize_settings['fields'];
+				} else {
+					$materialize_fields = '';
+				}
 
 				if (isset($materialize_fields['model'])) {
 					$data['model'] = $product_info['model'];
@@ -1294,6 +1352,17 @@
 					$data['weight'] = '';
 				}
 
+				if (isset($materialize_fields['tags'])) {
+					$data['show_tags'] = true;
+				} else {
+					$data['show_tags'] = false;
+				}
+
+				if (isset($materialize_settings['payment'])) {
+					$materialize_payment = $materialize_settings['payment'];
+				} else {
+					$materialize_payment = '';
+				}
 
 				if (isset($materialize_payment['image'])) {
 					$data['payment_text'] = $materialize_settings['payment'][$this->config->get('config_language_id')]['text'];
@@ -3494,51 +3563,6 @@
 		<operation error="skip">
 			<search><![CDATA[<a target="_blank" href="]]></search>
 			<add position="replace"><![CDATA[<a target="_blank" rel="noopener" href="]]></add>
-		</operation>
-	</file>
-	<!-- Template settings -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			if ($materialize) {
-				$this->load->model('catalog/information');
-
-				$data['informations'] = array();
-
-				foreach ($this->model_catalog_information->getInformations() as $result) {
-					if ($result['top']) {
-						$data['informations'][] = array(
-							'title'	=> $result['title'],
-							'href'	=> $this->url->link('information/information', 'information_id=' . $result['information_id'])
-						);
-					}
-				}
-
-				$data['compare'] = $this->url->link('product/compare');
-				$data['text_compare'] = (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
-
-				$materialize_header = $this->config->get('theme_materialize_settings');
-
-				if (isset($materialize_header['header']['phone'])) {
-					$data['telephone_status'] = true;
-				} else {
-					$data['telephone_status'] = false;
-				}
-
-				if (isset($materialize_header['header']['email'])) {
-					$data['email'] = $this->config->get('config_email');
-				} else {
-					$data['email'] = false;
-				}
-
-				if (isset($materialize_header['header']['working_hours'])) {
-					$data['open'] = nl2br($this->config->get('config_open'));
-				} else {
-					$data['open'] = false;
-				}
-			}
-			]]></add>
 		</operation>
 	</file>
 	<!-- Register a template installation -->

@@ -475,6 +475,7 @@
 						<div id="review"></div>
 					</div>
 					{% endif %}
+					{% if show_tags %}
 					<div class="post-footer grey lighten-4">
 						{% if tags %}
 							<i class="material-icons">local_offer</i>:&nbsp;
@@ -487,6 +488,7 @@
 							{% endfor %}
 						{% endif %}
 					</div>
+					{% endif %}
 				</div>
 			</div>
 			{{ column_right }}

@@ -52,6 +52,14 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->load->model('localisation/language');
 
+		$check_update = $this->model_extension_materialize_materialize->checkUpdate();
+
+		if ($check_update == false) {
+			$data['theme_materialize_updates_appeal'] = true;
+		} else {
+			$data['theme_materialize_updates_appeal'] = false;
+		}
+
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('theme_materialize', $this->request->post, $this->request->get['store_id']);
 
@@ -536,6 +544,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'dimension'		=> '',
 				'weight'		=> '',
 				'progressbar'	=> '',
+				'tags'			=> 'on',
 			);
 
 			$data['theme_materialize_products']['imagezoom'] = '';
@@ -569,6 +578,15 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$data['modal_alert'] = sprintf($this->language->get('modal_alert'), $this->request->get['modal_title']);
 
 		$this->response->setOutput($this->load->view('extension/materialize/appeal/installed', $data));
+	}
+
+	public function appealUpdate() {
+		$this->load->language('extension/module/materialize/appeal/appeal');
+
+		$data['modal_title'] = sprintf($this->language->get('modal_update_title'), $this->request->get['modal_title']);
+		$data['modal_alert'] = sprintf($this->language->get('modal_update_alert'), $this->request->get['modal_title']);
+
+		$this->response->setOutput($this->load->view('extension/materialize/appeal/updated', $data));
 	}
 
 	public function appealFooter() {
