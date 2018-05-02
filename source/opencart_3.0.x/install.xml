@@ -1118,6 +1118,37 @@
 				} else {
 					$data['open'] = false;
 				}
+
+				if (isset($materialize_settings['adult_content'])) {
+					$materialize_adult = $materialize_settings['adult_content'];
+				} else {
+					$materialize_adult = '';
+				}
+
+				if (isset($materialize_adult['status'])) {
+					$this->session->data['adult_content'] = true;
+
+					if (isset($this->session->data['adult_content_accept'])) {
+						$this->session->data['adult_content_accept'] = $this->session->data['adult_content_accept'];
+					} else {
+						$this->session->data['adult_content_accept'] = false;
+					}
+
+					$adult_info = array(
+						'agreement_id'	=> $materialize_adult['agreement'],
+						'back_link'		=> $materialize_adult['back_link']
+					);
+
+					$logged = $this->customer->isLogged();
+
+					if (isset($this->session->data['adult_content']) && $this->session->data['adult_content_accept'] == false && $logged == false) {
+						$data['adult_content'] = $this->load->controller('extension/module/adult_content', $adult_info);
+					} else {
+						$data['adult_content'] = '';
+					}
+				} else {
+					$data['adult_content'] = '';
+				}
 			}
 			]]></add>
 		</operation>

@@ -270,19 +270,22 @@
 														<div class="media overflow-visible">
 															<div class="media-body overflow-visible">
 																<h4 class="media-heading text-medium">Взрослый контент</h4>
-																<p>Это опция вызывает модальное окно для посетителей сайта, в котором псетителю трубется согласиться с указанными правилами</p>
+																<p>Это опция вызывает модальное окно для посетителей сайта, в котором псетителю трубется согласиться с указанными правилами. Длительность соглашения указывается в днях.</p>
 																<hr>
-																<select name="theme_materialize_remainder" id="input-type-remainder" class="selectpicker show-tick" data-width="100%">
-																	<option value="">{{ text_none }}</option>
-																	{% for remainder in remainders %}
-																	{% if remainder.value == theme_materialize_remainder %}
-																	<option value="{{ remainder.value }}" selected="selected">{{ remainder.text }}</option>
+																<select name="theme_materialize_settings[adult_content][agreement]" class="selectpicker show-tick" data-width="100%">
+																	{% for information in informations %}
+																	{% if information.information_id == theme_materialize_settings.adult_content.agreement %}
+																	<option value="{{ information.information_id }}" selected="selected">{{ information.title }}</option>
 																	{% else %}
-																	<option value="{{ remainder.value }}">{{ remainder.text }}</option>
+																	<option value="{{ information.information_id }}">{{ information.title }}</option>
 																	{% endif %}
 																	{% endfor %}
 																</select>
 																<hr>
+																<input type="text" name="theme_materialize_settings[adult_content][back_link]" value="{{ theme_materialize_settings.adult_content.back_link }}" placeholder="Ссылка при отказе" class="form-control" />
+																{% if error_adult_content %}
+																<div class="text-danger">{{ error_adult_content }}</div>
+																{% endif %}
 															</div>
 															<div class="media-right media-middle">
 																<label class="form-switch pull-right">
@@ -1540,6 +1543,14 @@
 	$.notify({
 		icon: 'fa fa-exclamation-circle',
 		message: '{{ error_image_location }}'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+	{% if error_adult_content %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: '{{ error_adult_content }}'
 	},{
 		type: "danger"
 	});

@@ -52,6 +52,8 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->load->model('localisation/language');
 
+		$this->load->model('catalog/information');
+
 		$check_update = $this->model_extension_materialize_materialize->checkUpdate();
 
 		if ($check_update == false) {
@@ -150,6 +152,12 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['error_image_location'] = $this->error['image_location'];
 		} else {
 			$data['error_image_location'] = '';
+		}
+
+		if (isset($this->error['adult_content'])) {
+			$data['error_adult_content'] = $this->error['adult_content'];
+		} else {
+			$data['error_adult_content'] = '';
 		}
 
 		if (isset($this->session->data['success'])) {
@@ -401,6 +409,8 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		/* Common */
 
+		$data['informations'] = $this->model_catalog_information->getInformations();
+
 		if (isset($this->request->post['theme_materialize_settings'])) {
 			$data['theme_materialize_settings'] = $this->request->post['theme_materialize_settings'];
 		} elseif (isset($setting_info['theme_materialize_settings'])) {
@@ -427,6 +437,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_settings']['adult_content'] = array(
 				'status'	=> '',
 				'agreement'	=> '',
+				'back_link'	=> '',
 			);
 
 			$data['theme_materialize_settings']['cache'] = array(
@@ -649,6 +660,16 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 			if (!$this->request->post['theme_materialize_image_location_width'] || !$this->request->post['theme_materialize_image_location_height']) {
 				$this->error['image_location'] = $this->language->get('error_image_location');
+			}
+
+			if ($this->request->post['theme_materialize_settings']) {
+				$materialize_settings = $this->request->post['theme_materialize_settings'];
+
+				$adult_content = $materialize_settings['adult_content'];
+
+				if (isset($adult_content['status']) && empty($adult_content['back_link'])) {
+					$this->error['adult_content'] = $this->language->get('error_adult_content');
+				}
 			}
 		}
 

@@ -1,0 +1,46 @@
+<form id="adult-content__modal" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<div class="row"><h4>{{ agreement_title }}</h4></div>
+		<div class="row">
+			{{ agreement_description }}
+		</div>
+		<div class="row">
+			<label for="agreement-check-adult-content">
+				<input type="checkbox" name="adult_content_agree" value="1" id="agreement-check-adult-content" class="filled-in">
+				<span>Я прочитал и согласен</span>
+			</label>
+		</div>
+	</div>
+	<div class="modal-footer href-underline">
+		<a href="{{ back_link }}" class="btn-flat modal-action waves-effect" rel="nofollow">Не согласен</a>
+		<button type="button" id="adult-content__button" class="btn-flat modal-action waves-effect" value="{{ materialize_cofirm }}">Согласен</button>
+	</div>
+	<input type="hidden" name="adult_content_agreement_id" value="{{ agreement_id }}">
+</form>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	$(document).ready(function() {
+		$('#adult-content__modal').modal({
+			opacity: '0.9',
+			dismissible: false
+		}).modal('open');
+
+		$('#adult-content__button').on('click', function() {
+			$.ajax({
+				url: 'index.php?route=extension/module/adult_content/agree',
+				type: 'post',
+				dataType: 'json',
+				data: $("#adult-content__modal").serialize(),
+				success: function(json) {
+					if (json['error']) {
+						M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
+					}
+					if (json['success']) {
+						$('#adult-content__modal').modal('close');
+					}
+				}
+			});
+		});
+	});
+});
+</script>
