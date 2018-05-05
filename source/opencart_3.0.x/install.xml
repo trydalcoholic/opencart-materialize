@@ -5,6 +5,23 @@
 	<version>0.81</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Web Manifest module -->
+	<file path="catalog/controller/common/header.php">
+		<operation error="log">
+			<search><![CDATA[return $this->load->view('common/header', $data);]]></search>
+			<add position="before"><![CDATA[
+			if ($this->config->get('feed_webmanifest_status') == 1) {
+				if ($this->request->server['HTTPS']) {
+					$data['manifest'] = $server . "catalog/view/theme/materialize/js/manifest.json";
+				} else {
+					$data['manifest'] = $server . "catalog/view/theme/materialize/js/manifest.json";
+				}
+			} else {
+				$data['manifest'] = '';
+			}
+			]]></add>
+		</operation>
+	</file>
 	<!-- Information page in the top menu -->
 	<file path="admin/controller/catalog/information.php">
 		<operation error="log">
@@ -2327,7 +2344,7 @@
 		</operation>
 	</file>
 	<!-- Favicon -->
-	<file path="system/library/document.php">
+	<!-- <file path="system/library/document.php">
 		<operation error="log">
 			<search><![CDATA[public function addLink($href, $rel) {]]></search>
 			<add position="replace"><![CDATA[public function addLink($href, $rel, $type='', $sizes = '') {]]></add>
@@ -2372,7 +2389,7 @@
 			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 180, 180), 'apple-touch-icon', $icon_type, '180x180');
 			]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<!-- Subcategory chip -->
 	<file path="catalog/controller/product/category.php">
 		<operation error="log">

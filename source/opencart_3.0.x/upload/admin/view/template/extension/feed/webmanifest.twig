@@ -1,0 +1,265 @@
+{{ header }}{{ column_left }}
+<div id="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>{{ heading_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+				<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-feed" class="form-horizontal">
+			<div class="row">
+				<div class="col-xs-12 col-md-4 col-md-push-8">
+					<div class="panel panel-default" id="panel-data">
+						<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-power-off"></i> {{ entry_status }}</h3></div>
+						<div class="panel-body">
+							<select name="feed_webmanifest_status" id="input-status" class="selectpicker show-tick" data-width="100%">
+								{% if feed_webmanifest_status %}
+								<option value="1" selected="selected" data-icon="fa-toggle-on">{{ text_enabled }}</option>
+								<option value="0" data-icon="fa-toggle-off">{{ text_disabled }}</option>
+								{% else %}
+								<option value="1" data-icon="fa-toggle-on">{{ text_enabled }}</option>
+								<option value="0" selected="selected" data-icon="fa-toggle-off">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-xs-6">
+									<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i> {{ button_cancel }}</a>
+								</div>
+								<div class="col-xs-6 text-right">
+									<button type="submit" form="form-feed" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i> {{ button_save }}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default" id="panel-data">
+						<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-exclamation-triangle"></i> Debug</h3></div>
+						<div class="panel-body">
+							<pre>{{ dump(test) }}</pre>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-8 col-md-pull-4">
+					<div class="panel panel-default">
+						<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3></div>
+						<div class="panel-body">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#tab-general" data-toggle="tab">Общее</a></li>
+								<li><a href="#tab-display" data-toggle="tab">Отображение</a></li>
+								<li><a href="#tab-color" data-toggle="tab">Цвета</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="tab-general">
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium">Имя сайта</h4>
+												<p>Предоставляет удобочитаемое имя для приложения, предназначенное для отображения для пользователя, например, в списке других приложений или как подпись к иконке.</p>
+												<hr>
+												<input type="text" name="feed_webmanifest_setting[description][name]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium">Короткое имя сайта</h4>
+												<p>Предоставляет короткое удобочитаемое имя приложения. Предназначено для использования там, где недостаточно места для отображения полного имени приложения.</p>
+												<hr>
+												<input type="text" name="feed_webmanifest_setting[description][short_name]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.short_name }}" placeholder="Короткое имя сайта" maxlength="12" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium">Описание сайта</h4>
+												<p>Обеспечивает общее описание того, что делает приложение.</p>
+												<hr>
+												<input type="text" name="feed_webmanifest_setting[description][description]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.description }}" placeholder="Описание сайта" maxlength="1024" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h4 class="media-heading text-medium">Стартовый URL</h4>
+												<p>Определяет URL, который загружается, когда пользователь запустил приложение с устройства. Если относительный URL, базовый URL будет URL манифеста.</p>
+												<hr>
+												<input type="text" name="feed_webmanifest_setting[description][start_url]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.start_url }}" placeholder="Стартовый URL" maxlength="512" class="form-control" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab-display">
+									<div class="list-group-item">
+										<div class="media overflow-visible">
+											<div class="media-body overflow-visible">
+												<h4 class="media-heading text-medium">Отображение</h4>
+												<p>Определяет предпочтительный для разработчика режим отображения приложения.</p>
+												<hr>
+												<select name="feed_webmanifest_setting[display]" class="selectpicker show-tick">
+													{% for display in feed_webmanifest_setting.display_value %}
+													<option value="{{ display }}">{{ display }}</option>
+													{% endfor %}
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item">
+										<div class="media overflow-visible">
+											<div class="media-body overflow-visible">
+												<h4 class="media-heading text-medium">Ориентация</h4>
+												<p>Определяет ориентацию по умолчанию для всех верхних уровней контекстов браузера приложения.</p>
+												<hr>
+												<select name="feed_webmanifest_setting[orientation]" class="selectpicker show-tick">
+													{% for orientation in feed_webmanifest_setting.orientation_value %}
+													{% if orientation == feed_webmanifest_setting.orientation %}
+													<option value="{{ orientation }}" selected="selected">{{ orientation }}</option>
+													{% else %}
+													<option value="{{ orientation }}">{{ orientation }}</option>
+													{% endif %}
+													{% endfor %}
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab-color">
+									<div class="list-group-item">
+										<div class="media overflow-visible materialize-colors">
+											<div class="media-body overflow-visible">
+												<h4 class="media-heading text-medium">Фоновый цвет</h4>
+												<p>Определяет ожидаемый цвет фона для веб-приложения. Это значение повторяет то, что уже доступно в стилях приложения, но может быть использовано браузерами для отрисовки цвета фона приложения после того, как манифест станет доступен, но до того, как стили загрузятся. Это создает плавный переход между запуском приложения и загрузкой содержимого приложения.</p>
+												<hr>
+												<select name="feed_webmanifest_setting[background_color][hex]" class="selectpicker selectpicker-live-search show-tick">
+													{% for color in materialize_get_colors %}
+													{% if color.hex == feed_webmanifest_setting.background_color.hex %}
+													<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+													{% else %}
+													<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+													{% endif %}
+													{% endfor %}
+												</select>
+												<hr>
+											</div>
+											<div class="media-right media-middle">
+												<div class="thumbnail materialize-color-thumbnail"></div>
+											</div>
+										</div>
+									</div>
+									<div class="list-group-item">
+										<div class="media overflow-visible materialize-colors">
+											<div class="media-body overflow-visible">
+												<h4 class="media-heading text-medium">Цвет темы</h4>
+												<p>Определяет цвет темы по умолчанию для приложения. Иногда влияет на то, как приложение отображается ОС (например, в переключателе задач Android цвет темы окружает приложение).</p>
+												<hr>
+												<select name="feed_webmanifest_setting[theme_color][hex]" class="selectpicker selectpicker-live-search show-tick">
+													{% for color in materialize_get_colors %}
+													{% if color.hex == feed_webmanifest_setting.theme_color.hex %}
+													<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+													{% else %}
+													<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+													{% endif %}
+													{% endfor %}
+												</select>
+												<hr>
+											</div>
+											<div class="media-right media-middle">
+												<div class="thumbnail materialize-color-thumbnail"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+	// Selectpicker
+	$('.selectpicker.selectpicker-live-search').selectpicker({
+		size: 10,
+		liveSearch: true,
+		iconBase: 'fa',
+		tickIcon: 'fa-check'
+	});
+
+	var materializeColors = $('.materialize-colors');
+
+	materializeColors.each(function() {
+		var currentBackground = $(this).find('option:selected.select-color').data('hex'),
+			currentColor = $(this).find('option:selected.select-color-text').data('hex');
+
+		$(this).find('.materialize-color-thumbnail').css({
+			'background': currentBackground,
+			'color': currentColor
+		});
+	});
+
+	materializeColors.change(function(){
+		var currentBackground = $(this).find('option:selected.select-color').data('hex'),
+			currentColor = $(this).find('option:selected.select-color-text').data('hex');
+
+		$(this).find('.materialize-color-thumbnail').css({
+			'background': currentBackground,
+			'color': currentColor
+		});
+	});
+
+	// Notify
+	{% if error_warning %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: 'Общая ошибка'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+
+	{% if error_name %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: 'Ошибка в Имени'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+
+	{% if error_short_name %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: 'Ошибка в Коротком имени'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+
+	{% if error_description %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: 'Ошибка в описании'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+
+	{% if error_start_url %}
+	$.notify({
+		icon: 'fa fa-exclamation-circle',
+		message: 'Ошибка в URL'
+	},{
+		type: "danger"
+	});
+	{% endif %}
+</script>
+{{ footer }}
