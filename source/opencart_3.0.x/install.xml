@@ -1041,7 +1041,7 @@
 			if ($materialize) {
 				$colors = $this->config->get('theme_materialize_colors');
 
-				$data['color_browser_bar'] = $colors['browser_bar'];
+				$data['color_browser_bar'] = $colors['browser_bar_hex'];
 				$data['color_background'] = $colors['background'];
 				$data['color_top_menu'] = $colors['top_menu'];
 				$data['color_top_menu_text'] = $colors['top_menu_text'];
