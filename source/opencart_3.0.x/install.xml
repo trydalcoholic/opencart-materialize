@@ -11,10 +11,20 @@
 			<search><![CDATA[return $this->load->view('common/header', $data);]]></search>
 			<add position="before"><![CDATA[
 			if ($this->config->get('feed_webmanifest_status') == 1) {
-				if ($this->request->server['HTTPS']) {
-					$data['manifest'] = $server . "catalog/view/theme/materialize/js/manifest.json";
-				} else {
-					$data['manifest'] = $server . "catalog/view/theme/materialize/js/manifest.json";
+				$mainfest = $this->config->get('feed_webmanifest_setting');
+
+				if ($mainfest['type'] == 'static') {
+					if ($this->request->server['HTTPS']) {
+						$data['manifest'] = $server . "catalog/view/theme/materialize/js/manifest.json";
+					} else {
+						$data['manifest'] = $server . "catalog/view/theme/materialize/js/manifest.json";
+					}
+				} elseif ($mainfest['type'] == 'dynamic') {
+					if ($this->request->server['HTTPS']) {
+						$data['manifest'] = $server . "index.php?route=extension/feed/webmanifest";
+					} else {
+						$data['manifest'] = $server . "index.php?route=extension/feed/webmanifest";
+					}
 				}
 			} else {
 				$data['manifest'] = '';

@@ -2,6 +2,23 @@
 class ControllerExtensionFeedWebManifest extends Controller {
 	private $error = array();
 
+	public function install() {
+		$this->load->model('setting/setting');
+
+		$data['feed_webmanifest_installed_appeal'] = true;
+
+		$this->model_setting_setting->editSetting('feed_webmanifest', $data);
+
+		$this->load->model('user/user_group');
+	}
+
+	public function uninstall() {
+		$this->load->model('user/user_group');
+
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/feed/webmanifest');
+		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/feed/webmanifest');
+	}
+
 	public function index() {
 		$this->load->language('extension/feed/google_sitemap');
 
@@ -51,6 +68,9 @@ class ControllerExtensionFeedWebManifest extends Controller {
 				$manifest .= '  "name": "' . $this->request->post['feed_webmanifest_setting']['description']['name'] . '",';
 				$manifest .= '  "short_name": "' . $this->request->post['feed_webmanifest_setting']['description']['short_name'] . '",';
 				$manifest .= '  "description": "' . $this->request->post['feed_webmanifest_setting']['description']['description'] . '",';
+				$manifest .= '  "lang": "' . $this->request->post['feed_webmanifest_setting']['description']['lang'] . '",';
+				$manifest .= '  "dir": "' . $this->request->post['feed_webmanifest_setting']['description']['dir'] . '",';
+				$manifest .= '  "start_url": "' . $this->request->post['feed_webmanifest_setting']['description']['start_url'] . '",';
 
 				if (!empty($icons)) {
 					$manifest .= '  "icons": [';
@@ -72,9 +92,6 @@ class ControllerExtensionFeedWebManifest extends Controller {
 					$manifest .= '  ],';
 				}
 
-				$manifest .= '  "lang": "en",';
-				$manifest .= '  "dir": "ltr",';
-				$manifest .= '  "start_url": "' . $this->request->post['feed_webmanifest_setting']['description']['start_url'] . '",';
 				$manifest .= '  "display": "' . $this->request->post['feed_webmanifest_setting']['display'] . '",';
 				$manifest .= '  "orientation": "' . $this->request->post['feed_webmanifest_setting']['orientation'] . '",';
 				$manifest .= '  "background_color": "#' . $this->request->post['feed_webmanifest_setting']['background_color']['hex'] . '",';
@@ -143,6 +160,8 @@ class ControllerExtensionFeedWebManifest extends Controller {
 			$data['error_start_url'] = array();
 		}
 
+		$data['user_token'] = $this->session->data['user_token'];
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -171,6 +190,8 @@ class ControllerExtensionFeedWebManifest extends Controller {
 		} else {
 			$data['feed_webmanifest_setting'] = array();
 
+			$data['feed_webmanifest_setting']['type'] = 'static';
+
 			$data['feed_webmanifest_setting']['background_color'] = array(
 				'color'	=> 'blue-grey darken-4',
 				'hex'	=> '263238'
@@ -185,6 +206,12 @@ class ControllerExtensionFeedWebManifest extends Controller {
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
 		$data['materialize_get_colors'] = $this->model_extension_materialize_materialize->getMaterializeColors();
+
+		$data['feed_webmanifest_setting']['direction_value'] = array(
+			'ltr',
+			'rtl',
+			'auto',
+		);
 
 		$data['feed_webmanifest_setting']['display_value'] = array(
 			'fullscreen',
@@ -204,25 +231,24 @@ class ControllerExtensionFeedWebManifest extends Controller {
 			'portrait-secondary',
 		);
 
-		$data['feed_webmanifest_setting']['related_applications_value'] = array(
-			'platform'	=> array(
-				'play',
-				'itunes',
-			),
-			'url',
-			'id',
-		);
+		if (isset($this->request->post['feed_webmanifest_dynamic'])) {
+			$data['feed_webmanifest_dynamic'] = $this->request->post['feed_webmanifest_dynamic'];
+		} elseif (!empty($webmanifest_info['feed_webmanifest_dynamic'])) {
+			$data['feed_webmanifest_dynamic'] = $webmanifest_info['feed_webmanifest_dynamic'];
+		} else {
+			$data['feed_webmanifest_dynamic'] = array();
+		}
+
+		if (isset($this->request->post['feed_webmanifest_installed_appeal'])) {
+			$data['feed_webmanifest_installed_appeal'] = $this->request->post['feed_webmanifest_installed_appeal'];
+		} else {
+			$data['feed_webmanifest_installed_appeal'] = $this->config->get('feed_webmanifest_installed_appeal');
+		}
 
 		if (isset($this->request->post['feed_webmanifest_status'])) {
 			$data['feed_webmanifest_status'] = $this->request->post['feed_webmanifest_status'];
 		} else {
 			$data['feed_webmanifest_status'] = $this->config->get('feed_webmanifest_status');
-		}
-
-		if (!empty($webmanifest_info['feed_webmanifest_setting']['icons'])) {
-			$data['test'] = $webmanifest_info['feed_webmanifest_setting']['icons'];
-		} else {
-			$data['test'] = '';
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -238,20 +264,40 @@ class ControllerExtensionFeedWebManifest extends Controller {
 		}
 
 		if ($this->request->post['feed_webmanifest_status'] == 1) {
-			if ((utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['name']) < 1) || (utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['name']) > 45)) {
-				$this->error['name'] = $this->language->get('error_name');
-			}
+			if ($this->request->post['feed_webmanifest_setting']['type'] == 'static') {
+				if ((utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['name']) < 1) || (utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['name']) > 45)) {
+					$this->error['name'] = $this->language->get('error_name');
+				}
 
-			if ((utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['short_name']) < 1) || (utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['short_name']) > 12)) {
-				$this->error['short_name'] = $this->language->get('error_name');
-			}
+				if ((utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['short_name']) < 1) || (utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['short_name']) > 12)) {
+					$this->error['short_name'] = $this->language->get('error_name');
+				}
 
-			if ((utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['description']) < 1) || (utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['description']) > 1024)) {
-				$this->error['description'] = $this->language->get('error_name');
-			}
+				if ((utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['description']) < 1) || (utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['description']) > 1024)) {
+					$this->error['description'] = $this->language->get('error_name');
+				}
 
-			if ((utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['start_url']) < 1) || (utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['start_url']) > 512)) {
-				$this->error['start_url'] = $this->language->get('error_name');
+				if ((utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['start_url']) < 1) || (utf8_strlen($this->request->post['feed_webmanifest_setting']['description']['start_url']) > 512)) {
+					$this->error['start_url'] = $this->language->get('error_name');
+				}
+			} else {
+				foreach ($this->request->post['feed_webmanifest_dynamic'] as $language_id => $value) {
+					if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 45)) {
+						$this->error['name'][$language_id] = $this->language->get('error_name');
+					}
+
+					if ((utf8_strlen($value['short_name']) < 1) || (utf8_strlen($value['short_name']) > 12)) {
+						$this->error['short_name'][$language_id] = $this->language->get('error_meta_title');
+					}
+
+					if ((utf8_strlen($value['description']) < 1) || (utf8_strlen($value['description']) > 1024)) {
+						$this->error['description'][$language_id] = $this->language->get('error_meta_title');
+					}
+
+					if ((utf8_strlen($value['start_url']) < 1) || (utf8_strlen($value['start_url']) > 512)) {
+						$this->error['start_url'][$language_id] = $this->language->get('error_meta_title');
+					}
+				}
 			}
 		}
 

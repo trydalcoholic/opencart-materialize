@@ -38,12 +38,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-default" id="panel-data">
-						<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-exclamation-triangle"></i> Debug</h3></div>
-						<div class="panel-body">
-							<pre>{{ dump(test) }}</pre>
-						</div>
-					</div>
 				</div>
 				<div class="col-xs-12 col-md-8 col-md-pull-4">
 					<div class="panel panel-default">
@@ -56,45 +50,158 @@
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab-general">
-									<div class="list-group-item">
-										<div class="media">
-											<div class="media-body">
-												<h4 class="media-heading text-medium">Имя сайта</h4>
-												<p>Предоставляет удобочитаемое имя для приложения, предназначенное для отображения для пользователя, например, в списке других приложений или как подпись к иконке.</p>
-												<hr>
-												<input type="text" name="feed_webmanifest_setting[description][name]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+									<fieldset>
+										<legend>Тип манифеста</legend>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-left media-middle">
+													<label class="form-switch">
+														<input type="radio" name="feed_webmanifest_setting[type]" value="static" {{ feed_webmanifest_setting.type == 'static' ? 'checked="checked"' }}>
+														<i></i>
+													</label>
+												</div>
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Статический</h4>
+													<p>После сохранения настроек модуля будет сохранён файл manifest.json. Данный тип манифеста не поддерживает генерацию мультиязычных настроек.</p>
+												</div>
+											</div>
+										</div>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-left media-middle">
+													<label class="form-switch">
+														<input type="radio" name="feed_webmanifest_setting[type]" value="dynamic" {{ feed_webmanifest_setting.type == 'dynamic' ? 'checked="checked"' }}>
+														<i></i>
+													</label>
+												</div>
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Динамический</h4>
+													<p>После сохранения настроек модуля, после <u>каждого</u> открытия сайта пользователями будет генерироваться файл манифеста. Данный тип манифеста поддерживает генерацию мультиязычных настроек. <b>Может вызывать снижение скорости загрузки сайта.</b></p>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+									<hr>
+									<div class="manifest-static" style="display: {{ feed_webmanifest_setting.type == 'static' ? 'block' : 'none' }}">
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Имя сайта</h4>
+													<p>Предоставляет удобочитаемое имя для приложения, предназначенное для отображения для пользователя, например, в списке других приложений или как подпись к иконке.</p>
+													<hr>
+													<input type="text" name="feed_webmanifest_setting[description][name]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+												</div>
+											</div>
+										</div>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Короткое имя сайта</h4>
+													<p>Предоставляет короткое удобочитаемое имя приложения. Предназначено для использования там, где недостаточно места для отображения полного имени приложения.</p>
+													<hr>
+													<input type="text" name="feed_webmanifest_setting[description][short_name]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.short_name }}" placeholder="Короткое имя сайта" maxlength="12" class="form-control" />
+												</div>
+											</div>
+										</div>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Описание сайта</h4>
+													<p>Обеспечивает общее описание того, что делает приложение.</p>
+													<hr>
+													<input type="text" name="feed_webmanifest_setting[description][description]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.description }}" placeholder="Описание сайта" maxlength="1024" class="form-control" />
+												</div>
+											</div>
+										</div>
+										<div class="list-group-item">
+											<div class="media">
+												<div class="media-body">
+													<h4 class="media-heading text-medium">Стартовый URL</h4>
+													<p>Определяет URL, который загружается, когда пользователь запустил приложение с устройства. Если относительный URL, базовый URL будет URL манифеста.</p>
+													<hr>
+													<input type="text" name="feed_webmanifest_setting[description][start_url]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.start_url }}" placeholder="Стартовый URL" maxlength="512" class="form-control" />
+												</div>
+											</div>
+										</div>
+										<div class="list-group-item">
+											<div class="media overflow-visible">
+												<div class="media-body overflow-visible">
+													<h4 class="media-heading text-medium">Язык</h4>
+													<p>Язык и направление текста сайта</p>
+													<hr>
+													<select name="feed_webmanifest_setting[description][lang]" class="selectpicker show-tick">
+														{% for language in languages %}
+														{% if language.code == feed_webmanifest_setting.description.lang %}
+														<option value="{{ language.code }}" selected="selected">{{ language.name }}</option>
+														{% else %}
+														<option value="{{ language.code }}">{{ language.name }}</option>
+														{% endif %}
+														{% endfor %}
+													</select>
+													<select name="feed_webmanifest_setting[description][dir]" class="selectpicker show-tick">
+														{% for direction in feed_webmanifest_setting.direction_value %}
+														{% if direction == feed_webmanifest_setting.description.dir %}
+														<option value="{{ direction }}" selected="selected">{{ direction }}</option>
+														{% else %}
+														<option value="{{ direction }}">{{ direction }}</option>
+														{% endif %}
+														{% endfor %}
+													</select>
+													<hr>
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="list-group-item">
-										<div class="media">
-											<div class="media-body">
-												<h4 class="media-heading text-medium">Короткое имя сайта</h4>
-												<p>Предоставляет короткое удобочитаемое имя приложения. Предназначено для использования там, где недостаточно места для отображения полного имени приложения.</p>
-												<hr>
-												<input type="text" name="feed_webmanifest_setting[description][short_name]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.short_name }}" placeholder="Короткое имя сайта" maxlength="12" class="form-control" />
+									<div class="manifest-dynamic" style="display: {{ feed_webmanifest_setting.type == 'dynamic' ? 'block' : 'none' }}">
+										<ul class="nav nav-tabs" id="language">
+											{% for language in languages %}
+											<li><a href="#language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>
+											{% endfor %}
+										</ul>
+										{% for language in languages %}
+										<div class="tab-pane" id="language{{ language.language_id }}">
+											<div class="list-group-item">
+												<div class="media">
+													<div class="media-body">
+														<h4 class="media-heading text-medium">Имя сайта</h4>
+														<p>Предоставляет удобочитаемое имя для приложения, предназначенное для отображения для пользователя, например, в списке других приложений или как подпись к иконке.</p>
+														<hr>
+														<input type="text" name="feed_webmanifest_dynamic[{{ language.language_id }}][name]" value="{{ feed_webmanifest_dynamic[language.language_id] ? feed_webmanifest_dynamic[language.language_id].name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item">
+												<div class="media">
+													<div class="media-body">
+														<h4 class="media-heading text-medium">Короткое имя сайта</h4>
+														<p>Предоставляет короткое удобочитаемое имя приложения. Предназначено для использования там, где недостаточно места для отображения полного имени приложения.</p>
+														<hr>
+														<input type="text" name="feed_webmanifest_dynamic[{{ language.language_id }}][short_name]" value="{{ feed_webmanifest_dynamic[language.language_id] ? feed_webmanifest_dynamic[language.language_id].short_name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item">
+												<div class="media">
+													<div class="media-body">
+														<h4 class="media-heading text-medium">Описание сайта</h4>
+														<p>Обеспечивает общее описание того, что делает приложение.</p>
+														<hr>
+														<input type="text" name="feed_webmanifest_dynamic[{{ language.language_id }}][description]" value="{{ feed_webmanifest_dynamic[language.language_id] ? feed_webmanifest_dynamic[language.language_id].description }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+													</div>
+												</div>
+											</div>
+											<div class="list-group-item">
+												<div class="media">
+													<div class="media-body">
+														<h4 class="media-heading text-medium">Стартовый URL</h4>
+														<p>Определяет URL, который загружается, когда пользователь запустил приложение с устройства. Если относительный URL, базовый URL будет URL манифеста.</p>
+														<hr>
+														<input type="text" name="feed_webmanifest_dynamic[{{ language.language_id }}][start_url]" value="{{ feed_webmanifest_dynamic[language.language_id] ? feed_webmanifest_dynamic[language.language_id].start_url }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-									<div class="list-group-item">
-										<div class="media">
-											<div class="media-body">
-												<h4 class="media-heading text-medium">Описание сайта</h4>
-												<p>Обеспечивает общее описание того, что делает приложение.</p>
-												<hr>
-												<input type="text" name="feed_webmanifest_setting[description][description]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.description }}" placeholder="Описание сайта" maxlength="1024" class="form-control" />
-											</div>
-										</div>
-									</div>
-									<div class="list-group-item">
-										<div class="media">
-											<div class="media-body">
-												<h4 class="media-heading text-medium">Стартовый URL</h4>
-												<p>Определяет URL, который загружается, когда пользователь запустил приложение с устройства. Если относительный URL, базовый URL будет URL манифеста.</p>
-												<hr>
-												<input type="text" name="feed_webmanifest_setting[description][start_url]" value="{{ feed_webmanifest_setting ? feed_webmanifest_setting.description.start_url }}" placeholder="Стартовый URL" maxlength="512" class="form-control" />
-											</div>
-										</div>
+										{% endfor %}
 									</div>
 								</div>
 								<div class="tab-pane" id="tab-display">
@@ -179,6 +286,7 @@
 								</div>
 							</div>
 						</div>
+						<div id="footer-appeal-users" class="panel-footer text-center"></div>
 					</div>
 				</div>
 			</div>
@@ -186,6 +294,8 @@
 	</div>
 </div>
 <script>
+	$('#language a:first').tab('show');
+
 	// Selectpicker
 	$('.selectpicker.selectpicker-live-search').selectpicker({
 		size: 10,
@@ -194,6 +304,22 @@
 		tickIcon: 'fa-check'
 	});
 
+	// Type Manifest
+	var typeManifest = $("input[name=\'feed_webmanifest_setting[type]\']"),
+		manifestStatic = $('.manifest-static'),
+		manifestDynamic = $('.manifest-dynamic');
+
+	typeManifest.change(function() {
+		if (this.value == 'static') {
+			manifestStatic.show();
+			manifestDynamic.hide();
+		} else if (this.value == 'dynamic') {
+			manifestStatic.hide();
+			manifestDynamic.show();
+		}
+	});
+
+	// Color Settings
 	var materializeColors = $('.materialize-colors');
 
 	materializeColors.each(function() {
@@ -259,6 +385,25 @@
 		message: 'Ошибка в URL'
 	},{
 		type: "danger"
+	});
+	{% endif %}
+
+	$('#footer-appeal-users').load('index.php?route=extension/theme/materialize/appealFooter&user_token={{ user_token }}');
+
+	{% if feed_webmanifest_installed_appeal %}
+	$.ajax({
+		url: 'index.php?route=extension/theme/materialize/appealInstall&modal_title={{ title }}&user_token={{ user_token }}',
+		dataType: 'html',
+		success: function(html) {
+			$('#modal-materialize-installed').remove();
+
+			$('body').prepend(html);
+
+			$('#modal-materialize-installed').modal('show');
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
 	});
 	{% endif %}
 </script>
