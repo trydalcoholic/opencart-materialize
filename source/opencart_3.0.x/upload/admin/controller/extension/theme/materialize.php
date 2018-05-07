@@ -54,6 +54,10 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->load->model('catalog/information');
 
+		if (isset($this->request->get['store_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+			$setting_info = $this->model_setting_setting->getSetting('theme_materialize', $this->request->get['store_id']);
+		}
+
 		$check_update = $this->model_extension_materialize_materialize->checkUpdate();
 
 		if ($check_update == false) {
@@ -63,9 +67,69 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		}
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('theme_materialize', $this->request->post, $this->request->get['store_id']);
+			$theme_status = $this->request->post['theme_materialize_status'];
+			$favicon_status = $this->request->post['theme_materialize_settings'];
 
-			$this->model_extension_materialize_materialize->editSocialIcon($this->request->post);
+			if (!empty($theme_status) && !empty($favicon_status['favicon']['browserconfig'])) {
+				if (empty($setting_info['theme_materialize_settings']['favicon']['browserconfig_icon'])) {
+					$this->load->model('tool/image');
+
+					$icons = array();
+
+					if (is_file(DIR_IMAGE . $this->config->get('config_icon'))) {
+						$icons['square70x70'] = $this->model_tool_image->resize($this->config->get('config_icon'), 128, 128);
+						$icons['square150x150'] = $this->model_tool_image->resize($this->config->get('config_icon'), 270, 270);
+					}
+
+					if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
+						$icons['wide310x150'] = $this->model_tool_image->resize($this->config->get('config_logo'), 558, 270);
+						$icons['square310x310'] = $this->model_tool_image->resize($this->config->get('config_logo'), 558, 558);
+					}
+
+					if (!empty($icons)) {
+						$this->request->post['theme_materialize_settings']['favicon']['browserconfig_icon'] = $icons;
+					}
+				} else {
+					$icons = $webmanifest_info['theme_materialize_settings']['favicon']['browserconfig_icon'];
+				}
+
+				$browserconfig  = '<?xml version="1.0" encoding="utf-8"?>';
+				$browserconfig .= '<browserconfig>';
+				$browserconfig .= '  <msapplication>';
+				$browserconfig .= '    <tile>';
+
+				foreach ($icons as $key => $value) {
+					if ($key == 'square70x70')		{$browserconfig .= '      <square70x70logo src="' . $value . '"/>';}
+					if ($key == 'square150x150')	{$browserconfig .= '      <square150x150logo src="' . $value . '"/>';}
+					if ($key == 'wide310x150')		{$browserconfig .= '      <wide310x150logo src="' . $value . '"/>';}
+					if ($key == 'square310x310')	{$browserconfig .= '      <square310x310logo src="' . $value . '"/>';}
+				}
+
+				$browserconfig .= '      <TileColor>' . $this->request->post['theme_materialize_colors']['browser_bar_hex'] . '</TileColor>';
+				$browserconfig .= '    </tile>';
+				$browserconfig .= '  </msapplication>';
+				$browserconfig .= '</browserconfig>';
+
+				$file = DIR_CATALOG . "view/theme/materialize/js/browserconfig.xml";
+
+				if (file_exists($file)) {
+					unlink($file);
+				}
+
+				if (!file_exists($file)) {
+					$fp = fopen($file, "w");
+					fwrite($fp, ltrim($browserconfig));
+					fclose($fp);
+				}
+			} else {
+				$file = DIR_CATALOG . "view/theme/materialize/js/browserconfig.xml";
+
+				if (file_exists($file)) {
+					unlink($file);
+				}
+			}
+
+			$this->model_setting_setting->editSetting('theme_materialize', $this->request->post, $this->request->get['store_id']);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -192,10 +256,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$data['apply'] = $this->url->link('extension/theme/materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'] . '&apply', true);
 
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=theme', true);
-
-		if (isset($this->request->get['store_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-			$setting_info = $this->model_setting_setting->getSetting('theme_materialize', $this->request->get['store_id']);
-		}
 
 		$data['theme_materialize_directory'] = 'materialize';
 

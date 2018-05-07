@@ -1036,8 +1036,8 @@
 	<!-- Materialize Template Settings frontend -->
 	<file path="catalog/controller/common/header.php">
 		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
+			<search><![CDATA[return $this->load->view('common/header', $data);]]></search>
+			<add position="before"><![CDATA[
 			if ($materialize) {
 				$colors = $this->config->get('theme_materialize_colors');
 
@@ -1144,6 +1144,22 @@
 					$data['open'] = nl2br($this->config->get('config_open'));
 				} else {
 					$data['open'] = false;
+				}
+
+				if (isset($materialize_settings['favicon'])) {
+					$materialize_favicon = $materialize_settings['favicon'];
+				} else {
+					$materialize_favicon = '';
+				}
+
+				if (isset($materialize_favicon['browserconfig'])) {
+					if ($this->request->server['HTTPS']) {
+						$data['browserconfig'] = $server . "catalog/view/theme/materialize/js/browserconfig.xml";
+					} else {
+						$data['browserconfig'] = $server . "catalog/view/theme/materialize/js/browserconfig.xml";
+					}
+				} else {
+					$data['browserconfig'] = false;
 				}
 
 				if (isset($materialize_settings['adult_content'])) {

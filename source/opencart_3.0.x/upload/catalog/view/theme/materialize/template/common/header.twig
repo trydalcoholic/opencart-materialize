@@ -63,6 +63,7 @@
 	</script>
 	<style>{{ css }}</style>
 	{% if manifest %}<link rel="manifest" href="{{ manifest }}">{% endif %}
+	{% if browserconfig %}<meta name="msapplication-config" content="{{ browserconfig }}">{% endif %}
 	{% for link in links %}<link href="{{ link.href }}" rel="{{ link.rel }}" {% if link.type or link.sizes %}type="{{ link.type }}" sizes="{{ link.sizes }}" {% endif %}>{% endfor %}
 	{% for analytic in analytics %}{{ analytic }}{% endfor %}
 	<!--[if lt IE 9]>

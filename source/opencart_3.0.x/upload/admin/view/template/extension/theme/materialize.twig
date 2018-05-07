@@ -59,7 +59,8 @@
 											<ul class="nav nav-pills nav-stacked" id="tab-common-pills">
 												<li><a href="#tab-header" data-toggle="tab">{{ text_header }}</a></li>
 												<li><a href="#tab-footer" data-toggle="tab">{{ text_footer }}</a></li>
-												<li><a href="#tab-social-networks" data-toggle="tab">Социальные сети</a></li> <!-- {{ entry_socials }} -->
+												<li><a href="#tab-favicon" data-toggle="tab">Фавикон</a></li>
+												<li><a href="#tab-social-networks" data-toggle="tab">Социальные сети</a></li>
 												<li><a href="#tab-adult-content" data-toggle="tab">Взрослый контент</a></li>
 												<li><a href="#tab-cache" data-toggle="tab">{{ text_caching }}</a></li>
 											</ul>
@@ -156,6 +157,40 @@
 															</div>
 														</div>
 													</fieldset>
+												</div>
+												<div class="tab-pane" id="tab-favicon">
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium">Фавикон</h4>
+																<p>Генерация фавиконки с расширеным настройками.</p>
+															</div>
+															<div class="media-right media-middle">
+																<label class="form-switch pull-right">
+																	<input name="theme_materialize_settings[favicon][status]" type="checkbox" {{ theme_materialize_settings.favicon.status == 'on' ? 'checked="checked"' }}>
+																	<i></i>
+																</label>
+															</div>
+														</div>
+													</div>
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium">browserconfig.xml</h4>
+																<p>Генерация файла browserconfig.xml. Файл применяется для создания плиток Windows при сохранении пользоавтелями ссылки на сайт на главный экран устройства.
+																<br>
+																<u>Для маленькой и средней</u> плитки используется <b>фавикон</b>.
+																<br>
+																<u>Для широкой и крупной</u> плитки используется <b>логотип сайта</b>.</p>
+															</div>
+															<div class="media-right media-middle">
+																<label class="form-switch pull-right">
+																	<input name="theme_materialize_settings[favicon][browserconfig]" type="checkbox" {{ theme_materialize_settings.favicon.browserconfig == 'on' ? 'checked="checked"' }}>
+																	<i></i>
+																</label>
+															</div>
+														</div>
+													</div>
 												</div>
 												<div class="tab-pane" id="tab-social-networks">
 													<div class="list-group-item">
