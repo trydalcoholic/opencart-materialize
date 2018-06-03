@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 /*========== Superfish Menu Plugin - v1.7.10 ==========*/
 .sf-menu, .sf-menu * {
 	margin: 0;
@@ -675,7 +673,6 @@ span.collapsible-header {
 .cart-list-buttons {
 	position: absolute;
 	right: 0;
-	direction: flex;
 }
 
 /*========== List of producers ==========*/

@@ -3752,7 +3752,7 @@
 	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}*.php">
 		<operation error="skip">
 			<search><![CDATA[<?php]]></search>
-			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
+			<add position="after"><![CDATA[$_['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
 		</operation>
 	</file>
 	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}*.php">

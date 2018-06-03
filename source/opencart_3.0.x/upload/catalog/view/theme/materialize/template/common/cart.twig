@@ -33,7 +33,7 @@
 				{% endfor %}
 				{% for voucher in vouchers %}
 				<li class="collection-item avatar">
-					<img src="{{ img_loader }}" data-src="catalog/view/theme/materialize/image/cart-voucher.png" class="circle lazyload" width="42" height="42">
+					<img data-src="catalog/view/theme/materialize/image/cart-voucher.png" class="circle" width="42" height="42">
 					<span class="title text-bold">{{ voucher.description }}</span>&nbsp;x&nbsp;1
 					<button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}" class="btn-flat no-padding secondary-content activator black-text"><i class="material-icons">remove_shopping_cart</i></button>
 				</li>
@@ -58,7 +58,7 @@
 				<p class="flow-text text-bold">{{ text_empty }}</p>
 				<div class="row">
 					<div class="col s4 m3 l2 center">
-						<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="catalog/view/theme/materialize/image/cart-empty.png" alt="" width="128" height="128">
+						<img class="responsive-img" src="catalog/view/theme/materialize/image/cart-empty.png" alt="" width="128" height="128">
 					</div>
 					<div class="col s8 m9 l10 grey lighten-3 z-depth-1 comment-body">
 						<p>{{ text_cat_says }}</p>
