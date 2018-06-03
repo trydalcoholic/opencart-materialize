@@ -1,17 +1,17 @@
 <div class="section">
-	<div id="slideshow{{ module }}" class="slick-slider slick-slider-slideshow z-depth-1">
+	<div id="slideshow{{ module }}" class="slick-slider slick-slider-slideshow">
 	{% for banner in banners %}
 		{% if banner.link %}
-		<a href="{{ banner.link }}"><img class="responsive-img" src="{{ banner.image }}" alt="{{ banner.title }}"></a>
+		<a href="{{ banner.link }}"><img class="z-depth-1" src="{{ banner.image }}" alt="{{ banner.title }}"></a>
 		{% else %}
-		<img class="responsive-img" src="{{ banner.image }}" alt="{{ banner.title }}">
+		<img class="z-depth-1" src="{{ banner.image }}" alt="{{ banner.title }}">
 		{% endif %}
 	{% endfor %}
 	</div>
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	$('.slick-slider').not('.slick-initialized').slick({
+	$('.slick-slider').slick({
 		infinite: true,
 		autoplay: true,
 		autoplaySpeed: 5000,
@@ -20,7 +20,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		fade: true,
 		cssEase: 'linear',
 		dots: true,
-		arrows: true
+		arrows: true,
+		nextArrow: '<button class="slick-next waves-effect waves-circle" aria-label="Next" type="button">Next</button>',
+		prevArrow: '<button class="slick-prev waves-effect waves-circle" aria-label="Previous" type="button">Previous</button>'
 	});
 });
 </script>

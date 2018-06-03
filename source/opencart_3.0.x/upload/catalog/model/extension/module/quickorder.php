@@ -22,8 +22,7 @@ class ModelExtensionModuleQuickorder extends Model {
 			$message .= sprintf($this->language->get('text_calltime'), html_entity_decode($data['module_quickorder_calltime'], ENT_QUOTES, 'UTF-8')) . "\n";
 		}
 
-		$mail = new Mail();
-		$mail->protocol = $this->config->get('config_mail_protocol');
+		$mail = new Mail($this->config->get('config_mail_engine'));
 		$mail->parameter = $this->config->get('config_mail_parameter');
 		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
 		$mail->smtp_username = $this->config->get('config_mail_smtp_username');

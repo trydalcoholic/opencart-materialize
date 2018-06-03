@@ -66,8 +66,16 @@
 	{% if browserconfig %}<meta name="msapplication-config" content="{{ browserconfig }}">{% endif %}
 	{% for link in links %}<link href="{{ link.href }}" rel="{{ link.rel }}" {% if link.type or link.sizes %}type="{{ link.type }}" sizes="{{ link.sizes }}" {% endif %}>{% endfor %}
 	{% for analytic in analytics %}{{ analytic }}{% endfor %}
+	<script defer src="catalog/view/theme/materialize/js/jquery/jquery-3.3.1.min.js"></script>
+	<script defer src="catalog/view/theme/materialize/js/materialize/materialize.min.js"></script>
+	<script defer src="catalog/view/theme/materialize/js/lazysizes/lazysizes.min.js"></script>
+	<script defer src="catalog/view/theme/materialize/js/superfish/superfish.min.js"></script>
+	{% for script in scripts %}
+	<script defer src="{{ script }}"></script>
+	{% endfor %}
+	<script defer src="catalog/view/theme/materialize/js/script.js"></script>
 	<!--[if lt IE 9]>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<![endif]-->
 </head>
 <body class="{{ color_background }}">

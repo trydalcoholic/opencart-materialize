@@ -25,6 +25,17 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize');
+
+		$cached_categories = $this->cache->get('materialize.categories');
+		$cached_colors = $this->cache->get('materialize.colors');
+
+		if ($cached_categories) {
+			$this->cache->delete('materialize.categories');
+		}
+
+		if ($cached_colors) {
+			$this->cache->delete('materialize.colors');
+		}
 	}
 
 	public function index() {
@@ -68,9 +79,25 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$theme_status = $this->request->post['theme_materialize_status'];
-			$favicon_status = $this->request->post['theme_materialize_settings'];
+			$materialize_settings = $this->request->post['theme_materialize_settings'];
 
-			if (!empty($theme_status) && !empty($favicon_status['favicon']['browserconfig'])) {
+			if (empty($theme_status) || empty($materialize_settings['optimization']['cached_categories'])) {
+				$cached_categories = $this->cache->get('materialize.categories');
+
+				if ($cached_categories) {
+					$this->cache->delete('materialize.categories');
+				}
+			}
+
+			if (empty($theme_status) || empty($materialize_settings['optimization']['cached_colors'])) {
+				$cached_colors = $this->cache->get('materialize.colors');
+
+				if ($cached_colors) {
+					$this->cache->delete('materialize.colors');
+				}
+			}
+
+			if (!empty($theme_status) && !empty($materialize_settings['favicon']['browserconfig'])) {
 				if (empty($setting_info['theme_materialize_settings']['favicon']['browserconfig_icon'])) {
 					$this->load->model('tool/image');
 
@@ -499,10 +526,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'agreement'	=> '',
 				'back_link'	=> '',
 			);
-
-			$data['theme_materialize_settings']['cache'] = array(
-				'css'	=> '',
-			);
 		}
 
 		/* Colors */
@@ -625,21 +648,11 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
-		$data['clear_css'] = $this->url->link('extension/theme/materialize/clearCss', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true);
-
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
 		$this->response->setOutput($this->load->view('extension/theme/materialize', $data));
-	}
-
-	public function clearCss() {
-		$this->cache->delete('compressed.css');
-
-		$this->session->data['success'] = 'Кэш Css Очищен!';
-
-		$this->response->redirect($this->url->link('extension/theme/materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true));
 	}
 
 	public function appealInstall() {
@@ -734,5 +747,75 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		}
 
 		return !$this->error;
+	}
+
+	public function clearCacheCategories() {
+		$json = array();
+
+		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		} else {
+			$cached_categories = $this->cache->get('materialize.categories');
+
+			if ($cached_categories) {
+				$this->cache->delete('materialize.categories');
+
+				$json['success'] = 'Кэш категорий был очищен!';
+			} else {
+				$json['info'] = 'Кэш категорий был пуст!';
+			}
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function clearCacheColors() {
+		$json = array();
+
+		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		} else {
+			$cached_colors = $this->cache->get('materialize.colors');
+
+			if ($cached_colors) {
+				$this->cache->delete('materialize.colors');
+
+				$json['success'] = 'Кэш цветов был очищен!';
+			} else {
+				$json['info'] = 'Кэш цветов был пуст!';
+			}
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function clearCacheAll() {
+		$json = array();
+
+		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		} else {
+			$cached_categories = $this->cache->get('materialize.categories');
+			$cached_colors = $this->cache->get('materialize.colors');
+
+			if ($cached_categories) {
+				$this->cache->delete('materialize.categories');
+			}
+
+			if ($cached_colors) {
+				$this->cache->delete('materialize.colors');
+			}
+
+			if (!$cached_categories && !$cached_colors) {
+				$json['info'] = 'Кэш был пуст!';
+			} else {
+				$json['success'] = 'Кэш был очищен!';
+			}
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 }

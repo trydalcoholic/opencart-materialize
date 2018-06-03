@@ -62,7 +62,7 @@
 												<li><a href="#tab-favicon" data-toggle="tab">Фавикон</a></li>
 												<li><a href="#tab-social-networks" data-toggle="tab">Социальные сети</a></li>
 												<li><a href="#tab-adult-content" data-toggle="tab">Взрослый контент</a></li>
-												<li><a href="#tab-cache" data-toggle="tab">{{ text_caching }}</a></li>
+												<li><a href="#tab-optimization" data-toggle="tab">Оптимизация</a></li>
 											</ul>
 										</div>
 										<div class="col-sm-9">
@@ -105,6 +105,20 @@
 															<div class="media-right media-middle">
 																<label class="form-switch pull-right">
 																	<input name="theme_materialize_settings[header][working_hours]" type="checkbox" {{ theme_materialize_settings.header.working_hours == 'on' ? 'checked="checked"' }}>
+																	<i></i>
+																</label>
+															</div>
+														</div>
+													</div>
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium">3 уровень категорий</h4>
+																<p>Показывать 3 уровень категорий в стандартном меню категорий. Может вызвать снижение скорости загрузки сайта.</p>
+															</div>
+															<div class="media-right media-middle">
+																<label class="form-switch pull-right">
+																	<input name="theme_materialize_settings[header][third_lvl_category]" type="checkbox" {{ theme_materialize_settings.header.third_lvl_category == 'on' ? 'checked="checked"' }}>
 																	<i></i>
 																</label>
 															</div>
@@ -331,24 +345,48 @@
 														</div>
 													</div>
 												</div>
-												<div class="tab-pane" id="tab-cache">
+												<div class="tab-pane" id="tab-optimization">
 													<div class="list-group-item">
 														<div class="media">
 															<div class="media-body">
-																<h4 class="media-heading text-medium">{{ text_caching_css }}</h4>
-																<p>Включает кэширование CSS. Кэш хранится 1 час с момента создания.</p>
+																<h4 class="media-heading text-medium">Кэширование категорий</h4>
+																<p>Включить кэширование списка категорий для стандартного меню категорий.</p>
 															</div>
 															<div class="media-right media-middle">
 																<label class="form-switch pull-right">
-																	<input name="theme_materialize_settings[cache][css]" type="checkbox" {{ theme_materialize_settings.cache.css == 'on' ? 'checked="checked"' }}>
+																	<input name="theme_materialize_settings[optimization][cached_categories]" type="checkbox" {{ theme_materialize_settings.optimization.cached_categories == 'on' ? 'checked="checked"' }}>
 																	<i></i>
 																</label>
 															</div>
 														</div>
 													</div>
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium">Кэширование цветов</h4>
+																<p>Включить кэширование настроек цветов шаблона.</p>
+															</div>
+															<div class="media-right media-middle">
+																<label class="form-switch pull-right">
+																	<input name="theme_materialize_settings[optimization][cached_colors]" type="checkbox" {{ theme_materialize_settings.optimization.cached_colors == 'on' ? 'checked="checked"' }}>
+																	<i></i>
+																</label>
+															</div>
+														</div>
+													</div>
+													<hr>
 													<div class="form-group">
 														<div class="col-xs-12 text-right">
-															<a id="clear-css" class="btn btn-danger" href="{{ clear_css }}"><i class="fa fa-eraser fa-lg"></i> {{ text_clear_cache }}</a>
+															<div class="btn-group">
+																<button type="button" class="btn btn-danger" id="cache-clear">Очистить кэш</button>
+																<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+																<ul class="dropdown-menu">
+																	<li><a id="cache-clear-categories">Категории</a></li>
+																	<li><a id="cache-clear-colors">Цвета</a></li>
+																	<li role="separator" class="divider"></li>
+																	<li><a id="cache-clear-all">Весь кэш</a></li>
+																</ul>
+															</div>
 														</div>
 													</div>
 												</div>
@@ -1436,6 +1474,129 @@
 		liveSearch: true,
 		iconBase: 'fa',
 		tickIcon: 'fa-check'
+	});
+
+	var successNotification = window.createNotification({
+			theme: 'success',
+			displayCloseButton: true,
+			showDuration: 5000
+		}),
+		infoNotification = window.createNotification({
+			theme: 'info',
+			displayCloseButton: true,
+			showDuration: 5000
+		}),
+		warningNotification = window.createNotification({
+			theme: 'warning',
+			displayCloseButton: true,
+			showDuration: 5000
+		}),
+		errorNotification = window.createNotification({
+			theme: 'error',
+			displayCloseButton: true,
+			showDuration: 5000
+		}),
+		noneNotification = window.createNotification({
+			theme: 'none',
+			displayCloseButton: true,
+			showDuration: 5000
+		});
+
+	// Clear cache
+	$(document).on('click', '#cache-clear-categories', function() {
+		$.ajax({
+			url: 'index.php?route=extension/theme/materialize/clearCacheCategories&user_token={{ user_token }}',
+			type: 'post',
+			dataType: 'json',
+			beforeSend: function() {
+				$('#cache-clear').button('loading');
+			},
+			complete: function() {
+				$('#cache-clear').button('reset');
+			},
+			success: function(json) {
+				if (json['info']) {
+					infoNotification({
+						title: 'Очистка кэша',
+						message: json['info']
+					});
+				}
+
+				if (json['success']) {
+					successNotification({
+						title: 'Очистка кэша',
+						message: json['success']
+					});
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
+
+	$(document).on('click', '#cache-clear-colors', function() {
+		$.ajax({
+			url: 'index.php?route=extension/theme/materialize/clearCacheColors&user_token={{ user_token }}',
+			type: 'post',
+			dataType: 'json',
+			beforeSend: function() {
+				$('#cache-clear').button('loading');
+			},
+			complete: function() {
+				$('#cache-clear').button('reset');
+			},
+			success: function(json) {
+				if (json['info']) {
+					infoNotification({
+						title: 'Очистка кэша',
+						message: json['info']
+					});
+				}
+
+				if (json['success']) {
+					successNotification({
+						title: 'Очистка кэша',
+						message: json['success']
+					});
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
+
+	$(document).on('click', '#cache-clear-all', function() {
+		$.ajax({
+			url: 'index.php?route=extension/theme/materialize/clearCacheAll&user_token={{ user_token }}',
+			type: 'post',
+			dataType: 'json',
+			beforeSend: function() {
+				$('#cache-clear').button('loading');
+			},
+			complete: function() {
+				$('#cache-clear').button('reset');
+			},
+			success: function(json) {
+				if (json['info']) {
+					infoNotification({
+						title: 'Очистка кэша',
+						message: json['info']
+					});
+				}
+
+				if (json['success']) {
+					successNotification({
+						title: 'Очистка кэша',
+						message: json['success']
+					});
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
 	});
 
 	// Apply button

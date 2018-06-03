@@ -1,0 +1,160 @@
+.slick-loading .slick-list {background: #fff url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==') center center no-repeat;}
+
+/* Arrows */
+.slick-prev, .slick-next {
+    font-family: 'Material Icons';
+
+	position: absolute !important;
+	top: calc(50% - 1.25em);
+
+	display: block;
+	padding: 0;
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+
+	cursor: pointer;
+
+	color: transparent;
+	border: none;
+	outline: none;
+	background: transparent;
+}
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus
+{
+	color: transparent;
+	outline: none;
+	background: transparent;
+}
+.slick-prev:hover:before,
+.slick-prev:focus:before,
+.slick-next:hover:before,
+.slick-next:focus:before
+{
+	opacity: 1;
+}
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before
+{
+	opacity: .25;
+}
+
+.slick-prev:before,
+.slick-next:before
+{
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    opacity: .75;
+    color: #000
+}
+
+.slick-prev
+{
+	left: 0;
+}
+[dir='rtl'] .slick-prev
+{
+	right: 0;
+	left: auto;
+}
+.slick-prev:before
+{
+	content: '\E5CB'
+}
+[dir='rtl'] .slick-prev:before
+{
+	content: '\E5CC'
+}
+
+.slick-next
+{
+	right: 0;
+}
+[dir='rtl'] .slick-next
+{
+	right: auto;
+	left: 0;
+}
+.slick-next:before
+{
+	content: '\E5CC'
+}
+[dir='rtl'] .slick-next:before
+{
+	content: '\E5CB'
+}
+
+/* Dots */
+.slick-dotted.slick-slider
+{
+	margin-bottom: 30px;
+}
+
+.slick-dots
+{
+	position: absolute;
+	bottom: -25px;
+
+	display: block;
+
+	width: 100%;
+	padding: 0;
+	margin: 0;
+
+	list-style: none;
+
+	text-align: center;
+}
+.slick-dots li
+{
+    width: 20px;
+    height: 20px;
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	padding: 0
+}
+.slick-dots li button
+{
+    width: 20px;
+    height: 20px;
+	font-size: 0;
+	line-height: 0;
+	display: block;
+	padding: 5px;
+	color: transparent;
+	border: 0;
+	outline: 0;
+	background: 0 0
+}
+.slick-dots li button:hover,
+.slick-dots li button:focus
+{
+	outline: none;
+}
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before
+{
+	opacity: 1;
+}
+.slick-dots li button:before
+{
+    font-family: 'Material Icons';
+	font-size: 10px;
+	line-height: 20px;
+	position: absolute;
+	top: 0;
+	left: 5px;
+	content: '\E3FA';
+	text-align: center;
+	opacity: .25;
+	color: #000
+}
+
+.slick-dots li.slick-active button:before {
+	opacity: .75;
+	color: black;
+}

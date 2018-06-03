@@ -1,21 +1,3 @@
-<div class="slider-for center photo-swipe" itemscope itemtype="http://schema.org/ImageGallery">
-	{% for image in images %}
-	<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-		<a href="{{ image.popup }}" itemprop="contentUrl" data-size="{{ data_size }}">
-			<img id="{{ image.zoom_id }}" class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ image.preview }}" itemprop="thumbnail" title="{{ heading_title }}" alt="{{ heading_title }}">
-		</a>
-		<figcaption class="center" itemprop="caption description">{{ heading_title }}</figcaption>
-	</figure>
-	{% endfor %}
-</div>
-{% if thumb_images %}
-<div class="slider-nav">
-	{% for image in images %}
-	<img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}">
-	{% endfor %}
-</div>
-{% endif %}
-
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="pswp__bg"></div>
 	<div class="pswp__scroll-wrap">
@@ -52,165 +34,134 @@
 </div>
 
 <script>
-	var initPhotoSwipeFromDOM = function(gallerySelector) {
-		var parseThumbnailElements = function(el) {
-			var thumbElements = el.childNodes,
-			numNodes = thumbElements.length,
-			items = [], figureEl, linkEl, size, item;
-			for(var i = 0; i < numNodes; i++) {
-				figureEl = thumbElements[i];
-				if(figureEl.nodeType !== 1) {
-					continue;
-				}
-				linkEl = figureEl.children[0];
-				size = linkEl.getAttribute('data-size').split('x');
-				item = {
-					src: linkEl.getAttribute('href'),
-					w: parseInt(size[0], 10),
-					h: parseInt(size[1], 10)
-				};
-				if(figureEl.children.length > 1) {
-					item.title = figureEl.children[1].innerHTML;
-				}
-				if(linkEl.children.length > 0) {
-					item.msrc = linkEl.children[0].getAttribute('src');
-				}
-				item.el = figureEl;
-				items.push(item);
+var initPhotoSwipeFromDOM = function(gallerySelector) {
+	var parseThumbnailElements = function(el) {
+		var thumbElements = el.childNodes,
+		numNodes = thumbElements.length,
+		items = [], figureEl, linkEl, size, item;
+		for(var i = 0; i < numNodes; i++) {
+			figureEl = thumbElements[i];
+			if(figureEl.nodeType !== 1) {
+				continue;
 			}
-			return items;
-		};
-		var closest = function closest(el, fn) {
-			return el && (fn(el) ? el : closest(el.parentNode, fn));
-		};
-		var onThumbnailsClick = function(e) {
-			e = e || window.event;
-			e.preventDefault ? e.preventDefault() : e.returnValue = false;
-			var eTarget = e.target || e.srcElement;
-			var clickedListItem = closest(eTarget, function(el) {
-				return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
-			});
-			if(!clickedListItem) {
-				return;
-			}
-			var clickedGallery = clickedListItem.parentNode,
-			childNodes = clickedListItem.parentNode.childNodes,
-			numChildNodes = childNodes.length,
-			nodeIndex = 0,
-			index;
-			for (var i = 0; i < numChildNodes; i++) {
-				if(childNodes[i].nodeType !== 1) {
-					continue;
-				}
-				if(childNodes[i] === clickedListItem) {
-					index = nodeIndex;
-					break;
-				}
-				nodeIndex++;
-			}
-			if(index >= 0) {
-				openPhotoSwipe( index, clickedGallery );
-			}
-			return false;
-		};
-		var photoswipeParseHash = function() {
-			var hash = window.location.hash.substring(1),
-			params = {};
-			if(hash.length < 5) {
-				return params;
-			}
-			var vars = hash.split('&');
-			for (var i = 0; i < vars.length; i++) {
-				if(!vars[i]) {
-					continue;
-				}
-				var pair = vars[i].split('=');
-					if(pair.length < 2) {
-						continue;
-					}
-				params[pair[0]] = pair[1];
-			}
-			if(params.gid) {
-				params.gid = parseInt(params.gid, 10);
-			}
-			return params;
-		};
-		var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
-			var pswpElement = document.querySelectorAll('.pswp')[0],
-			gallery, options, items;
-			items = parseThumbnailElements(galleryElement);
-			options = {
-				galleryUID: galleryElement.getAttribute('data-pswp-uid'),
-				getThumbBoundsFn: function(index) {
-					var thumbnail = items[index].el.getElementsByTagName('img')[0],
-					pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
-					rect = thumbnail.getBoundingClientRect();
-					return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
-				}
+			linkEl = figureEl.children[0];
+			size = linkEl.getAttribute('data-size').split('x');
+			item = {
+				src: linkEl.getAttribute('href'),
+				w: parseInt(size[0], 10),
+				h: parseInt(size[1], 10)
 			};
-			if(fromURL) {
-				if(options.galleryPIDs) {
-					for(var j = 0; j < items.length; j++) {
-						if(items[j].pid == index) {
-							options.index = j;
-							break;
-						}
+			if(figureEl.children.length > 1) {
+				item.title = figureEl.children[1].innerHTML;
+			}
+			if(linkEl.children.length > 0) {
+				item.msrc = linkEl.children[0].getAttribute('src');
+			}
+			item.el = figureEl;
+			items.push(item);
+		}
+		return items;
+	};
+	var closest = function closest(el, fn) {
+		return el && (fn(el) ? el : closest(el.parentNode, fn));
+	};
+	var onThumbnailsClick = function(e) {
+		e = e || window.event;
+		e.preventDefault ? e.preventDefault() : e.returnValue = false;
+		var eTarget = e.target || e.srcElement;
+		var clickedListItem = closest(eTarget, function(el) {
+			return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+		});
+		if(!clickedListItem) {
+			return;
+		}
+		var clickedGallery = clickedListItem.parentNode,
+		childNodes = clickedListItem.parentNode.childNodes,
+		numChildNodes = childNodes.length,
+		nodeIndex = 0,
+		index;
+		for (var i = 0; i < numChildNodes; i++) {
+			if(childNodes[i].nodeType !== 1) {
+				continue;
+			}
+			if(childNodes[i] === clickedListItem) {
+				index = nodeIndex;
+				break;
+			}
+			nodeIndex++;
+		}
+		if(index >= 0) {
+			openPhotoSwipe( index, clickedGallery );
+		}
+		return false;
+	};
+	var photoswipeParseHash = function() {
+		var hash = window.location.hash.substring(1),
+		params = {};
+		if(hash.length < 5) {
+			return params;
+		}
+		var vars = hash.split('&');
+		for (var i = 0; i < vars.length; i++) {
+			if(!vars[i]) {
+				continue;
+			}
+			var pair = vars[i].split('=');
+				if(pair.length < 2) {
+					continue;
+				}
+			params[pair[0]] = pair[1];
+		}
+		if(params.gid) {
+			params.gid = parseInt(params.gid, 10);
+		}
+		return params;
+	};
+	var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+		var pswpElement = document.querySelectorAll('.pswp')[0],
+		gallery, options, items;
+		items = parseThumbnailElements(galleryElement);
+		options = {
+			galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+			getThumbBoundsFn: function(index) {
+				var thumbnail = items[index].el.getElementsByTagName('img')[0],
+				pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+				rect = thumbnail.getBoundingClientRect();
+				return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+			}
+		};
+		if(fromURL) {
+			if(options.galleryPIDs) {
+				for(var j = 0; j < items.length; j++) {
+					if(items[j].pid == index) {
+						options.index = j;
+						break;
 					}
-				} else {
-					options.index = parseInt(index, 10) - 1;
 				}
 			} else {
-				options.index = parseInt(index, 10);
+				options.index = parseInt(index, 10) - 1;
 			}
-			if(isNaN(options.index)) {
-				return;
-			}
-			if(disableAnimation) {
-				options.showAnimationDuration = 0;
-			}
-			gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-			gallery.init();
-		};
-		var galleryElements = document.querySelectorAll(gallerySelector);
-		for(var i = 0, l = galleryElements.length; i < l; i++) {
-			galleryElements[i].setAttribute('data-pswp-uid', i+1);
-			galleryElements[i].onclick = onThumbnailsClick;
+		} else {
+			options.index = parseInt(index, 10);
 		}
-		var hashData = photoswipeParseHash();
-		if(hashData.pid && hashData.gid) {
-			openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+		if(isNaN(options.index)) {
+			return;
 		}
+		if(disableAnimation) {
+			options.showAnimationDuration = 0;
+		}
+		gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+		gallery.init();
 	};
-	initPhotoSwipeFromDOM('.photo-swipe');
-
-	document.addEventListener("DOMContentLoaded", function(event) {
-		$('.slider-for').not('.slick-initialized').slick({
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			arrows: true,
-			fade: true,
-			mobileFirst: true,
-			asNavFor: '.slider-nav'
-		});
-
-		{% if thumb_images %}
-		$('.slider-nav').not('.slick-initialized').slick({
-			slidesToShow: 4,
-			slidesToScroll: 4,
-			asNavFor: '.slider-for',
-			centerMode: false,
-			arrows: false,
-			infinite: false,
-			focusOnSelect: true
-		});
-		{% endif %}
-
-		{% if image_zoom %}
-			{% for image in images %}
-			$('#{{ image.zoom_id }}').wrap('<span style="display:inline-block"></span>').css('display', 'block').parent().zoom({
-				url: '{{ image.popup }}'
-			});
-			{% endfor %}
-		{% endif %}
-	});
+	var galleryElements = document.querySelectorAll(gallerySelector);
+	for(var i = 0, l = galleryElements.length; i < l; i++) {
+		galleryElements[i].setAttribute('data-pswp-uid', i+1);
+		galleryElements[i].onclick = onThumbnailsClick;
+	}
+	var hashData = photoswipeParseHash();
+	if(hashData.pid && hashData.gid) {
+		openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+	}
+};
+initPhotoSwipeFromDOM('.photo-swipe');
 </script>
