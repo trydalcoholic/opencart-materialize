@@ -1416,7 +1416,6 @@
 
 				if (isset($materialize_social['show_footer'])) {
 					$data['social_show'] = true;
-					$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 					$data['social_title'] = $materialize_social[$this->config->get('config_language_id')]['title'];
 
 					if (isset($materialize_social['not_index'])) {
@@ -2599,37 +2598,6 @@
 			]]></add>
 		</operation>
 	</file>
-	<!-- Add base64 loader -->
-	<file path="catalog/controller/{common,checkout,product}/{header,cart,category,compare,manufacturer,product,search,special}*.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/product/manufacturer.php">
-		<operation error="log">
-			<search><![CDATA[public function info() {]]></search>
-			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/product/product.php">
-		<operation error="log">
-			<search><![CDATA[public function review() {]]></search>
-			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/extension/module/{latest,carousel,banner,bestseller,featured,special}*.php">
-		<operation error="log">
-			<search><![CDATA[public function index($setting) {]]></search>
-			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/information/contact.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
-		</operation>
-	</file>
 	<!-- Add category in product card -->
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
@@ -3782,7 +3750,13 @@
 		</operation>
 	</file>
 	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}*.php">
-		<operation error="log">
+		<operation error="skip">
+			<search><![CDATA[<?php]]></search>
+			<add position="after"><![CDATA[$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';]]></add>
+		</operation>
+	</file>
+	<file path="catalog/language/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}/{en-gb,ro-ro,ru-ru,tr-tr,ua-uk,bg-bg}*.php">
+		<operation error="skip">
 			<search><![CDATA[<i class="fa fa-home"></i>]]></search>
 			<add position="replace"><![CDATA[<i class="material-icons">home</i>]]></add>
 		</operation>
