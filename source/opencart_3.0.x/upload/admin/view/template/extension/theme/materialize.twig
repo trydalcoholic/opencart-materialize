@@ -196,7 +196,7 @@
 																</div>
 															</div>
 														</div>
-														<!-- <div class="tab-pane" id="tab-browserconfig">
+														<div class="tab-pane" id="tab-browserconfig">
 															<div class="list-group-item">
 																<div class="media">
 																	<div class="media-body">
@@ -206,268 +206,290 @@
 																			<div class="col-xs-6">
 																				<u>Изображение для маленькой и средней плитки.</u>
 																				<hr>
-																				<a href="" id="thumb-payment-image" data-toggle="image" class="img-thumbnail materialize-color-thumbnail"><img src="{{ theme_materialize_payment_thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
-																				<input type="hidden" name="theme_materialize_products[payment][image]" value="{{ theme_materialize_products.payment.image }}" id="input-payment-image" />
+																				<a href="" id="thumb-browserconfig-image-small" data-toggle="image" class="img-thumbnail materialize-color-thumbnail"><img src="{{ theme_materialize_browserconfig_thumb_small }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+																				<input type="hidden" name="theme_materialize_settings[favicon][browserconfig][image_small]" value="{{ theme_materialize_settings.favicon.browserconfig.image_small }}" id="input-browserconfig-image-small" />
 																			</div>
 																			<div class="col-xs-6">
 																				<u>Изображение для широкой и крупной плитки.</u>
 																				<hr>
-																				<a href="" id="thumb-payment-image" data-toggle="image" class="img-thumbnail materialize-color-thumbnail"><img src="{{ theme_materialize_payment_thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
-																				<input type="hidden" name="theme_materialize_products[payment][image]" value="{{ theme_materialize_products.payment.image }}" id="input-payment-image" />
+																				<a href="" id="thumb-browserconfig-image-large" data-toggle="image" class="img-thumbnail materialize-color-thumbnail"><img src="{{ theme_materialize_browserconfig_thumb_large }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+																				<input type="hidden" name="theme_materialize_settings[favicon][browserconfig][image_large]" value="{{ theme_materialize_settings.favicon.browserconfig.image_large }}" id="input-browserconfig-image-large" />
 																			</div>
 																		</div>
 																	</div>
 																	<div class="media-right media-middle">
 																		<label class="form-switch pull-right">
-																			<input name="theme_materialize_settings[favicon][browserconfig]" type="checkbox" {{ theme_materialize_settings.favicon.browserconfig == 'on' ? 'checked="checked"' }}>
+																			<input name="theme_materialize_settings[favicon][browserconfig][status]" type="checkbox" {{ theme_materialize_settings.favicon.browserconfig.status == 'on' ? 'checked="checked"' }}>
 																			<i></i>
 																		</label>
 																	</div>
 																</div>
 															</div>
-														</div> -->
+															<div class="list-group-item">
+																<div class="media overflow-visible materialize-colors">
+																	<div class="media-body overflow-visible">
+																		<h4 class="media-heading text-medium">Фоновый цвет</h4>
+																		<p>Определяет фоновый цвет плитки.</p>
+																		<hr>
+																		<select name="theme_materialize_settings[favicon][browserconfig][background_color][hex]" class="selectpicker selectpicker-live-search show-tick">
+																			{% for color in theme_materialize_get_colors %}
+																			{% if color.hex == theme_materialize_settings.favicon.browserconfig.background_color.hex %}
+																			<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+																			{% else %}
+																			<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+																			{% endif %}
+																			{% endfor %}
+																		</select>
+																		<hr>
+																	</div>
+																	<div class="media-right media-middle">
+																		<div class="thumbnail materialize-color-thumbnail"></div>
+																	</div>
+																</div>
+															</div>
+														</div>
 														<div class="tab-pane" id="tab-manifest">
-<ul class="nav nav-tabs">
-	<li class="active"><a href="#tab-manifest-general" data-toggle="tab">Общее</a></li>
-	<li><a href="#tab-manifest-display" data-toggle="tab">Отображение</a></li>
-</ul>
-<div class="tab-content">
-	<div class="tab-pane active" id="tab-manifest-general">
-		<div class="list-group-item">
-			<div class="media">
-				<div class="media-body">
-					<h4 class="media-heading text-medium">Manifest JSON</h4>
-					<p>Цель манифества — установить веб-приложение на домашний экран устройства, предоставляя пользователю более быстрый доступ и больше возможностей.</p>
-					<u>Изображение для manifest.json</u>
-					<hr>
-					<a href="" id="thumb-manifest-image" data-toggle="image" class="img-thumbnail materialize-color-thumbnail"><img src="{{ theme_materialize_manifest_thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
-					<input type="hidden" name="theme_materialize_settings[favicon][manifest][image]" value="{{ theme_materialize_settings.favicon.manifest.image }}" id="input-manifest-image" />
-				</div>
-				<div class="media-right media-middle">
-					<label class="form-switch pull-right">
-						<input name="theme_materialize_settings[favicon][manifest][status]" type="checkbox" {{ theme_materialize_settings.favicon.manifest.status == 'on' ? 'checked="checked"' }}>
-						<i></i>
-					</label>
-				</div>
-			</div>
-		</div>
-		<br>
-		<fieldset>
-			<legend>Тип манифеста</legend>
-			<div class="list-group-item">
-				<div class="media">
-					<div class="media-left media-middle">
-						<label class="form-switch">
-							<input type="radio" name="theme_materialize_settings[favicon][manifest][type]" value="static" {{ theme_materialize_settings.favicon.manifest.type == 'static' ? 'checked="checked"' }}>
-							<i></i>
-						</label>
-					</div>
-					<div class="media-body">
-						<h4 class="media-heading text-medium">Статический</h4>
-						<p>После сохранения настроек модуля будет сохранён файл manifest.json. Данный тип манифеста <b>не поддерживает мультиязычность</b>.</p>
-					</div>
-				</div>
-			</div>
-			<div class="list-group-item">
-				<div class="media">
-					<div class="media-left media-middle">
-						<label class="form-switch">
-							<input type="radio" name="theme_materialize_settings[favicon][manifest][type]" value="dynamic" {{ theme_materialize_settings.favicon.manifest.type == 'dynamic' ? 'checked="checked"' }}>
-							<i></i>
-						</label>
-					</div>
-					<div class="media-body">
-						<h4 class="media-heading text-medium">Динамический</h4>
-						<p>Файл манифеста будет генерироваться, когда пользователь попытается сохранить добавить ссылку на сайт на главную страницу своего устройства. Данный тип манифеста <b>поддерживает мультиязычность.</b></p>
-					</div>
-				</div>
-			</div>
-		</fieldset>
-		<hr>
-		<div class="manifest-static" style="display: {{ theme_materialize_settings.favicon.manifest.type == 'static' ? 'block' : 'none' }}">
-			<div class="list-group-item">
-				<div class="media">
-					<div class="media-body">
-						<h4 class="media-heading text-medium">Имя сайта</h4>
-						<p>Предоставляет удобочитаемое имя для приложения, предназначенное для отображения для пользователя, например, в списке других приложений или как подпись к иконке.</p>
-						<hr>
-						<input type="text" name="theme_materialize_settings[favicon][manifest][name]" value="{{ theme_materialize_settings ? theme_materialize_settings.favicon.manifest.name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
-					</div>
-				</div>
-			</div>
-			<div class="list-group-item">
-				<div class="media">
-					<div class="media-body">
-						<h4 class="media-heading text-medium">Короткое имя сайта</h4>
-						<p>Предоставляет короткое удобочитаемое имя приложения. Предназначено для использования там, где недостаточно места для отображения полного имени приложения.</p>
-						<hr>
-						<input type="text" name="theme_materialize_settings[favicon][manifest][short_name]" value="{{ theme_materialize_settings ? theme_materialize_settings.favicon.manifest.short_name }}" placeholder="Короткое имя сайта" maxlength="12" class="form-control" />
-					</div>
-				</div>
-			</div>
-			<div class="list-group-item">
-				<div class="media">
-					<div class="media-body">
-						<h4 class="media-heading text-medium">Описание сайта</h4>
-						<p>Обеспечивает общее описание того, что делает приложение.</p>
-						<hr>
-						<input type="text" name="theme_materialize_settings[favicon][manifest][description]" value="{{ theme_materialize_settings ? theme_materialize_settings.favicon.manifest.description }}" placeholder="Описание сайта" maxlength="1024" class="form-control" />
-					</div>
-				</div>
-			</div>
-			<div class="list-group-item">
-				<div class="media">
-					<div class="media-body">
-						<h4 class="media-heading text-medium">Стартовый URL</h4>
-						<p>Определяет URL, который загружается, когда пользователь запустил приложение с устройства. Если относительный URL, базовый URL будет URL манифеста.</p>
-						<hr>
-						<input type="text" name="theme_materialize_settings[favicon][manifest][start_url]" value="{{ theme_materialize_settings ? theme_materialize_settings.favicon.manifest.start_url }}" placeholder="Стартовый URL" maxlength="512" class="form-control" />
-					</div>
-				</div>
-			</div>
-			<div class="list-group-item">
-				<div class="media overflow-visible">
-					<div class="media-body overflow-visible">
-						<h4 class="media-heading text-medium">Язык</h4>
-						<p>Язык и направление текста сайта</p>
-						<hr>
-						<select name="theme_materialize_settings[favicon][manifest][lang]" class="selectpicker show-tick">
-							{% for language in languages %}
-							{% if language.code == theme_materialize_settings.favicon.manifest.lang %}
-							<option value="{{ language.code }}" selected="selected">{{ language.name }}</option>
-							{% else %}
-							<option value="{{ language.code }}">{{ language.name }}</option>
-							{% endif %}
-							{% endfor %}
-						</select>
-						<select name="theme_materialize_settings[favicon][manifest][dir]" class="selectpicker show-tick">
-							{% for direction in theme_materialize_settings.favicon.manifest.direction_value %}
-							{% if direction == theme_materialize_settings.favicon.manifest.dir %}
-							<option value="{{ direction }}" selected="selected">{{ direction }}</option>
-							{% else %}
-							<option value="{{ direction }}">{{ direction }}</option>
-							{% endif %}
-							{% endfor %}
-						</select>
-						<hr>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="manifest-dynamic" style="display: {{ theme_materialize_settings.favicon.manifest.type == 'dynamic' ? 'block' : 'none' }}">
-			<ul class="nav nav-tabs" id="language">
-				{% for language in languages %}
-				<li><a href="#language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>
-				{% endfor %}
-			</ul>
-			{% for language in languages %}
-			<div class="tab-pane" id="language{{ language.language_id }}">
-				<div class="list-group-item">
-					<div class="media">
-						<div class="media-body">
-							<h4 class="media-heading text-medium">Имя сайта</h4>
-							<p>Предоставляет удобочитаемое имя для приложения, предназначенное для отображения для пользователя, например, в списке других приложений или как подпись к иконке.</p>
-							<hr>
-							<input type="text" name="theme_materialize_webmanifest_dynamic[{{ language.language_id }}][name]" value="{{ theme_materialize_webmanifest_dynamic[language.language_id] ? theme_materialize_webmanifest_dynamic[language.language_id].name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
-						</div>
-					</div>
-				</div>
-				<div class="list-group-item">
-					<div class="media">
-						<div class="media-body">
-							<h4 class="media-heading text-medium">Короткое имя сайта</h4>
-							<p>Предоставляет короткое удобочитаемое имя приложения. Предназначено для использования там, где недостаточно места для отображения полного имени приложения.</p>
-							<hr>
-							<input type="text" name="theme_materialize_webmanifest_dynamic[{{ language.language_id }}][short_name]" value="{{ theme_materialize_webmanifest_dynamic[language.language_id] ? theme_materialize_webmanifest_dynamic[language.language_id].short_name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
-						</div>
-					</div>
-				</div>
-				<div class="list-group-item">
-					<div class="media">
-						<div class="media-body">
-							<h4 class="media-heading text-medium">Описание сайта</h4>
-							<p>Обеспечивает общее описание того, что делает приложение.</p>
-							<hr>
-							<input type="text" name="theme_materialize_webmanifest_dynamic[{{ language.language_id }}][description]" value="{{ theme_materialize_webmanifest_dynamic[language.language_id] ? theme_materialize_webmanifest_dynamic[language.language_id].description }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
-						</div>
-					</div>
-				</div>
-				<div class="list-group-item">
-					<div class="media">
-						<div class="media-body">
-							<h4 class="media-heading text-medium">Стартовый URL</h4>
-							<p>Определяет URL, который загружается, когда пользователь запустил приложение с устройства. Если относительный URL, базовый URL будет URL манифеста.</p>
-							<hr>
-							<input type="text" name="theme_materialize_webmanifest_dynamic[{{ language.language_id }}][start_url]" value="{{ theme_materialize_webmanifest_dynamic[language.language_id] ? theme_materialize_webmanifest_dynamic[language.language_id].start_url }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
-						</div>
-					</div>
-				</div>
-			</div>
-			{% endfor %}
-		</div>
-	</div>
-	<div class="tab-pane" id="tab-manifest-display">
-		<div class="list-group-item">
-			<div class="media overflow-visible materialize-colors">
-				<div class="media-body overflow-visible">
-					<h4 class="media-heading text-medium">Фоновый цвет</h4>
-					<p>Определяет ожидаемый цвет фона для веб-приложения. Это значение повторяет то, что уже доступно в стилях приложения, но может быть использовано браузерами для отрисовки цвета фона приложения после того, как манифест станет доступен, но до того, как стили загрузятся. Это создает плавный переход между запуском приложения и загрузкой содержимого приложения.</p>
-					<hr>
-					<select name="theme_materialize_settings[favicon][manifest][background_color][hex]" class="selectpicker selectpicker-live-search show-tick">
-						{% for color in theme_materialize_get_colors %}
-						{% if color.hex == theme_materialize_settings.favicon.manifest.background_color.hex %}
-						<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-						{% else %}
-						<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-					<hr>
-				</div>
-				<div class="media-right media-middle">
-					<div class="thumbnail materialize-color-thumbnail"></div>
-				</div>
-			</div>
-		</div>
-		<hr>
-		<div class="list-group-item">
-			<div class="media overflow-visible">
-				<div class="media-body overflow-visible">
-					<h4 class="media-heading text-medium">Отображение</h4>
-					<p>Определяет предпочтительный для разработчика режим отображения приложения.</p>
-					<hr>
-					<select name="theme_materialize_settings[favicon][manifest][display]" class="selectpicker show-tick">
-						{% for display in theme_materialize_settings.favicon.manifest.display_value %}
-						{% if display == theme_materialize_settings.favicon.manifest.display %}
-						<option value="{{ display }}" selected="selected">{{ display }}</option>
-						{% else %}
-						<option value="{{ display }}">{{ display }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-		</div>
-		<div class="list-group-item">
-			<div class="media overflow-visible">
-				<div class="media-body overflow-visible">
-					<h4 class="media-heading text-medium">Ориентация</h4>
-					<p>Определяет ориентацию по умолчанию для всех верхних уровней контекстов браузера приложения.</p>
-					<hr>
-					<select name="theme_materialize_settings[favicon][manifest][orientation]" class="selectpicker show-tick">
-						{% for orientation in theme_materialize_settings.favicon.manifest.orientation_value %}
-						{% if orientation == theme_materialize_settings.favicon.manifest.orientation %}
-						<option value="{{ orientation }}" selected="selected">{{ orientation }}</option>
-						{% else %}
-						<option value="{{ orientation }}">{{ orientation }}</option>
-						{% endif %}
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Manifest JSON</h4>
+																		<p>Цель манифества — установить веб-приложение на домашний экран устройства, предоставляя пользователю более быстрый доступ и больше возможностей.</p>
+																		<u>Изображение для manifest.json</u>
+																		<hr>
+																		<a href="" id="thumb-manifest-image" data-toggle="image" class="img-thumbnail materialize-color-thumbnail"><img src="{{ theme_materialize_manifest_thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+																		<input type="hidden" name="theme_materialize_settings[favicon][manifest][image]" value="{{ theme_materialize_settings.favicon.manifest.image }}" id="input-manifest-image" />
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[favicon][manifest][status]" type="checkbox" {{ theme_materialize_settings.favicon.manifest.status == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<br>
+															<fieldset>
+																<legend>Тип манифеста</legend>
+																<div class="list-group-item">
+																	<div class="media">
+																		<div class="media-left media-middle">
+																			<label class="form-switch">
+																				<input type="radio" name="theme_materialize_settings[favicon][manifest][type]" value="static" {{ theme_materialize_settings.favicon.manifest.type == 'static' ? 'checked="checked"' }}>
+																				<i></i>
+																			</label>
+																		</div>
+																		<div class="media-body">
+																			<h4 class="media-heading text-medium">Статический</h4>
+																			<p>После сохранения настроек модуля будет сохранён файл manifest.json. Данный тип манифеста <b>не поддерживает мультиязычность</b>.</p>
+																		</div>
+																	</div>
+																</div>
+																<div class="list-group-item">
+																	<div class="media">
+																		<div class="media-left media-middle">
+																			<label class="form-switch">
+																				<input type="radio" name="theme_materialize_settings[favicon][manifest][type]" value="dynamic" {{ theme_materialize_settings.favicon.manifest.type == 'dynamic' ? 'checked="checked"' }}>
+																				<i></i>
+																			</label>
+																		</div>
+																		<div class="media-body">
+																			<h4 class="media-heading text-medium">Динамический</h4>
+																			<p>Файл манифеста будет генерироваться, когда пользователь попытается сохранить добавить ссылку на сайт на главную страницу своего устройства. Данный тип манифеста <b>поддерживает мультиязычность.</b></p>
+																		</div>
+																	</div>
+																</div>
+															</fieldset>
+															<hr>
+															<ul class="nav nav-tabs">
+																<li class="active"><a href="#tab-manifest-general" data-toggle="tab">Общее</a></li>
+																<li><a href="#tab-manifest-display" data-toggle="tab">Отображение</a></li>
+															</ul>
+															<div class="tab-content">
+																<div class="tab-pane active" id="tab-manifest-general">
+																	<div class="manifest-static" style="display: {{ theme_materialize_settings.favicon.manifest.type == 'static' ? 'block' : 'none' }}">
+																		<div class="list-group-item">
+																			<div class="media">
+																				<div class="media-body">
+																					<h4 class="media-heading text-medium">Имя сайта</h4>
+																					<p>Предоставляет удобочитаемое имя для приложения, предназначенное для отображения для пользователя, например, в списке других приложений или как подпись к иконке.</p>
+																					<hr>
+																					<input type="text" name="theme_materialize_settings[favicon][manifest][name]" value="{{ theme_materialize_settings ? theme_materialize_settings.favicon.manifest.name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+																				</div>
+																			</div>
+																		</div>
+																		<div class="list-group-item">
+																			<div class="media">
+																				<div class="media-body">
+																					<h4 class="media-heading text-medium">Короткое имя сайта</h4>
+																					<p>Предоставляет короткое удобочитаемое имя приложения. Предназначено для использования там, где недостаточно места для отображения полного имени приложения.</p>
+																					<hr>
+																					<input type="text" name="theme_materialize_settings[favicon][manifest][short_name]" value="{{ theme_materialize_settings ? theme_materialize_settings.favicon.manifest.short_name }}" placeholder="Короткое имя сайта" maxlength="12" class="form-control" />
+																				</div>
+																			</div>
+																		</div>
+																		<div class="list-group-item">
+																			<div class="media">
+																				<div class="media-body">
+																					<h4 class="media-heading text-medium">Описание сайта</h4>
+																					<p>Обеспечивает общее описание того, что делает приложение.</p>
+																					<hr>
+																					<input type="text" name="theme_materialize_settings[favicon][manifest][description]" value="{{ theme_materialize_settings ? theme_materialize_settings.favicon.manifest.description }}" placeholder="Описание сайта" maxlength="1024" class="form-control" />
+																				</div>
+																			</div>
+																		</div>
+																		<div class="list-group-item">
+																			<div class="media">
+																				<div class="media-body">
+																					<h4 class="media-heading text-medium">Стартовый URL</h4>
+																					<p>Определяет URL, который загружается, когда пользователь запустил приложение с устройства. Если относительный URL, базовый URL будет URL манифеста.</p>
+																					<hr>
+																					<input type="text" name="theme_materialize_settings[favicon][manifest][start_url]" value="{{ theme_materialize_settings ? theme_materialize_settings.favicon.manifest.start_url }}" placeholder="Стартовый URL" maxlength="512" class="form-control" />
+																				</div>
+																			</div>
+																		</div>
+																		<div class="list-group-item">
+																			<div class="media overflow-visible">
+																				<div class="media-body overflow-visible">
+																					<h4 class="media-heading text-medium">Язык</h4>
+																					<p>Язык и направление текста сайта</p>
+																					<hr>
+																					<select name="theme_materialize_settings[favicon][manifest][lang]" class="selectpicker show-tick">
+																						{% for language in languages %}
+																						{% if language.code == theme_materialize_settings.favicon.manifest.lang %}
+																						<option value="{{ language.code }}" selected="selected">{{ language.name }}</option>
+																						{% else %}
+																						<option value="{{ language.code }}">{{ language.name }}</option>
+																						{% endif %}
+																						{% endfor %}
+																					</select>
+																					<select name="theme_materialize_settings[favicon][manifest][dir]" class="selectpicker show-tick">
+																						{% for direction in theme_materialize_settings.favicon.manifest.direction_value %}
+																						{% if direction == theme_materialize_settings.favicon.manifest.dir %}
+																						<option value="{{ direction }}" selected="selected">{{ direction }}</option>
+																						{% else %}
+																						<option value="{{ direction }}">{{ direction }}</option>
+																						{% endif %}
+																						{% endfor %}
+																					</select>
+																					<hr>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="manifest-dynamic" style="display: {{ theme_materialize_settings.favicon.manifest.type == 'dynamic' ? 'block' : 'none' }}">
+																		<ul class="nav nav-tabs" id="language">
+																			{% for language in languages %}
+																			<li><a href="#language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>
+																			{% endfor %}
+																		</ul>
+																		{% for language in languages %}
+																		<div class="tab-pane" id="language{{ language.language_id }}">
+																			<div class="list-group-item">
+																				<div class="media">
+																					<div class="media-body">
+																						<h4 class="media-heading text-medium">Имя сайта</h4>
+																						<p>Предоставляет удобочитаемое имя для приложения, предназначенное для отображения для пользователя, например, в списке других приложений или как подпись к иконке.</p>
+																						<hr>
+																						<input type="text" name="theme_materialize_webmanifest_dynamic[{{ language.language_id }}][name]" value="{{ theme_materialize_webmanifest_dynamic[language.language_id] ? theme_materialize_webmanifest_dynamic[language.language_id].name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+																					</div>
+																				</div>
+																			</div>
+																			<div class="list-group-item">
+																				<div class="media">
+																					<div class="media-body">
+																						<h4 class="media-heading text-medium">Короткое имя сайта</h4>
+																						<p>Предоставляет короткое удобочитаемое имя приложения. Предназначено для использования там, где недостаточно места для отображения полного имени приложения.</p>
+																						<hr>
+																						<input type="text" name="theme_materialize_webmanifest_dynamic[{{ language.language_id }}][short_name]" value="{{ theme_materialize_webmanifest_dynamic[language.language_id] ? theme_materialize_webmanifest_dynamic[language.language_id].short_name }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+																					</div>
+																				</div>
+																			</div>
+																			<div class="list-group-item">
+																				<div class="media">
+																					<div class="media-body">
+																						<h4 class="media-heading text-medium">Описание сайта</h4>
+																						<p>Обеспечивает общее описание того, что делает приложение.</p>
+																						<hr>
+																						<input type="text" name="theme_materialize_webmanifest_dynamic[{{ language.language_id }}][description]" value="{{ theme_materialize_webmanifest_dynamic[language.language_id] ? theme_materialize_webmanifest_dynamic[language.language_id].description }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+																					</div>
+																				</div>
+																			</div>
+																			<div class="list-group-item">
+																				<div class="media">
+																					<div class="media-body">
+																						<h4 class="media-heading text-medium">Стартовый URL</h4>
+																						<p>Определяет URL, который загружается, когда пользователь запустил приложение с устройства. Если относительный URL, базовый URL будет URL манифеста.</p>
+																						<hr>
+																						<input type="text" name="theme_materialize_webmanifest_dynamic[{{ language.language_id }}][start_url]" value="{{ theme_materialize_webmanifest_dynamic[language.language_id] ? theme_materialize_webmanifest_dynamic[language.language_id].start_url }}" placeholder="Имя сайта" maxlength="45" class="form-control" />
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		{% endfor %}
+																	</div>
+																</div>
+																<div class="tab-pane" id="tab-manifest-display">
+																	<div class="list-group-item">
+																		<div class="media overflow-visible materialize-colors">
+																			<div class="media-body overflow-visible">
+																				<h4 class="media-heading text-medium">Фоновый цвет</h4>
+																				<p>Определяет ожидаемый цвет фона для веб-приложения. Это значение повторяет то, что уже доступно в стилях приложения, но может быть использовано браузерами для отрисовки цвета фона приложения после того, как манифест станет доступен, но до того, как стили загрузятся. Это создает плавный переход между запуском приложения и загрузкой содержимого приложения.</p>
+																				<hr>
+																				<select name="theme_materialize_settings[favicon][manifest][background_color][hex]" class="selectpicker selectpicker-live-search show-tick">
+																					{% for color in theme_materialize_get_colors %}
+																					{% if color.hex == theme_materialize_settings.favicon.manifest.background_color.hex %}
+																					<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+																					{% else %}
+																					<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+																					{% endif %}
+																					{% endfor %}
+																				</select>
+																				<hr>
+																			</div>
+																			<div class="media-right media-middle">
+																				<div class="thumbnail materialize-color-thumbnail"></div>
+																			</div>
+																		</div>
+																	</div>
+																	<hr>
+																	<div class="list-group-item">
+																		<div class="media overflow-visible">
+																			<div class="media-body overflow-visible">
+																				<h4 class="media-heading text-medium">Отображение</h4>
+																				<p>Определяет предпочтительный для разработчика режим отображения приложения.</p>
+																				<hr>
+																				<select name="theme_materialize_settings[favicon][manifest][display]" class="selectpicker show-tick">
+																					{% for display in theme_materialize_settings.favicon.manifest.display_value %}
+																					{% if display == theme_materialize_settings.favicon.manifest.display %}
+																					<option value="{{ display }}" selected="selected">{{ display }}</option>
+																					{% else %}
+																					<option value="{{ display }}">{{ display }}</option>
+																					{% endif %}
+																					{% endfor %}
+																				</select>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="list-group-item">
+																		<div class="media overflow-visible">
+																			<div class="media-body overflow-visible">
+																				<h4 class="media-heading text-medium">Ориентация</h4>
+																				<p>Определяет ориентацию по умолчанию для всех верхних уровней контекстов браузера приложения.</p>
+																				<hr>
+																				<select name="theme_materialize_settings[favicon][manifest][orientation]" class="selectpicker show-tick">
+																					{% for orientation in theme_materialize_settings.favicon.manifest.orientation_value %}
+																					{% if orientation == theme_materialize_settings.favicon.manifest.orientation %}
+																					<option value="{{ orientation }}" selected="selected">{{ orientation }}</option>
+																					{% else %}
+																					<option value="{{ orientation }}">{{ orientation }}</option>
+																					{% endif %}
+																					{% endfor %}
+																				</select>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
 														</div>
 													</div>
 													<!-- ./ Favicon -->
@@ -2025,6 +2047,11 @@
 	{% if error_dynamic_start_url %}
 	errorNotification({
 		message: '{{ error_dynamic_start_url }}'
+	});
+	{% endif %}
+	{% if error_browserconfig_image %}
+	errorNotification({
+		message: '{{ error_browserconfig_image }}'
 	});
 	{% endif %}
 

@@ -79,7 +79,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_updates_appeal'] = false;
 		}
 
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate() && $this->validateManifest()) {
+		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate() && $this->validateManifest() && $this->validateBrowserconfig()) {
 			$theme_status = $this->request->post['theme_materialize_status'];
 			$materialize_settings = $this->request->post['theme_materialize_settings'];
 
@@ -240,6 +240,12 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['error_dynamic_start_url'] = $this->error['manifest_dynamic_start_url'];
 		} else {
 			$data['error_dynamic_start_url'] = array();
+		}
+
+		if (isset($this->error['browserconfig_image'])) {
+			$data['error_browserconfig_image'] = $this->error['browserconfig_image'];
+		} else {
+			$data['error_browserconfig_image'] = '';
 		}
 
 		if (isset($this->session->data['success'])) {
@@ -503,7 +509,19 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			if (!empty($setting_info['theme_materialize_settings']['favicon']['manifest']['image'])) {
 				$data['theme_materialize_manifest_thumb'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['manifest']['image'], 100, 100);
 			} else {
-				$data['theme_materialize_manifest_thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+				$data['theme_materialize_manifest_thumb'] = $data['placeholder'];
+			}
+
+			if (!empty($setting_info['theme_materialize_settings']['favicon']['browserconfig']['image_small'])) {
+				$data['theme_materialize_browserconfig_thumb_small'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['browserconfig']['image_small'], 100, 100);
+			} else {
+				$data['theme_materialize_browserconfig_thumb_small'] = $data['placeholder'];
+			}
+
+			if (!empty($setting_info['theme_materialize_settings']['favicon']['browserconfig']['image_large'])) {
+				$data['theme_materialize_browserconfig_thumb_large'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['browserconfig']['image_large'], 100, 100);
+			} else {
+				$data['theme_materialize_browserconfig_thumb_large'] = $data['placeholder'];
 			}
 		} else {
 			$data['theme_materialize_settings'] = array();
@@ -530,6 +548,11 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'back_link'	=> '',
 			);
 
+			$data['theme_materialize_settings']['favicon']['browserconfig']['background_color'] = array(
+				'color'	=> 'blue-grey darken-4',
+				'hex'	=> '263238'
+			);
+
 			$data['theme_materialize_settings']['favicon']['manifest']['type'] = 'static';
 			$data['theme_materialize_settings']['favicon']['manifest']['display'] = 'standalone';
 			$data['theme_materialize_settings']['favicon']['manifest']['background_color'] = array(
@@ -537,7 +560,9 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'hex'	=> 'eeeeee'
 			);
 
-			$data['theme_materialize_manifest_thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+			$data['theme_materialize_manifest_thumb'] = $data['placeholder'];
+			$data['theme_materialize_browserconfig_thumb_small'] = $data['placeholder'];
+			$data['theme_materialize_browserconfig_thumb_large'] = $data['placeholder'];
 		}
 
 		/* Manifest Settings */
@@ -661,7 +686,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			if (!empty($data['theme_materialize_products']['payment']['image'])) {
 				$data['theme_materialize_payment_thumb'] = $this->model_tool_image->resize($data['theme_materialize_products']['payment']['image'], 100, 100);
 			} else {
-				$data['theme_materialize_payment_thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+				$data['theme_materialize_payment_thumb'] = $data['placeholder'];
 			}
 		} else {
 			$data['theme_materialize_products'] = array();
@@ -819,77 +844,75 @@ class ControllerExtensionThemeMaterialize extends Controller {
 					$this->error['manifest_start_url'] = 'Стартовый URL манифеста должно быть от 1 до 512 символов!';
 				}
 
-				if (!$this->error) {
-					if (!empty($materialize_settings['favicon']['manifest']['image'])) {
-						$this->load->model('tool/image');
+				if (!empty($materialize_settings['favicon']['manifest']['image'])) {
+					$this->load->model('tool/image');
 
-						$manifest_image = $materialize_settings['favicon']['manifest']['image'];
+					$manifest_image = $materialize_settings['favicon']['manifest']['image'];
 
-						$icon = (DIR_IMAGE . $manifest_image);
-						$info = getimagesize($icon);
-						$icon_type = isset($info['mime']) ? $info['mime'] : '';
+					$icon = (DIR_IMAGE . $manifest_image);
+					$info = getimagesize($icon);
+					$icon_type = isset($info['mime']) ? $info['mime'] : '';
 
-						$icons[] = array(
-							'src'	=> $this->model_tool_image->resize($manifest_image, 144, 144),
-							'sizes'	=> '144x144',
-							'type'	=> $icon_type
-						);
+					$icons[] = array(
+						'src'	=> $this->model_tool_image->resize($manifest_image, 144, 144),
+						'sizes'	=> '144x144',
+						'type'	=> $icon_type
+					);
 
-						$icons[] = array(
-							'src'	=> $this->model_tool_image->resize($manifest_image, 192, 192),
-							'sizes'	=> '192x192',
-							'type'	=> $icon_type
-						);
+					$icons[] = array(
+						'src'	=> $this->model_tool_image->resize($manifest_image, 192, 192),
+						'sizes'	=> '192x192',
+						'type'	=> $icon_type
+					);
 
-						$icons[] = array(
-							'src'	=> $this->model_tool_image->resize($manifest_image, 512, 512),
-							'sizes'	=> '512x512',
-							'type'	=> $icon_type
-						);
-					} else {
-						$icons = '';
-					}
+					$icons[] = array(
+						'src'	=> $this->model_tool_image->resize($manifest_image, 512, 512),
+						'sizes'	=> '512x512',
+						'type'	=> $icon_type
+					);
+				} else {
+					$icons = '';
+				}
 
-					$manifest  = '{';
-					$manifest .= '  "name": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['name'] . '",';
-					$manifest .= '  "short_name": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['short_name'] . '",';
-					$manifest .= '  "description": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['description'] . '",';
-					$manifest .= '  "lang": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['lang'] . '",';
-					$manifest .= '  "dir": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['dir'] . '",';
-					$manifest .= '  "start_url": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['start_url'] . '",';
+				$manifest  = '{' . "\n";
+				$manifest .= '  "name": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['name'] . '",' . "\n";
+				$manifest .= '  "short_name": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['short_name'] . '",' . "\n";
+				$manifest .= '  "description": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['description'] . '",' . "\n";
+				$manifest .= '  "lang": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['lang'] . '",' . "\n";
+				$manifest .= '  "dir": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['dir'] . '",' . "\n";
+				$manifest .= '  "start_url": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['start_url'] . '",' . "\n";
 
-					if (!empty($icons)) {
-						$manifest .= '  "icons": [';
-						for ($i = 0; $i < count($icons); $i++) {
-							if ($i < (count($icons) - 1)) {
-								$manifest .= '    {';
-								$manifest .= '      "src": "' . $icons[$i]['src'] . '",';
-								$manifest .= '      "sizes": "' . $icons[$i]['sizes'] . '",';
-								$manifest .= '      "type": "' . $icons[$i]['type'] . '"';
-								$manifest .= '    },';
-							} else {
-								$manifest .= '    {';
-								$manifest .= '      "src": "' . $icons[$i]['src'] . '",';
-								$manifest .= '      "sizes": "' . $icons[$i]['sizes'] . '",';
-								$manifest .= '      "type": "' . $icons[$i]['type'] . '"';
-								$manifest .= '    }';
-							}
+				if (!empty($icons)) {
+					$manifest .= '  "icons": [' . "\n";
+					for ($i = 0; $i < count($icons); $i++) {
+						if ($i < (count($icons) - 1)) {
+							$manifest .= '    {' . "\n";
+							$manifest .= '      "src": "' . $icons[$i]['src'] . '",' . "\n";
+							$manifest .= '      "sizes": "' . $icons[$i]['sizes'] . '",' . "\n";
+							$manifest .= '      "type": "' . $icons[$i]['type'] . '"' . "\n";
+							$manifest .= '    },' . "\n";
+						} else {
+							$manifest .= '    {' . "\n";
+							$manifest .= '      "src": "' . $icons[$i]['src'] . '",' . "\n";
+							$manifest .= '      "sizes": "' . $icons[$i]['sizes'] . '",' . "\n";
+							$manifest .= '      "type": "' . $icons[$i]['type'] . '"' . "\n";
+							$manifest .= '    }' . "\n";
 						}
-						$manifest .= '  ],';
 					}
+					$manifest .= '  ],' . "\n";
+				}
 
-					$manifest .= '  "prefer_related_applications": false,';
-					$manifest .= '  "display": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['display'] . '",';
-					$manifest .= '  "orientation": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['orientation'] . '",';
-					$manifest .= '  "background_color": "#' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['background_color']['hex'] . '",';
-					$manifest .= '  "theme_color": "' . $this->request->post['theme_materialize_colors']['browser_bar_hex'] . '"';
-					$manifest .= '}';
+				$manifest .= '  "prefer_related_applications": false,' . "\n";
+				$manifest .= '  "display": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['display'] . '",' . "\n";
+				$manifest .= '  "orientation": "' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['orientation'] . '",' . "\n";
+				$manifest .= '  "background_color": "#' . $this->request->post['theme_materialize_settings']['favicon']['manifest']['background_color']['hex'] . '",' . "\n";
+				$manifest .= '  "theme_color": "' . $this->request->post['theme_materialize_colors']['browser_bar_hex'] . '"' . "\n";
+				$manifest .= '}';
 
-					if (!file_exists($file)) {
-						$fp = fopen($file, "w");
-						fwrite($fp, ltrim($manifest));
-						fclose($fp);
-					}
+				if (!file_exists($file)) {
+					$fp = fopen($file, "w");
+					fwrite($fp, ltrim($manifest));
+					fclose($fp);
 				}
 			} else {
 				foreach ($this->request->post['theme_materialize_webmanifest_dynamic'] as $language_id => $value) {
@@ -909,6 +932,71 @@ class ControllerExtensionThemeMaterialize extends Controller {
 						$this->error['manifest_dynamic_start_url'] = 'Стартовый URL манифеста должно быть от 1 до 512 символов!';
 					}
 				}
+			}
+		}
+
+		return !$this->error;
+	}
+
+	protected function validateBrowserconfig() {
+		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		$theme_status = $this->request->post['theme_materialize_status'];
+		$materialize_settings = $this->request->post['theme_materialize_settings'];
+
+		$file = DIR_CATALOG . "view/theme/materialize/js/browserconfig.xml";
+
+		if (file_exists($file)) {
+			unlink($file);
+		}
+
+		if (!empty($materialize_settings['favicon']['browserconfig']['status'])) {
+			$this->load->model('tool/image');
+
+			$icons = array();
+
+			if (!empty($materialize_settings['favicon']['browserconfig']['image_small'])) {
+				$image_small = $materialize_settings['favicon']['browserconfig']['image_small'];
+
+				$icons['square70x70'] = $this->model_tool_image->resize($image_small, 128, 128);
+				$icons['square150x150'] = $this->model_tool_image->resize($image_small, 270, 270);
+
+			}
+
+			if (!empty($materialize_settings['favicon']['browserconfig']['image_large'])) {
+				$image_large = $materialize_settings['favicon']['browserconfig']['image_large'];
+
+				$icons['wide310x150'] = $this->model_tool_image->resize($image_large, 558, 270);
+				$icons['square310x310'] = $this->model_tool_image->resize($image_large, 558, 558);
+			}
+
+			if (!empty($icons)) {
+				$browserconfig  = '<?xml version="1.0" encoding="utf-8"?>' . "\n";
+				$browserconfig .= '<browserconfig>' . "\n";
+				$browserconfig .= '  <msapplication>' . "\n";
+				$browserconfig .= '    <tile>' . "\n";
+
+				foreach ($icons as $key => $value) {
+					if ($key == 'square70x70')		{$browserconfig .= '      <square70x70logo src="' . $value . '"/>' . "\n";}
+					if ($key == 'square150x150')	{$browserconfig .= '      <square150x150logo src="' . $value . '"/>' . "\n";}
+					if ($key == 'wide310x150')		{$browserconfig .= '      <wide310x150logo src="' . $value . '"/>' . "\n";}
+					if ($key == 'square310x310')	{$browserconfig .= '      <square310x310logo src="' . $value . '"/>' . "\n";}
+				}
+
+				$browserconfig .= '      <TileColor>#' . $this->request->post['theme_materialize_settings']['favicon']['browserconfig']['background_color']['hex'] . '</TileColor>' . "\n";
+				$browserconfig .= '    </tile>' . "\n";
+				$browserconfig .= '  </msapplication>' . "\n";
+				$browserconfig .= '</browserconfig>';
+
+				if (!file_exists($file)) {
+					$fp = fopen($file, "w");
+					fwrite($fp, ltrim($browserconfig));
+					fclose($fp);
+				}
+			} else {
+				$this->error['browserconfig_image'] = 'Для browserconfig.xml изображения обязательны!';
 			}
 		}
 
