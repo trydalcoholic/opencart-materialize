@@ -54,33 +54,6 @@
 			]]></add>
 		</operation>
 	</file>
-	<!-- Web Manifest module -->
-	<file path="catalog/controller/common/header.php">
-		<operation error="log">
-			<search><![CDATA[return $this->load->view('common/header', $data);]]></search>
-			<add position="before"><![CDATA[
-			if ($this->config->get('feed_webmanifest_status') == 1) {
-				$mainfest = $this->config->get('feed_webmanifest_setting');
-
-				if ($mainfest['type'] == 'static') {
-					if ($this->request->server['HTTPS']) {
-						$data['manifest'] = $server . "catalog/view/theme/materialize/js/manifest.json";
-					} else {
-						$data['manifest'] = $server . "catalog/view/theme/materialize/js/manifest.json";
-					}
-				} elseif ($mainfest['type'] == 'dynamic') {
-					if ($this->request->server['HTTPS']) {
-						$data['manifest'] = $server . "index.php?route=extension/feed/webmanifest";
-					} else {
-						$data['manifest'] = $server . "index.php?route=extension/feed/webmanifest";
-					}
-				}
-			} else {
-				$data['manifest'] = '';
-			}
-			]]></add>
-		</operation>
-	</file>
 	<!-- Information page in the top menu -->
 	<file path="admin/controller/catalog/information.php">
 		<operation error="log">
@@ -1272,6 +1245,22 @@
 					$data['social_links'] = $this->model_extension_materialize_materialize->getSocialLinks();
 				} else {
 					$data['social_links'] = false;
+				}
+
+				if (isset($materialize_settings['favicon'])) {
+					$materialize_favicon = $materialize_settings['favicon'];
+				} else {
+					$materialize_favicon = '';
+				}
+
+				if (!empty($materialize_favicon['manifest']['status'])) {
+					if ($materialize_favicon['manifest']['type'] == 'static') {
+						$data['manifest'] = $server . "catalog/view/theme/materialize/js/manifest.json";
+					} else {
+						$data['manifest'] = $server . "index.php?route=extension/feed/webmanifest";
+					}
+				} else {
+					$data['manifest'] = '';
 				}
 
 				$this->load->model('catalog/information');
