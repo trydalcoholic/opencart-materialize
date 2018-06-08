@@ -110,144 +110,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			}
 		}
 
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
-
-		if (isset($this->error['product_limit'])) {
-			$data['error_product_limit'] = $this->error['product_limit'];
-		} else {
-			$data['error_product_limit'] = '';
-		}
-
-		if (isset($this->error['product_description_length'])) {
-			$data['error_product_description_length'] = $this->error['product_description_length'];
-		} else {
-			$data['error_product_description_length'] = '';
-		}
-
-		if (isset($this->error['image_category'])) {
-			$data['error_image_category'] = $this->error['image_category'];
-		} else {
-			$data['error_image_category'] = '';
-		}
-
-		if (isset($this->error['image_thumb'])) {
-			$data['error_image_thumb'] = $this->error['image_thumb'];
-		} else {
-			$data['error_image_thumb'] = '';
-		}
-
-		if (isset($this->error['image_popup'])) {
-			$data['error_image_popup'] = $this->error['image_popup'];
-		} else {
-			$data['error_image_popup'] = '';
-		}
-
-		if (isset($this->error['image_product'])) {
-			$data['error_image_product'] = $this->error['image_product'];
-		} else {
-			$data['error_image_product'] = '';
-		}
-
-		if (isset($this->error['image_additional'])) {
-			$data['error_image_additional'] = $this->error['image_additional'];
-		} else {
-			$data['error_image_additional'] = '';
-		}
-
-		if (isset($this->error['image_related'])) {
-			$data['error_image_related'] = $this->error['image_related'];
-		} else {
-			$data['error_image_related'] = '';
-		}
-
-		if (isset($this->error['image_compare'])) {
-			$data['error_image_compare'] = $this->error['image_compare'];
-		} else {
-			$data['error_image_compare'] = '';
-		}
-
-		if (isset($this->error['image_wishlist'])) {
-			$data['error_image_wishlist'] = $this->error['image_wishlist'];
-		} else {
-			$data['error_image_wishlist'] = '';
-		}
-
-		if (isset($this->error['image_cart'])) {
-			$data['error_image_cart'] = $this->error['image_cart'];
-		} else {
-			$data['error_image_cart'] = '';
-		}
-
-		if (isset($this->error['image_location'])) {
-			$data['error_image_location'] = $this->error['image_location'];
-		} else {
-			$data['error_image_location'] = '';
-		}
-
-		if (isset($this->error['adult_content'])) {
-			$data['error_adult_content'] = $this->error['adult_content'];
-		} else {
-			$data['error_adult_content'] = '';
-		}
-
-		if (isset($this->error['manifest_name'])) {
-			$data['error_manifest_name'] = $this->error['manifest_name'];
-		} else {
-			$data['error_manifest_name'] = '';
-		}
-
-		if (isset($this->error['manifest_short_name'])) {
-			$data['error_manifest_short_name'] = $this->error['manifest_short_name'];
-		} else {
-			$data['error_manifest_short_name'] = '';
-		}
-
-		if (isset($this->error['manifest_description'])) {
-			$data['error_manifest_description'] = $this->error['manifest_description'];
-		} else {
-			$data['error_manifest_description'] = '';
-		}
-
-		if (isset($this->error['manifest_start_url'])) {
-			$data['error_manifest_start_url'] = $this->error['manifest_start_url'];
-		} else {
-			$data['error_manifest_start_url'] = '';
-		}
-
-		if (isset($this->error['manifest_dynamic_name'])) {
-			$data['error_dynamic_name'] = $this->error['manifest_dynamic_name'];
-		} else {
-			$data['error_dynamic_name'] = array();
-		}
-
-		if (isset($this->error['manifest_dynamic_short_name'])) {
-			$data['error_dynamic_short_name'] = $this->error['manifest_dynamic_short_name'];
-		} else {
-			$data['error_dynamic_short_name'] = array();
-		}
-
-		if (isset($this->error['manifest_dynamic_description'])) {
-			$data['error_dynamic_description'] = $this->error['manifest_dynamic_description'];
-		} else {
-			$data['error_dynamic_description'] = array();
-		}
-
-		if (isset($this->error['manifest_dynamic_start_url'])) {
-			$data['error_dynamic_start_url'] = $this->error['manifest_dynamic_start_url'];
-		} else {
-			$data['error_dynamic_start_url'] = array();
-		}
-
-		if (isset($this->error['browserconfig_image'])) {
-			$data['error_browserconfig_image'] = $this->error['browserconfig_image'];
-		} else {
-			$data['error_browserconfig_image'] = '';
-		}
-
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
 
@@ -255,6 +117,8 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} else {
 			$data['success'] = '';
 		}
+
+		$data['errors'] = $this->error;
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -497,14 +361,54 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$data['informations'] = $this->model_catalog_information->getInformations();
 
-		if (!empty($setting_info['favicon']['manifest'])) {
-			$data['manifest_info'] = $setting_info['favicon']['manifest'];
-		}
-
 		if (isset($this->request->post['theme_materialize_settings'])) {
 			$data['theme_materialize_settings'] = $this->request->post['theme_materialize_settings'];
-		} elseif (isset($setting_info['theme_materialize_settings'])) {
+
+			$materialize_settings = $this->request->post['theme_materialize_settings'];
+
+			if (!empty($materialize_settings['favicon']['image']) && is_file(DIR_IMAGE . $materialize_settings['favicon']['image'])) {
+				$data['theme_materialize_favicon_image'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['image'], 100, 100);
+			} else {
+				$data['theme_materialize_favicon_image'] = $data['placeholder'];
+			}
+
+			if (!empty($materialize_settings['favicon']['svg']) && is_file(DIR_IMAGE . $materialize_settings['favicon']['svg'])) {
+				$data['theme_materialize_favicon_svg'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['svg'], 100, 100);
+			} else {
+				$data['theme_materialize_favicon_svg'] = $data['placeholder'];
+			}
+
+			if (!empty($materialize_settings['favicon']['manifest']['image']) && is_file(DIR_IMAGE . $materialize_settings['favicon']['manifest']['image'])) {
+				$data['theme_materialize_manifest_thumb'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['manifest']['image'], 100, 100);
+			} else {
+				$data['theme_materialize_manifest_thumb'] = $data['placeholder'];
+			}
+
+			if (!empty($materialize_settings['favicon']['browserconfig']['image_small']) && is_file(DIR_IMAGE . $materialize_settings['favicon']['browserconfig']['image_small'])) {
+				$data['theme_materialize_browserconfig_thumb_small'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['browserconfig']['image_small'], 100, 100);
+			} else {
+				$data['theme_materialize_browserconfig_thumb_small'] = $data['placeholder'];
+			}
+
+			if (!empty($materialize_settings['favicon']['browserconfig']['image_large']) && is_file(DIR_IMAGE . $materialize_settings['favicon']['browserconfig']['image_large'])) {
+				$data['theme_materialize_browserconfig_thumb_large'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['browserconfig']['image_large'], 100, 100);
+			} else {
+				$data['theme_materialize_browserconfig_thumb_large'] = $data['placeholder'];
+			}
+		} elseif (!empty($setting_info['theme_materialize_settings'])) {
 			$data['theme_materialize_settings'] = $setting_info['theme_materialize_settings'];
+
+			if (!empty($setting_info['theme_materialize_settings']['favicon']['image'])) {
+				$data['theme_materialize_favicon_image'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['image'], 100, 100);
+			} else {
+				$data['theme_materialize_favicon_image'] = $data['placeholder'];
+			}
+
+			if (!empty($setting_info['theme_materialize_settings']['favicon']['svg'])) {
+				$data['theme_materialize_favicon_svg'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['svg'], 100, 100);
+			} else {
+				$data['theme_materialize_favicon_svg'] = $data['placeholder'];
+			}
 
 			if (!empty($setting_info['theme_materialize_settings']['favicon']['manifest']['image'])) {
 				$data['theme_materialize_manifest_thumb'] = $this->model_tool_image->resize($data['theme_materialize_settings']['favicon']['manifest']['image'], 100, 100);
@@ -560,6 +464,9 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'hex'	=> 'eeeeee'
 			);
 
+			$data['theme_materialize_favicon_image'] = $data['placeholder'];
+			$data['theme_materialize_favicon_ico'] = $data['placeholder'];
+			$data['theme_materialize_favicon_svg'] = $data['placeholder'];
 			$data['theme_materialize_manifest_thumb'] = $data['placeholder'];
 			$data['theme_materialize_browserconfig_thumb_small'] = $data['placeholder'];
 			$data['theme_materialize_browserconfig_thumb_large'] = $data['placeholder'];
@@ -680,6 +587,12 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		/* Products */
 		if (isset($this->request->post['theme_materialize_products'])) {
 			$data['theme_materialize_products'] = $this->request->post['theme_materialize_products'];
+
+			if (!empty($data['theme_materialize_products']['payment']['image']) && is_file(DIR_IMAGE . $data['theme_materialize_products']['payment']['image'])) {
+				$data['theme_materialize_payment_thumb'] = $this->model_tool_image->resize($data['theme_materialize_products']['payment']['image'], 100, 100);
+			} else {
+				$data['theme_materialize_payment_thumb'] = $data['placeholder'];
+			}
 		} elseif (isset($setting_info['theme_materialize_products'])) {
 			$data['theme_materialize_products'] = $setting_info['theme_materialize_products'];
 
@@ -805,6 +718,37 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 				if (isset($adult_content['status']) && empty($adult_content['back_link'])) {
 					$this->error['adult_content'] = $this->language->get('error_adult_content');
+				}
+
+				$favicons = $materialize_settings['favicon'];
+
+				if (!empty($favicons['image'])) {
+					$file = DIR_IMAGE . $favicons['image'];
+
+					if (file_exists($file)) {
+						$this->file = $file;
+
+						$info = getimagesize($file);
+
+						$this->width  = $info[0];
+						$this->height = $info[1];
+						$this->bits = isset($info['bits']) ? $info['bits'] : '';
+						$this->mime = isset($info['mime']) ? $info['mime'] : '';
+
+						if (($this->mime != 'image/gif') && ($this->mime != 'image/png') && ($this->mime != 'image/jpeg')) {
+							$this->error['favicon_image'] = 'Главный фавикон должен быть в формате .png, .jpg или .gif!';
+						}
+					} else {
+						exit('Error: Could not load image ' . $file . '!');
+					}
+				}
+
+				if (!empty($favicons['svg'])) {
+					$file = pathinfo(DIR_IMAGE . $favicons['svg'], PATHINFO_EXTENSION);
+
+					if ($file != 'svg') {
+						$this->error['favicon_svg'] = 'SVG фавикон должен быть в формате .svg!';
+					}
 				}
 			}
 		}

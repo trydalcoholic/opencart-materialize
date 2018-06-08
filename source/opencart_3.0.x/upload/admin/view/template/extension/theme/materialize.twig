@@ -173,7 +173,6 @@
 													</fieldset>
 												</div>
 												<div class="tab-pane" id="tab-favicon-settings">
-													<!-- Favicon -->
 													<ul class="nav nav-tabs">
 														<li class="active"><a href="#tab-favicon" data-toggle="tab">Фавикон</a></li>
 														<li><a href="#tab-browserconfig" data-toggle="tab">Browserconfig</a></li>
@@ -185,13 +184,60 @@
 																<div class="media">
 																	<div class="media-body">
 																		<h4 class="media-heading text-medium">Фавикон</h4>
-																		<p>Генерация фавиконки с расширеным настройками.</p>
+																		<p>Генерация фавиконки с расширеными настройками и оптимальными размерами. Используя эту опцию, можно не указывать фавикон в настроках магазина.</p>
 																	</div>
 																	<div class="media-right media-middle">
 																		<label class="form-switch pull-right">
 																			<input name="theme_materialize_settings[favicon][status]" type="checkbox" {{ theme_materialize_settings.favicon.status == 'on' ? 'checked="checked"' }}>
 																			<i></i>
 																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium required">Главный фавикон</h4>
+																		<p>Фавикон используемый в качестве основного. Изображение должно быть .png, .jpg или .gif формата. Рекомендуемый формат .png, размер 180x180.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<a href="" id="thumb-favicon-image" data-toggle="image" class="img-thumbnail materialize-color-thumbnail"><img src="{{ theme_materialize_favicon_image }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+																		<input type="hidden" name="theme_materialize_settings[favicon][image]" value="{{ theme_materialize_settings.favicon.image }}" id="input-favicon-image" />
+																	</div>
+																</div>
+															</div>
+															<hr>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium required">SVG</h4>
+																		<p>Изображение должно быть .svg формата.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<a href="" id="thumb-favicon-svg" data-toggle="image" class="img-thumbnail materialize-color-thumbnail"><img src="{{ theme_materialize_favicon_svg }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+																		<input type="hidden" name="theme_materialize_settings[favicon][svg]" value="{{ theme_materialize_settings.favicon.svg }}" id="input-favicon-svg" />
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media overflow-visible materialize-colors">
+																	<div class="media-body overflow-visible">
+																		<h4 class="media-heading text-medium required">Mask icon цвет</h4>
+																		<p>Используется для закреплённых вкладок в macOS. Необходимо указать монохромный SVG фавикон.</p>
+																		<hr>
+																		<select name="theme_materialize_settings[favicon][maskiconcolor]" class="selectpicker selectpicker-live-search show-tick">
+																			{% for color in theme_materialize_get_colors %}
+																			{% if color.hex == theme_materialize_settings.favicon.maskiconcolor %}
+																			<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+																			{% else %}
+																			<option value="{{ color.hex }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+																			{% endif %}
+																			{% endfor %}
+																		</select>
+																		<hr>
+																	</div>
+																	<div class="media-right media-middle">
+																		<div class="thumbnail materialize-color-thumbnail"></div>
 																	</div>
 																</div>
 															</div>
@@ -492,7 +538,6 @@
 															</div>
 														</div>
 													</div>
-													<!-- ./ Favicon -->
 												</div>
 												<div class="tab-pane" id="tab-social-networks">
 													<div class="list-group-item">
@@ -620,9 +665,6 @@
 																</select>
 																<hr>
 																<input type="text" name="theme_materialize_settings[adult_content][back_link]" value="{{ theme_materialize_settings.adult_content.back_link }}" placeholder="Ссылка при отказе" class="form-control" />
-																{% if error_adult_content %}
-																<div class="text-danger">{{ error_adult_content }}</div>
-																{% endif %}
 															</div>
 															<div class="media-right media-middle">
 																<label class="form-switch pull-right">
@@ -1222,9 +1264,6 @@
 														<input type="text" name="theme_materialize_image_category_height" value="{{ theme_materialize_image_category_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_category %}
-												<div class="text-danger">{{ error_image_category }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1242,9 +1281,6 @@
 														<input type="text" name="theme_materialize_image_thumb_height" value="{{ theme_materialize_image_thumb_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_thumb %}
-												<div class="text-danger">{{ error_image_thumb }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1262,9 +1298,6 @@
 														<input type="text" name="theme_materialize_image_popup_height" value="{{ theme_materialize_image_popup_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_popup %}
-												<div class="text-danger">{{ error_image_popup }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1282,9 +1315,6 @@
 														<input type="text" name="theme_materialize_image_product_height" value="{{ theme_materialize_image_product_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_product %}
-												<div class="text-danger">{{ error_image_product }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1302,9 +1332,6 @@
 														<input type="text" name="theme_materialize_image_additional_height" value="{{ theme_materialize_image_additional_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_additional %}
-												<div class="text-danger">{{ error_image_additional }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1322,9 +1349,6 @@
 														<input type="text" name="theme_materialize_image_related_height" value="{{ theme_materialize_image_related_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_additional %}
-												<div class="text-danger">{{ error_image_additional }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1342,9 +1366,6 @@
 														<input type="text" name="theme_materialize_image_compare_height" value="{{ theme_materialize_image_compare_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_compare %}
-												<div class="text-danger">{{ error_image_compare }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1362,9 +1383,6 @@
 														<input type="text" name="theme_materialize_image_wishlist_height" value="{{ theme_materialize_image_wishlist_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_wishlist %}
-												<div class="text-danger">{{ error_image_wishlist }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1382,9 +1400,6 @@
 														<input type="text" name="theme_materialize_image_cart_height" value="{{ theme_materialize_image_cart_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_cart %}
-												<div class="text-danger">{{ error_image_cart }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1402,9 +1417,6 @@
 														<input type="text" name="theme_materialize_image_location_height" value="{{ theme_materialize_image_location_height }}" placeholder="{{ entry_height }}" class="form-control" />
 													</div>
 												</div>
-												{% if error_image_location %}
-												<div class="text-danger">{{ error_image_location }}</div>
-												{% endif %}
 												<hr>
 											</div>
 										</div>
@@ -1429,9 +1441,6 @@
 																<h4 class="media-heading text-medium required" data-toggle="tooltip" title="{{ help_product_limit }}">{{ entry_product_limit }}</h4>
 																<hr>
 																<input type="text" name="theme_materialize_product_limit" value="{{ theme_materialize_product_limit }}" placeholder="{{ entry_product_limit }}" id="input-catalog-limit" class="form-control" />
-																{% if error_product_limit %}
-																<div class="text-danger">{{ error_product_limit }}</div>
-																{% endif %}
 																<hr>
 															</div>
 														</div>
@@ -1442,9 +1451,6 @@
 																<h4 class="media-heading text-medium required" data-toggle="tooltip" title="{{ help_product_description_length }}">{{ entry_product_description_length }}</h4>
 																<hr>
 																<input type="text" name="theme_materialize_product_description_length" value="{{ theme_materialize_product_description_length }}" placeholder="{{ entry_product_description_length }}" id="input-description-limit" class="form-control" />
-																{% if error_product_description_length %}
-																<div class="text-danger">{{ error_product_description_length }}</div>
-																{% endif %}
 																<hr>
 															</div>
 														</div>
@@ -1934,124 +1940,14 @@
 	}, false);
 
 	// Notify
+	{% for error in errors %}
+	errorNotification({
+		message: '{{ error }}'
+	});
+	{% endfor %}
 	{% if success %}
 	successNotification({
 		message: '{{ success }}'
-	});
-	{% endif %}
-	{% if error_warning %}
-	errorNotification({
-		message: '{{ error_warning }}'
-	});
-	{% endif %}
-	{% if error_product_limit %}
-	errorNotification({
-		message: '{{ error_product_limit }}'
-	});
-	{% endif %}
-	{% if error_product_description_length %}
-	errorNotification({
-		message: '{{ error_product_description_length }}'
-	});
-	{% endif %}
-	{% if error_image_category %}
-	errorNotification({
-		message: '{{ error_image_category }}'
-	});
-	{% endif %}
-	{% if error_image_thumb %}
-	errorNotification({
-		message: '{{ error_image_thumb }}'
-	});
-	{% endif %}
-	{% if error_image_popup %}
-	errorNotification({
-		message: '{{ error_image_popup }}'
-	});
-	{% endif %}
-	{% if error_image_product %}
-	errorNotification({
-		message: '{{ error_image_product }}'
-	});
-	{% endif %}
-	{% if error_image_additional %}
-	errorNotification({
-		message: '{{ error_image_additional }}'
-	});
-	{% endif %}
-	{% if error_image_related %}
-	errorNotification({
-		message: '{{ error_image_related }}'
-	});
-	{% endif %}
-	{% if error_image_compare %}
-	errorNotification({
-		message: '{{ error_image_compare }}'
-	});
-	{% endif %}
-	{% if error_image_wishlist %}
-	errorNotification({
-		message: '{{ error_image_wishlist }}'
-	});
-	{% endif %}
-	{% if error_image_cart %}
-	errorNotification({
-		message: '{{ error_image_cart }}'
-	});
-	{% endif %}
-	{% if error_image_location %}
-	errorNotification({
-		message: '{{ error_image_location }}'
-	});
-	{% endif %}
-	{% if error_adult_content %}
-	errorNotification({
-		message: '{{ error_adult_content }}'
-	});
-	{% endif %}
-	{% if error_manifest_name %}
-	errorNotification({
-		message: '{{ error_manifest_name }}'
-	});
-	{% endif %}
-	{% if error_manifest_short_name %}
-	errorNotification({
-		message: '{{ error_manifest_short_name }}'
-	});
-	{% endif %}
-	{% if error_manifest_description %}
-	errorNotification({
-		message: '{{ error_manifest_description }}'
-	});
-	{% endif %}
-	{% if error_manifest_start_url %}
-	errorNotification({
-		message: '{{ error_manifest_start_url }}'
-	});
-	{% endif %}
-	{% if error_dynamic_name %}
-	errorNotification({
-		message: '{{ error_dynamic_name }}'
-	});
-	{% endif %}
-	{% if error_dynamic_short_name %}
-	errorNotification({
-		message: '{{ error_dynamic_short_name }}'
-	});
-	{% endif %}
-	{% if error_dynamic_description %}
-	errorNotification({
-		message: '{{ error_dynamic_description }}'
-	});
-	{% endif %}
-	{% if error_dynamic_start_url %}
-	errorNotification({
-		message: '{{ error_dynamic_start_url }}'
-	});
-	{% endif %}
-	{% if error_browserconfig_image %}
-	errorNotification({
-		message: '{{ error_browserconfig_image }}'
 	});
 	{% endif %}
 

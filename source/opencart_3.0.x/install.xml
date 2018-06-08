@@ -1202,6 +1202,8 @@
 			<search><![CDATA[return $this->load->view('common/header', $data);]]></search>
 			<add position="before"><![CDATA[
 			if ($materialize) {
+				$this->load->model('tool/image');
+
 				if (!empty($materialize_settings['optimization']['cached_colors'])) {
 					$cached_colors = $this->cache->get('materialize.colors');
 				} else {
@@ -1251,6 +1253,52 @@
 					$materialize_favicon = $materialize_settings['favicon'];
 				} else {
 					$materialize_favicon = '';
+				}
+
+				if (!empty($materialize_favicon['status'])) {
+					if (!empty($materialize_favicon['image'])) {
+						$favicon_image = $materialize_settings['favicon']['image'];
+
+						$icon = (DIR_IMAGE . $favicon_image);
+						$info = getimagesize($icon);
+						$icon_type = isset($info['mime']) ? $info['mime'] : '';
+
+						$data['favicon_images'][] = array(
+							'rel'	=> 'icon',
+							'type'	=> $icon_type,
+							'sizes'	=> '16x16',
+							'href'	=> $this->model_tool_image->resize($materialize_favicon['image'], 16, 16)
+						);
+
+						$data['favicon_images'][] = array(
+							'rel'	=> 'icon',
+							'type'	=> $icon_type,
+							'sizes'	=> '32x32',
+							'href'	=> $this->model_tool_image->resize($materialize_favicon['image'], 32, 32)
+						);
+
+						$data['favicon_images'][] = array(
+							'rel'	=> 'apple-touch-icon',
+							'type'	=> $icon_type,
+							'sizes'	=> '180x180',
+							'href'	=> $this->model_tool_image->resize($materialize_favicon['image'], 180, 180)
+						);
+					}
+
+					if (!empty($materialize_favicon['svg'])) {
+						$data['favicon_images'][] = array(
+							'rel'	=> 'icon',
+							'type'	=> 'image/svg+xml',
+							'sizes'	=> 'any',
+							'href'	=> $server . 'image/' . $materialize_favicon['svg']
+						);
+
+						$data['favicon_mask_icons'][] = array(
+							'rel'	=> 'mask-icon',
+							'href'	=> $server . 'image/' . $materialize_favicon['svg'],
+							'color'	=> '#' . $materialize_favicon['maskiconcolor']
+						);
+					}
 				}
 
 				if (isset($materialize_favicon['browserconfig']['status'])) {
@@ -2615,53 +2663,6 @@
 			<add position="replace"><![CDATA[colspan="5"]]></add>
 		</operation>
 	</file>
-	<!-- Favicon -->
-	<!-- <file path="system/library/document.php">
-		<operation error="log">
-			<search><![CDATA[public function addLink($href, $rel) {]]></search>
-			<add position="replace"><![CDATA[public function addLink($href, $rel, $type='', $sizes = '') {]]></add>
-		</operation>
-		<operation error="log">
-			<search><![CDATA['rel'  => $rel]]></search>
-			<add position="replace"><![CDATA[
-			'rel'	=> $rel,
-			'type'	=> $type,
-			'sizes'	=> $sizes
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/common/header.php">
-		<operation error="log">
-			<search><![CDATA[$this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');]]></search>
-			<add position="replace"><![CDATA[
-			$this->load->model('tool/image');
-
-			$file = ($server . 'image/' . $this->config->get('config_icon'));
-			$info = getimagesize($file);
-			$icon_type = isset($info['mime']) ? $info['mime'] : '';
-
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 16, 16), 'icon', $icon_type, '16x16');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 32, 32), 'icon', $icon_type, '32x32');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 48, 48), 'icon', $icon_type, '48x48');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 96, 96), 'icon', $icon_type, '96x96');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 128, 128), 'icon', $icon_type, '128x128');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 160, 160), 'icon', $icon_type, '160x160');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 196, 196), 'icon', $icon_type, '196x196');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 228, 228), 'icon', $icon_type, '228x228');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 256, 256), 'icon', $icon_type, '256x256');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 57, 57), 'apple-touch-icon', $icon_type, '57x57');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 60, 60), 'apple-touch-icon', $icon_type, '60x60');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 72, 72), 'apple-touch-icon', $icon_type, '72x72');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 76, 76), 'apple-touch-icon', $icon_type, '76x76');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 114, 114), 'apple-touch-icon', $icon_type, '114x114');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 120, 120), 'apple-touch-icon', $icon_type, '120x120');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 144, 144), 'apple-touch-icon', $icon_type, '144x144');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 152, 152), 'apple-touch-icon', $icon_type, '152x152');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 167, 167), 'apple-touch-icon', $icon_type, '167x167');
-			$this->document->addLink($this->model_tool_image->resize($this->config->get('config_icon'), 180, 180), 'apple-touch-icon', $icon_type, '180x180');
-			]]></add>
-		</operation>
-	</file> -->
 	<!-- Subcategory chip -->
 	<file path="catalog/controller/product/category.php">
 		<operation error="log">

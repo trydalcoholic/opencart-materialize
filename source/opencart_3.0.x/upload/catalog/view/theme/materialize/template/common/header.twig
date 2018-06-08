@@ -63,7 +63,15 @@
 	<style>{{ css }}</style>
 	{% if manifest %}<link rel="manifest" href="{{ manifest }}">{% endif %}
 	{% if browserconfig %}<meta name="msapplication-config" content="{{ browserconfig }}">{% endif %}
-	{% for link in links %}<link href="{{ link.href }}" rel="{{ link.rel }}" {% if link.type or link.sizes %}type="{{ link.type }}" sizes="{{ link.sizes }}" {% endif %}>{% endfor %}
+	{% for favicon_image in favicon_images %}
+	<link rel="{{ favicon_image.rel }}" type="{{ favicon_image.type }}" sizes="{{ favicon_image.sizes }}" href="{{ favicon_image.href }}">
+	{% endfor %}
+	{% for favicon_mask_icon in favicon_mask_icons %}
+	<link rel="{{ favicon_mask_icon.rel }}" href="{{ favicon_mask_icon.href }}" color="{{ favicon_mask_icon.color }}">
+	{% endfor %}
+	{% for link in links %}
+	<link href="{{ link.href }}" rel="{{ link.rel }}">
+	{% endfor %}
 	{% for analytic in analytics %}{{ analytic }}{% endfor %}
 	<script defer src="catalog/view/theme/materialize/js/jquery/jquery-3.3.1.min.js"></script>
 	<script defer src="catalog/view/theme/materialize/js/materialize/materialize.min.js"></script>
