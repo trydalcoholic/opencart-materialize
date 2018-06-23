@@ -14,6 +14,7 @@
 		</div>
 	</div>
 	<div class="container-fluid">
+		<!-- <pre>{{ dump(materializeapi_changelogs) }}</pre> -->
 		<form action="{{ action }}" data-action="{{ apply|raw }}" method="post" enctype="multipart/form-data" id="form-theme-materialize" class="form-horizontal">
 			<div class="row">
 				<div class="col-xs-12 col-md-4 col-md-push-8">
@@ -51,9 +52,10 @@
 								<li><a href="#tab-colors" data-toggle="tab">{{ text_colors }}</a></li>
 								<li><a href="#tab-image" data-toggle="tab">{{ text_image }}</a></li>
 								<li><a href="#tab-product" data-toggle="tab">{{ text_product }}</a></li>
+								{% if materializeapi %}<li><a href="#tab-info" data-toggle="tab">Информация о шаблоне</a></li>{% endif %}
 							</ul>
 							<div class="tab-content">
-								<div class="tab-pane active" id="tab-common">
+								<div class="tab-pane" id="tab-common">
 									<div class="row">
 										<div class="col-sm-3">
 											<ul class="nav nav-pills nav-stacked" id="tab-common-pills">
@@ -184,7 +186,7 @@
 																<div class="media">
 																	<div class="media-body">
 																		<h4 class="media-heading text-medium">Фавикон</h4>
-																		<p>Генерация фавиконки с расширеными настройками и оптимальными размерами. Используя эту опцию, можно не указывать фавикон в настроках магазина.</p>
+																		<p>Генерация фавиконки с расширенными настройками и оптимальными размерами. Используя эту опцию, можно не указывать фавикон в настроках магазина.</p>
 																	</div>
 																	<div class="media-right media-middle">
 																		<label class="form-switch pull-right">
@@ -1428,6 +1430,7 @@
 											<ul class="nav nav-pills nav-stacked" id="tab-product-pills">
 												<li><a href="#tab-product-default" data-toggle="tab">Стандартные настройки</a></li>
 												<li><a href="#tab-show-fields" data-toggle="tab">{{ entry_show_fields }}</a></li>
+												<li><a href="#tab-stock-status" data-toggle="tab">Состояние на складе</a></li>
 												<li><a href="#tab-imagezoom" data-toggle="tab">{{ text_imagezoom }}</a></li>
 												<li><a href="#tab-info-payment" data-toggle="tab">{{ entry_payment }}</a></li>
 											</ul>
@@ -1626,6 +1629,28 @@
 														</div>
 													</div>
 												</div>
+												<div class="tab-pane" id="tab-stock-status">
+													<div class="table-responsive">
+														<table class="table table-bordered table-hover">
+															<thead>
+																<tr>
+																	<td width="30%">Название</td>
+																	<td width="30%">Цвет</td>
+																	<td width="30%">Кнопка</td>
+																</tr>
+															</thead>
+															<tbody>
+																{% for stock_status in stock_statuses %}
+																<tr>
+																	<td>{{ stock_status.name }}</td>
+																	<td>{{ stock_status.color }}</td>
+																	<td>{{ stock_status.button }}</td>
+																</tr>
+																{% endfor %}
+															</tbody>
+														</table>
+													</div>
+												</div>
 												<div class="tab-pane" id="tab-imagezoom">
 													<div class="list-group-item">
 														<div class="media">
@@ -1685,6 +1710,198 @@
 										</div>
 									</div>
 								</div>
+								{% if materializeapi %}
+								<div class="tab-pane" id="tab-info">
+									<div class="row">
+										<div class="col-sm-3">
+											<ul class="nav nav-pills nav-stacked" id="tab-materializeapi-pills">
+												<li><a href="#tab-donaters" data-toggle="tab"><i class="fa fa-birthday-cake"></i> Топ донатеров</a></li>
+												<li><a href="#tab-translators" data-toggle="tab"><i class="fa fa-users"></i> Переводчики</a></li>
+												<li><a href="#tab-template-versions" data-toggle="tab"><i class="fa fa-code"></i> Версии шаблона</a></li>
+												<li><a href="#tab-changelog" data-toggle="tab"><i class="fa fa-asterisk"></i> Список изменений</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-9">
+											<div class="tab-content">
+												<div class="tab-pane" id="tab-donaters">
+													<fieldset>
+														<legend>Топ донатеров</legend>
+														<div class="table-responsive">
+															<table id="donaters" class="table table-striped table-bordered table-hover">
+																<thead>
+																	<tr>
+																		<th>#</th>
+																		<th>Имя</th>
+																		<th class="text-center">Сумма доната</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	{% set counter_donaters = 1 %}
+																	{% for donater in materializeapi_donaters %}
+																	<tr>
+																		{% if counter_donaters == 1 %}
+																		<th scope="row">{{ counter_donaters }}</th>
+																		<td><b>{{ donater.name }}</b></td>
+																		<td class="text-center"><span class="label label-danger">{{ donater.amount }} USD</span></td>
+																		{% elseif counter_donaters == 2 or counter_donaters == 3 %}
+																		<th scope="row">{{ counter_donaters }}</th>
+																		<td><b>{{ donater.name }}</b></td>
+																		<td class="text-center"><span class="label label-success">{{ donater.amount }} USD</span></td>
+																		{% else %}
+																		<th scope="row">{{ counter_donaters }}</th>
+																		<td>{{ donater.name }}</td>
+																		<td class="text-center"><span class="label label-primary">{{ donater.amount }} USD</span></td>
+																		{% endif %}
+																	</tr>
+																	{% set counter_donaters = counter_donaters + 1 %}
+																	{% endfor %}
+																</tbody>
+															</table>
+														</div>
+														<div class="row">
+															<div class="col-sm-4 col-sm-offset-8">
+																<table class="table table-bordered">
+																	<tbody>
+																		<tr>
+																			<td><b>Всего:</b></td>
+																			<td class="text-center"><span class="label label-default">{{ materializeapi_amount_donations }} USD</span></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</fieldset>
+													<div class="alert alert-info">
+														Пожалуйста, поддержите развитие шаблона! <a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener" class="alert-link">Оставьте отзыв</a> а работе или <a href="//paypal.me/trydalcoholic" target="_blank" rel="noopener" class="alert-link">пожертвуйте на развитие</a>.
+													</div>
+													<hr>
+													<div class="form-group">
+														<div class="col-xs-12 text-right">
+															<div class="btn-group">
+																<button type="button" class="btn btn-info" id="cache-clear">Задонатить</button>
+																<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+																<ul class="dropdown-menu">
+																	<li><a href="//paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a></li>
+																	<li><a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Яндекс.Деньги</a></li>
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="tab-translators">
+													<fieldset>
+														<legend>Переводчики</legend>
+														<div class="table-responsive">
+															<table id="versions" class="table table-striped table-bordered table-hover">
+																<thead>
+																	<tr>
+																		<td>Язык</td>
+																		<td>Участники</td>
+																	</tr>
+																</thead>
+																<tbody>
+																	{% for translate in materializeapi_translators %}
+																	<tr>
+																		<td>{{ translate.language }}</td>
+																		<td>{{ translate.participants }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+														</div>
+													</fieldset>
+													<div class="alert alert-info">
+														Если вы хотите стать участником перевода шаблона, пожалуйста, <a href="//github.com/trydalcoholic/opencart-materialize/issues/20" target="_blank" rel="noopener" class="alert-link">ознакомьтесь с инструкцией здесь</a>.
+													</div>
+													<hr>
+													<div class="form-group">
+														<div class="col-xs-12 text-right">
+															<div class="btn-group">
+																<a href="//github.com/trydalcoholic/opencart-materialize/issues/20" class="btn btn-info" target="_blank" rel="noopener">Помочь</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="tab-template-versions">
+													<fieldset>
+														<legend>Версии шаблона</legend>
+														<div class="table-responsive">
+															<table id="versions" class="table table-striped table-bordered table-hover">
+																<thead>
+																	<tr>
+																		<td>Версия OpenCart</td>
+																		<td>Версия шаблона</td>
+																		<td>Статус</td>
+																	</tr>
+																</thead>
+																<tbody>
+																	{% for version in materializeapi_versions %}
+																	<tr>
+																		<td>{{ version.opencart }}</td>
+																		<td>{{ version.template }}</td>
+																		<td>{{ version.status }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+														</div>
+													</fieldset>
+													<div class="alert alert-info">
+														Пожалуйста, поддержите развитие шаблона! <a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener" class="alert-link">Оставьте отзыв</a> а работе или <a href="//paypal.me/trydalcoholic" target="_blank" rel="noopener" class="alert-link">пожертвуйте на развитие</a>.
+													</div>
+													<hr>
+													<div class="form-group">
+														<div class="col-xs-12 text-right">
+															<div class="btn-group">
+																<button type="button" class="btn btn-info">Ваша версия <b>{{ materializeapi_template_verstion }}</b></button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="tab-changelog">
+													<div class="panel-group" id="accordion-changelog">
+														{% set counter_changelogs = 1 %}
+														{% for changelog in materializeapi_changelogs %}
+														<div class="panel panel-default">
+															{% if counter_changelogs == 1 %}
+															<div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion-changelog" href="#changelog-version-{{ counter_changelogs }}"><h4 class="panel-title"><b>Version {{ changelog.version }}</b></h4></a></div>
+															<div id="changelog-version-{{ counter_changelogs }}" class="panel-collapse collapse in">
+																<div class="panel-body">
+																	<fieldset>
+																		<legend><i class="fa fa-magic"></i> Изменения</legend>
+																		{{ changelog.changes }}
+																	</fieldset>
+																	<fieldset>
+																		<legend><i class="fa fa-bug"></i> Исправленные баги</legend>
+																		{{ changelog.bags }}
+																	</fieldset>
+																</div>
+															</div>
+															{% set counter_changelogs = counter_changelogs + 1 %}
+															{% else %}
+															<div class="panel-heading"><a class="collapsed" data-toggle="collapse" data-parent="#accordion-changelog" href="#changelog-version-{{ counter_changelogs }}"><h4 class="panel-title">Version {{ changelog.version }}</h4></a></div>
+															<div id="changelog-version-{{ counter_changelogs }}" class="panel-collapse collapse">
+																<div class="panel-body">
+																	<fieldset>
+																		<legend><i class="fa fa-magic"></i> Изменения</legend>
+																		{{ changelog.changes }}
+																	</fieldset>
+																	<fieldset>
+																		<legend><i class="fa fa-bug"></i> Исправленные баги</legend>
+																		{{ changelog.bags }}
+																	</fieldset>
+																</div>
+															</div>
+															{% endif %}
+														</div>
+														{% endfor %}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								{% endif %}
 							</div>
 						</div>
 						<div id="footer-appeal-users" class="panel-footer text-center"></div>
@@ -1702,6 +1919,9 @@
 	$('#tab-product-pills a:first').tab('show');
 	$('#foter-descriptions-language a:first').tab('show');
 	$('#social-icon-language a:first').tab('show');
+	{% if materializeapi %}
+	$('#tab-materializeapi-pills a:first').tab('show');
+	{% endif %}
 
 	var selectBrowserBar = $("#select-color-browser-bar"),
 		inputBrowserBar = $("#input-color-browser-bar-hex");

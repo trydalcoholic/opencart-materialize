@@ -325,30 +325,6 @@ figcaption {padding:1rem 0;}
 .input-field input[type="search"]:focus:not(.browser-default) ~ label .material-icons {color:#444;}
 .autocomplete-content.dropdown-content {position:absolute;width:100%;top:46px;}
 	/* Main dropdown category */
-	/*
-	#main-dd-nav {padding-left:40px;}
-	#main-dd-nav:before {
-		font-family: 'Material Icons';
-		content: '\E5D2';
-		position: absolute;
-		top: 0;
-		left: 10px;
-		height: 64px;
-		line-height: 64px;
-		display: block;
-		font-size: 1.5rem;
-	}
-	.category-dropdown {
-		opacity: 0;
-		transform-origin: 0px 0px 0px;
-		transform: scaleX(0.3) scaleY(0.3);
-		-webkit-transition: all 100ms cubic-bezier(0.215, 0.61, 0.355, 1);
-		transition: all 100ms cubic-bezier(0.215, 0.61, 0.355, 1);
-	}
-	.category-dropdown-hover {
-		opacity: 1;
-		transform: scaleX(1) scaleY(1);
-	} */
 	.dropdown-child-down {position:relative;}
 	.dropdown-child-down:before {
 		font-family: 'Material Icons';
@@ -440,12 +416,12 @@ span.collapsible-header {
 #side-settings,#dropdown-side-settings {margin-top:9px;float:right;}
 
 /*========== Fixed button ==========*/
-#cart,#btn-side-menu,#compare-btn,#back-to-top,#callback__btn {position:fixed;z-index:997;overflow:visible;}
+/* #cart,#btn-side-menu,#compare-btn,#back-to-top,#callback__btn {position:fixed;z-index:997;overflow:visible;}
 #cart {top:auto;right:20px;bottom:20px;left:auto;}
 #callback__btn {top:auto;right:20px;bottom:96px;left:auto;}
 #compare-btn {top:auto;right:90px;bottom:20px;left:auto;}
 #btn-side-menu {top:20px;right:20px;bottom:auto;left:auto;}
-#back-to-top {top:auto;right:auto;bottom:20px;left:20px;}
+#back-to-top {top:auto;right:auto;bottom:20px;left:20px;} */
 
 /*========== Subcategory chip ==========*/
 .subcategory-wrap .chip{max-width:150px;}
@@ -790,6 +766,7 @@ span.collapsible-header {
 @media screen and (max-width:600px) {
 	h1,h2,h3,h4{text-align:center;}
 	header {position:relative !important;}
+	#back-to-top {bottom:70px;}
 }
 @media (max-width:992px) {
 	.subcategory-wrap,.breadcrumb-wrap {
@@ -1009,6 +986,108 @@ span.collapsible-header {
 	font-size: 4rem;
 }
 .gifplay-button:hover:after {color:rgba(38,50,56,.8);}
+
+/*========== Bottom navigation ==========*/
+@media screen and (max-width:600px) {
+	#toast-container {
+		bottom: 112px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	.toast {width:90%;}
+
+	.mobilemenu-wrap {
+		position: fixed;
+		bottom: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 100%;
+		z-index: 996;
+	}
+
+	.mobilemenu {
+		display: flex;
+		position: relative;
+		box-sizing: border-box;
+		width: 100%;
+		height: 56px;
+		overflow: hidden;
+		box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+		-webkit-transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+		-o-transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+		transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+	}
+
+	.mobilemenu:before {
+		position: absolute;
+		content: '';
+		top: -36px;
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		z-index: -1;
+		margin-left: auto;
+		margin-right: auto;
+		left: 0;
+		right: 0;
+		box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+		-webkit-transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+		-o-transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+		transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+	}
+
+	.cart-btn {
+		position: absolute;
+		top: -50%;
+		left: 0;
+		right: 0;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		z-index: 3;
+	}
+
+	.mobilemenu__section {
+		display: inline-flex;
+		flex: 1 1 auto;
+		align-items: center;
+		min-width: 0;
+		z-index: 1;
+	}
+
+	.mobilemenu__section--left {
+		justify-content: flex-start;
+		order: -1;
+	}
+
+	.mobilemenu__section--right {
+		justify-content: flex-end;
+		order: 1;
+	}
+
+	.mobilemenu .btn-floating:hover {
+		background-color: transparent;
+	}
+
+	.cart-mobilemenu-scroll {
+		-webkit-transform: translateY(14px);
+		-ms-transform: translateY(14px);
+		transform: translateY(14px);
+	}
+
+	.mobilemenu-scroll {
+		-webkit-transform: translateY(100%);
+		-ms-transform: translateY(100%);
+		transform: translateY(100%);
+	}
+
+	.mobilemenu-scroll:before {
+		height: 0;
+	}
+}
 
 /*========== Keyframes ==========*/
 .callback-shake {

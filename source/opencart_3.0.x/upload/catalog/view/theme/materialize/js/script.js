@@ -182,6 +182,24 @@ var compare = {
 }
 
 $(document).ready(function() {
+	var mobileMenu = $('#mobilemenu'),
+		cart = $('#cart'),
+		lastScroll = 0;
+
+	$(window).scroll(function() {
+		var scrollTop = $(this).scrollTop();
+
+		if (scrollTop > lastScroll) {
+			cart.addClass('cart-mobilemenu-scroll');
+			mobileMenu.addClass('mobilemenu-scroll');
+		} else {
+			cart.removeClass('cart-mobilemenu-scroll');
+			mobileMenu.removeClass('mobilemenu-scroll');
+		}
+
+		lastScroll = scrollTop;
+	});
+
 	var superfish = $('.sf-menu');
 
 	superfish.superfish({

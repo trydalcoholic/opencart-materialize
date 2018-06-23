@@ -1,6 +1,8 @@
 <?php
 class ControllerExtensionThemeMaterialize extends Controller {
 	private $error = array();
+	private $template_version = '0.81';
+	private $installed_from_url = HTTP_CATALOG;
 
 	public function install() {
 		$this->load->model('extension/materialize/materialize');
@@ -55,15 +57,12 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->document->addStyle('view/javascript/summernote/summernote.css');
 		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
-		$this->load->model('setting/setting');
-
-		$this->load->model('tool/image');
-
-		$this->load->model('extension/materialize/materialize');
-
-		$this->load->model('localisation/language');
-
 		$this->load->model('catalog/information');
+		$this->load->model('extension/materialize/materialize');
+		$this->load->model('localisation/language');
+		$this->load->model('localisation/stock_status');
+		$this->load->model('setting/setting');
+		$this->load->model('tool/image');
 
 		if (isset($this->request->get['store_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$setting_info = $this->model_setting_setting->getSetting('theme_materialize', $this->request->get['store_id']);
@@ -339,25 +338,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_image_location_height'] = 75;
 		}
 
-		/* Materialize template */
-
 		$data['languages'] = $this->model_localisation_language->getLanguages();
-
-		/*$theme_materialize = array();
-
-		foreach ($data['languages'] as $key => $language) {
-			$theme_materialize[$language['language_id']][] = $this->language->get('theme_materialize');
-		}*/
-
-		/*if (isset($this->request->post['theme_materialize'])) {
-			$data['theme_materialize'] = $this->request->post['theme_materialize'];
-		} elseif ($this->config->get('theme_materialize') == true) {
-			$data['theme_materialize'] = $this->config->get('theme_materialize');
-		} else {
-			$data['theme_materialize'] = '';
-		}*/
-
-		/* Common */
 
 		$data['informations'] = $this->model_catalog_information->getInformations();
 
@@ -624,6 +605,33 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_products']['payment'] = array();
 		}
 
+		$data['stock_statuses'] = array();
+
+		$results = $this->model_localisation_stock_status->getStockStatuses();
+
+		foreach ($results as $result) {
+			$data['stock_statuses'][] = array(
+				'stock_status_id'	=> $result['stock_status_id'],
+				'name'				=> $result['name'],
+				'color'				=> 'Цвет',
+				'button'			=> 'Включена'
+			);
+		}
+
+		$materializeapi = $this->getMaterializeApi();
+
+		if ($materializeapi) {
+			$data['materializeapi'] = true;
+			$data['materializeapi_donaters'] = $materializeapi['donaters'];
+			$data['materializeapi_amount_donations'] = $materializeapi['amount_donations'];
+			$data['materializeapi_versions'] = $materializeapi['versions'];
+			$data['materializeapi_translators'] = $materializeapi['translators'];
+			$data['materializeapi_changelogs'] = $materializeapi['changelogs'];
+			$data['materializeapi_template_verstion'] = $materializeapi['template_verstion'];
+		} else {
+			$data['materializeapi'] = false;
+		}
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -655,6 +663,86 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$data['appeal_footer'] = true;
 
 		$this->response->setOutput($this->load->view('extension/materialize/appeal/footer', $data));
+	}
+
+	protected function getMaterializeApi() {
+		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		$curl = curl_init('https://materialize.myefforts.ru/index.php?route=extension/module/materializeapi');
+
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
+		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
+		curl_setopt($curl, CURLOPT_POST, 1);
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+
+		$materializeapi_info = json_decode($response, true);
+
+		if ($materializeapi_info) {
+			$materializeapi['donaters'] = array();
+
+			foreach ($materializeapi_info['donaters'] as $donater) {
+				$materializeapi['donaters'][] = array(
+					'amount'	=> $donater['amount'],
+					'name'		=> $donater['name']
+				);
+			}
+
+			rsort($materializeapi['donaters']);
+			reset($materializeapi['donaters']);
+
+			$materializeapi['amount_donations'] = 0;
+
+			foreach($materializeapi['donaters'] as $sum) {
+				$materializeapi['amount_donations'] += $sum['amount'];
+			}
+
+			$materializeapi['versions'] = array();
+
+			foreach ($materializeapi_info['versions'] as $version) {
+				$materializeapi['versions'][] = array(
+					'opencart'	=> $version['opencart'],
+					'template'	=> $version['template'],
+					'status'	=> html_entity_decode($version['status'], ENT_QUOTES, 'UTF-8')
+				);
+			}
+
+			$materializeapi['translators'] = array();
+
+			foreach ($materializeapi_info['translators'] as $translate) {
+				$materializeapi['translators'][] = array(
+					'language'		=> $translate['language'],
+					'participants'	=> $translate['participants']
+				);
+			}
+
+			sort($materializeapi['translators']);
+			reset($materializeapi['translators']);
+
+			$materializeapi['changelogs'] = array();
+
+			foreach ($materializeapi_info['changelogs'] as $changelog) {
+				$materializeapi['changelogs'][] = array(
+					'version'	=> $changelog['version'],
+					'changes'	=> html_entity_decode($changelog['changes'], ENT_QUOTES, 'UTF-8'),
+					'bags'		=> html_entity_decode($changelog['bags'], ENT_QUOTES, 'UTF-8')
+				);
+			}
+
+			rsort($materializeapi['changelogs']);
+			reset($materializeapi['changelogs']);
+
+			$materializeapi['template_verstion'] = $this->template_version;
+
+			return $materializeapi;
+		} else {
+			return false;
+		}
 	}
 
 	protected function validate() {

@@ -1744,7 +1744,7 @@
 		</operation>
 	</file>
 	<!-- Disable button cart -->
-	<file path="catalog/controller/product/compare.php">
+	<!-- <file path="catalog/controller/product/compare.php">
 		<operation error="log">
 			<search><![CDATA[if ($product_info['quantity'] <= 0) {]]></search>
 			<add position="before"><![CDATA[
@@ -1819,7 +1819,7 @@
 			<search><![CDATA[$data['products'][] = array(]]></search>
 			<add position="after"><![CDATA['add_cart'	=> $product_info['quantity'],]]></add>
 		</operation>
-	</file>
+	</file> -->
 	<!-- Quickorder -->
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
