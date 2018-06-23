@@ -184,6 +184,7 @@ var compare = {
 $(document).ready(function() {
 	var mobileMenu = $('#mobilemenu'),
 		cart = $('#cart'),
+		btnFixed = $('.fixed-btn-floating__wrapper'),
 		lastScroll = 0;
 
 	$(window).scroll(function() {
@@ -192,9 +193,11 @@ $(document).ready(function() {
 		if (scrollTop > lastScroll) {
 			cart.addClass('cart-mobilemenu-scroll');
 			mobileMenu.addClass('mobilemenu-scroll');
+			btnFixed.addClass('fixed-btn-floating__wrapper--scroll');
 		} else {
 			cart.removeClass('cart-mobilemenu-scroll');
 			mobileMenu.removeClass('mobilemenu-scroll');
+			btnFixed.removeClass('fixed-btn-floating__wrapper--scroll');
 		}
 
 		lastScroll = scrollTop;

@@ -164,14 +164,19 @@
 	{{ language }}
 	{{ currency }}
 	{{ adult_content }}
-	{{ callback_module }}
-	<!-- <a id="compare-btn" href="{{ compare }}" class="btn-floating btn-large waves-effect waves-light scale-transition pulse {{ color_compare }} {{ text_compare == '0' ? 'scale-out' }}" title="{{ text_comparison_list }}" rel="nofollow">
-		<i class="material-icons {{ color_compare_text }}">compare_arrows</i>
-		<small id="compare-total" class="btn-floating z-depth-1 pulse {{ color_compare_total }} {{ color_compare_total_text }}">{{ text_compare }}</small>
-	</a> -->
+	<div class="fixed-btn-floating__wrapper fixed-btn-floating__wrapper--right transition--cubic-bezier">
+		{{ callback_module }}
+		<a id="compare-btn" href="{{ compare }}" class="btn-floating btn-large waves-effect waves-light fixed-btn-floating__wrapper__item scale-transition pulse {{ color_compare }} {{ text_compare == '0' ? 'scale-out' }}" title="{{ text_comparison_list }}" rel="nofollow">
+			<i class="material-icons {{ color_compare_text }}">compare_arrows</i>
+			<small id="compare-total" class="btn-floating z-depth-1 pulse {{ color_compare_total }} {{ color_compare_total_text }}">{{ text_compare }}</small>
+		</a>
+	</div>
+	<div class="fixed-btn-floating__wrapper fixed-btn-floating__wrapper--left transition--cubic-bezier">
+		<button type="button" id="back-to-top" class="btn-floating btn-large scale-transition scale-out waves-effect fixed-btn-floating__wrapper__item {{ color_btt }}"><i class="material-icons {{ color_btt_text }}">keyboard_arrow_up</i></button>
+	</div>
 	<aside class="mobilemenu-wrap">
-		<button type="button" id="cart" class="btn-floating btn-large cart-btn red waves-effect z-depth-2 modal-trigger" data-target="modal-cart"><i class="material-icons">shopping_cart</i></button>
-		<div id="mobilemenu" class="mobilemenu hide-on-med-and-up">
+		<button type="button" id="cart" class="btn-floating btn-large cart-btn waves-effect z-depth-2 modal-trigger {{ color_cart }}" data-target="modal-cart"><i class="material-icons {{ color_cart_text }}">shopping_cart</i></button>
+		<div id="mobilemenu" class="mobilemenu transition--cubic-bezier hide-on-med-and-up">
 			<section class="mobilemenu__section mobilemenu__section--left">
 				<button type="button" id="btn-side-menu" class="sidenav-trigger btn-flat btn-floating btn-large waves-effect" data-target="slide-out"><i class="material-icons">menu</i></button>
 			</section>
@@ -180,8 +185,4 @@
 			</section>
 		</div>
 	</aside>
-	<style>
-	.mobilemenu:before {
-		box-shadow: 0px 0px 0px 9999px #546e7a;
-	}
-	</style>
+	<style>.mobilemenu:before {box-shadow:0px 0px 0px 9999px #546e7a;}</style>
