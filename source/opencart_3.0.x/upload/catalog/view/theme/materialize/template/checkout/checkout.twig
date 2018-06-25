@@ -153,7 +153,7 @@ $(document).ready(function() {
 
 // Checkout
 $(document).delegate('#button-account', 'click', function() {
-		$.ajax({
+	$.ajax({
 		url: 'index.php?route=checkout/' + $('input[name=\'account\']:checked').val(),
 		dataType: 'html',
 		success: function(html) {
@@ -207,6 +207,10 @@ $(document).delegate('#button-register', 'click', function() {
 			if (json['redirect']) {
 				location = json['redirect'];
 			} else if (json['error']) {
+				if (json['error']['warning']) {
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['warning'], classes: 'toast-warning'});
+				}
+
 				for (i in json['error']) {
 					var element = $('#input-payment-' + i.replace('_', '-'));
 
@@ -351,6 +355,17 @@ $(document).delegate('#button-payment-address', 'click', function() {
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
+				}).done(function() {
+					$.ajax({
+						url: 'index.php?route=checkout/payment_address',
+						dataType: 'html',
+						success: function(html) {
+							$('#collapse-payment-address').html(html);
+						},
+						error: function(xhr, ajaxOptions, thrownError) {
+							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						}
+					});
 				});
 				{% else %}
 				$.ajax({
@@ -370,18 +385,19 @@ $(document).delegate('#button-payment-address', 'click', function() {
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
+				}).done(function() {
+					$.ajax({
+						url: 'index.php?route=checkout/payment_address',
+						dataType: 'html',
+						success: function(html) {
+							$('#collapse-payment-address').html(html);
+						},
+						error: function(xhr, ajaxOptions, thrownError) {
+							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						}
+					});
 				});
 				{% endif %}
-				$.ajax({
-					url: 'index.php?route=checkout/payment_address',
-					dataType: 'html',
-					success: function(html) {
-						$('#collapse-payment-address').html(html);
-					},
-					error: function(xhr, ajaxOptions, thrownError) {
-						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-					}
-				});
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
@@ -441,16 +457,17 @@ $(document).delegate('#button-shipping-address', 'click', function() {
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
-				});
-				$.ajax({
-					url: 'index.php?route=checkout/payment_address',
-					dataType: 'html',
-					success: function(html) {
-						$('#collapse-payment-address').html(html);
-					},
-					error: function(xhr, ajaxOptions, thrownError) {
-						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-					}
+				}).done(function() {
+					$.ajax({
+						url: 'index.php?route=checkout/payment_address',
+						dataType: 'html',
+						success: function(html) {
+							$('#collapse-payment-address').html(html);
+						},
+						error: function(xhr, ajaxOptions, thrownError) {
+							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						}
+					});
 				});
 			}
 		},
