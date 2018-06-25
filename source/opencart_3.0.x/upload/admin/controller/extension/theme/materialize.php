@@ -605,19 +605,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_products']['payment'] = array();
 		}
 
-		$data['stock_statuses'] = array();
-
-		$results = $this->model_localisation_stock_status->getStockStatuses();
-
-		foreach ($results as $result) {
-			$data['stock_statuses'][] = array(
-				'stock_status_id'	=> $result['stock_status_id'],
-				'name'				=> $result['name'],
-				'color'				=> 'Цвет',
-				'button'			=> 'Включена'
-			);
-		}
-
 		$materializeapi = $this->getMaterializeApi();
 
 		if ($materializeapi) {

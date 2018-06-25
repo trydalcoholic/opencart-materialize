@@ -1430,7 +1430,6 @@
 											<ul class="nav nav-pills nav-stacked" id="tab-product-pills">
 												<li><a href="#tab-product-default" data-toggle="tab">Стандартные настройки</a></li>
 												<li><a href="#tab-show-fields" data-toggle="tab">{{ entry_show_fields }}</a></li>
-												<li><a href="#tab-stock-status" data-toggle="tab">Состояние на складе</a></li>
 												<li><a href="#tab-imagezoom" data-toggle="tab">{{ text_imagezoom }}</a></li>
 												<li><a href="#tab-info-payment" data-toggle="tab">{{ entry_payment }}</a></li>
 											</ul>
@@ -1627,28 +1626,6 @@
 																</label>
 															</div>
 														</div>
-													</div>
-												</div>
-												<div class="tab-pane" id="tab-stock-status">
-													<div class="table-responsive">
-														<table class="table table-bordered table-hover">
-															<thead>
-																<tr>
-																	<td width="30%">Название</td>
-																	<td width="30%">Цвет</td>
-																	<td width="30%">Кнопка</td>
-																</tr>
-															</thead>
-															<tbody>
-																{% for stock_status in stock_statuses %}
-																<tr>
-																	<td>{{ stock_status.name }}</td>
-																	<td>{{ stock_status.color }}</td>
-																	<td>{{ stock_status.button }}</td>
-																</tr>
-																{% endfor %}
-															</tbody>
-														</table>
 													</div>
 												</div>
 												<div class="tab-pane" id="tab-imagezoom">

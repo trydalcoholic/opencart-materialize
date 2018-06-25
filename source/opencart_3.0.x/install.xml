@@ -1719,27 +1719,27 @@
 		</operation>
 	</file>
 	<!-- Disable button cart -->
-	<!-- <file path="catalog/controller/product/compare.php">
+	<file path="catalog/controller/product/compare.php">
 		<operation error="log">
-			<search><![CDATA[if ($product_info['quantity'] <= 0) {]]></search>
-			<add position="before"><![CDATA[
-			if ($product_info['quantity'] <= 0) {
-				$data['add_cart'] = false;
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[
+			if (($product_info['quantity'] <= 0) && (!$this->config->get('config_stock_checkout'))) {
+				$add_cart = false;
 			} else {
-				$data['add_cart'] = true;
+				$add_cart = true;
 			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['products'][$product_id] = array(]]></search>
-			<add position="after"><![CDATA['add_cart'	=> $product_info['quantity'],]]></add>
+			<add position="after"><![CDATA['add_cart'	=> $add_cart,]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
-			<search><![CDATA[if ($product_info['quantity'] <= 0) {]]></search>
-			<add position="before"><![CDATA[
-			if ($product_info['quantity'] <= 0) {
+			<search><![CDATA[if ($product_info) {]]></search>
+			<add position="after"><![CDATA[
+			if (($product_info['quantity'] <= 0) && (!$this->config->get('config_stock_checkout'))) {
 				$data['add_cart'] = false;
 			} else {
 				$data['add_cart'] = true;
@@ -1751,50 +1751,50 @@
 		<operation error="log">
 			<search><![CDATA[$data['products'][] = array(]]></search>
 			<add position="before"><![CDATA[
-			if ($result['quantity'] <= 0) {
-				$result['quantity'] = false;
+			if (($result['quantity'] <= 0) && (!$this->config->get('config_stock_checkout'))) {
+				$add_cart = false;
 			} else {
-				$result['quantity'] = true;
+				$add_cart = true;
 			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['products'][] = array(]]></search>
-			<add position="after"><![CDATA['add_cart'	=> $result['quantity'],]]></add>
+			<add position="after"><![CDATA['add_cart'	=> $add_cart,]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/{bestseller,latest,special}*.php">
 		<operation error="log">
 			<search><![CDATA[$data['products'][] = array(]]></search>
 			<add position="before"><![CDATA[
-			if ($result['quantity'] <= 0) {
-				$result['quantity'] = false;
+			if (($result['quantity'] <= 0) && (!$this->config->get('config_stock_checkout'))) {
+				$add_cart = false;
 			} else {
-				$result['quantity'] = true;
+				$add_cart = true;
 			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['products'][] = array(]]></search>
-			<add position="after"><![CDATA['add_cart'	=> $result['quantity'],]]></add>
+			<add position="after"><![CDATA['add_cart'	=> $add_cart,]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/featured.php">
 		<operation error="log">
-			<search><![CDATA[if ($product_info) {]]></search>
-			<add position="after"><![CDATA[
-			if ($product_info['quantity'] <= 0) {
-				$product_info['quantity'] = false;
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="before"><![CDATA[
+			if (($product_info['quantity'] <= 0) && (!$this->config->get('config_stock_checkout'))) {
+				$add_cart = false;
 			} else {
-				$product_info['quantity'] = true;
+				$add_cart = true;
 			}
 			]]></add>
 		</operation>
 		<operation error="log">
 			<search><![CDATA[$data['products'][] = array(]]></search>
-			<add position="after"><![CDATA['add_cart'	=> $product_info['quantity'],]]></add>
+			<add position="after"><![CDATA['add_cart'	=> $add_cart,]]></add>
 		</operation>
-	</file> -->
+	</file>
 	<!-- Quickorder -->
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
