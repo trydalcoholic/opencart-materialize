@@ -161,7 +161,7 @@ var luhn10 = function (a, b, c, d, e) {
 	return !(d % 10)
 };
 
-{% if error %}Materialize.toast('<i class="material-icons left">error</i>Payment Error: {{ error }}',7000,'toast-warning');{% else %}
-{% if text_testing %}Materialize.toast('<i class="material-icons left">info</i>{{ text_testing }}',7000,'toast-info');{% endif %}
-</script> 
+{% if error %}M.toast({html: '<i class="material-icons left">warning</i>Payment Error: {{ error }', classes: 'toast-warning'});{% else %}
+{% if text_testing %}M.toast({html: '<i class="material-icons left">info</i>{{ text_testing }}', classes: 'toast-info'});{% endif %}
+</script>
 {% endif %}

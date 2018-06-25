@@ -10,19 +10,17 @@
 	</div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$('.slick-slider').slick({
-		infinite: true,
-		autoplay: true,
-		autoplaySpeed: 5000,
-		slidesToShow: 1,
-		adaptiveHeight: true,
-		fade: true,
-		cssEase: 'linear',
-		dots: true,
-		arrows: true,
-		nextArrow: '<button class="slick-next waves-effect waves-circle" aria-label="Next" type="button">Next</button>',
-		prevArrow: '<button class="slick-prev waves-effect waves-circle" aria-label="Previous" type="button">Previous</button>'
-	});
+$('#slideshow{{ module }}').slick({
+	infinite: true,
+	autoplay: true,
+	autoplaySpeed: 5000,
+	slidesToShow: 1,
+	adaptiveHeight: true,
+	fade: true,
+	cssEase: 'linear',
+	dots: true,
+	arrows: true,
+	nextArrow: '<button class="slick-next waves-effect waves-circle" aria-label="Next" type="button">Next</button>',
+	prevArrow: '<button class="slick-prev waves-effect waves-circle" aria-label="Previous" type="button">Previous</button>'
 });
 </script>

@@ -26,27 +26,25 @@
 	{% endfor %}
 </ul>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$("input[name^=\'filter\']").change(function() {
-		filter = [];
-		$('input[name^=\'filter\']:checked').each(function(element) {
-			filter.push(this.value);
-		});
-		href = '{{ action }}&filter=' + filter.join(',');
-		div = ' #content';
-		load_href = href + div;
-		$(div).load(load_href, function() {
-			$(this).children(':first').unwrap();
-		});
-		setLocation(href);
-		return false;
+$("input[name^=\'filter\']").change(function() {
+	filter = [];
+	$('input[name^=\'filter\']:checked').each(function(element) {
+		filter.push(this.value);
 	});
-	function setLocation(curLoc){
-		try {
-			history.pushState(null, null, curLoc);
-			return;
-		} catch(e) {}
-		location.hash = '#' + curLoc;
-	}
+	href = '{{ action }}&filter=' + filter.join(',');
+	div = ' #content';
+	load_href = href + div;
+	$(div).load(load_href, function() {
+		$(this).children(':first').unwrap();
+	});
+	setLocation(href);
+	return false;
 });
+function setLocation(curLoc){
+	try {
+		history.pushState(null, null, curLoc);
+		return;
+	} catch(e) {}
+	location.hash = '#' + curLoc;
+}
 </script>

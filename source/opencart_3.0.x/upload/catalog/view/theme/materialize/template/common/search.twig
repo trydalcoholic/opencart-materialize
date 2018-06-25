@@ -13,28 +13,26 @@
 		</div>
 	</div>
 	<script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		$(document).ready(function() {
-			$('input[name=\'search\']').autocomplete({
-				'source': function(request, response) {
-					$.ajax({
-						url: 'index.php?route=common/search/autocomplete&filter_name=' + encodeURIComponent(request),
-						dataType: 'json',
-						success: function(json) {
-							response($.map(json, function(item) {
-								return {
-									label: item['name'],
-									img: item['img'],
-									value: item['product_id']
-								}
-							}));
-						}
-					});
-				},
-				'select': function(item) {
-					window.location = "{{ product_path }}&product_id="+item['value'];
-				}
-			});
+	$(document).ready(function() {
+		$('input[name=\'search\']').autocomplete({
+			'source': function(request, response) {
+				$.ajax({
+					url: 'index.php?route=common/search/autocomplete&filter_name=' + encodeURIComponent(request),
+					dataType: 'json',
+					success: function(json) {
+						response($.map(json, function(item) {
+							return {
+								label: item['name'],
+								img: item['img'],
+								value: item['product_id']
+							}
+						}));
+					}
+				});
+			},
+			'select': function(item) {
+				window.location = "{{ product_path }}&product_id="+item['value'];
+			}
 		});
 	});
 	</script>

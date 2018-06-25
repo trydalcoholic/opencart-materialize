@@ -18,28 +18,26 @@
 	<input type="hidden" name="adult_content_agreement_id" value="{{ agreement_id }}">
 </form>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$(document).ready(function() {
-		$('#adult-content__modal').modal({
-			opacity: '0.9',
-			dismissible: false
-		}).modal('open');
+$(document).ready(function() {
+	$('#adult-content__modal').modal({
+		opacity: '0.9',
+		dismissible: false
+	}).modal('open');
 
-		$('#adult-content__button').on('click', function() {
-			$.ajax({
-				url: 'index.php?route=extension/module/adult_content/agree',
-				type: 'post',
-				dataType: 'json',
-				data: $("#adult-content__modal").serialize(),
-				success: function(json) {
-					if (json['error']) {
-						M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
-					}
-					if (json['success']) {
-						$('#adult-content__modal').modal('close');
-					}
+	$('#adult-content__button').on('click', function() {
+		$.ajax({
+			url: 'index.php?route=extension/module/adult_content/agree',
+			type: 'post',
+			dataType: 'json',
+			data: $("#adult-content__modal").serialize(),
+			success: function(json) {
+				if (json['error']) {
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 				}
-			});
+				if (json['success']) {
+					$('#adult-content__modal').modal('close');
+				}
+			}
 		});
 	});
 });

@@ -36,9 +36,9 @@ $(document).ready(function() {
 	$('#continue-button').click(function() {
 		$('div.warning').remove();
 		if ($('input[name="addressSelected"]').val() == '0') {
-			Materialize.toast('<i class="material-icons left">error</i>{{ error_shipping_address }}',7000,'toast-warning');
+			M.toast({html: '<i class="material-icons left">warning</i>{{ error_shipping_address }}', classes: 'toast-warning'});
 		} else if ($('input[name="shipping_method"]:checked').length == 0) {
-			Materialize.toast('<i class="material-icons left">error</i>{{ error_shipping }}',7000,'toast-warning');
+			M.toast({html: '<i class="material-icons left">warning</i>{{ error_shipping }}', classes: 'toast-warning'});
 		} else {
 			$.ajax({
 				url: 'index.php?route=extension/payment/amazon_login_pay/setshipping',
@@ -68,7 +68,7 @@ $(document).ready(function() {
 				$('.shipping-methods').html('');
 
 				if (data.error) {
-					Materialize.toast('<i class="material-icons left">error</i>'+data.error,7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + data.error, classes: 'toast-warning'});
 				} else if (data.quotes) {
 					var html = '';
 
@@ -108,5 +108,5 @@ $(document).ready(function() {
 	}).bind("addressBookWidgetDiv");
 
 });
-</script> 
-{{ footer }} 
+</script>
+{{ footer }}

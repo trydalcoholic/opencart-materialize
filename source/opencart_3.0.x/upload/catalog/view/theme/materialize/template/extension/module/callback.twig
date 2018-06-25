@@ -59,84 +59,80 @@
 	</div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	var callbackAttract = $('#callback__attract'),
-		callbackPhoneIcon = $('#callback__phone-icon');
+var callbackAttract = $('#callback__attract'),
+	callbackPhoneIcon = $('#callback__phone-icon');
 
-	setInterval(function() {
-		callbackPhoneIcon.toggleClass('callback-shake');
-	}, 2500);
+setInterval(function() {
+	callbackPhoneIcon.toggleClass('callback-shake');
+}, 2500);
 
-	var idleTimer = null,
-		idleState = false,
-		idleWait = {{ module_callback_time }}000;
+var idleTimer = null,
+	idleState = false,
+	idleWait = {{ module_callback_time }}000;
 
-	callbackAttract.tapTarget();
+callbackAttract.tapTarget();
 
-	$(document).bind('mousemove keydown scroll', function() {
-		clearTimeout(idleTimer);
+$(document).bind('mousemove keydown scroll', function() {
+	clearTimeout(idleTimer);
 
-		idleState = false;
-		idleTimer = setTimeout(function() {
-			callbackAttract.tapTarget('open');
-			idleState = true;
-		}, idleWait);
-	});
-
-	$("body").trigger("mousemove");
+	idleState = false;
+	idleTimer = setTimeout(function() {
+		callbackAttract.tapTarget('open');
+		idleState = true;
+	}, idleWait);
 });
+
+$("body").trigger("mousemove");
 </script>
 {% endif %}
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	{% if module_callback_enquiry %}$('.character-counter').characterCounter();{% endif %}
-	{% if module_callback_calltime %}
-	$('.timepicker').timepicker({
-		defaultTime: 'now',
-		autoclose: true,
-		i18n: {
-			clear: '{{ button_datetime_clear }}',
-			cancel: '{{ button_datetime_done }}',
-			done: '{{ button_time_done }}',
-			twelvehour: {{ twelve_hour }}
-		}
-	});
-	{% endif %}
-	$('#callback__button').on('click', function() {
-		$.ajax({
-			url: 'index.php?route=extension/module/callback/send',
-			type: 'post',
-			dataType: 'json',
-			data: $("#callback__modal").serialize(),
-			success: function(json) {
-				if (json['error']) {
-					M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
-				}
-				if (json['success']) {
-					M.toast({html: '<i class="material-icons left">check</i>' + json['success'], classes: 'toast-success'});
-					$('#callback-telephone').val('').removeClass('valid');
-					$('#callback-telephone').parent().find('label').removeClass('active');
-					{% if module_callback_name %}
-					$('#callback-name').val('').removeClass('valid');
-					$('#callback-name').parent().find('label').removeClass('active');
-					{% endif %}
-					{% if module_callback_enquiry %}
-					$('#callback-enquiry').val('');
-					$('#callback-enquiry').parent().find('label').removeClass('active');
-					$('#callback-enquiry').parent().find('.character-counter').empty();
-					M.textareaAutoResize($('#callback-enquiry'));
-					{% endif %}
-					{% if module_callback_calltime %}
-					$('#callback-calltime').val('');
-					$('#callback-calltime').parent().find('label').removeClass('active');
-					{% endif %}
-					{% if text_agree %}
-					$('#agreement-check-callback').prop('checked', false);
-					{% endif %}
-					$('#callback__modal').modal('close');
-				}
+{% if module_callback_enquiry %}$('.character-counter').characterCounter();{% endif %}
+{% if module_callback_calltime %}
+$('.timepicker').timepicker({
+	defaultTime: 'now',
+	autoclose: true,
+	i18n: {
+		clear: '{{ button_datetime_clear }}',
+		cancel: '{{ button_datetime_done }}',
+		done: '{{ button_time_done }}',
+		twelvehour: {{ twelve_hour }}
+	}
+});
+{% endif %}
+$('#callback__button').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=extension/module/callback/send',
+		type: 'post',
+		dataType: 'json',
+		data: $("#callback__modal").serialize(),
+		success: function(json) {
+			if (json['error']) {
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 			}
-		});
+			if (json['success']) {
+				M.toast({html: '<i class="material-icons left">check</i>' + json['success'], classes: 'toast-success'});
+				$('#callback-telephone').val('').removeClass('valid');
+				$('#callback-telephone').parent().find('label').removeClass('active');
+				{% if module_callback_name %}
+				$('#callback-name').val('').removeClass('valid');
+				$('#callback-name').parent().find('label').removeClass('active');
+				{% endif %}
+				{% if module_callback_enquiry %}
+				$('#callback-enquiry').val('');
+				$('#callback-enquiry').parent().find('label').removeClass('active');
+				$('#callback-enquiry').parent().find('.character-counter').empty();
+				M.textareaAutoResize($('#callback-enquiry'));
+				{% endif %}
+				{% if module_callback_calltime %}
+				$('#callback-calltime').val('');
+				$('#callback-calltime').parent().find('label').removeClass('active');
+				{% endif %}
+				{% if text_agree %}
+				$('#agreement-check-callback').prop('checked', false);
+				{% endif %}
+				$('#callback__modal').modal('close');
+			}
+		}
 	});
 });
 </script>

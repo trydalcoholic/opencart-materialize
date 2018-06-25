@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -120,10 +119,5 @@
 		</div>
 	</div>
 </main>
-<script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		$('select').material_select();
-	});
-</script>
-{% endspaceless %}
+<script>$('select').material_select();</script>
 {{ footer }}

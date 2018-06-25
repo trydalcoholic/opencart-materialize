@@ -132,7 +132,7 @@ $('#button-delete').bind('click', function() {
 			dataType: 'json',
 			success: function(json) {
 				if (json['error']) {
-					Materialize.toast('<i class="material-icons left">error</i>'+json['error'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 				} else {
 					$.ajax({
 						url: 'index.php?route=checkout/confirm',
@@ -158,31 +158,31 @@ $('#button-confirm').bind('click', function() {
 		dataType: 'json',
 		success: function(json) {
 			if (json['error']['warning']) {
-				Materialize.toast('<i class="material-icons left">error</i>'+json['error']['warning'],7000,'toast-warning');
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['warning'], classes: 'toast-warning'});
 			}
 
 			if (json['error']['card_number']) {
-				Materialize.toast('<i class="material-icons left">error</i>'+json['error']['card_number'],7000,'toast-warning');
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['card_number'], classes: 'toast-warning'});
 			}
 
 			if (json['error']['card_cvv2']) {
-				Materialize.toast('<i class="material-icons left">error</i>'+json['error']['card_cvv2'],7000,'toast-warning');
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['card_cvv2'], classes: 'toast-warning'});
 			}
 
 			if (json['error']['card_choice']) {
-				Materialize.toast('<i class="material-icons left">error</i>'+json['error']['card_choice'],7000,'toast-warning');
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['card_choice'], classes: 'toast-warning'});
 			}
 
 			if (json['error']['method']) {
-				Materialize.toast('<i class="material-icons left">error</i>'+json['error']['method'],7000,'toast-warning');
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['method'], classes: 'toast-warning'});
 			}
 
 			if (json['error']['account_number']) {
-				Materialize.toast('<i class="material-icons left">error</i>'+json['error']['account_number'],7000,'toast-warning');
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['account_number'], classes: 'toast-warning'});
 			}
 
 			if (json['error']['routing_number']) {
-				Materialize.toast('<i class="material-icons left">error</i>'+json['error']['routing_number'],7000,'toast-warning');
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['routing_number'], classes: 'toast-warning'});
 			}
 
 			if (json['success']) {

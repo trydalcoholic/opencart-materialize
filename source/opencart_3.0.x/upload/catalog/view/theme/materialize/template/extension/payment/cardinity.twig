@@ -43,23 +43,23 @@ $('#button-confirm').on('click', function() {
 		success: function(json) {
 			if (json['error']) {
 				if (json['error']['warning']) {
-					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['warning'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['warning'], classes: 'toast-warning'});
 				}
 
 				if (json['error']['holder']) {
-					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['holder'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['holder'], classes: 'toast-warning'});
 				}
 
 				if (json['error']['pan']) {
-					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['pan'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['pan'], classes: 'toast-warning'});
 				}
 
 				if (json['error']['expiry_date']) {
-					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['expiry_date'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['expiry_date'], classes: 'toast-warning'});
 				}
 
 				if (json['error']['cvc']) {
-					Materialize.toast('<i class="material-icons left">error</i>'+json['error']['cvc'],7000,'toast-warning');
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error']['cvc'], classes: 'toast-warning'});
 				}
 			}
 

@@ -10,6 +10,8 @@
 		<input type="text" name="captcha" id="input-captcha">
 		<label for="input-captcha">{{ entry_captcha }}</label>
 		<img src="index.php?route=extension/captcha/basic/captcha" alt="">
-		{% if error_captcha %}<script>document.addEventListener("DOMContentLoaded", function(event) {Materialize.toast({{ error_captcha }},4000)});</script>{% endif %}
+		{% if error_captcha %}
+		<script>M.toast({html: '<i class="material-icons left">warning</i>{{ error_captcha }}', classes: 'toast-warning'});</script>
+		{% endif %}
 	</div>
 {% endif %}

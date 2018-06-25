@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -147,15 +146,12 @@
 	</div>
 </main>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
-	{% if error_to_name %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_to_name }}', classes: 'toast-warning'});{% endif %}
-	{% if error_to_email %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_to_email }}', classes: 'toast-warning'});{% endif %}
-	{% if error_from_name %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_from_name }}', classes: 'toast-warning'});{% endif %}
-	{% if error_from_email %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_from_email }}', classes: 'toast-warning'});{% endif %}
-	{% if error_theme %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_theme }}', classes: 'toast-warning'});{% endif %}
-	{% if error_amount %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_amount }}', classes: 'toast-warning'});{% endif %}
-});
+{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
+{% if error_to_name %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_to_name }}', classes: 'toast-warning'});{% endif %}
+{% if error_to_email %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_to_email }}', classes: 'toast-warning'});{% endif %}
+{% if error_from_name %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_from_name }}', classes: 'toast-warning'});{% endif %}
+{% if error_from_email %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_from_email }}', classes: 'toast-warning'});{% endif %}
+{% if error_theme %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_theme }}', classes: 'toast-warning'});{% endif %}
+{% if error_amount %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_amount }}', classes: 'toast-warning'});{% endif %}
 </script>
-{% endspaceless %}
 {{ footer }}

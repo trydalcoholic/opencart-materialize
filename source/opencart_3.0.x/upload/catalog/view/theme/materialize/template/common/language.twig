@@ -20,12 +20,10 @@
 	</div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$('#form-language .language-select').on('click', function(e) {
-		e.preventDefault();
-		$('#form-language input[name=\'code\']').val($(this).attr('id'));
-		$('#form-language').submit();
-	});
+$('#form-language .language-select').on('click', function(e) {
+	e.preventDefault();
+	$('#form-language input[name=\'code\']').val($(this).attr('id'));
+	$('#form-language').submit();
 });
 </script>
 {% endif %}

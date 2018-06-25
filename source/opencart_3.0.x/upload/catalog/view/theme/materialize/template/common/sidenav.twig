@@ -89,52 +89,52 @@
 {% endif %}
 {% if blog %}<li><a class="waves-effect" href="{{ blog }}" rel="nofollow"><i class="material-icons">chrome_reader_mode</i>{{ text_blog }}</a></li>{% endif %}
 <script>
-	var collapsible = $('.collapsible'),
-		sideSettings = $('#side-settings'),
-		inputSearchSidebar = $('#input-search-side'),
-		searchClear = $('.search-buttons__clear');
+var collapsible = $('.collapsible'),
+	sideSettings = $('#side-settings'),
+	inputSearchSidebar = $('#input-search-side'),
+	searchClear = $('.search-buttons__clear');
 
-	collapsible.collapsible();
-	sideSettings.dropdown({
-		alignment: 'right',
-		constrainWidth: false
-	});
+collapsible.collapsible();
+sideSettings.dropdown({
+	alignment: 'right',
+	constrainWidth: false
+});
 
-	inputSearchSidebar.parent().find('label').on('click', function() {
-		var url = $('base').attr('href') + 'index.php?route=product/search',
-			value = inputSearchSidebar.val();
-		if (value) {
-			url += '&search=' + encodeURIComponent(value);
-		}
-		location = url;
-	});
+inputSearchSidebar.parent().find('label').on('click', function() {
+	var url = $('base').attr('href') + 'index.php?route=product/search',
+		value = inputSearchSidebar.val();
+	if (value) {
+		url += '&search=' + encodeURIComponent(value);
+	}
+	location = url;
+});
 
-	inputSearchSidebar.on('keydown', function(e) {
-		if (e.keyCode == 13) {
-			inputSearchSidebar.parent().find('label').trigger('click');
-		}
-	});
+inputSearchSidebar.on('keydown', function(e) {
+	if (e.keyCode == 13) {
+		inputSearchSidebar.parent().find('label').trigger('click');
+	}
+});
 
-	searchClear.click(function() {searchClear.parent().find('input').val('');});
+searchClear.click(function() {searchClear.parent().find('input').val('');});
 
-	$('input[name=\'search\']').autocomplete({
-		'source': function(request, response) {
-			$.ajax({
-				url: 'index.php?route=common/search/autocomplete&filter_name=' + encodeURIComponent(request),
-				dataType: 'json',
-				success: function(json) {
-					response($.map(json, function(item) {
-						return {
-							label: item['name'],
-							img: item['img'],
-							value: item['product_id']
-						}
-					}));
-				}
-			});
-		},
-		'select': function(item) {
-			window.location = "{{ product_path }}&product_id="+item['value'];
-		}
-	});
+$('input[name=\'search\']').autocomplete({
+	'source': function(request, response) {
+		$.ajax({
+			url: 'index.php?route=common/search/autocomplete&filter_name=' + encodeURIComponent(request),
+			dataType: 'json',
+			success: function(json) {
+				response($.map(json, function(item) {
+					return {
+						label: item['name'],
+						img: item['img'],
+						value: item['product_id']
+					}
+				}));
+			}
+		});
+	},
+	'select': function(item) {
+		window.location = "{{ product_path }}&product_id="+item['value'];
+	}
+});
 </script>

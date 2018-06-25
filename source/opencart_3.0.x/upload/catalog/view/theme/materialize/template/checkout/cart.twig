@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -154,33 +153,30 @@
 	</div>
 </main>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	{% if attention %}M.toast({html: '<i class="material-icons left">info</i>{{ attention }}', classes: 'toast-info'});{% endif %}
-	{% if success %}M.toast({html: '<i class="material-icons left">check</i>{{ success }}', classes: 'toast-success'});{% endif %}
-	{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
+{% if attention %}M.toast({html: '<i class="material-icons left">info</i>{{ attention }}', classes: 'toast-info'});{% endif %}
+{% if success %}M.toast({html: '<i class="material-icons left">check</i>{{ success }}', classes: 'toast-success'});{% endif %}
+{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
 
-	$('input#input-quantity').change(function() {
-		$('#update-btn').trigger('click');
-	});
+$('input#input-quantity').change(function() {
+	$('#update-btn').trigger('click');
+});
 
-	$('i[id^=\'quantity-minus\']').on('click', function() {
-		var quantity = $(this).parent().find('input');
+$('i[id^=\'quantity-minus\']').on('click', function() {
+	var quantity = $(this).parent().find('input');
 
-		if (isNaN(quantity.val())) {
-			quantity.val(1);
-		}
+	if (isNaN(quantity.val())) {
+		quantity.val(1);
+	}
 
-		if (quantity.val() > 1) {
-			quantity.val(parseInt(quantity.val()) - 1);
-		}
-	});
+	if (quantity.val() > 1) {
+		quantity.val(parseInt(quantity.val()) - 1);
+	}
+});
 
-	$('i[id^=\'quantity-plus\']').on('click', function() {
-		var quantity = $(this).parent().find('input');
+$('i[id^=\'quantity-plus\']').on('click', function() {
+	var quantity = $(this).parent().find('input');
 
-		quantity.val(parseInt(quantity.val()) + 1);
-	});
+	quantity.val(parseInt(quantity.val()) + 1);
 });
 </script>
-{% endspaceless %}
 {{ footer }}

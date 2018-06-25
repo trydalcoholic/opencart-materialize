@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 {% if column_left and column_right %}
 	{% set main = 's12 l6' %}
 {% elseif column_left or column_right %}
@@ -194,42 +193,39 @@
 	</div>
 </main>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$('#button-blog-search').bind('click', function() {
-		url = 'index.php?route=extension/materialize/blog/search';
-		var search = $('#content input[name=\'blog_search\']').prop('value');
-		if (search) {
-			url += '&blog_search=' + encodeURIComponent(search);
-		}
-		var category_id = $('#content select[name=\'blog_category_id\']').prop('value');
-		if (category_id > 0) {
-			url += '&blog_category_id=' + encodeURIComponent(category_id);
-		}
-		var sub_category = $('#content input[name=\'sub_category\']:checked').prop('value');
-		if (sub_category) {
-			url += '&sub_category=true';
-		}
-		var filter_description = $('#content input[name=\'description\']:checked').prop('value');
-		if (filter_description) {
-			url += '&description=true';
-		}
-		location = url;
-	});
-	$('#content input[name=\'blog_search\']').bind('keydown', function(e) {
-		if (e.keyCode == 13) {
-			$('#button-blog-search').trigger('click');
-		}
-	});
-	$('select[name=\'blog_category_id\']').on('change', function() {
-		if (this.value == '0') {
-			$('input[name=\'sub_category\']').prop('disabled', true);
-		} else {
-			$('input[name=\'sub_category\']').prop('disabled', false);
-		}
-	});
-	$('select[name=\'blog_category_id\']').trigger('change');
+$('#button-blog-search').bind('click', function() {
+	url = 'index.php?route=extension/materialize/blog/search';
+	var search = $('#content input[name=\'blog_search\']').prop('value');
+	if (search) {
+		url += '&blog_search=' + encodeURIComponent(search);
+	}
+	var category_id = $('#content select[name=\'blog_category_id\']').prop('value');
+	if (category_id > 0) {
+		url += '&blog_category_id=' + encodeURIComponent(category_id);
+	}
+	var sub_category = $('#content input[name=\'sub_category\']:checked').prop('value');
+	if (sub_category) {
+		url += '&sub_category=true';
+	}
+	var filter_description = $('#content input[name=\'description\']:checked').prop('value');
+	if (filter_description) {
+		url += '&description=true';
+	}
+	location = url;
 });
+$('#content input[name=\'blog_search\']').bind('keydown', function(e) {
+	if (e.keyCode == 13) {
+		$('#button-blog-search').trigger('click');
+	}
+});
+$('select[name=\'blog_category_id\']').on('change', function() {
+	if (this.value == '0') {
+		$('input[name=\'sub_category\']').prop('disabled', true);
+	} else {
+		$('input[name=\'sub_category\']').prop('disabled', false);
+	}
+});
+$('select[name=\'blog_category_id\']').trigger('change');
 </script>
 <style>.blog-card-tabs .tabs .indicator {background-color:{{ color_tabs_icon  }};}</style>
-{% endspaceless %}
 {{ footer }}

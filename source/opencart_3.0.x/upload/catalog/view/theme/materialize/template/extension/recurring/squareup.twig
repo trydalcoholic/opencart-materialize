@@ -20,10 +20,10 @@ $(document).delegate('#button-cancel', 'click', function() {
 		dataType: 'json',
 		success: function(json) {
 			if (json['success']) {
-				Materialize.toast(json['success'],7000);
+				M.toast({html: '<i class="material-icons left">check</i>' + json['success'], classes: 'toast-success'});
 			}
 			if (json['error']) {
-				Materialize.toast(json['error'],7000);
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {

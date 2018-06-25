@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -87,32 +86,29 @@
 	</div>
 </main>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$(document).ready(function() {
-		$('input[name=\'product\']').autocomplete({
-			'source': function(request, response) {
-				$.ajax({
-					url: 'index.php?route=account/tracking/autocomplete&filter_name=' +  encodeURIComponent(request) + '&tracking=' + encodeURIComponent($('#input-code').val()),
-					dataType: 'json',
-					success: function(json) {
-						response($.map(json, function(item) {
-							return {
-								label: item['name'],
-								img: item['img'],
-								value: item['link']
-							}
-						}));
-					}
-				});
-			},
-			'select': function(item) {
-				$('input[name=\'product\']').val(item['label']);
-				$('textarea[name=\'link\']').val(item['value']);
-				M.textareaAutoResize($('textarea[name=\'link\']'));
-			}
-		});
+$(document).ready(function() {
+	$('input[name=\'product\']').autocomplete({
+		'source': function(request, response) {
+			$.ajax({
+				url: 'index.php?route=account/tracking/autocomplete&filter_name=' +  encodeURIComponent(request) + '&tracking=' + encodeURIComponent($('#input-code').val()),
+				dataType: 'json',
+				success: function(json) {
+					response($.map(json, function(item) {
+						return {
+							label: item['name'],
+							img: item['img'],
+							value: item['link']
+						}
+					}));
+				}
+			});
+		},
+		'select': function(item) {
+			$('input[name=\'product\']').val(item['label']);
+			$('textarea[name=\'link\']').val(item['value']);
+			M.textareaAutoResize($('textarea[name=\'link\']'));
+		}
 	});
 });
 </script>
-{% endspaceless %}
 {{ footer }}

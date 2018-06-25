@@ -11,22 +11,20 @@
 	</div>
 </li>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$('#button-reward').on('click', function() {
-		$.ajax({
-			url: 'index.php?route=extension/total/reward/reward',
-			type: 'post',
-			data: 'reward=' + encodeURIComponent($('input[name=\'reward\']').val()),
-			dataType: 'json',
-			success: function(json) {
-				if (json['error']) {
-					M.toast({html: '<i class="material-icons left">warning</i>'+json['error'], classes: 'toast-warning'});
-				}
-				if (json['redirect']) {
-					location = json['redirect'];
-				}
+$('#button-reward').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=extension/total/reward/reward',
+		type: 'post',
+		data: 'reward=' + encodeURIComponent($('input[name=\'reward\']').val()),
+		dataType: 'json',
+		success: function(json) {
+			if (json['error']) {
+				M.toast({html: '<i class="material-icons left">warning</i>'+json['error'], classes: 'toast-warning'});
 			}
-		});
+			if (json['redirect']) {
+				location = json['redirect'];
+			}
+		}
 	});
 });
 </script>

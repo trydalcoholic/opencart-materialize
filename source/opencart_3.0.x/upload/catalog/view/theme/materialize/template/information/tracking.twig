@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -72,24 +71,21 @@
 	</div>
 </main>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$('#button-tracking').on('click', function() {
-		$.ajax({
-			url: 'index.php?route=information/tracking/tracking&code=' + $('input[name="code"]').val(),
-			dataType: 'json',
-			success: function(json) {
-				if (json['redirect']) {
-					location = json['redirect'];
-				} else if (json['error']) {
-					Materialize.toast(json['error']['warning'],4000);
-				}
-			},
-			error: function(xhr, ajaxOptions, thrownError) {
-				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+$('#button-tracking').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=information/tracking/tracking&code=' + $('input[name="code"]').val(),
+		dataType: 'json',
+		success: function(json) {
+			if (json['redirect']) {
+				location = json['redirect'];
+			} else if (json['error']) {
+				Materialize.toast(json['error']['warning'],4000);
 			}
-		});
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
 	});
 });
 </script>
-{% endspaceless %}
 {{ footer }}

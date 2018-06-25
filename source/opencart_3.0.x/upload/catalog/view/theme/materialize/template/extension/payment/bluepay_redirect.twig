@@ -99,7 +99,7 @@
 			cache: false,
 			success: function(json) {
 				if (json['error']) {
-					alert(json['error']);
+					M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 				}
 
 				if (json['redirect']) {

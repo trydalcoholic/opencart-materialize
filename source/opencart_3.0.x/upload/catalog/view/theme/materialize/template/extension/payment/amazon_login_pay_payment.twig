@@ -36,7 +36,7 @@
 			if ($("input[name='payment_method']").val() == '1') {
 				location = '{{ continue }}';
 			} else {
-				Materialize.toast('<i class="material-icons left">error</i>{{ error_payment_method }}',7000,'toast-warning');
+				M.toast({html: '<i class="material-icons left">warning</i>{{ error_payment_method }}', classes: 'toast-warning'});
 			}
 		});
 

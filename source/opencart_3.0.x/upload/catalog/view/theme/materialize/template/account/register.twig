@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -257,128 +256,125 @@
 	</div>
 </main>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$('input[name=\'customer_group_id\']').on('change', function() {
-		$.ajax({
-			url: 'index.php?route=account/register/customfield&customer_group_id=' + this.value,
-			dataType: 'json',
-			success: function(json) {
-				$('.custom-field').hide();
-				$('.custom-field').removeClass('required');
+$('input[name=\'customer_group_id\']').on('change', function() {
+	$.ajax({
+		url: 'index.php?route=account/register/customfield&customer_group_id=' + this.value,
+		dataType: 'json',
+		success: function(json) {
+			$('.custom-field').hide();
+			$('.custom-field').removeClass('required');
 
-				for (i = 0; i < json.length; i++) {
-					custom_field = json[i];
+			for (i = 0; i < json.length; i++) {
+				custom_field = json[i];
 
-					$('#custom-field' + custom_field['custom_field_id']).show();
+				$('#custom-field' + custom_field['custom_field_id']).show();
 
-					if (custom_field['required']) {
-						$('#custom-field' + custom_field['custom_field_id'] + ' > label').addClass('required');
-						$('#custom-field' + custom_field['custom_field_id'] + ' > .input-field > label').addClass('required');
-					}
+				if (custom_field['required']) {
+					$('#custom-field' + custom_field['custom_field_id'] + ' > label').addClass('required');
+					$('#custom-field' + custom_field['custom_field_id'] + ' > .input-field > label').addClass('required');
 				}
-			},
-			error: function(xhr, ajaxOptions, thrownError) {
-				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
-		});
-	});
-
-	$('input[name=\'customer_group_id\']:checked').trigger('change');
-
-	$('.switch input[type=\'checkbox\']').click(function() {
-		$('#newsletter').attr('value', ($('#newsletter').attr('value')==0) ? '1' : '0');
-	});
-
-	{% if error_firstname %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_firstname }}', classes: 'toast-warning'});{% endif %}
-	{% if error_lastname %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_lastname }}', classes: 'toast-warning'});{% endif %}
-	{% if error_email %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_email }}', classes: 'toast-warning'});{% endif %}
-	{% if error_telephone %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_telephone }}', classes: 'toast-warning'});{% endif %}
-	{% if error_password %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_password }}', classes: 'toast-warning'});{% endif %}
-	{% if error_confirm %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_confirm }}', classes: 'toast-warning'});{% endif %}
-	{% for custom_field in custom_fields %}
-		{% if error_custom_field[custom_field.custom_field_id] %}
-		M.toast({html: '<i class="material-icons left">warning</i>{{ error_custom_field[custom_field.custom_field_id] }}', classes: 'toast-warning'});
-		{% endif %}
-	{% endfor %}
-
-	$('div[id^=\'button-custom-field\']').on('click', function() {
-		var element = this;
-
-		$('#form-upload').remove();
-
-		$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display:none;"><input type="file" name="file"></form><div id="modal-loading" class="modal"><div class="modal-content"><div class="row valign-wrapper"><div class="col s4 m3 center"><div class="preloader-wrapper active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div><div class="col s10 m9"><p id="loading-text" class="flow-text text-bold">{{ text_loading }}</p></div></div></div></div>');
-
-		$('#form-upload input[name=\'file\']').trigger('click');
-
-		if (typeof timer != 'undefined') {
-			clearInterval(timer);
-		}
-
-		timer = setInterval(function() {
-			if ($('#form-upload input[name=\'file\']').val() != '') {
-				clearInterval(timer);
-
-				$('#modal-loading').modal({
-					dismissible: false,
-					opacity: .7,
-					endingTop: '40%',
-				}).modal('open');
-
-				$.ajax({
-					url: 'index.php?route=tool/upload',
-					type: 'post',
-					dataType: 'json',
-					data: new FormData($('#form-upload')[0]),
-					cache: false,
-					contentType: false,
-					processData: false,
-					success: function(json) {
-						if (json['error']) {
-							$('#modal-loading').modal('close').remove();
-							M.toast({html: '<i class="material-icons left">warning</i>' + json["error"], classes: 'toast-warning'});
-						}
-
-						if (json['success']) {
-							$('#modal-loading').modal('close').remove();
-							M.toast({html: '<i class="material-icons left">check</i>' + json["success"], classes: 'toast-success'});
-
-							$(element).parent().find('input').val(json['code']);
-						}
-					},
-					error: function(xhr, ajaxOptions, thrownError) {
-						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-					}
-				});
-			}
-		}, 500);
-	});
-
-	$('.datepicker').datepicker({
-		format: 'yyyy-mm-dd',
-		firstDay: {{ first_day }},
-		i18n: {
-			clear: '{{ button_datetime_clear }}',
-			today: '{{ button_date_today }}',
-			done: '{{ button_datetime_done }}',
-			months: ['{{ text_months_full_january }}', '{{ text_months_full_february }}', '{{ text_months_full_march }}', '{{ text_months_full_april }}', '{{ text_months_full_may }}', '{{ text_months_full_june }}', '{{ text_months_full_july }}', '{{ text_months_full_august }}', '{{ text_months_full_september }}', '{{ text_months_full_october }}', '{{ text_months_full_november }}', '{{ text_months_full_december }}'],
-			monthsShort: ['{{ text_months_short_january }}', '{{ text_months_short_february }}', '{{ text_months_short_march }}', '{{ text_months_short_april }}', '{{ text_months_short_may }}', '{{ text_months_short_june }}', '{{ text_months_short_july }}', '{{ text_months_short_august }}', '{{ text_months_short_september }}', '{{ text_months_short_october }}', '{{ text_months_short_november }}', '{{ text_months_short_december }}'],
-			weekdays: ['{{ text_weekdays_full_sunday }}', '{{ text_weekdays_full_monday }}', '{{ text_weekdays_full_tuesday }}', '{{ text_weekdays_full_wednesday }}', '{{ text_weekdays_full_thursday }}', '{{ text_weekdays_full_friday }}', '{{ text_weekdays_full_saturday }}'],
-			weekdaysShort: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}'],
-			weekdaysAbbrev: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}']
-		}
-	});
-
-	$('.timepicker').timepicker({
-		defaultTime: 'now',
-		autoclose: true,
-		i18n: {
-			clear: '{{ button_datetime_clear }}',
-			cancel: '{{ button_datetime_done }}',
-			done: '{{ button_time_done }}',
-			twelvehour: {{ twelve_hour }}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
+
+$('input[name=\'customer_group_id\']:checked').trigger('change');
+
+$('.switch input[type=\'checkbox\']').click(function() {
+	$('#newsletter').attr('value', ($('#newsletter').attr('value')==0) ? '1' : '0');
+});
+
+{% if error_firstname %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_firstname }}', classes: 'toast-warning'});{% endif %}
+{% if error_lastname %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_lastname }}', classes: 'toast-warning'});{% endif %}
+{% if error_email %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_email }}', classes: 'toast-warning'});{% endif %}
+{% if error_telephone %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_telephone }}', classes: 'toast-warning'});{% endif %}
+{% if error_password %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_password }}', classes: 'toast-warning'});{% endif %}
+{% if error_confirm %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_confirm }}', classes: 'toast-warning'});{% endif %}
+{% for custom_field in custom_fields %}
+	{% if error_custom_field[custom_field.custom_field_id] %}
+	M.toast({html: '<i class="material-icons left">warning</i>{{ error_custom_field[custom_field.custom_field_id] }}', classes: 'toast-warning'});
+	{% endif %}
+{% endfor %}
+
+$('div[id^=\'button-custom-field\']').on('click', function() {
+	var element = this;
+
+	$('#form-upload').remove();
+
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display:none;"><input type="file" name="file"></form><div id="modal-loading" class="modal"><div class="modal-content"><div class="row valign-wrapper"><div class="col s4 m3 center"><div class="preloader-wrapper active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div><div class="col s10 m9"><p id="loading-text" class="flow-text text-bold">{{ text_loading }}</p></div></div></div></div>');
+
+	$('#form-upload input[name=\'file\']').trigger('click');
+
+	if (typeof timer != 'undefined') {
+		clearInterval(timer);
+	}
+
+	timer = setInterval(function() {
+		if ($('#form-upload input[name=\'file\']').val() != '') {
+			clearInterval(timer);
+
+			$('#modal-loading').modal({
+				dismissible: false,
+				opacity: .7,
+				endingTop: '40%',
+			}).modal('open');
+
+			$.ajax({
+				url: 'index.php?route=tool/upload',
+				type: 'post',
+				dataType: 'json',
+				data: new FormData($('#form-upload')[0]),
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(json) {
+					if (json['error']) {
+						$('#modal-loading').modal('close').remove();
+						M.toast({html: '<i class="material-icons left">warning</i>' + json["error"], classes: 'toast-warning'});
+					}
+
+					if (json['success']) {
+						$('#modal-loading').modal('close').remove();
+						M.toast({html: '<i class="material-icons left">check</i>' + json["success"], classes: 'toast-success'});
+
+						$(element).parent().find('input').val(json['code']);
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		}
+	}, 500);
+});
+
+$('.datepicker').datepicker({
+	format: 'yyyy-mm-dd',
+	firstDay: {{ first_day }},
+	i18n: {
+		clear: '{{ button_datetime_clear }}',
+		today: '{{ button_date_today }}',
+		done: '{{ button_datetime_done }}',
+		months: ['{{ text_months_full_january }}', '{{ text_months_full_february }}', '{{ text_months_full_march }}', '{{ text_months_full_april }}', '{{ text_months_full_may }}', '{{ text_months_full_june }}', '{{ text_months_full_july }}', '{{ text_months_full_august }}', '{{ text_months_full_september }}', '{{ text_months_full_october }}', '{{ text_months_full_november }}', '{{ text_months_full_december }}'],
+		monthsShort: ['{{ text_months_short_january }}', '{{ text_months_short_february }}', '{{ text_months_short_march }}', '{{ text_months_short_april }}', '{{ text_months_short_may }}', '{{ text_months_short_june }}', '{{ text_months_short_july }}', '{{ text_months_short_august }}', '{{ text_months_short_september }}', '{{ text_months_short_october }}', '{{ text_months_short_november }}', '{{ text_months_short_december }}'],
+		weekdays: ['{{ text_weekdays_full_sunday }}', '{{ text_weekdays_full_monday }}', '{{ text_weekdays_full_tuesday }}', '{{ text_weekdays_full_wednesday }}', '{{ text_weekdays_full_thursday }}', '{{ text_weekdays_full_friday }}', '{{ text_weekdays_full_saturday }}'],
+		weekdaysShort: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}'],
+		weekdaysAbbrev: ['{{ text_weekdays_short_sunday }}', '{{ text_weekdays_short_monday }}', '{{ text_weekdays_short_tuesday }}', '{{ text_weekdays_short_wednesday }}', '{{ text_weekdays_short_thursday }}', '{{ text_weekdays_short_friday }}', '{{ text_weekdays_short_saturday }}']
+	}
+});
+
+$('.timepicker').timepicker({
+	defaultTime: 'now',
+	autoclose: true,
+	i18n: {
+		clear: '{{ button_datetime_clear }}',
+		cancel: '{{ button_datetime_done }}',
+		done: '{{ button_time_done }}',
+		twelvehour: {{ twelve_hour }}
+	}
+});
 </script>
-{% endspaceless %}
 {{ footer }}

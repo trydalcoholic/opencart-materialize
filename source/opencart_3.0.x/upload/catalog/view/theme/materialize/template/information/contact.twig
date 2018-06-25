@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -142,78 +141,75 @@
 {% if yandex %}<script defer src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>{% endif %}
 {% if google %}<script defer src="//maps.googleapis.com/maps/api/js?key={{ google_api }}"></script>{% endif %}
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	{% if error_name %}
-		M.toast({html: '<i class="material-icons left">warning</i>{{ error_name }}', classes: 'toast-warning'});
-	{% endif %}
-	{% if error_email %}
-		M.toast({html: '<i class="material-icons left">warning</i>{{ error_email }}', classes: 'toast-warning'});
-	{% endif %}
-	{% if error_enquiry %}
-		M.toast({html: '<i class="material-icons left">warning</i>{{ error_enquiry }}', classes: 'toast-warning'});
-	{% endif %}
-	{% if yandex %}
-	ymaps.ready(init);
+{% if error_name %}
+	M.toast({html: '<i class="material-icons left">warning</i>{{ error_name }}', classes: 'toast-warning'});
+{% endif %}
+{% if error_email %}
+	M.toast({html: '<i class="material-icons left">warning</i>{{ error_email }}', classes: 'toast-warning'});
+{% endif %}
+{% if error_enquiry %}
+	M.toast({html: '<i class="material-icons left">warning</i>{{ error_enquiry }}', classes: 'toast-warning'});
+{% endif %}
+{% if yandex %}
+ymaps.ready(init);
 
-	var myMap, myPlacemark, myPin;
+var myMap, myPlacemark, myPin;
 
-	function init() {
-		myMap = new ymaps.Map("map", {
-			center: [{{ lat }}, {{ lng }}],
-			zoom: 16,
-			controls: []
-		});
+function init() {
+	myMap = new ymaps.Map("map", {
+		center: [{{ lat }}, {{ lng }}],
+		zoom: 16,
+		controls: []
+	});
 
-		myPin = new ymaps.GeoObjectCollection({}, {
-			{% if icon_pin %}
-			iconLayout: 'default#image',
-			iconImageSize: [{{ icon_pin_width }},{{ icon_pin_height }}],
-			iconImageHref: '{{ icon_pin }}'
-			{% endif %}
-		});
-
-		myPlacemark = new ymaps.Placemark([{{ lat }}, {{ lng }}], {
-			{% if map_description %}
-			balloonContent: '{{ map_description }}'
-			{% endif %}
-		});
-
-		myPin.add(myPlacemark);
-		myMap.geoObjects.add(myPin);
-	}
-	{% endif %}
-	{% if google %}
-	google.maps.event.addDomListener(window, 'load', init);
-
-	var element, options, myMap, myPlacemark, infoWindow;
-
-	function init() {
-		element = document.getElementById('google-map');
-		options = {
-			center: {lat: {{ lat }}, lng: {{ lng }}},
-			zoom: 16
-		}
-
-		myMap = new google.maps.Map(element, options);
-
-		myPlacemark = new google.maps.Marker({
-			position: {lat: {{ lat }}, lng: {{ lng }}},
-			map: myMap,
-			icon: '{{ icon_pin }}'
-		});
-
-		{% if map_description %}
-		infoWindow = new google.maps.InfoWindow({
-			content: '{{ map_description }}'
-		});
+	myPin = new ymaps.GeoObjectCollection({}, {
+		{% if icon_pin %}
+		iconLayout: 'default#image',
+		iconImageSize: [{{ icon_pin_width }},{{ icon_pin_height }}],
+		iconImageHref: '{{ icon_pin }}'
 		{% endif %}
+	});
 
-		myPlacemark.addListener('click', function() {
-			infoWindow.open(myMap, myPlacemark);
-		});
+	myPlacemark = new ymaps.Placemark([{{ lat }}, {{ lng }}], {
+		{% if map_description %}
+		balloonContent: '{{ map_description }}'
+		{% endif %}
+	});
+
+	myPin.add(myPlacemark);
+	myMap.geoObjects.add(myPin);
+}
+{% endif %}
+{% if google %}
+google.maps.event.addDomListener(window, 'load', init);
+
+var element, options, myMap, myPlacemark, infoWindow;
+
+function init() {
+	element = document.getElementById('google-map');
+	options = {
+		center: {lat: {{ lat }}, lng: {{ lng }}},
+		zoom: 16
 	}
+
+	myMap = new google.maps.Map(element, options);
+
+	myPlacemark = new google.maps.Marker({
+		position: {lat: {{ lat }}, lng: {{ lng }}},
+		map: myMap,
+		icon: '{{ icon_pin }}'
+	});
+
+	{% if map_description %}
+	infoWindow = new google.maps.InfoWindow({
+		content: '{{ map_description }}'
+	});
 	{% endif %}
-});
+
+	myPlacemark.addListener('click', function() {
+		infoWindow.open(myMap, myPlacemark);
+	});
+}
+{% endif %}
 </script>
-{% endspaceless %}
 {{ footer }}

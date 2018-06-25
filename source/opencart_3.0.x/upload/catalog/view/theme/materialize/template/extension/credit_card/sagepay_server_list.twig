@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -106,34 +105,27 @@
 	</div>
 </main>
 <script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		{% if success %}
-			Materialize.toast('<i class="material-icons left">check</i>{{ success }}',7000,'toast-success')
-		{% endif %}
-		{% if error_warning %}
-			Materialize.toast('<i class="material-icons left">warning</i>{{ error_warning }}',7000,'toast-warning')
-		{% endif %}
-		$('#button-add-card').bind('click', function () {
-			$.ajax({
-				url: 'index.php?route=extension/credit_card/sagepay_server_cards/addCard',
-				dataType: 'json',
-				cache: false,
-				success: function (json) {
-					if (json['redirect']) {
-						html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';
-						html += '  <input type="hidden" name="Status" value="' + json['Status'] + '">';
-						html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '">';
-						html += '</form>';
-						$('main').after(html);
-						$('#redirect').submit();
-					}
-					if (json['error']) {
-						Materialize.toast('<i class="material-icons left">warning</i>' + json['error'],7000,'toast-warning');
-					}
-				}
-			});
-		});
+{% if success %}M.toast({html: '<i class="material-icons left">check</i>{{ success }}', classes: 'toast-success'});{% endif %}
+{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
+$('#button-add-card').bind('click', function () {
+	$.ajax({
+		url: 'index.php?route=extension/credit_card/sagepay_server_cards/addCard',
+		dataType: 'json',
+		cache: false,
+		success: function (json) {
+			if (json['redirect']) {
+				html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';
+				html += '  <input type="hidden" name="Status" value="' + json['Status'] + '">';
+				html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '">';
+				html += '</form>';
+				$('main').after(html);
+				$('#redirect').submit();
+			}
+			if (json['error']) {
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
+			}
+		}
 	});
+});
 </script>
-{% endspaceless %}
 {{ footer }}

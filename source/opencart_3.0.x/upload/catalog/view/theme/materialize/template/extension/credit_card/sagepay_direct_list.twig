@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -106,14 +105,7 @@
 	</div>
 </main>
 <script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		{% if success %}
-			Materialize.toast('<i class="material-icons left">check</i>{{ success }}',7000,'toast-success')
-		{% endif %}
-		{% if error_warning %}
-			Materialize.toast('<i class="material-icons left">warning</i>{{ error_warning }}',7000,'toast-warning')
-		{% endif %}
-	});
+{% if success %}M.toast({html: '<i class="material-icons left">check</i>{{ success }}', classes: 'toast-success'});{% endif %}
+{% if error_warning %}M.toast({html: '<i class="material-icons left">warning</i>{{ error_warning }}', classes: 'toast-warning'});{% endif %}
 </script>
-{% endspaceless %}
 {{ footer }}

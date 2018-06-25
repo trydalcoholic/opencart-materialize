@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -235,21 +234,18 @@
 	</div>
 </main>
 <script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		var url_filter = '{{ url }}';
-		$('#instock-switch').on('click', function() {
-			url = url_filter;
-			var instock = $('input[name=\'instock\']').val();
-			if (instock == '1') {
-				url += '';
-			} else if (instock == '') {
-				url += '&instock=true';
-			} else {
-				url += '';
-			}
-			location = url;
-		});
-	});
+var url_filter = '{{ url }}';
+$('#instock-switch').on('click', function() {
+	url = url_filter;
+	var instock = $('input[name=\'instock\']').val();
+	if (instock == '1') {
+		url += '';
+	} else if (instock == '') {
+		url += '&instock=true';
+	} else {
+		url += '';
+	}
+	location = url;
+});
 </script>
-{% endspaceless %}
 {{ footer }}

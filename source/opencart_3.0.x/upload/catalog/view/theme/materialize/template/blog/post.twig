@@ -1,5 +1,4 @@
 {{ header }}
-{% spaceless %}
 <script type="application/ld+json">
 {
 	"@context": "http://schema.org",
@@ -298,108 +297,105 @@
 	</aside>
 </main>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	// Share side
-	$('#side-share').sidenav({edge:'right'});
-	// Image hover
-	$('.post-image-block figure').hover(
-		function(){$('.post-info').css('opacity','1');},
-		function(){$('.post-info').css('opacity','.7');}
-	);
-	// Clipboard
-	var copyUrl = new Clipboard('#copy-url');
+// Share side
+$('#side-share').sidenav({edge:'right'});
+// Image hover
+$('.post-image-block figure').hover(
+	function(){$('.post-info').css('opacity','1');},
+	function(){$('.post-info').css('opacity','.7');}
+);
+// Clipboard
+var copyUrl = new Clipboard('#copy-url');
 
-	copyUrl.on('success', function(e) {
-		M.toast({html: '<i class="material-icons left">check</i>{{ text_сlipboard_succeess }}', classes: 'toast-success'});
-	});
+copyUrl.on('success', function(e) {
+	M.toast({html: '<i class="material-icons left">check</i>{{ text_сlipboard_succeess }}', classes: 'toast-success'});
+});
 
-	copyUrl.on('error', function(e) {
-		M.toast({html: '<i class="material-icons left">warning</i>{{ text_сlipboard_error }}', classes: 'toast-warning'});
-	});
+copyUrl.on('error', function(e) {
+	M.toast({html: '<i class="material-icons left">warning</i>{{ text_сlipboard_error }}', classes: 'toast-warning'});
+});
 
-	{% if comment_status %}
-	var comment = $('#comment'),
-		buttonComment = $('#button-comment'),
-		inputName = $('input[name=\'name\']'),
-		inputEmail = $('input[name=\'email\']'),
-		inputText = $('textarea[name=\'text\']'),
-		modalComment = $('#modal-comment');
+{% if comment_status %}
+var comment = $('#comment'),
+	buttonComment = $('#button-comment'),
+	inputName = $('input[name=\'name\']'),
+	inputEmail = $('input[name=\'email\']'),
+	inputText = $('textarea[name=\'text\']'),
+	modalComment = $('#modal-comment');
 
-	comment.load('index.php?route=extension/materialize/blog/post/comment&post_id={{ post_id }}');
-	comment.delegate('.pagination a', 'click', function(e) {
-		e.preventDefault();
-		comment.load(this.href);
-	});
+comment.load('index.php?route=extension/materialize/blog/post/comment&post_id={{ post_id }}');
+comment.delegate('.pagination a', 'click', function(e) {
+	e.preventDefault();
+	comment.load(this.href);
+});
 
-	buttonComment.on('click', function() {
-		$.ajax({
-			url: 'index.php?route=extension/materialize/blog/post/write&post_id={{ post_id }}',
-			type: 'post',
-			dataType: 'json',
-			data: $("#form-comment").serialize(),
-			success: function(json) {
-				if (json['error']) {
-					M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
-				}
-				if (json['success']) {
-					M.toast({html: '<i class="material-icons left">check</i>' + json['success'], classes: 'toast-success'});
-					inputName.val('').removeClass('valid');
-					inputName.next().removeClass('active');
-					inputEmail.val('').removeClass('valid');
-					inputEmail.next().removeClass('active');
-					inputText.val('');
-					M.textareaAutoResize(inputText);
-					inputText.next().removeClass('active');
-					modalComment.modal('close');
-				}
+buttonComment.on('click', function() {
+	$.ajax({
+		url: 'index.php?route=extension/materialize/blog/post/write&post_id={{ post_id }}',
+		type: 'post',
+		dataType: 'json',
+		data: $("#form-comment").serialize(),
+		success: function(json) {
+			if (json['error']) {
+				M.toast({html: '<i class="material-icons left">warning</i>' + json['error'], classes: 'toast-warning'});
 			}
-		});
-		grecaptcha.reset();
-	});
-	{% endif %}
-	// Posts slider
-	$('.slick-posts').not('.slick-initialized').slick({
-		dots: true,
-		infinite: true,
-		speed: 300,
-		autoplay: true,
-		dots: false,
-		autoplaySpeed: 5000,
-		slidesToShow: 2,
-		slidesToScroll: 2,
-		responsive: [
-			{
-				breakpoint: 801,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1
-				}
+			if (json['success']) {
+				M.toast({html: '<i class="material-icons left">check</i>' + json['success'], classes: 'toast-success'});
+				inputName.val('').removeClass('valid');
+				inputName.next().removeClass('active');
+				inputEmail.val('').removeClass('valid');
+				inputEmail.next().removeClass('active');
+				inputText.val('');
+				M.textareaAutoResize(inputText);
+				inputText.next().removeClass('active');
+				modalComment.modal('close');
 			}
-		]
+		}
 	});
-	// Common slider
-	$('.blog-slider').not('.slick-initialized').slick({
-		lazyLoad: 'ondemand',
-		infinite: true,
-		slidesToShow: 2,
-		slidesToScroll: 1,
-		dots: true,
-		responsive: [
-			{
-				breakpoint: 601,
-				settings: {
-					slidesToShow: 1
-				}
-			},
-			{
-				breakpoint: 921,
-				settings: {
-					slidesToShow: 2
-				}
+	grecaptcha.reset();
+});
+{% endif %}
+// Posts slider
+$('.slick-posts').not('.slick-initialized').slick({
+	dots: true,
+	infinite: true,
+	speed: 300,
+	autoplay: true,
+	dots: false,
+	autoplaySpeed: 5000,
+	slidesToShow: 2,
+	slidesToScroll: 2,
+	responsive: [
+		{
+			breakpoint: 801,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1
 			}
-		]
-	});
+		}
+	]
+});
+// Common slider
+$('.blog-slider').not('.slick-initialized').slick({
+	lazyLoad: 'ondemand',
+	infinite: true,
+	slidesToShow: 2,
+	slidesToScroll: 1,
+	dots: true,
+	responsive: [
+		{
+			breakpoint: 601,
+			settings: {
+				slidesToShow: 1
+			}
+		},
+		{
+			breakpoint: 921,
+			settings: {
+				slidesToShow: 2
+			}
+		}
+	]
 });
 </script>
-{% endspaceless %}
 {{ footer }}

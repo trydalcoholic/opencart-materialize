@@ -29,12 +29,10 @@
 	</div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$('#form-currency .currency-select').on('click', function(e) {
-		e.preventDefault();
-		$('#form-currency input[name=\'code\']').val($(this).attr('name'));
-		$('#form-currency').submit();
-	});
+$('#form-currency .currency-select').on('click', function(e) {
+	e.preventDefault();
+	$('#form-currency input[name=\'code\']').val($(this).attr('name'));
+	$('#form-currency').submit();
 });
 </script>
 {% endif %}

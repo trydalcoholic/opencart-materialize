@@ -49,19 +49,17 @@
 </ul>
 {% endif %}
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
-	$('#label-search-blog').on('click', function() {
-		var url = $('base').attr('href') + 'index.php?route=extension/materialize/blog/search';
-		var value = $('#search-input-blog').val();
-		if (value) {
-			url += '&blog_search=' + encodeURIComponent(value);
-		}
-		location = url;
-	});
-	$('#blog-search').on('keydown', function(e) {
-		if (e.keyCode == 13) {
-			$('#label-search-blog').trigger('click');
-		}
-	});
+$('#label-search-blog').on('click', function() {
+	var url = $('base').attr('href') + 'index.php?route=extension/materialize/blog/search';
+	var value = $('#search-input-blog').val();
+	if (value) {
+		url += '&blog_search=' + encodeURIComponent(value);
+	}
+	location = url;
+});
+$('#blog-search').on('keydown', function(e) {
+	if (e.keyCode == 13) {
+		$('#label-search-blog').trigger('click');
+	}
 });
 </script>

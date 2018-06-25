@@ -76,7 +76,6 @@
 	<button type="button" data-target="quickorder__modal" id="quickorder__btn" class="btn btn-large waves-effect waves-light width-max modal-trigger {{ module_quickorder_color_btn }} {{ module_quickorder_color_btn_text }}"><i class="material-icons left">shopping_cart</i>{{ module_quickorder_button }}</button>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function(event) {
 	{% if module_quickorder_enquiry %}$('.character-counter').characterCounter();{% endif %}
 	{% if module_quickorder_calltime %}
 	$('.timepicker').timepicker({
@@ -130,6 +129,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			}
 		});
 	});
-});
 </script>
 {% endif %}
