@@ -169,3 +169,8 @@ a.dotted:hover {border-bottom: 1px dashed #14628c;;}
 	width: 50px;
 	height: 50px;
 }
+.materialize-color-thumbnail img {
+	width: 50px;
+	height: 50px;
+	padding: 4px;
+}

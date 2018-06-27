@@ -436,7 +436,7 @@ span.collapsible-header {
 .fixed-btn-floating__wrapper--left {
 	left: 28px;
 	bottom: 14px;
-	z-index: 995;
+	z-index: 996;
 }
 
 .fixed-btn-floating__wrapper__item {margin:14px 0;}
@@ -446,6 +446,7 @@ span.collapsible-header {
 	right: 28px;
 	bottom: 28px;
 	z-index: 995;
+	overflow: visible;
 }
 
 .scale-out {

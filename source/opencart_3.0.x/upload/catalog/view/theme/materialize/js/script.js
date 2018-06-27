@@ -295,34 +295,6 @@ $(document).ready(function() {
 
 	searchClear.click(function() {searchClear.parent().find('input').val('');});
 
-	$('.gifplay').each(function(el) {
-		el += 1;
-		var gifPlayImage = $(this).find('.gifplay-image'),
-			gifSrc = $(this).find(gifPlayImage).attr('data-src'),
-			gifData = $(this).find(gifPlayImage).attr('data-gif'),
-			gifPreloader = '<div class="gifplay-preloader-wrapper z-depth-5"><div class="preloader-wrapper active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div>';
-
-		gifPlayImage.after('<div class="gifplay-button transition scale waves-effect waves-circle waves-darken z-depth-5"></div>')
-
-		var gifPlayButton = $(this).find('.gifplay-button');
-
-		gifPlayButton.click(function() {
-			gifPlayImage.attr('src', gifData);
-			gifPlayButton.hide();
-			gifPlayButton.after(gifPreloader);
-			gifPlayImage.on('load', function() {
-				$('.gifplay-preloader-wrapper').remove();
-			});
-			gifPlayImage.addClass('activator');
-		});
-
-		gifPlayImage.click(function() {
-			gifPlayImage.attr('src', gifSrc);
-			gifPlayButton.show();
-			gifPlayImage.removeClass('activator');
-		});
-	});
-
 	$(document).on('keydown', '#collapse-checkout-option input[name=\'email\'], #collapse-checkout-option input[name=\'password\']', function(e) {
 		if (e.keyCode == 13) {
 			$('#collapse-checkout-option #button-login').trigger('click');

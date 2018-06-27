@@ -16,6 +16,16 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$data['theme_materialize_installed_appeal'] = true;
 
+		if ($this->config->get('theme_materialize_template_version') == true) {
+			$current_version = $this->config->get('theme_materialize_template_version');
+
+			if ($this->template_version != $current_version) {
+				$this->update();
+			}
+		} else {
+			$data['theme_materialize_template_version'] = $this->template_version;
+		}
+
 		$this->model_setting_setting->editSetting('theme_materialize', $data);
 	}
 
@@ -41,20 +51,17 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	}
 
 	public function index() {
+		if ($this->config->get('theme_materialize_template_version') == true) {
+			$data['template_version'] = $this->config->get('theme_materialize_template_version');
+		} else {
+			$data['template_version'] = false;
+		}
+
 		$this->load->language('extension/theme/materialize');
 		$this->load->language('extension/materialize/materialize');
 
 		$this->document->setTitle($this->language->get('materialize_title'));
-		$this->document->addScript('view/javascript/codemirror/lib/codemirror.js');
-		$this->document->addScript('view/javascript/codemirror/lib/xml.js');
-		$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
-		$this->document->addScript('view/javascript/summernote/summernote.js');
-		$this->document->addScript('view/javascript/summernote/summernote-image-attributes.js');
-		$this->document->addScript('view/javascript/summernote/opencart.js');
 		$this->document->addScript('view/javascript/materialize/materialize.js');
-		$this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
-		$this->document->addStyle('view/javascript/codemirror/theme/monokai.css');
-		$this->document->addStyle('view/javascript/summernote/summernote.css');
 		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
 		$this->load->model('catalog/information');
@@ -70,15 +77,15 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$dynamic_manifest_info = $this->config->get('theme_materialize_webmanifest_dynamic');
 		}
 
-		$check_update = $this->model_extension_materialize_materialize->checkUpdate();
-
-		if ($check_update == false) {
-			$data['theme_materialize_updates_appeal'] = true;
-		} else {
-			$data['theme_materialize_updates_appeal'] = false;
-		}
-
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate() && $this->validateManifest() && $this->validateBrowserconfig()) {
+			if ($this->config->get('theme_materialize_template_version') == true) {
+				$this->request->post['theme_materialize_template_version'] = $this->config->get('theme_materialize_template_version');
+			}
+
+			if ($this->config->get('theme_materialize_installed_appeal') == true) {
+				$this->request->post['theme_materialize_installed_appeal'] = 0;
+			}
+
 			$theme_status = $this->request->post['theme_materialize_status'];
 			$materialize_settings = $this->request->post['theme_materialize_settings'];
 
@@ -147,12 +154,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=theme', true);
 
 		$data['theme_materialize_directory'] = 'materialize';
-
-		if (isset($this->request->post['theme_materialize_installed_appeal'])) {
-			$data['theme_materialize_installed_appeal'] = $this->request->post['theme_materialize_installed_appeal'];
-		} else {
-			$data['theme_materialize_installed_appeal'] = $this->config->get('theme_materialize_installed_appeal');
-		}
 
 		if (isset($this->request->post['theme_materialize_status'])) {
 			$data['theme_materialize_status'] = $this->request->post['theme_materialize_status'];
@@ -619,37 +620,26 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['materializeapi'] = false;
 		}
 
+		if (isset($this->request->post['theme_materialize_installed_appeal'])) {
+			$data['theme_materialize_installed_appeal'] = $this->request->post['theme_materialize_installed_appeal'];
+		} else {
+			$template_installed = $this->config->get('theme_materialize_installed_appeal');
+
+			if ($template_installed == 1) {
+				$installed = $this->language->get('materialize_title');
+
+				$data['installed'] = $this->load->controller('extension/materialize/appeal/appeal/installed', $installed);
+			} else {
+				$data['installed'] = false;
+			}
+		}
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
+		$data['appeal_footer'] = $this->load->controller('extension/materialize/appeal/appeal');
 
 		$this->response->setOutput($this->load->view('extension/theme/materialize', $data));
-	}
-
-	public function appealInstall() {
-		$this->load->language('extension/module/materialize/appeal/appeal');
-
-		$data['modal_title'] = sprintf($this->language->get('modal_title'), $this->request->get['modal_title']);
-		$data['modal_alert'] = sprintf($this->language->get('modal_alert'), $this->request->get['modal_title']);
-
-		$this->response->setOutput($this->load->view('extension/materialize/appeal/installed', $data));
-	}
-
-	public function appealUpdate() {
-		$this->load->language('extension/module/materialize/appeal/appeal');
-
-		$data['modal_title'] = sprintf($this->language->get('modal_update_title'), $this->request->get['modal_title']);
-		$data['modal_alert'] = sprintf($this->language->get('modal_update_alert'), $this->request->get['modal_title']);
-
-		$this->response->setOutput($this->load->view('extension/materialize/appeal/updated', $data));
-	}
-
-	public function appealFooter() {
-		$this->load->language('extension/module/materialize/appeal/appeal');
-
-		$data['appeal_footer'] = true;
-
-		$this->response->setOutput($this->load->view('extension/materialize/appeal/footer', $data));
 	}
 
 	protected function getMaterializeApi() {
@@ -1090,5 +1080,9 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
+	}
+
+	public function update() {
+		return false;
 	}
 }

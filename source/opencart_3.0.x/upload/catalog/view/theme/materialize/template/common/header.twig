@@ -75,14 +75,14 @@
 	{% for analytic in analytics %}{{ analytic }}{% endfor %}
 	<script src="catalog/view/theme/materialize/js/jquery/jquery-3.3.1.min.js"></script>
 	<script src="catalog/view/theme/materialize/js/materialize/materialize.min.js"></script>
-	<script src="catalog/view/theme/materialize/js/lazysizes/lazysizes.min.js"></script>
-	<script src="catalog/view/theme/materialize/js/superfish/superfish.min.js"></script>
+	<script src="catalog/view/theme/materialize/js/lazysizes/lazysizes.min.js" async></script>
+	<script src="catalog/view/theme/materialize/js/superfish/superfish.min.js" async></script>
 	{% for script in scripts %}
 	<script src="{{ script }}"></script>
 	{% endfor %}
 	<script src="catalog/view/theme/materialize/js/script.js"></script>
 	<!--[if lt IE 9]>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" async></script>
 	<![endif]-->
 </head>
 <body class="{{ color_background }}">
@@ -160,7 +160,6 @@
 		{{ menu }}
 		<ul id="slide-out" class="sidenav"><li class="progress"><div class="indeterminate"></div></li></ul>
 	</header>
-	{{ cart }}
 	{{ language }}
 	{{ currency }}
 	{{ adult_content }}
@@ -175,7 +174,7 @@
 		<button type="button" id="back-to-top" class="btn-floating btn-large scale-transition scale-out waves-effect fixed-btn-floating__wrapper__item {{ color_btt }}"><i class="material-icons {{ color_btt_text }}">keyboard_arrow_up</i></button>
 	</div>
 	<aside class="mobilemenu-wrap">
-		<button type="button" id="cart" class="btn-floating btn-large cart-btn waves-effect z-depth-2 modal-trigger {{ color_cart }}" data-target="modal-cart"><i class="material-icons {{ color_cart_text }}">shopping_cart</i></button>
+		{{ cart }}
 		<div id="mobilemenu" class="mobilemenu transition--cubic-bezier hide-on-med-and-up">
 			<section class="mobilemenu__section mobilemenu__section--left">
 				<button type="button" id="btn-side-menu" class="sidenav-trigger btn-flat btn-floating btn-large waves-effect" data-target="slide-out"><i class="material-icons">menu</i></button>
