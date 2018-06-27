@@ -16,16 +16,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$data['theme_materialize_installed_appeal'] = true;
 
-		if ($this->config->get('theme_materialize_template_version') == true) {
-			$current_version = $this->config->get('theme_materialize_template_version');
-
-			if ($this->template_version != $current_version) {
-				$this->update();
-			}
-		} else {
-			$data['theme_materialize_template_version'] = $this->template_version;
-		}
-
 		$this->model_setting_setting->editSetting('theme_materialize', $data);
 	}
 
@@ -51,12 +41,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	}
 
 	public function index() {
-		if ($this->config->get('theme_materialize_template_version') == true) {
-			$data['template_version'] = $this->config->get('theme_materialize_template_version');
-		} else {
-			$data['template_version'] = false;
-		}
-
 		$this->load->language('extension/theme/materialize');
 		$this->load->language('extension/materialize/materialize');
 
@@ -75,11 +59,45 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$setting_info = $this->model_setting_setting->getSetting('theme_materialize', $this->request->get['store_id']);
 
 			$dynamic_manifest_info = $this->config->get('theme_materialize_webmanifest_dynamic');
+
+			if ($this->config->get('theme_materialize_installed_appeal') == true) {
+				$template_installed = $this->config->get('theme_materialize_installed_appeal');
+			} else {
+				$template_installed = false;
+			}
+
+			if ($this->config->get('theme_materialize_template_version') == true) {
+				$current_version = $this->config->get('theme_materialize_template_version');
+			} else {
+				$current_version = false;
+			}
+
+			if ($template_installed == true) {
+				$data['updated'] = false;
+
+				$installed = $this->language->get('materialize_title');
+
+				$data['installed'] = $this->load->controller('extension/materialize/appeal/appeal/installed', $installed);
+			} else {
+				$data['installed'] = false;
+
+				if ($this->template_version != $current_version) {
+					$this->update();
+
+					$updated = $this->language->get('materialize_title');
+
+					$data['updated'] = $this->load->controller('extension/materialize/appeal/appeal/updated', $updated);
+				} else {
+					$data['updated'] = false;
+				}
+			}
 		}
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate() && $this->validateManifest() && $this->validateBrowserconfig()) {
 			if ($this->config->get('theme_materialize_template_version') == true) {
 				$this->request->post['theme_materialize_template_version'] = $this->config->get('theme_materialize_template_version');
+			} else {
+				$this->request->post['theme_materialize_template_version'] = $this->template_version;
 			}
 
 			if ($this->config->get('theme_materialize_installed_appeal') == true) {
@@ -620,20 +638,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['materializeapi'] = false;
 		}
 
-		if (isset($this->request->post['theme_materialize_installed_appeal'])) {
-			$data['theme_materialize_installed_appeal'] = $this->request->post['theme_materialize_installed_appeal'];
-		} else {
-			$template_installed = $this->config->get('theme_materialize_installed_appeal');
-
-			if ($template_installed == 1) {
-				$installed = $this->language->get('materialize_title');
-
-				$data['installed'] = $this->load->controller('extension/materialize/appeal/appeal/installed', $installed);
-			} else {
-				$data['installed'] = false;
-			}
-		}
-
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -1083,6 +1087,13 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	}
 
 	public function update() {
-		return false;
+		$this->load->model('extension/materialize/materialize');
+		$this->load->model('setting/setting');
+
+		$this->model_extension_materialize_materialize->update();
+
+		$data['theme_materialize_template_version'] = $this->template_version;
+
+		$this->model_setting_setting->editSetting('theme_materialize', $data);
 	}
 }

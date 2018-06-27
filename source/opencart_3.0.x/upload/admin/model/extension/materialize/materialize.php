@@ -611,4 +611,12 @@ class ModelExtensionMaterializeMaterialize extends Model {
 
 		return $social_icon_data;
 	}
+
+	public function update() {
+		$check_information_top = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND COLUMN_NAME = 'top' AND TABLE_NAME = '" . DB_PREFIX . "information';");
+
+		if (count($check_information_top->rows) <= 0) {
+			$check_information_top = $this->db->query("ALTER TABLE `" . DB_PREFIX . "information` ADD `top` INT(1) NOT NULL DEFAULT '0';");
+		}
+	}
 }
