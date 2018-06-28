@@ -1226,8 +1226,8 @@
 				$data['color_top_menu_text'] = $colors['top_menu_text'];
 				$data['color_header'] = $colors['header'];
 				$data['color_header_text'] = $colors['header_text'];
-				$data['color_nav_btn'] = $colors['nav_btn'];
-				$data['color_nav_btn_text'] = $colors['nav_btn_text'];
+				$data['color_mobile_menu'] = $colors['mobile_menu_hex'];
+				$data['color_mobile_menu_text'] = $colors['mobile_menu_text'];
 				$data['color_sidebar'] = $colors['sidebar'];
 				$data['color_sidebar_text'] = $colors['sidebar_text'];
 				$data['color_btt'] = $colors['btt_btn'];

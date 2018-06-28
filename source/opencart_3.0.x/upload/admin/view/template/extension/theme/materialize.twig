@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<!-- <pre>{{ dump(theme_materialize_updated_appeal) }}</pre> -->
+		<!-- <pre>{{ dump(materializeapi_donaters) }}</pre> -->
 		<form action="{{ action }}" data-action="{{ apply|raw }}" method="post" enctype="multipart/form-data" id="form-theme-materialize" class="form-horizontal">
 			<div class="row">
 				<div class="col-xs-12 col-md-4 col-md-push-8">
@@ -1003,26 +1003,27 @@
 															<div class="list-group-item">
 																<div class="media overflow-visible materialize-colors">
 																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_nav_btn }}</h4>
+																		<h4 class="media-heading text-medium">{{ entry_mobile_menu }}</h4>
 																		<hr>
-																		<select name="theme_materialize_colors[nav_btn]" class="selectpicker selectpicker-live-search show-tick">
+																		<select name="theme_materialize_colors[mobile_menu]" id="select-color-mobile-menu" class="selectpicker selectpicker-live-search show-tick">
 																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.nav_btn %}
+																			{% if color.name == theme_materialize_colors.mobile_menu %}
 																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
 																			{% else %}
 																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
 																			{% endif %}
 																			{% endfor %}
 																		</select>
-																		<select name="theme_materialize_colors[nav_btn_text]" class="selectpicker selectpicker-live-search show-tick">
+																		<select name="theme_materialize_colors[mobile_menu_text]" class="selectpicker selectpicker-live-search show-tick">
 																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.nav_btn_text %}
+																			{% if color.name == theme_materialize_colors.mobile_menu_text %}
 																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
 																			{% else %}
 																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
 																			{% endif %}
 																			{% endfor %}
 																		</select>
+																		<input type="hidden" name="theme_materialize_colors[mobile_menu_hex]" value="{{ theme_materialize_colors.mobile_menu_hex ? theme_materialize_colors.mobile_menu_hex }}" id="input-color-mobile-menu-hex" />
 																		<hr>
 																	</div>
 																	<div class="media-right media-middle">
@@ -1708,6 +1709,7 @@
 																<thead>
 																	<tr>
 																		<th>#</th>
+																		<th>Изображение</th>
 																		<th>Имя</th>
 																		<th class="text-center">Сумма доната</th>
 																	</tr>
@@ -1718,14 +1720,17 @@
 																	<tr>
 																		{% if counter_donaters == 1 %}
 																		<th scope="row">{{ counter_donaters }}</th>
+																		<th class="text-center"><img src="{{ donater.image }}" alt="{{ donater.name }}" class="donaters-image"></th>
 																		<td><b>{{ donater.name }}</b></td>
 																		<td class="text-center"><span class="label label-danger">{{ donater.amount }} USD</span></td>
 																		{% elseif counter_donaters == 2 or counter_donaters == 3 %}
 																		<th scope="row">{{ counter_donaters }}</th>
+																		<th class="text-center"><img src="{{ donater.image }}" alt="{{ donater.name }}" class="donaters-image"></th>
 																		<td><b>{{ donater.name }}</b></td>
 																		<td class="text-center"><span class="label label-success">{{ donater.amount }} USD</span></td>
 																		{% else %}
 																		<th scope="row">{{ counter_donaters }}</th>
+																		<th class="text-center"><img src="{{ donater.image }}" alt="{{ donater.name }}" class="donaters-image"></th>
 																		<td>{{ donater.name }}</td>
 																		<td class="text-center"><span class="label label-primary">{{ donater.amount }} USD</span></td>
 																		{% endif %}
@@ -1741,7 +1746,7 @@
 																	<tbody>
 																		<tr>
 																			<td><b>Всего:</b></td>
-																			<td class="text-center"><span class="label label-default">{{ materializeapi_amount_donations }} USD</span></td>
+																			<td class="text-center"><span class="label label-default">{{ materializeapi_total_amount }} USD</span></td>
 																		</tr>
 																	</tbody>
 																</table>
@@ -1902,12 +1907,20 @@
 	{% endif %}
 
 	var selectBrowserBar = $("#select-color-browser-bar"),
-		inputBrowserBar = $("#input-color-browser-bar-hex");
+		inputBrowserBar = $("#input-color-browser-bar-hex"),
+		selectMobileMenu = $("#select-color-mobile-menu"),
+		inputMobileMenu = $("#input-color-mobile-menu-hex");
 
-	selectBrowserBar.change(function(){
+	selectBrowserBar.change(function() {
 		selectBrowserBarOption = $("#select-color-browser-bar option:selected");
 		valueHex = selectBrowserBarOption.data('hex');
 		inputBrowserBar.attr('value',valueHex);
+	});
+
+	selectMobileMenu.change(function() {
+		selectMobileMenuOption = $("#select-color-mobile-menu option:selected");
+		valueHex = selectMobileMenuOption.data('hex');
+		inputMobileMenu.attr('value',valueHex);
 	});
 
 	var materializeColors = $('.materialize-colors');

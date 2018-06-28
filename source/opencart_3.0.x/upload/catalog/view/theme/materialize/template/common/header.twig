@@ -177,11 +177,11 @@
 		{{ cart }}
 		<div id="mobilemenu" class="mobilemenu transition--cubic-bezier hide-on-med-and-up">
 			<section class="mobilemenu__section mobilemenu__section--left">
-				<button type="button" id="btn-side-menu" class="sidenav-trigger btn-flat btn-floating btn-large waves-effect" data-target="slide-out"><i class="material-icons">menu</i></button>
+				<button type="button" id="btn-side-menu" class="sidenav-trigger btn-flat btn-floating btn-large waves-effect" data-target="slide-out"><i class="material-icons {{ color_mobile_menu_text }}">menu</i></button>
 			</section>
 			<section class="mobilemenu__section mobilemenu__section--right">
-				<button type="button" id="btn-mobile-search" class="btn-flat btn-floating btn-large waves-effect"><i class="material-icons">search</i></button>
+				<button type="button" id="btn-mobile-search" class="btn-flat btn-floating btn-large waves-effect"><i class="material-icons {{ color_mobile_menu_text }}">search</i></button>
 			</section>
 		</div>
 	</aside>
-	<style>.mobilemenu:before {box-shadow:0px 0px 0px 9999px #546e7a;}</style>
+	<style>.mobilemenu:before {box-shadow:0px 0px 0px 9999px {{ color_mobile_menu }};}</style>

@@ -572,15 +572,31 @@ class ModelExtensionMaterializeMaterialize extends Model {
 	}
 
 	public function getMaterializeColors() {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "materialize_colors ORDER BY name ASC");
+		$materialize_colors = $this->cache->get('admin.materialize_colors');
 
-		return $query->rows;
+		if (!$materialize_colors) {
+			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "materialize_colors ORDER BY name ASC");
+
+			$materialize_colors = $query->rows;
+
+			$this->cache->set('admin.materialize_colors', $materialize_colors);
+		}
+
+		return $materialize_colors;
 	}
 
 	public function getMaterializeColorsText() {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "materialize_colors_text ORDER BY name ASC");
+		$materialize_colors_text = $this->cache->get('admin.materialize_colors_text');
 
-		return $query->rows;
+		if (!$materialize_colors_text) {
+			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "materialize_colors_text ORDER BY name ASC");
+
+			$materialize_colors_text = $query->rows;
+
+			$this->cache->set('admin.materialize_colors_text', $materialize_colors_text);
+		}
+
+		return $materialize_colors_text;
 	}
 
 	public function editSocialIcon($data) {

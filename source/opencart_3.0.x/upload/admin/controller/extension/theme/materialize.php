@@ -535,8 +535,9 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'btt_btn_text'				=> 'white-text',
 				'browser_bar'				=> 'blue-grey darken-4',
 				'browser_bar_hex'			=> '#263238',
-				'nav_btn'					=> 'blue-grey darken-2',
-				'nav_btn_text'				=> 'white-text',
+				'mobile_menu'				=> 'blue-grey darken-2',
+				'mobile_menu_hex'			=> '#455a64',
+				'mobile_menu_text'			=> 'white-text',
 				'top_menu'					=> 'blue-grey darken-4',
 				'top_menu_text'				=> 'white-text',
 				'header'					=> 'blue-grey darken-3',
@@ -629,7 +630,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		if ($materializeapi) {
 			$data['materializeapi'] = true;
 			$data['materializeapi_donaters'] = $materializeapi['donaters'];
-			$data['materializeapi_amount_donations'] = $materializeapi['amount_donations'];
+			$data['materializeapi_total_amount'] = $materializeapi['total_amount'];
 			$data['materializeapi_versions'] = $materializeapi['versions'];
 			$data['materializeapi_translators'] = $materializeapi['translators'];
 			$data['materializeapi_changelogs'] = $materializeapi['changelogs'];
@@ -665,59 +666,11 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$materializeapi_info = json_decode($response, true);
 
 		if ($materializeapi_info) {
-			$materializeapi['donaters'] = array();
-
-			foreach ($materializeapi_info['donaters'] as $donater) {
-				$materializeapi['donaters'][] = array(
-					'amount'	=> $donater['amount'],
-					'name'		=> $donater['name']
-				);
-			}
-
-			rsort($materializeapi['donaters']);
-			reset($materializeapi['donaters']);
-
-			$materializeapi['amount_donations'] = 0;
-
-			foreach($materializeapi['donaters'] as $sum) {
-				$materializeapi['amount_donations'] += $sum['amount'];
-			}
-
-			$materializeapi['versions'] = array();
-
-			foreach ($materializeapi_info['versions'] as $version) {
-				$materializeapi['versions'][] = array(
-					'opencart'	=> $version['opencart'],
-					'template'	=> $version['template'],
-					'status'	=> html_entity_decode($version['status'], ENT_QUOTES, 'UTF-8')
-				);
-			}
-
-			$materializeapi['translators'] = array();
-
-			foreach ($materializeapi_info['translators'] as $translate) {
-				$materializeapi['translators'][] = array(
-					'language'		=> $translate['language'],
-					'participants'	=> $translate['participants']
-				);
-			}
-
-			sort($materializeapi['translators']);
-			reset($materializeapi['translators']);
-
-			$materializeapi['changelogs'] = array();
-
-			foreach ($materializeapi_info['changelogs'] as $changelog) {
-				$materializeapi['changelogs'][] = array(
-					'version'	=> $changelog['version'],
-					'changes'	=> html_entity_decode($changelog['changes'], ENT_QUOTES, 'UTF-8'),
-					'bags'		=> html_entity_decode($changelog['bags'], ENT_QUOTES, 'UTF-8')
-				);
-			}
-
-			rsort($materializeapi['changelogs']);
-			reset($materializeapi['changelogs']);
-
+			$materializeapi['donaters'] = $materializeapi_info['donaters'];
+			$materializeapi['total_amount'] = $materializeapi_info['total_amount'];
+			$materializeapi['versions'] = $materializeapi_info['versions'];
+			$materializeapi['translators'] = $materializeapi_info['translators'];
+			$materializeapi['changelogs'] = $materializeapi_info['changelogs'];
 			$materializeapi['template_verstion'] = $this->template_version;
 
 			return $materializeapi;

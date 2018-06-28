@@ -174,3 +174,8 @@ a.dotted:hover {border-bottom: 1px dashed #14628c;;}
 	height: 50px;
 	padding: 4px;
 }
+.donaters-image {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
