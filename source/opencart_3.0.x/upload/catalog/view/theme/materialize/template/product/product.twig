@@ -177,6 +177,7 @@
 							<blockquote class="blockquote-note blue-grey lighten-5 z-depth-1">
 								<div class="blockquote-icon blue-grey lighten-4 cursor-default"><i class="material-icons">chat</i></div>
 								<ul>
+									{{ progressbar }}
 									{% if manufacturer %}
 									<li><span class="text-bold">{{ text_manufacturer }}</span>:&nbsp;<a href="{{ manufacturers }}" target="_blank" rel="noopener"><span itemprop="brand">{{ manufacturer }}</span></a></li>
 									{% endif %}
@@ -221,10 +222,7 @@
 										{% endfor %}
 									{% endif %}
 									<li><span class="text-bold">{{ text_stock }}</span>&nbsp;<span class="{{ stock_color }}-text text-darken-1 text-bold">{{ stock }}</span></li>
-									{% if type_remainder == 'numerical' %}
-									<li><span class="text-bold">{{ text_remainder }}</span>:&nbsp;{{ remainder }}</li>
-									{% endif %}
-									{% if type_remainder == 'progressbar' %}
+									{% if progressbar %}
 									<li class="product-remainder"><span class="text-bold">{{ text_remainder }}</span>:&nbsp;<div class="progress blue lighten-3"><div class="determinate {{ progressbar_color }}" style="width: {{ progressbar_percent }}%"></div></div></li>
 									{% endif %}
 								</ul>

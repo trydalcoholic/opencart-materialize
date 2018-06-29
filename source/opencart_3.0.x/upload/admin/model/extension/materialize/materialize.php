@@ -552,7 +552,9 @@ class ModelExtensionMaterializeMaterialize extends Model {
 			) ENGINE=MyISAM;
 		");
 
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "information` ADD `top` INT(1) NOT NULL DEFAULT '0';");
+		$this->db->query("ALTER TABLE `" . DB_PREFIX . "information` ADD `top` INT(1) NOT NULL DEFAULT '0'");
+
+		$this->db->query("ALTER TABLE `" . DB_PREFIX . "product` ADD `progressbar` INT(4) NOT NULL");
 	}
 
 	public function uninstall() {
@@ -568,6 +570,10 @@ class ModelExtensionMaterializeMaterialize extends Model {
 
 		if (count($query->rows) > 0) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "information` DROP `top`;");
+		}
+
+		if (count($query->rows) > 0) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "product` DROP `progressbar`;");
 		}
 	}
 
@@ -629,10 +635,15 @@ class ModelExtensionMaterializeMaterialize extends Model {
 	}
 
 	public function update() {
-		$check_information_top = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND COLUMN_NAME = 'top' AND TABLE_NAME = '" . DB_PREFIX . "information';");
+		$check_information_top = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND COLUMN_NAME = 'top' AND TABLE_NAME = '" . DB_PREFIX . "information'");
+		$check_product_progressbar = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND COLUMN_NAME = 'progressbar' AND TABLE_NAME = '" . DB_PREFIX . "product'");
 
 		if (count($check_information_top->rows) <= 0) {
-			$check_information_top = $this->db->query("ALTER TABLE `" . DB_PREFIX . "information` ADD `top` INT(1) NOT NULL DEFAULT '0';");
+			$check_information_top = $this->db->query("ALTER TABLE `" . DB_PREFIX . "information` ADD `top` INT(1) NOT NULL DEFAULT '0'");
+		}
+
+		if (count($check_product_progressbar->rows) <= 0) {
+			$check_product_progressbar = $this->db->query("ALTER TABLE `" . DB_PREFIX . "product` ADD `progressbar` INT(4) NOT NULL");
 		}
 	}
 }
