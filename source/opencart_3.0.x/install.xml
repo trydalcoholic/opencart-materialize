@@ -1773,27 +1773,31 @@
 				}
 
 				if ((isset($materialize_fields['progressbar'])) && ($this->config->get('config_stock_display') == 1)) {
-					$data['progressbar'] = true;
-
 					$progressbar = $product_info['progressbar'];
 
-					$progressbar_percent = round(($product_info['quantity'] * 100)/$progressbar);
+					if ($progressbar > 0) {
+						$data['progressbar'] = true;
 
-					$data['progressbar_percent'] = $progressbar_percent;
+						$progressbar_percent = round(($product_info['quantity'] * 100)/$progressbar);
 
-					if ($progressbar_percent <= 5) {
-						$data['progressbar_color'] = 'red accent-4';
-					} elseif (($progressbar_percent > 5) && ($progressbar_percent <= 10)) {
-						$data['progressbar_color'] = 'red';
-					} elseif (($progressbar_percent > 11) && ($progressbar_percent <= 30)) {
-						$data['progressbar_color'] = 'yellow';
-					} elseif (($progressbar_percent > 30) && ($progressbar_percent <= 70)) {
-						$data['progressbar_color'] = 'green lighten-1';
-					} elseif (($progressbar_percent > 70) && ($progressbar_percent <= 100)) {
-						$data['progressbar_color'] = 'green';
-					} elseif ($progressbar_percent > 100) {
-						$data['progressbar_color'] = 'green';
-						$data['progressbar_percent'] = '100';
+						$data['progressbar_percent'] = $progressbar_percent;
+
+						if ($progressbar_percent <= 5) {
+							$data['progressbar_color'] = 'red accent-4';
+						} elseif (($progressbar_percent > 5) && ($progressbar_percent <= 10)) {
+							$data['progressbar_color'] = 'red';
+						} elseif (($progressbar_percent > 11) && ($progressbar_percent <= 30)) {
+							$data['progressbar_color'] = 'yellow';
+						} elseif (($progressbar_percent > 30) && ($progressbar_percent <= 70)) {
+							$data['progressbar_color'] = 'green lighten-1';
+						} elseif (($progressbar_percent > 70) && ($progressbar_percent <= 100)) {
+							$data['progressbar_color'] = 'green';
+						} elseif ($progressbar_percent > 100) {
+							$data['progressbar_color'] = 'green';
+							$data['progressbar_percent'] = '100';
+						}
+					} else {
+						$data['progressbar'] = false;
 					}
 				} else {
 					$data['progressbar'] = '';
