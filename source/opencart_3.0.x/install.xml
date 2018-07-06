@@ -5,6 +5,21 @@
 	<version>0.81</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
+	<!-- Number of reviews -->
+	<file path="catalog/controller/extension/module/featured.php">
+		<operation error="log">
+			<search><![CDATA[$rating = $product_info['rating'];]]></search>
+			<add position="after"><![CDATA[$reviews = (int)$product_info['reviews'];]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$rating = false;]]></search>
+			<add position="after"><![CDATA[$reviews = false;]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['reviews'	=> $reviews,]]></add>
+		</operation>
+	</file>
 	<!-- Progressbar -->
 	<file path="admin/controller/catalog/product.php">
 		<operation>

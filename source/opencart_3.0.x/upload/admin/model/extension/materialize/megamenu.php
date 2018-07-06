@@ -1,19 +1,19 @@
 <?php
 class ModelExtensionMaterializeMegamenu extends Model {
-	public function addCategoryMegamenu($data) {
-		foreach ($data['module_megamenu_category'] as $category_id => $value) {
-			$this->db->query("REPLACE INTO " . DB_PREFIX . "megamenu SET category_id = '" . (int)$category_id . "', megamenu = '" . $this->db->escape($value['megamenu']) . "', type = '" . $this->db->escape($value['type']) . "', banner_id = '" . $this->db->escape($value['banner_id']) . "'");
-		}
+	public function install() {
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "megamenu` (
+				`category_id` int(11) NOT NULL,
+				`content_type` varchar(32) NOT NULL DEFAULT 'default',
+				`content_info` int(11) NOT NULL DEFAULT '0',
+				`sort_order` int(3) NOT NULL DEFAULT '0',
+				PRIMARY KEY (`category_id`)
+			)
+		");
 	}
 
-	public function getCategoryMegamenuByCategoryId($category_id) {
-		$query = $this->db->query("SELECT megamenu FROM " . DB_PREFIX . "megamenu WHERE category_id = '" . (int)$category_id . "'");
-
-		if ($query->num_rows) {
-			return (int)$query->row['megamenu'];
-		} else {
-			return 0;
-		}
+	public function uninstall() {
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "megamenu`");
 	}
 
 	public function getCategories($parent_id = 0) {
@@ -29,12 +29,24 @@ class ModelExtensionMaterializeMegamenu extends Model {
 
 		foreach ($query->rows as $result) {
 			$megamenu_data[$result['category_id']] = array(
-				'megamenu'	=> $result['megamenu'],
-				'type'		=> $result['type'],
-				'banner_id'	=> $result['banner_id']
+				'content_type'	=> $result['content_type'],
+				'content_info'	=> $result['content_info'],
+				'sort_order'	=> $result['sort_order']
 			);
 		}
 
 		return $megamenu_data;
+	}
+
+	public function addCategoryMegamenu($data) {
+		foreach ($data['module_megamenu_category'] as $category_id => $value) {
+			$this->db->query("
+				REPLACE INTO " . DB_PREFIX . "megamenu SET
+				category_id = '" . (int)$category_id . "',
+				content_type = '" . $this->db->escape($value['content_type']) . "',
+				content_info = '" . (isset($value['content_info']) ?  (int)($value['content_info']) : 0) . "',
+				sort_order = '" . (int)$value['sort_order'] . "'
+			");
+		}
 	}
 }

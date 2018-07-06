@@ -1039,7 +1039,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function update() {
+	protected function update() {
 		$this->load->model('extension/materialize/materialize');
 		$this->load->model('setting/setting');
 

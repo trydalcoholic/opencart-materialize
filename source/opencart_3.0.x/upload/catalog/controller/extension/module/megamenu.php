@@ -4,45 +4,56 @@ class ControllerExtensionModuleMegamenu extends Controller {
 		$this->load->language('common/menu');
 
 		$this->load->model('extension/module/megamenu');
-
 		$this->load->model('catalog/category');
-
 		$this->load->model('catalog/product');
 
-		$data['img_loader'] = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+		$materialize_settings = $this->config->get('theme_materialize_settings');
+		$module_megamenu_settings = $this->config->get('module_megamenu_settings');
 
-		$colors = $this->config->get('theme_materialize_colors');
+		if (!empty($materialize_settings['optimization']['cached_colors'])) {
+			$cached_colors = $this->cache->get('materialize.colors');
+		} else {
+			$cached_colors = false;
+		}
+
+		if (!$cached_colors) {
+			$colors = $this->config->get('theme_materialize_colors');
+
+			if (!empty($materialize_settings['optimization']['cached_colors'])) {
+				$this->cache->set('materialize.colors', $colors);
+			}
+		} else {
+			$colors = $cached_colors;
+		}
 
 		$data['color_navigation'] = $colors['navigation'];
 		$data['color_navigation_text'] = $colors['navigation_text'];
 
-		$module_megamenu_settings = $this->config->get('module_megamenu_settings');
-
-		if ($module_megamenu_settings['home'] == 'on') {
+		if (!empty($module_megamenu_settings['home'])) {
 			$data['home'] = $this->url->link('common/home');
 		} else {
 			$data['home'] = false;
 		}
 
-		if ($module_megamenu_settings['fix'] == 'on') {
+		if (!empty($module_megamenu_settings['fix'])) {
 			$data['fix'] = true;
 		} else {
 			$data['fix'] = false;
 		}
 
-		if ($module_megamenu_settings['center'] == 'on') {
+		if (!empty($module_megamenu_settings['center'])) {
 			$data['center'] = true;
 		} else {
 			$data['center'] = false;
 		}
 
-		if ($module_megamenu_settings['category_title'] == 'on') {
+		if (!empty($module_megamenu_settings['category_title'])) {
 			$data['category_title'] = true;
 		} else {
 			$data['category_title'] = false;
 		}
 
-		if ($module_megamenu_settings['see_all'] == 'on') {
+		if (!empty($module_megamenu_settings['see_all'])) {
 			$data['see_all'] = true;
 		} else {
 			$data['see_all'] = false;
@@ -100,58 +111,42 @@ class ControllerExtensionModuleMegamenu extends Controller {
 					);
 				}
 
-				if ($category_1['megamenu'] == 1) {
-					if ($category_1['type'] == 'image') {
-						$category_1['content'] = $this->model_tool_image->resize($category_1['image'], 315, 315);
-					} elseif ($category_1['type'] == 'manufacturers') {
-						$this->load->model('catalog/manufacturer');
+				if ($category_1['content_type'] == 'category_image') {
+					$category_1['content_info'] = $this->model_tool_image->resize($category_1['image'], 315, 315);
+				} elseif ($category_1['content_type'] == 'category_manufacturers') {
+					$this->load->model('catalog/manufacturer');
 
-						$results = $this->model_catalog_manufacturer->getMegamenuManufacturersByCategoryId($category_1['category_id']);
+					$results = $this->model_catalog_manufacturer->getMegamenuManufacturersByCategoryId($category_1['category_id']);
 
-						$category_1['content'] = array();
+					$category_1['content_info'] = array();
 
-						foreach ($results as $result) {
-							if (isset($result['image']) && is_file(DIR_IMAGE . $result['image'])) {
-								$category_1['content'][] = array(
-									'name'	=> $result['name'],
-									'image'	=> $this->model_tool_image->resize($result['image'], 160, 90),
-									'href'	=> $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])
-								);
-							}
+					foreach ($results as $result) {
+						if (isset($result['image']) && is_file(DIR_IMAGE . $result['image'])) {
+							$category_1['content_info'][] = array(
+								'name'	=> $result['name'],
+								'image'	=> $this->model_tool_image->resize($result['image'], 160, 90),
+								'href'	=> $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])
+							);
 						}
-					} elseif ($category_1['type'] == 'banner') {
-						$this->load->model('design/banner');
-
-						$category_1['content'] = array();
-
-						$banner_id = $this->model_extension_module_megamenu->getMegamenuBannerIdByCategoryId($category_1['category_id']);
-
-						$results = $this->model_design_banner->getBanner($banner_id);
-
-						foreach ($results as $result) {
-							if (isset($result['image']) && is_file(DIR_IMAGE . $result['image'])) {
-								$category_1['content'][] = array(
-									'title'	=> $result['title'],
-									'link'	=> $result['link'],
-									'image'	=> $this->model_tool_image->resize($result['image'], 300, 200)
-								);
-							}
-						}
-					} else {
-						$category_1['type'] = '';
-						$category_1['content'] = '';
 					}
+				} elseif ($category_1['content_type'] == 'html') {
+					$setting = $this->model_extension_module_megamenu->getModule($category_1['content_info']);
+
+					$category_1['content_info'] = $this->load->controller('extension/module/html', $setting);
 				} else {
-					$category_1['type'] = '';
-					$category_1['content'] = '';
+					$slideshow = array(
+						'content_type'	=> $category_1['content_type'],
+						'content_info'	=> $category_1['content_info']
+					);
+
+					$category_1['content_info'] = $this->load->controller('extension/module/megamenu_slideshow', $slideshow);
 				}
 
 				$data['categories'][] = array(
 					'category_id'	=> $category_1['category_id'],
 					'name'			=> $category_1['name'],
-					'megamenu'		=> $category_1['megamenu'],
-					'type'			=> $category_1['type'],
-					'content'		=> $category_1['content'],
+					'content_type'	=> $category_1['content_type'],
+					'content_info'	=> $category_1['content_info'],
 					'href'			=> $this->url->link('product/category', 'path=' . $category_1['category_id']),
 					'children'		=> $level_2_data
 				);

@@ -1,0 +1,24 @@
+<div class="megamenu-sideblock__slideshow">
+	<div id="megamenu_slideshow{{ megamenu_slideshow }}" class="megamenu-slideshow">
+		{% for banner in banners %}
+			{% if banner.link %}
+			<a href="{{ banner.link }}"><img src="{{ banner.image }}" alt="{{ banner.title }}" class="responsive-img"></a>
+			{% else %}
+			<img src="{{ banner.image }}" alt="{{ banner.title }}" class="responsive-img">
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+<script>
+$('#megamenu_slideshow{{ megamenu_slideshow }}').slick({
+	infinite: true,
+	autoplay: true,
+	autoplaySpeed: 5000,
+	slidesToShow: 1,
+	adaptiveHeight: true,
+	fade: true,
+	cssEase: 'linear',
+	nextArrow: '<button class="slick-next waves-effect waves-circle" aria-label="Next" type="button">Next</button>',
+	prevArrow: '<button class="slick-prev waves-effect waves-circle" aria-label="Previous" type="button">Previous</button>'
+});
+</script>

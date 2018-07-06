@@ -6,13 +6,13 @@ class ModelExtensionModuleMegamenu extends Model {
 		return $query->rows;
 	}
 
-	public function getMegamenuBannerIdByCategoryId($category_id) {
-		$query = $this->db->query("SELECT banner_id FROM " . DB_PREFIX . "megamenu WHERE category_id = '" . (int)$category_id . "'");
+	public function getModule($module_id) {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "module` WHERE `module_id` = '" . (int)$module_id . "'");
 
-		if ($query->num_rows) {
-			return $query->row['banner_id'];
+		if ($query->row) {
+			return json_decode($query->row['setting'], true);
 		} else {
-			return 0;
+			return array();
 		}
 	}
 }
