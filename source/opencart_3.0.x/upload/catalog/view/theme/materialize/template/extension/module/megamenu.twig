@@ -12,20 +12,20 @@
 									{% if category_1.content_type == 'default' %}
 									<li>
 										<a href="{{ category_1.href }}" class="dropdown-with-child dropdown-child-down waves-effect {{ color_navigation_text }}" itemprop="url"><span itemprop="name">{{ category_1.name }}</span></a>
-										<ul class="category-dropdown white z-depth-2">
+										<ul class="category-dropdown z-depth-2 {{ category_1.color }}">
 											{% for category_2 in category_1.children %}
 												{% if category_2.children %}
 												<li>
-													<a href="{{ category_2.href }}" class="dropdown-child-right waves-effect">{{ category_2.name }}</a>
+													<a href="{{ category_2.href }}" class="dropdown-child-right waves-effect {{ category_1.color_text }}">{{ category_2.name }}</a>
 													<div class="category-right-arrow"></div>
-													<ul class="category-dropdown white z-depth-5">
+													<ul class="category-dropdown z-depth-5 {{ category_1.color }}">
 														{% for category_3 in category_2.children %}
-														<li><a href="{{ category_3.href }}" class="waves-effect">{{ category_3.name }}</a></li>
+														<li><a href="{{ category_3.href }}" class="waves-effect {{ category_1.color_text }}">{{ category_3.name }}</a></li>
 														{% endfor %}
 													</ul>
 												</li>
 												{% else %}
-												<li><a href="{{ category_2.href }}" class="waves-effect">{{ category_2.name }}</a></li>
+												<li><a href="{{ category_2.href }}" class="waves-effect {{ category_1.color_text }}">{{ category_2.name }}</a></li>
 												{% endif %}
 											{% endfor %}
 										</ul>
@@ -33,27 +33,35 @@
 									{% else %}
 									<li class="mega-dropdown-parent" id="category{{ category_1.category_id }}">
 										<a href="{{ category_1.href }}" class="dropdown-with-child dropdown-child-down waves-effect {{ color_navigation_text }}" itemprop="url"><span itemprop="name">{{ category_1.name }}</span></a>
-										<div class="sf-mega white black-text z-depth-2" data-simplebar>
-											<div class="row no-margin-bottom">
-												{% if category_1.content_info %}
-													{% set categoires_block, side_block = 'm7', 'm5' %}
-												{% else %}
+										<div class="sf-mega z-depth-2">
+											<div id="sf-mega-wrapper{{ category_1.category_id }}" class="row no-margin-bottom {{ category_1.color }}" data-simplebar>
+												{% if category_1.content_type == 'image_background' %}
+												<style>
+												#sf-mega-wrapper{{ category_1.category_id }} {
+													background-image: url({{ category_1.content_info.image }});
+													{{ category_1.content_info.settings }}
+												}
+												</style>
+												{% endif %}
+												{% if not category_1.content_info or category_1.content_type == 'simple_megamenu' or category_1.content_type == 'image_background' %}
 													{% set categoires_block, side_block = 'm12', '' %}
+												{% else %}
+													{% set categoires_block, side_block = 'm7', 'm5' %}
 												{% endif %}
 												<div class="col {{ categoires_block }}">
 													<div class="sf-mega-wrapper">
-														{% if category_title %}<a href="{{ category_1.href }}" class="mega-title" rel="nofollow">{{ category_1.name }}</a>{% endif %}
+														{% if category_title %}<a href="{{ category_1.href }}" class="mega-title {{ category_1.color_text }}" rel="nofollow">{{ category_1.name }}</a>{% endif %}
 														<div class="row">
 															{% for category_2 in category_1.children %}
 															<div class="col m12 l6">
 																<div class="sf-mega-list-wrapper">
 																	<div class="sf-mega-list">
 																		{% if category_2.image %}<img class="responsive-img circle lazyload" src="{{ img_loader }}" data-src="{{ category_2.image }}" alt="{{ category_2.title }}">{% endif %}
-																		<a href="{{ category_2.href }}" class="sf-mega-list__title text-bold">{{ category_2.name }}</a>
+																		<a href="{{ category_2.href }}" class="sf-mega-list__title text-bold {{ category_1.color_text }}">{{ category_2.name }}</a>
 																		{% if category_2.children %}
 																		<ul>
 																			{% for category_3 in category_2.children %}
-																			<li><a href="{{ category_3.href }}">{{ category_3.name }}</a></li>
+																			<li><a href="{{ category_3.href }}" class="{{ category_1.color_text }}">{{ category_3.name }}</a></li>
 																			{% endfor %}
 																		</ul>
 																		{% endif %}
@@ -65,9 +73,9 @@
 														</div>
 													</div>
 												</div>
-												{% if category_1.content_type %}
+												{% if category_1.content_type and category_1.content_type != 'image_background' %}
 												<div class="col {{ side_block }}">
-													{% if category_1.content_type == 'category_image' %}
+													{% if category_1.content_type == 'category_image' or category_1.content_type == 'image_custom' %}
 													<div class="megamenu-sideblock">
 														<a href="{{ category_1.href }}" rel="nofollow"><img class="responsive-img lazyload" src="{{ img_loader }}" data-src="{{ category_1.content_info }}" alt="{{ category_1.name }}" title="{{ category_1.name }}" rel="nofollow"></a>
 													</div>
@@ -87,7 +95,7 @@
 												{% if see_all %}
 												<div class="col m12">
 													<div class="section center">
-														<a href="{{ category_1.href }}" class="btn-flat waves-effect margin-reset" rel="nofollow">{{ text_all }}</a>
+														<a href="{{ category_1.href }}" class="btn-flat waves-effect margin-reset {{ category_1.color_text }}" rel="nofollow">{{ text_all }}</a>
 													</div>
 												</div>
 												{% endif %}

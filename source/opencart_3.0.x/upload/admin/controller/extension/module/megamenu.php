@@ -30,11 +30,20 @@ class ControllerExtensionModuleMegamenu extends Controller {
 		$this->load->language('extension/materialize/materialize');
 
 		$this->document->setTitle($this->language->get('megamenu_title'));
-		$this->document->addScript('view/javascript/materialize/materialize.js');
-		$this->document->addStyle('view/javascript/materialize/materialize.css');
 
+		$this->document->addScript('view/javascript/materialize/materialize.js');
+		$this->document->addScript('view/javascript/codemirror/lib/codemirror.js');
+		$this->document->addScript('view/javascript/codemirror/lib/xml.js');
+		$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
+
+		$this->document->addStyle('view/javascript/materialize/materialize.css');
+		$this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
+		$this->document->addStyle('view/javascript/codemirror/theme/monokai.css');
+
+		$this->load->model('extension/materialize/materialize');
 		$this->load->model('extension/materialize/megamenu');
 		$this->load->model('setting/setting');
+		$this->load->model('tool/image');
 
 		if ($this->request->server['REQUEST_METHOD'] != 'POST') {
 			if ($this->config->get('module_megamenu_installed_appeal') == true) {
@@ -77,7 +86,7 @@ class ControllerExtensionModuleMegamenu extends Controller {
 				$this->request->post['module_megamenu_installed_appeal'] = 0;
 			}
 
-			$this->model_extension_materialize_megamenu->addCategoryMegamenu($this->request->post);
+			$this->model_extension_materialize_megamenu->editCategoryMegamenu($this->request->post);
 
 			$this->model_setting_setting->editSetting('module_megamenu', $this->request->post);
 
@@ -111,6 +120,8 @@ class ControllerExtensionModuleMegamenu extends Controller {
 
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
+		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 50, 50);
+
 		if (isset($this->request->post['module_megamenu_settings'])) {
 			$data['module_megamenu_settings'] = $this->request->post['module_megamenu_settings'];
 		} elseif ($this->config->get('module_megamenu_settings') == true) {
@@ -130,7 +141,12 @@ class ControllerExtensionModuleMegamenu extends Controller {
 
 		$data['content_types'][] = array(
 			'value'	=> 'default',
-			'name'	=> 'Стандартный',
+			'name'	=> 'Стандартное меню',
+		);
+
+		$data['content_types'][] = array(
+			'value'	=> 'simple_megamenu',
+			'name'	=> 'Простое мега меню',
 		);
 
 		$data['content_types'][] = array(
@@ -178,6 +194,10 @@ class ControllerExtensionModuleMegamenu extends Controller {
 			'name'	=> 'Фоновое изображение',
 		);
 
+		/* Get Materialize colors */
+		$data['materialize_get_colors'] = $this->model_extension_materialize_materialize->getMaterializeColors();
+		$data['materialize_get_colors_text'] = $this->model_extension_materialize_materialize->getMaterializeColorsText();
+
 		/* Categories */
 		$data['categories'] = array();
 
@@ -198,6 +218,8 @@ class ControllerExtensionModuleMegamenu extends Controller {
 		} else {
 			foreach ($data['categories'] as $category) {
 				$data['module_megamenu_category'][$category['category_id']] = array(
+					'color'			=> 'white',
+					'color_text'	=> 'black-text',
 					'content_type'	=> 'default',
 					'content_info'	=> 0,
 					'sort_order'	=> $category['sort_order']
@@ -292,9 +314,74 @@ class ControllerExtensionModuleMegamenu extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	public function getMegamenuImages() {
+		$json = array();
+
+		$this->load->model('extension/materialize/megamenu');
+		$this->load->model('tool/image');
+
+		$megamenu_settings = $this->config->get('module_megamenu_settings');
+		$category_id = $this->request->get['category_id'];
+		$content_type = $this->request->get['content_type'];
+
+		$image = $this->model_extension_materialize_megamenu->getMegamenuImageByCategoryId($category_id);
+
+		if ($content_type == 'category_image') {
+			$json['image_width'] = $megamenu_settings[$category_id]['image_width'];
+			$json['image_height'] = $megamenu_settings[$category_id]['image_height'];
+		} else {
+			if (is_file(DIR_IMAGE . $image)) {
+				$json['value'] = $image;
+				$json['image'] = $this->model_tool_image->resize($image, 50, 50);
+				$json['image_width'] = $megamenu_settings[$category_id]['image_width'];
+				$json['image_height'] = $megamenu_settings[$category_id]['image_height'];
+
+				if ($content_type == 'image_background') {
+					$json['bg_code'] = $megamenu_settings[$category_id]['background_settings'];
+				}
+			} else {
+				$json = false;
+			}
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function clearCacheCategories() {
+		$json = array();
+
+		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		} else {
+			$this->load->model('localisation/language');
+
+			$languages = $this->model_localisation_language->getLanguages();
+
+			foreach ($languages as $language) {
+				$this->cache->delete('materialize.megamenu.categories.' . (int)$language['language_id']);
+			}
+
+			$json['success'] = 'Кэш категорий был очищен!';
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/module/megamenu')) {
 			$this->error['warning'] = $this->language->get('error_permission');
+		}
+
+		foreach ($this->request->post['module_megamenu_settings'] as $category_id => $value) {
+			if ((isset($value['image_width'])) && (empty($value['image_width']))) {
+				$this->error['image_width'] = 'Укажите ширину изображения';
+			}
+
+			if ((isset($value['image_height'])) && (empty($value['image_height']))) {
+				$this->error['image_height'] = 'Укажите высоту изображения';
+			}
 		}
 
 		return !$this->error;

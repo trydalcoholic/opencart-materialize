@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<!-- <pre>{{ dump(module_megamenu_category) }}</pre> -->
+		<!-- <pre>{{ dump(module_megamenu_settings) }}</pre> -->
 		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
 			<div class="row">
 				<div class="col-md-4 col-md-push-8">
@@ -44,7 +44,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3></div>
 						<div class="panel-body">
-							<ul id="apply-tab" class="nav nav-tabs">
+							<ul class="nav nav-tabs">
 								<li class="active"><a href="#tab-common" data-toggle="tab">Общее</a></li>
 								{% if materializeapi %}<li><a href="#tab-info" data-toggle="tab">Информация о шаблоне</a></li>{% endif %}
 							</ul>
@@ -55,18 +55,46 @@
 											<ul class="nav nav-pills nav-stacked" id="tab-common-pills">
 												<li><a href="#tab-categories" data-toggle="tab">Категории</a></li>
 												<li><a href="#tab-settings" data-toggle="tab">Настройки</a></li>
+												<li><a href="#tab-optimization" data-toggle="tab">Оптимизация</a></li>
 											</ul>
 										</div>
 										<div class="col-sm-9">
 											<div class="tab-content">
 												<div class="tab-pane" id="tab-categories">
 {% for category in categories %}
-<div class="panel panel-default" id="panel-image">
-	<div class="panel-heading arrow-rotate collapsed" data-toggle="collapse" href="#collapse-{{ category.category_id }}"><h3 class="panel-title">{{ category.name }}</h3></div>
-	<div id="collapse-{{ category.category_id }}" class="panel-collapse collapse in"> <!-- Удалить in -->
-		<div class="panel-body megamenu-settings">
+<div class="panel panel-default">
+	<div class="panel-heading arrow-rotate collapsed" data-toggle="collapse" href="#collapse{{ category.category_id }}"><h3 class="panel-title">{{ category.name }}</h3></div>
+	<div id="collapse{{ category.category_id }}" class="panel-collapse collapse in"> <!-- Удалить in -->
+		<div class="panel-body megamenu-settings" data-category-id="{{ category.category_id }}" data-content-info="{{ module_megamenu_category[category.category_id].content_info }}">
 			<label class="control-label" for="input-sort-order{{ category.category_id }}">Порядок сортировки</label>
 			<input type="text" name="module_megamenu_category[{{ category.category_id }}][sort_order]" value="{{ module_megamenu_category[category.category_id].sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order{{ category.category_id }}" class="form-control" />
+			<hr>
+			<div class="media overflow-visible materialize-colors">
+				<div class="media-body overflow-visible">
+					<h5 class="media-heading text-bold required">Настройка цвета для мега меню</h5>
+					<select name="module_megamenu_category[{{ category.category_id }}][color]" class="selectpicker selectpicker-live-search show-tick">
+						{% for color in materialize_get_colors %}
+						{% if color.name == module_megamenu_category[category.category_id].color %}
+						<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+						{% else %}
+						<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+					<select name="module_megamenu_category[{{ category.category_id }}][color_text]" class="selectpicker selectpicker-live-search show-tick">
+						{% for color in materialize_get_colors_text %}
+						{% if color.name == module_megamenu_category[category.category_id].color_text %}
+						<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
+						{% else %}
+						<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				<div class="media-right media-middle">
+					<div class="thumbnail materialize-color-thumbnail">Text</div>
+				</div>
+			</div>
 			<hr>
 			<label class="control-label" for="input-megamenu-type{{ category.category_id }}">Тип мега меню</label>
 			<select name="module_megamenu_category[{{ category.category_id }}][content_type]" id="input-megamenu-type{{ category.category_id }}" class="selectpicker show-tick" data-width="100%">
@@ -79,11 +107,7 @@
 			{% endfor %}
 			</select>
 			<hr>
-			<div id="megamenu-content-wrap{{ category.category_id }}">
-				<label class="control-label" for="input-megamenu-content{{ category.category_id }}">Контент мега меню</label>
-				<select name="module_megamenu_category[{{ category.category_id }}][content_info]" id="input-megamenu-content{{ category.category_id }}" class="selectpicker show-tick" data-width="100%" data-content-info="{{ module_megamenu_category[category.category_id].content_info }}">
-				</select>
-			</div>
+			<div id="megamenu-content-wrap{{ category.category_id }}"></div>
 		</div>
 	</div>
 </div>
@@ -158,6 +182,28 @@
 																	<i></i>
 																</label>
 															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="tab-optimization">
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium">Кэширование категорий</h4>
+																<p>Включить кэширование списка категорий для мега меню.</p>
+															</div>
+															<div class="media-right media-middle">
+																<label class="form-switch pull-right">
+																	<input name="module_megamenu_settings[optimization][cached_categories]" type="checkbox" {{ module_megamenu_settings.optimization.cached_categories == 'on' ? 'checked="checked"' }}>
+																	<i></i>
+																</label>
+															</div>
+														</div>
+													</div>
+													<hr>
+													<div class="form-group">
+														<div class="col-xs-12 text-right">
+															<button type="button" class="btn btn-danger" id="cache-clear-categories">Очистить кэш категорий</button>
 														</div>
 													</div>
 												</div>
@@ -377,64 +423,307 @@
 	$('#tab-materializeapi-pills a:first').tab('show');
 	{% endif %}
 
+	// Selectpicker
+	$('.selectpicker.selectpicker-live-search').selectpicker({
+		size: 10,
+		liveSearch: true,
+		iconBase: 'fa',
+		tickIcon: 'fa-check'
+	});
+
+	var materializeColors = $('.materialize-colors');
+
+	materializeColors.each(function() {
+		var currentBackground = $(this).find('option:selected.select-color').data('hex'),
+			currentColor = $(this).find('option:selected.select-color-text').data('hex');
+
+		$(this).find('.materialize-color-thumbnail').css({
+			'background': currentBackground,
+			'color': currentColor
+		});
+	});
+
+	materializeColors.change(function(){
+		var currentBackground = $(this).find('option:selected.select-color').data('hex'),
+			currentColor = $(this).find('option:selected.select-color-text').data('hex');
+
+		$(this).find('.materialize-color-thumbnail').css({
+			'background': currentBackground,
+			'color': currentColor
+		});
+	});
+
 	var megamenuSettings = $('.megamenu-settings');
 
 	megamenuSettings.each(function(e) {
 		e += 1;
 
-		var selectMegamenuType = $(this).find('select[id^=\'input-megamenu-type\']'),
-			selectMegamenuContent = $(this).find('select[id^=\'input-megamenu-content\']'),
-			megamenuContentWrap = $(this).find('div[id^=\'megamenu-content-wrap\']'),
-			dataContentInfo = selectMegamenuContent.data('content-info');
+		var categoryId = $(this).data('category-id'),
+			contentInfo = $(this).data('content-info'),
+			selectMegamenuType = $('#input-megamenu-type' + categoryId),
+			megamenuContentWrap = $('#megamenu-content-wrap' + categoryId);
+
+		var htmlLabel = '<label class=\'control-label\' for=\'input-megamenu-content' + categoryId + '\'>Контент мега меню</label>',
+			htmlSelectOpen = '<select name=\'module_megamenu_category[' + categoryId + '][content_info]\' id=\'input-megamenu-content' + categoryId + '\' class=\'selectpicker show-tick\' data-width=\'100%\'>',
+			htmlSelectClose = '</select>';
 
 		selectMegamenuType.on('change', function() {
+			megamenuContentWrap.empty();
+
 			if ((this.value == 'featured') || (this.value == 'bestseller') || (this.value == 'special') || (this.value == 'html') || (this.value == 'banner')) {
-				megamenuContentWrap.find('label').show();
 				$.ajax({
 					url: 'index.php?route=extension/module/megamenu/megamenuType&content_type=' + this.value + '&user_token={{ user_token }}',
 					dataType: 'json',
 					beforeSend: function() {
-						megamenuContentWrap.find('.bootstrap-select').hide();
-						megamenuContentWrap.find('label').after('<div class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>');
+						megamenuContentWrap.after('<div class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>');
 					},
 					complete: function() {
-						megamenuContentWrap.find('.bootstrap-select').show();
 						$('.loader-wrapper').remove();
 					},
 					success: function(json) {
 						if (json != '') {
-							for (i = 0; i < json.length; i++) {
-								if (i == 0) {
-									html = '';
-								}
+							html  = htmlLabel;
+							html += htmlSelectOpen;
 
+							for (i = 0; i < json.length; i++) {
 								html += '<option value="' + json[i]['module_id'] + '"';
 
-								if (json[i]['module_id'] == dataContentInfo) {
+								if (json[i]['module_id'] == contentInfo) {
 									html += ' selected="selected"';
 								}
 
 								html += '>' + json[i]['name'] + '</option>';
 							}
-							selectMegamenuContent.html(html);
-							megamenuContentWrap.show();
-						} else {
-							megamenuContentWrap.hide();
+
+							html += htmlSelectClose;
+							megamenuContentWrap.html(html);
 						}
 
-						$('.selectpicker').selectpicker('refresh');
+						$('.selectpicker').selectpicker({
+							iconBase: 'fa',
+							tickIcon: 'fa-check'
+						},('refresh'));
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				});
-			} else {
-				megamenuContentWrap.find('label').hide();
-				megamenuContentWrap.find('.bootstrap-select').hide();
+			} else if (this.value == 'image_custom') {
+				$.ajax({
+					url: 'index.php?route=extension/module/megamenu/getMegamenuImages&category_id=' + categoryId + '&content_type=' + this.value + '&user_token={{ user_token }}',
+					dataType: 'json',
+					beforeSend: function() {
+						megamenuContentWrap.after('<div class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>');
+					},
+					complete: function() {
+						$('.loader-wrapper').remove();
+					},
+					success: function(json) {
+						if (json != '') {
+							html  = '<div class="media">';
+							html += '	<div class="media-body media-middle">';
+							html += '		<h5 class="media-heading text-medium required">Размеры изображения</h5>';
+							html += '		<div class="row">';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_width]" value="' + json['image_width'] + '" placeholder="Ширина" class="form-control" />';
+							html += '			</div>';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_height]" value="' + json['image_height'] + '" placeholder="Высота" class="form-control" />';
+							html += '			</div>';
+							html += '		</div>';
+							html += '	</div>';
+							html += '	<div class="media-right media-middle">';
+							html += '		<a href="" id="thumb-image' + categoryId + '" data-toggle="image" class="img-thumbnail"><img src="' + json['image'] + '" alt="" title="" data-placeholder="{{ placeholder }}" /></a>';
+							html += '		<input type="hidden" name="module_megamenu_category[' + categoryId + '][content_info]" value="' + json['value'] + '" id="input-image' + categoryId + '" />';
+							html += '	</div>';
+							html += '</div>';
+							megamenuContentWrap.html(html);
+						} else {
+							html  = '<div class="media">';
+							html += '	<div class="media-body media-middle">';
+							html += '		<h5 class="media-heading text-medium required">Размеры изображения</h5>';
+							html += '		<div class="row">';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_width]" value="" placeholder="Ширина" class="form-control" />';
+							html += '			</div>';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_height]" value="" placeholder="Высота" class="form-control" />';
+							html += '			</div>';
+							html += '		</div>';
+							html += '	</div>';
+							html += '	<div class="media-right media-middle">';
+							html += '		<a href="" id="thumb-image' + categoryId + '" data-toggle="image" class="img-thumbnail"><img src="{{ placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>';
+							html += '		<input type="hidden" name="module_megamenu_category[' + categoryId + '][content_info]" value="" id="input-image' + categoryId + '" />';
+							html += '	</div>';
+							html += '</div>';
+							megamenuContentWrap.html(html);
+						}
+
+						$('.selectpicker').selectpicker({
+							iconBase: 'fa',
+							tickIcon: 'fa-check'
+						},('refresh'));
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+					}
+				});
+			} else if (this.value == 'image_background') {
+				$.ajax({
+					url: 'index.php?route=extension/module/megamenu/getMegamenuImages&category_id=' + categoryId + '&content_type=' + this.value + '&user_token={{ user_token }}',
+					dataType: 'json',
+					beforeSend: function() {
+						megamenuContentWrap.after('<div class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>');
+					},
+					complete: function() {
+						$('.loader-wrapper').remove();
+					},
+					success: function(json) {
+						if (json != '') {
+							html  = '<div class="media">';
+							html += '	<div class="media-body media-middle">';
+							html += '		<h5 class="media-heading text-medium required">Размеры изображения</h5>';
+							html += '		<div class="row">';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_width]" value="' + json['image_width'] + '" placeholder="Ширина" class="form-control" />';
+							html += '			</div>';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_height]" value="' + json['image_height'] + '" placeholder="Высота" class="form-control" />';
+							html += '			</div>';
+							html += '		</div>';
+							html += '		<hr>';
+							html += '		<div class="row">';
+							html += '			<textarea name="module_megamenu_settings[' + categoryId + '][background_settings]" rows="10" id="bg' + categoryId + '"></textarea>';
+							html += '		</div>';
+							html += '	</div>';
+							html += '	<div class="media-right media-middle">';
+							html += '		<a href="" id="thumb-image' + categoryId + '" data-toggle="image" class="img-thumbnail"><img src="' + json['image'] + '" alt="" title="" data-placeholder="{{ placeholder }}" /></a>';
+							html += '		<input type="hidden" name="module_megamenu_category[' + categoryId + '][content_info]" value="' + json['value'] + '" id="input-image' + categoryId + '" />';
+							html += '	</div>';
+							html += '</div>';
+							megamenuContentWrap.html(html);
+						} else {
+							html  = '<div class="media">';
+							html += '	<div class="media-body media-middle">';
+							html += '		<h5 class="media-heading text-medium required">Размеры изображения</h5>';
+							html += '		<div class="row">';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_width]" value="" placeholder="Ширина" class="form-control" />';
+							html += '			</div>';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_height]" value="" placeholder="Высота" class="form-control" />';
+							html += '			</div>';
+							html += '		</div>';
+							html += '		<hr>';
+							html += '		<div class="row">';
+							html += '			<textarea name="module_megamenu_settings[' + categoryId + '][background_settings]" rows="10" id="bg' + categoryId + '"></textarea>';
+							html += '		</div>';
+							html += '	</div>';
+							html += '	<div class="media-right media-middle">';
+							html += '		<a href="" id="thumb-image' + categoryId + '" data-toggle="image" class="img-thumbnail"><img src="{{ placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>';
+							html += '		<input type="hidden" name="module_megamenu_category[' + categoryId + '][content_info]" value="" id="input-image' + categoryId + '" />';
+							html += '	</div>';
+							html += '</div>';
+							megamenuContentWrap.html(html);
+						}
+
+						$('.loader-wrapper').remove(); /* Forcibly removes the .loader-wrapper, for some reason it does not disappear */
+
+						var codemirror = CodeMirror.fromTextArea(document.getElementById('bg' + categoryId), {
+							lineNumbers: true,
+							theme: 'monokai'
+						});
+
+						codemirror.setSize(null, 100);
+						codemirror.setValue(json['bg_code']);
+
+						$('.selectpicker').selectpicker({
+							iconBase: 'fa',
+							tickIcon: 'fa-check'
+						},('refresh'));
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+					}
+				});
+			} else if (this.value == 'category_image') {
+				$.ajax({
+					url: 'index.php?route=extension/module/megamenu/getMegamenuImages&category_id=' + categoryId + '&content_type=' + this.value + '&user_token={{ user_token }}',
+					dataType: 'json',
+					beforeSend: function() {
+						megamenuContentWrap.after('<div class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>');
+					},
+					complete: function() {
+						$('.loader-wrapper').remove();
+					},
+					success: function(json) {
+						if (json != '') {
+							html  = '<div class="media">';
+							html += '	<div class="media-body media-middle">';
+							html += '		<h5 class="media-heading text-medium required">Размеры изображения</h5>';
+							html += '		<div class="row">';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_width]" value="' + json['image_width'] + '" placeholder="Ширина" class="form-control" />';
+							html += '			</div>';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_height]" value="' + json['image_height'] + '" placeholder="Высота" class="form-control" />';
+							html += '			</div>';
+							html += '		</div>';
+							html += '		<hr>';
+							html += '	</div>';
+							html += '</div>';
+							megamenuContentWrap.html(html);
+						} else {
+							html  = '<div class="media">';
+							html += '	<div class="media-body media-middle">';
+							html += '		<h5 class="media-heading text-medium required">Размеры изображения</h5>';
+							html += '		<div class="row">';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_width]" value="" placeholder="Ширина" class="form-control" />';
+							html += '			</div>';
+							html += '			<div class="col-sm-6">';
+							html += '				<input type="text" name="module_megamenu_settings[' + categoryId + '][image_height]" value="" placeholder="Высота" class="form-control" />';
+							html += '			</div>';
+							html += '		</div>';
+							html += '		<hr>';
+							html += '	</div>';
+							html += '</div>';
+							megamenuContentWrap.html(html);
+						}
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+					}
+				});
 			}
 		});
-		$('.selectpicker').selectpicker('refresh');
 		selectMegamenuType.trigger('change');
+	});
+
+	// Clear cache
+	$(document).on('click', '#cache-clear-categories', function() {
+		$.ajax({
+			url: 'index.php?route=extension/module/megamenu/clearCacheCategories&user_token={{ user_token }}',
+			type: 'post',
+			dataType: 'json',
+			beforeSend: function() {
+				$('#cache-clear').button('loading');
+			},
+			complete: function() {
+				$('#cache-clear').button('reset');
+			},
+			success: function(json) {
+				if (json['success']) {
+					successNotification({
+						title: 'Очистка кэша',
+						message: json['success']
+					});
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
 	});
 
 	var successNotification = window.createNotification({

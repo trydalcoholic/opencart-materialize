@@ -167,6 +167,7 @@ a.dotted:hover {border-bottom: 1px dashed #14628c;}
 .form-switch input:checked + i::after {transform:translate3d(20px, 2px, 0);}
 
 .text-medium {font-weight:600;}
+.text-bold {font-weight:700;}
 .overflow-visible {overflow:visible !important;}
 .materialize-color-thumbnail {
 	display: flex;

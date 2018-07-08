@@ -4,8 +4,10 @@ class ModelExtensionMaterializeMegamenu extends Model {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "megamenu` (
 				`category_id` int(11) NOT NULL,
+				`color` VARCHAR(25) NOT NULL,
+				`color_text` VARCHAR(35) NOT NULL,
 				`content_type` varchar(32) NOT NULL DEFAULT 'default',
-				`content_info` int(11) NOT NULL DEFAULT '0',
+				`content_info` varchar(255) NOT NULL DEFAULT '0',
 				`sort_order` int(3) NOT NULL DEFAULT '0',
 				PRIMARY KEY (`category_id`)
 			)
@@ -29,6 +31,8 @@ class ModelExtensionMaterializeMegamenu extends Model {
 
 		foreach ($query->rows as $result) {
 			$megamenu_data[$result['category_id']] = array(
+				'color'			=> $result['color'],
+				'color_text'	=> $result['color_text'],
 				'content_type'	=> $result['content_type'],
 				'content_info'	=> $result['content_info'],
 				'sort_order'	=> $result['sort_order']
@@ -38,15 +42,29 @@ class ModelExtensionMaterializeMegamenu extends Model {
 		return $megamenu_data;
 	}
 
-	public function addCategoryMegamenu($data) {
+	public function getMegamenuImageByCategoryId($category_id) {
+		$query = $this->db->query("SELECT content_info FROM " . DB_PREFIX . "megamenu WHERE category_id = '" . (int)$category_id . "'");
+
+		if ($query->num_rows) {
+			return $query->row['content_info'];
+		} else {
+			return 0;
+		}
+ 	}
+
+	public function editCategoryMegamenu($data) {
 		foreach ($data['module_megamenu_category'] as $category_id => $value) {
 			$this->db->query("
 				REPLACE INTO " . DB_PREFIX . "megamenu SET
 				category_id = '" . (int)$category_id . "',
+				color = '" . $this->db->escape($value['color']) . "',
+				color_text = '" . $this->db->escape($value['color_text']) . "',
 				content_type = '" . $this->db->escape($value['content_type']) . "',
-				content_info = '" . (isset($value['content_info']) ?  (int)($value['content_info']) : 0) . "',
+				content_info = '" . (isset($value['content_info']) ? $this->db->escape($value['content_info']) : 0) . "',
 				sort_order = '" . (int)$value['sort_order'] . "'
 			");
+
+			$this->db->query("UPDATE " . DB_PREFIX . "category SET sort_order = '" . (int)$value['sort_order'] . "' WHERE category_id = '" . (int)$category_id . "'");
 		}
 	}
 }
