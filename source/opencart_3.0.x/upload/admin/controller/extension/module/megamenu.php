@@ -1,7 +1,6 @@
 <?php
 class ControllerExtensionModuleMegamenu extends Controller {
 	private $error = array();
-	private $template_version = '0.81';
 	private $installed_from_url = HTTP_CATALOG;
 
 	public function install() {
@@ -67,7 +66,7 @@ class ControllerExtensionModuleMegamenu extends Controller {
 			} else {
 				$data['installed'] = false;
 
-				if ($this->template_version != $current_version) {
+				if ($this->templateVersion() != $current_version) {
 					$this->update();
 				}
 			}
@@ -79,7 +78,7 @@ class ControllerExtensionModuleMegamenu extends Controller {
 			if ($this->config->get('module_megamenu_template_version') == true) {
 				$this->request->post['module_megamenu_template_version'] = $this->config->get('module_megamenu_template_version');
 			} else {
-				$this->request->post['module_megamenu_template_version'] = $this->template_version;
+				$this->request->post['module_megamenu_template_version'] = $this->templateVersion();
 			}
 
 			if ($this->config->get('module_megamenu_installed_appeal') == true) {
@@ -227,59 +226,13 @@ class ControllerExtensionModuleMegamenu extends Controller {
 			}
 		}
 
-		/* Materialize API */
-		$materializeapi = $this->getMaterializeApi();
-
-		if ($materializeapi) {
-			$data['materializeapi'] = true;
-			$data['materializeapi_donaters'] = $materializeapi['donaters'];
-			$data['materializeapi_total_amount'] = $materializeapi['total_amount'];
-			$data['materializeapi_versions'] = $materializeapi['versions'];
-			$data['materializeapi_translators'] = $materializeapi['translators'];
-			$data['materializeapi_changelogs'] = $materializeapi['changelogs'];
-			$data['materializeapi_template_verstion'] = $materializeapi['template_verstion'];
-		} else {
-			$data['materializeapi'] = false;
-		}
-
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
+		$data['materializeapi'] = $this->load->controller('extension/materialize/materializeapi/materializeapi');
 		$data['appeal_footer'] = $this->load->controller('extension/materialize/appeal/appeal');
 
 		$this->response->setOutput($this->load->view('extension/module/megamenu', $data));
-	}
-
-	protected function getMaterializeApi() {
-		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
-			$this->error['warning'] = $this->language->get('error_permission');
-		}
-
-		$curl = curl_init('https://materialize.myefforts.ru/index.php?route=extension/module/materializeapi');
-
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_POST, 1);
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-
-		$materializeapi_info = json_decode($response, true);
-
-		if ($materializeapi_info) {
-			$materializeapi['donaters'] = $materializeapi_info['donaters'];
-			$materializeapi['total_amount'] = $materializeapi_info['total_amount'];
-			$materializeapi['versions'] = $materializeapi_info['versions'];
-			$materializeapi['translators'] = $materializeapi_info['translators'];
-			$materializeapi['changelogs'] = $materializeapi_info['changelogs'];
-			$materializeapi['template_verstion'] = $this->template_version;
-
-			return $materializeapi;
-		} else {
-			return false;
-		}
 	}
 
 	public function megamenuType() {
@@ -374,13 +327,15 @@ class ControllerExtensionModuleMegamenu extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		foreach ($this->request->post['module_megamenu_settings'] as $category_id => $value) {
-			if ((isset($value['image_width'])) && (empty($value['image_width']))) {
-				$this->error['image_width'] = 'Укажите ширину изображения';
-			}
+		if (isset($this->request->post['module_megamenu_settings'])) {
+			foreach ($this->request->post['module_megamenu_settings'] as $category_id => $value) {
+				if ((isset($value['image_width'])) && (empty($value['image_width']))) {
+					$this->error['image_width'] = 'Укажите ширину изображения';
+				}
 
-			if ((isset($value['image_height'])) && (empty($value['image_height']))) {
-				$this->error['image_height'] = 'Укажите высоту изображения';
+				if ((isset($value['image_height'])) && (empty($value['image_height']))) {
+					$this->error['image_height'] = 'Укажите высоту изображения';
+				}
 			}
 		}
 
@@ -393,8 +348,12 @@ class ControllerExtensionModuleMegamenu extends Controller {
 
 		$this->model_extension_materialize_materialize->update();
 
-		$data['module_megamenu_template_version'] = $this->template_version;
+		$data['module_megamenu_template_version'] = $this->templateVersion();
 
 		$this->model_setting_setting->editSetting('module_megamenu', $data);
+	}
+
+	protected function templateVersion() {
+		return $this->load->controller('extension/materialize/materializeapi/materializeapi/templateVersion');
 	}
 }

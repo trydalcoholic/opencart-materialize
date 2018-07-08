@@ -1,0 +1,195 @@
+<div class="tab-pane" id="tab-materializeapi">
+	<div class="row">
+		<div class="col-sm-3">
+			<ul class="nav nav-pills nav-stacked" id="tab-materializeapi-pills">
+				<li><a href="#tab-donaters" data-toggle="tab"><i class="fa fa-birthday-cake"></i> Топ донатеров</a></li>
+				<li><a href="#tab-translators" data-toggle="tab"><i class="fa fa-users"></i> Переводчики</a></li>
+				<li><a href="#tab-template-versions" data-toggle="tab"><i class="fa fa-code"></i> Версии шаблона</a></li>
+				<li><a href="#tab-changelog" data-toggle="tab"><i class="fa fa-asterisk"></i> Список изменений</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-9">
+			<div class="tab-content">
+				<div class="tab-pane" id="tab-donaters">
+					<fieldset>
+						<legend>Топ донатеров</legend>
+						<div class="table-responsive">
+							<table id="donaters" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Изображение</th>
+										<th>Имя</th>
+										<th class="text-center">Сумма доната</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% set counter_donaters = 1 %}
+									{% for donater in donaters %}
+									<tr>
+										{% if counter_donaters == 1 %}
+										<th class="text-center" scope="row">{{ counter_donaters }}</th>
+										<th class="text-center"><img src="{{ donater.image }}" alt="{{ donater.name }}" class="donaters-image"></th>
+										<td><b>{{ donater.name }}</b></td>
+										<td class="text-center"><span class="label label-danger">{{ donater.amount }} USD</span></td>
+										{% elseif counter_donaters == 2 or counter_donaters == 3 %}
+										<th class="text-center" scope="row">{{ counter_donaters }}</th>
+										<th class="text-center"><img src="{{ donater.image }}" alt="{{ donater.name }}" class="donaters-image"></th>
+										<td><b>{{ donater.name }}</b></td>
+										<td class="text-center"><span class="label label-success">{{ donater.amount }} USD</span></td>
+										{% else %}
+										<th class="text-center" scope="row">{{ counter_donaters }}</th>
+										<th class="text-center"><img src="{{ donater.image }}" alt="{{ donater.name }}" class="donaters-image"></th>
+										<td>{{ donater.name }}</td>
+										<td class="text-center"><span class="label label-primary">{{ donater.amount }} USD</span></td>
+										{% endif %}
+									</tr>
+									{% set counter_donaters = counter_donaters + 1 %}
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+							<div class="col-sm-4 col-sm-offset-8">
+								<table class="table table-bordered">
+									<tbody>
+										<tr>
+											<td><b>Всего:</b></td>
+											<td class="text-center"><span class="label label-default">{{ total_amount }} USD</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</fieldset>
+					<div class="alert alert-info">
+						Пожалуйста, поддержите развитие шаблона! <a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener" class="alert-link">Оставьте отзыв</a> а работе или <a href="//paypal.me/trydalcoholic" target="_blank" rel="noopener" class="alert-link">пожертвуйте на развитие</a>.
+					</div>
+					<hr>
+					<div class="form-group">
+						<div class="col-xs-12 text-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-info" id="cache-clear">Задонатить</button>
+								<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+								<ul class="dropdown-menu">
+									<li><a href="//paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a></li>
+									<li><a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Яндекс.Деньги</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="tab-translators">
+					<fieldset>
+						<legend>Переводчики</legend>
+						<div class="table-responsive">
+							<table id="versions" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<td>Язык</td>
+										<td>Участники</td>
+									</tr>
+								</thead>
+								<tbody>
+									{% for translate in translators %}
+									<tr>
+										<td>{{ translate.language }}</td>
+										<td>{{ translate.participants }}</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</fieldset>
+					<div class="alert alert-info">
+						Если вы хотите стать участником перевода шаблона, пожалуйста, <a href="//github.com/trydalcoholic/opencart-materialize/issues/20" target="_blank" rel="noopener" class="alert-link">ознакомьтесь с инструкцией здесь</a>.
+					</div>
+					<hr>
+					<div class="form-group">
+						<div class="col-xs-12 text-right">
+							<div class="btn-group">
+								<a href="//github.com/trydalcoholic/opencart-materialize/issues/20" class="btn btn-info" target="_blank" rel="noopener">Помочь</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="tab-template-versions">
+					<fieldset>
+						<legend>Версии шаблона</legend>
+						<div class="table-responsive">
+							<table id="versions" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<td>Версия OpenCart</td>
+										<td>Версия шаблона</td>
+										<td>Статус</td>
+									</tr>
+								</thead>
+								<tbody>
+									{% for version in versions %}
+									<tr>
+										<td>{{ version.opencart }}</td>
+										<td>{{ version.template }}</td>
+										<td>{{ version.status }}</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</fieldset>
+					<div class="alert alert-info">
+						Пожалуйста, поддержите развитие шаблона! <a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener" class="alert-link">Оставьте отзыв</a> а работе или <a href="//paypal.me/trydalcoholic" target="_blank" rel="noopener" class="alert-link">пожертвуйте на развитие</a>.
+					</div>
+					<hr>
+					<div class="form-group">
+						<div class="col-xs-12 text-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-info">Ваша версия <b>{{ template_verstion }}</b></button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="tab-changelog">
+					<div class="panel-group" id="accordion-changelog">
+						{% set counter_changelogs = 1 %}
+						{% for changelog in changelogs %}
+						<div class="panel panel-default">
+							{% if counter_changelogs == 1 %}
+							<div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion-changelog" href="#changelog-version-{{ counter_changelogs }}"><h4 class="panel-title"><b>Version {{ changelog.version }}</b></h4></a></div>
+							<div id="changelog-version-{{ counter_changelogs }}" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<fieldset>
+										<legend><i class="fa fa-magic"></i> Изменения</legend>
+										{{ changelog.changes }}
+									</fieldset>
+									<fieldset>
+										<legend><i class="fa fa-bug"></i> Исправленные баги</legend>
+										{{ changelog.bags }}
+									</fieldset>
+								</div>
+							</div>
+							{% set counter_changelogs = counter_changelogs + 1 %}
+							{% else %}
+							<div class="panel-heading"><a class="collapsed" data-toggle="collapse" data-parent="#accordion-changelog" href="#changelog-version-{{ counter_changelogs }}"><h4 class="panel-title">Version {{ changelog.version }}</h4></a></div>
+							<div id="changelog-version-{{ counter_changelogs }}" class="panel-collapse collapse">
+								<div class="panel-body">
+									<fieldset>
+										<legend><i class="fa fa-magic"></i> Изменения</legend>
+										{{ changelog.changes }}
+									</fieldset>
+									<fieldset>
+										<legend><i class="fa fa-bug"></i> Исправленные баги</legend>
+										{{ changelog.bags }}
+									</fieldset>
+								</div>
+							</div>
+							{% endif %}
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>$('#tab-materializeapi-pills a:first').tab('show');</script>

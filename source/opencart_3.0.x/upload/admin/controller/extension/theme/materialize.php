@@ -1,7 +1,6 @@
 <?php
 class ControllerExtensionThemeMaterialize extends Controller {
 	private $error = array();
-	private $template_version = '0.81';
 	private $installed_from_url = HTTP_CATALOG;
 
 	public function install() {
@@ -81,7 +80,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			} else {
 				$data['installed'] = false;
 
-				if ($this->template_version != $current_version) {
+				if ($this->templateVersion() != $current_version) {
 					$this->update();
 
 					$updated = $this->language->get('materialize_title');
@@ -97,7 +96,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			if ($this->config->get('theme_materialize_template_version') == true) {
 				$this->request->post['theme_materialize_template_version'] = $this->config->get('theme_materialize_template_version');
 			} else {
-				$this->request->post['theme_materialize_template_version'] = $this->template_version;
+				$this->request->post['theme_materialize_template_version'] = $this->templateVersion();
 			}
 
 			if ($this->config->get('theme_materialize_installed_appeal') == true) {
@@ -625,23 +624,10 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$data['theme_materialize_products']['payment'] = array();
 		}
 
-		$materializeapi = $this->getMaterializeApi();
-
-		if ($materializeapi) {
-			$data['materializeapi'] = true;
-			$data['materializeapi_donaters'] = $materializeapi['donaters'];
-			$data['materializeapi_total_amount'] = $materializeapi['total_amount'];
-			$data['materializeapi_versions'] = $materializeapi['versions'];
-			$data['materializeapi_translators'] = $materializeapi['translators'];
-			$data['materializeapi_changelogs'] = $materializeapi['changelogs'];
-			$data['materializeapi_template_verstion'] = $materializeapi['template_verstion'];
-		} else {
-			$data['materializeapi'] = false;
-		}
-
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
+		$data['materializeapi'] = $this->load->controller('extension/materialize/materializeapi/materializeapi');
 		$data['appeal_footer'] = $this->load->controller('extension/materialize/appeal/appeal');
 
 		$this->response->setOutput($this->load->view('extension/theme/materialize', $data));
@@ -671,7 +657,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$materializeapi['versions'] = $materializeapi_info['versions'];
 			$materializeapi['translators'] = $materializeapi_info['translators'];
 			$materializeapi['changelogs'] = $materializeapi_info['changelogs'];
-			$materializeapi['template_verstion'] = $this->template_version;
+			$materializeapi['template_verstion'] = $this->templateVersion();
 
 			return $materializeapi;
 		} else {
@@ -1045,8 +1031,12 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->model_extension_materialize_materialize->update();
 
-		$data['theme_materialize_template_version'] = $this->template_version;
+		$data['theme_materialize_template_version'] = $this->templateVersion();
 
 		$this->model_setting_setting->editSetting('theme_materialize', $data);
+	}
+
+	protected function templateVersion() {
+		return $this->load->controller('extension/materialize/materializeapi/materializeapi/templateVersion');
 	}
 }
