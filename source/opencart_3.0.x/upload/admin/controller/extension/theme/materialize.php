@@ -107,10 +107,12 @@ class ControllerExtensionThemeMaterialize extends Controller {
 			$materialize_settings = $this->request->post['theme_materialize_settings'];
 
 			if (empty($theme_status) || empty($materialize_settings['optimization']['cached_categories'])) {
-				$cached_categories = $this->cache->get('materialize.categories');
+				$this->load->model('localisation/language');
 
-				if ($cached_categories) {
-					$this->cache->delete('materialize.categories');
+				$languages = $this->model_localisation_language->getLanguages();
+
+				foreach ($languages as $language) {
+					$this->cache->delete('materialize.categories.' . (int)$language['language_id']);
 				}
 			}
 
@@ -961,15 +963,15 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		} else {
-			$cached_categories = $this->cache->get('materialize.categories');
+			$this->load->model('localisation/language');
 
-			if ($cached_categories) {
-				$this->cache->delete('materialize.categories');
+			$languages = $this->model_localisation_language->getLanguages();
 
-				$json['success'] = 'Кэш категорий был очищен!';
-			} else {
-				$json['info'] = 'Кэш категорий был пуст!';
+			foreach ($languages as $language) {
+				$this->cache->delete('materialize.categories.' . (int)$language['language_id']);
 			}
+
+			$json['success'] = 'Кэш категорий был очищен!';
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -1003,22 +1005,21 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		} else {
-			$cached_categories = $this->cache->get('materialize.categories');
-			$cached_colors = $this->cache->get('materialize.colors');
+			$this->load->model('localisation/language');
 
-			if ($cached_categories) {
-				$this->cache->delete('materialize.categories');
+			$languages = $this->model_localisation_language->getLanguages();
+
+			foreach ($languages as $language) {
+				$this->cache->delete('materialize.categories.' . (int)$language['language_id']);
 			}
+
+			$cached_colors = $this->cache->get('materialize.colors');
 
 			if ($cached_colors) {
 				$this->cache->delete('materialize.colors');
 			}
 
-			if (!$cached_categories && !$cached_colors) {
-				$json['info'] = 'Кэш был пуст!';
-			} else {
-				$json['success'] = 'Кэш был очищен!';
-			}
+			$json['success'] = 'Кэш был очищен!';
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

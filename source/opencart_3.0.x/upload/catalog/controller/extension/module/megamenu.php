@@ -11,26 +11,30 @@ class ControllerExtensionModuleMegamenu extends Controller {
 		$module_megamenu_settings = $this->config->get('module_megamenu_settings');
 
 		if (!empty($materialize_settings['optimization']['cached_colors'])) {
-			$cached_colors = $this->cache->get('materialize.colors');
+			$cached_colors = true;
 		} else {
 			$cached_colors = false;
 		}
 
-		if (!$cached_colors) {
-			$colors = $this->config->get('theme_materialize_colors');
+		if ($cached_colors) {
+			$colors = $this->cache->get('materialize.colors');
 
-			if (!empty($materialize_settings['optimization']['cached_colors'])) {
+			if (!$colors) {
+				$colors = $this->config->get('theme_materialize_colors');
+
 				$this->cache->set('materialize.colors', $colors);
 			}
 		} else {
-			$colors = $cached_colors;
+			$colors = $this->config->get('theme_materialize_colors');
 		}
 
 		$data['color_navigation'] = $colors['navigation'];
 		$data['color_navigation_text'] = $colors['navigation_text'];
 
 		if (!empty($module_megamenu_settings['optimization']['cached_categories'])) {
-			$cached_categories = $this->cache->get('materialize.megamenu.categories.' . (int)$this->config->get('config_language_id'));
+			$cached_categories = true;
+
+			$data['categories'] = $this->cache->get('materialize.megamenu.categories.' . (int)$this->config->get('config_language_id'));
 		} else {
 			$cached_categories = false;
 		}
@@ -65,7 +69,7 @@ class ControllerExtensionModuleMegamenu extends Controller {
 			$data['see_all'] = false;
 		}
 
-		if (!$cached_categories) {
+		if (!$cached_categories || empty($data['categories'])) {
 			$categories_1 = $this->model_extension_module_megamenu->getCategories(0);
 
 			foreach ($categories_1 as $category_1) {
@@ -181,11 +185,9 @@ class ControllerExtensionModuleMegamenu extends Controller {
 				}
 			}
 
-			if (!empty($module_megamenu_settings['optimization']['cached_categories'])) {
+			if ($cached_categories) {
 				$this->cache->set('materialize.megamenu.categories.' . (int)$this->config->get('config_language_id'), $data['categories']);
 			}
-		} else {
-			$data['categories'] = $cached_categories;
 		}
 
 		return $this->load->view('extension/module/megamenu', $data);

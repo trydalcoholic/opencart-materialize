@@ -262,12 +262,14 @@
 				}
 
 				if (!empty($materialize_settings['optimization']['cached_categories'])) {
-					$cached_categories = $this->cache->get('materialize.categories');
+					$cached_categories = true;
+
+					$data['categories'] = $this->cache->get('materialize.categories.' . (int)$this->config->get('config_language_id'));
 				} else {
 					$cached_categories = false;
 				}
 
-				if (!$cached_categories) {
+				if (!$cached_categories || empty($data['categories'])) {
 					$categories_1 = $this->model_catalog_category->getCategories(0);
 
 					foreach ($categories_1 as $category_1) {
@@ -318,11 +320,9 @@
 						);
 					}
 
-					if (!empty($materialize_settings['optimization']['cached_categories'])) {
-						$this->cache->set('materialize.categories', $data['categories']);
+					if ($cached_categories) {
+						$this->cache->set('materialize.categories.' . (int)$this->config->get('config_language_id'), $data['categories']);
 					}
-				} else {
-					$data['categories'] = $cached_categories;
 				}
 			} else {
 			]]></add>
