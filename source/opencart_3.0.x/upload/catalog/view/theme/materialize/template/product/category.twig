@@ -97,7 +97,7 @@
 				<div id="content" class="row">
 					{% for product in products %}
 					<div id="product{{ product.product_id }}" class="col products-list {{ goods }}">
-						<div class="card hoverable"> <!-- horizontal -->
+						<div class="card hoverable">
 							<div class="card-stacked">
 								<div class="card-image">
 									<a href="{{ product.href }}"><img id="image-product{{ product.product_id }}" src="{{ product.thumb }}" data-thumb="{{ product.thumb }}" data-hor-image="{{ product.hor_image }}" alt="{{ product.name }}" title="{{ product.name }}"></a>
@@ -108,8 +108,10 @@
 										{% if not product.special %}
 										<span class="card-price">{{ product.price }}</span>
 										{% else %}
-										<span class="card-price red-text text-darken-2">{{ product.special }}</span>
-										<span class="card-price old-price grey-text">{{ product.price }}</span>
+										<div class="card-price">
+											<span class="red-text text-darken-2">{{ product.special }}</span>
+											<span class="old-price grey-text">{{ product.price }}</span>
+										</div>
 										{% endif %}
 										{% if product.tax %}
 										<span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
@@ -147,7 +149,7 @@
 										<div class="flex-reverse no-padding">
 											{% if product.add_cart %}
 											<div class="tooltipped" data-position="top" data-tooltip="Добавить в корзину">
-												<button class="btn-flat btn-floating waves-effect {{ color_add_cart }}" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons {{ color_add_cart_text }}">add_shopping_cart</i></button>
+												<button class="btn-flat btn-floating waves-effect transparent" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons black-text">add_shopping_cart</i></button>
 											</div>
 											{% else %}
 											<div class="tooltipped" data-position="top" data-tooltip="Товара нет в наличии">

@@ -609,9 +609,9 @@ span.collapsible-header {
 .labels-wrap__item:last-child {margin-bottom:0;}
 .card .badge.percent {position:absolute;margin:0;z-index:10;left:auto;right:0;}
 /* .card-title,.card-price {font-weight:bold !important;font-size:1.3em !important;line-height:1.4em !important;} */
-.card-reveal .card-title {padding-right:25px;}
+/* .card-reveal .card-title {padding-right:25px;} */
 .card-price {display:inline-block;margin:0 5px 5px 0;font-size:1.6em !important;}
-.old-price {font-size:1.3em !important;text-decoration:line-through;}
+.old-price {font-size:1.3rem !important;text-decoration:line-through;}
 /* .add-cart {
 	position: absolute;
 	top: -28px;
