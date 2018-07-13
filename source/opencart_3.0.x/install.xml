@@ -5,7 +5,40 @@
 	<version>0.81</version>
 	<author><![CDATA[<font color="#263238"><b>Trydalcoholic</b></font>]]></author>
 	<link>//goo.gl/pSwwUR</link>
-	<!-- Number of reviews -->
+	<!-- List of goods cards -->
+	<file path="catalog/model/catalog/product.php">
+		<operation error="log">
+			<search><![CDATA[$query->row['rating']]]></search>
+			<add position="replace"><![CDATA[$query->row['rating'], 1]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/product/category.php">
+		<operation error="log">
+			<search><![CDATA[$rating = (int)$result['rating'];]]></search>
+			<add position="after"><![CDATA[$reviews = (int)$result['reviews'];]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$rating = false;]]></search>
+			<add position="after"><![CDATA[$reviews = false;]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="before"><![CDATA[
+			if ($result['image']) {
+				$hor_image = $this->model_tool_image->resize($result['image'], 80, 80);
+			} else {
+				$hor_image = $this->model_tool_image->resize('placeholder.png', 80, 80);
+			}
+			]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA[
+			'reviews'	=> $reviews,
+			'hor_image'	=> $hor_image,
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/controller/extension/module/featured.php">
 		<operation error="log">
 			<search><![CDATA[$rating = $product_info['rating'];]]></search>
