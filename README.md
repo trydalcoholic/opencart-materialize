@@ -16,7 +16,7 @@ The main difference of the template is the use of the [Materialize framework](ht
 
 The template is not limited to moving the work of OpenCart to the Materialize framework. A huge amount of standard functionality was processed. Integrated many unique technical solutions, many useful modules for convenient e-Commerce.
 
-Due to the large number of changes, in order to support multilingual, some components require translation. By default, the template supports the following languages: English, Russian, Ukrainian, Turkish and Romanian. Here is who helped with the translation: Mitza Dragan, 123Dragon, Taner İnanır, Vlad Miklyaev - thank you very much! You can also help with the translation of the template into your language or suggest edits for the translation, more details [here](https://github.com/trydalcoholic/opencart-materialize/issues/20).
+Due to the large number of changes, in order to support multilingual, some components require translation. By default, the template supports the following languages: English, Russian, Ukrainian, Turkish, Romanian and German. Here is who helped with the translation: Mitza Dragan, 123Dragon, Taner İnanır, Vlad Miklyaev, [Teoxoy](https://github.com/Teoxoy) - thank you very much! You can also help with the translation of the template into your language or suggest edits for the translation, more details [here](https://github.com/trydalcoholic/opencart-materialize/issues/20).
 
 ## Development support
 **Materialize Template** is a free theme, if you like the work done and you have the opportunity, please support the financial development of the project through:
