@@ -1,0 +1,138 @@
+<script defer src="//maps.googleapis.com/maps/api/js?key={{ api_key }}&amp;callback=initMap"></script>
+<script>
+	var map, markers;
+
+	function materializeMarker() {
+		return {
+			path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
+			fillColor: '{{ color_marker }}',
+			fillOpacity: 1,
+			scale: 2,
+			strokeWeight: 0,
+			anchor: new google.maps.Point(12,24),
+		};
+	}
+
+	function addInfoWindow(marker, message) {
+		var infoWindow = new google.maps.InfoWindow({
+			content: message,
+			maxWidth: 300
+		});
+
+		google.maps.event.addListener(marker, 'click', function () {
+			infoWindow.open(map, marker);
+		});
+	}
+
+	function initMap() {
+		var centerMap = {
+			lat: {{ lat }},
+			lng: {{ lng }}
+		}
+
+		var mapOptions = {
+			center: centerMap,
+			zoom: {{ map_zoom }}
+		}
+
+		map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+		markers = [];
+
+		{% for key, location in locations %}
+			{% if location.geocode %}
+				var marker = new google.maps.Marker({
+					title: '{{ location.store_name }}',
+					position: {
+						lat: {{ location.lat }},
+						lng: {{ location.lng }}
+					},
+					map: map,
+					icon: materializeMarker(),
+					animation: google.maps.Animation.DROP
+				});
+
+				var message = '<h4>{{ location.store_name }}</h4>';
+					{% if location.comment %}
+					message += '<p>{{ location.comment }}</p>';
+					{% endif %}
+					message += '<address><b>{{ location.address }}</b></address>';
+					message += '<p><b>{{ location.telephone }}</b></p>';
+					{% if location.open %}
+					message += '<p>{{ location.open }}</p>';
+					{% endif %}
+					message += '<p><a href="//maps.google.com/maps?q={{ location.lat }},{{ location.lng }}&hl={{ geocode_hl }}&t=m&z=16" title="{{ text_view_map }}" target="_blank" rel="noopener">{{ text_view_map }}</a></p>';
+
+				addInfoWindow(marker, message);
+
+				markers[{{ key }}] = marker;
+			{% endif %}
+		{% endfor %}
+	}
+
+	{% if locations|length > 1 %}
+	$(document).ready(function() {
+		var storeImage = $('#store-image'),
+			storeLinkMap = $('#store-view-map'),
+			storeName = $('#store-name'),
+			storeCall = $('#store-call'),
+			storeWrite = $('#store-write'),
+			storeDescription = $('#store-description'),
+			storeAddress = $('#store-address'),
+			storeOpen = $('#store-open'),
+			storeTelephone = $('#store-telephone'),
+			storeFax = $('#store-fax'),
+			selectStore = $('#select-store');
+
+		selectStore.on('change', function() {
+			var storeId = $(this).val();
+
+			{% for key, location in locations %}
+				{% if location.geocode %}
+					if (storeId == {{ key }}) {
+						{% if location.image %}
+						storeImage.show();
+						storeImage.attr({
+							src: '{{ location.image }}',
+							title: '{{ location.name }}',
+							alt: '{{ location.name }}'
+						});
+						{% else %}
+						storeImage.hide();
+						{% endif %}
+						storeLinkMap.attr('href','//maps.google.com/maps?q={{ location.lat }},{{ location.lng }}&hl={{ geocode_hl }}&t=m&z=16');
+						storeName.text('{{ location.store_name }}');
+						storeCall.attr('href','tel:{{ location.formatted_tel }}');
+						{% if location.comment %}
+						storeDescription.show();
+						storeDescription.text('{{ location.comment }}');
+						{% else %}
+						storeDescription.hide();
+						{% endif %}
+						storeAddress.text('{{ location.address }}');
+						{% if location.open %}
+						storeOpen.parent().show();
+						storeOpen.text('{{ location.open }}');
+						{% else %}
+						storeOpen.parent().hide();
+						{% endif %}
+						storeTelephone.text('{{ location.telephone }}');
+						{% if location.fax %}
+						storeFax.parent().show();
+						storeFax.text('{{ location.fax }}');
+						{% else %}
+						storeFax.parent().hide();
+						{% endif %}
+					}
+				{% endif %}
+			{% endfor %}
+
+			map.setCenter(
+				markers[storeId].getPosition(),
+				markers[storeId].setAnimation(google.maps.Animation.DROP)
+			);
+			map.setZoom({{ map_zoom }});
+		});
+	});
+	{% endif %}
+</script>
