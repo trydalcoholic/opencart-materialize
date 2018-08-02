@@ -52,7 +52,7 @@
 				{% endfor %}
 			</div>
 		</nav>
-		<div class="row">
+		<div id="content" class="row">
 			{{ column_left }}
 			<div class="col {{ main }} section href-underline">
 				{{ content_top }}
@@ -94,16 +94,24 @@
 					<button type="button" id="btn-filter" class="btn btn-floating waves-effect modal-trigger tooltipped transparent z-depth-0" data-target="modal-sort" data-position="top" data-tooltip="{{ text_sort_short }}"><i class="material-icons black-text">sort</i></button>
 				</div>
 				<div class="clearfix"></div>
-				<div id="content" class="row">
+				<div class="row">
 					{% for product in products %}
 					<div id="product{{ product.product_id }}" class="col products-list {{ goods }}">
 						<div class="card hoverable">
 							<div class="card-stacked">
+								{% if product.labels or product.special %}
+								<ul class="labels-wrap">
+									{% if product.special %}<li class="labels-wrap__item"><span class="waves-effect badge red lighten-1 white-text">{{ text_percent }} {{ product.percent_discount }}%</span></li>{% endif %}
+									{% for label in product.labels %}
+									<li class="labels-wrap__item"><span class="waves-effect badge {{ label.color }} {{ label.color_text }}">{{ label.name }}</span></li>
+									{% endfor %}
+								</ul>
+								{% endif %}
 								<div class="card-image">
-									<a href="{{ product.href }}"><img id="image-product{{ product.product_id }}" src="{{ product.thumb }}" data-thumb="{{ product.thumb }}" data-hor-image="{{ product.hor_image }}" alt="{{ product.name }}" title="{{ product.name }}"></a>
+									<a href="{{ product.href }}" rel="nofollow"><img id="image-product{{ product.product_id }}" src="{{ product.thumb }}" data-thumb="{{ product.thumb }}" data-hor-image="{{ product.hor_image }}" title="{{ product.name }}" alt="{{ product.name }}"></a>
 								</div>
 								<div class="card-content">
-									<strong class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a></strong>
+									<a href="{{ product.href }}" class="card-title grey-text text-darken-4" title="{{ product.name }}" alt="{{ product.name }}"><strong>{{ product.name }}</strong></a>
 									{% if product.price %}
 										{% if not product.special %}
 										<span class="card-price">{{ product.price }}</span>
@@ -143,7 +151,7 @@
 							<div class="card-action">
 								<div class="row no-margin-bottom">
 									<div class="col s6">
-										<a href="{{ product.href }}" class="btn btn-flat waves-effect text-bold without-icons {{ color_more_detailed }} {{ color_more_detailed_text }}">{{ text_more_detailed }}</a>
+										<a href="{{ product.href }}" class="btn btn-flat waves-effect text-bold without-icons {{ color_more_detailed }} {{ color_more_detailed_text }}" rel="nofollow" title="{{ text_more_detailed }} {{ product.name }}" alt="{{ text_more_detailed }} {{ product.name }}">{{ text_more_detailed }}</a>
 									</div>
 									<div class="col s6">
 										<div class="flex-reverse no-padding">

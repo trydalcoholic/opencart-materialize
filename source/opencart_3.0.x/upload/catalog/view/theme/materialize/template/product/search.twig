@@ -52,9 +52,9 @@
 				{% endfor %}
 			</div>
 		</nav>
-		<div class="row">
+		<div id="content" class="row">
 			{{ column_left }}
-			<div id="content" class="col {{ main }} section href-underline">
+			<div class="col {{ main }} section href-underline">
 				{{ content_top }}
 				<h1>{{ heading_title }}</h1>
 				<ul class="collapsible" data-collapsible="expandable">
@@ -137,107 +137,92 @@
 					</li>
 				</ul>
 				{% if products %}
-				<ul class="collapsible" data-collapsible="expandable">
-					<li class="arrow-rotate">
-						<div class="collapsible-header text-bold">{{ text_sort_short }}</div>
-						<div class="collapsible-body white">
-							<div class="row">
-								<div class="col s6 m6 input-field inline">
-									<select id="input-sort" onchange="location = this.value;">
-										{% for sorts in sorts %}
-										{% if sorts.value == '%s-%s'|format(sort, order) %}
-										<option value="{{ sorts.href }}" selected>{{ sorts.text }}</option>
-										{% else %}
-										<option value="{{ sorts.href }}">{{ sorts.text }}</option>
-										{% endif %}
-										{% endfor %}
-									</select>
-									<label class="text-bold">{{ text_sort }}</label>
-								</div>
-								<div class="col s6 m6 input-field inline">
-									<select id="input-limit" onchange="location = this.value;">
-										{% for limits in limits %}
-										{% if limits.value == limit %}
-										<option value="{{ limits.href }}" selected>{{ limits.text }}</option>
-										{% else %}
-										<option value="{{ limits.href }}">{{ limits.text }}</option>
-										{% endif %}
-										{% endfor %}
-									</select>
-									<label class="text-bold">{{ text_limit }}</label>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
+				<div class="right">
+					<button type="button" id="grid-view" class="btn btn-floating waves-effect tooltipped transparent z-depth-0" data-position="top" data-tooltip="{{ button_grid }}"><i class="material-icons grey-text">apps</i></button>
+					<button type="button" id="list-view" class="btn btn-floating waves-effect tooltipped transparent z-depth-0" data-position="top" data-tooltip="{{ button_list }}"><i class="material-icons grey-text">art_track</i></button>
+					<button type="button" id="btn-filter" class="btn btn-floating waves-effect modal-trigger tooltipped transparent z-depth-0" data-target="modal-sort" data-position="top" data-tooltip="{{ text_sort_short }}"><i class="material-icons black-text">sort</i></button>
+				</div>
+				<div class="clearfix"></div>
 				<div class="row">
 					{% for product in products %}
-						<div class="col {{ goods }}">
-							<div class="card sticky-action large hoverable href-underline">
-								{% if product.labels %}
+					<div id="product{{ product.product_id }}" class="col products-list {{ goods }}">
+						<div class="card hoverable">
+							<div class="card-stacked">
+								{% if product.labels or product.special %}
 								<ul class="labels-wrap">
+									{% if product.special %}<li class="labels-wrap__item"><span class="waves-effect badge red lighten-1 white-text">{{ text_percent }} {{ product.percent_discount }}%</span></li>{% endif %}
 									{% for label in product.labels %}
 									<li class="labels-wrap__item"><span class="waves-effect badge {{ label.color }} {{ label.color_text }}">{{ label.name }}</span></li>
 									{% endfor %}
 								</ul>
 								{% endif %}
-								{% if product.special %}<span class="white-text badge red lighten-1 percent">{{ text_percent }}&nbsp;{{ product.percent_discount }}%</span>{% endif %}
 								<div class="card-image">
-									<i class="material-icons waves-effect waves-circle close-icon activator">more_vert</i>
-									<a href="{{ product.href }}"><img class="responsive-img" src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"></a>
+									<a href="{{ product.href }}" rel="nofollow"><img id="image-product{{ product.product_id }}" src="{{ product.thumb }}" data-thumb="{{ product.thumb }}" data-hor-image="{{ product.hor_image }}" title="{{ product.name }}" alt="{{ product.name }}"></a>
 								</div>
-								<div class="card-content center-align">
-									<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a></span>
-								</div>
-								<div class="card-action center-align grey lighten-5">
-									{% if product.add_cart %}
-									<button class="btn btn-floating btn-large waves-effect waves-light add-cart {{ color_add_cart }} {{ color_add_cart_text }}" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons">add_shopping_cart</i></button>
-									{% else %}
-									<button class="btn btn-floating btn-large add-cart" disabled="disabled"><i class="material-icons">add_shopping_cart</i></button>
-									{% endif %}
+								<div class="card-content">
+									<a href="{{ product.href }}" class="card-title grey-text text-darken-4" title="{{ product.name }}" alt="{{ product.name }}"><strong>{{ product.name }}</strong></a>
 									{% if product.price %}
-									{% if not product.special %}
-									<span class="card-price">{{ product.price }}</span>
-									{% else %}
-									<span class="card-price old-price grey-text">{{ product.price }}</span>
-									<span class="card-price red-text text-darken-2">{{ product.special }}</span>
-									{% endif %}
-									{% if product.tax %}
-									<span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
-									{% endif %}
+										{% if not product.special %}
+										<span class="card-price">{{ product.price }}</span>
+										{% else %}
+										<div class="card-price">
+											<span class="red-text text-darken-2">{{ product.special }}</span>
+											<span class="old-price grey-text">{{ product.price }}</span>
+										</div>
+										{% endif %}
+										{% if product.tax %}
+										<span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+										{% endif %}
 									{% endif %}
 									<div class="rating">
-										<hr>
-										<span class="grey lighten-5">
-											{% if product.rating %}
-												{% for i in 1..5 %}
-													{% if product.rating < i %}
+										{% if product.rating %}
+											{% for i in 1..5 %}
+												{% if product.rating > i %}
+													<i class="material-icons">star</i>
+												{% else %}
+													{% set rest = product.rating|split('.') %}
+													{% if rest[1] < 3 %}
 													<i class="material-icons">star_border</i>
+													{% elseif rest[1] > 3 and rest[1] < 7 %}
+													<i class="material-icons">star_half</i>
 													{% else %}
 													<i class="material-icons">star</i>
 													{% endif %}
-												{% endfor %}
-											{% else %}
-												<i class="material-icons">star_border</i>
-												<i class="material-icons">star_border</i>
-												<i class="material-icons">star_border</i>
-												<i class="material-icons">star_border</i>
-												<i class="material-icons">star_border</i>
-											{% endif %}
-										</span>
+													&nbsp;{{ product.rating }}&nbsp;
+												{% endif %}
+											{% endfor %}
+											<span>({{ product.reviews }})</span>
+										{% endif %}
 									</div>
-									<a href="{{ product.href }}" class="btn waves-effect waves-light width-max {{ color_more_detailed }} {{ color_more_detailed_text }}">{{ text_more_detailed }}</a>
+									<p class="product-description" data-simplebar>{{ product.description }}</p>
 								</div>
-								<div class="card-reveal">
-									<span class="card-title"><a href="{{ product.href }}" class="grey-text text-darken-4">{{ product.name }}</a><i class="material-icons waves-effect waves-circle close-icon">close</i></span>
-									<p>{{ product.description }}</p>
+							</div>
+							<div class="card-action">
+								<div class="row no-margin-bottom">
+									<div class="col s6">
+										<a href="{{ product.href }}" class="btn btn-flat waves-effect text-bold without-icons {{ color_more_detailed }} {{ color_more_detailed_text }}" rel="nofollow" title="{{ text_more_detailed }} {{ product.name }}" alt="{{ text_more_detailed }} {{ product.name }}">{{ text_more_detailed }}</a>
+									</div>
+									<div class="col s6">
+										<div class="flex-reverse no-padding">
+											{% if product.add_cart %}
+											<div class="tooltipped" data-position="top" data-tooltip="Добавить в корзину">
+												<button class="btn-flat btn-floating waves-effect transparent" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons black-text">add_shopping_cart</i></button>
+											</div>
+											{% else %}
+											<div class="tooltipped" data-position="top" data-tooltip="Товара нет в наличии">
+												<button class="btn-flat btn-floating" disabled="disabled"><i class="material-icons grey-text text-lighten-1">add_shopping_cart</i></button>
+											</div>
+											{% endif %}
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-						{% endfor %}
+					</div>
+					{% endfor %}
 				</div>
 				{% if pagination %}
-					<div class="row">{{ pagination }}</div>
+				<div class="row">{{ pagination }}</div>
 				{% endif %}
 				{% else %}
 				<div class="card-panel center">
@@ -250,6 +235,51 @@
 			{{ column_right }}
 		</div>
 	</div>
+	<aside>
+		<div id="modal-sort" class="modal overflow-visible">
+			<div class="modal-content">
+				<i class="material-icons modal-action modal-close waves-effect waves-circle close-icon">close</i>
+				<h4>{{ text_sort_short }}</h4>
+				<br>
+				<div class="input-field">
+					<select id="input-sort" onchange="location = this.value;">
+						{% for sorts in sorts %}
+						{% if sorts.value == '%s-%s'|format(sort, order) %}
+						<option value="{{ sorts.href }}" selected>{{ sorts.text }}</option>
+						{% else %}
+						<option value="{{ sorts.href }}">{{ sorts.text }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+					<label class="text-bold" for="input-sort">{{ text_sort }}</label>
+				</div>
+				<br>
+				<div class="input-field">
+					<select id="input-limit" onchange="location = this.value;">
+						{% for limits in limits %}
+						{% if limits.value == limit %}
+						<option value="{{ limits.href }}" selected>{{ limits.text }}</option>
+						{% else %}
+						<option value="{{ limits.href }}">{{ limits.text }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+					<label class="text-bold">{{ text_limit }}</label>
+				</div>
+				<br>
+				<div class="valign-wrapper">
+					<span>{{ entry_instock }}</span>
+					<div class="switch">
+						<label id="instock-switch">
+							<input type="checkbox" name="instock" id="input-instock" {{ instock ? "value='1' checked" : 'value=""' }}>
+							<span class="lever"></span>
+						</label>
+					</div>
+				</div>
+				<br>
+			</div>
+		</div>
+	</aside>
 </main>
 <script>
 $('#button-search').bind('click', function() {

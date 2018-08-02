@@ -152,7 +152,7 @@
 			<add position="replace"><![CDATA[$query->row['rating'], 1]]></add>
 		</operation>
 	</file>
-	<file path="catalog/controller/product/category.php">
+	<file path="catalog/controller/product/{category,manufacturer,product,search,special}.php">
 		<operation error="log">
 			<search><![CDATA[$rating = (int)$result['rating'];]]></search>
 			<add position="after"><![CDATA[$reviews = (int)$result['reviews'];]]></add>
@@ -177,6 +177,20 @@
 			'reviews'	=> $reviews,
 			'hor_image'	=> $hor_image,
 			]]></add>
+		</operation>
+	</file>
+	<file path="catalog/controller/extension/module/{bestseller,latest,special}*.php">
+		<operation error="log">
+			<search><![CDATA[$rating = $result['rating'];]]></search>
+			<add position="after"><![CDATA[$reviews = (int)$result['reviews'];]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$rating = false;]]></search>
+			<add position="after"><![CDATA[$reviews = false;]]></add>
+		</operation>
+		<operation error="log">
+			<search><![CDATA[$data['products'][] = array(]]></search>
+			<add position="after"><![CDATA['reviews'	=> $reviews,]]></add>
 		</operation>
 	</file>
 	<file path="catalog/controller/extension/module/featured.php">
