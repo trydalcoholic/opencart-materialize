@@ -21,9 +21,9 @@
 			'</svg>'
 		].join(''));
 
-		{% for key, location in locations %}
+		{% for location in locations %}
 			{% if location.geocode %}
-				placemark{{ key }} = new ymaps.Placemark(
+				placemark{{ location.location_id }} = new ymaps.Placemark(
 					[{{ location.lat }}, {{ location.lng }}], {
 						hintContent: '{{ location.store_name }}',
 						balloonContentHeader: '{{ location.store_name }}',
@@ -41,7 +41,7 @@
 					}
 				);
 
-				map.geoObjects.add(placemark{{ key }});
+				map.geoObjects.add(placemark{{ location.location_id }});
 			{% endif %}
 		{% endfor %}
 	}
@@ -63,9 +63,9 @@
 		selectStore.on('change', function() {
 			var storeId = $(this).val();
 
-			{% for key, location in locations %}
+			{% for location in locations %}
 				{% if location.geocode %}
-					if (storeId == {{ key }}) {
+					if (storeId == {{ location.location_id }}) {
 						{% if location.image %}
 						storeImage.show();
 						storeImage.attr({

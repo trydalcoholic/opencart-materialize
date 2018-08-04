@@ -194,4 +194,12 @@ class ControllerExtensionModuleQuickorder extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+	public function moduleQuickorderAdd($route, &$data) {
+		if ($this->config->get('module_quickorder_status') == 1) {
+			$data['quickorder'] = $this->load->controller('extension/module/quickorder', $data);
+		} else {
+			$data['quickorder'] = false;
+		}
+	}
 }

@@ -195,7 +195,7 @@
 								</div>
 							</fieldset>
 						</div>
-						<div id="footer-appeal-users" class="panel-footer text-center"></div>
+						{{ appeal_footer }}
 					</div>
 				</div>
 				<div class="col-sm-12 col-md-4">
@@ -327,24 +327,5 @@
 		});
 		{% endif %}
 	{% endfor %}
-
-	$('#footer-appeal-users').load('index.php?route=extension/theme/materialize/appealFooter&user_token={{ user_token }}');
-
-	{% if module_quickorder_installed_appeal %}
-	$.ajax({
-		url: 'index.php?route=extension/theme/materialize/appealInstall&modal_title={{ quickorder_title }}&user_token={{ user_token }}',
-		dataType: 'html',
-		success: function(html) {
-			$('#modal-materialize-installed').remove();
-
-			$('body').prepend(html);
-
-			$('#modal-materialize-installed').modal('show');
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});
-	{% endif %}
 </script>
 {{ footer }}

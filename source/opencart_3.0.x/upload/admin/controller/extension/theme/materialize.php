@@ -7,8 +7,10 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->load->model('extension/materialize/materialize');
 		$this->load->model('user/user_group');
 		$this->load->model('setting/setting');
+		$this->load->model('setting/event');
 
 		$this->model_extension_materialize_materialize->install();
+		$this->model_setting_event->addEvent('theme_materialize_menu_item', 'admin/view/common/column_left/before', 'extension/theme/materialize/adminMaterializeThemeMenuItem');
 
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/materialize');
@@ -21,8 +23,10 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	public function uninstall() {
 		$this->load->model('extension/materialize/materialize');
 		$this->load->model('user/user_group');
+		$this->load->model('setting/event');
 
 		$this->model_extension_materialize_materialize->uninstall();
+		$this->model_setting_event->deleteEventByCode('theme_materialize_menu_item');
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize');
@@ -251,7 +255,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['theme_materialize_image_product_width'])) {
 			$data['theme_materialize_image_product_width'] = $setting_info['theme_materialize_image_product_width'];
 		} else {
-			$data['theme_materialize_image_product_width'] = 200;
+			$data['theme_materialize_image_product_width'] = 344;
 		}
 
 		if (isset($this->request->post['theme_materialize_image_product_height'])) {
@@ -259,7 +263,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['theme_materialize_image_product_height'])) {
 			$data['theme_materialize_image_product_height'] = $setting_info['theme_materialize_image_product_height'];
 		} else {
-			$data['theme_materialize_image_product_height'] = 200;
+			$data['theme_materialize_image_product_height'] = 194;
 		}
 
 		if (isset($this->request->post['theme_materialize_image_additional_width'])) {
@@ -283,7 +287,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['theme_materialize_image_related_width'])) {
 			$data['theme_materialize_image_related_width'] = $setting_info['theme_materialize_image_related_width'];
 		} else {
-			$data['theme_materialize_image_related_width'] = 200;
+			$data['theme_materialize_image_related_width'] = 80;
 		}
 
 		if (isset($this->request->post['theme_materialize_image_related_height'])) {
@@ -291,7 +295,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['theme_materialize_image_related_height'])) {
 			$data['theme_materialize_image_related_height'] = $setting_info['theme_materialize_image_related_height'];
 		} else {
-			$data['theme_materialize_image_related_height'] = 200;
+			$data['theme_materialize_image_related_height'] = 80;
 		}
 
 		if (isset($this->request->post['theme_materialize_image_compare_width'])) {
@@ -347,7 +351,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['theme_materialize_image_location_width'])) {
 			$data['theme_materialize_image_location_width'] = $setting_info['theme_materialize_image_location_width'];
 		} else {
-			$data['theme_materialize_image_location_width'] = 230;
+			$data['theme_materialize_image_location_width'] = 450;
 		}
 
 		if (isset($this->request->post['theme_materialize_image_location_height'])) {
@@ -355,7 +359,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		} elseif (isset($setting_info['theme_materialize_image_location_height'])) {
 			$data['theme_materialize_image_location_height'] = $setting_info['theme_materialize_image_location_height'];
 		} else {
-			$data['theme_materialize_image_location_height'] = 75;
+			$data['theme_materialize_image_location_height'] = 300;
 		}
 
 		$data['languages'] = $this->model_localisation_language->getLanguages();
@@ -522,8 +526,8 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'background'				=> 'grey lighten-3',
 				'add_cart'					=> 'red',
 				'add_cart_text'				=> 'white-text',
-				'more_detailed'				=> 'red',
-				'more_detailed_text'		=> 'white-text',
+				'more_detailed'				=> 'transparent',
+				'more_detailed_text'		=> 'deep-orange-text',
 				'cart_btn'					=> 'red',
 				'cart_btn_text'				=> 'white-text',
 				'total_btn'					=> 'light-blue darken-1',
@@ -1029,12 +1033,163 @@ class ControllerExtensionThemeMaterialize extends Controller {
 	protected function update() {
 		$this->load->model('extension/materialize/materialize');
 		$this->load->model('setting/setting');
+		$this->load->model('setting/event');
 
 		$this->model_extension_materialize_materialize->update();
+
+		$this->model_setting_event->addEvent('theme_materialize_menu_item', 'admin/view/common/column_left/before', 'extension/theme/materialize/adminMaterializeThemeMenuItem');
 
 		$data['theme_materialize_template_version'] = $this->templateVersion();
 
 		$this->model_setting_setting->editSetting('theme_materialize', $data);
+	}
+
+	public function adminMaterializeThemeMenuItem($eventRoute, &$data) {
+		$this->load->language('extension/materialize/materialize');
+
+		$materialize = array();
+
+		if ($this->user->hasPermission('access', 'extension/theme/materialize')) {
+			$materialize[] = array(
+				'name'		=> $this->language->get('text_materialize_settings'),
+				'href'		=> $this->url->link('extension/theme/materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=0', true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/module/map') && $this->config->get('module_map_status') == 1) {
+			$materialize[] = array(
+				'name'		=> $this->language->get('text_map'),
+				'href'		=> $this->url->link('extension/module/map', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/materialize/label/label') && $this->config->get('module_label_status') == 1) {
+			$materialize[] = array(
+				'name'		=> $this->language->get('text_labels'),
+				'href'		=> $this->url->link('extension/materialize/label/label', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/module/quickorder') && $this->config->get('module_quickorder_status') == 1) {
+			$materialize[] = array(
+				'name'		=> $this->language->get('text_quickorder'),
+				'href'		=> $this->url->link('extension/module/quickorder', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/materialize/sizechart/sizechart') && $this->config->get('module_sizechart_status') == 1) {
+			$materialize[] = array(
+				'name'		=> $this->language->get('text_sizechart'),
+				'href'		=> $this->url->link('extension/materialize/sizechart/sizechart', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/module/megamenu') && $this->config->get('module_megamenu_status') == 1) {
+			$materialize[] = array(
+				'name'		=> 'Мега меню',
+				'href'		=> $this->url->link('extension/module/megamenu', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		$callback = array();
+
+		if ($this->user->hasPermission('access', 'extension/materialize/callback/callback')) {
+			$callback[] = array(
+				'name'		=> $this->language->get('text_callback'),
+				'href'		=> $this->url->link('extension/materialize/callback/callback', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/dashboard/callback')) {
+			$callback[] = array(
+				'name'		=> $this->language->get('text_callback_dashboard'),
+				'href'		=> $this->url->link('extension/dashboard/callback', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/module/callback')) {
+			$callback[] = array(
+				'name'		=> $this->language->get('text_callback_settings'),
+				'href'		=> $this->url->link('extension/module/callback', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($callback && $this->config->get('module_callback_status') == 1) {
+			$materialize[] = array(
+				'name'		=> $this->language->get('text_callback'),
+				'href'		=> '',
+				'children'	=> $callback
+			);
+		}
+
+		$blog = array();
+
+		if ($this->user->hasPermission('access', 'extension/materialize/blog/category')) {
+			$blog[] = array(
+				'name'		=> $this->language->get('text_blog_category'),
+				'href'		=> $this->url->link('extension/materialize/blog/category', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/materialize/blog/post')) {
+			$blog[] = array(
+				'name'		=> $this->language->get('text_blog_post'),
+				'href'		=> $this->url->link('extension/materialize/blog/post', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/materialize/blog/author')) {
+			$blog[] = array(
+				'name'		=> $this->language->get('text_blog_author'),
+				'href'		=> $this->url->link('extension/materialize/blog/author', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/materialize/blog/comment')) {
+			$blog[] = array(
+				'name'		=> $this->language->get('text_blog_comment'),
+				'href'		=> $this->url->link('extension/materialize/blog/comment', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($this->user->hasPermission('access', 'extension/module/blog')) {
+			$blog[] = array(
+				'name'		=> $this->language->get('text_blog_settings'),
+				'href'		=> $this->url->link('extension/module/blog', 'user_token=' . $this->session->data['user_token'], true),
+				'children'	=> array()
+			);
+		}
+
+		if ($blog && $this->config->get('module_blog_status') == 1) {
+			$materialize[] = array(
+				'name'		=> $this->language->get('text_blog'),
+				'href'		=> '',
+				'children'	=> $blog
+			);
+		}
+
+		if ($materialize) {
+			$data['menus'][] = array(
+				'id'		=> 'menu-materialize',
+				'icon'		=> 'fa fa-cogs',
+				'name'		=> $this->language->get('text_materialize'),
+				'href'		=> '',
+				'children'	=> $materialize
+			);
+		}
 	}
 
 	protected function templateVersion() {

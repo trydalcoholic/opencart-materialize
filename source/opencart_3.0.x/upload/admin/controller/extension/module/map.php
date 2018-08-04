@@ -4,6 +4,9 @@ class ControllerExtensionModuleMap extends Controller {
 
 	public function install() {
 		$this->load->model('setting/setting');
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->addEvent('module_map_add_module', 'catalog/view/information/contact/before', 'extension/module/map_materialize/moduleMapAdd');
 
 		$data['module_map_installed_appeal'] = true;
 
@@ -11,7 +14,10 @@ class ControllerExtensionModuleMap extends Controller {
 	}
 
 	public function uninstall() {
+		$this->load->model('setting/event');
 		$this->load->model('user/user_group');
+
+		$this->model_setting_event->deleteEventByCode('module_map_add_module');
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/map');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/module/map');

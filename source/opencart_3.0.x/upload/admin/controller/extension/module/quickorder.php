@@ -2,14 +2,22 @@
 class ControllerExtensionModuleQuickorder extends Controller {
 	private $error = array();
 
-	public function uninstall() {
+	public function install() {
 		$this->load->model('setting/setting');
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->addEvent('module_quickorder_add_module', 'catalog/view/product/product/before', 'extension/module/quickorder/moduleQuickorderAdd');
 
 		$data['module_quickorder_installed_appeal'] = true;
 
 		$this->model_setting_setting->editSetting('module_quickorder', $data);
+	}
 
+	public function uninstall() {
+		$this->load->model('setting/event');
 		$this->load->model('user/user_group');
+
+		$this->model_setting_event->deleteEventByCode('module_quickorder_add_module');
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/module/quickorder');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/module/quickorder');
@@ -186,6 +194,8 @@ class ControllerExtensionModuleQuickorder extends Controller {
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
+		$data['materializeapi'] = $this->load->controller('extension/materialize/materializeapi/materializeapi');
+		$data['appeal_footer'] = $this->load->controller('extension/materialize/appeal/appeal');
 
 		$this->response->setOutput($this->load->view('extension/module/quickorder', $data));
 	}

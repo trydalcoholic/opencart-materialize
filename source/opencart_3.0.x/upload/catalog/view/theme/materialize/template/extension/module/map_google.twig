@@ -39,7 +39,7 @@
 
 		markers = [];
 
-		{% for key, location in locations %}
+		{% for location in locations %}
 			{% if location.geocode %}
 				var marker = new google.maps.Marker({
 					title: '{{ location.store_name }}',
@@ -65,7 +65,7 @@
 
 				addInfoWindow(marker, message);
 
-				markers[{{ key }}] = marker;
+				markers[{{ location.location_id }}] = marker;
 			{% endif %}
 		{% endfor %}
 	}
@@ -87,9 +87,9 @@
 		selectStore.on('change', function() {
 			var storeId = $(this).val();
 
-			{% for key, location in locations %}
+			{% for location in locations %}
 				{% if location.geocode %}
-					if (storeId == {{ key }}) {
+					if (storeId == {{ location.location_id }}) {
 						{% if location.image %}
 						storeImage.show();
 						storeImage.attr({

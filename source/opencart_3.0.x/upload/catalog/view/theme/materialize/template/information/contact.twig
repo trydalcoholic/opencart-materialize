@@ -57,77 +57,8 @@
 			<div class="col {{ main }}">
 				{{ content_top }}
 				<h1>{{ heading_title }}</h1>
-				{% if materialize_map %}
-				<div class="map-wrap">
-					{% if locations|length > 1 %}
-					<select id="select-store" class="white">
-						{% for location in locations %}
-						<option value="{{ location.location_id }}" data-icon="{{ location.thumbnail }}">{{ location.name }}</option>
-						{% endfor %}
-					</select>
-					{% endif %}
-					<div id="map" class="z-depth-1"></div>
-					<div class="map-side-panel white z-depth-2">
-						{% for key, location in locations %}
-						{% if key == 0 %}
-						<img src="{{ location.image }}" id="store-image" title="{{ location.name }}" alt="{{ location.name }}">
-						<div class="card-panel z-depth-0 {{ color_panel }} {{ color_panel_text }}">
-							<a href="//maps.google.com/maps?q={{ location.lat }},{{ location.lng }}&hl={{ geocode_hl }}&t=m&z=16" id="store-view-map" class="btn-floating btn-large halfway-fab waves-effect {{ color_btn }}" title="{{ text_view_map }}" target="_blank" rel="noopener"><i class="material-icons {{ color_btn_text }}">map</i></a>
-							<h4 id="store-name">{{ location.store_name }}</h4>
-						</div>
-						<div class="map-side-action">
-							<a href="tel:{{ location.formatted_tel }}" id="store-call" class="map-side-action--container waves-effect href-underline {{ color_panel_icons }}">
-								<i class="material-icons">phone</i>
-								<span>Позвонить</span>
-							</a>
-							<a href="#contact-modal" class="map-side-action--container waves-effect href-underline modal-trigger {{ color_panel_icons }}" rel="nofollow">
-								<i class="material-icons">email</i>
-								<span>Написать</span>
-							</a>
-						</div>
-						<div id="store-description" class="card-panel z-depth-0 border-grey-top border-grey-bottom" {{ location.comment ? '' : 'style="display: none;"' }}>{{ location.comment }}</div>
-						<ul class="collection">
-							<li class="collection-item"><i class="material-icons left {{ color_panel_icons }}">place</i> <address id="store-address">{{ location.address }}</address></li>
-							<li class="collection-item" {{ location.open ? '' : 'style="display: none;"' }}><i class="material-icons left {{ color_panel_icons }}">access_time</i> <span id="store-open">{{ location.open }}</span></li>
-							<li class="collection-item"><i class="material-icons left {{ color_panel_icons }}">phone</i> <span id="store-telephone">{{ location.telephone }}</span></li>
-							<li class="collection-item" {{ location.fax ? '' : 'style="display: none;"' }}><i class="material-icons left {{ color_panel_icons }}">print</i> <span id="store-fax">{{ location.fax }}</span></li>
-						</ul>
-						{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-				<aside>
-					<form action="{{ action }}" method="post" enctype="multipart/form-data" id="contact-modal" class="modal">
-						<div class="modal-content">
-							<i class="material-icons modal-action modal-close waves-effect waves-circle close-icon">close</i>
-							<div class="row"><h4>{{ text_contact }}</h4></div>
-							<div class="row">
-								<div class="input-field col s12">
-									<i class="material-icons prefix">account_circle</i>
-									<input type="text" name="name" value="{{ name }}" id="input-name" class="validate">
-									<label class="text-bold" for="input-name">{{ entry_name }}</label>
-									{% if error_name %}<span class="helper-text">{{ error_name }}</span>{% endif %}
-								</div>
-								<div class="input-field col s12">
-									<i class="material-icons prefix">email</i>
-									<input type="email" name="email" value="{{ email }}" id="input-email" class="validate">
-									<label class="text-bold" for="input-email" data-error="{{ text_email_error }}" data-success="{{ text_email_success }}">{{ entry_email }}</label>
-									{% if error_email %}<span class="helper-text">{{ error_email }}</span>{% endif %}
-								</div>
-								<div class="input-field col s12">
-									<i class="material-icons prefix">mode_edit</i>
-									<textarea name="enquiry" rows="10" id="input-enquiry" class="materialize-textarea"></textarea>
-									<label class="text-bold" for="input-enquiry">{{ entry_enquiry }}</label>
-									{% if error_enquiry %}<span class="helper-text">{{ error_enquiry }}</span>{% endif %}
-								</div>
-								{% if captcha %}<div class="col s12">{{ captcha }}</div>{% endif %}
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button class="btn waves-effect waves-light red" type="submit" value="{{ button_submit }}">{{ button_submit }}</button>
-						</div>
-					</form>
-				</aside>
+				{% if map_materialize %}
+					{{ map_materialize }}
 				{% else %}
 				<div class="row">
 					<div class="col s12 l6">
@@ -186,41 +117,41 @@
 						</div>
 					</form>
 				</div>
-					{% if locations %}
-					<div class="row">
-						<div class="col s12">
-							<ul class="collapsible expandable">
-								{% for location in locations %}
-								<li class="arrow-rotate">
-									<div class="collapsible-header grey lighten-5">{{ location.name }}</div>
-									<div class="collapsible-body white">
-										<div class="row">
-											<div class="col s12 m6 xl4 center">
-												{% if location.image %}
-												<img src="{{ location.image }}" alt="{{ location.name }}" title="{{ location.name }}" class="responsive-img">
+				{% if locations %}
+				<div class="row">
+					<div class="col s12">
+						<ul class="collapsible expandable">
+							{% for location in locations %}
+							<li class="arrow-rotate">
+								<div class="collapsible-header grey lighten-5">{{ location.name }}</div>
+								<div class="collapsible-body white">
+									<div class="row">
+										<div class="col s12 m6 xl4 center">
+											{% if location.image %}
+											<img src="{{ location.image }}" alt="{{ location.name }}" title="{{ location.name }}" class="responsive-img">
+											{% endif %}
+										</div>
+										<div class="col s12 m6 xl8">
+											<ul class="collection">
+												<li class="collection-item"><i class="material-icons left">place</i> <address>{{ location.address }}</address></li>
+												{% if location.open %}
+												<li class="collection-item"><i class="material-icons left">access_time</i> {{ location.open }}</li>
 												{% endif %}
-											</div>
-											<div class="col s12 m6 xl8">
-												<ul class="collection">
-													<li class="collection-item"><i class="material-icons left">place</i> <address>{{ location.address }}</address></li>
-													{% if location.open %}
-													<li class="collection-item"><i class="material-icons left">access_time</i> {{ location.open }}</li>
-													{% endif %}
-													<li class="collection-item"><i class="material-icons left">phone</i> {{ location.telephone }}</li>
-													{% if location.fax %}
-													<li class="collection-item"><i class="material-icons left">print</i> {{ location.fax }}</li>
-													{% endif %}
-													<li class="collection-item"><i class="material-icons left">map</i> <a href="//maps.google.com/maps?q={{ geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=16" title="{{ text_view_map }}" target="_blank" rel="noopener">{{ text_view_map }}</a></li>
-												</ul>
-											</div>
+												<li class="collection-item"><i class="material-icons left">phone</i> {{ location.telephone }}</li>
+												{% if location.fax %}
+												<li class="collection-item"><i class="material-icons left">print</i> {{ location.fax }}</li>
+												{% endif %}
+												<li class="collection-item"><i class="material-icons left">map</i> <a href="//maps.google.com/maps?q={{ geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=16" title="{{ text_view_map }}" target="_blank" rel="noopener">{{ text_view_map }}</a></li>
+											</ul>
 										</div>
 									</div>
-								</li>
-								{% endfor %}
-							</ul>
-						</div>
+								</div>
+							</li>
+							{% endfor %}
+						</ul>
 					</div>
-					{% endif %}
+				</div>
+				{% endif %}
 				{% endif %}
 				{{ content_bottom }}
 			</div>
@@ -230,9 +161,6 @@
 </main>
 <script>
 $(document).ready(function() {
-	{% if materialize_map and (error_name or error_email or error_enquiry) %}
-		$('#contact-modal').modal('open');
-	{% endif %}
 	{% if error_name %}
 		M.toast({html: '<i class="material-icons left">warning</i>{{ error_name }}', classes: 'toast-warning'});
 	{% endif %}
@@ -244,5 +172,4 @@ $(document).ready(function() {
 	{% endif %}
 });
 </script>
-{{ map_script }}
 {{ footer }}
