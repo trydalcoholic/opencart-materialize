@@ -39,6 +39,7 @@ a.dotted:hover {border-bottom: 1px dashed #14628c;}
 
 .arrow-rotate .panel-title {font-weight:600;}
 .arrow-rotate.collapsed .panel-title {font-weight:500;}
+.dropdown-menu li a {cursor:pointer;}
 
 .textarea-resize-vertical {
 	min-height: 100px;
@@ -46,6 +47,27 @@ a.dotted:hover {border-bottom: 1px dashed #14628c;}
 }
 
 .modal-materialize {text-align:center;}
+
+.modal-materialize .modal-header.bg-success {
+	color: #fff;
+	background-color: #4cb64c;
+	border-color: #409e40;
+}
+.modal-materialize .modal-header.bg-info {
+	color: #fff;
+	background-color: #32a2c2;
+	border-color: #29849e;
+}
+.modal-materialize .modal-header.bg-warning {
+	color: #fff;
+	background-color: #f3a638;
+	border-color: #f19716;
+}
+.modal-materialize .modal-header.bg-danger {
+	color: #fff;
+	background-color: #d0321e;
+	border-color: #a82818;
+}
 
 @media screen and (min-width: 768px) {
 	.modal-materialize:before {
@@ -175,6 +197,7 @@ a.dotted:hover {border-bottom: 1px dashed #14628c;}
 	align-items: center;
 	width: 50px;
 	height: 50px;
+	margin-bottom: 0;
 }
 .materialize-color-thumbnail img {
 	width: 50px;
@@ -186,3 +209,5 @@ a.dotted:hover {border-bottom: 1px dashed #14628c;}
 	height: 30px;
 	border-radius: 50%;
 }
+.media label {margin-bottom:0;}
+.media-body.vertical-align-middle {vertical-align:middle;}

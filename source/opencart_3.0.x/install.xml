@@ -248,27 +248,6 @@
 			<search><![CDATA[$data['categories'] = array();]]></search>
 			<add position="after"><![CDATA[
 			if ($materialize) {
-				if (!empty($materialize_settings['optimization']['cached_colors'])) {
-					$cached_colors = true;
-				} else {
-					$cached_colors = false;
-				}
-
-				if ($cached_colors) {
-					$colors = $this->cache->get('materialize.colors');
-
-					if (!$colors) {
-						$colors = $this->config->get('theme_materialize_colors');
-
-						$this->cache->set('materialize.colors', $colors);
-					}
-				} else {
-					$colors = $this->config->get('theme_materialize_colors');
-				}
-
-				$data['color_navigation'] = $colors['navigation'];
-				$data['color_navigation_text'] = $colors['navigation_text'];
-
 				if (!empty($materialize_settings['header']['third_lvl_category'])) {
 					$third_lvl_category = true;
 				} else {
@@ -1072,41 +1051,6 @@
 			if ($materialize) {
 				$this->load->model('tool/image');
 
-				if (!empty($materialize_settings['optimization']['cached_colors'])) {
-					$cached_colors = true;
-				} else {
-					$cached_colors = false;
-				}
-
-				if ($cached_colors) {
-					$colors = $this->cache->get('materialize.colors');
-
-					if (!$colors) {
-						$colors = $this->config->get('theme_materialize_colors');
-
-						$this->cache->set('materialize.colors', $colors);
-					}
-				} else {
-					$colors = $this->config->get('theme_materialize_colors');
-				}
-
-				$data['color_browser_bar'] = $colors['browser_bar_hex'];
-				$data['color_background'] = $colors['background'];
-				$data['color_top_menu'] = $colors['top_menu'];
-				$data['color_top_menu_text'] = $colors['top_menu_text'];
-				$data['color_header'] = $colors['header'];
-				$data['color_header_text'] = $colors['header_text'];
-				$data['color_mobile_menu'] = $colors['mobile_menu_hex'];
-				$data['color_mobile_menu_text'] = $colors['mobile_menu_text'];
-				$data['color_sidebar'] = $colors['sidebar'];
-				$data['color_sidebar_text'] = $colors['sidebar_text'];
-				$data['color_btt'] = $colors['btt_btn'];
-				$data['color_btt_text'] = $colors['btt_btn_text'];
-				$data['color_compare'] = $colors['compare_btn'];
-				$data['color_compare_text'] = $colors['compare_btn_text'];
-				$data['color_compare_total'] = $colors['compare_total_btn'];
-				$data['color_compare_total_text'] = $colors['compare_total_btn_text'];
-
 				if (isset($materialize_settings['social'])) {
 					$materialize_social = $materialize_settings['social'];
 				} else {
@@ -1265,93 +1209,11 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/controller/common/cart.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			if ($materialize) {
-				if (!empty($materialize_settings['optimization']['cached_colors'])) {
-					$cached_colors = true;
-				} else {
-					$cached_colors = false;
-				}
-
-				if ($cached_colors) {
-					$colors = $this->cache->get('materialize.colors');
-
-					if (!$colors) {
-						$colors = $this->config->get('theme_materialize_colors');
-
-						$this->cache->set('materialize.colors', $colors);
-					}
-				} else {
-					$colors = $this->config->get('theme_materialize_colors');
-				}
-
-				$data['color_cart'] = $colors['cart_btn'];
-				$data['color_cart_text'] = $colors['cart_btn_text'];
-				$data['color_cart_total'] = $colors['total_btn'];
-				$data['color_cart_total_text'] = $colors['total_btn_text'];
-			}
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/common/search.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			if ($materialize) {
-				if (!empty($materialize_settings['optimization']['cached_colors'])) {
-					$cached_colors = true;
-				} else {
-					$cached_colors = false;
-				}
-
-				if ($cached_colors) {
-					$colors = $this->cache->get('materialize.colors');
-
-					if (!$colors) {
-						$colors = $this->config->get('theme_materialize_colors');
-
-						$this->cache->set('materialize.colors', $colors);
-					}
-				} else {
-					$colors = $this->config->get('theme_materialize_colors');
-				}
-
-				$data['color_header'] = $colors['header'];
-				$data['color_search'] = $colors['search'];
-				$data['color_search_text'] = $colors['search_text'];
-			}
-			]]></add>
-		</operation>
-	</file>
 	<file path="catalog/controller/common/footer.php">
 		<operation error="log">
 			<search><![CDATA[public function index() {]]></search>
 			<add position="after"><![CDATA[
 			if ($materialize) {
-				if (!empty($materialize_settings['optimization']['cached_colors'])) {
-					$cached_colors = true;
-				} else {
-					$cached_colors = false;
-				}
-
-				if ($cached_colors) {
-					$colors = $this->cache->get('materialize.colors');
-
-					if (!$colors) {
-						$colors = $this->config->get('theme_materialize_colors');
-
-						$this->cache->set('materialize.colors', $colors);
-					}
-				} else {
-					$colors = $this->config->get('theme_materialize_colors');
-				}
-
-				$data['color_footer'] = $colors['footer'];
-				$data['color_footer_text'] = $colors['footer_text'];
-
 				$materialize_footer = $materialize_settings['footer'];
 
 				$data['footer_title'] = $materialize_footer[$this->config->get('config_language_id')]['title'];
@@ -1409,121 +1271,11 @@
 			]]></add>
 		</operation>
 	</file>
-	<file path="catalog/controller/extension/module/{bestseller,featured,latest,special}*.php">
-		<operation error="log">
-			<search><![CDATA[public function index($setting) {]]></search>
-			<add position="after"><![CDATA[
-			if ($this->config->get('theme_materialize_status') == true) {
-				if (!empty($materialize_settings['optimization']['cached_colors'])) {
-					$cached_colors = true;
-				} else {
-					$cached_colors = false;
-				}
-
-				if ($cached_colors) {
-					$colors = $this->cache->get('materialize.colors');
-
-					if (!$colors) {
-						$colors = $this->config->get('theme_materialize_colors');
-
-						$this->cache->set('materialize.colors', $colors);
-					}
-				} else {
-					$colors = $this->config->get('theme_materialize_colors');
-				}
-
-				$data['color_more_detailed'] = $colors['more_detailed'];
-				$data['color_more_detailed_text'] = $colors['more_detailed_text'];
-			}
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/product/{category,search,special}*.php">
-		<operation error="log">
-			<search><![CDATA[public function index() {]]></search>
-			<add position="after"><![CDATA[
-			if ($materialize) {
-				if (!empty($materialize_settings['optimization']['cached_colors'])) {
-					$cached_colors = true;
-				} else {
-					$cached_colors = false;
-				}
-
-				if ($cached_colors) {
-					$colors = $this->cache->get('materialize.colors');
-
-					if (!$colors) {
-						$colors = $this->config->get('theme_materialize_colors');
-
-						$this->cache->set('materialize.colors', $colors);
-					}
-				} else {
-					$colors = $this->config->get('theme_materialize_colors');
-				}
-
-				$data['color_more_detailed'] = $colors['more_detailed'];
-				$data['color_more_detailed_text'] = $colors['more_detailed_text'];
-			}
-			]]></add>
-		</operation>
-	</file>
-	<file path="catalog/controller/product/manufacturer.php">
-		<operation error="log">
-			<search><![CDATA[public function info() {]]></search>
-			<add position="after"><![CDATA[
-			if ($materialize) {
-				if (!empty($materialize_settings['optimization']['cached_colors'])) {
-					$cached_colors = true;
-				} else {
-					$cached_colors = false;
-				}
-
-				if ($cached_colors) {
-					$colors = $this->cache->get('materialize.colors');
-
-					if (!$colors) {
-						$colors = $this->config->get('theme_materialize_colors');
-
-						$this->cache->set('materialize.colors', $colors);
-					}
-				} else {
-					$colors = $this->config->get('theme_materialize_colors');
-				}
-
-				$data['color_more_detailed'] = $colors['more_detailed'];
-				$data['color_more_detailed_text'] = $colors['more_detailed_text'];
-			}
-			]]></add>
-		</operation>
-	</file>
 	<file path="catalog/controller/product/product.php">
 		<operation error="log">
 			<search><![CDATA[$this->load->model('tool/image');]]></search>
 			<add position="after"><![CDATA[
 			if ($materialize) {
-				if (!empty($materialize_settings['optimization']['cached_colors'])) {
-					$cached_colors = true;
-				} else {
-					$cached_colors = false;
-				}
-
-				if ($cached_colors) {
-					$colors = $this->cache->get('materialize.colors');
-
-					if (!$colors) {
-						$colors = $this->config->get('theme_materialize_colors');
-
-						$this->cache->set('materialize.colors', $colors);
-					}
-				} else {
-					$colors = $this->config->get('theme_materialize_colors');
-				}
-
-				$data['color_add_cart'] = $colors['add_cart'];
-				$data['color_add_cart_text'] = $colors['add_cart_text'];
-				$data['color_more_detailed'] = $colors['more_detailed'];
-				$data['color_more_detailed_text'] = $colors['more_detailed_text'];
-
 				$materialize_settings_products = $this->config->get('theme_materialize_products');
 
 				if (isset($materialize_settings_products['fields'])) {

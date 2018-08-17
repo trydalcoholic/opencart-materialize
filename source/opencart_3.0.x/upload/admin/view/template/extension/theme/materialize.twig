@@ -48,7 +48,7 @@
 						<div class="panel-body">
 							<ul id="apply-tab" class="nav nav-tabs">
 								<li><a href="#tab-common" data-toggle="tab">{{ text_common }}</a></li>
-								<li><a href="#tab-colors" data-toggle="tab">{{ text_colors }}</a></li>
+								<li><a href="#tab-color-scheme" data-toggle="tab">{{ text_colors }}</a></li>
 								<li><a href="#tab-image" data-toggle="tab">{{ text_image }}</a></li>
 								<li><a href="#tab-product" data-toggle="tab">{{ text_product }}</a></li>
 								{% if materializeapi %}<li><a href="#tab-materializeapi" data-toggle="tab">Информация о шаблоне</a></li>{% endif %}
@@ -725,530 +725,66 @@
 										</div>
 									</div>
 								</div>
-								<div class="tab-pane" id="tab-colors">
-									<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i>&nbsp;{{ help_colors }}</div>
-									<div class="row">
-										<div class="col-sm-3">
-											<ul class="nav nav-pills nav-stacked" id="tab-colors-pills">
-												<li><a href="#tab-color-common" data-toggle="tab">{{ text_common }}</a></li>
-												<li><a href="#tab-color-header" data-toggle="tab">{{ text_header }}</a></li>
-												<li><a href="#tab-color-footer" data-toggle="tab">{{ text_footer }}</a></li>
-											</ul>
-										</div>
-										<div class="col-sm-9">
-											<div class="tab-content">
-												<div class="tab-pane" id="tab-color-common">
-													<ul class="nav nav-tabs">
-														<li class="active"><a href="#tab-color-common__buttons" data-toggle="tab">{{ text_buttons }}</a></li>
-														<li><a href="#tab-color-common__mobile" data-toggle="tab">{{ text_mobile }}</a></li>
-													</ul>
-													<div class="tab-content">
-														<div class="tab-pane active" id="tab-color-common__buttons">
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_background }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[background]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.background %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail"></div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">Кнопка добавить в корзину</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[add_cart]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.add_cart %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[add_cart_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.add_cart_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">Кнопка подробнее</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[more_detailed]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.more_detailed %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[more_detailed_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.more_detailed_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_cart_btn }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[cart_btn]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.cart_btn %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[cart_btn_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.cart_btn_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_total_btn }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[total_btn]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.total_btn %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[total_btn_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.total_btn_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_compare_btn }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[compare_btn]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.compare_btn %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[compare_btn_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.compare_btn_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_tot_cmp_btn }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[compare_total_btn]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.compare_total_btn %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[compare_total_btn_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.compare_total_btn_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_btt_btn }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[btt_btn]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.btt_btn %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[btt_btn_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.btt_btn_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="tab-pane" id="tab-color-common__mobile">
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_bar }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[browser_bar]" id="select-color-browser-bar" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.browser_bar %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<input type="hidden" name="theme_materialize_colors[browser_bar_hex]" value="{{ theme_materialize_colors.browser_bar_hex ? theme_materialize_colors.browser_bar_hex }}" id="input-color-browser-bar-hex" />
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail"></div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_mobile_menu }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[mobile_menu]" id="select-color-mobile-menu" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.mobile_menu %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[mobile_menu_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.mobile_menu_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<input type="hidden" name="theme_materialize_colors[mobile_menu_hex]" value="{{ theme_materialize_colors.mobile_menu_hex ? theme_materialize_colors.mobile_menu_hex }}" id="input-color-mobile-menu-hex" />
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-														</div>
+								<div class="tab-pane" id="tab-color-scheme">
+									<ul class="nav nav-tabs">
+										<li class="active"><a href="#tab-color-scheme__select" data-toggle="tab">Выбрать цветовую схему</a></li>
+										<li><a href="#tab-color-scheme__create" data-toggle="tab">Создать цветовую схему</a></li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane active" id="tab-color-scheme__select">
+											{% for color_scheme in theme_materialize_color_schemes %}
+											<div class="list-group-item">
+												<div class="media">
+													<div class="media-left media-middle">
+														<label class="form-switch">
+															<input type="radio" name="theme_materialize_settings[color_scheme_name]" value="{{ color_scheme.name }}" {{ theme_materialize_settings.color_scheme_name == color_scheme.name ? 'checked="checked"' }}>
+															<i></i>
+														</label>
+													</div>
+													<div class="media-body vertical-align-middle">
+														<h4 class="media-heading text-medium">{{ color_scheme.title }}</h4>
+													</div>
+													<div class="media-right media-middle">
+														<div class="thumbnail materialize-color-thumbnail" style="background:{{ color_scheme.hex }};"></div>
 													</div>
 												</div>
-												<div class="tab-pane" id="tab-color-header">
-													<ul class="nav nav-tabs">
-														<li class="active"><a href="#tab-color-header__desktop" data-toggle="tab">{{ text_desktop }}</a></li>
-														<li><a href="#tab-color-header__mobile" data-toggle="tab">{{ text_mobile }}</a></li>
-													</ul>
-													<div class="tab-content">
-														<div class="tab-pane active" id="tab-color-header__desktop">
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_top_menu }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[top_menu]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.top_menu %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[top_menu_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.top_menu_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_header }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[header]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.header %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[header_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.header_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_navigation }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[navigation]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.navigation %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[navigation_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.navigation_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_search }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[search]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.search %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[search_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.search_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="tab-pane" id="tab-color-header__mobile">
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_sidebar }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[sidebar]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.sidebar %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<select name="theme_materialize_colors[sidebar_text]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors_text %}
-																			{% if color.name == theme_materialize_colors.sidebar_text %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail">Text</div>
-																	</div>
-																</div>
-															</div>
-															<div class="list-group-item">
-																<div class="media overflow-visible materialize-colors">
-																	<div class="media-body overflow-visible">
-																		<h4 class="media-heading text-medium">{{ entry_mob_search }}</h4>
-																		<hr>
-																		<select name="theme_materialize_colors[mobile_search]" class="selectpicker selectpicker-live-search show-tick">
-																			{% for color in theme_materialize_get_colors %}
-																			{% if color.name == theme_materialize_colors.mobile_search %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																			{% else %}
-																			<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																			{% endif %}
-																			{% endfor %}
-																		</select>
-																		<hr>
-																	</div>
-																	<div class="media-right media-middle">
-																		<div class="thumbnail materialize-color-thumbnail"></div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="tab-pane" id="tab-color-footer">
-													<div class="list-group-item">
-														<div class="media overflow-visible materialize-colors">
-															<div class="media-body overflow-visible">
-																<h4 class="media-heading text-medium">{{ entry_footer }}</h4>
-																<hr>
-																<select name="theme_materialize_colors[footer]" class="selectpicker selectpicker-live-search show-tick">
-																	{% for color in theme_materialize_get_colors %}
-																	{% if color.name == theme_materialize_colors.footer %}
-																	<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																	{% else %}
-																	<option value="{{ color.name }}" class="{{ color.name }} select-color" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																	{% endif %}
-																	{% endfor %}
-																</select>
-																<select name="theme_materialize_colors[footer_text]" class="selectpicker selectpicker-live-search show-tick">
-																	{% for color in theme_materialize_get_colors_text %}
-																	{% if color.name == theme_materialize_colors.footer_text %}
-																	<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};" selected="selected">{{ color.name }}</option>
-																	{% else %}
-																	<option value="{{ color.name }}" class="{{ color.name }} select-color-text" data-hex="#{{ color.hex }}" style="background: #{{ color.hex }};">{{ color.name }}</option>
-																	{% endif %}
-																	{% endfor %}
-																</select>
-																<hr>
-															</div>
-															<div class="media-right media-middle">
-																<div class="thumbnail materialize-color-thumbnail">Text</div>
-															</div>
-														</div>
+												<input type="hidden" name="theme_materialize_settings[color_scheme_id]" value="{{ color_scheme.scheme_id }}">
+											</div>
+											{% endfor %}
+											{% if theme_materialize_custom_color_schemes %}
+											<hr>
+											<div class="form-group">
+												<div class="col-xs-12 text-right">
+													<div class="btn-group">
+														<button type="button" class="btn btn-danger" id="color-scheme-remove">Удалить</button>
+														<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+														<ul class="dropdown-menu">
+															{% for custom_scheme in theme_materialize_custom_color_schemes %}
+															<li><a class="color-scheme-remove" data-scheme-id="{{ custom_scheme.scheme_id }}">{{ custom_scheme.title }}</a></li>
+															{% endfor %}
+															<li role="separator" class="divider"></li>
+															<li><a id="color-scheme-remove-all">Удалить все</a></li>
+														</ul>
 													</div>
 												</div>
 											</div>
+											{% endif %}
+										</div>
+										<div class="tab-pane" id="tab-color-scheme__create">
+											<div id="create-scheme-wrap-btn" class="form-group">
+												<div class="col-xs-12 text-right">
+													<div class="btn-group">
+														<button type="button" class="btn btn-danger" id="color-scheme-create">Создать</button>
+														<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+														<ul class="dropdown-menu">
+															<li><a id="color-scheme-create-new">Создать с нуля</a></li>
+															<li role="separator" class="divider"></li>
+															<li><a id="color-scheme-create-base-existing">На основе существующей</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<div id="create-scheme-wrap"></div>
 										</div>
 									</div>
 								</div>
@@ -1698,53 +1234,37 @@
 	</div>
 	{{ installed }}
 	{{ updated }}
+	<div id="modal-for-all" class="modal fade modal-materialize" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<div class="row">
+						<div class="col-xs-6 text-left"><button type="button" class="btn btn-default" data-dismiss="modal">{{ button_cancel }}</button></div>
+						<div class="col-xs-6 text-right"><button type="button" class="btn modal-action-button">Продолжить</button></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <script type="text/javascript">
 	$('#language a:first').tab('show');
 	$('#tab-common-pills a:first').tab('show');
-	$('#tab-colors-pills a:first').tab('show');
 	$('#tab-product-pills a:first').tab('show');
 	$('#foter-descriptions-language a:first').tab('show');
 	$('#social-icon-language a:first').tab('show');
 
-	var selectBrowserBar = $("#select-color-browser-bar"),
-		inputBrowserBar = $("#input-color-browser-bar-hex"),
-		selectMobileMenu = $("#select-color-mobile-menu"),
-		inputMobileMenu = $("#input-color-mobile-menu-hex");
-
-	selectBrowserBar.change(function() {
-		selectBrowserBarOption = $("#select-color-browser-bar option:selected");
-		valueHex = selectBrowserBarOption.data('hex');
-		inputBrowserBar.attr('value',valueHex);
-	});
-
-	selectMobileMenu.change(function() {
-		selectMobileMenuOption = $("#select-color-mobile-menu option:selected");
-		valueHex = selectMobileMenuOption.data('hex');
-		inputMobileMenu.attr('value',valueHex);
-	});
-
-	var materializeColors = $('.materialize-colors');
-
-	materializeColors.each(function() {
-		var currentBackground = $(this).find('option:selected.select-color').data('hex'),
-			currentColor = $(this).find('option:selected.select-color-text').data('hex');
-
-		$(this).find('.materialize-color-thumbnail').css({
-			'background': currentBackground,
-			'color': currentColor
-		});
-	});
-
-	materializeColors.change(function(){
-		var currentBackground = $(this).find('option:selected.select-color').data('hex'),
-			currentColor = $(this).find('option:selected.select-color-text').data('hex');
-
-		$(this).find('.materialize-color-thumbnail').css({
-			'background': currentBackground,
-			'color': currentColor
-		});
-	});
+	var modalForAll = $('#modal-for-all'),
+		modalHeader = modalForAll.find('.modal-header'),
+		modalTitle = modalHeader.find('.modal-title'),
+		modalBody = modalForAll.find('.modal-body'),
+		modalActionButton = $('.modal-action-button');
 
 	// Type Manifest
 	var typeManifest = $("input[name=\'theme_materialize_settings[favicon][manifest][type]\']"),
@@ -1918,6 +1438,144 @@
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
+	});
+
+	var createSchemeWrapBtn = $('#create-scheme-wrap-btn'),
+		colorSchemeCreateButton = $('#color-scheme-create'),
+		colorSchemeCreateWrap = $('#create-scheme-wrap'),
+		colorSchemeCreateBaseExisting = $('#color-scheme-create-base-existing'),
+		colorSchemeRemove = $('.color-scheme-remove'),
+		colorSchemeRemoveAll = $('#color-scheme-remove-all');
+
+	$(document).on('click', '#color-scheme-create-new', function() {
+		$.ajax({
+			url: 'index.php?route=extension/theme/materialize/colorSchemeCreate&user_token={{ user_token }}',
+			type: 'post',
+			dataType: 'json',
+			beforeSend: function() {
+				colorSchemeCreateButton.button('loading');
+				colorSchemeCreateWrap.append('<div class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>');
+			},
+			complete: function() {
+				colorSchemeCreateButton.button('reset');
+			},
+			success: function(json) {
+				createSchemeWrapBtn.hide();
+				colorSchemeCreateWrap.html(json);
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
+
+	colorSchemeCreateBaseExisting.click(function() {
+		modalHeader.removeClass().addClass('modal-header bg-primary');
+		modalActionButton.removeClass().addClass('btn modal-action-button btn-primary').prop('disabled', true);
+		modalTitle.text('Выберите цветовую схему');
+
+		var html  = '';
+		{% for color_scheme in theme_materialize_color_schemes %}
+		html += '<div class="list-group-item">';
+		html += '	<div class="media">';
+		html += '		<div class="media-left media-middle">';
+		html += '			<label class="form-switch">';
+		html += '				<input type="radio" name="create_color_scheme_value" value="{{ color_scheme.scheme_id }}">';
+		html += '				<i></i>';
+		html += '			</label>';
+		html += '		</div>';
+		html += '		<div class="media-body vertical-align-middle">';
+		html += '			<h4 class="media-heading text-medium">{{ color_scheme.title }}</h4>';
+		html += '		</div>';
+		html += '		<div class="media-right media-middle">';
+		html += '			<div class="thumbnail materialize-color-thumbnail" style="background:{{ color_scheme.hex }};"></div>';
+		html += '		</div>';
+		html += '	</div>';
+		html += '</div>';
+		{% endfor %}
+
+		modalBody.html(html);
+
+		modalForAll.modal('show');
+
+		$("input[name=\'create_color_scheme_value\']").change(function() {
+			modalActionButton.removeClass().addClass('btn modal-action-button btn-primary').attr('data-action-scheme-remove', 'false').attr('data-action-scheme-id', this.value).prop('disabled', false);
+		});
+	});
+
+	colorSchemeRemove.click(function() {
+		var schemeId = $(this).data('scheme-id'),
+			schemeTitle = $(this).text();
+
+		modalHeader.removeClass().addClass('modal-header bg-danger');
+		modalActionButton.removeClass().addClass('btn modal-action-button btn-danger').attr('data-action-scheme-remove', 'true').attr('data-action-scheme-id', schemeId).prop('disabled', false);
+		modalTitle.text('Удалить ' + schemeTitle);
+		modalBody.html('Данное действие приведёт к безвозвратному удалению цветовой схемы: <b>' + schemeTitle + '</b>. Вы уверены, что хотите продолжить?');
+
+		modalForAll.modal('show');
+	});
+
+	colorSchemeRemoveAll.click(function() {
+		modalHeader.removeClass().addClass('modal-header bg-danger');
+		modalActionButton.removeClass().addClass('btn modal-action-button btn-danger').attr('data-action-scheme-remove', 'true').attr('data-action-scheme-id', 'false').prop('disabled', false);
+		modalTitle.text('Удалить все цветовые схемы');
+		modalBody.html('Данное действие приведёт к безвозвратному удалению <b>всех созданных цветовых схем!</b> Вы уверены, что хотите продолжить?');
+
+		modalForAll.modal('show');
+	});
+
+	$(document).on('click', '.modal-action-button', function() {
+		var actionSchemeId = $(this).attr('data-action-scheme-id'),
+			actionRemove = $(this).attr('data-action-scheme-remove');
+
+		if ((actionSchemeId != 'false') && (actionRemove == 'false')) {
+			$.ajax({
+				url: 'index.php?route=extension/theme/materialize/colorSchemeCreate&scheme_id=' + actionSchemeId + '&user_token={{ user_token }}',
+				type: 'post',
+				dataType: 'json',
+				beforeSend: function() {
+					modalForAll.modal('hide');
+					colorSchemeCreateButton.button('loading');
+					colorSchemeCreateWrap.append('<div class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>');
+				},
+				complete: function() {
+					colorSchemeCreateButton.button('reset');
+				},
+				success: function(json) {
+					createSchemeWrapBtn.hide();
+					colorSchemeCreateWrap.html(json);
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		} else if ((actionSchemeId != 'false') && (actionRemove == 'true')) {
+			$.ajax({
+				url: 'index.php?route=extension/theme/materialize/colorSchemeDeleteById&scheme_id=' + actionSchemeId + '&user_token={{ user_token }}',
+				dataType: 'json',
+				success: function(json) {
+					if (json['success']) {
+						applyBtn.trigger('click');
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		} else if ((actionSchemeId == 'false') && (actionRemove == 'true')) {
+			$.ajax({
+				url: 'index.php?route=extension/theme/materialize/colorSchemesDeleteAll&user_token={{ user_token }}',
+				dataType: 'json',
+				success: function(json) {
+					if (json['success']) {
+						applyBtn.trigger('click');
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		}
 	});
 
 	// Apply button

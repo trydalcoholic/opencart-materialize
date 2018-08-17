@@ -1,13 +1,30 @@
 <?php
 class ModelExtensionMaterializeMaterialize extends Model {
-	public function install() {
+	public function install($data) {
+		$this->db->query("
+			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "materialize_color_schemes` (
+				`scheme_id` INT(11) NOT NULL AUTO_INCREMENT,
+				`title` VARCHAR(64) NOT NULL,
+				`name` VARCHAR(64) NOT NULL,
+				`value` TEXT NOT NULL,
+				`hex` VARCHAR(7) NOT NULL,
+				`custom_scheme` TINYINT(1) NOT NULL,
+				PRIMARY KEY (`scheme_id`)
+			) ENGINE=MyISAM CHARSET=utf8 COLLATE=utf8_general_ci;
+		");
+
+		foreach ($data['color_schemes'] as $name => $value) {
+			$this->db->query("INSERT INTO " . DB_PREFIX . "materialize_color_schemes SET `title` = '" . $this->db->escape($value['title']) . "', `name` = '" . $this->db->escape($value['name']) . "', `value` = '" . $this->db->escape(json_encode($value['value'], true)) . "', `hex` = '" . $this->db->escape($value['hex']) . "', `custom_scheme` = '0'");
+		}
+
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "materialize_colors` (
 				`color_id` INT(11) NOT NULL AUTO_INCREMENT,
 				`name` VARCHAR(25) NOT NULL,
 				`hex` VARCHAR(11) NOT NULL,
-				PRIMARY KEY (`color_id`)
-			) ENGINE=MyISAM;
+				PRIMARY KEY (`color_id`),
+				INDEX (`name`)
+			) ENGINE=MyISAM CHARSET=utf8 COLLATE=utf8_general_ci;
 		");
 
 		$this->db->query("
@@ -276,8 +293,9 @@ class ModelExtensionMaterializeMaterialize extends Model {
 				`color_id` INT(11) NOT NULL AUTO_INCREMENT,
 				`name` VARCHAR(35) NOT NULL,
 				`hex` VARCHAR(6) NOT NULL,
-				PRIMARY KEY (`color_id`)
-			) ENGINE=MyISAM;
+				PRIMARY KEY (`color_id`),
+				INDEX (`name`)
+			) ENGINE=MyISAM CHARSET=utf8 COLLATE=utf8_general_ci;
 		");
 
 		$this->db->query("
@@ -549,7 +567,7 @@ class ModelExtensionMaterializeMaterialize extends Model {
 				`icon` varchar(255) DEFAULT NULL,
 				`sort_order` int(3) NOT NULL,
 				PRIMARY KEY (`icon_id`)
-			) ENGINE=MyISAM;
+			) ENGINE=MyISAM CHARSET=utf8 COLLATE=utf8_general_ci;
 		");
 
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "information` ADD `top` INT(1) NOT NULL DEFAULT '0'");
@@ -562,7 +580,8 @@ class ModelExtensionMaterializeMaterialize extends Model {
 			DROP TABLE IF EXISTS
 				`" . DB_PREFIX . "materialize_colors`,
 				`" . DB_PREFIX . "materialize_colors_text`,
-				`" . DB_PREFIX . "materialize_social_networks`
+				`" . DB_PREFIX . "materialize_social_networks`,
+				`" . DB_PREFIX . "materialize_color_schemes`
 			;
 		");
 
@@ -575,6 +594,48 @@ class ModelExtensionMaterializeMaterialize extends Model {
 		if (count($query->rows) > 0) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "product` DROP `progressbar`;");
 		}
+	}
+
+	public function addMaterializeColorScheme($data) {
+		foreach ($data['color_schemes'] as $color_scheme) {
+			$this->db->query("INSERT INTO " . DB_PREFIX . "materialize_color_schemes SET `title` = '" . $this->db->escape($color_scheme['title']) . "', `name` = '" . $this->db->escape($color_scheme['name']) . "', `value` = '" . $this->db->escape(json_encode($color_scheme['value'], true)) . "', `hex` = '" . $this->db->escape($color_scheme['hex']) . "', `custom_scheme` = '1'");
+		}
+	}
+
+	public function deleteMaterializeColorSchemeById($scheme_id) {
+		$this->db->query("DELETE FROM " . DB_PREFIX . "materialize_color_schemes WHERE `scheme_id` = '" . (int)$scheme_id . "' AND `custom_scheme` = '1'");
+	}
+
+	public function deleteMaterializeCustomColorSchemes() {
+		$this->db->query("DELETE FROM " . DB_PREFIX . "materialize_color_schemes WHERE `custom_scheme` = '1'");
+	}
+
+	public function getMaterializeColorScheme($scheme_id) {
+		$query = $this->db->query("SELECT scheme_id, title, name, hex, value FROM " . DB_PREFIX . "materialize_color_schemes WHERE `scheme_id` = '" . (int)$scheme_id . "'");
+
+		if ($query->num_rows) {
+			return array(
+				'scheme_id'	=> $query->row['scheme_id'],
+				'title'		=> $query->row['title'],
+				'name'		=> $query->row['name'],
+				'hex'		=> $query->row['hex'],
+				'value'		=> json_decode($query->row['value'], true)
+			);
+		} else {
+			return false;
+		}
+	}
+
+	public function getMaterializeColorSchemes() {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "materialize_color_schemes");
+
+		return $query->rows;
+	}
+
+	public function getMaterializeCustomColorSchemes() {
+		$query = $this->db->query("SELECT scheme_id, title FROM " . DB_PREFIX . "materialize_color_schemes WHERE `custom_scheme` = '1'");
+
+		return $query->rows;
 	}
 
 	public function getMaterializeColors() {

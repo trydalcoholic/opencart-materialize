@@ -9,8 +9,24 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->load->model('setting/setting');
 		$this->load->model('setting/event');
 
-		$this->model_extension_materialize_materialize->install();
+		$this->model_extension_materialize_materialize->install($this->installSettings());
+
 		$this->model_setting_event->addEvent('theme_materialize_menu_item', 'admin/view/common/column_left/before', 'extension/theme/materialize/adminMaterializeThemeMenuItem');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/cart/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/header/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/menu/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/search/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/footer/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/category/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/search/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/search/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/special/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/manufacturer/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/product/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/extension/module/bestseller/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/extension/module/featured/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/extension/module/latest/before', 'extension/module/materialize/colorScheme');
+		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/extension/module/special/before', 'extension/module/materialize/colorScheme');
 
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/materialize');
@@ -27,6 +43,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 		$this->model_extension_materialize_materialize->uninstall();
 		$this->model_setting_event->deleteEventByCode('theme_materialize_menu_item');
+		$this->model_setting_event->deleteEventByCode('theme_materialize_color_scheme');
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize');
@@ -105,6 +122,12 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 			if ($this->config->get('theme_materialize_installed_appeal') == true) {
 				$this->request->post['theme_materialize_installed_appeal'] = 0;
+			}
+
+			if (isset($this->request->post['color_schemes'])) {
+				$data['color_schemes'] = $this->request->post['color_schemes'];
+
+				$this->model_extension_materialize_materialize->addMaterializeColorScheme($data);
 			}
 
 			$theme_status = $this->request->post['theme_materialize_status'];
@@ -469,6 +492,8 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'hex'	=> 'eeeeee'
 			);
 
+			$data['theme_materialize_settings']['color_scheme_name'] = 'blue-grey';
+
 			$data['theme_materialize_favicon_image'] = $data['placeholder'];
 			$data['theme_materialize_favicon_ico'] = $data['placeholder'];
 			$data['theme_materialize_favicon_svg'] = $data['placeholder'];
@@ -511,11 +536,11 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		}
 
 		/* Colors */
-		$data['theme_materialize_get_colors'] = $this->model_extension_materialize_materialize->getMaterializeColors();
+		$data['theme_materialize_color_schemes'] = $this->model_extension_materialize_materialize->getMaterializeColorSchemes();
 
-		$data['theme_materialize_get_colors_text'] = $this->model_extension_materialize_materialize->getMaterializeColorsText();
+		$data['theme_materialize_custom_color_schemes'] = $this->model_extension_materialize_materialize->getMaterializeCustomColorSchemes();
 
-		if (isset($this->request->post['theme_materialize_colors'])) {
+		/*if (isset($this->request->post['theme_materialize_colors'])) {
 			$data['theme_materialize_colors'] = $this->request->post['theme_materialize_colors'];
 		} elseif (isset($setting_info['theme_materialize_colors'])) {
 			$data['theme_materialize_colors'] = $setting_info['theme_materialize_colors'];
@@ -557,7 +582,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'footer'					=> 'blue-grey darken-3',
 				'footer_text'				=> 'grey-text text-lighten-3',
 			);
-		}
+		}*/
 
 		/* Social icons */
 		if (isset($this->request->post['theme_materialize_social_icon'])) {
@@ -1030,6 +1055,59 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+	public function colorSchemeCreate() {
+		$json = array();
+
+		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		} else {
+			if (isset($this->request->get['scheme_id'])) {
+				$scheme_id = $this->request->get['scheme_id'];
+			} else {
+				$scheme_id = '';
+			}
+
+			$json = $this->load->controller('extension/materialize/theme/color_scheme', $scheme_id);
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function colorSchemeDeleteById() {
+		$json = array();
+
+		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		} else {
+			$this->load->model('extension/materialize/materialize');
+
+			$this->model_extension_materialize_materialize->deleteMaterializeColorSchemeById($this->request->get['scheme_id']);
+
+			$json['success'] = true;
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function colorSchemesDeleteAll() {
+		$json = array();
+
+		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
+			$this->error['warning'] = $this->language->get('error_permission');
+		} else {
+			$this->load->model('extension/materialize/materialize');
+
+			$this->model_extension_materialize_materialize->deleteMaterializeCustomColorSchemes();
+
+			$json['success'] = true;
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
 	protected function update() {
 		$this->load->model('extension/materialize/materialize');
 		$this->load->model('setting/setting');
@@ -1044,7 +1122,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->model_setting_setting->editSetting('theme_materialize', $data);
 	}
 
-	public function adminMaterializeThemeMenuItem($eventRoute, &$data) {
+	public function adminMaterializeThemeMenuItem($route, &$data) {
 		$this->load->language('extension/materialize/materialize');
 
 		$materialize = array();
@@ -1190,6 +1268,54 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'children'	=> $materialize
 			);
 		}
+	}
+
+	protected function installSettings() {
+		$data['color_schemes'] = array();
+
+		$data['color_schemes']['blue_grey']['title'] = 'Blue Grey';
+
+		$data['color_schemes']['blue_grey']['name'] = 'blue-grey';
+
+		$data['color_schemes']['blue_grey']['hex'] = '#37474f';
+
+		$data['color_schemes']['blue_grey']['value'] = array(
+			'background'				=> 'grey lighten-3',
+			'add_cart'					=> 'red',
+			'add_cart_text'				=> 'white-text',
+			'more_detailed'				=> 'transparent',
+			'more_detailed_text'		=> 'deep-orange-text',
+			'cart_btn'					=> 'red',
+			'cart_btn_text'				=> 'white-text',
+			'total_btn'					=> 'light-blue darken-1',
+			'total_btn_text'			=> 'white-text',
+			'compare_btn'				=> 'blue',
+			'compare_btn_text'			=> 'white-text',
+			'compare_total_btn'			=> 'light-blue darken-2',
+			'compare_total_btn_text'	=> 'white-text',
+			'btt_btn'					=> 'red',
+			'btt_btn_text'				=> 'white-text',
+			'browser_bar'				=> 'blue-grey darken-4',
+			'browser_bar_hex'			=> '#263238',
+			'mobile_menu'				=> 'blue-grey darken-2',
+			'mobile_menu_hex'			=> '#455a64',
+			'mobile_menu_text'			=> 'white-text',
+			'top_menu'					=> 'blue-grey darken-4',
+			'top_menu_text'				=> 'white-text',
+			'header'					=> 'blue-grey darken-3',
+			'header_text'				=> 'blue-grey-text text-lighten-5',
+			'navigation'				=> 'blue-grey darken-2',
+			'navigation_text'			=> 'white-text',
+			'search'					=> 'white',
+			'search_text'				=> 'blue-grey-text text-darken-4',
+			'sidebar'					=> 'blue-grey darken-2',
+			'sidebar_text'				=> 'white-text',
+			'mobile_search'				=> 'blue-grey lighten-1',
+			'footer'					=> 'blue-grey darken-3',
+			'footer_text'				=> 'grey-text text-lighten-3',
+		);
+
+		return $data;
 	}
 
 	protected function templateVersion() {
