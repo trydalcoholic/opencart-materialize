@@ -10,8 +10,6 @@ class ControllerExtensionMaterializeThemeColorScheme extends Controller {
 
 		$data['theme_materialize_get_colors_text'] = $this->model_extension_materialize_materialize->getMaterializeColorsText();
 
-		$data['total_schemes'] = $this->model_extension_materialize_materialize->getTotalMaterializeColorSchemes();
-
 		$data['color_schemes'] = array();
 
 		if (!empty($scheme_id)) {

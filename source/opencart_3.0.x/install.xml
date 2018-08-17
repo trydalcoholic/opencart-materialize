@@ -1122,7 +1122,7 @@
 					$data['color_tile_color'] = '#' . $materialize_favicon['browserconfig']['background_color']['hex'];
 				} else {
 					$data['browserconfig'] = false;
-					$data['color_tile_color'] = $colors['browser_bar_hex'];
+					$data['color_tile_color'] = false;
 				}
 
 				if (!empty($materialize_favicon['manifest']['status'])) {

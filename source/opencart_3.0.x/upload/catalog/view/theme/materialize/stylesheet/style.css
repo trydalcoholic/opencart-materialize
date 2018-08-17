@@ -985,6 +985,7 @@ span.collapsible-header {
 	position: absolute;
 	top: 0;
 	right: 1rem;
+	pointer-events: none;
 	-webkit-transition: -webkit-transform 0.3s ease-in-out;
 	transition: -webkit-transform 0.3s ease-in-out;
 	-o-transition: -o-transform 0.3s ease-in-out;
