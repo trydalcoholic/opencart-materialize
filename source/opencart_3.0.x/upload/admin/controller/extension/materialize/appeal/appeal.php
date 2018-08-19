@@ -3,7 +3,13 @@ class ControllerExtensionMaterializeAppealAppeal extends Controller {
 	public function index() {
 		$this->load->language('extension/materialize/appeal/appeal');
 
-		return $this->load->view('extension/materialize/appeal/footer');
+		if ($this->config->get('theme_materialize_template_version') == true) {
+			$data['template_version'] = $this->config->get('theme_materialize_template_version');
+		} else {
+			$data['template_version'] = $this->load->controller('extension/materialize/materializeapi/materializeapi/templateVersion');
+		}
+
+		return $this->load->view('extension/materialize/appeal/footer', $data);
 	}
 
 	public function installed($installed) {

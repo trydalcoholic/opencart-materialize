@@ -931,7 +931,7 @@ quantityPlus.click(function () {
 
 function changePrice() {
 	$.ajax({
-		url: 'index.php?route=product/product/updatePrice&product_id={{ product_id }}',
+		url: 'index.php?route=extension/materialize/product/product/updatePrice&product_id={{ product_id }}',
 		type: 'post',
 		dataType: 'json',
 		data: $('#product input[name=\'quantity\'], #product select, #product input[type=\'checkbox\']:checked, #product input[type=\'radio\']:checked'),

@@ -12,13 +12,13 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->model_extension_materialize_materialize->install($this->installSettings());
 
 		$this->model_setting_event->addEvent('theme_materialize_menu_item', 'admin/view/common/column_left/before', 'extension/theme/materialize/adminMaterializeThemeMenuItem');
+
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/cart/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/header/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/menu/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/search/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/common/footer/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/category/before', 'extension/module/materialize/colorScheme');
-		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/search/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/search/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/special/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/product/manufacturer/before', 'extension/module/materialize/colorScheme');
@@ -27,6 +27,12 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/extension/module/featured/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/extension/module/latest/before', 'extension/module/materialize/colorScheme');
 		$this->model_setting_event->addEvent('theme_materialize_color_scheme', 'catalog/view/extension/module/special/before', 'extension/module/materialize/colorScheme');
+
+		$this->model_setting_event->addEvent('theme_materialize_update_price', 'catalog/controller/product/product', 'extension/module/materialize/updatePrice');
+		$this->model_setting_event->addEvent('theme_materialize_update_price', 'catalog/model/catalog/product/after', 'extension/module/materialize/getUpdateOptionsList');
+		$this->model_setting_event->addEvent('theme_materialize_update_price', 'catalog/model/catalog/product/after', 'extension/module/materialize/getUpdateOptionValues');
+		$this->model_setting_event->addEvent('theme_materialize_update_price', 'catalog/model/catalog/product/after', 'extension/module/materialize/getUpdateOptionChcekboxValues');
+		$this->model_setting_event->addEvent('theme_materialize_update_price', 'catalog/model/catalog/product/after', 'extension/module/materialize/getDiscountAmountForUpdatePrice');
 
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/materialize');
@@ -44,6 +50,7 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->model_extension_materialize_materialize->uninstall();
 		$this->model_setting_event->deleteEventByCode('theme_materialize_menu_item');
 		$this->model_setting_event->deleteEventByCode('theme_materialize_color_scheme');
+		$this->model_setting_event->deleteEventByCode('theme_materialize_update_price');
 
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'access', 'extension/materialize');
 		$this->model_user_user_group->removePermission($this->user->getGroupId(), 'modify', 'extension/materialize');
