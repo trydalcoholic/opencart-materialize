@@ -1,9 +1,5 @@
 <?php
 class ControllerExtensionModuleMaterialize extends Controller {
-	public function index() {
-		return false;
-	}
-
 	public function colorScheme($route, &$data) {
 		if ($this->config->get('theme_materialize_status') == 1) {
 			$materialize_settings = $this->config->get('theme_materialize_settings');
@@ -68,7 +64,26 @@ class ControllerExtensionModuleMaterialize extends Controller {
 
 	public function liveSearch($route, &$data) {
 		if ($this->config->get('theme_materialize_status') == 1) {
-			$data['live_search'] = $this->load->controller('extension/materialize/common/search');
+			$show_categories = true;
+
+			$data['delay'] = 600;
+
+			$data['categories'] = array();
+
+			if ($show_categories) {
+				$this->load->model('catalog/category');
+
+				$categories = $this->model_catalog_category->getCategories(0);
+
+				foreach ($categories as $category) {
+					$data['categories'][] = array(
+						'category_id'	=> $category['category_id'],
+						'name'			=> $category['name']
+					);
+				}
+			}
+
+			$data['live_search'] = $this->load->view('extension/module/live_search', $data);
 		} else {
 			return false;
 		}

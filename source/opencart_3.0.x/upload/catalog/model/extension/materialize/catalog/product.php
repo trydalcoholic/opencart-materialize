@@ -45,7 +45,7 @@ class ModelExtensionMaterializeCatalogProduct extends Model {
 	public function getProductsSearch($data = array()) {
 		$sql = "SELECT p.product_id, pd.name";
 
-		if (!empty($data['filter_description'])) {
+		if (!empty($data['show_description'])) {
 			$sql .= ", pd.description";
 		}
 
@@ -98,13 +98,37 @@ class ModelExtensionMaterializeCatalogProduct extends Model {
 			$sql .= " OR pd.description LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
+		if (!empty($data['filter_model'])) {
+			$sql .= " OR p.model LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+		}
+
+		if (!empty($data['filter_sku'])) {
+			$sql .= " OR p.sku LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+		}
+
 		if (!empty($data['filter_manufacturer'])) {
 			$sql .= " OR m.name LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
+		if (!empty($data['filter_tag'])) {
+			$sql .= " OR ";
+
+			$implode = array();
+
+			$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_name'])));
+
+			foreach ($words as $word) {
+				$implode[] = "pd.tag LIKE '%" . $this->db->escape($word) . "%'";
+			}
+
+			if ($implode) {
+				$sql .= " " . implode(" AND ", $implode) . "";
+			}
+		}
+
 		$sql .= ")";
 
-		$sql .= " GROUP BY LCASE (pd.name) ASC, LCASE(pd.name) ASC";
+		$sql .= " GROUP BY (pd.name) ORDER BY LCASE(pd.name) ASC, LCASE(pd.name) ASC";
 
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {

@@ -1,28 +1,5 @@
 <?php
 class ControllerExtensionMaterializeCommonSearch extends Controller {
-	public function index() {
-		$show_categories = true;
-
-		if ($show_categories) {
-			$this->load->model('catalog/category');
-
-			$data['categories'] = array();
-
-			$categories = $this->model_catalog_category->getCategories(0);
-
-			foreach ($categories as $category) {
-				$data['categories'][] = array(
-					'category_id'	=> $category['category_id'],
-					'name'			=> $category['name']
-				);
-			}
-		} else {
-			$data = '';
-		}
-
-		return $data;
-	}
-
 	public function autocomplete() {
 		$json = array();
 
@@ -46,14 +23,21 @@ class ControllerExtensionMaterializeCommonSearch extends Controller {
 
 		$filter_image = true;
 		$filter_description = true;
+		$filter_tag = true;
+		$filter_model = true;
+		$filter_sku = true;
 		$filter_manufacturer = true;
 		$filter_price = true;
 		$filter_rating = true;
 
 		$filter_data = array(
+			'show_description'		=> $show_description,
 			'filter_name'			=> $filter_name,
 			'filter_image'			=> $filter_image,
 			'filter_description'	=> $filter_description,
+			'filter_tag'			=> $filter_tag,
+			'filter_model'			=> $filter_model,
+			'filter_sku'			=> $filter_sku,
 			'filter_manufacturer'	=> $filter_manufacturer,
 			'filter_price'			=> $filter_price,
 			'filter_rating'			=> $filter_rating,
