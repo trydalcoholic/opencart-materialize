@@ -1,5 +1,6 @@
 <?php
 class ModelExtensionMaterializeCatalogProduct extends Model {
+	/* Update price */
 	public function getUpdateOptionsList($product_id, $product_option_id) {
 		$option_query = $this->db->query("SELECT po.product_option_id, po.option_id, od.name, o.type FROM " . DB_PREFIX . "product_option po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.option_id = o.option_id) LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) WHERE po.product_option_id = '" . (int)$product_option_id . "' AND po.product_id = '" . (int)$product_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
@@ -38,5 +39,87 @@ class ModelExtensionMaterializeCatalogProduct extends Model {
 		} else {
 			return '';
 		}
+	}
+
+	/* Live search */
+	public function getProductsSearch($data = array()) {
+		$sql = "SELECT p.product_id, pd.name";
+
+		if (!empty($data['filter_description'])) {
+			$sql .= ", pd.description";
+		}
+
+		if (!empty($data['filter_image'])) {
+			$sql .= ", p.image";
+		}
+
+		if (!empty($data['filter_price'])) {
+			$sql .= " , p.price, p.tax_class_id, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special";
+		}
+
+		if (!empty($data['filter_rating'])) {
+			$sql .= ", (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review r2 WHERE r2.product_id = p.product_id AND r2.status = '1' GROUP BY r2.product_id) AS reviews";
+		}
+
+		if (!empty($data['filter_manufacturer'])) {
+			$sql .= ", m.name AS manufacturer";
+			$manufacturer_join = " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
+		} else {
+			$manufacturer_join = false;
+		}
+
+		if (!empty($data['filter_category_id'])) {
+			$sql .= " FROM " . DB_PREFIX . "category_path cp LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (cp.category_id = p2c.category_id) LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id) " . $manufacturer_join . "";
+		} else {
+			$sql .= " FROM " . DB_PREFIX . "product p " . $manufacturer_join . "";
+		}
+
+		$sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
+
+		if (!empty($data['filter_category_id'])) {
+			$sql .= " AND cp.path_id = '" . (int)$data['filter_category_id'] . "'";
+		}
+
+		$sql .= " AND (";
+
+		$implode = array();
+
+		$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_name'])));
+
+		foreach ($words as $word) {
+			$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+		}
+
+		if ($implode) {
+			$sql .= " " . implode(" AND ", $implode) . "";
+		}
+
+		if (!empty($data['filter_description'])) {
+			$sql .= " OR pd.description LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+		}
+
+		if (!empty($data['filter_manufacturer'])) {
+			$sql .= " OR m.name LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+		}
+
+		$sql .= ")";
+
+		$sql .= " GROUP BY LCASE (pd.name) ASC, LCASE(pd.name) ASC";
+
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
+			}
+
+			if ($data['limit'] < 1) {
+				$data['limit'] = 5;
+			}
+
+			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+		}
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
 	}
 }

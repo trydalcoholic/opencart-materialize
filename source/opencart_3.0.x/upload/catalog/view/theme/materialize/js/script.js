@@ -363,11 +363,8 @@ $(document).ready(function() {
 	$.fn.autocomplete = function(option) {
 		return this.each(function() {
 			this.timer = null;
-			this.items = new Array();
 
 			$.extend(this, option);
-
-			$(this).attr('autocomplete', 'off');
 
 			// Focus
 			$(this).on('focus', function() {
@@ -384,7 +381,7 @@ $(document).ready(function() {
 			// Keydown
 			$(this).on('keydown', function(event) {
 				switch(event.keyCode) {
-					case 27: // escape
+					case 27:
 						this.hide();
 						break;
 					default:
@@ -392,25 +389,6 @@ $(document).ready(function() {
 						break;
 				}
 			});
-
-			// Click
-			this.click = function(event) {
-				event.preventDefault();
-
-				value = $(event.target).parent().attr('data-value');
-
-				if (value && this.items[value]) {
-					this.select(this.items[value]);
-				}
-			}
-
-			// Show
-			this.show = function() {
-				$(this).siblings('.autocomplete-content.dropdown-content').css({
-					'opacity': '1',
-					'display': 'block'
-				});
-			}
 
 			// Hide
 			this.hide = function() {
@@ -426,60 +404,8 @@ $(document).ready(function() {
 
 				this.timer = setTimeout(function(object) {
 					object.source($(object).val(), $.proxy(object.response, object));
-				}, 200, this);
+				}, $(this).attr('data-delay'), this);
 			}
-
-			// Response
-			this.response = function(json) {
-				html = '';
-
-				if (json.length) {
-					for (i = 0; i < json.length; i++) {
-						this.items[json[i]['value']] = json[i];
-					}
-
-					for (i = 0; i < json.length; i++) {
-						if (!json[i]['category']) {
-							html += '<li class="waves-effect" data-value="' + json[i]['value'] + '">' + json[i]['img'] + '<span>' + json[i]['label'] + '</span></li>';
-						}
-					}
-
-					// Get all the ones with a categories
-					var category = new Array();
-
-					for (i = 0; i < json.length; i++) {
-						if (json[i]['category']) {
-							if (!category[json[i]['category']]) {
-								category[json[i]['category']] = new Array();
-								category[json[i]['category']]['name'] = json[i]['category'];
-								category[json[i]['category']]['item'] = new Array();
-							}
-
-							category[json[i]['category']]['item'].push(json[i]);
-						}
-					}
-
-					for (i in category) {
-						html += '<li class="dropdown-header">' + category[i]['name'] + '</li>';
-
-						for (j = 0; j < category[i]['item'].length; j++) {
-							html += '<li data-value="' + category[i]['item'][j]['value'] + '"><a href="#">&nbsp;&nbsp;&nbsp;' + category[i]['item'][j]['label'] + '</a></li>';
-						}
-					}
-				}
-
-				if (html) {
-					this.show();
-				} else {
-					this.hide();
-				}
-
-				$(this).siblings('.autocomplete-content.dropdown-content').html(html);
-			}
-
-			$(this).after('<ul class="autocomplete-content dropdown-content"></ul>');
-			$(this).siblings('.autocomplete-content.dropdown-content').delegate('span', 'click', $.proxy(this.click, this));
-
 		});
 	}
 

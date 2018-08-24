@@ -65,4 +65,12 @@ class ControllerExtensionModuleMaterialize extends Controller {
 			return false;
 		}
 	}
+
+	public function liveSearch($route, &$data) {
+		if ($this->config->get('theme_materialize_status') == 1) {
+			$data['live_search'] = $this->load->controller('extension/materialize/common/search');
+		} else {
+			return false;
+		}
+	}
 }

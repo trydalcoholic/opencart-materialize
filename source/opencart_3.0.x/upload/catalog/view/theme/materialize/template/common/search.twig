@@ -4,9 +4,18 @@
 			<div class="col s12">
 				<div class="nav-wrapper search-wrapper z-depth-0 {{ color_search }}">
 					<div id="search" class="input-field">
-						<input id="input-search" class="search-input autocomplete" type="search" name="search" value="{{ search }}" autocomplete="off">
+						<input id="input-search" class="search-input autocomplete" type="search" name="search" value="{{ search }}" autocomplete="off" data-delay="600">
 						<label class="label-icon search-buttons search-buttons__search waves-effect waves-circle" for="input-search"><i class="material-icons {{ color_search_text }}">search</i></label>
 						<i class="material-icons search-buttons search-buttons__clear waves-effect waves-circle">close</i>
+						{% if live_search.categories %}
+						<i id="live-search-trigger-categories" class="material-icons search-buttons search-buttons__categories waves-effect waves-circle dropdown-trigger {{ color_search_text }}" data-target="live-search-categories">more_vert</i>
+						<ul id="live-search-categories" class="dropdown-content">
+							<li><a href="#" class="waves-effect live-search-categories active" data-category-id="0" onclick="return false" rel="nofollow">Искать везде</a></li>
+							{% for category in live_search.categories %}
+							<li><a href="#" class="waves-effect live-search-categories" data-category-id="{{ category.category_id }}" onclick="return false" rel="nofollow">{{ category.name }}</a></li>
+							{% endfor %}
+						</ul>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -14,24 +23,144 @@
 	</div>
 	<script>
 	$(document).ready(function() {
-		$('input[name=\'search\']').autocomplete({
+		var filterCategoryId = 0;
+
+		{% if live_search.categories %}
+		var liveSearchTriggerCategories = $('#live-search-trigger-categories'),
+			liveSearchCategories = $('.live-search-categories');
+
+		liveSearchTriggerCategories.dropdown({
+			alignment: 'right',
+			coverTrigger: false,
+			constrainWidth: false,
+		});
+
+		liveSearchCategories.click(function() {
+			liveSearchCategories.removeClass('active');
+			$(this).addClass('active');
+			filterCategoryId = $(this).data('category-id');
+			filterCategoryName = $(this).text();
+		});
+		{% endif %}
+
+		var inputSearch = $('#input-search'),
+			html = '<ul id="live-search-wrapper" class="autocomplete-content dropdown-content"></ul>',
+			showDivider = true;
+
+		inputSearch.after(html);
+		inputSearch.autocomplete({
 			'source': function(request, response) {
-				$.ajax({
-					url: 'index.php?route=common/search/autocomplete&filter_name=' + encodeURIComponent(request),
-					dataType: 'json',
-					success: function(json) {
-						response($.map(json, function(item) {
-							return {
-								label: item['name'],
-								img: item['img'],
-								value: item['product_id']
+				var inputSearchValue = inputSearch.val(),
+					liveSearchWrapper = $('#live-search-wrapper');
+
+				if (inputSearchValue.length < 0) {
+					liveSearchWrapper.css({
+						'opacity': '0',
+						'display': 'none'
+					});
+				} else {
+					var html = '<li class="center">';
+					html +=	'	<div class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>';
+					html +=	'</li>';
+					liveSearchWrapper.html(html);
+					liveSearchWrapper.css({
+						'opacity': '1',
+						'display': 'block'
+					});
+
+					$.ajax({
+						url: 'index.php?route=extension/materialize/common/search/autocomplete&filter_name=' + encodeURIComponent(inputSearchValue) + '&filter_category_id=' + filterCategoryId,
+						dataType: 'json',
+						success: function(result) {
+							var products = result.products;
+
+							liveSearchWrapper.empty();
+
+							if (!$.isEmptyObject(products)) {
+								$.each(products, function(index, product) {
+									var html = '<li class="waves-effect">';
+
+									if (product.image) {
+										html += '<img alt="' + product.name + '" src="' + product.image + '" class="circle right">';
+									}
+
+									html += '	<a href="' + product.href + '" title="' + product.name + '">';
+									html += '		<div>';
+									html += '			<span class="text-bold">' + product.name + '</span>';
+
+									if (product.price) {
+										html += '<div>';
+
+										if (product.special) {
+											html += '	<span class="card-price red-text text-darken-2">' + product.special + '</span><span class="old-price grey-text">' + product.price + '</span>';
+										} else {
+											html += '	<span class="price">' + product.price + '</span>';
+										}
+
+										html += '</div>';
+									}
+
+									if (product.rating) {
+										html += '<div class="card-rating">';
+
+										for (var i = 0; i < 5; i++) {
+											if (product.rating > i) {
+												html += '<i class="material-icons">star</i>';
+											} else {
+												var rest = splitString(product.rating, '.');
+
+												if (rest[1] < 3) {
+													html += '	<i class="material-icons">star_border</i>';
+												} else if (rest[1] > 3 && rest[1] < 7) {
+													html += '	<i class="material-icons">star_half</i>';
+												} else {
+													html += '	<i class="material-icons">star</i>';
+												}
+
+												html += '	&nbsp;' + product.rating + '&nbsp;';
+											}
+										}
+
+										html += '	<span>(' + product.reviews + ')</span>';
+										html += '</div>';
+									}
+
+									if (product.description) {
+										html += '			<p>' + product.description + '</p>';
+									}
+
+									html += '		</div>';
+									html += '	</a>';
+									html += '</li>';
+
+									if (showDivider == true) {
+										html += '<li class="divider"></li>';
+									}
+
+									liveSearchWrapper.append(html);
+								});
+							} else {
+								if (filterCategoryId == 0) {
+									var html = '<li class="center-center">Ничего не найдено.</li>';
+								} else {
+									var html = '<li class="center-center">В категории&nbsp;<b>\"' + filterCategoryName + '\"</b>&nbsp;ничего не найдено.</li>';
+								}
+
+								liveSearchWrapper.html(html);
 							}
-						}));
-					}
-				});
+
+							liveSearchWrapper.css({
+								'opacity': '1',
+								'display': 'block'
+							});
+
+							return false;
+						}
+					});
+				}
 			},
-			'select': function(item) {
-				window.location = "{{ product_path }}&product_id="+item['value'];
+			'select': function(product) {
+				inputSearch.val(product.name);
 			}
 		});
 	});
