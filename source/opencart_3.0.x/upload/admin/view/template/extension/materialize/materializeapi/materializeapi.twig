@@ -2,25 +2,25 @@
 	<div class="row">
 		<div class="col-sm-3">
 			<ul class="nav nav-pills nav-stacked" id="tab-materializeapi-pills">
-				<li><a href="#tab-donaters" data-toggle="tab"><i class="fa fa-birthday-cake"></i> Топ донатеров</a></li>
-				<li><a href="#tab-translators" data-toggle="tab"><i class="fa fa-users"></i> Переводчики</a></li>
-				<li><a href="#tab-template-versions" data-toggle="tab"><i class="fa fa-code"></i> Версии шаблона</a></li>
-				<li><a href="#tab-changelog" data-toggle="tab"><i class="fa fa-asterisk"></i> Список изменений</a></li>
+				<li><a href="#tab-donaters" data-toggle="tab"><i class="fa fa-birthday-cake"></i> {{ tab_donaters }}</a></li>
+				<li><a href="#tab-translators" data-toggle="tab"><i class="fa fa-users"></i> {{ tab_translators }}</a></li>
+				<li><a href="#tab-template-versions" data-toggle="tab"><i class="fa fa-code"></i> {{ tab_template_versions }}</a></li>
+				<li><a href="#tab-changelog" data-toggle="tab"><i class="fa fa-asterisk"></i> {{ tab_changelog }}</a></li>
 			</ul>
 		</div>
 		<div class="col-sm-9">
 			<div class="tab-content">
 				<div class="tab-pane" id="tab-donaters">
 					<fieldset>
-						<legend>Топ донатеров</legend>
+						<legend>{{ tab_donaters }}</legend>
 						<div class="table-responsive">
 							<table id="donaters" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Изображение</th>
-										<th>Имя</th>
-										<th class="text-center">Сумма доната</th>
+										<th>{{ column_image }}</th>
+										<th>{{ column_name }}</th>
+										<th class="text-center">{{ column_amount_donate }}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -54,7 +54,7 @@
 								<table class="table table-bordered">
 									<tbody>
 										<tr>
-											<td><b>Всего:</b></td>
+											<td><b>{{ text_total }}:</b></td>
 											<td class="text-center"><span class="label label-default">{{ total_amount }} USD</span></td>
 										</tr>
 									</tbody>
@@ -62,18 +62,16 @@
 							</div>
 						</div>
 					</fieldset>
-					<div class="alert alert-info">
-						Пожалуйста, поддержите развитие шаблона! <a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener" class="alert-link">Оставьте отзыв</a> а работе или <a href="//paypal.me/trydalcoholic" target="_blank" rel="noopener" class="alert-link">пожертвуйте на развитие</a>.
-					</div>
+					<div class="alert alert-info">{{ text_appeal_donate }}</div>
 					<hr>
 					<div class="form-group">
 						<div class="col-xs-12 text-right">
 							<div class="btn-group">
-								<button type="button" class="btn btn-info" id="cache-clear">Задонатить</button>
-								<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+								<button type="button" class="btn btn-info">{{ text_donate }}</button>
+								<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 								<ul class="dropdown-menu">
-									<li><a href="//paypal.me/trydalcoholic" target="_blank" rel="noopener">PayPal</a></li>
-									<li><a href="//money.yandex.ru/to/41001413377821" target="_blank" rel="noopener">Яндекс.Деньги</a></li>
+									<li>{{ link_paypal }}</li>
+									<li>{{ link_yandex }}</li>
 								</ul>
 							</div>
 						</div>
@@ -81,13 +79,13 @@
 				</div>
 				<div class="tab-pane" id="tab-translators">
 					<fieldset>
-						<legend>Переводчики</legend>
+						<legend>{{ tab_translators }}</legend>
 						<div class="table-responsive">
 							<table id="versions" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<td>Язык</td>
-										<td>Участники</td>
+										<td>{{ column_language }}</td>
+										<td>{{ column_participants }}</td>
 									</tr>
 								</thead>
 								<tbody>
@@ -101,28 +99,24 @@
 							</table>
 						</div>
 					</fieldset>
-					<div class="alert alert-info">
-						Если вы хотите стать участником перевода шаблона, пожалуйста, <a href="//github.com/trydalcoholic/opencart-materialize/issues/20" target="_blank" rel="noopener" class="alert-link">ознакомьтесь с инструкцией здесь</a>.
-					</div>
+					<div class="alert alert-info">{{ text_translate }}</div>
 					<hr>
 					<div class="form-group">
 						<div class="col-xs-12 text-right">
-							<div class="btn-group">
-								<a href="//github.com/trydalcoholic/opencart-materialize/issues/20" class="btn btn-info" target="_blank" rel="noopener">Помочь</a>
-							</div>
+							<div class="btn-group">{{ link_translate }}</div>
 						</div>
 					</div>
 				</div>
 				<div class="tab-pane" id="tab-template-versions">
 					<fieldset>
-						<legend>Версии шаблона</legend>
+						<legend>{{ tab_template_versions }}</legend>
 						<div class="table-responsive">
 							<table id="versions" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<td>Версия OpenCart</td>
-										<td>Версия шаблона</td>
-										<td>Статус</td>
+										<td>{{ column_opencart_version }}</td>
+										<td>{{ column_template_version }}</td>
+										<td>{{ column_status }}</td>
 									</tr>
 								</thead>
 								<tbody>
@@ -137,14 +131,12 @@
 							</table>
 						</div>
 					</fieldset>
-					<div class="alert alert-info">
-						Пожалуйста, поддержите развитие шаблона! <a href="//www.opencart.com/index.php?route=marketplace/extension/info&extension_id=30715" target="_blank" rel="noopener" class="alert-link">Оставьте отзыв</a> а работе или <a href="//paypal.me/trydalcoholic" target="_blank" rel="noopener" class="alert-link">пожертвуйте на развитие</a>.
-					</div>
+					<div class="alert alert-info">{{ text_appeal_donate }}</div>
 					<hr>
 					<div class="form-group">
 						<div class="col-xs-12 text-right">
 							<div class="btn-group">
-								<button type="button" class="btn btn-info">Ваша версия <b>{{ template_verstion }}</b></button>
+								<button type="button" class="btn btn-info">{{ text_your_version }} <b>{{ template_verstion }}</b></button>
 							</div>
 						</div>
 					</div>
@@ -159,11 +151,11 @@
 							<div id="changelog-version-{{ counter_changelogs }}" class="panel-collapse collapse in">
 								<div class="panel-body">
 									<fieldset>
-										<legend><i class="fa fa-magic"></i> Изменения</legend>
+										<legend><i class="fa fa-magic"></i> {{ text_changes }}</legend>
 										{{ changelog.changes }}
 									</fieldset>
 									<fieldset>
-										<legend><i class="fa fa-bug"></i> Исправленные баги</legend>
+										<legend><i class="fa fa-bug"></i> {{ text_fixed_bugs }}</legend>
 										{{ changelog.bags }}
 									</fieldset>
 								</div>
@@ -174,11 +166,11 @@
 							<div id="changelog-version-{{ counter_changelogs }}" class="panel-collapse collapse">
 								<div class="panel-body">
 									<fieldset>
-										<legend><i class="fa fa-magic"></i> Изменения</legend>
+										<legend><i class="fa fa-magic"></i> {{ text_changes }}</legend>
 										{{ changelog.changes }}
 									</fieldset>
 									<fieldset>
-										<legend><i class="fa fa-bug"></i> Исправленные баги</legend>
+										<legend><i class="fa fa-bug"></i> {{ text_fixed_bugs }}</legend>
 										{{ changelog.bags }}
 									</fieldset>
 								</div>

@@ -1,6 +1,8 @@
 <?php
 class ControllerExtensionMaterializeMaterializeApiMaterializeApi extends Controller {
 	public function index() {
+		$this->load->language('extension/materialize/materializeapi/materializeapi');
+
 		$curl = curl_init('https://materialize.myefforts.ru/index.php?route=extension/module/materializeapi');
 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
