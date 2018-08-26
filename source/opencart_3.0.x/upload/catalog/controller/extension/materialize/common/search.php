@@ -1,6 +1,11 @@
 <?php
 class ControllerExtensionMaterializeCommonSearch extends Controller {
 	public function autocomplete() {
+		if ($this->config->get('theme_materialize_status') == 1) {
+			$materialize_settings = $this->config->get('theme_materialize_settings');
+			$livesearch = $materialize_settings['livesearch'];
+		}
+
 		$json = array();
 
 		$this->load->model('extension/materialize/catalog/product');
@@ -18,17 +23,68 @@ class ControllerExtensionMaterializeCommonSearch extends Controller {
 		}
 
 		$show_label = false;
-		$show_description = true;
-		$length_description = 100;
 
-		$filter_image = true;
-		$filter_description = true;
-		$filter_tag = true;
-		$filter_model = true;
-		$filter_sku = true;
-		$filter_manufacturer = true;
-		$filter_price = true;
-		$filter_rating = true;
+		if (!empty($livesearch['display_description'])) {
+			$show_description = true;
+
+			if (!empty($livesearch['display_description_length']) && $livesearch['display_description_length'] > 0) {
+				$length_description = $livesearch['display_description_length'];
+			} else {
+				$length_description = 100;
+			}
+		} else {
+			$show_description = false;
+		}
+
+		if (!empty($livesearch['display_image'])) {
+			$filter_image = true;
+		} else {
+			$filter_image = false;
+		}
+
+		if (!empty($livesearch['search_description'])) {
+			$filter_description = true;
+		} else {
+			$filter_description = false;
+		}
+
+		if (!empty($livesearch['search_tags'])) {
+			$filter_tag = true;
+		} else {
+			$filter_tag = false;
+		}
+
+		if (!empty($livesearch['search_model'])) {
+			$filter_model = true;
+		} else {
+			$filter_model = false;
+		}
+
+		if (!empty($livesearch['search_sku'])) {
+			$filter_sku = true;
+		} else {
+			$filter_sku = false;
+		}
+
+		if (!empty($livesearch['search_manufacturer'])) {
+			$filter_manufacturer = true;
+		} else {
+			$filter_manufacturer = false;
+		}
+
+		if (!empty($livesearch['display_price'])) {
+			$filter_price = true;
+		} else {
+			$filter_price = false;
+		}
+
+		if (!empty($livesearch['display_rating'])) {
+			$filter_rating = true;
+		} else {
+			$filter_rating = false;
+		}
+
+		$limit = $livesearch['settings_limit'];
 
 		$filter_data = array(
 			'show_description'		=> $show_description,
@@ -43,7 +99,7 @@ class ControllerExtensionMaterializeCommonSearch extends Controller {
 			'filter_rating'			=> $filter_rating,
 			'filter_category_id'	=> $filter_category_id,
 			'start'					=> 0,
-			'limit'					=> 5
+			'limit'					=> $limit
 		);
 
 		if ($filter_image) {

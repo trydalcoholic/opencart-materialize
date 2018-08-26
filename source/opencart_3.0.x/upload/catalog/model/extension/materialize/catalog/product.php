@@ -63,15 +63,16 @@ class ModelExtensionMaterializeCatalogProduct extends Model {
 
 		if (!empty($data['filter_manufacturer'])) {
 			$sql .= ", m.name AS manufacturer";
-			$manufacturer_join = " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
-		} else {
-			$manufacturer_join = false;
 		}
 
 		if (!empty($data['filter_category_id'])) {
-			$sql .= " FROM " . DB_PREFIX . "category_path cp LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (cp.category_id = p2c.category_id) LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id) " . $manufacturer_join . "";
+			$sql .= " FROM " . DB_PREFIX . "category_path cp LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (cp.category_id = p2c.category_id) LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
 		} else {
-			$sql .= " FROM " . DB_PREFIX . "product p " . $manufacturer_join . "";
+			$sql .= " FROM " . DB_PREFIX . "product p";
+		}
+
+		if (!empty($data['filter_manufacturer'])) {
+			$sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
 		}
 
 		$sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
@@ -89,7 +90,6 @@ class ModelExtensionMaterializeCatalogProduct extends Model {
 		foreach ($words as $word) {
 			$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
 		}
-
 		if ($implode) {
 			$sql .= " " . implode(" AND ", $implode) . "";
 		}
@@ -128,7 +128,7 @@ class ModelExtensionMaterializeCatalogProduct extends Model {
 
 		$sql .= ")";
 
-		$sql .= " GROUP BY (pd.name) ORDER BY LCASE(pd.name) ASC, LCASE(pd.name) ASC";
+		$sql .= " GROUP BY (pd.name) ORDER BY LCASE(pd.name = '" . $this->db->escape($data['filter_name']) . "') DESC";
 
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {

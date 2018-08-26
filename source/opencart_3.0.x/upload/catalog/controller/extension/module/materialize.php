@@ -64,26 +64,59 @@ class ControllerExtensionModuleMaterialize extends Controller {
 
 	public function liveSearch($route, &$data) {
 		if ($this->config->get('theme_materialize_status') == 1) {
-			$show_categories = true;
+			$materialize_settings = $this->config->get('theme_materialize_settings');
+			$livesearch = $materialize_settings['livesearch'];
 
-			$data['delay'] = 600;
-
-			$data['categories'] = array();
-
-			if ($show_categories) {
-				$this->load->model('catalog/category');
-
-				$categories = $this->model_catalog_category->getCategories(0);
-
-				foreach ($categories as $category) {
-					$data['categories'][] = array(
-						'category_id'	=> $category['category_id'],
-						'name'			=> $category['name']
-					);
+			if (!empty($livesearch['status'])) {
+				if (!empty($livesearch['search_categories'])) {
+					$show_categories = true;
+				} else {
+					$show_categories = false;
 				}
-			}
 
-			$data['live_search'] = $this->load->view('extension/module/live_search', $data);
+				if (!empty($livesearch['settings_delay']) && $livesearch['settings_delay'] > 0) {
+					$data['delay'] = $livesearch['settings_delay'];
+				} else {
+					$data['delay'] = 600;
+				}
+
+				if (!empty($livesearch['settings_min_length']) && $livesearch['settings_min_length'] >= 0) {
+					$data['min_length'] = $livesearch['settings_min_length'];
+				} else {
+					$data['min_length'] = 0;
+				}
+
+				if (!empty($livesearch['display_divider'])) {
+					$data['divider'] = true;
+				} else {
+					$data['divider'] = false;
+				}
+
+				if (!empty($livesearch['display_highlight'])) {
+					$data['highlight'] = true;
+				} else {
+					$data['highlight'] = false;
+				}
+
+				$data['categories'] = array();
+
+				if ($show_categories) {
+					$this->load->model('catalog/category');
+
+					$categories = $this->model_catalog_category->getCategories(0);
+
+					foreach ($categories as $category) {
+						$data['categories'][] = array(
+							'category_id'	=> $category['category_id'],
+							'name'			=> $category['name']
+						);
+					}
+				}
+
+				$data['live_search'] = $this->load->view('extension/module/live_search', $data);
+			} else {
+				$data['live_search'] = false;
+			}
 		} else {
 			return false;
 		}

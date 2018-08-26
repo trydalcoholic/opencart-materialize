@@ -467,6 +467,26 @@ class ControllerExtensionThemeMaterialize extends Controller {
 				'working_hours'	=> 'on',
 			);
 
+			$data['theme_materialize_settings']['livesearch'] = array(
+				'status'						=> 'on',
+				'settings_limit'				=> '4',
+				'settings_min_length'			=> '0',
+				'settings_delay'				=> '600',
+				'search_categories'				=> '',
+				'search_description'			=> '',
+				'search_tags'					=> 'on',
+				'search_model'					=> '',
+				'search_sku'					=> '',
+				'search_manufacturer'			=> 'on',
+				'display_image'					=> 'on',
+				'display_price'					=> 'on',
+				'display_rating'				=> 'on',
+				'display_description'			=> 'on',
+				'display_description_length'	=> '100',
+				'display_highlight'				=> 'on',
+				'display_divider'				=> 'on',
+			);
+
 			$data['theme_materialize_settings']['footer'] = array(
 				'contact_information'	=> '',
 			);
@@ -667,38 +687,6 @@ class ControllerExtensionThemeMaterialize extends Controller {
 		$this->response->setOutput($this->load->view('extension/theme/materialize', $data));
 	}
 
-	protected function getMaterializeApi() {
-		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
-			$this->error['warning'] = $this->language->get('error_permission');
-		}
-
-		$curl = curl_init('https://materialize.myefforts.ru/index.php?route=extension/module/materializeapi');
-
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_POST, 1);
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-
-		$materializeapi_info = json_decode($response, true);
-
-		if ($materializeapi_info) {
-			$materializeapi['donaters'] = $materializeapi_info['donaters'];
-			$materializeapi['total_amount'] = $materializeapi_info['total_amount'];
-			$materializeapi['versions'] = $materializeapi_info['versions'];
-			$materializeapi['translators'] = $materializeapi_info['translators'];
-			$materializeapi['changelogs'] = $materializeapi_info['changelogs'];
-			$materializeapi['template_verstion'] = $this->templateVersion();
-
-			return $materializeapi;
-		} else {
-			return false;
-		}
-	}
-
 	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/theme/materialize')) {
 			$this->error['warning'] = $this->language->get('error_permission');
@@ -790,6 +778,14 @@ class ControllerExtensionThemeMaterialize extends Controller {
 
 					if ($file != 'svg') {
 						$this->error['favicon_svg'] = 'SVG фавикон должен быть в формате .svg!';
+					}
+				}
+
+				$livesearch = $materialize_settings['livesearch'];
+
+				if (!empty($livesearch['status'])) {
+					if (empty($livesearch['settings_limit']) || $livesearch['settings_limit'] <= 0 || $livesearch['settings_limit'] > 10) {
+						$this->error['livesearch_settings_limit'] = 'Лимит результатов живого поиска должен быть от 0 до 10!';
 					}
 				}
 			}

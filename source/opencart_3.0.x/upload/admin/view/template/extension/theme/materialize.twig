@@ -60,6 +60,7 @@
 											<ul class="nav nav-pills nav-stacked" id="tab-common-pills">
 												<li><a href="#tab-header" data-toggle="tab">{{ text_header }}</a></li>
 												<li><a href="#tab-footer" data-toggle="tab">{{ text_footer }}</a></li>
+												<li><a href="#tab-livesearch" data-toggle="tab">Живой поиск</a></li>
 												<li><a href="#tab-favicon-settings" data-toggle="tab">Фавикон</a></li>
 												<li><a href="#tab-social-networks" data-toggle="tab">Социальные сети</a></li>
 												<li><a href="#tab-adult-content" data-toggle="tab">Взрослый контент</a></li>
@@ -172,6 +173,235 @@
 															</div>
 														</div>
 													</fieldset>
+												</div>
+												<div class="tab-pane" id="tab-livesearch">
+													<div class="list-group-item">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading text-medium">Живой поиск</h4>
+																<p>Поиск и соответствующие предложения начнут показываться сразу после начала взаимодействия со строкой поиска по сайту.</p>
+															</div>
+															<div class="media-right media-middle">
+																<label class="form-switch pull-right">
+																	<input name="theme_materialize_settings[livesearch][status]" type="checkbox" {{ theme_materialize_settings.livesearch.status == 'on' ? 'checked="checked"' }}>
+																	<i></i>
+																</label>
+															</div>
+														</div>
+													</div>
+													<hr>
+													<ul class="nav nav-tabs">
+														<li class="active"><a href="#tab-livesearch__settings" data-toggle="tab">Настройки</a></li>
+														<li><a href="#tab-livesearch__display" data-toggle="tab">Отображение</a></li>
+													</ul>
+													<div class="tab-content">
+														<div class="tab-pane active" id="tab-livesearch__settings">
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Лимит поиск</h4>
+																		<p>Лимит на количество выводимого товара в результатах живого поиска.</p>
+																		<hr>
+																		<input type="text" name="theme_materialize_settings[livesearch][settings_limit]" value="{{ theme_materialize_settings.livesearch.settings_limit }}" placeholder="Лимит товаров" class="form-control" />
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Минимальное количество символов</h4>
+																		<p>Минимальное количество символов для начала поиска. При значении 0, поиск будет производиться сразу после начала взаимодействия с формой поиска.</p>
+																		<hr>
+																		<input type="text" name="theme_materialize_settings[livesearch][settings_min_length]" value="{{ theme_materialize_settings.livesearch.settings_min_length }}" placeholder="Минимальное количество символов" class="form-control" />
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Задержка перед поиском</h4>
+																		<p>После начала взаимодействия пользователя с поиском, через указанное время начнёт срабатывать скрипт поиска.</p>
+																		<hr>
+																		<input type="text" name="theme_materialize_settings[livesearch][settings_delay]" value="{{ theme_materialize_settings.livesearch.settings_delay }}" placeholder="Время задержки" class="form-control" />
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Уточнение категории</h4>
+																		<p>Выводит список главных категорий, позволяя пользователю уточнить поиск в одной из выбранных категорий.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[livesearch][search_categories]" type="checkbox" {{ theme_materialize_settings.livesearch.search_categories == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Искать в описании</h4>
+																		<p>Будет производиться поиск в описании товаров.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[livesearch][search_description]" type="checkbox" {{ theme_materialize_settings.livesearch.search_description == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Искать по тегам</h4>
+																		<p>Будет производиться поиск по тегам товаров.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[livesearch][search_tags]" type="checkbox" {{ theme_materialize_settings.livesearch.search_tags == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Искать по модели</h4>
+																		<p>Будет производиться поиск модели товаров.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[livesearch][search_model]" type="checkbox" {{ theme_materialize_settings.livesearch.search_model == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Искать по артиклу</h4>
+																		<p>Будет производиться поиск по артиклум товаров.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[livesearch][search_sku]" type="checkbox" {{ theme_materialize_settings.livesearch.search_sku == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Искать по производителю</h4>
+																		<p>Будет производиться поиск по названию производителя. Например, поисковый запрос "Apple" будет выводить товары этого производителя.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[livesearch][search_manufacturer]" type="checkbox" {{ theme_materialize_settings.livesearch.search_manufacturer == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="tab-pane" id="tab-livesearch__display">
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Показывать изображения</h4>
+																		<p>В результатах выдачи будет показываться изображения товаров.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[livesearch][display_image]" type="checkbox" {{ theme_materialize_settings.livesearch.display_image == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Показывать цену</h4>
+																		<p>В результатах выдачи будет показываться цена товаров.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[livesearch][display_price]" type="checkbox" {{ theme_materialize_settings.livesearch.display_price == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Показывать рейтинг</h4>
+																		<p>В результатах выдачи будет показываться рейтинг товаров.</p>
+																	</div>
+																	<div class="media-right media-middle">
+																		<label class="form-switch pull-right">
+																			<input name="theme_materialize_settings[livesearch][display_rating]" type="checkbox" {{ theme_materialize_settings.livesearch.display_rating == 'on' ? 'checked="checked"' }}>
+																			<i></i>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media-body">
+																	<h4 class="media-heading text-medium">Показывать описание</h4>
+																	<p>В результатах выдачи будет показываться описание товаров.</p>
+																</div>
+																<div class="media-right media-middle">
+																	<label class="form-switch pull-right">
+																		<input name="theme_materialize_settings[livesearch][display_description]" type="checkbox" {{ theme_materialize_settings.livesearch.display_description == 'on' ? 'checked="checked"' }}>
+																		<i></i>
+																	</label>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading text-medium">Количество символов в описании</h4>
+																		<p>Лимит на количество символов для описания товаров.</p>
+																		<hr>
+																		<input type="text" name="theme_materialize_settings[livesearch][display_description_length]" value="{{ theme_materialize_settings.livesearch.display_description_length }}" placeholder="Количество символов в описании" class="form-control" />
+																	</div>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media-body">
+																	<h4 class="media-heading text-medium">Подсвечивать совпадения</h4>
+																	<p>В результатах выдачи будет подсвечиваться совпадение названия с поисковым запросом.</p>
+																</div>
+																<div class="media-right media-middle">
+																	<label class="form-switch pull-right">
+																		<input name="theme_materialize_settings[livesearch][display_highlight]" type="checkbox" {{ theme_materialize_settings.livesearch.display_highlight == 'on' ? 'checked="checked"' }}>
+																		<i></i>
+																	</label>
+																</div>
+															</div>
+															<div class="list-group-item">
+																<div class="media-body">
+																	<h4 class="media-heading text-medium">Показывать разделитель</h4>
+																	<p>В результатах выдачи будет показываться полоса, разделяющая результаты поиска.</p>
+																</div>
+																<div class="media-right media-middle">
+																	<label class="form-switch pull-right">
+																		<input name="theme_materialize_settings[livesearch][display_divider]" type="checkbox" {{ theme_materialize_settings.livesearch.display_divider == 'on' ? 'checked="checked"' }}>
+																		<i></i>
+																	</label>
+																</div>
+															</div>
+														</div>
+													</div>
 												</div>
 												<div class="tab-pane" id="tab-favicon-settings">
 													<ul class="nav nav-tabs">

@@ -21,8 +21,7 @@ $(document).ready(function() {
 	{% endif %}
 
 	var inputSearch = $('#input-search'),
-		html = '<ul id="live-search-wrapper" class="autocomplete-content dropdown-content"></ul>',
-		showDivider = true;
+		html = '<ul id="live-search-wrapper" class="autocomplete-content dropdown-content"></ul>';
 
 	inputSearch.after(html);
 	inputSearch.autocomplete({
@@ -30,7 +29,7 @@ $(document).ready(function() {
 			var inputSearchValue = inputSearch.val(),
 				liveSearchWrapper = $('#live-search-wrapper');
 
-			if (inputSearchValue.length < 0) {
+			if (inputSearchValue.length < {{ min_length }}) {
 				liveSearchWrapper.css({
 					'opacity': '0',
 					'display': 'none'
@@ -55,7 +54,7 @@ $(document).ready(function() {
 
 						if (!$.isEmptyObject(products)) {
 							$.each(products, function(index, product) {
-								var html = '<li class="waves-effect">';
+								var html = '<li class="waves-effect live-search-item">';
 
 								if (product.image) {
 									html += '<img alt="' + product.name + '" src="' + product.image + '" class="circle right">';
@@ -63,7 +62,7 @@ $(document).ready(function() {
 
 								html += '	<a href="' + product.href + '" title="' + product.name + '">';
 								html += '		<div>';
-								html += '			<span class="text-bold">' + product.name + '</span>';
+								html += '			<span class="text-bold product-name">' + product.name + '</span>';
 
 								if (product.price) {
 									html += '<div>';
@@ -110,9 +109,9 @@ $(document).ready(function() {
 								html += '	</a>';
 								html += '</li>';
 
-								if (showDivider == true) {
-									html += '<li class="divider"></li>';
-								}
+								{% if divider %}
+								html += '<li class="divider"></li>';
+								{% endif %}
 
 								liveSearchWrapper.append(html);
 							});
@@ -130,6 +129,24 @@ $(document).ready(function() {
 							'opacity': '1',
 							'display': 'block'
 						});
+
+						{% if highlight %}
+						var liveSearchItem = $('.live-search-item');
+
+						liveSearchItem.each(function() {
+							var productName = $(this).find('.product-name');
+
+							if (productName.text().toLowerCase().indexOf(inputSearchValue.toLowerCase()) != -1) {
+								var	matchStart = productName.text().toLowerCase().indexOf(inputSearchValue.toLowerCase()),
+									matchEnd = matchStart + inputSearchValue.length - 1,
+									beforeMatch = productName.text().slice(0, matchStart),
+									matchText = productName.text().slice(matchStart, matchEnd + 1),
+									afterMatch = productName.text().slice(matchEnd + 1);
+
+								productName.html("<span>" + beforeMatch + "<span class='text-bold product-name highlight deep-orange-text'>" + matchText + "</span>" + afterMatch + "</span>");
+							}
+						});
+						{% endif %}
 
 						return false;
 					}
