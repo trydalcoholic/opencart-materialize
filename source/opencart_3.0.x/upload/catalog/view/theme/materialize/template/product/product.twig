@@ -186,40 +186,40 @@
 								<div class="blockquote-icon blue-grey lighten-4 cursor-default"><i class="material-icons">chat</i></div>
 								<ul>
 									{% if manufacturer %}
-									<li><span class="text-bold">{{ text_manufacturer }}</span>:&nbsp;<a href="{{ manufacturers }}" target="_blank" rel="noopener"><span itemprop="brand">{{ manufacturer }}</span></a></li>
+									<li><span class="text-bold">{{ text_manufacturer }}:</span>&nbsp;<a href="{{ manufacturers }}" target="_blank" rel="noopener"><span itemprop="brand">{{ manufacturer }}</span></a></li>
 									{% endif %}
 									{% if category_products %}
-									<li><span class="text-bold">{{ text_category }}</span>:&nbsp;<a href="{{ category_products.0.href }}"><span itemprop="category">{{ category_products.0.name }}</span></a></li>
+									<li><span class="text-bold">{{ text_category }}:</span>&nbsp;<a href="{{ category_products.0.href }}"><span itemprop="category">{{ category_products.0.name }}</span></a></li>
 									{% endif %}
 									{% if model %}
-									<li><span class="text-bold">{{ text_model }}</span>&nbsp;{{ model }}</li>
+									<li><span class="text-bold">{{ text_model }}:</span>&nbsp;{{ model }}</li>
 									{% endif %}
 									{% if sku %}
-									<li><span class="text-bold">{{ text_sku }}</span>:&nbsp;<span itemprop="sku">{{ sku }}</span></li>
+									<li><span class="text-bold">{{ text_sku }}:</span>&nbsp;<span itemprop="sku">{{ sku }}</span></li>
 									{% endif %}
 									{% if upc %}
-									<li><span class="text-bold">{{ text_upc }}</span>:&nbsp;{{ upc }}</li>
+									<li><span class="text-bold">{{ text_upc }}:</span>&nbsp;{{ upc }}</li>
 									{% endif %}
 									{% if ean %}
-									<li><span class="text-bold" >{{ text_ean }}</span>:&nbsp;{{ ean }}</li>
+									<li><span class="text-bold" >{{ text_ean }}:</span>&nbsp;{{ ean }}</li>
 									{% endif %}
 									{% if jan %}
-									<li><span class="text-bold">{{ text_jan }}</span>:&nbsp;{{ jan }}</li>
+									<li><span class="text-bold">{{ text_jan }}:</span>&nbsp;{{ jan }}</li>
 									{% endif %}
 									{% if isbn %}
-									<li><span class="text-bold">{{ text_isbn }}</span>:&nbsp;{{ isbn }}</li>
+									<li><span class="text-bold">{{ text_isbn }}:</span>&nbsp;{{ isbn }}</li>
 									{% endif %}
 									{% if mpn %}
-									<li><span class="text-bold">{{ text_mpn }}</span>:&nbsp;<span itemprop="mpn">{{ mpn }}</span></li>
+									<li><span class="text-bold">{{ text_mpn }}:</span>&nbsp;<span itemprop="mpn">{{ mpn }}</span></li>
 									{% endif %}
 									{% if location %}
-									<li><span class="text-bold">{{ text_location }}</span>:&nbsp;{{ location }}</li>
+									<li><span class="text-bold">{{ text_location }}:</span>&nbsp;{{ location }}</li>
 									{% endif %}
 									{% if dimensions_length or dimensions_width or dimensions_height %}
-									<li><span class="text-bold">{{ text_dimension }}</span>:&nbsp;{{ dimensions_length }} x {{ dimensions_width }} x {{ dimensions_height }}</li>
+									<li><span class="text-bold">{{ text_dimension }}:</span>&nbsp;{{ dimensions_length }} x {{ dimensions_width }} x {{ dimensions_height }}</li>
 									{% endif %}
 									{% if weight > 0 %}
-									<li><span class="text-bold">{{ text_weight }}</span>:&nbsp;{{ weight }}</li>
+									<li><span class="text-bold">{{ text_weight }}:</span>&nbsp;{{ weight }}</li>
 									{% endif %}
 									{% if additionalfields %}
 										{% for key, additionalfield in additionalfields %}
@@ -228,9 +228,9 @@
 										</li>
 										{% endfor %}
 									{% endif %}
-									<li><span class="text-bold">{{ text_stock }}</span>&nbsp;<span class="{{ stock_color }}-text text-darken-1 text-bold">{{ stock }}</span></li>
+									<li><span class="text-bold">{{ text_stock }}:</span>&nbsp;<span class="{{ stock_color }}-text text-darken-1 text-bold">{{ stock }}</span></li>
 									{% if progressbar %}
-									<li class="product-remainder"><span class="text-bold">{{ text_remainder }}</span>:&nbsp;<div class="progress blue lighten-3"><div class="determinate {{ progressbar_color }}" style="width: {{ progressbar_percent }}%"></div></div></li>
+									<li class="product-remainder"><span class="text-bold">{{ text_remainder }}:</span>&nbsp;<div class="progress blue lighten-3"><div class="determinate {{ progressbar_color }}" style="width: {{ progressbar_percent }}%"></div></div></li>
 									{% endif %}
 								</ul>
 							</blockquote>
