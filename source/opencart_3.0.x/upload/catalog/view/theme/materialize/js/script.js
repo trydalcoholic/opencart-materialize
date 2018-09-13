@@ -255,9 +255,12 @@ $(document).ready(function() {
 		scrollTopDuration = 700,
 		backToTop = $('#back-to-top');
 
-	$(window).scroll(function(){
+	function shouldActivateBackToTop() {
 		$(this).scrollTop() > offset ? backToTop.removeClass('scale-out') : backToTop.addClass('scale-out');
-	});
+	}
+	
+	shouldActivateBackToTop();
+	$(window).scroll(shouldActivateBackToTop);
 
 	backToTop.on('click', function(event){
 		event.preventDefault();
