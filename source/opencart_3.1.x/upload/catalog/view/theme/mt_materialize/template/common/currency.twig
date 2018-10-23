@@ -1,0 +1,30 @@
+{% if currencies|length > 1 %}
+	<div id="modal-currency" class="modal">
+		<div class="modal-header">
+			<h4>{{ text_currency }}</h4>
+		</div>
+		<div class="modal-content">
+			<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-currency">
+				<ul>
+					{% for currency in currencies %}
+						<li>
+							<label for="currency-{{ currency.code }}">
+								<input id="currency-{{ currency.code }}" class="with-gap" type="radio" name="code" value="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}> <!-- todo-materiliaze Set color from color scheme -->
+								{% if currency.symbol_left %}
+									<span>{{ currency.symbol_left }} {{ currency.title }}</span>
+								{% else %}
+									<span>{{ currency.symbol_right }} {{ currency.title }}</span>
+								{% endif %}
+							</label>
+						</li>
+					{% endfor %}
+				</ul>
+				<input type="hidden" name="redirect" value="{{ redirect }}">
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="modal-close btn-flat waves-effect" title="{{ button_cancel }}">{{ button_cancel }}</button> <!-- todo-materiliaze Set color from color scheme -->
+			<button type="submit" form="form-currency" class="modal-close btn-flat waves-effect" title="{{ button_continue }}">{{ button_continue }}</button> <!-- todo-materiliaze Set color from color scheme -->
+		</div>
+	</div>
+{% endif %}

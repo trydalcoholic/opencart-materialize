@@ -1,0 +1,77 @@
+<button type="button" id="button-cart" class="materialize-cart-btn btn-floating btn-large waves-effect z-depth-2 modal-trigger" data-target="modal-cart"> <!-- todo-materiliaze Set color from color scheme -->
+	<i class="material-icons">shopping_cart</i> <!-- todo-materiliaze Set color from color scheme -->
+	<small id="cart-total" class="materialize-cart-total btn-floating z-depth-1">{{ text_items }}</small>V
+</button>
+<div id="modal-cart" class="modal bottom-sheet modal-fixed-footer">
+	<div class="modal-content">
+		<div class="container">
+			<div class="row">
+				<div class="col s12">
+					<h4 class="flow-text text-bold">Shopping Cart</h4> {# todo-materiliaze Multilingual text is filled in the admin panel #}
+					{% if products or vouchers %}
+						<ul class="collection z-depth-1">
+								{% for product in products %}
+									<li class="collection-item avatar">
+										{% if product.thumb %}
+											<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="circle"></a>
+										{% endif %}
+										<a href="{{ product.href }}"><span class="title">{{ product.name }}</span></a> x {{ product.quantity }}
+										<p>
+											<b>{{ product.total }}</b>
+											<br>
+											{% if product.option %}
+												{% for option in product.option %}
+													<br>
+													- <small>{{ option.name }}: {{ option.value }}</small>
+												{% endfor %}
+											{% endif %}
+											{% if product.recurring %}
+												<br>
+												- <small>{{ text_recurring }}: {{ product.recurring }}</small>
+											{% endif %}
+										</p>
+										<button onclick="cart.remove('{{ product.cart_id }}');" class="btn-floating transparent z-depth-0 waves-effect secondary-content activator" aria-label="{{ button_remove }}"><i class="material-icons black-text">remove_shopping_cart</i></button>
+									</li>
+								{% endfor %}
+								{% for voucher in vouchers %}
+									<li class="collection-item avatar">
+										<img data-src="catalog/view/theme/materialize/image/cart-voucher.png" class="circle" width="42" height="42">
+										<span class="title text-bold">{{ voucher.description }}</span>&nbsp;x&nbsp;1
+										<button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}" class="btn-flat no-padding secondary-content activator black-text"><i class="material-icons">remove_shopping_cart</i></button>
+									</li>
+								{% endfor %}
+							</ul>
+						<div class="row">
+							<div class="col s12 m6 offset-m6 l5 offset-l7">
+								<div class="card-panel">
+									<table class="bordered">
+										{% for total in totals %}
+											<tr>
+												<th>{{ total.title }}:</th>
+												<td>{{ total.text }}</td>
+											</tr>
+										{% endfor %}
+									</table>
+								</div>
+							</div>
+						</div>
+					{% else %}
+						<p>{{ text_no_results }}</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer grey lighten-3">
+		<div class="container">
+			<a href="{{ cart }}" class="modal-action btn-flat waves-effect waves-default" rel="nofollow">{{ text_cart }}</a>
+		</div>
+	</div>
+</div>
+<script>
+	/*$('.modal').modal();*/
+	{% if products or vouchers %}
+		$('#button-cart').addClass('pulse');
+		$('#cart-total').addClass('pulse');
+	{% endif %}
+</script>
