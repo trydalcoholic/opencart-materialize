@@ -3,18 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta http-equiv="X-UA-Compati
+	display: block;ble" content="ie=edge">
 	<title>{{ title }}</title>
 	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="theme-color" content=""> <!-- todo-materiliaze Set color from color scheme -->
+	<meta name="theme-color" content=""> {# todo-materiliaze Set color from color scheme #}
 	<meta name="application-name" content="{{ name }}">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content=""> <!-- todo-materiliaze Set color from color scheme -->
+	<meta name="apple-mobile-web-app-status-bar-style" content=""> {# todo-materiliaze Set color from color scheme #}
 	<meta name="apple-mobile-web-app-title" content="{{ name }}">
-	<meta name="msapplication-TileColor" content=""> <!-- todo-materiliaze Set color from color scheme -->
+	<meta name="msapplication-TileColor" content=""> {# todo-materiliaze Set color from color scheme #}
 	<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
-	<meta name="format-detection" content="telephone=no"> <!-- todo-materiliaze Allow disabling phone number recognition from admin panel -->
-	<meta name="format-detection" content="address=no"> <!-- todo-materiliaze Allow to disable address recognition from the admin panel -->
+	<meta name="format-detection" content="telephone=no"> {# todo-materiliaze Allow disabling phone number recognition from admin panel #}
+	<meta name="format-detection" content="address=no"> {# todo-materiliaze Allow to disable address recognition from the admin panel #}
 	<base href="{{ base }}">
 	{% if description %}
 		<meta name="description" content="{{ description }}">
@@ -26,8 +27,10 @@
 	<meta name="copyright" content="OpenCart Materialize Template (c) https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE">
 	<script src="catalog/view/javascript/jquery/jquery-3.3.1.min.js"></script>
 	<script src="catalog/view/theme/mt_materialize/js/superfish/superfish.js"></script>
+	<script src="catalog/view/theme/mt_materialize/js/simplebar/simplebar.js"></script>
 	<script src="catalog/view/theme/mt_materialize/js/materialize/materialize.min.js"></script>
 	<link href="catalog/view/theme/mt_materialize/stylesheet/materialize/materialize.min.css" rel="stylesheet">
+	<link href="catalog/view/theme/mt_materialize/stylesheet/simplebar/simplebar.min.css" rel="stylesheet">
 	<link href="catalog/view/theme/mt_materialize/stylesheet/stylesheet.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -74,23 +77,23 @@
 		{{ analytic }}
 	{% endfor %}
 </head>
-<body class="grey lighten-3"> <!-- todo-materiliaze Set color from color scheme -->
+<body class="grey lighten-3"> {# todo-materiliaze Set color from color scheme #}
 	<header>
-		<div class="row no-margin-bottom hide-on-small-only blue-grey darken-4"> <!-- todo-materiliaze Set color from color scheme -->
+		<div class="row no-margin-bottom hide-on-small-only blue-grey darken-4"> {# todo-materiliaze Set color from color scheme #}
 			<div class="container">
 				<div class="col s12">
 					<nav class="transparent z-depth-0 materialize-header--top-menu">
 						<div class="nav-wrapper">
 							{% if language or currency %}
 								<ul class="left">
-									{% if language %}<li class="waves-effect"><a class="white-text modal-trigger" href="#modal-language" rel="nofollow"><i class="material-icons">language</i></a></li>{% endif %} <!-- todo-materiliaze Set color from color scheme -->
-									{% if currency %}<li class="waves-effect"><a class="white-text modal-trigger" href="#modal-currency" rel="nofollow"><i class="material-icons">monetization_on</i></a></li>{% endif %} <!-- todo-materiliaze Set color from color scheme -->
+									{% if language %}<li class="waves-effect"><a class="white-text modal-trigger" href="#modal-language" rel="nofollow"><i class="material-icons">language</i></a></li>{% endif %} {# todo-materiliaze Set color from color scheme #}
+									{% if currency %}<li class="waves-effect"><a class="white-text modal-trigger" href="#modal-currency" rel="nofollow"><i class="material-icons">monetization_on</i></a></li>{% endif %} {# todo-materiliaze Set color from color scheme #}
 								</ul>
 							{% endif %}
 							<ul class="right">
-								<li class="waves-effect"><a class="white-text" href="{{ contact }}">{{ text_contact }}</a></li> <!-- todo-materiliaze Set color from color scheme -->
+								<li class="waves-effect"><a class="white-text" href="{{ contact }}">{{ text_contact }}</a></li> {# todo-materiliaze Set color from color scheme #}
 								<li class="waves-effect reset-position">
-									<a id="dropdown-lk" class="dropdown-trigger white-text" href="{{ account }}" data-target="dropdown-top-lk" rel="nofollow">{{ text_account }}</a> <!-- todo-materiliaze Set color from color scheme -->
+									<a id="dropdown-lk" class="dropdown-trigger white-text" href="{{ account }}" data-target="dropdown-top-lk" rel="nofollow">{{ text_account }}</a> {# todo-materiliaze Set color from color scheme #}
 									<ul id="dropdown-top-lk" class="dropdown-content">
 										{% if logged %}
 											<li><a class="waves-effect" href="{{ account }}" rel="nofollow">{{ text_account }}</a></li>
@@ -114,7 +117,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row no-margin-bottom blue-grey darken-3"> <!-- todo-materiliaze Set color from color scheme -->
+		<div class="row no-margin-bottom blue-grey darken-3"> {# todo-materiliaze Set color from color scheme #}
 			<div class="container">
 				<div class="valign-wrapper section">
 					<div class="col s12 m4">
@@ -126,19 +129,19 @@
 							{% endif %}
 						</div>
 					</div>
-					<div class="col m8 right-align hide-on-small-only blue-grey-text text-lighten-5"> <!-- todo-materiliaze Set color from color scheme -->
-						<a class="materialize-header-info--telephone flow-text blue-grey-text text-lighten-5" href="tel:{{ formatted_telephone }}"> <!-- todo-materiliaze Add proper phone formatting for link -->{{ telephone }}</a> <!-- todo-materiliaze Set color from color scheme -->
+					<div class="col m8 right-align hide-on-small-only blue-grey-text text-lighten-5"> {# todo-materiliaze Set color from color scheme #}
+						<a class="flow-text text-bold blue-grey-text text-lighten-5" href="tel:{{ formatted_telephone }}"> {# todo-materiliaze Add proper phone formatting for link #}{{ telephone }}</a> {# todo-materiliaze Set color from color scheme #}
 						<ul class="materialize-header-info right">
-							<li class="materialize-header-info__item"><a class="blue-grey-text text-lighten-5" href="{{ email }}"><i class="material-icons left">email</i>{{ email }}</a></li> <!-- todo-materiliaze Set color from color scheme -->
-							<li class="materialize-header-info__item"><span><i class="material-icons left">access_time</i>{{ open }}</span></li> <!-- todo-materiliaze Set color from color scheme -->
+							<li class="materialize-header-info__item"><a class="blue-grey-text text-lighten-5" href="{{ email }}"><i class="material-icons left">email</i>{{ email }}</a></li> {# todo-materiliaze Set color from color scheme #}
+							<li class="materialize-header-info__item"><span><i class="material-icons left">access_time</i>{{ open }}</span></li> {# todo-materiliaze Set color from color scheme #}
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-		<nav class="blue-grey darken-2"> <!-- todo-materiliaze Set color from color scheme -->
+		<nav class="blue-grey darken-2"> {# todo-materiliaze Set color from color scheme #}
 			<div class="container">
-				<div class="row relative" style="z-index: 995;"> <!-- todo-materiliaze It is necessary to correct z-index -->
+				<div class="row relative" style="z-index: 995;"> {# todo-materiliaze It is necessary to correct z-index #}
 					{{ menu }}
 					<div class="col s12 push-m3 m9">{{ search }}</div>
 				</div>
@@ -150,13 +153,13 @@
 			<div id="cart">{{ cart }}</div>
 			<div id="mobilemenu" class="materialize-mobilemenu hide-on-med-and-up">
 				<section class="materialize-mobilemenu__section materialize-mobilemenu__section--left">
-					<button type="button" id="button-side-menu" class="sidenav-trigger btn-flat btn-floating btn-large waves-effect" aria-label="Open menu" data-target="sidenav"> <!-- todo-materiliaze Aria label fill in from template language settings --><i class="material-icons">menu</i></button> <!-- todo-materiliaze Set color from color scheme -->
+					<button type="button" id="button-side-menu" class="sidenav-trigger btn-flat btn-floating btn-large waves-effect" aria-label="Open menu" data-target="sidenav"> {# todo-materiliaze Aria label fill in from template language settings #}<i class="material-icons">menu</i></button> {# todo-materiliaze Set color from color scheme #}
 				</section>
 				<section class="materialize-mobilemenu__section materialize-mobilemenu__section--right">
-					<button type="button" id="button-mobile-search" class="btn-flat btn-floating btn-large waves-effect" aria-label="Open search"> <!-- todo-materiliaze Aria label fill in from template language settings --><i class="material-icons">search</i></button> <!-- todo-materiliaze Set color from color scheme -->
+					<button type="button" id="button-mobile-search" class="btn-flat btn-floating btn-large waves-effect" aria-label="Open search"> {# todo-materiliaze Aria label fill in from template language settings #}<i class="material-icons">search</i></button> {# todo-materiliaze Set color from color scheme #}
 				</section>
 			</div>
 		</aside>
-		<style>.materialize-mobilemenu:before {box-shadow: 0px 0px 0px 300px #455a64;}</style> <!-- todo-materiliaze Set color from color scheme -->
+		<style>.materialize-mobilemenu:before {box-shadow: 0px 0px 0px 300px #455a64;}</style> {# todo-materiliaze Set color from color scheme #}
 	</header>
 		<main>

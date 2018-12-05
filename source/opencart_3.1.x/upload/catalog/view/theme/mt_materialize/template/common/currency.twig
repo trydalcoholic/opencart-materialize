@@ -9,7 +9,7 @@
 					{% for currency in currencies %}
 						<li>
 							<label for="currency-{{ currency.code }}">
-								<input id="currency-{{ currency.code }}" class="with-gap" type="radio" name="code" value="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}> <!-- todo-materiliaze Set color from color scheme -->
+								<input id="currency-{{ currency.code }}" class="with-gap" type="radio" name="code" value="{{ currency.code }}"{% if currency.code == code %} checked="checked"{% endif %}> {# todo-materiliaze Set color from color scheme #}
 								{% if currency.symbol_left %}
 									<span>{{ currency.symbol_left }} {{ currency.title }}</span>
 								{% else %}
@@ -23,8 +23,8 @@
 			</form>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="modal-close btn-flat waves-effect" title="{{ button_cancel }}">{{ button_cancel }}</button> <!-- todo-materiliaze Set color from color scheme -->
-			<button type="submit" form="form-currency" class="modal-close btn-flat waves-effect" title="{{ button_continue }}">{{ button_continue }}</button> <!-- todo-materiliaze Set color from color scheme -->
+			<button type="button" class="modal-close btn-flat waves-effect" title="{{ button_cancel }}">{{ button_cancel }}</button> {# todo-materiliaze Set color from color scheme #}
+			<button type="submit" form="form-currency" class="modal-close btn-flat waves-effect" title="{{ button_continue }}">{{ button_continue }}</button> {# todo-materiliaze Set color from color scheme #}
 		</div>
 	</div>
 {% endif %}

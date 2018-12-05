@@ -1,30 +1,30 @@
-<!-- todo-materiliaze Specify the maximum height of the drop-down list from the admin panel -->
-<!-- todo-materiliaze Add simplebar plugin https://github.com/Grsmto/simplebar -->
+{# todo-materiliazeSpecify the maximum height of the drop-down list from the admin panel #}
+{# todo-materiliazeAdd simplebar plugin https://github.com/Grsmto/simplebar #}
 <div class="materialize-menu-wrapper hide-on-small-only">
 	<button type="button" id="category" class="btn waves-effect transparent z-depth-0">
 		<span id="category-icon" class="animated-icon menu-cross">
-			<span class="ani white"></span> <!-- todo-materiliaze Set color from color scheme -->
+			<span class="ani white"></span> {# todo-materiliazeSet color from color scheme #}
 		</span>
 		<span>{{ text_category }}</span>
 	</button>
 	<nav id="menu-wrapper" class="materialize-menu transparent z-depth-0">
 		{% if categories %}
-			<ul id="menu" class="materialize-menu-content z-depth-2 white"> <!-- todo-materiliaze Set color from color scheme -->
+			<ul id="menu" class="materialize-menu-content z-depth-2 white"> {# todo-materiliazeSet color from color scheme #}
 				{% for category in categories %}
 					{% if category.children %}
 						<li class="materialize-menu-content__item">
-							<a href="{{ category.href }}" class="materialize-menu-content__item--link black-text">{{ category.name }}<div class="category-right-arrow"></div></a> <!-- todo-materiliaze Set color from color scheme -->
-							<ul class="materialize-menu-content materialize-menu-submenu z-depth-2 white"> <!-- todo-materiliaze Set color from color scheme -->
+							<a href="{{ category.href }}" class="materialize-menu-content__item--link black-text">{{ category.name }}<div class="category-right-arrow"></div></a> {# todo-materiliazeSet color from color scheme #}
+							<ul class="materialize-menu-content materialize-menu-submenu z-depth-2 white"> {# todo-materiliazeSet color from color scheme #}
 								{% for children in category.children %}
 									<li class="materialize-menu-content__item">
-										<a href="{{ children.href }}" class="materialize-menu-content__item--link black-text">{{ children.name }}</a> <!-- todo-materiliaze Set color from color scheme -->
+										<a href="{{ children.href }}" class="materialize-menu-content__item--link black-text">{{ children.name }}</a> {# todo-materiliazeSet color from color scheme #}
 									</li>
 								{% endfor %}
 							</ul>
 						</li>
 					{% else %}
 						<li class="materialize-menu-content__item">
-							<a href="{{ category.href }}" class="materialize-menu-content__item--link black-text">{{ category.name }}</a> <!-- todo-materiliaze Set color from color scheme -->
+							<a href="{{ category.href }}" class="materialize-menu-content__item--link black-text">{{ category.name }}</a> {# todo-materiliazeSet color from color scheme #}
 						</li>
 					{% endif %}
 				{% endfor %}

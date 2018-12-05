@@ -1,4 +1,4 @@
-<!-- todo-materiliaze Make by analogy with the already ready file currency.twig -->
+{# todo-materiliazeMake by analogy with the already ready file currency.twig #}
 	<div id="modal-language" class="modal">
 		<div class="modal-header">
 			<h4>{{ text_language }}</h4>
@@ -9,7 +9,7 @@
 					{% for language in languages %}
 						<li>
 							<label for="language-{{ language.code }}">
-								<input id="language-{{ language.code }}" class="with-gap" type="radio" name="code" value="{{ language.code }}"{% if language.code == code %} checked="checked"{% endif %}> <!-- todo-materiliaze Set color from color scheme -->
+								<input id="language-{{ language.code }}" class="with-gap" type="radio" name="code" value="{{ language.code }}"{% if language.code == code %} checked="checked"{% endif %}> {# todo-materiliazeSet color from color scheme #}
 								<span>{{ language.name }}</span>
 							</label>
 						</li>
@@ -19,7 +19,7 @@
 			</form>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="modal-close btn-flat waves-effect" title="{{ button_cancel }}">{{ button_cancel }}</button> <!-- todo-materiliaze Set color from color scheme -->
-			<button type="submit" form="form-currency" class="modal-close btn-flat waves-effect" title="{{ button_continue }}">{{ button_continue }}</button> <!-- todo-materiliaze Set color from color scheme -->
+			<button type="button" class="modal-close btn-flat waves-effect" title="{{ button_cancel }}">{{ button_cancel }}</button> {# todo-materiliazeSet color from color scheme #}
+			<button type="submit" form="form-currency" class="modal-close btn-flat waves-effect" title="{{ button_continue }}">{{ button_continue }}</button> {# todo-materiliazeSet color from color scheme #}
 		</div>
 	</div>

@@ -1,0 +1,21 @@
+<ul class="pagination">
+	{% if first %}
+		<li class="waves-effect"><a href="{{ first }}"><i class="material-icons">first_page</i></a></li>
+	{% endif %}
+	{% if prev %}
+		<li class="waves-effect"><a href="{{ prev }}"><i class="material-icons">chevron_left</i></a></li>
+	{% endif %}
+	{% for link in links %}
+		{% if link.page == page %}
+			<li class="waves-effect active"><span>{{ link.page }}</span></li>
+		{% else %}
+			<li class="waves-effect"><a href="{{ link.href }}">{{ link.page }}</a></li>
+		{% endif %}
+	{% endfor %}
+	{% if next %}
+		<li class="waves-effect"><a href="{{ next }}"><i class="material-icons">chevron_right</i></a></li>
+	{% endif %}
+	{% if last %}
+		<li class="waves-effect"><a href="{{ last }}"><i class="material-icons">last_page</i></a></li>
+	{% endif %}
+</ul>

@@ -1,13 +1,13 @@
-<button type="button" id="button-cart" class="materialize-cart-btn btn-floating btn-large waves-effect z-depth-2 modal-trigger" data-target="modal-cart"> <!-- todo-materiliaze Set color from color scheme -->
-	<i class="material-icons">shopping_cart</i> <!-- todo-materiliaze Set color from color scheme -->
-	<small id="cart-total" class="materialize-cart-total btn-floating z-depth-1">{{ text_items }}</small>V
+<button type="button" id="button-cart" class="materialize-cart-btn btn-floating btn-large waves-effect z-depth-2 modal-trigger" data-target="modal-cart"> {# todo-materiliazeSet color from color scheme #}
+	<i class="material-icons">shopping_cart</i> {# todo-materiliazeSet color from color scheme #}
+	<small id="cart-total" class="materialize-cart-total btn-floating z-depth-1">{{ text_items }}</small>
 </button>
 <div id="modal-cart" class="modal bottom-sheet modal-fixed-footer">
 	<div class="modal-content">
 		<div class="container">
 			<div class="row">
 				<div class="col s12">
-					<h4 class="flow-text text-bold">Shopping Cart</h4> {# todo-materiliaze Multilingual text is filled in the admin panel #}
+					<h4 class="flow-text text-bold">Shopping Cart</h4> {# todo-materiliazetodo-materiliaze Multilingual text is filled in the admin panel #}
 					{% if products or vouchers %}
 						<ul class="collection z-depth-1">
 								{% for product in products %}
