@@ -1,17 +1,21 @@
 <?php
 /**
- * @package		Materialize
+ * @package		Materialize Template
  * @author		Anton Semenov
- * @copyright	Copyright (c) 2017 - 2018, Materialize. https://github.com/trydalcoholic/opencart-materialize
+ * @copyright	Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
  * @license		https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
  * @link		https://github.com/trydalcoholic/opencart-materialize
  */
 
 class ModelExtensionMTMaterializeModuleMTMaterializeFilter extends Model {
 	public function getCategoryStatus($category_id) {
-		$query = $this->db->query("SELECT `status` FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) WHERE c.category_id = '" . (int)$category_id . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND c.status = '1' LIMIT 1");
+		$query = $this->db->query("SELECT status, COUNT(DISTINCT p2c.product_id) AS total FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p2c.category_id = c.category_id) WHERE c.category_id = '" . (int)$category_id . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND c.status = '1' LIMIT 1");
 
-		return $query->row['status'];
+		if ($query->row['status'] && $query->row['total']) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public function getMinMaxPrice($data) {
@@ -62,8 +66,16 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		return $query->row;
 	}
 
-	public function getSubCategories($category_id) {
-		$query = $this->db->query("SELECT c.category_id, c.image, cd.name FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) WHERE `parent_id` = '" . (int)$category_id . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c.status = '1' ORDER BY c.sort_order, LCASE(cd.name)");
+	public function getSubCategories($data) {
+		$sql = "SELECT c.category_id, cd.name";
+
+		if ($data['image']) {
+			$sql .= ", c.image";
+		}
+
+		$sql .= " FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) WHERE `parent_id` = '" . (int)$data['category_id'] . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c.status = '1' ORDER BY c.sort_order, LCASE(cd.name)";
+
+		$query = $this->db->query($sql);
 
 		$sub_categories_data = $query->rows;
 

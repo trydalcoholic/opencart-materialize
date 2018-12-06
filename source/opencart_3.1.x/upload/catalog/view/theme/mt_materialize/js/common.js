@@ -23,9 +23,9 @@ function getURLVar(key) {
 }
 
 /**
- * @package		Materialize
+ * @package		Materialize Template
  * @author		Anton Semenov
- * @copyright	Copyright (c) 2017 - 2018, Materialize. https://github.com/trydalcoholic/opencart-materialize
+ * @copyright	Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
  * @license		https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
  * @link		https://github.com/trydalcoholic/opencart-materialize
  */
@@ -444,7 +444,7 @@ var compare = {
 
 			mtFilter = $(this);
 
-			inputs = $(this).find('li input').map(function () {
+			inputs = $(this).find('.materialize-filters__item--filter-content input, .materialize-filters__item--filter-content select').map(function () {
 				return this;
 			});
 
@@ -469,7 +469,8 @@ var compare = {
 				timer = setTimeout(function() {
 					let productDisplay, form = mtFilter.serializeArray();
 
-					if (localStorage.getItem('display') === 'list') {
+					console.log(form);
+					/*if (localStorage.getItem('display') === 'list') {
 						productDisplay = 'list';
 					} else {
 						productDisplay = 'grid';
@@ -496,7 +497,7 @@ var compare = {
 								$('.loader-wrapper').remove();
 								contentMTFilter.append(json['products']);
 								setLocation(json['current_location']);
-							}, 300); /* todo-materialize This delay is added only to test the preloader */
+							}, 300); /!* todo-materialize This delay is added only to test the preloader *!/
 
 							function setLocation(curLoc) {
 								try {
@@ -510,7 +511,7 @@ var compare = {
 						error: function (xhr, ajaxOptions, thrownError) {
 							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 						}
-					});
+					});*/
 				}, 200);
 			}
 		});

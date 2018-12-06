@@ -1,7 +1,7 @@
 /**
- * @package		Materialize
+ * @package		Materialize Template
  * @author		Anton Semenov
- * @copyright	Copyright (c) 2017 - 2018, Materialize. https://github.com/trydalcoholic/opencart-materialize
+ * @copyright	Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
  * @license		https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
  * @link		https://github.com/trydalcoholic/opencart-materialize
  */
@@ -919,13 +919,13 @@ span.breadcrumb {
 	background-color: inherit !important;
 }
 
-.noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle, .noUi-target.noUi-horizontal .noUi-tooltip, .noUi-connect { /* todo-materiliaze Set color from color scheme */
+/*.noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle, .noUi-target.noUi-horizontal .noUi-tooltip, .noUi-connect {
 	background: #673ab7 !important;
 }
 
-.noUi-tooltip span { /* todo-materiliaze Set color from color scheme */
+.noUi-tooltip span {
 	color: #000000 !important;
-}
+}*/
 
 .noUi-handle-touch-area {
 	z-index: 5; /* todo-materiliaze Correction of work of sliders for touchscreen devices. It is necessary to check the performance! */

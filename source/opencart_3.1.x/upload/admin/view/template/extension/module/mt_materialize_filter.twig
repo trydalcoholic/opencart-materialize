@@ -181,7 +181,7 @@
 																	<input type="hidden" name="module_mt_materialize_filter_settings[color][common][text][hex]" value="{{ module_mt_materialize_filter_settings.color.common.text.hex }}" data-color-type="text">
 																	<div class="input-group-append">
 																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.common.background.name] }};">
-																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.common.text.name] }};"></i>
+																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.common.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
 																		</span>
 																	</div>
 																</div>
@@ -201,7 +201,7 @@
 																	<input type="hidden" name="module_mt_materialize_filter_settings[color][header][text][hex]" value="{{ module_mt_materialize_filter_settings.color.header.text.hex }}" data-color-type="text">
 																	<div class="input-group-append">
 																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.header.background.name] }};">
-																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.header.text.name] }};"></i>
+																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.header.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
 																		</span>
 																	</div>
 																</div>
@@ -242,7 +242,7 @@
 																	<input type="text" name="module_mt_materialize_filter_settings[color][slider][text][name]" value="{{ module_mt_materialize_filter_settings.color.slider.text.name }}" placeholder="Text" aria-label="Text" data-color-type="text" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
 																	<input type="hidden" name="module_mt_materialize_filter_settings[color][slider][text][hex]" value="{{ module_mt_materialize_filter_settings.color.slider.text.hex }}" data-color-type="text">
 																	<div class="input-group-append">
-																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.slider.primary_background.name] }};"><i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.slider.text.name] }};"></i></span>
+																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.slider.primary_background.name] }};"><i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.slider.text.name|replace({'-text': '', 'text-': ''})] }};"></i></span>
 																	</div>
 																</div>
 															</div>
@@ -261,7 +261,7 @@
 																	<input type="hidden" name="module_mt_materialize_filter_settings[color][apply_button][text][hex]" value="{{ module_mt_materialize_filter_settings.color.apply_button.text.hex }}" data-color-type="text">
 																	<div class="input-group-append">
 																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.apply_button.background.name] }};">
-																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.apply_button.text.name] }};"></i>
+																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.apply_button.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
 																		</span>
 																	</div>
 																</div>

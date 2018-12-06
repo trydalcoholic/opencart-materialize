@@ -1,8 +1,8 @@
 <?php
 /**
- * @package		Materialize
+ * @package		Materialize Template
  * @author		Anton Semenov
- * @copyright	Copyright (c) 2017 - 2018, Materialize. https://github.com/trydalcoholic/opencart-materialize
+ * @copyright	Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
  * @license		https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
  * @link		https://github.com/trydalcoholic/opencart-materialize
  */
@@ -85,12 +85,12 @@ class ControllerExtensionModuleMTMaterializeFilter extends Controller {
 		);
 
 		$data['filter_types'][] = array(
-			'type'	=> 'select-single',
+			'type'	=> 'select_single',
 			'name'	=> 'Single Select' /* todo-materialize Must be placed in a language variable */
 		);
 
 		$data['filter_types'][] = array(
-			'type'	=> 'select-multiple',
+			'type'	=> 'select_multiple',
 			'name'	=> 'Multiple Select' /* todo-materialize Must be placed in a language variable */
 		);
 
@@ -135,7 +135,7 @@ class ControllerExtensionModuleMTMaterializeFilter extends Controller {
 						'hex'	=> '#ffffff'
 					),
 					'text'			=> array(
-						'name'	=> 'black',
+						'name'	=> 'black-text',
 						'hex'	=> '#000000'
 					),
 				),
@@ -145,7 +145,7 @@ class ControllerExtensionModuleMTMaterializeFilter extends Controller {
 						'hex'	=> '#ffffff'
 					),
 					'text'			=> array(
-						'name'	=> 'black',
+						'name'	=> 'black-text',
 						'hex'	=> '#000000'
 					),
 				),
@@ -159,7 +159,7 @@ class ControllerExtensionModuleMTMaterializeFilter extends Controller {
 						'hex'	=> '#673ab7'
 					),
 					'text'					=> array(
-						'name'	=> 'white',
+						'name'	=> 'white-text',
 						'hex'	=> '#ffffff'
 					)
 				),
@@ -169,7 +169,7 @@ class ControllerExtensionModuleMTMaterializeFilter extends Controller {
 						'hex'	=> '#673ab7'
 					),
 					'text'			=> array(
-						'name'	=> 'white',
+						'name'	=> 'white-text',
 						'hex'	=> '#ffffff'
 					)
 				),

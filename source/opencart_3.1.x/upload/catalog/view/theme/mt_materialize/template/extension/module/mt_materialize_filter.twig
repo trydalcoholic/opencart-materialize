@@ -1,303 +1,372 @@
-<h4 class="center">{{ php_time }} millisecond</h4>
-<form id="materialize-filters" action="">
-	{#<pre>{{ dump(mt_filter_settings) }}</pre>#}
-	<ul class="collection with-header materialize-filters{{ horizontal ? ' horizontal' : ' collapsible expandable' }} z-depth-1 white black-text"> {# todo-materiliaze Set color from color scheme #}
-		<li class="collection-header materialize-filters__item white"><h4>Refine Search</h4></li> {# todo-materilaize Multilingual text fill from the template settings #} {# todo-materiliaze Set color from color scheme #}
+{% if mt_filters %}
+	<h4 class="center">{{ php_time }} millisecond</h4>
+	<form id="materialize-filters" action="">
+		{#<pre>{{ dump(mt_filters) }}</pre>#}
+		<ul class="collection with-header materialize-filters{{ horizontal ? ' horizontal' : ' collapsible expandable' }} z-depth-1 {{ color.common.background.name }} {{ color.common.text.name }}">
+			<li class="collection-header materialize-filters__item {{ color.header.background.name }} {{ color.header.text.name }}"><h4>Refine Search</h4></li> {# todo-materilaize Multilingual text fill from the template settings #}
+			{% for mt_filter in mt_filters %}
+				{% if mt_filter.name == 'price' and mt_filter.value %}
+					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}"> {# todo-materiliaze Set color from color scheme #}
+						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><span><b>Price range <span id="span-price-range-min">{{ prices.min_price }}</span> — <span id="span-price-range-max">{{ prices.max_price }}</span></b></span></div>
+						<div class="materialize-filters__item--filter-content collapsible-body">
+							<div id="slider-prices" class="materialize-filters__item--filter-sliders {{ color.slider.secondary_background.name }}"></div>
+							<input type="hidden" name="price_filter[]" value="{{ prices.min_price }}" id="input-price-range-min">
+							<input type="hidden" name="price_filter[]" value="{{ prices.max_price }}" id="input-price-range-max">
+						</div>
+					</li>
+				{% endif %}
+				{% if mt_filter.name == 'sub_categories' %}
+					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}">
+							<span><b>Sub categories</b><span class="material-icons materialize-filters__item--filter-tooltiped tooltipped-html grey-text" data-position="right" data-tooltip="<b>I am a tooltip</b><br>Hello!">help_outline</span> {# todo-materiliaze Set color from color scheme #}</span>
+						</div> {# todo-materilaize Multilingual text fill from the template settings #}
+						<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar> {#{% if not mt_filter.type == 'select_single' or not mt_filter.type == 'select_multiple' %} data-simplebar{% endif %}#}
+							<ul id="filter-sub-categories">
+								{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
+									<div class="input-field">
+										<select name="sub_category_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
+											<option value="" disabled selected>{{ text_select }}</option>
+											{% for sub_category in mt_filter.value %}
+												<option value="{{ sub_category.category_id }}" {% if sub_category.image %}data-icon="{{ sub_category.image }}"{% endif %}>{{ sub_category.name }}</option>
+											{% endfor %}
+										</select>
+										<label class="text-bold">{{ option.name }}</label>
+									</div>
+								{% elseif mt_filter.type == 'checkbox' or mt_filter.type == 'radio' or mt_filter.type == 'switches' %}
+									{% for sub_category in mt_filter.value %}
+										<li class="materialize-product-options__item">
+											{% if mt_filter.type == 'checkbox' %}
+												<label class="materialize-product-options__item--checkbox">
+													{% if sub_category.category_id in sub_category_filter_selected %}
+														{% if sub_category.image %}
+															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
+														{% endif %}
+														<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="filled-in" checked="checked">
+														<span>{{ sub_category.name }}</span>
+													{% else %}
+														{% if sub_category.image %}
+															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
+														{% endif %}
+														<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="filled-in">
+														<span>{{ sub_category.name }}</span>
+													{% endif %}
+												</label>
+											{% endif %}
+											{% if mt_filter.type == 'radio' %}
+												<label class="materialize-product-options__item--radio">
+													{% if sub_category.category_id in sub_category_filter_selected %}
+														{% if sub_category.image %}
+															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
+														{% endif %}
+														<input type="radio" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="with-gap" checked="checked">
+														<span>{{ sub_category.name }}</span>
+													{% else %}
+														{% if sub_category.image %}
+															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
+														{% endif %}
+														<input type="radio" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="with-gap">
+														<span>{{ sub_category.name }}</span>
+													{% endif %}
+												</label>
+											{% endif %}
+											{% if mt_filter.type == 'switches' %}
+												<div class="switch">
+													<label>
+														{% if sub_category.category_id in sub_category_filter_selected %}
+															{% if sub_category.image %}
+																<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}"> {# todo-materialize To set styles for images #}
+															{% endif %}
+															<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" checked="checked">
+															<span class="lever"></span>
+															{{ sub_category.name }}
+														{% else %}
+															{% if sub_category.image %}
+																<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}"> {# todo-materialize To set styles for images #}
+															{% endif %}
+															<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}">
+															<span class="lever"></span>
+															{{ sub_category.name }}
+														{% endif %}
+													</label>
+												</div>
+											{% endif %}
+										</li>
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</div>
+					</li>
+				{% endif %}
+				{% if mt_filter.name == 'default_filters' %}
+					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						{% for filter_group in mt_filter.value %}
+							<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ filter_group.name }}</b></div>
+							<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
+								<ul id="filter-group{{ filter_group.filter_group_id }}">
+									{% for filter in filter_group.filter %}
+										<li class="materialize-product-options__item">
+											<label class="materialize-product-options__item--checkbox">
+												{% if filter.filter_id in default_filter_selected %}
+													<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" class="filled-in" checked="checked">
+													<span>{{ filter.name }}</span>
+												{% else %}
+													<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" class="filled-in">
+													<span>{{ filter.name }}</span>
+												{% endif %}
+											</label>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						{% endfor %}
+					</li>
+				{% endif %}
+				{% if mt_filter.name == 'manufacturers' %}
+					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>Manufacturers</b></div>
+						<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
+							<ul id="filter-manufacturers">
+								{% for manufacturer in mt_filter.value %}
+									<li class="materialize-product-options__item">
+										<label class="materialize-product-options__item--checkbox">
+											{% if manufacturer.manufacturer_id in manufacturer_filter_selected %}
+												<img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}">
+												<input type="checkbox" name="manufacturer_filter[]" value="{{ manufacturer.manufacturer_id }}" class="filled-in" checked="checked">
+												<span>{{ manufacturer.name }}</span>
+											{% else %}
+												<img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}">
+												<input type="checkbox" name="manufacturer_filter[]" value="{{ manufacturer.manufacturer_id }}" class="filled-in">
+												<span>{{ manufacturer.name }}</span>
+											{% endif %}
+										</label>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</li>
+				{% endif %}
+				{% if mt_filter.name == 'attributes' %}
+					{% for name, attribute in mt_filter.value %}
+						<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+							<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ name }}</b></div>
+							<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
+								<ul>
+									{% for value in attribute %}
+										<li class="materialize-product-options__item">
+											<label class="materialize-product-options__item--checkbox">
+												{% if value.attribute_id in attribute_filter_selected %}
+													<input type="checkbox" name="attribute_filter[]" value="{{ value.attribute_id }}" class="filled-in" checked="checked">
+													<span>{{ value.text }}</span>
+												{% else %}
+													<input type="checkbox" name="attribute_filter[]" value="{{ value.attribute_id }}" class="filled-in">
+													<span>{{ value.text }}</span>
+												{% endif %}
+											</label>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</li>
+					{% endfor %}
+				{% endif %}
+				{% if mt_filter.name == 'options' %}
+					{% for option in mt_filter.value %}
+						<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+							<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ option.name }}</b></div>
+							<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
+								<ul id="option{{ option.option_id }}">
+										{% for option_value in option.option_value_data %}
+										<li class="materialize-product-options__item">
+											<label class="materialize-product-options__item--checkbox">
+												{% if option_value.image %}
+													<img src="{{ option_value.image }}" alt="{{ option_value.name }}">
+												{% endif %}
+												{% if option_value.option_value_id in option_filter_selected %}
+													<input type="checkbox" name="option_filter[]" value="{{ option_value.option_value_id }}" class="filled-in" checked="checked">
+													<span>{{ option_value.name }}</span>
+												{% else %}
+													<input type="checkbox" name="option_filter[]" value="{{ option_value.option_value_id }}" class="filled-in">
+													<span>{{ option_value.name }}</span>
+												{% endif %}
+											</label>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</li>
+					{% endfor %}
+				{% endif %}
+				{% if mt_filter.name == 'rating' %}
+					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>Rating</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
+						<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
+							<ul>
+								{% for i in 1..5 %}
+									<li class="materialize-product-options__item">
+										<label class="materialize-product-options__item--checkbox">
+											{% if rating_filter_selected %}
+												<input type="checkbox" name="rating_filter[]" value="{{ i }}" class="filled-in" checked="checked">
+												<span class="rating rating-filter">
+													{% for rating in mt_filter.value %}
+														{% if rating < i %}
+															<i class="material-icons yellow-text text-accent-4">star</i>
+														{% else %}
+															<i class="material-icons yellow-text text-accent-4">star_border</i>
+														{% endif %}
+													{% endfor %}
+												</span>
+											{% else %}
+												<input type="checkbox" name="rating_filter[]" value="{{ i }}" class="filled-in">
+												<span class="rating rating-filter">
+													{% for rating in mt_filter.value %}
+														{% if rating < i %}
+															<i class="material-icons yellow-text text-accent-4">star</i>
+														{% else %}
+															<i class="material-icons yellow-text text-accent-4">star_border</i>
+														{% endif %}
+													{% endfor %}
+												</span>
+											{% endif %}
+										</label>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</li>
+				{% endif %}
+				{% if mt_filter.name == 'stock_statuses' %}
+					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>Availability</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
+						<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
+							<ul id="filter-stock-statuses">
+								{% for stock_status in mt_filter.value %}
+									<li class="materialize-product-options__item">
+										<label class="materialize-product-options__item--checkbox">
+											{% if stock_status.stock_status_id in stock_status_filter_selected %}
+												<input type="checkbox" name="stock_status_filter[]" value="{{ stock_status.stock_status_id }}" class="filled-in" checked="checked">
+												<span>{{ stock_status.name }}</span>
+											{% else %}
+												<input type="checkbox" name="stock_status_filter[]" value="{{ stock_status.stock_status_id }}" class="filled-in">
+												<span>{{ stock_status.name }}</span>
+											{% endif %}
+										</label>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</li>
+				{% endif %}
+				{% if mt_filter.name == 'discount' and mt_filter.value %}
+					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>With discount</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
+						<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
+							<ul id="filter-stock-statuses">
+								<li class="materialize-product-options__item">
+									<label class="materialize-product-options__item--checkbox">
+										{% if product_special in product_special_filter_selected %}
+											<input type="checkbox" name="product_special_filter" value="1" class="filled-in" checked="checked">
+											<span>With discount</span> {# todo-materilaize Multilingual text fill from the template settings #}
+										{% else %}
+											<input type="checkbox" name="product_special_filter" value="1" class="filled-in">
+											<span>With discount</span> {# todo-materilaize Multilingual text fill from the template settings #}
+										{% endif %}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</li>
+				{% endif %}
+				{% if mt_filter.name == 'reviews' and mt_filter.value %}
+					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>With reviews</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
+						<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
+							<ul id="filter-stock-statuses">
+								<li class="materialize-product-options__item">
+									<label class="materialize-product-options__item--checkbox">
+										{% if review_filter in review_filter_selected %}
+											<input type="checkbox" name="review_filter" value="1" class="filled-in" checked="checked">
+											<span>With reviews</span> {# todo-materilaize Multilingual text fill from the template settings #}
+										{% else %}
+											<input type="checkbox" name="review_filter" value="1" class="filled-in">
+											<span>With reviews</span> {# todo-materilaize Multilingual text fill from the template settings #}
+										{% endif %}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</li>
+				{% endif %}
+			{% endfor %}
+			<li class="collection-item materialize-filters__item materialize-filters__item--button flex-reverse">
+				<button type="button" id="button-materialize-filter" class="btn waves-effect {{ color.apply_button.background.name }} {{ color.apply_button.text.name }}">{{ button_filter }}</button>
+			</li>
+		</ul>
+	</form>
+	<script>
 		{% if prices %}
-			<li class="collection-item materialize-filters__item arrow-rotate active"> {# todo-materiliaze Set color from color scheme #}
-				<div class="materialize-filters__item--filter-title collapsible-header waves-effect"><span><b>Price range <span id="span-price-range-min">{{ prices.min_price }}</span> — <span id="span-price-range-max">{{ prices.max_price }}</span></b></span></div> {# todo-materiliaze Set color from color scheme #}
-				<div class="materialize-filters__item--filter-content collapsible-body">
-					<div id="slider-prices" class="materialize-filters__item--filter-sliders deep-purple lighten-3"></div> {# todo-materiliaze Set color from color scheme #}
-					<input type="hidden" name="price_filter[]" value="{{ prices.min_price }}" id="input-price-range-min">
-					<input type="hidden" name="price_filter[]" value="{{ prices.max_price }}" id="input-price-range-max">
-				</div>
-			</li>
-		{% endif %}
-		{% if sub_categories %}
-			<li class="collection-item materialize-filters__item arrow-rotate active">
-				<div class="materialize-filters__item--filter-title collapsible-header waves-effect">
-					<span><b>Sub categories</b><span class="material-icons materialize-filters__item--filter-tooltiped tooltipped-html grey-text" data-position="right" data-tooltip="<b>I am a tooltip</b><br>Hello!">help_outline</span> {# todo-materiliaze Set color from color scheme #}</span>
-				</div> {# todo-materilaize Multilingual text fill from the template settings #} {# todo-materiliaze Set color from color scheme #}
-				<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
-					<ul id="filter-sub-categories">
-						{% for sub_category in sub_categories %}
-							<li class="materialize-product-options__item">
-								<label class="materialize-product-options__item--checkbox">
-									{% if sub_category.category_id in sub_category_filter_selected %}
-										<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
-										<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="filled-in" checked="checked">
-										<span>{{ sub_category.name }}</span>
-									{% else %}
-										<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
-										<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="filled-in">
-										<span>{{ sub_category.name }}</span>
-									{% endif %}
-								</label>
-							</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</li>
-		{% endif %}
-		{% if filter_groups %}
-			<li class="collection-item materialize-filters__item arrow-rotate active">
-				{% for filter_group in filter_groups %}
-					<div class="materialize-filters__item--filter-title collapsible-header waves-effect"><b>{{ filter_group.name }}</b></div> {# todo-materiliaze Set color from color scheme #}
-					<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
-						<ul id="filter-group{{ filter_group.filter_group_id }}">
-							{% for filter in filter_group.filter %}
-								<li class="materialize-product-options__item">
-									<label class="materialize-product-options__item--checkbox">
-										{% if filter.filter_id in default_filter_selected %}
-											<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" class="filled-in" checked="checked">
-											<span>{{ filter.name }}</span>
-										{% else %}
-											<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" class="filled-in">
-											<span>{{ filter.name }}</span>
-										{% endif %}
-									</label>
-								</li>
-							{% endfor %}
-						</ul>
-					</div>
-				{% endfor %}
-			</li>
-		{% endif %}
-		{% if manufacturers %}
-			<li class="collection-item materialize-filters__item arrow-rotate active">
-				<div class="materialize-filters__item--filter-title collapsible-header waves-effect"><b>Manufacturers</b></div> {# todo-materiliaze Set color from color scheme #}
-				<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
-					<ul id="filter-manufacturers">
-						{% for manufacturer in manufacturers %}
-							<li class="materialize-product-options__item">
-								<label class="materialize-product-options__item--checkbox">
-									{% if manufacturer.manufacturer_id in manufacturer_filter_selected %}
-										<img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}">
-										<input type="checkbox" name="manufacturer_filter[]" value="{{ manufacturer.manufacturer_id }}" class="filled-in" checked="checked">
-										<span>{{ manufacturer.name }}</span>
-									{% else %}
-										<img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}">
-										<input type="checkbox" name="manufacturer_filter[]" value="{{ manufacturer.manufacturer_id }}" class="filled-in">
-										<span>{{ manufacturer.name }}</span>
-									{% endif %}
-								</label>
-							</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</li>
-		{% endif %}
-		{% if attributes %}
-			{% for name, attribute in attributes %}
-				<li class="collection-item materialize-filters__item arrow-rotate active">
-					<div class="materialize-filters__item--filter-title collapsible-header waves-effect"><b>{{ name }}</b></div> {# todo-materiliaze Set color from color scheme #}
-					<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
-						<ul>
-							{% for value in attribute %}
-								<li class="materialize-product-options__item">
-									<label class="materialize-product-options__item--checkbox">
-										{% if value.attribute_id in attribute_filter_selected %}
-											<input type="checkbox" name="attribute_filter[]" value="{{ value.attribute_id }}" class="filled-in" checked="checked">
-											<span>{{ value.text }}</span>
-										{% else %}
-											<input type="checkbox" name="attribute_filter[]" value="{{ value.attribute_id }}" class="filled-in">
-											<span>{{ value.text }}</span>
-										{% endif %}
-									</label>
-								</li>
-							{% endfor %}
-						</ul>
-					</div>
-				</li>
-			{% endfor %}
-		{% endif %}
-		{% if options %}
-			{% for option in options %}
-				<li class="collection-item materialize-filters__item arrow-rotate active">
-					<div class="materialize-filters__item--filter-title collapsible-header waves-effect"><b>{{ option.name }}</b></div> {# todo-materiliaze Set color from color scheme #}
-					<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
-						<ul id="option{{ option.option_id }}">
-								{% for option_value in option.option_value_data %}
-								<li class="materialize-product-options__item">
-									<label class="materialize-product-options__item--checkbox">
-										{% if option_value.image %}
-											<img src="{{ option_value.image }}" alt="{{ option_value.name }}">
-										{% endif %}
-										{% if option_value.option_value_id in option_filter_selected %}
-											<input type="checkbox" name="option_filter[]" value="{{ option_value.option_value_id }}" class="filled-in" checked="checked">
-											<span>{{ option_value.name }}</span>
-										{% else %}
-											<input type="checkbox" name="option_filter[]" value="{{ option_value.option_value_id }}" class="filled-in">
-											<span>{{ option_value.name }}</span>
-										{% endif %}
-									</label>
-								</li>
-							{% endfor %}
-						</ul>
-					</div>
-				</li>
-			{% endfor %}
-		{% endif %}
-		{% if rating_filter %}
-			<li class="collection-item materialize-filters__item arrow-rotate active">
-				<div class="materialize-filters__item--filter-title collapsible-header waves-effect"><b>Rating</b></div> {# todo-materilaize Multilingual text fill from the template settings #} {# todo-materiliaze Set color from color scheme #}
-				<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
-					<ul>
-						{% for i in 1..5 %}
-							<li class="materialize-product-options__item">
-								<label class="materialize-product-options__item--checkbox">
-									{% if rating_filter_selected %}
-										<input type="checkbox" name="rating_filter[]" value="{{ i }}" class="filled-in" checked="checked">
-										<span class="rating rating-filter">
-											{% for rating in rating_filter %}
-												{% if rating < i %}
-													<i class="material-icons yellow-text text-accent-4">star</i>
-												{% else %}
-													<i class="material-icons yellow-text text-accent-4">star_border</i>
-												{% endif %}
-											{% endfor %}
-										</span>
-									{% else %}
-										<input type="checkbox" name="rating_filter[]" value="{{ i }}" class="filled-in">
-										<span class="rating rating-filter">
-											{% for rating in rating_filter %}
-												{% if rating < i %}
-													<i class="material-icons yellow-text text-accent-4">star</i>
-												{% else %}
-													<i class="material-icons yellow-text text-accent-4">star_border</i>
-												{% endif %}
-											{% endfor %}
-										</span>
-									{% endif %}
-								</label>
-							</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</li>
-		{% endif %}
-		{% if stock_statuses %}
-			<li class="collection-item materialize-filters__item arrow-rotate active">
-				<div class="materialize-filters__item--filter-title collapsible-header waves-effect"><b>Availability</b></div> {# todo-materilaize Multilingual text fill from the template settings #} {# todo-materiliaze Set color from color scheme #}
-				<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
-					<ul id="filter-stock-statuses">
-						{% for stock_status in stock_statuses %}
-							<li class="materialize-product-options__item">
-								<label class="materialize-product-options__item--checkbox">
-									{% if stock_status.stock_status_id in stock_status_filter_selected %}
-										<input type="checkbox" name="stock_status_filter[]" value="{{ stock_status.stock_status_id }}" class="filled-in" checked="checked">
-										<span>{{ stock_status.name }}</span>
-									{% else %}
-										<input type="checkbox" name="stock_status_filter[]" value="{{ stock_status.stock_status_id }}" class="filled-in">
-										<span>{{ stock_status.name }}</span>
-									{% endif %}
-								</label>
-							</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</li>
-		{% endif %}
-		{% if product_special %}
-			<li class="collection-item materialize-filters__item arrow-rotate active">
-				<div class="materialize-filters__item--filter-title collapsible-header waves-effect"><b>With discount</b></div> {# todo-materilaize Multilingual text fill from the template settings #} {# todo-materiliaze Set color from color scheme #}
-				<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
-					<ul id="filter-stock-statuses">
-						<li class="materialize-product-options__item">
-							<label class="materialize-product-options__item--checkbox">
-								{% if product_special in product_special_filter_selected %}
-									<input type="checkbox" name="product_special_filter" value="1" class="filled-in" checked="checked">
-									<span>With discount</span> {# todo-materilaize Multilingual text fill from the template settings #}
-								{% else %}
-									<input type="checkbox" name="product_special_filter" value="1" class="filled-in">
-									<span>With discount</span> {# todo-materilaize Multilingual text fill from the template settings #}
-								{% endif %}
-							</label>
-						</li>
-					</ul>
-				</div>
-			</li>
-		{% endif %}
-		{% if review_filter %}
-			<li class="collection-item materialize-filters__item arrow-rotate active">
-				<div class="materialize-filters__item--filter-title collapsible-header waves-effect"><b>With reviews</b></div> {# todo-materilaize Multilingual text fill from the template settings #} {# todo-materiliaze Set color from color scheme #}
-				<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
-					<ul id="filter-stock-statuses">
-						<li class="materialize-product-options__item">
-							<label class="materialize-product-options__item--checkbox">
-								{% if review_filter in review_filter_selected %}
-									<input type="checkbox" name="review_filter" value="1" class="filled-in" checked="checked">
-									<span>With reviews</span> {# todo-materilaize Multilingual text fill from the template settings #}
-								{% else %}
-									<input type="checkbox" name="review_filter" value="1" class="filled-in">
-									<span>With reviews</span> {# todo-materilaize Multilingual text fill from the template settings #}
-								{% endif %}
-							</label>
-						</li>
-					</ul>
-				</div>
-			</li>
-		{% endif %}
-		<li class="collection-item materialize-filters__item materialize-filters__item--button flex-reverse">
-			<button type="button" id="button-materialize-filter" class="btn waves-effect indigo lighten-1">{{ button_filter }}</button> {# todo-materiliaze Set color from color scheme #}
-		</li>
-	</ul>
-</form>
-<script>
-	{% if prices %}
-		var sliderPrices = document.getElementById('slider-prices');
+			var sliderPrices = document.getElementById('slider-prices');
 
-		noUiSlider.create(sliderPrices, {
-			start: [{{ price_filter_selected ? price_filter_selected.0 : prices.min_price }}, {{ price_filter_selected ? price_filter_selected.1 : prices.max_price }}],
-			connect: true,
-			step: 1,
-			behaviour: 'drag',
-			orientation: 'horizontal',
-			range: {
-				'min': 0,
-				'max': {{ prices.max_price }}
-			},
-			tooltips: [
-				wNumb({
-					decimals: 0
-				}),
-				wNumb({
-					decimals: 0
+			noUiSlider.create(sliderPrices, {
+				start: [{{ price_filter_selected ? price_filter_selected.0 : prices.min_price }}, {{ price_filter_selected ? price_filter_selected.1 : prices.max_price }}],
+				connect: true,
+				step: 1,
+				behaviour: 'drag',
+				orientation: 'horizontal',
+				range: {
+					'min': 0,
+					'max': {{ prices.max_price }}
+				},
+				tooltips: [
+					wNumb({
+						decimals: 0
+					}),
+					wNumb({
+						decimals: 0
+					})
+				],
+				format: wNumb({
+					decimals: {{ prices.decimal_place }},
+					{% if prices.symbol_left %}
+						prefix: '{{ prices.symbol_left }}',
+					{% endif %}
+					{% if prices.symbol_right %}
+						suffix: '{{ prices.symbol_right }}',
+					{% endif %}
+					thousand: '{{ prices.thousand_point }}'
 				})
-			],
-			format: wNumb({
-				decimals: {{ prices.decimal_place }},
-				{% if prices.symbol_left %}
-					prefix: '{{ prices.symbol_left }}',
-				{% endif %}
-				{% if prices.symbol_right %}
-					suffix: '{{ prices.symbol_right }}',
-				{% endif %}
-				thousand: '{{ prices.thousand_point }}'
-			})
-		});
+			});
 
-		var spanPriceRangeMin = $('#span-price-range-min'),
-			spanPriceRangeMax = $('#span-price-range-max'),
-			inputPriceRangeMin = $('#input-price-range-min'),
-			inputPriceRangeMax = $('#input-price-range-max');
+			var spanPriceRangeMin = $('#span-price-range-min'),
+				spanPriceRangeMax = $('#span-price-range-max'),
+				inputPriceRangeMin = $('#input-price-range-min'),
+				inputPriceRangeMax = $('#input-price-range-max');
 
-		sliderPrices.noUiSlider.on('update', function (values, handle, unencoded) {
-			if (handle) {
-				spanPriceRangeMax.text(values[handle]);
-				inputPriceRangeMax.val(unencoded[handle]);
-			} else {
-				spanPriceRangeMin.text(values[handle]);
-				inputPriceRangeMin.val(unencoded[handle]);
-			}
-		});
-	{% endif %}
+			sliderPrices.noUiSlider.on('update', function (values, handle, unencoded) {
+				if (handle) {
+					spanPriceRangeMax.text(values[handle]);
+					inputPriceRangeMax.val(unencoded[handle]);
+				} else {
+					spanPriceRangeMin.text(values[handle]);
+					inputPriceRangeMin.val(unencoded[handle]);
+				}
+			});
+		{% endif %}
 
-	$(document).ready(function() {
-		$('#materialize-filters').mtFilter({
-			action: '{{ action }}',
-			{% if preselected_data %}startFilter: true,{% endif %}
-			productGrid: $('#content-mt-filter').data('product-grid')
+		$(document).ready(function() {
+			$('#materialize-filters').mtFilter({
+				action: '{{ action }}',
+				{% if preselected_data %}startFilter: true,{% endif %}
+				productGrid: $('#content-mt-filter').data('product-grid')
+			});
 		});
-	});
-</script>
+	</script>
+	<style>
+		.noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle, .noUi-target.noUi-horizontal .noUi-tooltip, .noUi-connect {
+			background: {{ color.slider.primary_background.hex }} !important;
+		}
+
+		.noUi-tooltip span {
+			color: {{ color.slider.text.hex }} !important;
+		}
+	</style>
+{% endif %}
