@@ -82,33 +82,41 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		return $sub_categories_data;
 	}
 
-	public function getProductOptions($category_id) {
+	public function getProductOptions($data) {
 		$option_data = array();
 
-		$query = $this->db->query("SELECT o.option_id, od.name, o.type, o.sort_order FROM " . DB_PREFIX . "option o LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) LEFT JOIN " . DB_PREFIX . "product_option po ON (o.option_id = po.option_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (po.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$category_id . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "' AND (o.type = 'radio' OR o.type = 'checkbox' OR o.type = 'select') ORDER BY o.sort_order");
+		$query = $this->db->query("SELECT o.option_id, od.name, o.type, o.sort_order FROM " . DB_PREFIX . "option o LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) LEFT JOIN " . DB_PREFIX . "product_option po ON (o.option_id = po.option_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (po.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$data['category_id'] . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "' AND (o.type = 'radio' OR o.type = 'checkbox' OR o.type = 'select') ORDER BY o.sort_order");
 
 		foreach ($query->rows as $result) {
-				$option_value_data = array();
+			$option_value_data = array();
 
-				$option_value_data_query = $this->db->query("SELECT ov.option_value_id, ovd.name, ov.image, ov.sort_order FROM " . DB_PREFIX . "option_value ov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov ON (ov.option_value_id = pov.option_value_id) WHERE ov.option_id = '" . (int)$result['option_id'] . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND pov.quantity > '0' ORDER BY ov.sort_order");
+			$sql = "SELECT ov.option_value_id, ovd.name, ov.sort_order";
 
-				foreach ($option_value_data_query->rows as $option_value) {
-					$option_value_data[$option_value['name']] = array(
-						'option_value_id'	=> (int)$option_value['option_value_id'],
-						'name'				=> $option_value['name'],
-						'image'				=> $option_value['image'],
-						'sort_order'		=> (int)$option_value['sort_order']
-					);
-				}
+			if ($data['image']) {
+				$sql .= ", ov.image";
+			}
 
-				$option_data[$result['name']] = array(
-					'option_id'			=> (int)$result['option_id'],
-					'name'				=> $result['name'],
-					'type'				=> $result['type'],
-					'sort_order'		=> (int)$result['sort_order'],
-					'option_value_data'	=> $option_value_data
+			$sql .= " FROM " . DB_PREFIX . "option_value ov LEFT JOIN " . DB_PREFIX . "option_value_description ovd ON (ov.option_value_id = ovd.option_value_id) LEFT JOIN " . DB_PREFIX . "product_option_value pov ON (ov.option_value_id = pov.option_value_id) WHERE ov.option_id = '" . (int)$result['option_id'] . "' AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND pov.quantity > '0' ORDER BY ov.sort_order";
+
+			$option_value_data_query = $this->db->query($sql);
+
+			foreach ($option_value_data_query->rows as $option_value) {
+				$option_value_data[$option_value['name']] = array(
+					'option_value_id'	=> (int)$option_value['option_value_id'],
+					'name'				=> $option_value['name'],
+					'image'				=> $data['image'] ? $option_value['image'] : false,
+					'sort_order'		=> (int)$option_value['sort_order']
 				);
 			}
+
+			$option_data[$result['name']] = array(
+				'option_id'			=> (int)$result['option_id'],
+				'name'				=> $result['name'],
+				'type'				=> $result['type'],
+				'sort_order'		=> (int)$result['sort_order'],
+				'option_value_data'	=> $option_value_data
+			);
+		}
 
 		return $option_data;
 	}
@@ -160,17 +168,25 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		return $attributes_data;
 	}
 
-	public function getManufacturers($category_id) {
+	public function getManufacturers($data) {
 		$manufacturer_data = array();
 
-		$query = $this->db->query("SELECT p.manufacturer_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$category_id . "'");
+		$query = $this->db->query("SELECT p.manufacturer_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$data['category_id'] . "'");
 
 		foreach ($query->rows as $result) {
 			$manufacturer_data[] = (int)$result['manufacturer_id'];
 		}
 
 		if ($manufacturer_data) {
-			$manufacturers_query = $this->db->query("SELECT m.manufacturer_id, m.name, m.image FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) WHERE m.manufacturer_id IN (" . implode(',', $manufacturer_data) . ") AND m2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY m.sort_order ASC LIMIT " . (int)count($manufacturer_data));
+			$sql = "SELECT m.manufacturer_id, m.name";
+
+			if ($data['image']) {
+				$sql .= ", m.image";
+			}
+
+			$sql .= " FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) WHERE m.manufacturer_id IN (" . implode(',', $manufacturer_data) . ") AND m2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY m.sort_order ASC LIMIT " . (int)count($manufacturer_data);
+
+			$manufacturers_query = $this->db->query($sql);
 
 			$manufacturers = $manufacturers_query->rows;
 		} else {

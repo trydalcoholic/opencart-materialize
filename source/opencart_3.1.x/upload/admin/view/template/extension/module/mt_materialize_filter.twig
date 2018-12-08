@@ -905,7 +905,7 @@
 															</span>
 															<div class="materialize-list-item__inputs">
 																<select name="module_mt_materialize_filter_settings[filters][rating][type]" class="material-select">
-																	{% for filter_type in filter_types if filter_type.type != 'slider' %}
+																	{% for filter_type in filter_types if filter_type.type != 'slider' and filter_type.type != 'select_single' and filter_type.type != 'select_multiple' %}
 																		{% if module_mt_materialize_filter_settings.filters.rating.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
@@ -1093,7 +1093,7 @@
 															</span>
 															<div class="materialize-list-item__inputs">
 																<select name="module_mt_materialize_filter_settings[filters][discount][type]" class="material-select">
-																	{% for filter_type in filter_types if filter_type.type != 'slider' %}
+																	{% for filter_type in filter_types if filter_type.type != 'slider' and filter_type.type != 'select_multiple' %}
 																		{% if module_mt_materialize_filter_settings.filters.discount.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
@@ -1177,7 +1177,7 @@
 															</span>
 															<div class="materialize-list-item__inputs">
 																<select name="module_mt_materialize_filter_settings[filters][reviews][type]" class="material-select">
-																	{% for filter_type in filter_types if filter_type.type != 'slider' %}
+																	{% for filter_type in filter_types if filter_type.type != 'slider' and filter_type.type != 'select_multiple' %}
 																		{% if module_mt_materialize_filter_settings.filters.reviews.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}

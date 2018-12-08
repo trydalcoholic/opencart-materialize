@@ -75,11 +75,6 @@ class ControllerExtensionModuleMTMaterializeFilter extends Controller {
 		);
 
 		$data['filter_types'][] = array(
-			'type'	=> 'chips',
-			'name'	=> 'Chips' /* todo-materialize Must be placed in a language variable */
-		);
-
-		$data['filter_types'][] = array(
 			'type'	=> 'radio',
 			'name'	=> 'Radio Buttons' /* todo-materialize Must be placed in a language variable */
 		);
