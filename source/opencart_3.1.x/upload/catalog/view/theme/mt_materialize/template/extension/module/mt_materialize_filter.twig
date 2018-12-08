@@ -2,25 +2,25 @@
 	<h4 class="center">{{ php_time }} millisecond</h4>
 	<form id="materialize-filters" action="">
 		{#<pre>{{ dump(mt_filters) }}</pre>#}
-		<ul class="collection with-header materialize-filters{{ horizontal ? ' horizontal' : ' collapsible expandable' }} z-depth-1 {{ color.common.background.name }} {{ color.common.text.name }}">
-			<li class="collection-header materialize-filters__item {{ color.header.background.name }} {{ color.header.text.name }}"><h4>Refine Search</h4></li> {# todo-materilaize Multilingual text fill from the template settings #}
+		<ul class="collection with-header mt-filter{{ horizontal ? ' horizontal' : ' collapsible expandable' }} z-depth-1 {{ color.common.background.name }} {{ color.common.text.name }}">
+			<li class="collection-header mt-filters-item {{ color.header.background.name }} {{ color.header.text.name }}"><h4>Refine Search</h4></li> {# todo-materilaize Multilingual text fill from the template settings #}
 			{% for mt_filter in mt_filters %}
 				{% if mt_filter.name == 'price' and mt_filter.value %}
-					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}"> {# todo-materiliaze Set color from color scheme #}
-						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><span><b>Price range <span id="span-price-range-min">{{ prices.min_price }}</span> — <span id="span-price-range-max">{{ prices.max_price }}</span></b></span></div>
-						<div class="materialize-filters__item--filter-content collapsible-body">
-							<div id="slider-prices" class="materialize-filters__item--filter-sliders {{ color.slider.secondary_background.name }}"></div>
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}"> {# todo-materiliaze Set color from color scheme #}
+						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><span><b>Price range <span id="span-price-range-min">{{ prices.min_price }}</span> — <span id="span-price-range-max">{{ prices.max_price }}</span></b></span></div>
+						<div class="mt-filter-content collapsible-body">
+							<div id="slider-prices" class="mt-filters-item--filter-sliders {{ color.slider.secondary_background.name }}"></div>
 							<input type="hidden" name="price_filter[]" value="{{ prices.min_price }}" id="input-price-range-min">
 							<input type="hidden" name="price_filter[]" value="{{ prices.max_price }}" id="input-price-range-max">
 						</div>
 					</li>
 				{% endif %}
 				{% if mt_filter.name == 'sub_categories' %}
-					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}">
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}">
 							<span><b>Sub categories</b></span>
 						</div> {# todo-materilaize Multilingual text fill from the template settings #}
-						<div class="materialize-filters__item--filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
+						<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 							{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 								<div id="filter-sub-categories" class="input-field">
 									<select name="sub_category_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
@@ -37,9 +37,9 @@
 							{% else %}
 								<ul id="filter-sub-categories">
 									{% for sub_category in mt_filter.value %}
-										<li class="materialize-product-options__item">
+										<li class="mt-filter-item">
 											{% if mt_filter.type == 'checkbox' %}
-												<label class="materialize-product-options__item--checkbox">
+												<label class="mt-filter-item--checkbox">
 													{% if sub_category.category_id in sub_category_filter_selected %}
 														{% if sub_category.image %}
 															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
@@ -56,7 +56,7 @@
 												</label>
 											{% endif %}
 											{% if mt_filter.type == 'radio' %}
-												<label class="materialize-product-options__item--radio">
+												<label class="mt-filter-item--radio">
 													{% if sub_category.category_id in sub_category_filter_selected %}
 														{% if sub_category.image %}
 															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
@@ -74,7 +74,7 @@
 											{% endif %}
 											{% if mt_filter.type == 'switches' %}
 												<div class="switch">
-													<label>
+													<label class="mt-filter-item--switch">
 														{% if sub_category.category_id in sub_category_filter_selected %}
 															{% if sub_category.image %}
 																<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}"> {# todo-materialize To set styles for images #}
@@ -101,10 +101,10 @@
 					</li>
 				{% endif %}
 				{% if mt_filter.name == 'default_filters' %}
-					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
 						{% for filter_group in mt_filter.value %}
-							<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ filter_group.name }}</b></div>
-							<div class="materialize-filters__item--filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
+							<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ filter_group.name }}</b></div>
+							<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 								{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 									<div id="filter-group{{ filter_group.filter_group_id }}" class="input-field">
 										<select name="default_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
@@ -122,9 +122,9 @@
 								{% else %}
 									<ul id="filter-group{{ filter_group.filter_group_id }}">
 										{% for filter in filter_group.filter %}
-											{% if mt_filter.type == 'checkbox' %}
-												<li class="materialize-product-options__item">
-													<label class="materialize-product-options__item--checkbox">
+											<li class="mt-filter-item">
+												{% if mt_filter.type == 'checkbox' %}
+													<label class="mt-filter-item--checkbox">
 														{% if filter.filter_id in default_filter_selected %}
 															<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" class="filled-in" checked="checked">
 															<span>{{ filter.name }}</span>
@@ -133,10 +133,8 @@
 															<span>{{ filter.name }}</span>
 														{% endif %}
 													</label>
-												</li>
-											{% endif %}
-											{% if mt_filter.type == 'radio' %}
-												<li class="materialize-product-options__item">
+												{% endif %}
+												{% if mt_filter.type == 'radio' %}
 													<label class="materialize-product-options__item--checkbox">
 														{% if filter.filter_id in default_filter_selected %}
 															<input type="radio" name="default_filter[]" value="{{ filter.filter_id }}" class="with-gap" checked="checked">
@@ -146,23 +144,23 @@
 															<span>{{ filter.name }}</span>
 														{% endif %}
 													</label>
-												</li>
-											{% endif %}
-											{% if mt_filter.type == 'switches' %}
-												<div class="switch">
-													<label>
-														{% if filter.filter_id in default_filter_selected %}
-															{{ filter.name }}
-															<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" checked="checked">
-															<span class="lever"></span>
-														{% else %}
-															{{ filter.name }}
-															<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}">
-															<span class="lever"></span>
-														{% endif %}
-													</label>
-												</div>
-											{% endif %}
+												{% endif %}
+												{% if mt_filter.type == 'switches' %}
+													<div class="switch">
+														<label class="mt-filter-item--switch">
+															{% if filter.filter_id in default_filter_selected %}
+																{{ filter.name }}
+																<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" checked="checked">
+																<span class="lever"></span>
+															{% else %}
+																{{ filter.name }}
+																<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}">
+																<span class="lever"></span>
+															{% endif %}
+														</label>
+													</div>
+												{% endif %}
+											</li>
 										{% endfor %}
 									</ul>
 								{% endif %}
@@ -171,9 +169,9 @@
 					</li>
 				{% endif %}
 				{% if mt_filter.name == 'manufacturers' %}
-					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>Manufacturers</b></div>
-						<div class="materialize-filters__item--filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>Manufacturers</b></div>
+						<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 							{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 								<div id="filter-manufacturers" class="input-field">
 									<select name="manufacturer_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
@@ -190,9 +188,9 @@
 							{% else %}
 								<ul id="filter-manufacturers">
 									{% for manufacturer in mt_filter.value %}
-										<li class="materialize-product-options__item">
+										<li class="mt-filter-item">
 											{% if mt_filter.type == 'checkbox' %}
-												<label class="materialize-product-options__item--checkbox">
+												<label class="mt-filter-item--checkbox">
 													{% if manufacturer.manufacturer_id in manufacturer_filter_selected %}
 														{% if manufacturer.image %}
 															<img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}">
@@ -209,7 +207,7 @@
 												</label>
 											{% endif %}
 											{% if mt_filter.type == 'radio' %}
-												<label class="materialize-product-options__item--radio">
+												<label class="mt-filter-item--radio">
 													{% if manufacturer.manufacturer_id in manufacturer_filter_selected %}
 														{% if manufacturer.image %}
 															<img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}">
@@ -227,7 +225,7 @@
 											{% endif %}
 											{% if mt_filter.type == 'switches' %}
 												<div class="switch">
-													<label>
+													<label class="mt-filter-item--switch">
 														{% if manufacturer.manufacturer_id in manufacturer_filter_selected %}
 															{% if manufacturer.image %}
 																<img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}"> {# todo-materialize To set styles for images #}
@@ -256,9 +254,9 @@
 				{% if mt_filter.name == 'attributes' %}
 					{# todo-materialize Attributes should search by text or by id? #}
 					{% for name, attribute in mt_filter.value %}
-						<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-							<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ name }}</b>{% if mt_filter.explanation %}<span class="material-icons materialize-filters__item--filter-tooltiped tooltipped-html grey-text" data-position="right" data-tooltip="<b>I am a tooltip</b><br>Hello!">help_outline</span>{% endif %} {# todo-materiliaze Set color from color scheme #}</div>
-							<div class="materialize-filters__item--filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
+						<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+							<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ name }}</b>{% if mt_filter.explanation %}<span class="material-icons mt-filters-item--tooltiped tooltipped-html grey-text" data-position="right" data-tooltip="<b>I am a tooltip</b><br>Hello!">help_outline</span>{% endif %} {# todo-materiliaze Set color from color scheme #}</div>
+							<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 								{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 									<div class="input-field">
 										<select name="attribute_filter[][{{ value.attribute_id }}]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}> {# todo-materialize It's stupid and it works wrong! #}
@@ -275,9 +273,9 @@
 								{% else %}
 									<ul>
 										{% for value in attribute %}
-											<li class="materialize-product-options__item">
+											<li class="mt-filter-item">
 												{% if mt_filter.type == 'checkbox' %}
-													<label class="materialize-product-options__item--checkbox">
+													<label class="mt-filter-item--checkbox">
 														{% if value.text in attribute_filter_selected %}
 															<input type="checkbox" name="attribute_filter[][{{ value.attribute_id }}]" value="{{ value.text }}" class="filled-in" checked="checked">
 															<span>{{ value.text }}</span>
@@ -288,7 +286,7 @@
 													</label>
 												{% endif %}
 												{% if mt_filter.type == 'radio' %}
-													<label class="materialize-product-options__item--radio">
+													<label class="mt-filter-item--radio">
 														{% if value.text in attribute_filter_selected %}
 															<input type="radio" name="attribute_filter[][{{ value.attribute_id }}]" value="{{ value.text }}" class="with-gap" checked="checked">
 															<span>{{ value.text }}</span>
@@ -300,7 +298,7 @@
 												{% endif %}
 												{% if mt_filter.type == 'switches' %}
 													<div class="switch">
-														<label>
+														<label class="mt-filter-item--switch">
 															{% if value.text in attribute_filter_selected %}
 																{{ value.text }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
 																<input type="checkbox" name="attribute_filter[][{{ value.attribute_id }}]" value="{{ value.text }}" checked="checked">
@@ -323,9 +321,9 @@
 				{% endif %}
 				{% if mt_filter.name == 'options' %}
 					{% for option in mt_filter.value %}
-						<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-							<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ option.name }}</b></div>
-							<div class="materialize-filters__item--filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
+						<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+							<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ option.name }}</b></div>
+							<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 								{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 									<div id="option{{ option.option_id }}" class="input-field">
 										<select name="option_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
@@ -342,9 +340,9 @@
 								{% else %}
 									<ul id="option{{ option.option_id }}">
 										{% for option_value in option.option_value_data %}
-											<li class="materialize-product-options__item">
+											<li class="mt-filter-item">
 												{% if mt_filter.type == 'checkbox' %}
-													<label class="materialize-product-options__item--checkbox">
+													<label class="mt-filter-item--checkbox">
 														{% if option_value.image %}
 															<img src="{{ option_value.image }}" alt="{{ option_value.name }}">
 														{% endif %}
@@ -358,7 +356,7 @@
 													</label>
 												{% endif %}
 												{% if mt_filter.type == 'radio' %}
-													<label class="materialize-product-options__item--radio">
+													<label class="mt-filter-item--radio">
 														{% if option_value.image %}
 															<img src="{{ option_value.image }}" alt="{{ option_value.name }}">
 														{% endif %}
@@ -373,7 +371,7 @@
 												{% endif %}
 												{% if mt_filter.type == 'switches' %}
 													<div class="switch">
-														<label>
+														<label class="mt-filter-item--switch">
 															{% if option_value.image %}
 																<img src="{{ option_value.image }}" alt="{{ option_value.name }}">
 															{% endif %}
@@ -398,14 +396,14 @@
 					{% endfor %}
 				{% endif %}
 				{% if mt_filter.name == 'rating' %}
-					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>Rating</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
-						<div class="materialize-filters__item--filter-content collapsible-body" data-simplebar>
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>Rating</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
+						<div class="mt-filter-content collapsible-body" data-simplebar>
 							<ul>
 								{% for i in 1..5 %}
-									<li class="materialize-product-options__item">
+									<li class="mt-filter-item">
 										{% if mt_filter.type == 'checkbox' %}
-											<label class="materialize-product-options__item--checkbox">
+											<label class="mt-filter-item--checkbox">
 												{% if rating_filter_selected %}
 													<input type="checkbox" name="rating_filter[]" value="{{ i }}" class="filled-in" checked="checked">
 													<span class="rating rating-filter">
@@ -432,10 +430,10 @@
 											</label>
 										{% endif %}
 										{% if mt_filter.type == 'radio' %}
-											<label class="materialize-product-options__item--radio"> {# todo-materialize Customize radio button rating styles #}
+											<label class="mt-filter-item--radio"> {# todo-materialize Customize radio button rating styles #}
 												{% if rating_filter_selected %}
 													<input type="radio" name="rating_filter[]" value="{{ i }}" class="with-gap" checked="checked">
-													<span>
+													<span class="rating rating-filter">
 														{% for rating in mt_filter.value %}
 															{% if rating < i %}
 																<i class="material-icons yellow-text text-accent-4">star</i>
@@ -446,7 +444,7 @@
 													</span>
 												{% else %}
 													<input type="radio" name="rating_filter[]" value="{{ i }}" class="with-gap">
-													<span>
+													<span class="rating rating-filter">
 														{% for rating in mt_filter.value %}
 															{% if rating < i %}
 																<i class="material-icons yellow-text text-accent-4">star</i>
@@ -460,25 +458,29 @@
 										{% endif %}
 										{% if mt_filter.type == 'switches' %}
 											<div class="switch">
-												<label>
+												<label class="mt-filter-item--switch">
 													{% if rating_filter_selected %}
-														{% for rating in mt_filter.value %}
-															{% if rating < i %}
-																<i class="material-icons yellow-text text-accent-4">star</i>
-															{% else %}
-																<i class="material-icons yellow-text text-accent-4">star_border</i>
-															{% endif %}
-														{% endfor %} {# todo-materialize Set styles for all "switches" so that they are on the right #}
+														<span class="rating rating-filter">
+															{% for rating in mt_filter.value %}
+																{% if rating < i %}
+																	<i class="material-icons yellow-text text-accent-4">star</i>
+																{% else %}
+																	<i class="material-icons yellow-text text-accent-4">star_border</i>
+																{% endif %}
+															{% endfor %} {# todo-materialize Set styles for all "switches" so that they are on the right #}
+														</span>
 														<input type="checkbox" name="rating_filter[]" value="{{ i }}" checked="checked">
 														<span class="lever"></span>
 													{% else %}
-														{% for rating in mt_filter.value %}
-															{% if rating < i %}
-																<i class="material-icons yellow-text text-accent-4">star</i>
-															{% else %}
-																<i class="material-icons yellow-text text-accent-4">star_border</i>
-															{% endif %}
-														{% endfor %}
+														<span class="rating rating-filter">
+															{% for rating in mt_filter.value %}
+																{% if rating < i %}
+																	<i class="material-icons yellow-text text-accent-4">star</i>
+																{% else %}
+																	<i class="material-icons yellow-text text-accent-4">star_border</i>
+																{% endif %}
+															{% endfor %}
+														</span>
 														<input type="checkbox" name="rating_filter[]" value="{{ i }}">
 														<span class="lever"></span>
 													{% endif %}
@@ -492,9 +494,9 @@
 					</li>
 				{% endif %}
 				{% if mt_filter.name == 'stock_statuses' %}
-					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>Availability</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
-						<div class="materialize-filters__item--filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>Availability</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
+						<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 							{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 								<div class="input-field">
 									<select name="stock_status_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
@@ -511,9 +513,9 @@
 							{% else %}
 								<ul id="filter-stock-statuses">
 									{% for stock_status in mt_filter.value %}
-										<li class="materialize-product-options__item">
+										<li class="mt-filter-item">
 											{% if mt_filter.type == 'checkbox' %}
-												<label class="materialize-product-options__item--checkbox">
+												<label class="mt-filter-item--checkbox">
 													{% if stock_status.stock_status_id in stock_status_filter_selected %}
 														<input type="checkbox" name="stock_status_filter[]" value="{{ stock_status.stock_status_id }}" class="filled-in" checked="checked">
 														<span>{{ stock_status.name }}</span>
@@ -524,7 +526,7 @@
 												</label>
 											{% endif %}
 											{% if mt_filter.type == 'radio' %}
-												<label class="materialize-product-options__item--radio">
+												<label class="mt-filter-item--radio">
 													{% if stock_status.stock_status_id in stock_status_filter_selected %}
 														<input type="radio" name="stock_status_filter[]" value="{{ stock_status.stock_status_id }}" class="with-gap" checked="checked">
 														<span>{{ stock_status.name }}</span>
@@ -536,7 +538,7 @@
 											{% endif %}
 											{% if mt_filter.type == 'switches' %}
 												<div class="switch">
-													<label>
+													<label class="mt-filter-item--switch">
 														{% if stock_status.stock_status_id in stock_status_filter_selected %}
 															{{ stock_status.name }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
 															<input type="checkbox" name="stock_status_filter[]" value="{{ stock_status.stock_status_id }}" checked="checked">
@@ -557,9 +559,9 @@
 					</li>
 				{% endif %}
 				{% if mt_filter.name == 'discount' and mt_filter.value %}
-					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>With discount</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
-						<div class="materialize-filters__item--filter-content collapsible-body"{% if mt_filter.type != 'select_single' %} data-simplebar{% endif %}>
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>With discount</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
+						<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' %} data-simplebar{% endif %}>
 							{% if mt_filter.type == 'select_single' %}
 								<div class="input-field">
 									<select name="product_special_filter">
@@ -573,9 +575,9 @@
 								</div>
 							{% else %}
 								<ul>
-									<li class="materialize-product-options__item">
+									<li class="mt-filter-item">
 										{% if mt_filter.type == 'checkbox' %}
-											<label class="materialize-product-options__item--checkbox">
+											<label class="mt-filter-item--checkbox">
 												{% if product_special in product_special_filter_selected %}
 													<input type="checkbox" name="product_special_filter" value="1" class="filled-in" checked="checked">
 													<span>{{ text_yes }}</span>
@@ -586,7 +588,7 @@
 											</label>
 										{% endif %}
 										{% if mt_filter.type == 'radio' %}
-											<label class="materialize-product-options__item--radio">
+											<label class="mt-filter-item--radio">
 												{% if product_special in product_special_filter_selected %}
 													<input type="radio" name="product_special_filter" value="1" class="with-gap" checked="checked">
 													<span>{{ text_yes }}</span>
@@ -595,7 +597,7 @@
 													<span>{{ text_yes }}</span>
 												{% endif %}
 											</label>
-											<label class="materialize-product-options__item--radio">
+											<label class="mt-filter-item--radio">
 												{% if product_special in product_special_filter_selected %}
 													<input type="radio" name="product_special_filter" value="0" class="with-gap" checked="checked">
 													<span>{{ text_no }}</span>
@@ -607,7 +609,7 @@
 										{% endif %}
 										{% if mt_filter.type == 'switches' %}
 											<div class="switch">
-												<label>
+												<label class="mt-filter-item--switch">
 													{% if product_special in product_special_filter_selected %}
 														{{ text_yes }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
 														<input type="checkbox" name="product_special_filter" value="1" checked="checked">
@@ -627,9 +629,9 @@
 					</li>
 				{% endif %}
 				{% if mt_filter.name == 'reviews' and mt_filter.value %}
-					<li class="collection-item materialize-filters__item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-						<div class="materialize-filters__item--filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>With reviews</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
-						<div class="materialize-filters__item--filter-content collapsible-body"{% if mt_filter.type != 'select_single' %} data-simplebar{% endif %}>
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>With reviews</b></div> {# todo-materilaize Multilingual text fill from the template settings #}
+						<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' %} data-simplebar{% endif %}>
 							{% if mt_filter.type == 'select_single' %}
 								<div class="input-field">
 									<select name="review_filter">
@@ -643,9 +645,9 @@
 								</div>
 							{% else %}
 								<ul>
-									<li class="materialize-product-options__item">
+									<li class="mt-filter-item">
 										{% if mt_filter.type == 'checkbox' %}
-											<label class="materialize-product-options__item--checkbox">
+											<label class="mt-filter-item--checkbox">
 												{% if review_filter in review_filter_selected %}
 													<input type="checkbox" name="review_filter" value="1" class="filled-in" checked="checked">
 													<span>{{ text_yes }}</span>
@@ -656,7 +658,7 @@
 											</label>
 										{% endif %}
 										{% if mt_filter.type == 'radio' %}
-											<label class="materialize-product-options__item--radio">
+											<label class="mt-filter-item--radio">
 												{% if review_filter in review_filter_selected %}
 													<input type="radio" name="review_filter" value="1" class="with-gap" checked="checked">
 													<span>{{ text_yes }}</span>
@@ -665,7 +667,7 @@
 													<span>{{ text_yes }}</span>
 												{% endif %}
 											</label>
-											<label class="materialize-product-options__item--radio">
+											<label class="mt-filter-item--radio">
 												{% if review_filter in review_filter_selected %}
 													<input type="radio" name="review_filter" value="0" class="with-gap" checked="checked">
 													<span>{{ text_no }}</span>
@@ -677,7 +679,7 @@
 										{% endif %}
 										{% if mt_filter.type == 'switches' %}
 											<div class="switch">
-												<label>
+												<label class="mt-filter-item--switch">
 													{% if review_filter in review_filter_selected %}
 														{{ text_yes }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
 														<input type="checkbox" name="review_filter" value="1" checked="checked">
@@ -697,7 +699,7 @@
 					</li>
 				{% endif %}
 			{% endfor %}
-			<li class="collection-item materialize-filters__item materialize-filters__item--button flex-reverse">
+			<li class="collection-item mt-filters-item mt-filters-item--button flex-reverse">
 				<button type="button" id="button-materialize-filter" class="btn waves-effect {{ color.apply_button.background.name }} {{ color.apply_button.text.name }}">{{ button_filter }}</button>
 			</li>
 		</ul>
@@ -761,6 +763,10 @@
 		});
 	</script>
 	<style>
+		.mt-filter-content.collapsible-body {
+			max-height: 150px; {# todo-materiliaze Set color from color scheme #}
+		}
+
 		.noUi-horizontal .noUi-handle, .noUi-vertical .noUi-handle, .noUi-target.noUi-horizontal .noUi-tooltip, .noUi-connect {
 			background: {{ color.slider.primary_background.hex }} !important;
 		}
