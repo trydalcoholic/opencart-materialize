@@ -1,6 +1,6 @@
 {% if mt_filters %}
 	<h4 class="center">{{ php_time }} millisecond</h4>
-	<form id="materialize-filters" action="">
+	<div id="mt-filter-category">
 		{#<pre>{{ dump(mt_filters) }}</pre>#}
 		<ul class="collection with-header mt-filter{{ horizontal ? ' horizontal' : ' collapsible expandable' }} z-depth-1 {{ color.common.background.name }} {{ color.common.text.name }}">
 			<li class="collection-header mt-filters-item {{ color.header.background.name }} {{ color.header.text.name }}"><h4>Refine Search</h4></li> {# todo-materilaize Multilingual text fill from the template settings #}
@@ -24,7 +24,7 @@
 							{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 								<div id="filter-sub-categories" class="input-field">
 									<select name="sub_category_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
-										<option value=""{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
+										<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 										{% for sub_category in mt_filter.value %}
 											{% if sub_category.category_id in sub_category_filter_selected %}
 												<option value="{{ sub_category.category_id }}" selected{% if sub_category.image %} data-icon="{{ sub_category.image }}"{% endif %}>{{ sub_category.name }}</option>
@@ -108,7 +108,7 @@
 								{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 									<div id="filter-group{{ filter_group.filter_group_id }}" class="input-field">
 										<select name="default_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
-											<option value=""{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
+											<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 											{% for filter in filter_group.filter %}
 												{% if filter.filter_id in default_filter_selected %}
 													<option value="{{ filter.filter_id }}" selected>{{ filter.name }}</option>
@@ -175,7 +175,7 @@
 							{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 								<div id="filter-manufacturers" class="input-field">
 									<select name="manufacturer_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
-										<option value=""{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
+										<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 										{% for manufacturer in mt_filter.value %}
 											{% if manufacturer.manufacturer_id in manufacturer_filter_selected %}
 												<option value="{{ manufacturer.manufacturer_id }}" selected{% if manufacturer.image %} data-icon="{{ manufacturer.image }}"{% endif %}>{{ manufacturer.name }}</option>
@@ -260,7 +260,7 @@
 								{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 									<div class="input-field">
 										<select name="attribute_filter[][{{ value.attribute_id }}]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}> {# todo-materialize It's stupid and it works wrong! #}
-											<option value=""{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
+											<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 											{% for value in attribute %}
 												{% if value.text in attribute_filter_selected %}
 													<option value="{{ value.text }}" selected>{{ value.text }}</option>
@@ -327,7 +327,7 @@
 								{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 									<div id="option{{ option.option_id }}" class="input-field">
 										<select name="option_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
-											<option value=""{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
+											<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 											{% for option_value in option.option_value_data %}
 												{% if option_value.option_value_id in option_filter_selected %}
 													<option value="{{ option_value.option_value_id }}" selected{% if option_value.image %} data-icon="{{ option_value.image }}"{% endif %}>{{ option_value.name }}</option>
@@ -500,7 +500,7 @@
 							{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 								<div class="input-field">
 									<select name="stock_status_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
-										<option value=""{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
+										<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 										{% for stock_status in mt_filter.value %}
 											{% if stock_status.stock_status_id in stock_status_filter_selected %}
 												<option value="{{ stock_status.stock_status_id }}" selected>{{ stock_status.name }}</option>
@@ -565,7 +565,7 @@
 							{% if mt_filter.type == 'select_single' %}
 								<div class="input-field">
 									<select name="product_special_filter">
-										<option value="">{{ text_select }}</option>
+										<option value="0">{{ text_select }}</option>
 										{% if product_special in product_special_filter_selected %}
 											<option value="1" selected>{{ text_yes }}</option>
 										{% else %}
@@ -635,7 +635,7 @@
 							{% if mt_filter.type == 'select_single' %}
 								<div class="input-field">
 									<select name="review_filter">
-										<option value="">{{ text_select }}</option>
+										<option value="0">{{ text_select }}</option>
 										{% if review_filter in review_filter_selected %}
 											<option value="1" selected>{{ text_yes }}</option>
 										{% else %}
@@ -703,7 +703,7 @@
 				<button type="button" id="button-materialize-filter" class="btn waves-effect {{ color.apply_button.background.name }} {{ color.apply_button.text.name }}">{{ button_filter }}</button>
 			</li>
 		</ul>
-	</form>
+	</div>
 	<script>
 		{% if prices %}
 			var sliderPrices = document.getElementById('slider-prices');
@@ -746,19 +746,23 @@
 			sliderPrices.noUiSlider.on('update', function (values, handle, unencoded) {
 				if (handle) {
 					spanPriceRangeMax.text(values[handle]);
-					inputPriceRangeMax.val(unencoded[handle]);
+					inputPriceRangeMax.val(unencoded[handle]).change();
 				} else {
 					spanPriceRangeMin.text(values[handle]);
-					inputPriceRangeMin.val(unencoded[handle]);
+					inputPriceRangeMin.val(unencoded[handle]).change();
 				}
 			});
 		{% endif %}
 
 		$(document).ready(function() {
-			$('#materialize-filters').mtFilter({
+			/*$('#mt-filter-category').mtFilter({
 				action: '{{ action }}',
 				{% if preselected_data %}startFilter: true,{% endif %}
 				productGrid: $('#content-mt-filter').data('product-grid')
+			});*/
+			$('#mt-filter-category').mtFilter({
+				grid: $('#content-mt-filter').data('product-grid'),
+				action: '{{ action }}'
 			});
 		});
 	</script>
