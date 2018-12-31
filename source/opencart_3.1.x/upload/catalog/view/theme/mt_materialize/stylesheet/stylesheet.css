@@ -1,9 +1,9 @@
 /**
- * @package		Materialize Template
- * @author		Anton Semenov
- * @copyright	Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
- * @license		https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
- * @link		https://github.com/trydalcoholic/opencart-materialize
+ * @package     Materialize Template
+ * @author      Anton Semenov
+ * @copyright   Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
+ * @license     https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
+ * @link        https://github.com/trydalcoholic/opencart-materialize
  */
 
 html, body {
@@ -188,6 +188,27 @@ h6 {
 	color: #000000; /* todo-materialize Set color from color scheme */
 }
 
+.mt-chip-input {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 8px;
+}
+
+.mt-chip__img {
+	height: 24px !important;
+	width: 24px !important;
+	margin: 0 8px 0 -4px !important;
+}
+
+.mt-chip__close {
+	width: 18px !important;
+	height: 18px !important;
+	line-height: 18px !important;
+	padding: 0 !important;
+	margin-left: 8px;
+	font-size: 16px !important;
+}
+
 /*.waves-effect-15 {
 	width: 1.5em;
 	height: 1.5em;
@@ -195,9 +216,9 @@ h6 {
 }*/
 
 /**
- * @package		Animated Material Icons
- * @author		Anton Lydike
- * @link		https://codepen.io/antonlydike/pen/PZPqPw
+ * @package     Animated Material Icons
+ * @author      Anton Lydike
+ * @link        https://codepen.io/antonlydike/pen/PZPqPw
  */
 
 .transition--ease-in-out {

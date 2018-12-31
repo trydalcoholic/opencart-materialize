@@ -7,7 +7,7 @@
  * @link        https://github.com/trydalcoholic/opencart-materialize
  */
 
-class ModelExtensionMTMaterializeModuleMTMaterializeFilter extends Model {
+class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 	public function getCategoryStatus($category_id) {
 		$query = $this->db->query("SELECT status, COUNT(DISTINCT p2c.product_id) AS total FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p2c.category_id = c.category_id) WHERE c.category_id = '" . (int)$category_id . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND c.status = '1' LIMIT 1");
 
@@ -66,10 +66,10 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		return $query->row;
 	}
 
-	public function getSubCategories($data) {
+	public function getSubCategoriesByCategoryId($data) {
 		$sql = "SELECT c.category_id, cd.name";
 
-		if ($data['image']) {
+		if (!empty($data['image'])) {
 			$sql .= ", c.image";
 		}
 
@@ -77,9 +77,29 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 
 		$query = $this->db->query($sql);
 
-		$sub_categories_data = $query->rows;
+		return $query->rows;
+	}
 
-		return $sub_categories_data;
+	public function getSubCategoriesByFilter($data) {
+		$sql = "SELECT c.category_id, cd.name";
+
+		if (!empty($data['image'])) {
+			$sql .= ", c.image";
+		}
+
+		$sql .= " FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) WHERE c.category_id IN (";
+
+		$implode = array();
+
+		foreach ($data['categories_id'] as $category_id) {
+			$implode[] = "'" . (int)$category_id . "'";
+		}
+
+		$sql .= implode(",", $implode) . ") AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY c.sort_order, LCASE(cd.name)";
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
 	}
 
 	public function getProductOptions($data) {
@@ -121,7 +141,7 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		return $option_data;
 	}
 
-	public function getCategoryFilters($category_id) {
+	public function getDefaultFiltersByCategoryId($category_id) {
 		$implode = array();
 
 		$query = $this->db->query("SELECT filter_id FROM " . DB_PREFIX . "category_filter WHERE category_id = '" . (int)$category_id . "'");
@@ -160,31 +180,97 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		return $filter_group_data;
 	}
 
-	public function getAttributes($category_id) {
-		$query = $this->db->query("SELECT pa.attribute_id, ad.name as name, pa.text as text FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (pa.attribute_id = ad.attribute_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (pa.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$category_id . "' AND pa.language_id = '" . (int)$this->config->get('config_language_id') . "' AND ad.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY pa.attribute_id, LCASE(name)");
+	public function getDefaultFiltersByFilter($data) {
+		$sql = "SELECT f.filter_id, fd.filter_group_id, fgd.name AS name, fd.name AS text FROM " . DB_PREFIX . "filter f LEFT JOIN " . DB_PREFIX . "filter_description fd ON (f.filter_id = fd.filter_id) LEFT JOIN " . DB_PREFIX . "filter_group fg ON (f.filter_group_id = fg.filter_group_id) LEFT JOIN " . DB_PREFIX . "filter_group_description fgd ON (fg.filter_group_id = fgd.filter_group_id) WHERE f.filter_id IN (";
 
-		$attributes_data = $query->rows;
+		$implode = array();
 
-		return $attributes_data;
+		foreach ($data as $filter_id) {
+			$implode[] = "'" . (int)$filter_id . "'";
+		}
+
+		$sql .= implode(",", $implode) . ") AND fd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND fgd.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY fg.sort_order, LCASE(fgd.name), f.sort_order, LCASE(fd.name)";
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
+	}
+
+	public function getAttributes($data) {
+		if (!empty($data['category_id'])) {
+			$query = $this->db->query("SELECT pa.attribute_id, ad.name as name, pa.text as text FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (pa.attribute_id = ad.attribute_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (pa.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$data['category_id'] . "' AND pa.language_id = '" . (int)$this->config->get('config_language_id') . "' AND ad.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY pa.attribute_id, LCASE(name)");
+
+			$attributes_data = $query->rows;
+
+			return $attributes_data;
+		} else {
+			$sql = "SELECT a.attribute_id, ad.name FROM " . DB_PREFIX . "attribute a LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (a.attribute_id = ad.attribute_id) WHERE a.attribute_id IN (";
+
+			$implode = array();
+
+			foreach ($data['attribute_filter'] as $key => $value) {
+				$implode[] = "'" . (int)$key . "'";
+			}
+
+			$sql .= "" . implode(",", $implode) . ") AND ad.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY a.sort_order, LCASE(ad.name)";
+
+			$query = $this->db->query($sql);
+
+			$attributes_names = array();
+
+			foreach ($query->rows as $result) {
+				$attributes_names[$result['attribute_id']] = $result['name'];
+			}
+
+			$attributes_data = array();
+
+			foreach ($data['attribute_filter'] as $key => $value) {
+				$attributes = explode(',', $value);
+
+				foreach ($attributes as $text) {
+					$attributes_data[] = array(
+						'attribute_id'	=> (int)$key,
+						'name'			=> (string)$attributes_names[$key],
+						'text'			=> (string)$text
+					);
+				}
+			}
+
+			return $attributes_data;
+		}
 	}
 
 	public function getManufacturers($data) {
-		$manufacturer_data = array();
+		if (empty($data['manufacturers_id'])) {
+			$manufacturer_data = array();
 
-		$query = $this->db->query("SELECT p.manufacturer_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$data['category_id'] . "'");
+			$query = $this->db->query("SELECT p.manufacturer_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$data['category_id'] . "'");
 
-		foreach ($query->rows as $result) {
-			$manufacturer_data[] = (int)$result['manufacturer_id'];
+			foreach ($query->rows as $result) {
+				$manufacturer_data[] = (int)$result['manufacturer_id'];
+			}
 		}
 
-		if ($manufacturer_data) {
+		if (!empty($manufacturer_data) && empty($data['manufacturers_id'])) {
 			$sql = "SELECT m.manufacturer_id, m.name";
 
-			if ($data['image']) {
+			if (!empty($data['image'])) {
 				$sql .= ", m.image";
 			}
 
 			$sql .= " FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) WHERE m.manufacturer_id IN (" . implode(',', $manufacturer_data) . ") AND m2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ORDER BY m.sort_order ASC LIMIT " . (int)count($manufacturer_data);
+
+			$manufacturers_query = $this->db->query($sql);
+
+			$manufacturers = $manufacturers_query->rows;
+		} elseif (!empty($data['manufacturers_id'])) {
+			$sql = "SELECT manufacturer_id, name";
+
+			if (!empty($data['image'])) {
+				$sql .= ", image";
+			}
+
+			$sql .= " FROM " . DB_PREFIX . "manufacturer WHERE manufacturer_id IN ('" . $data['manufacturers_id'] . "') ORDER BY sort_order ASC";
 
 			$manufacturers_query = $this->db->query($sql);
 
@@ -205,7 +291,7 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 	}
 
 	public function getProducts($data = array()) {
-		$sql = "SELECT p.product_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) LEFT JOIN (SELECT product_id, price FROM " . DB_PREFIX . "product_special ps WHERE ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) GROUP BY ps.product_id ORDER BY ps.priority ASC, ps.price ASC";
+		$sql = "SELECT DISTINCT p.product_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) LEFT JOIN (SELECT product_id, price FROM " . DB_PREFIX . "product_special ps WHERE ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) GROUP BY ps.product_id ORDER BY ps.priority ASC, ps.price ASC";
 
 		if (!empty($data['product_special_filter'])) {
 			$sql .= " ) AS ps ON (p.product_id = ps.product_id)";
@@ -214,11 +300,25 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		}
 
 		if (!empty($data['default_filter'])) {
-			$sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pf ON (p.product_id = pf.product_id)";
+			$sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pdf ON (p.product_id = pdf.product_id)";
 		}
 
 		if (!empty($data['attribute_filter'])) {
-			$sql .= " LEFT JOIN " . DB_PREFIX . "product_attribute pa ON (p.product_id = pa.product_id)";
+			/* A simple example for properly filtering attributes.
+			SELECT DISTINCT
+			  p2c.product_id
+			FROM
+			  oc_product_to_category p2c
+			  LEFT JOIN oc_product_attribute pa2 ON (pa2.product_id = p2c.product_id)
+			  LEFT JOIN oc_product_attribute pa4 ON (pa4.product_id = p2c.product_id)
+			WHERE
+			  pa2.attribute_id = '2' AND (pa2.text = '1' OR pa2.text = '4')
+			  AND
+			  pa4.attribute_id = '4' AND (pa4.text = '8gb' OR pa4.text = '16gb')
+			*/
+			foreach ($data['attribute_filter'] as $key => $value) {
+				$sql .= " LEFT JOIN " . DB_PREFIX . "product_attribute pa" . (int)$key . " ON (p.product_id = pa" . (int)$key . ".product_id)";
+			}
 		}
 
 		if (!empty($data['option_filter'])) {
@@ -240,17 +340,45 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		$sql .= " WHERE p.date_available <= NOW() AND p.status = '1' AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
 
 		if (!empty($data['sub_category_filter'])) {
-			$sql .= " AND p2c.category_id IN ('" . $data['sub_category_filter'] . "')";
+			$sql .= " AND p2c.category_id IN (";
+
+			$implode = array();
+
+			foreach ($data['sub_category_filter'] as $category_id) {
+				$implode[] = "'" . (int)$category_id . "'";
+			}
+
+			$sql .= implode(",", $implode) . ")";
 		} else {
 			$sql .= " AND p2c.category_id = '" . (int)$data['category_id'] . "'";
 		}
 
 		if (!empty($data['default_filter'])) {
-			$sql .= " AND pf.filter_id IN ('" . $data['default_filter'] . "')";
+			$sql .= " AND pdf.filter_id IN (";
+
+			$implode = array();
+
+			foreach ($data['default_filter'] as $default_filter_id) {
+				$implode[] = "'" . (int)$default_filter_id . "'";
+			}
+
+			$sql .= implode(",", $implode) . ")";
 		}
 
 		if (!empty($data['attribute_filter'])) {
-			$sql .= " AND pa.attribute_id IN ('" . $data['attribute_filter'] . "')";
+			foreach ($data['attribute_filter'] as $key => $value) {
+				$sql .= " AND (pa" . (int)$key . ".attribute_id = '" . (int)$key . "'";
+
+				$implode = array();
+
+				$filters = explode(',', $value);
+
+				foreach ($filters as $text) {
+					$implode[] = "pa" . (int)$key . ".text = '" . $this->db->escape((string)$text) . "'";
+				}
+
+				$sql .= " AND (" . implode(' OR ', $implode) . "))";
+			}
 		}
 
 		if (!empty($data['option_filter'])) {
@@ -309,6 +437,8 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
 
+		$check_sql = $sql; /* todo-materialize Remove this */
+
 		$query = $this->db->query($sql);
 
 		$implode_products = array();
@@ -359,7 +489,11 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 
 			$query = $this->db->query($sql);
 
-			return $query->rows;
+			$products = array(
+				'query'		=> $query->rows,
+				'check_sql'	=> $check_sql
+			);
+			return $products;
 		} else {
 			return false;
 		}
@@ -375,11 +509,13 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		}
 
 		if (!empty($data['default_filter'])) {
-			$sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pf ON (p.product_id = pf.product_id)";
+			$sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pdf ON (p.product_id = pdf.product_id)";
 		}
 
 		if (!empty($data['attribute_filter'])) {
-			$sql .= " LEFT JOIN " . DB_PREFIX . "product_attribute pa ON (p.product_id = pa.product_id)";
+			foreach ($data['attribute_filter'] as $key => $value) {
+				$sql .= " LEFT JOIN " . DB_PREFIX . "product_attribute pa" . (int)$key . " ON (p.product_id = pa" . (int)$key . ".product_id)";
+			}
 		}
 
 		if (!empty($data['option_filter'])) {
@@ -401,17 +537,44 @@ WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AN
 		$sql .= " WHERE p.date_available <= NOW() AND p.status = '1' AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
 
 		if (!empty($data['sub_category_filter'])) {
-			$sql .= " AND p2c.category_id IN ('" . $data['sub_category_filter'] . "')";
+			$sql .= " AND p2c.category_id IN (";
+
+			$implode = array();
+
+			foreach ($data['sub_category_filter'] as $category_id) {
+				$implode[] = "'" . (int)$category_id . "'";
+			}
+			$sql .= implode(",", $implode) . ")";
 		} else {
 			$sql .= " AND p2c.category_id = '" . (int)$data['category_id'] . "'";
 		}
 
 		if (!empty($data['default_filter'])) {
-			$sql .= " AND pf.filter_id IN ('" . $data['default_filter'] . "')";
+			$sql .= " AND pdf.filter_id IN (";
+
+			$implode = array();
+
+			foreach ($data['default_filter'] as $default_filter_id) {
+				$implode[] = "'" . (int)$default_filter_id . "'";
+			}
+
+			$sql .= implode(",", $implode) . ")";
 		}
 
 		if (!empty($data['attribute_filter'])) {
-			$sql .= " AND pa.attribute_id IN ('" . $data['attribute_filter'] . "')";
+			foreach ($data['attribute_filter'] as $key => $value) {
+				$sql .= " AND (pa" . (int)$key . ".attribute_id = '" . (int)$key . "'";
+
+				$implode = array();
+
+				$filters = explode(',', $value);
+
+				foreach ($filters as $text) {
+					$implode[] = "pa" . (int)$key . ".text = '" . $this->db->escape((string)$text) . "'";
+				}
+
+				$sql .= " AND (" . implode(' OR ', $implode) . "))";
+			}
 		}
 
 		if (!empty($data['option_filter'])) {

@@ -22,8 +22,8 @@
 					<div class="card mb-3">
 						<div class="card-header">{{ entry_status }}</div>
 						<div class="card-body">
-							<select name="module_mt_materialize_filter_status" id="input-status" class="material-select">
-								{% if module_mt_materialize_filter_status %}
+							<select name="module_mt_filter_status" id="input-status" class="material-select">
+								{% if module_mt_filter_status %}
 									<option value="1" selected="selected">{{ text_enabled }}</option>
 									<option value="0">{{ text_disabled }}</option>
 								{% else %}
@@ -39,20 +39,20 @@
 							</div>
 						</div>
 					</div>
-					<ul id="mt-filter-layout" class="materialize-filter d-none d-lg-block d-xl-block scale-transition scale-out" style="background-color: {{ module_mt_materialize_filter_settings.color.common.background.hex }}">
-						<li class="materialize-filter-item with-header" style="background-color: {{ module_mt_materialize_filter_settings.color.header.background.hex }}; color: {{ module_mt_materialize_filter_settings.color.header.text.hex }};"><h4>Materialize Filter</h4></li> {# todo-materialize Must be placed in a language variable #}
+					<ul id="mt-filter-layout" class="materialize-filter d-none d-lg-block d-xl-block scale-transition scale-out" style="background-color: {{ module_mt_filter_settings.color.common.background.hex }}">
+						<li class="materialize-filter-item with-header" style="background-color: {{ module_mt_filter_settings.color.header.background.hex }}; color: {{ module_mt_filter_settings.color.header.text.hex }};"><h4>Materialize Filter</h4></li> {# todo-materialize Must be placed in a language variable #}
 						<li class="materialize-filter-item">
-							<div class="materialize-filter-item--title waves-effect arrow-rotate" data-toggle="collapse" data-target="#price-collapse" style="background-color: {{ module_mt_materialize_filter_settings.color.header.background.hex }}; color: {{ module_mt_materialize_filter_settings.color.header.text.hex }};"><span>Slider Filters</span></div> {# todo-materialize Must be placed in a language variable #}
+							<div class="materialize-filter-item--title waves-effect arrow-rotate" data-toggle="collapse" data-target="#price-collapse" style="background-color: {{ module_mt_filter_settings.color.header.background.hex }}; color: {{ module_mt_filter_settings.color.header.text.hex }};"><span>Slider Filters</span></div> {# todo-materialize Must be placed in a language variable #}
 							<div id="price-collapse" class="materialize-filter-item--body collapse show">
-								<div class="materialize-filter--slider" style="background-color: {{ module_mt_materialize_filter_settings.color.slider.secondary_background.hex }};">
+								<div class="materialize-filter--slider" style="background-color: {{ module_mt_filter_settings.color.slider.secondary_background.hex }};">
 									<div class="materialize-filter--slider-base">
 										<div class="materialize-filter--slider-base__left">
-											<div class="materialize-filter--slider-base-bubble" style="background-color: {{ module_mt_materialize_filter_settings.color.slider.primary_background.hex }};"></div>
+											<div class="materialize-filter--slider-base-bubble" style="background-color: {{ module_mt_filter_settings.color.slider.primary_background.hex }};"></div>
 										</div>
-										<div class="materialize-filter--slider-base__center" style="background-color: {{ module_mt_materialize_filter_settings.color.slider.primary_background.hex }};"></div>
+										<div class="materialize-filter--slider-base__center" style="background-color: {{ module_mt_filter_settings.color.slider.primary_background.hex }};"></div>
 										<div class="materialize-filter--slider-base__right">
 											<div class="materialize-filter--slider-base-bubble active">
-												<div class="materialize-filter--slider-base-bubble--tooltip" style="background-color: {{ module_mt_materialize_filter_settings.color.slider.primary_background.hex }};"><span style="color: {{ module_mt_materialize_filter_settings.color.slider.text.hex }};">322</span></div>
+												<div class="materialize-filter--slider-base-bubble--tooltip" style="background-color: {{ module_mt_filter_settings.color.slider.primary_background.hex }};"><span style="color: {{ module_mt_filter_settings.color.slider.text.hex }};">322</span></div>
 											</div>
 										</div>
 									</div>
@@ -60,7 +60,7 @@
 							</div>
 						</li>
 						<li class="materialize-filter-item">
-							<div class="materialize-filter-item--title waves-effect arrow-rotate" data-toggle="collapse" data-target="#sub-categories-collapse" style="background-color: {{ module_mt_materialize_filter_settings.color.header.background.hex }}; color: {{ module_mt_materialize_filter_settings.color.header.text.hex }};"><span>Other Filters</span></div> {# todo-materialize Must be placed in a language variable #}
+							<div class="materialize-filter-item--title waves-effect arrow-rotate" data-toggle="collapse" data-target="#sub-categories-collapse" style="background-color: {{ module_mt_filter_settings.color.header.background.hex }}; color: {{ module_mt_filter_settings.color.header.text.hex }};"><span>Other Filters</span></div> {# todo-materialize Must be placed in a language variable #}
 							<div id="sub-categories-collapse" class="materialize-filter-item--body collapse show" style="max-height: 105px;">
 								<div class="icheck-material-deeppurple">
 									<input type="checkbox" id="filter-checkbox1">
@@ -77,7 +77,7 @@
 							</div>
 						</li>
 						<li class="materialize-filter-item with-header d-flex">
-							<div id="mt-filter-apply-button" class="btn-material waves-effect ml-auto" style="background-color: {{ module_mt_materialize_filter_settings.color.apply_button.background.hex }}; color: {{ module_mt_materialize_filter_settings.color.apply_button.text.hex }};">Apply</div>
+							<div id="mt-filter-apply-button" class="btn-material waves-effect ml-auto" style="background-color: {{ module_mt_filter_settings.color.apply_button.background.hex }}; color: {{ module_mt_filter_settings.color.apply_button.text.hex }};">Apply</div>
 						</li>
 					</ul>
 				</div>
@@ -95,32 +95,36 @@
 									<div class="row">
 										<div class="col-lg-4 col-xl-3 mb-3">
 											<div class="nav flex-column nav-pills">
-												<a class="nav-link waves-effect" data-toggle="pill" href="#tab-common__main">Main</a> {# todo-materialize Must be placed in a language variable #}
-												<a class="nav-link waves-effect active" data-toggle="pill" href="#tab-common__color">Color</a> {# todo-materialize Must be placed in a language variable #}
+												<a class="nav-link waves-effect active" data-toggle="pill" href="#tab-common__main">Main</a> {# todo-materialize Must be placed in a language variable #}
+												<a class="nav-link waves-effect" data-toggle="pill" href="#tab-common__color">Color</a> {# todo-materialize Must be placed in a language variable #}
 											</div>
 										</div>
 										<div class="col-lg-8 col-xl-9">
 											<div class="tab-content">
-												<div class="tab-pane fade" id="tab-common__main">
+												<div class="tab-pane fade show active" id="tab-common__main">
 													<ul class="materialize-list">
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Module name</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_module_name }}</span>
 																<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.description[language.language_id] ? module_mt_filter_settings.description[language.language_id].name }}" placeholder="{{ entry_module_name }}" class="form-control"/>
+																			</div>
+																			{% if error_module_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_module_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][price][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.price.description[language.language_id] ? module_mt_materialize_filter_settings.filters.price.description[language.language_id].name }}" placeholder="Module name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -133,7 +137,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[layout][horizontal]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.layout.horizontal ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[layout][horizontal]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.layout.horizontal ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -148,7 +152,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[cache][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.cache.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[cache][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.cache.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -158,7 +162,7 @@
 														<div class="ml-auto btn-material-flat waves-effect">Clear cache</div>
 													</div>
 												</div>
-												<div class="tab-pane fade show active" id="tab-common__color">
+												<div class="tab-pane fade" id="tab-common__color">
 													<ul class="materialize-list">
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle" id="toggle-filter-layout" title="Show sample module layout" data-toggle="tooltip" data-original-title="Show sample module layout"><i class="fas fa-palette"></i></span> {# todo-materialize Must be placed in a language variable #}
@@ -175,13 +179,13 @@
 															</span>
 															<div class="materialize-list-item__inputs">
 																<div class="input-group mb-5">
-																	<input type="text" name="module_mt_materialize_filter_settings[color][common][background][name]" value="{{ module_mt_materialize_filter_settings.color.common.background.name }}" placeholder="Background" aria-label="Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
-																	<input type="hidden" name="module_mt_materialize_filter_settings[color][common][background][hex]" value="{{ module_mt_materialize_filter_settings.color.common.background.hex }}" data-color-type="background">
-																	<input type="text" name="module_mt_materialize_filter_settings[color][common][text][name]" value="{{ module_mt_materialize_filter_settings.color.common.text.name }}" placeholder="Text" aria-label="Text" data-color-type="text" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
-																	<input type="hidden" name="module_mt_materialize_filter_settings[color][common][text][hex]" value="{{ module_mt_materialize_filter_settings.color.common.text.hex }}" data-color-type="text">
+																	<input type="text" name="module_mt_filter_settings[color][common][background][name]" value="{{ module_mt_filter_settings.color.common.background.name }}" placeholder="Background" aria-label="Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][common][background][hex]" value="{{ module_mt_filter_settings.color.common.background.hex }}" data-color-type="background">
+																	<input type="text" name="module_mt_filter_settings[color][common][text][name]" value="{{ module_mt_filter_settings.color.common.text.name }}" placeholder="Text" aria-label="Text" data-color-type="text" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][common][text][hex]" value="{{ module_mt_filter_settings.color.common.text.hex }}" data-color-type="text">
 																	<div class="input-group-append">
-																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.common.background.name] }};">
-																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.common.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
+																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_filter_settings.color.common.background.name] }};">
+																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_filter_settings.color.common.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
 																		</span>
 																	</div>
 																</div>
@@ -195,18 +199,18 @@
 															</span>
 															<div class="materialize-list-item__inputs">
 																<div class="input-group mb-5">
-																	<input type="text" name="module_mt_materialize_filter_settings[color][header][background][name]" value="{{ module_mt_materialize_filter_settings.color.header.background.name }}" placeholder="Background" aria-label="Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
-																	<input type="hidden" name="module_mt_materialize_filter_settings[color][header][background][hex]" value="{{ module_mt_materialize_filter_settings.color.header.background.hex }}" data-color-type="background">
-																	<input type="text" name="module_mt_materialize_filter_settings[color][header][text][name]" value="{{ module_mt_materialize_filter_settings.color.header.text.name }}" placeholder="Text" aria-label="Text" data-color-type="text" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
-																	<input type="hidden" name="module_mt_materialize_filter_settings[color][header][text][hex]" value="{{ module_mt_materialize_filter_settings.color.header.text.hex }}" data-color-type="text">
+																	<input type="text" name="module_mt_filter_settings[color][header][background][name]" value="{{ module_mt_filter_settings.color.header.background.name }}" placeholder="Background" aria-label="Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][header][background][hex]" value="{{ module_mt_filter_settings.color.header.background.hex }}" data-color-type="background">
+																	<input type="text" name="module_mt_filter_settings[color][header][text][name]" value="{{ module_mt_filter_settings.color.header.text.name }}" placeholder="Text" aria-label="Text" data-color-type="text" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][header][text][hex]" value="{{ module_mt_filter_settings.color.header.text.hex }}" data-color-type="text">
 																	<div class="input-group-append">
-																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.header.background.name] }};">
-																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.header.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
+																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_filter_settings.color.header.background.name] }};">
+																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_filter_settings.color.header.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
 																		</span>
 																	</div>
 																</div>
 																<div class="mb-5">
-																	<select name="module_mt_materialize_filter_settings[color][header][waves_effect]" class="material-select">
+																	<select name="module_mt_filter_settings[color][header][waves_effect]" class="material-select">
 																		<option value="waves-default" selected="selected">Waves Default</option>
 																		<option value="waves-light">Waves Light</option>
 																		<option value="waves-red">Waves Red</option>
@@ -228,21 +232,21 @@
 															</span>
 															<div class="materialize-list-item__inputs">
 																<div class="input-group mb-5">
-																	<input type="text" name="module_mt_materialize_filter_settings[color][slider][secondary_background][name]" value="{{ module_mt_materialize_filter_settings.color.slider.secondary_background.name }}" placeholder="Secondary Background" aria-label="Secondary Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
-																	<input type="hidden" name="module_mt_materialize_filter_settings[color][slider][secondary_background][hex]" value="{{ module_mt_materialize_filter_settings.color.slider.secondary_background.hex }}" data-color-type="background">
+																	<input type="text" name="module_mt_filter_settings[color][slider][secondary_background][name]" value="{{ module_mt_filter_settings.color.slider.secondary_background.name }}" placeholder="Secondary Background" aria-label="Secondary Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][slider][secondary_background][hex]" value="{{ module_mt_filter_settings.color.slider.secondary_background.hex }}" data-color-type="background">
 																	<div class="input-group-append">
-																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.slider.secondary_background.name] }};">
+																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_filter_settings.color.slider.secondary_background.name] }};">
 																			<i class="plug"></i>
 																		</span>
 																	</div>
 																</div>
 																<div class="input-group mb-5">
-																	<input type="text" name="module_mt_materialize_filter_settings[color][slider][primary_background][name]" value="{{ module_mt_materialize_filter_settings.color.slider.primary_background.name }}" placeholder="Primary Background" aria-label="Primary Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
-																	<input type="hidden" name="module_mt_materialize_filter_settings[color][slider][primary_background][hex]" value="{{ module_mt_materialize_filter_settings.color.slider.primary_background.hex }}" data-color-type="background">
-																	<input type="text" name="module_mt_materialize_filter_settings[color][slider][text][name]" value="{{ module_mt_materialize_filter_settings.color.slider.text.name }}" placeholder="Text" aria-label="Text" data-color-type="text" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
-																	<input type="hidden" name="module_mt_materialize_filter_settings[color][slider][text][hex]" value="{{ module_mt_materialize_filter_settings.color.slider.text.hex }}" data-color-type="text">
+																	<input type="text" name="module_mt_filter_settings[color][slider][primary_background][name]" value="{{ module_mt_filter_settings.color.slider.primary_background.name }}" placeholder="Primary Background" aria-label="Primary Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][slider][primary_background][hex]" value="{{ module_mt_filter_settings.color.slider.primary_background.hex }}" data-color-type="background">
+																	<input type="text" name="module_mt_filter_settings[color][slider][text][name]" value="{{ module_mt_filter_settings.color.slider.text.name }}" placeholder="Text" aria-label="Text" data-color-type="text" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][slider][text][hex]" value="{{ module_mt_filter_settings.color.slider.text.hex }}" data-color-type="text">
 																	<div class="input-group-append">
-																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.slider.primary_background.name] }};"><i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.slider.text.name|replace({'-text': '', 'text-': ''})] }};"></i></span>
+																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_filter_settings.color.slider.primary_background.name] }};"><i class="fas fa-font" style="color: {{ material_colors[module_mt_filter_settings.color.slider.text.name|replace({'-text': '', 'text-': ''})] }};"></i></span>
 																	</div>
 																</div>
 															</div>
@@ -255,18 +259,18 @@
 															</span>
 															<div class="materialize-list-item__inputs">
 																<div class="input-group mb-5">
-																	<input type="text" name="module_mt_materialize_filter_settings[color][apply_button][background][name]" value="{{ module_mt_materialize_filter_settings.color.apply_button.background.name }}" placeholder="Background" aria-label="Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
-																	<input type="hidden" name="module_mt_materialize_filter_settings[color][apply_button][background][hex]" value="{{ module_mt_materialize_filter_settings.color.apply_button.background.hex }}" data-color-type="background">
-																	<input type="text" name="module_mt_materialize_filter_settings[color][apply_button][text][name]" value="{{ module_mt_materialize_filter_settings.color.apply_button.text.name }}" placeholder="Text" aria-label="Text" data-color-type="text" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
-																	<input type="hidden" name="module_mt_materialize_filter_settings[color][apply_button][text][hex]" value="{{ module_mt_materialize_filter_settings.color.apply_button.text.hex }}" data-color-type="text">
+																	<input type="text" name="module_mt_filter_settings[color][apply_button][background][name]" value="{{ module_mt_filter_settings.color.apply_button.background.name }}" placeholder="Background" aria-label="Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][apply_button][background][hex]" value="{{ module_mt_filter_settings.color.apply_button.background.hex }}" data-color-type="background">
+																	<input type="text" name="module_mt_filter_settings[color][apply_button][text][name]" value="{{ module_mt_filter_settings.color.apply_button.text.name }}" placeholder="Text" aria-label="Text" data-color-type="text" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][apply_button][text][hex]" value="{{ module_mt_filter_settings.color.apply_button.text.hex }}" data-color-type="text">
 																	<div class="input-group-append">
-																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_materialize_filter_settings.color.apply_button.background.name] }};">
-																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_materialize_filter_settings.color.apply_button.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
+																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_filter_settings.color.apply_button.background.name] }};">
+																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_filter_settings.color.apply_button.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
 																		</span>
 																	</div>
 																</div>
 																<div class="mb-5">
-																	<select name="module_mt_materialize_filter_settings[color][apply_button][waves_effect]" class="material-select">
+																	<select name="module_mt_filter_settings[color][apply_button][waves_effect]" class="material-select">
 																		<option value="waves-default" selected="selected">Waves Default</option>
 																		<option value="waves-light">Waves Light</option>
 																		<option value="waves-red">Waves Red</option>
@@ -318,7 +322,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][price][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.price.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][price][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.price.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -333,7 +337,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][price][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.price.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][price][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.price.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -342,32 +346,36 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][price][sort]" value="{{ module_mt_materialize_filter_settings.filters.price.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][price][sort]" value="{{ module_mt_filter_settings.filters.price.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
-																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
+																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span>
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group" id="price-description-name{{ language.language_id }}">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[filters][price][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.price.description[language.language_id] ? module_mt_filter_settings.filters.price.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																			</div>
+																			{% if error_price_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_price_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][price][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.price.description[language.language_id] ? module_mt_materialize_filter_settings.filters.price.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 													</ul>
@@ -383,7 +391,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][keyword][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.keyword.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][keyword][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.keyword.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -398,7 +406,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][keyword][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.keyword.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][keyword][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.keyword.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -407,32 +415,36 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][keyword][sort]" value="{{ module_mt_materialize_filter_settings.filters.keyword.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][keyword][sort]" value="{{ module_mt_filter_settings.filters.keyword.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
 																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[filters][keyword][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.keyword.description[language.language_id] ? module_mt_filter_settings.filters.keyword.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																			</div>
+																			{% if error_keyword_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_keyword_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][keyword][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.keyword.description[language.language_id] ? module_mt_materialize_filter_settings.filters.keyword.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 													</ul>
@@ -448,7 +460,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][sub_categories][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.sub_categories.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][sub_categories][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.sub_categories.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -463,7 +475,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][sub_categories][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.sub_categories.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][sub_categories][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.sub_categories.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -472,11 +484,11 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][sub_categories][sort]" value="{{ module_mt_materialize_filter_settings.filters.sub_categories.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][sub_categories][sort]" value="{{ module_mt_filter_settings.filters.sub_categories.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -489,7 +501,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][sub_categories][image]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.sub_categories.image ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][sub_categories][image]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.sub_categories.image ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -502,9 +514,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][sub_categories][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][sub_categories][type]" class="material-select">
 																	{% for filter_type in filter_types if filter_type.type != 'slider' %}
-																		{% if module_mt_materialize_filter_settings.filters.sub_categories.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.sub_categories.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -517,21 +529,25 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
 																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group" id="sub_categories-description-name{{ language.language_id }}">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[filters][sub_categories][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.sub_categories.description[language.language_id] ? module_mt_filter_settings.filters.sub_categories.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																			</div>
+																			{% if error_sub_categories_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_sub_categories_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][sub_categories][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.sub_categories.description[language.language_id] ? module_mt_materialize_filter_settings.filters.sub_categories.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 													</ul>
@@ -547,7 +563,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][default_filters][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.default_filters.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][default_filters][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.default_filters.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -562,20 +578,35 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][default_filters][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.default_filters.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][default_filters][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.default_filters.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
 														</li>
+														{#<li class="materialize-list-divider" role="separator"></li>
+														<li class="materialize-list-item">
+															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-wrench"></i></span>
+															<span class="materialize-list-item__text">
+																<span class="materialize-list-item__primary-text">Change filter logic</span> #}{# todo-materialize Must be placed in a language variable #}{#
+																<span class="materialize-list-item__secondary-text">The Filter group will use the “AND” condition, the Values inside the filter group will use the “OR” condition</span> #}{# todo-materialize Must be placed in a language variable #}{#
+															</span>
+															<div class="materialize-list-item__data">
+																<div class="pure-css-switch align-self-center">
+																	<label>
+																		<input name="module_mt_filter_settings[filters][default_filters][change_logic]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.default_filters.change_logic ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																	</label>
+																</div>
+															</div>
+														</li>#}
 														<li class="materialize-list-divider" role="separator"></li>
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][default_filters][sort]" value="{{ module_mt_materialize_filter_settings.filters.default_filters.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][default_filters][sort]" value="{{ module_mt_filter_settings.filters.default_filters.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -586,9 +617,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][default_filters][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][default_filters][type]" class="material-select">
 																	{% for filter_type in filter_types if filter_type.type != 'slider' %}
-																		{% if module_mt_materialize_filter_settings.filters.default_filters.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.default_filters.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -610,7 +641,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][manufacturers][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.manufacturers.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][manufacturers][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.manufacturers.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -625,7 +656,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][manufacturers][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.manufacturers.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][manufacturers][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.manufacturers.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -634,11 +665,11 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][manufacturers][sort]" value="{{ module_mt_materialize_filter_settings.filters.manufacturers.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][manufacturers][sort]" value="{{ module_mt_filter_settings.filters.manufacturers.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -651,7 +682,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][manufacturers][image]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.manufacturers.image ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][manufacturers][image]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.manufacturers.image ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -664,9 +695,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][manufacturers][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][manufacturers][type]" class="material-select">
 																	{% for filter_type in filter_types if filter_type.type != 'slider' %}
-																		{% if module_mt_materialize_filter_settings.filters.manufacturers.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.manufacturers.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -679,21 +710,25 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
 																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[filters][manufacturers][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.manufacturers.description[language.language_id] ? module_mt_filter_settings.filters.manufacturers.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																			</div>
+																			{% if error_manufacturers_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_manufacturers_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][manufacturers][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.manufacturers.description[language.language_id] ? module_mt_materialize_filter_settings.filters.manufacturers.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 													</ul>
@@ -709,7 +744,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][attributes][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.attributes.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][attributes][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.attributes.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -724,7 +759,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][attributes][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.attributes.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][attributes][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.attributes.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -733,11 +768,11 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][attributes][sort]" value="{{ module_mt_materialize_filter_settings.filters.attributes.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][attributes][sort]" value="{{ module_mt_filter_settings.filters.attributes.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -748,9 +783,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][attributes][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][attributes][type]" class="material-select">
 																	{% for filter_type in filter_types if filter_type.type != 'slider' %}
-																		{% if module_mt_materialize_filter_settings.filters.attributes.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.attributes.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -769,7 +804,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][attributes][explanation]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.attributes.explanation ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][attributes][explanation]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.attributes.explanation ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -787,7 +822,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][options][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.options.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][options][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.options.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -802,7 +837,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][options][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.options.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][options][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.options.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -811,11 +846,11 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][options][sort]" value="{{ module_mt_materialize_filter_settings.filters.options.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][options][sort]" value="{{ module_mt_filter_settings.filters.options.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -828,7 +863,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][options][image]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.options.image ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][options][image]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.options.image ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -841,9 +876,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][options][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][options][type]" class="material-select">
 																	{% for filter_type in filter_types if filter_type.type != 'slider' %}
-																		{% if module_mt_materialize_filter_settings.filters.options.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.options.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -865,7 +900,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][rating][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.rating.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][rating][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.rating.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -880,7 +915,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][rating][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.rating.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][rating][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.rating.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -889,11 +924,11 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][rating][sort]" value="{{ module_mt_materialize_filter_settings.filters.rating.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][rating][sort]" value="{{ module_mt_filter_settings.filters.rating.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -904,9 +939,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][rating][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][rating][type]" class="material-select">
 																	{% for filter_type in filter_types if filter_type.type != 'slider' and filter_type.type != 'select_single' and filter_type.type != 'select_multiple' %}
-																		{% if module_mt_materialize_filter_settings.filters.rating.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.rating.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -919,21 +954,25 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
 																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[filters][rating][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.rating.description[language.language_id] ? module_mt_filter_settings.filters.rating.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																			</div>
+																			{% if error_rating_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_rating_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][rating][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.rating.description[language.language_id] ? module_mt_materialize_filter_settings.filters.rating.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 													</ul>
@@ -950,7 +989,7 @@
 																<div class="materialize-list-item__data">
 																	<div class="pure-css-switch align-self-center">
 																		<label>
-																			<input name="module_mt_materialize_filter_settings[filters][stock_statuses][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.stock_statuses.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																			<input name="module_mt_filter_settings[filters][stock_statuses][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.stock_statuses.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																		</label>
 																	</div>
 																</div>
@@ -965,7 +1004,7 @@
 																<div class="materialize-list-item__data">
 																	<div class="pure-css-switch align-self-center">
 																		<label>
-																			<input name="module_mt_materialize_filter_settings[filters][stock_statuses][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.stock_statuses.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																			<input name="module_mt_filter_settings[filters][stock_statuses][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.stock_statuses.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																		</label>
 																	</div>
 																</div>
@@ -974,11 +1013,11 @@
 															<li class="materialize-list-item">
 																<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 																<span class="materialize-list-item__text">
-																	<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																	<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																	<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 																</span>
 																<div class="materialize-list-item__inputs">
-																	<input type="text" name="module_mt_materialize_filter_settings[filters][stock_statuses][sort]" value="{{ module_mt_materialize_filter_settings.filters.stock_statuses.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="text" name="module_mt_filter_settings[filters][stock_statuses][sort]" value="{{ module_mt_filter_settings.filters.stock_statuses.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 																</div>
 															</li>
 															<li class="materialize-list-divider" role="separator"></li>
@@ -989,9 +1028,9 @@
 																	<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 																</span>
 																<div class="materialize-list-item__inputs">
-																	<select name="module_mt_materialize_filter_settings[filters][stock_statuses][type]" class="material-select">
+																	<select name="module_mt_filter_settings[filters][stock_statuses][type]" class="material-select">
 																		{% for filter_type in filter_types if filter_type.type != 'slider' %}
-																			{% if module_mt_materialize_filter_settings.filters.stock_statuses.type == filter_type.type %}
+																			{% if module_mt_filter_settings.filters.stock_statuses.type == filter_type.type %}
 																				<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																			{% else %}
 																				<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -1004,21 +1043,25 @@
 															<li class="materialize-list-item">
 																<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 																<span class="materialize-list-item__text">
-																	<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
+																	<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
 																	<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
 																</span>
 																<div class="materialize-list-item__inputs">
-																	{% for language in languages %}
-																		<div class="input-group">
-																			<div class="input-group-prepend">
-																				<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																	<div class="row">
+																		{% for language in languages %}
+																			<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																				<div class="input-group">
+																					<div class="input-group-prepend">
+																						<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																					</div>
+																					<input type="text" name="module_mt_filter_settings[filters][stock_statuses][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.stock_statuses.description[language.language_id] ? module_mt_filter_settings.filters.stock_statuses.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																				</div>
+																				{% if error_stock_statuses_name[language.language_id] %}
+																					<div class="invalid-tooltip">{{ error_stock_statuses_name[language.language_id] }}</div>
+																				{% endif %}
 																			</div>
-																			<input type="text" name="module_mt_materialize_filter_settings[filters][stock_statuses][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.stock_statuses.description[language.language_id] ? module_mt_materialize_filter_settings.filters.stock_statuses.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																		</div>
-																		{% if error_keyword[store.store_id][language.language_id] %}
-																			<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																		{% endif %}
-																	{% endfor %}
+																		{% endfor %}
+																	</div>
 																</div>
 															</li>
 															<li class="materialize-list-divider" role="separator"></li>
@@ -1028,9 +1071,9 @@
 																	<span class="materialize-list-item__secondary-text">Specify what status is set for products in stock</span> {# todo-materialize Must be placed in a language variable #}
 																</span>
 																<div class="materialize-list-item__inputs">
-																	<select name="module_mt_materialize_filter_settings[filters][stock_statuses][default]" class="material-select">
+																	<select name="module_mt_filter_settings[filters][stock_statuses][default]" class="material-select">
 																		{% for stock_status in stock_statuses %}
-																			{% if module_mt_materialize_filter_settings.filters.stock_statuses.default == stock_status.stock_status_id %}
+																			{% if module_mt_filter_settings.filters.stock_statuses.default == stock_status.stock_status_id %}
 																				<option value="{{ stock_status.stock_status_id }}" selected="selected">{{ stock_status.name }}</option>
 																			{% else %}
 																				<option value="{{ stock_status.stock_status_id }}">{{ stock_status.name }}</option>
@@ -1053,7 +1096,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][discount][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.discount.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][discount][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.discount.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -1068,7 +1111,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][discount][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.discount.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][discount][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.discount.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -1077,11 +1120,11 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][discount][sort]" value="{{ module_mt_materialize_filter_settings.filters.discount.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][discount][sort]" value="{{ module_mt_filter_settings.filters.discount.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -1092,9 +1135,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][discount][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][discount][type]" class="material-select">
 																	{% for filter_type in filter_types if filter_type.type != 'slider' and filter_type.type != 'select_multiple' %}
-																		{% if module_mt_materialize_filter_settings.filters.discount.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.discount.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -1107,21 +1150,25 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
 																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[filters][discount][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.discount.description[language.language_id] ? module_mt_filter_settings.filters.discount.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																			</div>
+																			{% if error_discount_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_discount_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][discount][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.discount.description[language.language_id] ? module_mt_materialize_filter_settings.filters.discount.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 													</ul>
@@ -1137,7 +1184,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][reviews][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.reviews.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][reviews][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.reviews.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -1152,7 +1199,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][reviews][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.reviews.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][reviews][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.reviews.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -1161,11 +1208,11 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][reviews][sort]" value="{{ module_mt_materialize_filter_settings.filters.reviews.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][reviews][sort]" value="{{ module_mt_filter_settings.filters.reviews.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -1176,9 +1223,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][reviews][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][reviews][type]" class="material-select">
 																	{% for filter_type in filter_types if filter_type.type != 'slider' and filter_type.type != 'select_multiple' %}
-																		{% if module_mt_materialize_filter_settings.filters.reviews.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.reviews.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -1191,21 +1238,25 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
 																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[filters][reviews][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.reviews.description[language.language_id] ? module_mt_filter_settings.filters.reviews.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																			</div>
+																			{% if error_reviews_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_reviews_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][reviews][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.reviews.description[language.language_id] ? module_mt_materialize_filter_settings.filters.reviews.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 													</ul>
@@ -1221,7 +1272,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][dimensions][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.dimensions.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][dimensions][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.dimensions.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -1236,7 +1287,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][dimensions][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.dimensions.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][dimensions][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.dimensions.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -1245,11 +1296,11 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][dimensions][sort]" value="{{ module_mt_materialize_filter_settings.filters.dimensions.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][dimensions][sort]" value="{{ module_mt_filter_settings.filters.dimensions.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -1260,9 +1311,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][dimensions][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][dimensions][type]" class="material-select">
 																	{% for filter_type in filter_types %}
-																		{% if module_mt_materialize_filter_settings.filters.dimensions.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.dimensions.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -1275,21 +1326,25 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
 																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[filters][dimensions][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.dimensions.description[language.language_id] ? module_mt_filter_settings.filters.dimensions.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																			</div>
+																			{% if error_dimensions_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_dimensions_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][dimensions][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.dimensions.description[language.language_id] ? module_mt_materialize_filter_settings.filters.dimensions.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 													</ul>
@@ -1305,7 +1360,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][weight][status]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.weight.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][weight][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.weight.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -1320,7 +1375,7 @@
 															<div class="materialize-list-item__data">
 																<div class="pure-css-switch align-self-center">
 																	<label>
-																		<input name="module_mt_materialize_filter_settings[filters][weight][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_materialize_filter_settings.filters.weight.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		<input name="module_mt_filter_settings[filters][weight][collapsible]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.weight.collapsible ? 'checked="checked"' }}><span class="simple-switch dark"></span>
 																	</label>
 																</div>
 															</div>
@@ -1329,11 +1384,11 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-sort-numeric-up"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Sort</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_sort_order }}</span>
 																<span class="materialize-list-item__secondary-text">Specify the filter sort order, the smaller, the higher the location will be</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<input type="text" name="module_mt_materialize_filter_settings[filters][weight][sort]" value="{{ module_mt_materialize_filter_settings.filters.weight.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+																<input type="text" name="module_mt_filter_settings[filters][weight][sort]" value="{{ module_mt_filter_settings.filters.weight.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -1344,9 +1399,9 @@
 																<span class="materialize-list-item__secondary-text">Select the type of list of filter elements</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																<select name="module_mt_materialize_filter_settings[filters][weight][type]" class="material-select">
+																<select name="module_mt_filter_settings[filters][weight][type]" class="material-select">
 																	{% for filter_type in filter_types %}
-																		{% if module_mt_materialize_filter_settings.filters.weight.type == filter_type.type %}
+																		{% if module_mt_filter_settings.filters.weight.type == filter_type.type %}
 																			<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
 																		{% else %}
 																			<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
@@ -1359,21 +1414,25 @@
 														<li class="materialize-list-item">
 															<span class="materialize-list-item__icon required waves-effect waves-circle"><i class="fas fa-font"></i></span>
 															<span class="materialize-list-item__text">
-																<span class="materialize-list-item__primary-text">Filter name</span> {# todo-materialize Must be placed in a language variable #}
+																<span class="materialize-list-item__primary-text">{{ entry_filter_name }}</span>
 																<span class="materialize-list-item__secondary-text">Enter the name of the filter</span> {# todo-materialize Must be placed in a language variable #}
 															</span>
 															<div class="materialize-list-item__inputs">
-																{% for language in languages %}
-																	<div class="input-group">
-																		<div class="input-group-prepend">
-																			<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																<div class="row">
+																	{% for language in languages %}
+																		<div class="col-12{% if not loop.last %} mb-4{% endif %}">
+																			<div class="input-group">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+																				</div>
+																				<input type="text" name="module_mt_filter_settings[filters][weight][description][{{ language.language_id }}][name]" value="{{ module_mt_filter_settings.filters.weight.description[language.language_id] ? module_mt_filter_settings.filters.weight.description[language.language_id].name }}" placeholder="{{ entry_filter_name }}" class="form-control"/>
+																			</div>
+																			{% if error_weight_name[language.language_id] %}
+																				<div class="invalid-tooltip">{{ error_weight_name[language.language_id] }}</div>
+																			{% endif %}
 																		</div>
-																		<input type="text" name="module_mt_materialize_filter_settings[filters][weight][description][{{ language.language_id }}][name]" value="{{ module_mt_materialize_filter_settings.filters.weight.description[language.language_id] ? module_mt_materialize_filter_settings.filters.weight.description[language.language_id].name }}" placeholder="Filter name" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
-																	</div>
-																	{% if error_keyword[store.store_id][language.language_id] %}
-																		<div class="invalid-tooltip">{{ error_keyword[store.store_id][language.language_id] }}</div>
-																	{% endif %}
-																{% endfor %}
+																	{% endfor %}
+																</div>
 															</div>
 														</li>
 													</ul>
@@ -1441,34 +1500,99 @@
 			console.log(data); /* todo-materialize Delete before release */
 
 			mtFilterLayout.css({
-				'background-color': data['module_mt_materialize_filter_settings_color__common__background__hex_'],
-				'color': data['module_mt_materialize_filter_settings_color__common__text__hex_']
+				'background-color': data['module_mt_filter_settings_color__common__background__hex_'],
+				'color': data['module_mt_filter_settings_color__common__text__hex_']
 			});
 
 			mtFilterHeaders.css({
-				'background-color': data['module_mt_materialize_filter_settings_color__header__background__hex_'],
-				'color': data['module_mt_materialize_filter_settings_color__header__text__hex_']
+				'background-color': data['module_mt_filter_settings_color__header__background__hex_'],
+				'color': data['module_mt_filter_settings_color__header__text__hex_']
 			});
 
 			mtFilterSliderSecondaryBackground.css({
-				'background-color': data['module_mt_materialize_filter_settings_color__slider__secondary_background__hex_']
+				'background-color': data['module_mt_filter_settings_color__slider__secondary_background__hex_']
 			});
 
 			mtFilterSliderPrimaryBackground.css({
-				'background-color': data['module_mt_materialize_filter_settings_color__slider__primary_background__hex_']
+				'background-color': data['module_mt_filter_settings_color__slider__primary_background__hex_']
 			});
 
 			mtFilterSliderText.css({
-				'color': data['module_mt_materialize_filter_settings_color__slider__text__hex_']
+				'color': data['module_mt_filter_settings_color__slider__text__hex_']
 			});
 
 			mtFilterApplyButton.css({
-				'background-color': data['module_mt_materialize_filter_settings_color__apply_button__background__hex_'],
-				'color': data['module_mt_materialize_filter_settings_color__apply_button__text__hex_']
+				'background-color': data['module_mt_filter_settings_color__apply_button__background__hex_'],
+				'color': data['module_mt_filter_settings_color__apply_button__text__hex_']
 			});
 		}
 	});
 
 	$('.languages li:first-child a').tab('show');
+
+	if (localStorage.getItem('headerTab')) {
+		$('.card-header-tabs li:eq(' + localStorage.getItem('headerTab') + ') a').tab('show');
+
+		localStorage.removeItem('headerTab');
+	}
+
+	if (localStorage.getItem('navPills')) {
+		navPillsStorage = JSON.parse(localStorage.getItem('navPills'));
+		console.log(navPillsStorage);
+
+		let getNavPills = $('.nav-pills').find('*[data-toggle=\'pill\'].active');
+
+		$.each(getNavPills, function(index, value) {
+			$(value).parent().find('*[data-toggle=\'pill\']:eq(' + navPillsStorage[index] + ')').tab('show');
+		});
+
+		localStorage.removeItem('navPills');
+	}
+
+	if (localStorage.getItem('mtFilterLayout')) {
+		mtFilterLayout.removeClass('scale-out').addClass('scale-in');
+
+		setTimeout(function() {
+			changeFilterLayout();
+		}, 300);
+
+		localStorage.removeItem('mtFilterLayout');
+	}
+
+	let timer = null;
+
+	jQuery(document).keydown(function(event) {
+		if ((event.ctrlKey || event.metaKey) && event.which === 83) {
+			event.preventDefault();
+
+			if (timer) {
+				clearTimeout(timer);
+			}
+
+			let form = $('#form-module'),
+				loader = '<div id="mt-filter-loader" class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>';
+
+			timer = setTimeout(function() {
+				let getHeaderTab = $('.card-header-tabs').find('*[data-toggle=\'tab\'].active').parent().index(),
+					getNavPills = $('.nav-pills').find('*[data-toggle=\'pill\'].active'),
+					navPills = {};
+
+				$.each(getNavPills, function(index, value) {
+					navPills[index] = $(value).index();
+				});
+
+				localStorage.setItem('headerTab', getHeaderTab);
+				localStorage.setItem('navPills', JSON.stringify(navPills));
+
+				if (mtFilterLayout.hasClass('scale-in')) {
+					localStorage.setItem('mtFilterLayout', 'true');
+				}
+
+				form.css('opacity','0.3').before(loader).attr('action','{{ apply }}').submit();
+			}, 200);
+
+			return false;
+		}
+	});
 </script>
 {{ footer }}

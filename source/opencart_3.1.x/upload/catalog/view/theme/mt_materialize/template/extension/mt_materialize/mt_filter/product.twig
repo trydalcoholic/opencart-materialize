@@ -1,3 +1,21 @@
+{% for mt_filter in mt_filters %}
+	{% if mt_filter.name == 'price' %}
+		<div class="chip mt-chip-input waves-effect">
+			<span class="mt-chip__text">{{ mt_filter.value }}</span>
+			<i class="material-icons waves-effect waves-circle mt-chip__close" data-filter-type="{{ mt_filter.name }}">cancel</i>
+		</div>
+	{% endif %}
+	{% for filter in mt_filter.value %}
+		<div class="chip mt-chip-input waves-effect">
+			{% if filter.image %}
+				<img class="mt-chip__img" src="{{ filter.image }}" alt="{{ filter.name }}" title="{{ filter.name }}">
+			{% endif %}
+			<span class="mt-chip__text">{{ filter.name }}</span>
+			<i class="material-icons waves-effect waves-circle mt-chip__close" data-mt-filter-id="{{ filter.mt_filter_id }}">cancel</i>
+		</div>
+	{% endfor %}
+{% endfor %}
+{#<pre style="white-space: normal;">{{ dump(check_sql) }}</pre>#}
 {% if products %}
 	<div class="right" style="display: flex;"> {# todo-materialize Move to Styles #}
 		<button type="button" id="grid-view" class="materialize-buttons__grid-view btn btn-floating waves-effect tooltipped transparent z-depth-0{{ product_display_grid ? ' active' }}" data-position="top" data-tooltip="{{ button_grid }}" aria-label="{{ button_grid }}"><i class="material-icons grey-text">apps</i></button>

@@ -482,7 +482,7 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 	public function adminMaterializeMenuItem($route, &$data) {
 		$data['menus'][] = array(
 			'id'		=> 'menu-materialize',
-			'icon'		=> 'fa fa-cogs',
+			'icon'		=> 'fas fa-cogs',
 			'name'		=> 'Materialize Template', /* todo-materialize Must be placed in a language variable */
 			'href'		=> $this->url->link('extension/theme/mt_materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=0', true),
 			'children'	=> array()

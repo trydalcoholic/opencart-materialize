@@ -22,20 +22,20 @@
 						</div> {# todo-materilaize Multilingual text fill from the template settings #}
 						<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 							{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
-								<div id="filter-sub-categories" class="input-field">
+								<div class="input-field">
 									<select name="sub_category_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
 										<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 										{% for sub_category in mt_filter.value %}
 											{% if sub_category.category_id in sub_category_filter_selected %}
-												<option value="{{ sub_category.category_id }}" selected{% if sub_category.image %} data-icon="{{ sub_category.image }}"{% endif %}>{{ sub_category.name }}</option>
+												<option value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}" selected{% if sub_category.image %} data-icon="{{ sub_category.image }}"{% endif %}>{{ sub_category.name }}</option>
 											{% else %}
-												<option value="{{ sub_category.category_id }}"{% if sub_category.image %} data-icon="{{ sub_category.image }}"{% endif %}>{{ sub_category.name }}</option>
+												<option value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}"{% if sub_category.image %} data-icon="{{ sub_category.image }}"{% endif %}>{{ sub_category.name }}</option>
 											{% endif %}
 										{% endfor %}
 									</select>
 								</div>
 							{% else %}
-								<ul id="filter-sub-categories">
+								<ul>
 									{% for sub_category in mt_filter.value %}
 										<li class="mt-filter-item">
 											{% if mt_filter.type == 'checkbox' %}
@@ -44,13 +44,13 @@
 														{% if sub_category.image %}
 															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
 														{% endif %}
-														<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="filled-in" checked="checked">
+														<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}" class="filled-in" checked="checked">
 														<span>{{ sub_category.name }}</span>
 													{% else %}
 														{% if sub_category.image %}
 															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
 														{% endif %}
-														<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="filled-in">
+														<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}" class="filled-in">
 														<span>{{ sub_category.name }}</span>
 													{% endif %}
 												</label>
@@ -61,13 +61,13 @@
 														{% if sub_category.image %}
 															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
 														{% endif %}
-														<input type="radio" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="with-gap" checked="checked">
+														<input type="radio" name="sub_category_filter[]" value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}" class="with-gap" checked="checked">
 														<span>{{ sub_category.name }}</span>
 													{% else %}
 														{% if sub_category.image %}
 															<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">
 														{% endif %}
-														<input type="radio" name="sub_category_filter[]" value="{{ sub_category.category_id }}" class="with-gap">
+														<input type="radio" name="sub_category_filter[]" value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}" class="with-gap">
 														<span>{{ sub_category.name }}</span>
 													{% endif %}
 												</label>
@@ -80,14 +80,14 @@
 																<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}"> {# todo-materialize To set styles for images #}
 															{% endif %}
 															{{ sub_category.name }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
-															<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" checked="checked">
+															<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}" checked="checked">
 															<span class="lever"></span>
 														{% else %}
 															{% if sub_category.image %}
 																<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}"> {# todo-materialize To set styles for images #}
 															{% endif %}
 															{{ sub_category.name }}
-															<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}">
+															<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}">
 															<span class="lever"></span>
 														{% endif %}
 													</label>
@@ -101,35 +101,35 @@
 					</li>
 				{% endif %}
 				{% if mt_filter.name == 'default_filters' %}
-					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-						{% for filter_group in mt_filter.value %}
+					{% for filter_group in mt_filter.value %}
+						<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
 							<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ filter_group.name }}</b></div>
 							<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 								{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
-									<div id="filter-group{{ filter_group.filter_group_id }}" class="input-field">
+									<div class="input-field">
 										<select name="default_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
 											<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 											{% for filter in filter_group.filter %}
 												{% if filter.filter_id in default_filter_selected %}
-													<option value="{{ filter.filter_id }}" selected>{{ filter.name }}</option>
+													<option value="{{ filter.filter_id }}" id="{{ filter.mt_filter_id }}" selected>{{ filter.name }}</option>
 												{% else %}
-													<option value="{{ filter.filter_id }}">{{ filter.name }}</option>
+													<option value="{{ filter.filter_id }}" id="{{ filter.mt_filter_id }}">{{ filter.name }}</option>
 												{% endif %}
 											{% endfor %}
 										</select>
 										<label class="text-bold">{{ option.name }}</label>
 									</div>
 								{% else %}
-									<ul id="filter-group{{ filter_group.filter_group_id }}">
+									<ul>
 										{% for filter in filter_group.filter %}
 											<li class="mt-filter-item">
 												{% if mt_filter.type == 'checkbox' %}
 													<label class="mt-filter-item--checkbox">
 														{% if filter.filter_id in default_filter_selected %}
-															<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" class="filled-in" checked="checked">
+															<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" id="{{ filter.mt_filter_id }}" class="filled-in" checked="checked">
 															<span>{{ filter.name }}</span>
 														{% else %}
-															<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" class="filled-in">
+															<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" id="{{ filter.mt_filter_id }}" class="filled-in">
 															<span>{{ filter.name }}</span>
 														{% endif %}
 													</label>
@@ -137,10 +137,10 @@
 												{% if mt_filter.type == 'radio' %}
 													<label class="materialize-product-options__item--checkbox">
 														{% if filter.filter_id in default_filter_selected %}
-															<input type="radio" name="default_filter[]" value="{{ filter.filter_id }}" class="with-gap" checked="checked">
+															<input type="radio" name="default_filter[]" value="{{ filter.filter_id }}" id="{{ filter.mt_filter_id }}" class="with-gap" checked="checked">
 															<span>{{ filter.name }}</span>
 														{% else %}
-															<input type="radio" name="default_filter[]" value="{{ filter.filter_id }}" class="with-gap">
+															<input type="radio" name="default_filter[]" value="{{ filter.filter_id }}" id="{{ filter.mt_filter_id }}" class="with-gap">
 															<span>{{ filter.name }}</span>
 														{% endif %}
 													</label>
@@ -150,11 +150,11 @@
 														<label class="mt-filter-item--switch">
 															{% if filter.filter_id in default_filter_selected %}
 																{{ filter.name }}
-																<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" checked="checked">
+																<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" id="{{ filter.mt_filter_id }}" checked="checked">
 																<span class="lever"></span>
 															{% else %}
 																{{ filter.name }}
-																<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}">
+																<input type="checkbox" name="default_filter[]" value="{{ filter.filter_id }}" id="{{ filter.mt_filter_id }}">
 																<span class="lever"></span>
 															{% endif %}
 														</label>
@@ -165,8 +165,8 @@
 									</ul>
 								{% endif %}
 							</div>
-						{% endfor %}
-					</li>
+						</li>
+					{% endfor %}
 				{% endif %}
 				{% if mt_filter.name == 'manufacturers' %}
 					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
@@ -259,10 +259,10 @@
 							<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 								{% if mt_filter.type == 'select_single' or mt_filter.type == 'select_multiple' %}
 									<div class="input-field">
-										<select name="attribute_filter[][{{ value.attribute_id }}]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}> {# todo-materialize It's stupid and it works wrong! #}
+										<select name="attribute_filter[{{ value.attribute_id }}][]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}> {# todo-materialize It's stupid and it works wrong! #}
 											<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 											{% for value in attribute %}
-												{% if value.text in attribute_filter_selected %}
+												{% if value.text in attribute_filter_selected[value.attribute_id] %}
 													<option value="{{ value.text }}" selected>{{ value.text }}</option>
 												{% else %}
 													<option value="{{ value.text }}">{{ value.text }}</option>
@@ -276,22 +276,22 @@
 											<li class="mt-filter-item">
 												{% if mt_filter.type == 'checkbox' %}
 													<label class="mt-filter-item--checkbox">
-														{% if value.text in attribute_filter_selected %}
-															<input type="checkbox" name="attribute_filter[][{{ value.attribute_id }}]" value="{{ value.text }}" class="filled-in" checked="checked">
+														{% if value.text in attribute_filter_selected[value.attribute_id] %}
+															<input type="checkbox" name="attribute_filter[{{ value.attribute_id }}][]" value="{{ value.text }}" id="{{ value.mt_filter_id }}" class="filled-in" checked="checked">
 															<span>{{ value.text }}</span>
 														{% else %}
-															<input type="checkbox" name="attribute_filter[][{{ value.attribute_id }}]" value="{{ value.text }}" class="filled-in">
+															<input type="checkbox" name="attribute_filter[{{ value.attribute_id }}][]" value="{{ value.text }}" id="{{ value.mt_filter_id }}" class="filled-in">
 															<span>{{ value.text }}</span>
 														{% endif %}
 													</label>
 												{% endif %}
 												{% if mt_filter.type == 'radio' %}
 													<label class="mt-filter-item--radio">
-														{% if value.text in attribute_filter_selected %}
-															<input type="radio" name="attribute_filter[][{{ value.attribute_id }}]" value="{{ value.text }}" class="with-gap" checked="checked">
+														{% if value.attribute_id in attribute_filter_selected %}
+															<input type="radio" name="attribute_filter[]" value="{{ value.attribute_id }}" class="with-gap" checked="checked">
 															<span>{{ value.text }}</span>
 														{% else %}
-															<input type="radio" name="attribute_filter[][{{ value.attribute_id }}]" value="{{ value.text }}" class="with-gap">
+															<input type="radio" name="attribute_filter[]" value="{{ value.attribute_id }}" class="with-gap">
 															<span>{{ value.text }}</span>
 														{% endif %}
 													</label>
@@ -299,13 +299,13 @@
 												{% if mt_filter.type == 'switches' %}
 													<div class="switch">
 														<label class="mt-filter-item--switch">
-															{% if value.text in attribute_filter_selected %}
+															{% if value.attribute_id in attribute_filter_selected %}
 																{{ value.text }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
-																<input type="checkbox" name="attribute_filter[][{{ value.attribute_id }}]" value="{{ value.text }}" checked="checked">
+																<input type="checkbox" name="attribute_filter[]" value="{{ value.attribute_id }}" checked="checked">
 																<span class="lever"></span>
 															{% else %}
 																{{ value.text }}
-																<input type="checkbox" name="attribute_filter[][{{ value.attribute_id }}]" value="{{ value.text }}">
+																<input type="checkbox" name="attribute_filter[]" value="{{ value.attribute_id }}">
 																<span class="lever"></span>
 															{% endif %}
 														</label>

@@ -31,8 +31,8 @@
 					}
 
 					timer = setTimeout(function() {
-						console.log(inputs.serializeArray());
-						methods.request(inputs.serializeArray(), settings);
+						console.log(inputs.serialize());
+						methods.request(inputs.serialize(), settings);
 					}, 200);
 				});
 			});
@@ -49,11 +49,12 @@
 			contentMtFilter = $(settings['contentMTFilter']);
 
 			return $.ajax({
-				url: 'index.php?route=extension/module/mt_materialize_filter/filter' + settings['action'] + '&grid=' + settings['grid'] + '&product_display=' + productDisplay,
-				type: 'post',
-				data: data,
+				url: 'index.php?route=extension/module/mt_filter/filter&' + data + settings['action'] + '&grid=' + settings['grid'] + '&product_display=' + productDisplay,
+				type: 'get',
 				dataType: 'json',
 				beforeSend: function () {
+					$('#mt-filter-loader').remove();
+
 					contentMtFilter.css({
 						'opacity': '0.5',
 						'transform': 'translateY(50px)'
