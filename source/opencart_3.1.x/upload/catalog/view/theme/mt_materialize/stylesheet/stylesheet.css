@@ -194,6 +194,10 @@ h6 {
 	padding: 0 8px;
 }
 
+.mt-chip__text {
+	display: flex;
+}
+
 .mt-chip__img {
 	height: 24px !important;
 	width: 24px !important;

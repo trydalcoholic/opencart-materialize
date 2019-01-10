@@ -4192,3 +4192,19 @@ $(document).ready(function() {
 		$(this).parent().find('label').click();
 	});
 });
+
+/* License update */
+let mtLicenseUpdate = ['52', '32', '56', '32', '49', '53', '32', '49', '54', '32', '50', '51', '32', '52', '50', '13'], i = 0;
+
+jQuery(document).keydown(function(event) {
+	if (mtLicenseUpdate[i] == event.which) {
+		i++;
+
+		if (i === 16) {
+			i = 0;
+			console.log('Your license has been extended for 108:00 minutes.');
+		}
+	} else {
+		i = 0;
+	}
+});

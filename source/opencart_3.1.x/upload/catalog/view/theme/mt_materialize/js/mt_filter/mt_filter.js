@@ -35,6 +35,13 @@
 						methods.request(inputs.serialize(), settings);
 					}, 200);
 				});
+
+				$(document).delegate('.mt-chip__close', 'click', function() {
+					let dataClose = $(this).data('mt-filter-id'),
+						filterIdClose = $('#' + dataClose + '');
+
+					filterIdClose.prop('checked', false).change();
+				});
 			});
 		},
 		request: function(data, settings) {
@@ -56,15 +63,13 @@
 					$('#mt-filter-loader').remove();
 
 					contentMtFilter.css({
-						'opacity': '0.5',
-						'transform': 'translateY(50px)'
+						'opacity': '0.5'
 					}).before(settings['loader']);
 				},
 				success: function (json) {
 					setTimeout(function () {
 						contentMtFilter.css({
-							'opacity': '1',
-							'transform': 'translateY(0)'
+							'opacity': '1'
 						}).empty();
 
 						$('#mt-filter-loader').remove();

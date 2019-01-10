@@ -1,5 +1,5 @@
 {% for mt_filter in mt_filters %}
-	{% if mt_filter.name == 'price' %}
+	{% if mt_filter.type == 'price' %}
 		<div class="chip mt-chip-input waves-effect">
 			<span class="mt-chip__text">{{ mt_filter.value }}</span>
 			<i class="material-icons waves-effect waves-circle mt-chip__close" data-filter-type="{{ mt_filter.name }}">cancel</i>
