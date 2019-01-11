@@ -8,7 +8,7 @@
  */
 
 class ControllerExtensionModuleMTFilter extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function install() {
 		$this->installEvents();
@@ -120,22 +120,22 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			$data['error_weight_name'] = false;
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text'	=> $this->language->get('text_home'),
 			'href'	=> $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module')
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text'	=> $this->language->get('module_title'),
 			'href'	=> $this->url->link('extension/module/mt_filter', 'user_token=' . $this->session->data['user_token'])
-		);
+		];
 
 		$data['action'] = $this->url->link('extension/module/mt_filter', 'user_token=' . $this->session->data['user_token']);
 
@@ -149,47 +149,47 @@ class ControllerExtensionModuleMTFilter extends Controller {
 
 		$data['material_colors'] = $this->model_extension_mt_materialize_theme_mt_materialize->getMaterialColors();
 
-		$data['filter_types'] = array();
+		$data['filter_types'] = [];
 
-		$data['filter_types'][] = array(
+		$data['filter_types'][] = [
 			'type'	=> 'checkbox',
 			'name'	=> 'Checkboxes' /* todo-materialize Must be placed in a language variable */
-		);
+		];
 
-		$data['filter_types'][] = array(
+		$data['filter_types'][] = [
 			'type'	=> 'radio',
 			'name'	=> 'Radio Buttons' /* todo-materialize Must be placed in a language variable */
-		);
+		];
 
-		$data['filter_types'][] = array(
+		$data['filter_types'][] = [
 			'type'	=> 'select_single',
 			'name'	=> 'Single Select' /* todo-materialize Must be placed in a language variable */
-		);
+		];
 
-		$data['filter_types'][] = array(
+		$data['filter_types'][] = [
 			'type'	=> 'select_multiple',
 			'name'	=> 'Multiple Select' /* todo-materialize Must be placed in a language variable */
-		);
+		];
 
-		$data['filter_types'][] = array(
+		$data['filter_types'][] = [
 			'type'	=> 'switches',
 			'name'	=> 'Switches' /* todo-materialize Must be placed in a language variable */
-		);
+		];
 
-		$data['filter_types'][] = array(
+		$data['filter_types'][] = [
 			'type'	=> 'slider',
 			'name'	=> 'Slider' /* todo-materialize Must be placed in a language variable */
-		);
+		];
 
-		$data['stock_statuses'] = array();
+		$data['stock_statuses'] = [];
 
 		$results = $this->model_localisation_stock_status->getStockStatuses();
 
 		foreach ($results as $result) {
-			$data['stock_statuses'][] = array(
+			$data['stock_statuses'][] = [
 				'stock_status_id'	=> $result['stock_status_id'],
 				'name'				=> $result['name'],
-			);
+			];
 		}
 
 		if (isset($this->request->post['module_mt_filter_status'])) {
@@ -203,126 +203,126 @@ class ControllerExtensionModuleMTFilter extends Controller {
 		} elseif (!empty($filter_settings)) {
 			$data['module_mt_filter_settings'] = $filter_settings;
 		} else {
-			$data['module_mt_filter_settings'] = array();
+			$data['module_mt_filter_settings'] = [];
 
-			$data['module_mt_filter_settings']['color'] = array(
-				'common'		=> array(
-					'background'	=> array(
+			$data['module_mt_filter_settings']['color'] = [
+				'common'		=> [
+					'background'	=> [
 						'name'	=> 'white',
 						'hex'	=> '#ffffff'
-					),
-					'text'			=> array(
+					],
+					'text'			=> [
 						'name'	=> 'black-text',
 						'hex'	=> '#000000'
-					),
-				),
-				'header'		=> array(
-					'background'	=> array(
+					]
+				],
+				'header'		=> [
+					'background'	=> [
 						'name'	=> 'white',
 						'hex'	=> '#ffffff'
-					),
-					'text'			=> array(
+					],
+					'text'			=> [
 						'name'	=> 'black-text',
 						'hex'	=> '#000000'
-					),
-				),
-				'slider'		=> array(
-					'secondary_background'	=> array(
+					]
+				],
+				'slider'		=> [
+					'secondary_background'	=> [
 						'name'	=> 'deep-purple lighten-3',
 						'hex'	=> '#b39ddb'
-					),
-					'primary_background'	=> array(
+					],
+					'primary_background'	=> [
 						'name'	=> 'deep-purple',
 						'hex'	=> '#673ab7'
-					),
-					'text'					=> array(
+					],
+					'text'					=> [
 						'name'	=> 'white-text',
 						'hex'	=> '#ffffff'
-					)
-				),
-				'apply_button'	=> array(
-					'background'	=> array(
+					]
+				],
+				'apply_button'	=> [
+					'background'	=> [
 						'name'	=> 'deep-purple',
 						'hex'	=> '#673ab7'
-					),
-					'text'			=> array(
+					],
+					'text'			=> [
 						'name'	=> 'white-text',
 						'hex'	=> '#ffffff'
-					)
-				),
-			);
+					]
+				]
+			];
 
-			$data['module_mt_filter_settings']['filters'] = array(
-				'price'				=> array(
+			$data['module_mt_filter_settings']['filters'] = [
+				'price'				=> [
 					'collapsible'	=> true,
 					'sort'			=> 0
-				),
-				'keyword'			=> array(
+				],
+				'keyword'			=> [
 					'collapsible'	=> true,
 					'sort'			=> 1
-				),
-				'sub_categories'	=> array(
+				],
+				'sub_categories'	=> [
 					'collapsible'	=> true,
 					'sort'			=> 2,
 					'type'			=> 'checkbox',
 					'image'			=> true
-				),
-				'default_filters'	=> array(
+				],
+				'default_filters'	=> [
 					'collapsible'	=> true,
 					/*'change_logic'	=> true,*/
 					'sort'			=> 3,
 					'type'			=> 'checkbox'
-				),
-				'manufacturers'		=> array(
+				],
+				'manufacturers'		=> [
 					'collapsible'	=> true,
 					'sort'			=> 4,
 					'type'			=> 'checkbox',
 					'image'			=> true
-				),
-				'attributes'		=> array(
+				],
+				'attributes'		=> [
 					'collapsible'	=> true,
 					'sort'			=> 5,
 					'type'			=> 'checkbox',
 					'explanation'	=> true
-				),
-				'options'			=> array(
+				],
+				'options'			=> [
 					'collapsible'	=> true,
 					'sort'			=> 6,
 					'type'			=> 'checkbox',
 					'image'			=> true
-				),
-				'rating'			=> array(
+				],
+				'rating'			=> [
 					'collapsible'	=> true,
 					'sort'			=> 7,
 					'type'			=> 'checkbox'
-				),
-				'stock_statuses'	=> array(
+				],
+				'stock_statuses'	=> [
 					'collapsible'	=> true,
 					'sort'			=> 7,
 					'type'			=> 'checkbox',
 					'default'		=> 7
-				),
-				'discount'			=> array(
+				],
+				'discount'			=> [
 					'collapsible'	=> true,
 					'sort'			=> 9,
 					'type'			=> 'checkbox'
-				),
-				'reviews'			=> array(
+				],
+				'reviews'			=> [
 					'collapsible'	=> true,
 					'sort'			=> 10,
 					'type'			=> 'checkbox'
-				),
-				'dimensions'		=> array(
+				],
+				'dimensions'		=> [
 					'collapsible'	=> true,
 					'sort'			=> 11,
 					'type'			=> 'slider'
-				),
-				'weight'			=> array(
+				],
+				'weight'			=> [
 					'collapsible'	=> true,
 					'sort'			=> 12,
 					'type'			=> 'slider'
-				)
-			);
+				]
+			];
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -414,12 +414,12 @@ class ControllerExtensionModuleMTFilter extends Controller {
 	public function adminMTFilterMenuItem($route, &$data) {
 		$this->load->language('extension/module/mt_filter');
 
-		$data['menus'][] = array(
+		$data['menus'][] = [
 			'id'		=> 'menu-mt-filter',
 			'icon'		=> 'fas fa-filter',
 			'name'		=> $this->language->get('module_title'),
 			'href'		=> $this->url->link('extension/module/mt_filter', 'user_token=' . $this->session->data['user_token']),
-			'children'	=> array()
-		);
+			'children'	=> []
+		];
 	}
 }

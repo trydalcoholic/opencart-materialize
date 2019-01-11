@@ -116,6 +116,15 @@ class ControllerExtensionModuleMTFilter extends Controller {
 					];
 				}
 
+				if (!empty($filters['keyword']['status'])) {
+					$data['mt_filters'][] = [
+						'name'			=> $filters['keyword']['description'][$this->config->get('config_language_id')]['name'],
+						'type'			=> 'keyword',
+						'sort'			=> (int)$filters['keyword']['sort'],
+						'collapsible'	=> !empty($filters['keyword']['collapsible']) ? true : false
+					];
+				}
+
 				if (!empty($filters['sub_categories']['status'])) {
 					if (isset($this->request->get['sub_category_filter'])) {
 						$preselected = explode(',', $this->request->get['sub_category_filter']);
@@ -1477,19 +1486,5 @@ class ControllerExtensionModuleMTFilter extends Controller {
 		}
 
 		return $mt_filter_settings;
-	}
-
-	protected function mapImplode($items, $comma = true) {
-		$implode = [];
-
-		foreach ($items as $result) {
-			$implode[] = (int)$result;
-		}
-
-		if ($comma) {
-			return implode("','", $implode);
-		} else {
-			return implode(",", $implode);
-		}
 	}
 }

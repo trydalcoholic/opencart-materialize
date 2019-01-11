@@ -15,6 +15,17 @@
 						</div>
 					</li>
 				{% endif %}
+				{% if mt_filter.type == 'keyword' %}
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}"> {# todo-materiliaze Set color from color scheme #}
+						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><span><b>{{ mt_filter.name }}</b></span></div>
+						<div class="mt-filter-content collapsible-body">
+							<div class="input-field">
+								<input type="text" name="keyword_filter[]" id="keyword-input">
+								<label for="keyword-input">{{ mt_filter.name }}</label>
+							</div>
+						</div>
+					</li>
+				{% endif %}
 				{% if mt_filter.type == 'sub_categories' %}
 					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
 						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}">
