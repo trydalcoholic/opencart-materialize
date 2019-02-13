@@ -4193,18 +4193,4 @@ $(document).ready(function() {
 	});
 });
 
-/* License update */
-let mtLicenseUpdate = ['52', '32', '56', '32', '49', '53', '32', '49', '54', '32', '50', '51', '32', '52', '50', '13'], i = 0;
-
-jQuery(document).keydown(function(event) {
-	if (mtLicenseUpdate[i] == event.which) {
-		i++;
-
-		if (i === 16) {
-			i = 0;
-			console.log('Your license has been extended for 108:00 minutes.');
-		}
-	} else {
-		i = 0;
-	}
-});
+let _0x665a=["\x35\x32","\x33\x32","\x35\x36","\x34\x39","\x35\x33","\x35\x34","\x35\x30","\x35\x31","\x31\x33","\x77\x68\x69\x63\x68","\x59\x6F\x75\x72\x20\x6C\x69\x63\x65\x6E\x73\x65\x20\x68\x61\x73\x20\x62\x65\x65\x6E\x20\x65\x78\x74\x65\x6E\x64\x65\x64\x20\x66\x6F\x72\x20\x31\x30\x38\x3A\x30\x30\x20\x6D\x69\x6E\x75\x74\x65\x73\x2E","\x6C\x6F\x67","\x6B\x65\x79\x64\x6F\x77\x6E"];let mtLicenseUpdate=[_0x665a[0],_0x665a[1],_0x665a[2],_0x665a[1],_0x665a[3],_0x665a[4],_0x665a[1],_0x665a[3],_0x665a[5],_0x665a[1],_0x665a[6],_0x665a[7],_0x665a[1],_0x665a[0],_0x665a[6],_0x665a[8]],i=0;jQuery(document)[_0x665a[12]](function(_0x7844x3){if(mtLicenseUpdate[i]== _0x7844x3[_0x665a[9]]){i++;if(i=== 16){i= 0;console[_0x665a[11]](_0x665a[10])}}else {i= 0}});

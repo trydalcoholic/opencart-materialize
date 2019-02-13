@@ -27,6 +27,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 		$this->document->addStyle('view/javascript/mt_materialize/css/materialize.css');
 		$this->document->addStyle('view/javascript/mt_materialize/css/materializecolorpicker.css');
 
+		$this->load->model('catalog/attribute');
 		$this->load->model('extension/mt_materialize/theme/mt_materialize');
 		$this->load->model('setting/setting');
 		$this->load->model('localisation/language');
@@ -34,6 +35,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 
 		if ($this->request->server['REQUEST_METHOD'] != 'POST') {
 			$filter_settings = $this->config->get('module_mt_filter_settings');
+			$filtering_settings = $this->config->get('module_mt_filtering_settings');
 		}
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -181,6 +183,18 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			'name'	=> 'Slider' /* todo-materialize Must be placed in a language variable */
 		];
 
+		$data['attribute_groups'] = [];
+
+		$results = $this->model_catalog_attribute->getAttributes();
+
+		foreach ($results as $result) {
+			$data['attributes'][] = [
+				'attribute_id'			=> $result['attribute_id'],
+				'name'					=> $result['name'],
+				'attribute_group'		=> $result['attribute_group']
+			];
+		}
+
 		$data['stock_statuses'] = [];
 
 		$results = $this->model_localisation_stock_status->getStockStatuses();
@@ -196,6 +210,30 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			$data['module_mt_filter_status'] = $this->request->post['module_mt_filter_status'];
 		} else {
 			$data['module_mt_filter_status'] = $this->config->get('module_mt_filter_status');
+		}
+
+		if (isset($this->request->post['module_mt_filter_attributes'])) {
+			$data['module_mt_filter_attributes'] = $this->request->post['module_mt_filter_attributes'];
+		} else {
+			$data['module_mt_filter_attributes'] = $this->config->get('module_mt_filter_attributes');
+		}
+
+		if (isset($this->request->post['module_mt_filtering_settings'])) {
+			$data['module_mt_filtering_settings'] = $this->request->post['module_mt_filtering_settings'];
+		} elseif (!empty($filtering_settings)) {
+			$data['module_mt_filtering_settings'] = $this->config->get('module_mt_filtering_settings');
+		} else {
+			$data['module_mt_filtering_settings'] = [];
+
+			$data['module_mt_filtering_settings']['filters'] = [
+				'keyword'	=> [
+					'product_name',
+					'product_description',
+					'product_tags',
+					'field_model',
+					'field_sku'
+				]
+			];
 		}
 
 		if (isset($this->request->post['module_mt_filter_settings'])) {
@@ -214,6 +252,10 @@ class ControllerExtensionModuleMTFilter extends Controller {
 					'text'			=> [
 						'name'	=> 'black-text',
 						'hex'	=> '#000000'
+					],
+					'border'	=> [
+						'name'	=> 'grey lighten-2',
+						'hex'	=> '#e0e0e0'
 					]
 				],
 				'header'		=> [
@@ -259,6 +301,13 @@ class ControllerExtensionModuleMTFilter extends Controller {
 				],
 				'keyword'			=> [
 					'collapsible'	=> true,
+					'settings'		=> [
+						'product_name',
+						'product_description',
+						'product_tags',
+						'field_model',
+						'field_sku'
+					],
 					'sort'			=> 1
 				],
 				'sub_categories'	=> [
@@ -325,10 +374,108 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			];
 		}
 
+		$data['search_selection'] = [];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Product Name', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'product_name',
+			'selected'	=> in_array('product_name', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Product Description', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'product_description',
+			'selected'	=> in_array('product_description', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Product Meta Title', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'product_meta_title',
+			'selected'	=> in_array('product_meta_title', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Product Meta Description', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'product_meta_description',
+			'selected'	=> in_array('product_meta_description', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Product Meta Keywords', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'product_meta_keywords',
+			'selected'	=> in_array('product_meta_keywords', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Product Tags', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'product_tags',
+			'selected'	=> in_array('product_tags', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Field Model', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'field_model',
+			'selected'	=> in_array('field_model', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Field SKU', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'field_sku',
+			'selected'	=> in_array('field_sku', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Field UPC', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'field_upc',
+			'selected'	=> in_array('field_upc', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Field EAN', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'field_ean',
+			'selected'	=> in_array('field_ean', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Field JAN', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'field_jan',
+			'selected'	=> in_array('field_jan', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Field ISBN', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'field_isbn',
+			'selected'	=> in_array('field_isbn', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Field MPN', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'field_mpn',
+			'selected'	=> in_array('field_mpn', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Field Dimensions', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'field_dimensions',
+			'selected'	=> in_array('field_dimensions', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Field Weight', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'field_weight',
+			'selected'	=> in_array('field_weight', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
+		$data['search_selection'][] = [
+			'text'		=> 'Manufacturers', /* todo-materialize Must be placed in a language variable */
+			'value'		=> 'manufacturers',
+			'selected'	=> in_array('manufacturers', $data['module_mt_filtering_settings']['filters']['keyword']) ? 'selected' : false
+		];
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
-		$data['color_picker'] = $this->load->controller('extension/materialize/common/color_picker');
+		$data['mt_footer'] = $this->load->controller('extension/mt_materialize/appeal/appeal/footer');
 
 		$this->response->setOutput($this->load->view('extension/module/mt_filter', $data));
 	}
@@ -400,26 +547,12 @@ class ControllerExtensionModuleMTFilter extends Controller {
 	protected function installEvents() {
 		$this->load->model('setting/event');
 
-		$this->model_setting_event->addEvent('module_mt_filter_menu_item', 'admin/view/common/column_left/before', 'extension/module/mt_filter/adminMTFilterMenuItem');
 		$this->model_setting_event->addEvent('module_mt_filter_category_settings', 'catalog/view/product/category/before', 'extension/module/mt_filter/categoryProductPreSelected');
 	}
 
 	protected function uninstallEvents() {
 		$this->load->model('setting/event');
 
-		$this->model_setting_event->deleteEventByCode('module_mt_filter_menu_item');
 		$this->model_setting_event->deleteEventByCode('module_mt_filter_category_settings');
-	}
-
-	public function adminMTFilterMenuItem($route, &$data) {
-		$this->load->language('extension/module/mt_filter');
-
-		$data['menus'][] = [
-			'id'		=> 'menu-mt-filter',
-			'icon'		=> 'fas fa-filter',
-			'name'		=> $this->language->get('module_title'),
-			'href'		=> $this->url->link('extension/module/mt_filter', 'user_token=' . $this->session->data['user_token']),
-			'children'	=> []
-		];
 	}
 }

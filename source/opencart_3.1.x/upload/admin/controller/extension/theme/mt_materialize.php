@@ -1,10 +1,10 @@
 <?php
 /**
- * @package		Materialize Template
- * @author		Anton Semenov
- * @copyright	Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
- * @license		https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
- * @link		https://github.com/trydalcoholic/opencart-materialize
+ * @package     Materialize Template
+ * @author      Anton Semenov
+ * @copyright   Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
+ * @license     https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
+ * @link        https://github.com/trydalcoholic/opencart-materialize
  */
 
 class ControllerExtensionThemeMTMaterialize extends Controller {
@@ -334,91 +334,92 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 			$data['theme_mt_materialize_image_location_height'] = 50;
 		}
 
-		if (isset($this->request->post['theme_mt_materialize_produdcts'])) {
-			$data['theme_mt_materialize_produdcts'] = $this->request->post['theme_mt_materialize_produdcts'];
-		} elseif (isset($setting_info['theme_mt_materialize_produdcts'])) {
-			$data['theme_mt_materialize_produdcts'] = $setting_info['theme_mt_materialize_produdcts'];
+		if (isset($this->request->post['theme_mt_materialize_products'])) {
+			$data['theme_mt_materialize_products'] = $this->request->post['theme_mt_materialize_products'];
+		} elseif (isset($setting_info['theme_mt_materialize_products'])) {
+			$data['theme_mt_materialize_products'] = $setting_info['theme_mt_materialize_products'];
 		} else {
-			$data['theme_mt_materialize_produdcts'] = array(
+			$data['theme_mt_materialize_products'] = array(
 				'fields'	=> array('tags')
 			);
 		}
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'Model', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'model',
-			'selected'	=> in_array('model', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('model', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'SKU', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'sku',
-			'selected'	=> in_array('sku', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('sku', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'UPC', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'upc',
-			'selected'	=> in_array('upc', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('upc', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'EAN', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'ean',
-			'selected'	=> in_array('ean', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('ean', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'JAN', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'jan',
-			'selected'	=> in_array('jan', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('jan', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'ISBN', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'isbn',
-			'selected'	=> in_array('isbn', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('isbn', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'MPN', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'mpn',
-			'selected'	=> in_array('mpn', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('mpn', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'Location', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'location',
-			'selected'	=> in_array('location', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('location', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'Dimension', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'dimension',
-			'selected'	=> in_array('dimension', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('dimension', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'Weight', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'weight',
-			'selected'	=> in_array('weight', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('weight', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'Progressbar', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'progressbar',
-			'selected'	=> in_array('progressbar', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('progressbar', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
-		$data['produdct_fields'][] = array(
+		$data['product_fields'][] = array(
 			'text'		=> 'Tags', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'tags',
-			'selected'	=> in_array('tags', $data['theme_mt_materialize_produdcts']['fields']) ? 'selected' : ''
+			'selected'	=> in_array('tags', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
 		);
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
+		$data['mt_footer'] = $this->load->controller('extension/mt_materialize/appeal/appeal/footer');
 
 		$this->response->setOutput($this->load->view('extension/theme/mt_materialize', $data));
 	}
@@ -480,12 +481,34 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 	}
 
 	public function adminMaterializeMenuItem($route, &$data) {
-		$data['menus'][] = array(
-			'id'		=> 'menu-materialize',
-			'icon'		=> 'fas fa-cogs',
-			'name'		=> 'Materialize Template', /* todo-materialize Must be placed in a language variable */
-			'href'		=> $this->url->link('extension/theme/mt_materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=0', true),
-			'children'	=> array()
-		);
+		if (isset($this->request->get['user_token']) && isset($this->session->data['user_token']) && ((string)$this->request->get['user_token'] == $this->session->data['user_token'])) {
+			$this->load->language('extension/mt_materialize/common/column_left');
+
+			$materialize = [];
+
+			if ($this->user->hasPermission('access', 'extension/theme/mt_materialize')) {
+				$materialize[] = [
+					'name'		=> $this->language->get('mt_template_settings'),
+					'href'		=> $this->url->link('extension/theme/mt_materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=0'),
+					'children'	=> []
+				];
+			}
+
+			if ($this->user->hasPermission('access', 'extension/module/mt_filter') && $this->config->get('module_mt_filter_status')) {
+				$materialize[] = [
+					'name'		=> $this->language->get('mt_filter'),
+					'href'		=> $this->url->link('extension/module/mt_filter', 'user_token=' . $this->session->data['user_token']),
+					'children'	=> []
+				];
+			}
+
+			$data['menus'][] = [
+				'id'		=> 'menu-materialize',
+				'icon'		=> 'fas fa-cogs',
+				'name'		=> $this->language->get('mt_materialize_template'),
+				'href'		=> '',
+				'children'	=> $materialize
+			];
+		}
 	}
 }

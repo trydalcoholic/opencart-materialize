@@ -10,8 +10,8 @@
 						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><span><b>{{ mt_filter.name }} <span id="span-price-range-min">{{ prices.min_price }}</span> — <span id="span-price-range-max">{{ prices.max_price }}</span></b></span></div>
 						<div class="mt-filter-content collapsible-body">
 							<div id="slider-prices" class="mt-filters-item--filter-sliders {{ color.slider.secondary_background.name }}"></div>
-							<input type="hidden" name="price_filter[]" value="{{ prices.min_price }}" id="input-price-range-min">
-							<input type="hidden" name="price_filter[]" value="{{ prices.max_price }}" id="input-price-range-max">
+							<input type="hidden" name="price_filter[]" value="{{ price_filter_preselected.0 }}" id="input-price-range-min">
+							<input type="hidden" name="price_filter[]" value="{{ price_filter_preselected.1 }}" id="input-price-range-max">
 						</div>
 					</li>
 				{% endif %}
@@ -20,7 +20,7 @@
 						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><span><b>{{ mt_filter.name }}</b></span></div>
 						<div class="mt-filter-content collapsible-body">
 							<div class="input-field">
-								<input type="text" name="keyword_filter[]" id="keyword-input">
+								<input type="text" name="keyword_filter" id="mt-filter-keyword" value="{{ mt_filter.preselected }}">
 								<label for="keyword-input">{{ mt_filter.name }}</label>
 							</div>
 						</div>
@@ -335,8 +335,8 @@
 							<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ option.name }}</b></div>
 							<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 								{% if mt_filter.input_type == 'select_single' or mt_filter.type == 'select_multiple' %}
-									<div id="option{{ option.option_id }}" class="input-field">
-										<select name="option_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
+									<div class="input-field">
+										<select name="option_filter[{{ option.option_id }}][]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
 											<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 											{% for option_value in option.option_value_data %}
 												{% if option_value.option_value_id in mt_filter.preselected %}
@@ -348,7 +348,7 @@
 										</select>
 									</div>
 								{% else %}
-									<ul id="option{{ option.option_id }}">
+									<ul>
 										{% for option_value in option.option_value_data %}
 											<li class="mt-filter-item">
 												{% if mt_filter.input_type == 'checkbox' %}
@@ -356,11 +356,11 @@
 														{% if option_value.image %}
 															<img src="{{ option_value.image }}" alt="{{ option_value.name }}">
 														{% endif %}
-														{% if option_value.option_value_id in mt_filter.preselected %}
-															<input type="checkbox" name="option_filter[]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" class="filled-in" checked="checked">
+														{% if option_value.option_value_id in mt_filter.preselected[option.option_id] %}
+															<input type="checkbox" name="option_filter[{{ option.option_id }}][]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" class="filled-in" checked="checked">
 															<span>{{ option_value.name }}</span>
 														{% else %}
-															<input type="checkbox" name="option_filter[]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" class="filled-in">
+															<input type="checkbox" name="option_filter[{{ option.option_id }}][]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" class="filled-in">
 															<span>{{ option_value.name }}</span>
 														{% endif %}
 													</label>
@@ -371,10 +371,10 @@
 															<img src="{{ option_value.image }}" alt="{{ option_value.name }}">
 														{% endif %}
 														{% if option_value.option_value_id in mt_filter.preselected %}
-															<input type="radio" name="option_filter[]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" class="with-gap" checked="checked">
+															<input type="radio" name="option_filter[{{ option.option_id }}][]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" class="with-gap" checked="checked">
 															<span>{{ option_value.name }}</span>
 														{% else %}
-															<input type="radio" name="option_filter[]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" class="with-gap">
+															<input type="radio" name="option_filter[{{ option.option_id }}][]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" class="with-gap">
 															<span>{{ option_value.name }}</span>
 														{% endif %}
 													</label>
@@ -387,11 +387,11 @@
 															{% endif %}
 															{% if option_value.option_value_id in mt_filter.preselected %}
 																{{ option_value.name }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
-																<input type="checkbox" name="option_filter[]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" checked="checked">
+																<input type="checkbox" name="option_filter[{{ option.option_id }}][]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" checked="checked">
 																<span class="lever"></span>
 															{% else %}
 																{{ option_value.name }}
-																<input type="checkbox" name="option_filter[]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}">
+																<input type="checkbox" name="option_filter[{{ option.option_id }}][]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}">
 																<span class="lever"></span>
 															{% endif %}
 														</label>
@@ -657,59 +657,62 @@
 		</ul>
 	</div>
 	<script>
-		{% if prices %}
-			let sliderPrices = document.getElementById('slider-prices');
-
-			noUiSlider.create(sliderPrices, {
-				start: [{{ price_filter_preselected ? price_filter_preselected.0 : prices.min_price }}, {{ price_filter_preselected ? price_filter_preselected.1 : prices.max_price }}],
-				connect: true,
-				step: 1,
-				behaviour: 'drag',
-				orientation: 'horizontal',
-				range: {
-					'min': 0,
-					'max': {{ prices.max_price }}
-				},
-				tooltips: [
-					wNumb({
-						decimals: 0
-					}),
-					wNumb({
-						decimals: 0
-					})
-				],
-				format: wNumb({
-					decimals: {{ prices.decimal_place }},
-					{% if prices.symbol_left %}
-						prefix: '{{ prices.symbol_left }}',
-					{% endif %}
-					{% if prices.symbol_right %}
-						suffix: '{{ prices.symbol_right }}',
-					{% endif %}
-					thousand: '{{ prices.thousand_point }}'
-				})
-			});
-
-			let spanPriceRangeMin = $('#span-price-range-min'),
-				spanPriceRangeMax = $('#span-price-range-max'),
-				inputPriceRangeMin = $('#input-price-range-min'),
-				inputPriceRangeMax = $('#input-price-range-max');
-
-			sliderPrices.noUiSlider.on('update', function (values, handle, unencoded) {
-				if (handle) {
-					spanPriceRangeMax.text(values[handle]);
-					inputPriceRangeMax.val(unencoded[handle]).change();
-				} else {
-					spanPriceRangeMin.text(values[handle]);
-					inputPriceRangeMin.val(unencoded[handle]).change();
-				}
-			});
-		{% endif %}
-
 		$(document).ready(function() {
+			{% if prices %}
+				let sliderPrices = document.getElementById('slider-prices');
+
+				noUiSlider.create(sliderPrices, {
+					start: [{{ price_filter_preselected ? price_filter_preselected.0 : prices.min_price }}, {{ price_filter_preselected ? price_filter_preselected.1 : prices.max_price }}],
+					connect: true,
+					step: 1,
+					behaviour: 'drag',
+					orientation: 'horizontal',
+					range: {
+						'min': 0,
+						'max': {{ prices.max_price }}
+					},
+					tooltips: [
+						wNumb({
+							decimals: 0
+						}),
+						wNumb({
+							decimals: 0
+						})
+					],
+					format: wNumb({
+						decimals: {{ prices.decimal_place }},
+						{% if prices.symbol_left %}
+						prefix: '{{ prices.symbol_left }}',
+						{% endif %}
+						{% if prices.symbol_right %}
+						suffix: '{{ prices.symbol_right }}',
+						{% endif %}
+						thousand: '{{ prices.thousand_point }}'
+					})
+				});
+
+				let spanPriceRangeMin = $('#span-price-range-min'),
+					spanPriceRangeMax = $('#span-price-range-max'),
+					inputPriceRangeMin = $('#input-price-range-min'),
+					inputPriceRangeMax = $('#input-price-range-max');
+
+				sliderPrices.noUiSlider.on('update', function (values, handle) {
+					if (handle) {
+						spanPriceRangeMax.text(values[handle]);
+					} else {
+						spanPriceRangeMin.text(values[handle]);
+					}
+				});
+
+				sliderPrices.noUiSlider.on('change', function (values, handle, unencoded) {
+					inputPriceRangeMin.val(unencoded[0]).change();
+					inputPriceRangeMax.val(unencoded[1]).change();
+				});
+			{% endif %}
+
 			$('#mt-filter-category').mtFilter({
-				grid: $('#content-mt-filter').data('product-grid'),
-				action: '{{ action }}'
+				product_grid: $('#content-mt-filter').data('product-grid'),
+				page_settings: '{{ page_settings }}'
 			});
 		});
 	</script>
@@ -724,6 +727,18 @@
 
 		.noUi-tooltip span {
 			color: {{ color.slider.text.hex }} !important;
+		}
+
+		.mt-filters-item.arrow-rotate:after {
+			color: {{ color.header.text.hex }};
+		}
+
+		.collection.with-header .collection-header.mt-filters-item, .collection .collection-item.mt-filters-item {
+			border-bottom: 1px solid {{ color.common.border.hex }};
+		}
+
+		li.mt-filter-item label {
+			color: {{ color.common.text.hex }};
 		}
 	</style>
 {% endif %}

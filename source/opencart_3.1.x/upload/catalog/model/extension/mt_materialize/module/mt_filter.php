@@ -59,21 +59,31 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 			$sql .= " LEFT JOIN (SELECT tr2.tax_class_id, tr1.rate AS tax_percent FROM " . DB_PREFIX . "tax_rate tr1 INNER JOIN " . DB_PREFIX . "tax_rate_to_customer_group tr2cg ON (tr1.tax_rate_id = tr2cg.tax_rate_id) LEFT JOIN " . DB_PREFIX . "tax_rule tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id) WHERE tr1.type = 'P' AND tr2cg.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' ORDER BY tr2.priority) AS tp ON (p.tax_class_id = tp.tax_class_id) LEFT JOIN (SELECT tr2.tax_class_id, tr1.rate AS tax_amount FROM " . DB_PREFIX . "tax_rate tr1 INNER JOIN " . DB_PREFIX . "tax_rate_to_customer_group tr2cg ON (tr1.tax_rate_id = tr2cg.tax_rate_id) LEFT JOIN " . DB_PREFIX . "tax_rule tr2 ON (tr1.tax_rate_id = tr2.tax_rate_id) WHERE tr1.type = 'F' AND tr2cg.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' ORDER BY tr2.priority) AS ta ON (p.tax_class_id = ta.tax_class_id)";
 		}
 
-		$sql .= " WHERE p2c.category_id = '" . (int)$data['category_id'] . "' AND p.date_available <= NOW() AND p.status = '1' AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
+		$sql .= " WHERE p.date_available <= NOW() AND p.status = '1' AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
+
+		if (!empty($data['category_id'])) {
+			$sql .= " AND p2c.category_id = '" . (int)$data['category_id'] . "'";
+		}
 
 		$query = $this->db->query($sql);
 
 		return $query->row;
 	}
 
-	public function getSubCategoriesByCategoryId($data) {
+	public function getSubCategories($data) {
 		$sql = "SELECT c.category_id, cd.name";
 
 		if (!empty($data['image'])) {
 			$sql .= ", c.image";
 		}
 
-		$sql .= " FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) WHERE `parent_id` = '" . (int)$data['category_id'] . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c.status = '1' ORDER BY c.sort_order, LCASE(cd.name)";
+		$sql .= " FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) WHERE c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c.status = '1'";
+
+		if (!empty($data['category_id'])) {
+			$sql .= " AND `parent_id` = '" . (int)$data['category_id'] . "'";
+		}
+
+		$sql .= " ORDER BY c.sort_order, LCASE(cd.name)";
 
 		$query = $this->db->query($sql);
 
@@ -102,7 +112,7 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		return $query->rows;
 	}
 
-	public function getDefaultFiltersByCategoryId($category_id) {
+	public function getDefaultFilters($category_id) {
 		$implode = [];
 
 		$query = $this->db->query("SELECT filter_id FROM " . DB_PREFIX . "category_filter WHERE category_id = '" . (int)$category_id . "'");
@@ -157,10 +167,16 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		return $query->rows;
 	}
 
-	public function getManufacturersByCategoryId($data) {
+	public function getManufacturers($data) {
 		$manufacturer_data = [];
 
-		$query = $this->db->query("SELECT p.manufacturer_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$data['category_id'] . "'");
+		$sql = "SELECT p.manufacturer_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id)";
+
+		if (!empty($data['category_id'])) {
+			$sql .= " WHERE p2c.category_id = '" . (int)$data['category_id'] . "'";
+		}
+
+		$query = $this->db->query($sql);
 
 		foreach ($query->rows as $result) {
 			$manufacturer_data[] = (int)$result['manufacturer_id'];
@@ -187,7 +203,7 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		$sql = "SELECT m.manufacturer_id, m.name";
 
 		if (!empty($data['image'])) {
-			$sql .= ",  m.image";
+			$sql .= ", m.image";
 		}
 
 		$sql .= " FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "manufacturer_to_store m2s ON (m.manufacturer_id = m2s.manufacturer_id) WHERE m.manufacturer_id IN (";
@@ -205,8 +221,16 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		return $query->rows;
 	}
 
-	public function getAttributesByCategoryId($category_id) {
-		$query = $this->db->query("SELECT pa.attribute_id, ad.name as name, pa.text as text FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (pa.attribute_id = ad.attribute_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (pa.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$category_id . "' AND pa.language_id = '" . (int)$this->config->get('config_language_id') . "' AND ad.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY pa.attribute_id, LCASE(name)");
+	public function getAttributes($category_id) {
+		$sql = "SELECT DISTINCT pa.attribute_id, ad.name as name, pa.text as text FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (pa.attribute_id = ad.attribute_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (pa.product_id = p2c.product_id) WHERE pa.language_id = '" . (int)$this->config->get('config_language_id') . "' AND ad.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+		if (!empty($category_id)) {
+			$sql .= " AND p2c.category_id = '" . (int)$category_id . "'";
+		}
+
+		$sql .= " ORDER BY pa.attribute_id, LCASE(name)";
+
+		$query = $this->db->query($sql);
 
 		$attributes_data = $query->rows;
 
@@ -249,10 +273,18 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		return $attributes_data;
 	}
 
-	public function getOptionsByCategoryId($data) {
+	public function getOptions($data) {
 		$option_data = [];
 
-		$query = $this->db->query("SELECT o.option_id, od.name, o.type, o.sort_order FROM " . DB_PREFIX . "option o LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) LEFT JOIN " . DB_PREFIX . "product_option po ON (o.option_id = po.option_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (po.product_id = p2c.product_id) WHERE p2c.category_id = '" . (int)$data['category_id'] . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "' AND (o.type = 'radio' OR o.type = 'checkbox' OR o.type = 'select') ORDER BY o.sort_order");
+		$sql = "SELECT o.option_id, od.name, o.type, o.sort_order FROM " . DB_PREFIX . "option o LEFT JOIN " . DB_PREFIX . "option_description od ON (o.option_id = od.option_id) LEFT JOIN " . DB_PREFIX . "product_option po ON (o.option_id = po.option_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (po.product_id = p2c.product_id) WHERE od.language_id = '" . (int)$this->config->get('config_language_id') . "' AND (o.type = 'radio' OR o.type = 'checkbox' OR o.type = 'select')";
+
+		if (!empty($data['category_id'])) {
+			$sql .= " AND p2c.category_id = '" . (int)$data['category_id'] . "'";
+		}
+
+		$sql .= " ORDER BY o.sort_order";
+
+		$query = $this->db->query($sql);
 
 		foreach ($query->rows as $result) {
 			$option_value_data = [];
@@ -310,7 +342,7 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		return $query->rows;
 	}
 
-	public function getStockStatusesByCategory() {
+	public function getStockStatuses() {
 		$query = $this->db->query("SELECT stock_status_id, name FROM " . DB_PREFIX . "stock_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY name");
 
 		return $query->rows;
@@ -333,12 +365,22 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 	}
 
 	public function getProducts($data = []) {
+		$mt_filtering_settings = $this->mtFilteringSettings();
+
 		$sql = "SELECT DISTINCT p.product_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) LEFT JOIN (SELECT product_id, price FROM " . DB_PREFIX . "product_special ps WHERE ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) GROUP BY ps.product_id ORDER BY ps.priority ASC, ps.price ASC";
 
 		if (!empty($data['product_special_filter'])) {
 			$sql .= " ) AS ps ON (p.product_id = ps.product_id)";
 		} else {
 			$sql .= " LIMIT 1) AS ps ON (p.product_id = ps.product_id)";
+		}
+
+		if (!empty($data['keyword_filter'])) {
+			$sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id)";
+
+			if (in_array('manufacturers', $mt_filtering_settings['filters']['keyword'])) {
+				$sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
+			}
 		}
 
 		if (!empty($data['default_filter'])) {
@@ -381,6 +423,200 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 
 		$sql .= " WHERE p.date_available <= NOW() AND p.status = '1' AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
 
+		if (!empty($data['keyword_filter']) && !empty($mt_filtering_settings)) {
+			$or = false;
+
+			$sql .= " AND (";
+
+			if (in_array('product_name', $mt_filtering_settings['filters']['keyword'])) {
+				$sql .= "(";
+
+				$implode = array();
+
+				$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['keyword_filter'])));
+
+				foreach ($words as $word) {
+					$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+				}
+
+				if ($implode) {
+					$sql .= " " . implode(" AND ", $implode) . "";
+				}
+
+				$sql .= ")";
+
+				$or = true;
+			}
+
+			if (in_array('product_description', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "pd.description LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			if (in_array('product_meta_title', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "pd.meta_title LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			if (in_array('product_meta_description', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "pd.meta_description LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			if (in_array('product_meta_keywords', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "pd.meta_keyword LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			if (in_array('product_tags', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR (";
+				}
+
+				$implode = array();
+
+				$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['keyword_filter'])));
+
+				foreach ($words as $word) {
+					$implode[] = "pd.tag LIKE '%" . $this->db->escape($word) . "%'";
+				}
+
+				if ($implode) {
+					$sql .= " " . implode(" AND ", $implode) . "";
+				}
+
+				if ($or) {
+					$sql .= ")";
+				}
+
+				$or = true;
+			}
+
+			if (in_array('field_model', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_sku', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_upc', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_ean', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_jan', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_isbn', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_mpn', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_dimensions', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "p.length = '" . (float)$data['keyword_filter'] . "'";
+				$sql .= " OR p.width = '" . (float)$data['keyword_filter'] . "'";
+				$sql .= " OR p.height = '" . (float)$data['keyword_filter'] . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_weight', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "p.weight = '" . (float)$data['keyword_filter'] . "'";
+
+				$or = true;
+			}
+
+			if (in_array('manufacturers', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "m.name LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			$sql .= ")";
+		}
+
 		if (!empty($data['sub_category_filter'])) {
 			$sql .= " AND p2c.category_id IN (";
 
@@ -391,7 +627,7 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 			}
 
 			$sql .= implode(",", $implode) . ")";
-		} else {
+		} elseif (!empty($data['category_id'])) {
 			$sql .= " AND p2c.category_id = '" . (int)$data['category_id'] . "'";
 		}
 
@@ -566,12 +802,26 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 	}
 
 	public function getTotalProducts($data = []) {
+		$mt_filtering_settings = $this->mtFilteringSettings();
+
 		$sql = "SELECT COUNT(DISTINCT p.product_id) AS total FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (p.product_id = p2c.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) LEFT JOIN (SELECT product_id, price FROM " . DB_PREFIX . "product_special ps WHERE ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) GROUP BY ps.product_id ORDER BY ps.priority ASC, ps.price ASC";
 
 		if (!empty($data['product_special_filter'])) {
 			$sql .= " ) AS ps ON (p.product_id = ps.product_id)";
 		} else {
 			$sql .= " LIMIT 1) AS ps ON (p.product_id = ps.product_id)";
+		}
+
+		if (!empty($data['keyword_filter'])) {
+			$sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id)";
+
+			if (in_array('manufacturers', $mt_filtering_settings['filters']['keyword'])) {
+				$sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
+			}
+		}
+
+		if (!empty($data['default_filter'])) {
+			$sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pdf ON (p.product_id = pdf.product_id)";
 		}
 
 		if (!empty($data['default_filter'])) {
@@ -601,6 +851,200 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		}
 
 		$sql .= " WHERE p.date_available <= NOW() AND p.status = '1' AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
+
+		if (!empty($data['keyword_filter']) && !empty($mt_filtering_settings)) {
+			$or = false;
+
+			$sql .= " AND (";
+
+			if (in_array('product_name', $mt_filtering_settings['filters']['keyword'])) {
+				$sql .= "(";
+
+				$implode = array();
+
+				$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['keyword_filter'])));
+
+				foreach ($words as $word) {
+					$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+				}
+
+				if ($implode) {
+					$sql .= " " . implode(" AND ", $implode) . "";
+				}
+
+				$sql .= ")";
+
+				$or = true;
+			}
+
+			if (in_array('product_description', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "pd.description LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			if (in_array('product_meta_title', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "pd.meta_title LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			if (in_array('product_meta_description', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "pd.meta_description LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			if (in_array('product_meta_keywords', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "pd.meta_keyword LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			if (in_array('product_tags', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR (";
+				}
+
+				$implode = array();
+
+				$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['keyword_filter'])));
+
+				foreach ($words as $word) {
+					$implode[] = "pd.tag LIKE '%" . $this->db->escape($word) . "%'";
+				}
+
+				if ($implode) {
+					$sql .= " " . implode(" AND ", $implode) . "";
+				}
+
+				if ($or) {
+					$sql .= ")";
+				}
+
+				$or = true;
+			}
+
+			if (in_array('field_model', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_sku', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_upc', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_ean', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_jan', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_isbn', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_mpn', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['keyword_filter'])) . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_dimensions', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "p.length = '" . (float)$data['keyword_filter'] . "'";
+				$sql .= " OR p.width = '" . (float)$data['keyword_filter'] . "'";
+				$sql .= " OR p.height = '" . (float)$data['keyword_filter'] . "'";
+
+				$or = true;
+			}
+
+			if (in_array('field_weight', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "p.weight = '" . (float)$data['keyword_filter'] . "'";
+
+				$or = true;
+			}
+
+			if (in_array('manufacturers', $mt_filtering_settings['filters']['keyword'])) {
+				if ($or) {
+					$sql .= " OR ";
+				}
+
+				$sql .= "m.name LIKE '%" . $this->db->escape((string)$data['keyword_filter']) . "%'";
+
+				$or = true;
+			}
+
+			$sql .= ")";
+		}
 
 		if (!empty($data['sub_category_filter'])) {
 			$sql .= " AND p2c.category_id IN (";
@@ -726,5 +1170,20 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		$query = $this->db->query($sql);
 
 		return $query->row['total'];
+	}
+
+	protected function mtFilteringSettings() {
+		$mt_filtering_settings = $this->cache->get('materialize.mt_filtering.settings.' . (int)$this->config->get('config_store_id'));
+
+		if (!$mt_filtering_settings) {
+			$mt_filter_settings = $this->config->get('module_mt_filter_settings');
+			$mt_filtering_settings = $this->config->get('module_mt_filtering_settings');
+
+			if (!empty($mt_filter_settings['cache']['status'])) {
+				$this->cache->set('materialize.mt_filtering.settings.' . (int)$this->config->get('config_store_id'), $mt_filtering_settings);
+			}
+		}
+
+		return $mt_filtering_settings;
 	}
 }

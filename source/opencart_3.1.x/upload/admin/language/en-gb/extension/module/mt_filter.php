@@ -8,7 +8,7 @@
  */
 
 // Heading
-$_['heading_title']		= '<b><i class="fas fa-filter"></i> Materialize Filter</b>';
+$_['heading_title']		= '<b><i class="fas fa-sliders-h"></i> Materialize Filter</b>';
 $_['module_title']		= 'Materialize Filter';
 
 // Text

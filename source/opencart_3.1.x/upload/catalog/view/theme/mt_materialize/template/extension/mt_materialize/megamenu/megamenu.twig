@@ -1,0 +1,97 @@
+<!-- todo-materiliaze Specify the maximum height of the drop-down list from the admin panel -->
+<!-- todo-materiliaze Add simplebar plugin https://github.com/Grsmto/simplebar -->
+<div id="materialize-menu-overlay" class="materialize-menu-overlay"></div>
+<div class="materialize-menu-wrapper">
+	<button type="button" id="category" class="btn waves-effect transparent z-depth-0">
+		<span id="category-icon" class="animated-icon menu-cross">
+			<span class="ani white"></span> <!-- todo-materiliaze Set color from color scheme -->
+		</span>
+		<span>{{ text_category }}</span>
+	</button>
+	<nav id="menu-wrapper" class="materialize-menu transparent z-depth-0">
+		{% if categories %}
+			<ul id="menu" class="materialize-menu-content z-depth-2 white"> <!-- todo-materiliaze Set color from color scheme -->
+				{% for category in categories %}
+					{% if category.children %}
+						<li class="materialize-menu-content__item">
+							{% if category.image %}
+								<img class="materialize-menu-content__item--img" src="{{ category.image }}" alt="{{ category.name }}">
+							{% endif %}
+							<a href="{{ category.href }}" class="materialize-menu-content__item--link {{ category.image ? 'materialize-menu-content__item--link-with-image' }} black-text">{{ category.name }}<div class="category-right-arrow"></div></a> <!-- todo-materiliaze Set color from color scheme -->
+							<ul class="materialize-menu-content materialize-menu-submenu z-depth-2 white"> <!-- todo-materiliaze Set color from color scheme -->
+								{% for children in category.children %}
+									{% if children.children %}
+										<li class="materialize-menu-content__item">
+											{% if children.image %}
+												<img class="materialize-menu-content__item--img" src="{{ children.image }}" alt="{{ children.name }}">
+											{% endif %}
+											<a href="{{ children.href }}" class="materialize-menu-content__item--link {{ children.image ? 'materialize-menu-content__item--link-with-image' }} black-text">{{ children.name }}<div class="category-right-arrow"></div></a> <!-- todo-materiliaze Set color from color scheme -->
+											<ul class="materialize-menu-content materialize-menu-submenu z-depth-2 white"> <!-- todo-materiliaze Set color from color scheme -->
+												{% for lvl_category3 in children.children %}
+													<li class="materialize-menu-content__item">
+														{% if lvl_category3.image %}
+															<img class="materialize-menu-content__item--img" src="{{ lvl_category3.image }}" alt="{{ lvl_category3.name }}">
+														{% endif %}
+														<a href="{{ lvl_category3.href }}" class="materialize-menu-content__item--link {{ lvl_category3.image ? 'materialize-menu-content__item--link-with-image' }} black-text">{{ lvl_category3.name }}</a> <!-- todo-materiliaze Set color from color scheme -->
+													</li>
+												{% endfor %}
+											</ul>
+										</li>
+									{% else %}
+										<li class="materialize-menu-content__item">
+											{% if children.image %}
+												<img class="materialize-menu-content__item--img" src="{{ children.image }}" alt="{{ children.name }}">
+											{% endif %}
+											<a href="{{ children.href }}" class="materialize-menu-content__item--link {{ children.image ? 'materialize-menu-content__item--link-with-image' }} black-text">{{ children.name }}</a> <!-- todo-materiliaze Set color from color scheme -->
+										</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</li>
+					{% else %}
+						<li class="materialize-menu-content__item">
+							{% if category.image %}
+								<img class="materialize-menu-content__item--img" src="{{ category.image }}" alt="{{ category.name }}">
+							{% endif %}
+							<a href="{{ category.href }}" class="materialize-menu-content__item--link {{ category.image ? 'materialize-menu-content__item--link-with-image' }} black-text">{{ category.name }}</a> <!-- todo-materiliaze Set color from color scheme -->
+						</li>
+					{% endif %}
+				{% endfor %}
+				<li class="materialize-menu-content__item materialize-menu-content__item--megamenu">
+					<a href="#" class="materialize-menu-content__item--link black-text">Test<div class="category-right-arrow"></div></a>
+					<div class="materialize-menu-content materialize-menu-submenu materialize-menu-content__item--megamenu-content z-depth-2 white black-text">
+						<div class="row">
+							<div class="col s4">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus sint temporibus vitae. At autem consequatur delectus dolor ducimus eius eligendi excepturi laboriosam molestiae, nam officiis omnis praesentium recusandae tempore voluptates.</p>
+							</div>
+							<div class="col s4">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab architecto aspernatur at consectetur corporis cum deserunt ea error impedit incidunt inventore minima non perferendis, perspiciatis repellat reprehenderit sapiente sint soluta.</p>
+							</div>
+							<div class="col s4">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, aut eaque enim facere nisi quo voluptatibus. Adipisci corporis culpa dolore, dolorum eius facilis, molestias neque numquam officiis recusandae, sed tempora.</p>
+							</div>
+							<div class="col s12">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis deleniti illum modi odit! Aliquid earum eligendi eum laboriosam totam? At deserunt inventore molestiae nam nostrum, obcaecati perspiciatis sint voluptatem voluptatibus!</p>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		{% endif %}
+	</nav>
+</div>
+<script>
+	$('#menu').superfish({
+		popUpSelector: 'ul,.materialize-menu-content__item--megamenu-content',
+		hoverClass: 'materialize-menu-content__item--hover',
+		delay: 800,
+		speed: 150,
+		speedOut: 150,
+		animation: {
+			opacity: 'show'
+		},
+		animationOut: {
+			opacity: 'hide'
+		}
+	});
+</script>

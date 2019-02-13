@@ -139,8 +139,8 @@
 									<div class="form-group row">
 										<label class="col-sm-2 col-form-label" for="product-show-fields">Show fields</label> <!-- todo-materialize Must be placed in a language variable -->
 										<div class="col-sm-10">
-											<select name="theme_mt_materialize_produdcts[fields][]" class="form-control" id="product-show-fields" multiple="multiple">
-												{% for field in produdct_fields %}
+											<select name="theme_mt_materialize_products[fields][]" class="form-control" id="product-show-fields" multiple="multiple">
+												{% for field in product_fields %}
 													<option value="{{ field.value }}" {{ field.selected }}>{{ field.text }}</option>
 												{% endfor %}
 											</select>
@@ -311,7 +311,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="card-footer text-center">Materialize 2017 - 2018</div>
+						{{ mt_footer }}
 					</div>
 				</div>
 				<div class="col-sm-12 col-md-3">

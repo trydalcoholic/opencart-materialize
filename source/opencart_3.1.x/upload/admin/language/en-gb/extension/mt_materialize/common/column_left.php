@@ -7,10 +7,7 @@
  * @link        https://github.com/trydalcoholic/opencart-materialize
  */
 
-class ControllerExtensionMTMaterializeCommonHeader extends Controller {
-	public function index(&$route, &$data) {
-		$data['email'] = $this->config->get('config_email');
-		$data['open'] = nl2br($this->config->get('config_open'));
-		$data['formatted_telephone'] = str_replace(['(',')',' '],'', $data['telephone']);
-	}
-}
+// Column Left
+$_['mt_materialize_template']	= 'Materialize Template';
+$_['mt_template_settings']		= 'Template Settings';
+$_['mt_filter']					= 'Filter';

@@ -40,8 +40,8 @@
 						</div>
 					</div>
 					<ul id="mt-filter-layout" class="materialize-filter d-none d-lg-block d-xl-block scale-transition scale-out" style="background-color: {{ module_mt_filter_settings.color.common.background.hex }}">
-						<li class="materialize-filter-item with-header" style="background-color: {{ module_mt_filter_settings.color.header.background.hex }}; color: {{ module_mt_filter_settings.color.header.text.hex }};"><h4>Materialize Filter</h4></li> {# todo-materialize Must be placed in a language variable #}
-						<li class="materialize-filter-item">
+						<li class="materialize-filter-item with-header" style="background-color: {{ module_mt_filter_settings.color.header.background.hex }}; color: {{ module_mt_filter_settings.color.header.text.hex }}; border-bottom: 1px solid {{ module_mt_filter_settings.color.common.border.hex }};"><h4>Materialize Filter</h4></li> {# todo-materialize Must be placed in a language variable #}
+						<li class="materialize-filter-item" style="border-bottom: 1px solid {{ module_mt_filter_settings.color.common.border.hex }};">
 							<div class="materialize-filter-item--title waves-effect arrow-rotate" data-toggle="collapse" data-target="#price-collapse" style="background-color: {{ module_mt_filter_settings.color.header.background.hex }}; color: {{ module_mt_filter_settings.color.header.text.hex }};"><span>Slider Filters</span></div> {# todo-materialize Must be placed in a language variable #}
 							<div id="price-collapse" class="materialize-filter-item--body collapse show">
 								<div class="materialize-filter--slider" style="background-color: {{ module_mt_filter_settings.color.slider.secondary_background.hex }};">
@@ -59,7 +59,7 @@
 								</div>
 							</div>
 						</li>
-						<li class="materialize-filter-item">
+						<li class="materialize-filter-item" style="border-bottom: 1px solid {{ module_mt_filter_settings.color.common.border.hex }};">
 							<div class="materialize-filter-item--title waves-effect arrow-rotate" data-toggle="collapse" data-target="#sub-categories-collapse" style="background-color: {{ module_mt_filter_settings.color.header.background.hex }}; color: {{ module_mt_filter_settings.color.header.text.hex }};"><span>Other Filters</span></div> {# todo-materialize Must be placed in a language variable #}
 							<div id="sub-categories-collapse" class="materialize-filter-item--body collapse show" style="max-height: 105px;">
 								<div class="icheck-material-deeppurple">
@@ -76,7 +76,7 @@
 								</div>
 							</div>
 						</li>
-						<li class="materialize-filter-item with-header d-flex">
+						<li class="materialize-filter-item with-header d-flex" style="border-bottom: 1px solid {{ module_mt_filter_settings.color.common.border.hex }};">
 							<div id="mt-filter-apply-button" class="btn-material waves-effect ml-auto" style="background-color: {{ module_mt_filter_settings.color.apply_button.background.hex }}; color: {{ module_mt_filter_settings.color.apply_button.text.hex }};">Apply</div>
 						</li>
 					</ul>
@@ -85,13 +85,14 @@
 					<div class="card">
 						<div class="card-header">
 							<ul class="nav nav-tabs card-header-tabs" style="margin-bottom: -0.75rem;">
-								<li class="nav-item"><a href="#tab-settings" data-toggle="tab" class="nav-link waves-effect active">Common</a></li> {# todo-materialize Must be placed in a language variable #}
+								<li class="nav-item"><a href="#tab-settings" data-toggle="tab" class="nav-link waves-effect">Common</a></li> {# todo-materialize Must be placed in a language variable #}
 								<li class="nav-item"><a href="#tab-filters" data-toggle="tab" class="nav-link waves-effect">Filters</a></li> {# todo-materialize Must be placed in a language variable #}
+								<li class="nav-item"><a href="#tab-lists" data-toggle="tab" class="nav-link waves-effect active">Lists</a></li> {# todo-materialize Must be placed in a language variable #}
 							</ul>
 						</div>
 						<div class="card-body">
 							<div class="tab-content">
-								<div class="tab-pane fade show active" id="tab-settings">
+								<div class="tab-pane fade" id="tab-settings">
 									<div class="row">
 										<div class="col-lg-4 col-xl-3 mb-3">
 											<div class="nav flex-column nav-pills">
@@ -186,6 +187,15 @@
 																	<div class="input-group-append">
 																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_filter_settings.color.common.background.name] }};">
 																			<i class="fas fa-font" style="color: {{ material_colors[module_mt_filter_settings.color.common.text.name|replace({'-text': '', 'text-': ''})] }};"></i>
+																		</span>
+																	</div>
+																</div>
+																<div class="input-group mb-5">
+																	<input type="text" name="module_mt_filter_settings[color][common][border][name]" value="{{ module_mt_filter_settings.color.common.border.name }}" placeholder="Border Color" aria-label="Secondary Background" data-color-type="background" class="form-control materialize-color-picker" autocomplete="off"/> {# todo-materialize Must be placed in a language variable #}
+																	<input type="hidden" name="module_mt_filter_settings[color][common][border][hex]" value="{{ module_mt_filter_settings.color.common.border.hex }}" data-color-type="background">
+																	<div class="input-group-append">
+																		<span class="input-group-text" style="background-color: {{ material_colors[module_mt_filter_settings.color.common.border.name] }};">
+																			<i class="plug"></i>
 																		</span>
 																	</div>
 																</div>
@@ -420,6 +430,21 @@
 															</span>
 															<div class="materialize-list-item__inputs">
 																<input type="text" name="module_mt_filter_settings[filters][keyword][sort]" value="{{ module_mt_filter_settings.filters.keyword.sort }}" placeholder="Sort" class="form-control"/> {# todo-materialize Must be placed in a language variable #}
+															</div>
+														</li>
+														<li class="materialize-list-divider" role="separator"></li>
+														<li class="materialize-list-item">
+															<span class="materialize-list-item__icon waves-effect waves-circle"><i class="fas fa-search-plus"></i></span>
+															<span class="materialize-list-item__text">
+																<span class="materialize-list-item__primary-text">Search Selection</span>
+																<span class="materialize-list-item__secondary-text">Specify where to search by keyword</span> {# todo-materialize Must be placed in a language variable #}
+															</span>
+															<div class="materialize-list-item__inputs">
+																<select name="module_mt_filtering_settings[filters][keyword][]" class="material-select" multiple="multiple">
+																	{% for selection in search_selection %}
+																		<option value="{{ selection.value }}" {{ selection.selected }}>{{ selection.text }}</option>
+																	{% endfor %}
+																</select>
 															</div>
 														</li>
 														<li class="materialize-list-divider" role="separator"></li>
@@ -1441,9 +1466,53 @@
 										</div>
 									</div>
 								</div>
+								<div class="tab-pane fade show active" id="tab-lists">
+									<div class="row">
+										<div class="col-lg-4 col-xl-3 mb-3">
+											<div class="nav flex-column nav-pills">
+												<a class="nav-link waves-effect active" data-toggle="pill" href="#tab-lists__attributes">Attributes</a> {# todo-materialize Must be placed in a language variable #}
+											</div>
+										</div>
+										<div class="col-lg-8 col-xl-9">
+											<div class="tab-content">
+												<div class="tab-pane fade show active" id="tab-lists__attributes">
+													<ul class="materialize-list">
+														{% for attribute in attributes %}
+															<li class="materialize-list-item">
+																<span class="materialize-list-item__text">
+																	<span class="materialize-list-item__primary-text">{{ attribute.name }}</span> {# todo-materialize Must be placed in a language variable #}
+																	<span class="materialize-list-item__secondary-text">{{ attribute.attribute_group }}</span> {# todo-materialize Must be placed in a language variable #}
+																</span>
+																<div class="materialize-list-item__data">
+																	<div class="pure-css-switch align-self-center">
+																		<label>
+																			<input name="module_mt_filter_attributes[{{ attribute.attribute_id }}][status]" class="simple-switch-input" type="checkbox" {{ module_mt_filter_settings.filters.attributes.status ? 'checked="checked"' }}><span class="simple-switch dark"></span>
+																		</label>
+																	</div>
+																</div>
+																<div class="materialize-list-item__inputs">
+																	<select name="module_mt_filter_attributes[{{ attribute.attribute_id }}][type]" class="material-select">
+																		{% for filter_type in filter_types %}
+																			{% if module_mt_filter_attributes[attribute.attribute_id].type == filter_type.type %}
+																				<option value="{{ filter_type.type }}" selected="selected">{{ filter_type.name }}</option>
+																			{% else %}
+																				<option value="{{ filter_type.type }}">{{ filter_type.name }}</option>
+																			{% endif %}
+																		{% endfor %}
+																	</select>
+																</div>
+															</li>
+															{% if not loop.last %}<li class="materialize-list-divider" role="separator"></li>{% endif %}
+														{% endfor %}
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="card-footer text-center">Materialize 2017 - 2018</div>
+						{{ mt_footer }}
 					</div>
 				</div>
 			</div>
@@ -1456,6 +1525,7 @@
 		mtFilterLayout = $('#mt-filter-layout'),
 		tabCommonColor = $('#tab-common__color'),
 		mtFilterHeaders = $('.materialize-filter-item.with-header, .materialize-filter-item--title'),
+		mtFilterItem = $('.materialize-filter-item'),
 		mtFilterSliderSecondaryBackground = $('.materialize-filter--slider'),
 		mtFilterSliderPrimaryBackground = $('.materialize-filter--slider-base__center, .materialize-filter--slider-base-bubble, .materialize-filter--slider-base-bubble--tooltip'),
 		mtFilterSliderText = $('.materialize-filter--slider-base-bubble--tooltip span'),
@@ -1502,6 +1572,10 @@
 			mtFilterLayout.css({
 				'background-color': data['module_mt_filter_settings_color__common__background__hex_'],
 				'color': data['module_mt_filter_settings_color__common__text__hex_']
+			});
+
+			mtFilterItem.css({
+				'border-bottom': '1px solid ' + data['module_mt_filter_settings_color__common__border__hex_'],
 			});
 
 			mtFilterHeaders.css({

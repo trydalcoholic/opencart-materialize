@@ -10,8 +10,8 @@
 	"use strict";
 
 	let settings = {
-		grid: 's12 m6',
-		action: '',
+		product_grid: 's12 m6',
+		page_settings: '',
 		contentMTFilter: '#content-mt-filter',
 		loader: '<div id="mt-filter-loader" class="loader-wrapper"><div class="showbox"><div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div></div></div>'
 	};
@@ -23,7 +23,8 @@
 			return this.each(function() {
 				let $this = $(this),
 					timer = null,
-					inputs = $this.find('input, select');
+					inputs = $this.find('input, select'),
+					keywordInput = $('#mt-filter-keyword');
 
 				inputs.change(function() {
 					if (timer) {
@@ -31,32 +32,41 @@
 					}
 
 					timer = setTimeout(function() {
-						console.log(inputs.serialize());
-						methods.request(inputs.serialize(), settings);
+						let requestData = inputs.filter(function(i, el) {
+							return $(el).val() !== '';
+						}).serialize();
+						let requestDatasadadsdas = inputs.filter(function(i, el) {
+							return $(el).val() !== '';
+						}).serializeArray();
+						console.log(requestDatasadadsdas);
+
+						methods.request(requestData, settings);
 					}, 200);
+				});
+
+				keywordInput.on('keydown', function(event) {
+					if (event.which === 13) {
+						keywordInput.change();
+					}
 				});
 
 				$(document).delegate('.mt-chip__close', 'click', function() {
 					let dataClose = $(this).data('mt-filter-id'),
 						filterIdClose = $('#' + dataClose + '');
 
-					filterIdClose.prop('checked', false).change();
+					if (filterIdClose.attr('type') === 'text') {
+						filterIdClose.val('').change();
+					} else {
+						filterIdClose.prop('checked', false).change();
+					}
 				});
 			});
 		},
 		request: function(data, settings) {
-			let productDisplay, contentMtFilter;
-
-			if (localStorage.getItem('display') === 'list') {
-				productDisplay = 'list';
-			} else {
-				productDisplay = 'grid';
-			}
-
-			contentMtFilter = $(settings['contentMTFilter']);
+			let contentMtFilter = $(settings['contentMTFilter']);
 
 			return $.ajax({
-				url: 'index.php?route=extension/module/mt_filter/filter&' + data + settings['action'] + '&grid=' + settings['grid'] + '&product_display=' + productDisplay,
+				url: 'index.php?route=extension/module/mt_filter/filter&' + data + settings['page_settings'] + '&product_grid=' + settings['product_grid'],
 				type: 'get',
 				dataType: 'json',
 				beforeSend: function () {
@@ -75,7 +85,7 @@
 						$('#mt-filter-loader').remove();
 
 						contentMtFilter.append(json['products']);
-					}, 300); /* todo-materialize This delay is added only to test the preloader */
+					}, 0); /* todo-materialize This delay is added only to test the preloader */
 
 					methods.setLocation(json['current_location']);
 				},
@@ -84,8 +94,8 @@
 				}
 			});
 		},
-		setLocation: function(curLoc) {
-			return history.pushState(null, null, curLoc);
+		setLocation: function(location) {
+			return history.pushState(null, null, location);
 		}
 	};
 
