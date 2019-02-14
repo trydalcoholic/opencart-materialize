@@ -46,7 +46,7 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 			WHERE tr1.type = 'F' AND tr2cg.customer_group_id = '1' ORDER BY tr2.priority
 		  ) AS ta ON (p.tax_class_id = ta.tax_class_id)
 		WHERE p2c.category_id = '20' AND p.date_available <= NOW() AND p.status = '1' AND p2s.store_id = '0'
-		*/
+		*/ /* todo-materialize Remove before release! */
 		if (!empty($data['config_tax'])) {
 			$sql = "SELECT MIN(IF(tp.tax_percent IS NOT NULL, IFNULL(ps.price, p.price) + (IFNULL(ps.price, p.price) * tp.tax_percent / 100) + IFNULL(ta.tax_amount, 0), IFNULL(ps.price, p.price)) * '" . (float)$data['currency_ratio'] . "') AS min_price, MAX(IF(tp.tax_percent IS NOT NULL, IFNULL(ps.price, p.price) + (IFNULL(ps.price, p.price) * tp.tax_percent / 100) + IFNULL(ta.tax_amount, 0), IFNULL(ps.price, p.price)) * '" . (float)$data['currency_ratio'] . "') AS max_price";
 		} else {
@@ -77,13 +77,7 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 			$sql .= ", c.image";
 		}
 
-		$sql .= " FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) WHERE c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c.status = '1'";
-
-		if (!empty($data['category_id'])) {
-			$sql .= " AND `parent_id` = '" . (int)$data['category_id'] . "'";
-		}
-
-		$sql .= " ORDER BY c.sort_order, LCASE(cd.name)";
+		$sql .= " FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) WHERE c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c.parent_id = '" . (int)$data['category_id'] . "' AND c.status = '1' ORDER BY c.sort_order, LCASE(cd.name)";
 
 		$query = $this->db->query($sql);
 
@@ -222,13 +216,19 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 	}
 
 	public function getAttributes($category_id) {
-		$sql = "SELECT DISTINCT pa.attribute_id, ad.name as name, pa.text as text FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (pa.attribute_id = ad.attribute_id) LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (pa.product_id = p2c.product_id) WHERE pa.language_id = '" . (int)$this->config->get('config_language_id') . "' AND ad.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT DISTINCT pa.attribute_id, ad.name as name, pa.text as text FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute a ON (pa.attribute_id = a.attribute_id) LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (a.attribute_id = ad.attribute_id)";
+
+		if (!empty($category_id)) {
+			$sql .= " LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (pa.product_id = p2c.product_id)";
+		}
+
+		$sql .= " WHERE pa.language_id = '" . (int)$this->config->get('config_language_id') . "' AND ad.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($category_id)) {
 			$sql .= " AND p2c.category_id = '" . (int)$category_id . "'";
 		}
 
-		$sql .= " ORDER BY pa.attribute_id, LCASE(name)";
+		$sql .= " ORDER BY a.sort_order, LCASE(name)";
 
 		$query = $this->db->query($sql);
 
@@ -331,8 +331,10 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 
 		$implode = [];
 
-		foreach ($data['option_values_id'] as $option_value_id) {
-			$implode[] = "'" . (int)$option_value_id . "'";
+		foreach ($data['option_values_id'] as $key => $option_values_id) {
+			foreach ($option_values_id as $option_value) {
+				$implode[] = "'" . (int)$option_value . "'";
+			}
 		}
 
 		$sql .= implode(",", $implode) . ") AND ovd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND od.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.sort_order, LCASE(od.name), ov.sort_order, LCASE(ovd.name)";
@@ -399,7 +401,7 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 			  pa2.attribute_id = '2' AND (pa2.text = '1' OR pa2.text = '4')
 			  AND
 			  pa4.attribute_id = '4' AND (pa4.text = '8gb' OR pa4.text = '16gb')
-			*/
+			*/ /* todo-materialize Remove before release! */
 			foreach ($data['attribute_filter'] as $key => $value) {
 				$sql .= " LEFT JOIN " . DB_PREFIX . "product_attribute pa" . (int)$key . " ON (p.product_id = pa" . (int)$key . ".product_id)";
 			}
@@ -660,15 +662,19 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		}
 
 		if (!empty($data['option_filter'])) {
-			$sql .= " AND pov.option_value_id IN (";
+			$sql .= " AND (";
 
 			$implode = [];
 
-			foreach ($data['option_filter'] as $option_value_id) {
-				$implode[] = "'" . (int)$option_value_id . "'";
+			foreach ($data['option_filter'] as $option_id => $option_values_id) {
+				foreach ($option_values_id as $option_value_id) {
+					$implode[] = "(pov.option_value_id = '" . (int)$option_value_id . "')";
+				}
 			}
 
-			$sql .= implode(",", $implode) . ")";
+			$sql .= implode(' OR ', $implode);
+
+			$sql .= ")";
 		}
 
 		if (!empty($data['manufacturer_filter'])) {
@@ -1088,15 +1094,19 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 		}
 
 		if (!empty($data['option_filter'])) {
-			$sql .= " AND pov.option_value_id IN (";
+			$sql .= " AND (";
 
 			$implode = [];
 
-			foreach ($data['option_filter'] as $option_value_id) {
-				$implode[] = "'" . (int)$option_value_id . "'";
+			foreach ($data['option_filter'] as $option_id => $option_values_id) {
+				foreach ($option_values_id as $option_value_id) {
+					$implode[] = "(pov.option_value_id = '" . (int)$option_value_id . "')";
+				}
 			}
 
-			$sql .= implode(",", $implode) . ")";
+			$sql .= implode(' OR ', $implode);
+
+			$sql .= ")";
 		}
 
 		if (!empty($data['manufacturer_filter'])) {

@@ -12,22 +12,18 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 
 	public function install() {
 		$this->load->model('extension/mt_materialize/theme/mt_materialize');
-		$this->load->model('setting/event');
 
 		$this->model_extension_mt_materialize_theme_mt_materialize->install();
 
-		$this->model_setting_event->addEvent('theme_mt_materialize_menu_item', 'admin/view/common/column_left/before', 'extension/theme/mt_materialize/adminMaterializeMenuItem');
-		$this->model_setting_event->addEvent('theme_mt_materialize_header_settings', 'catalog/view/common/header/before', 'extension/mt_materialize/common/header');
+		$this->installEvents();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/mt_materialize/theme/mt_materialize');
-		$this->load->model('setting/event');
 
 		$this->model_extension_mt_materialize_theme_mt_materialize->uninstall();
 
-		$this->model_setting_event->deleteEventByCode('theme_mt_materialize_menu_item');
-		$this->model_setting_event->deleteEventByCode('theme_mt_materialize_header_settings');
+		$this->uninstallEvents();
 	}
 
 	public function index() {
@@ -510,5 +506,24 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 				'children'	=> $materialize
 			];
 		}
+	}
+
+	protected function installEvents() {
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->addEvent('theme_mt_materialize_menu_item', 'admin/view/common/column_left/before', 'extension/theme/mt_materialize/adminMaterializeMenuItem');
+
+		$this->model_setting_event->addEvent('theme_mt_materialize_header_settings', 'catalog/view/common/header/before', 'extension/mt_materialize/common/header');
+
+		$this->model_setting_event->addEvent('theme_mt_materialize_data_product_display', 'catalog/view/common/home/before', 'catalog/controller/extension/mt_materialize/product/product/dataProductDisplay');
+		$this->model_setting_event->addEvent('theme_mt_materialize_data_product_display', 'catalog/view/product/category/before', 'catalog/controller/extension/mt_materialize/product/product/dataProductDisplay');
+	}
+
+	protected function uninstallEvents() {
+		$this->load->model('setting/event');
+
+		$this->model_setting_event->deleteEventByCode('theme_mt_materialize_menu_item');
+		$this->model_setting_event->deleteEventByCode('theme_mt_materialize_header_settings');
+		$this->model_setting_event->deleteEventByCode('theme_mt_materialize_data_product_display');
 	}
 }

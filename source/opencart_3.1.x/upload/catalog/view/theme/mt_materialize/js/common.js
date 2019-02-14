@@ -346,7 +346,7 @@ let cart = {
 			data: 'key=' + key + '&quantity=' + (typeof(quantity) != 'undefined' ? quantity : 1),
 			dataType: 'json',
 			success: function(json) {
-				if (getURLlet('route') === 'checkout/cart' || getURLlet('route') === 'checkout/checkout') {
+				if (getURLVar('route') === 'checkout/cart' || getURLVar('route') === 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
 					$('#cart').load('index.php?route=common/cart/info');
@@ -368,7 +368,7 @@ let cart = {
 			data: 'key=' + key,
 			dataType: 'json',
 			success: function(json) {
-				if (getURLlet('route') === 'checkout/cart' || getURLlet('route') === 'checkout/checkout') {
+				if (getURLVar('route') === 'checkout/cart' || getURLVar('route') === 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
 					$('#cart').load('index.php?route=common/cart/info');
@@ -396,7 +396,7 @@ let voucher = {
 			data: 'key=' + key,
 			dataType: 'json',
 			success: function(json) {
-				if (getURLlet('route') === 'checkout/cart' || getURLlet('route') === 'checkout/checkout') {
+				if (getURLVar('route') === 'checkout/cart' || getURLVar('route') === 'checkout/checkout') {
 					location = 'index.php?route=checkout/cart';
 				} else {
 					$('#cart').load('index.php?route=common/cart/info');

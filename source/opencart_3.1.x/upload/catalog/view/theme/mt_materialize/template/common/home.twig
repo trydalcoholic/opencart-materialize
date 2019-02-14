@@ -50,9 +50,9 @@
 								<ul id="dropdown-sort" class="dropdown-content">
 									{% for sorts in sorts %}
 										{% if sorts.value == '%s-%s'|format(sort, order) %}
-											<li class="active"><a href="{{ sorts.href }}">{{ sorts.text }}</a></li>
+											<li class="active"><a href="{{ sorts.href }}" class="waves-effect">{{ sorts.text }}</a></li>
 										{% else %}
-											<li><a href="{{ sorts.href }}">{{ sorts.text }}</a></li>
+											<li><a href="{{ sorts.href }}" class="waves-effect">{{ sorts.text }}</a></li>
 										{% endif %}
 									{% endfor %}
 								</ul>
@@ -60,9 +60,9 @@
 								<ul id="dropdown-limit" class="dropdown-content">
 									{% for limits in limits %}
 										{% if limits.value == limit %}
-											<li class="active"><a href="{{ limits.href }}">{{ limits.text }}</a></li>
+											<li class="active"><a href="{{ limits.href }}" class="waves-effect">{{ limits.text }}</a></li>
 										{% else %}
-											<li><a href="{{ limits.href }}">{{ limits.text }}</a></li>
+											<li><a href="{{ limits.href }}" class="waves-effect">{{ limits.text }}</a></li>
 										{% endif %}
 									{% endfor %}
 								</ul>

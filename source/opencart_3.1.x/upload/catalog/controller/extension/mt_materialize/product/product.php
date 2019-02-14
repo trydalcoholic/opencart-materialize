@@ -8,6 +8,10 @@
  */
 
 class ControllerExtensionMTMaterializeProductProduct extends Controller {
+	public function dataProductDisplay (&$route, &$data) {
+		$data['product_display'] = $this->load->controller('extension/mt_materialize/product/product/getProductDisplay');
+	}
+
 	public function setProductDisplay() {
 		if (!empty($this->request->post['product_display'])) {
 			unset($this->session->data['product_display']);

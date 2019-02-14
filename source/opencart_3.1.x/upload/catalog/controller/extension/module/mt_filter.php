@@ -43,14 +43,14 @@ class ControllerExtensionModuleMTFilter extends Controller {
 
 		$page_settings = '&location=' . $route . '&language=' . $this->config->get('config_language');
 
+		$product_category = false;
+
 		if ($route == 'product/category' && isset($this->request->get['path'])) {
 			$page_settings .= '&path=' . $this->request->get['path'];
 
 			$path = explode('_', (string)$this->request->get['path']);
 
 			$product_category = end($path);
-		} else {
-			$product_category = false;
 		}
 
 		if ($route == 'product/manufacturer/info' && isset($this->request->get['manufacturer_id'])) {
@@ -423,25 +423,25 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			}
 
 			$rating_filter = [
-				'0' => [
-					'rating_id'		=> 1,
-					'mt_filter_id'	=> 'mt-filter-rating-1'
+				'0'	=> [
+					'rating_id'		=> 5,
+					'mt_filter_id'	=> 'mt-filter-rating-5'
 				],
-				'1'	=> [
-					'rating_id'		=> 2,
-					'mt_filter_id'	=> 'mt-filter-rating-2'
+				'1' => [
+					'rating_id'		=> 4,
+					'mt_filter_id'	=> 'mt-filter-rating-4'
 				],
 				'2' => [
 					'rating_id'		=> 3,
 					'mt_filter_id'	=> 'mt-filter-rating-3'
 				],
-				'3' => [
-					'rating_id'		=> 4,
-					'mt_filter_id'	=> 'mt-filter-rating-4'
+				'3'	=> [
+					'rating_id'		=> 2,
+					'mt_filter_id'	=> 'mt-filter-rating-2'
 				],
-				'4'	=> [
-					'rating_id'		=> 5,
-					'mt_filter_id'	=> 'mt-filter-rating-5'
+				'4' => [
+					'rating_id'		=> 1,
+					'mt_filter_id'	=> 'mt-filter-rating-1'
 				]
 			];
 
@@ -679,7 +679,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function categoryProductPreSelected(&$route, &$data) {
+	public function preSelectedFilterItems (&$route, &$data) {
 		$preselected_data = $this->getProducts($this->request->get, true);
 
 		$data['mt_filters'] = $preselected_data['mt_filters'];
@@ -701,7 +701,17 @@ class ControllerExtensionModuleMTFilter extends Controller {
 
 		$this->load->language('product/category');
 
-		if (isset($this->request->get['path'])) {
+		if (isset($this->request->get['location'])) {
+			$route = (string)$this->request->get['location'];
+		} else {
+			if (isset($this->request->get['route'])) {
+				$route = (string)$this->request->get['route'];
+			} else {
+				$route = 'common/home';
+			}
+		}
+
+		if ($route == 'product/category' && isset($this->request->get['path'])) {
 			$path = '&path=' . $this->request->get['path'];
 
 			$parts = explode('_', (string)$this->request->get['path']);
@@ -713,13 +723,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 
 		$category_id = end($parts);
 
-		if (isset($this->request->get['location'])) {
-			$location = (string)$this->request->get['location'];
-		} else {
-			$location = 'common/home';
-		}
-
-		$current_location = $this->url->link($location, 'language=' . $this->config->get('config_language') . $path);
+		$current_location = $this->url->link($route, 'language=' . $this->config->get('config_language') . $path);
 		$mt_filter_settings = $this->mtFilterSettings();
 		$filters = $mt_filter_settings['filters'];
 
@@ -944,21 +948,18 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			$option_filter_url = '';
 
 			foreach ($this->request->get['option_filter'] as $key => $value) {
-				$implode = [];
-
 				foreach ($value as $option_value) {
-					$implode[] = (int)$option_value;
+					$option_filter[$key][] = (int)$option_value;
 
 					$option_filter_url .= '&option_filter[' . $key . '][]=' . (int)$option_value;
 				}
-
-				$option_filter[$key] = implode(',', $implode);
 			}
 
 			$filter_settings = [
 				'option_values_id'	=> $option_filter,
 				'image'				=> !empty($filters['options']['image']) ? true : false
 			];
+			$data['fasafsfasafsafsafs'] = $filter_settings;
 
 			$options_data = $this->model_extension_mt_materialize_module_mt_filter->getOptionsByFilter($filter_settings);
 
@@ -1279,7 +1280,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 					'minimum'		=> $result['minimum'] > 0 ? $result['minimum'] : 1,
 					'rating'		=> round($rating, 1),
 					'reviews'		=> $reviews,
-					'href'			=> $this->url->link('product/product', 'language=' . $this->config->get('config_language') . $path . '&product_id=' . $result['product_id'] . $url)
+					'href'			=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&product_id=' . $result['product_id'] . $url)
 				];
 			}
 		}
@@ -1339,57 +1340,57 @@ class ControllerExtensionModuleMTFilter extends Controller {
 		$data['sorts'][] = [
 			'text'	=> $this->language->get('text_default'),
 			'value'	=> 'p.sort_order-ASC',
-			'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . '&sort=p.sort_order&order=ASC' . $url)
+			'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&sort=p.sort_order&order=ASC' . $url)
 		];
 
 		$data['sorts'][] = [
 			'text'	=> $this->language->get('text_name_asc'),
 			'value'	=> 'pd.name-ASC',
-			'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . '&sort=pd.name&order=ASC' . $url)
+			'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&sort=pd.name&order=ASC' . $url)
 		];
 
 		$data['sorts'][] = [
 			'text'	=> $this->language->get('text_name_desc'),
 			'value'	=> 'pd.name-DESC',
-			'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . '&sort=pd.name&order=DESC' . $url)
+			'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&sort=pd.name&order=DESC' . $url)
 		];
 
 		$data['sorts'][] = [
 			'text'	=> $this->language->get('text_price_asc'),
 			'value'	=> 'p.price-ASC',
-			'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . '&sort=p.price&order=ASC' . $url)
+			'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&sort=p.price&order=ASC' . $url)
 		];
 
 		$data['sorts'][] = [
 			'text'	=> $this->language->get('text_price_desc'),
 			'value'	=> 'p.price-DESC',
-			'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . '&sort=p.price&order=DESC' . $url)
+			'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&sort=p.price&order=DESC' . $url)
 		];
 
 		if ($this->config->get('config_review_status')) {
 			$data['sorts'][] = [
 				'text'	=> $this->language->get('text_rating_desc'),
 				'value'	=> 'rating-DESC',
-				'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . '&sort=rating&order=DESC' . $url)
+				'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&sort=rating&order=DESC' . $url)
 			];
 
 			$data['sorts'][] = [
 				'text'	=> $this->language->get('text_rating_asc'),
 				'value'	=> 'rating-ASC',
-				'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . '&sort=rating&order=ASC' . $url)
+				'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&sort=rating&order=ASC' . $url)
 			];
 		}
 
 		$data['sorts'][] = [
 			'text'	=> $this->language->get('text_model_asc'),
 			'value'	=> 'p.model-ASC',
-			'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . '&sort=p.model&order=ASC' . $url)
+			'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&sort=p.model&order=ASC' . $url)
 		];
 
 		$data['sorts'][] = [
 			'text'	=> $this->language->get('text_model_desc'),
 			'value'	=> 'p.model-DESC',
-			'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . '&sort=p.model&order=DESC' . $url)
+			'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . '&sort=p.model&order=DESC' . $url)
 		];
 
 		$url = '';
@@ -1456,7 +1457,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			$data['limits'][] = [
 				'text'	=> $value,
 				'value'	=> $value,
-				'href'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . $url . '&limit=' . $value)
+				'href'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . $url . '&limit=' . $value)
 			];
 		}
 
@@ -1522,7 +1523,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			'total'	=> $product_total,
 			'page'	=> $page,
 			'limit'	=> $limit,
-			'url'	=> $this->url->link($location, 'language=' . $this->config->get('config_language') . $path . $url . '&page={page}')
+			'url'	=> $this->url->link($route, 'language=' . $this->config->get('config_language') . $path . $url . '&page={page}')
 		]);
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($product_total - $limit)) ? $product_total : ((($page - 1) * $limit) + $limit), $product_total, ceil($product_total / $limit));

@@ -547,7 +547,8 @@ class ControllerExtensionModuleMTFilter extends Controller {
 	protected function installEvents() {
 		$this->load->model('setting/event');
 
-		$this->model_setting_event->addEvent('module_mt_filter_category_settings', 'catalog/view/product/category/before', 'extension/module/mt_filter/categoryProductPreSelected');
+		$this->model_setting_event->addEvent('module_mt_filter_category_settings', 'catalog/view/common/home/before', 'extension/module/mt_filter/preSelectedFilterItems');
+		$this->model_setting_event->addEvent('module_mt_filter_category_settings', 'catalog/view/product/category/before', 'extension/module/mt_filter/preSelectedFilterItems');
 	}
 
 	protected function uninstallEvents() {
