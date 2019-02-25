@@ -216,7 +216,7 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 	}
 
 	public function getAttributes($category_id) {
-		$sql = "SELECT DISTINCT pa.attribute_id, ad.name as name, pa.text as text FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute a ON (pa.attribute_id = a.attribute_id) LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (a.attribute_id = ad.attribute_id)";
+		$sql = "SELECT DISTINCT pa.attribute_id, ad.name, pa.text FROM " . DB_PREFIX . "product_attribute pa LEFT JOIN " . DB_PREFIX . "attribute a ON (pa.attribute_id = a.attribute_id) LEFT JOIN " . DB_PREFIX . "attribute_description ad ON (a.attribute_id = ad.attribute_id)";
 
 		if (!empty($category_id)) {
 			$sql .= " LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (pa.product_id = p2c.product_id)";
@@ -824,10 +824,6 @@ class ModelExtensionMTMaterializeModuleMTFilter extends Model {
 			if (in_array('manufacturers', $mt_filtering_settings['filters']['keyword'])) {
 				$sql .= " LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)";
 			}
-		}
-
-		if (!empty($data['default_filter'])) {
-			$sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pdf ON (p.product_id = pdf.product_id)";
 		}
 
 		if (!empty($data['default_filter'])) {

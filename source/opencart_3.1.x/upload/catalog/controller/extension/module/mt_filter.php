@@ -22,6 +22,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 		$mt_filter_settings = $this->mtFilterSettings();
 		$data['color'] = $mt_filter_settings['color'];
 		$filters = $mt_filter_settings['filters'];
+		$config_product_count = $this->config->get('config_product_count');
 
 		/*if (!empty($mt_filter_settings['layout']['horizontal'])) {
 			$data['horizontal'] = $mt_filter_settings['layout']['horizontal'];
@@ -74,6 +75,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 		$placeholder = $this->model_tool_image->resize('placeholder.png', 25, 25);
 
 		$data['mt_filters'] = [];
+		$data['mt_filters2'] = [];
 
 		$url = '';
 
@@ -174,31 +176,42 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			}
 
 			foreach ($results as $result) {
-				if (!empty($filters['sub_categories']['image'])) {
-					if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
-						$image = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), $image_width, $image_height);
-					} else {
-						$image = $placeholder;
-					}
+				if (!empty($filters['sub_categories']['image']) && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+					$image = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), $image_width, $image_height);
+				} else {
+					$image = $placeholder;
 				}
 
-				$sub_categories[] = [
-					'category_id'	=> (int)$result['category_id'],
-					'mt_filter_id'	=> 'mt-filter-sub-category-' . (int)$result['category_id'],
-					'name'			=> $result['name'],
-					'image'			=> !empty($filters['sub_categories']['image']) ? $image : false
+				if ($config_product_count) {
+					$filter_data = [
+						'category_id'			=> (int)$product_category,
+						'sub_category_filter'	=> (array)$result['category_id'],
+					];
+
+					$product_count = $this->model_extension_mt_materialize_module_mt_filter->getTotalProducts($filter_data);
+				} else {
+					$product_count = false;
+				}
+
+				$sub_categories[$filters['sub_categories']['description'][$this->config->get('config_language_id')]['name']][] = [
+					'mt_filter_id'				=> 'mt-filter-sub-category-' . (int)$result['category_id'],
+					'input_name'				=> 'sub_category_filter[]',
+					'filter_value'				=> (int)$result['category_id'],
+					'preselected'				=> !empty($preselected) ? in_array((int)$result['category_id'], $preselected) : false,
+					'name'						=> $result['name'],
+					'product_count'				=> $product_count,
+					'product_count_disabled'	=> $product_count ? false : true,
+					'image'						=> !empty($filters['sub_categories']['image']) ? $image : false
 				];
 			}
 
 			if (!empty($sub_categories)) {
 				$data['mt_filters'][] = [
-					'name'			=> $filters['sub_categories']['description'][$this->config->get('config_language_id')]['name'],
-					'type'			=> 'sub_categories',
+					'type'			=> 'sub_category',
 					'sort'			=> (int)$filters['sub_categories']['sort'],
 					'collapsible'	=> !empty($filters['sub_categories']['collapsible']) ? true : false,
 					'image'			=> !empty($filters['sub_categories']['image']) ? true : false,
 					'input_type'	=> $filters['sub_categories']['type'],
-					'preselected'	=> $preselected,
 					'value'			=> $sub_categories
 				];
 			}
@@ -273,31 +286,42 @@ class ControllerExtensionModuleMTFilter extends Controller {
 				}
 
 				foreach ($manufacturers_data as $manufacturer) {
-					if (!empty($filters['manufacturers']['image'])) {
-						if (is_file(DIR_IMAGE . html_entity_decode($manufacturer['image'], ENT_QUOTES, 'UTF-8'))) {
-							$image = $this->model_tool_image->resize(html_entity_decode($manufacturer['image'], ENT_QUOTES, 'UTF-8'), $image_width, $image_height);
-						} else {
-							$image = $placeholder;
-						}
+					if (!empty($filters['manufacturers']['image']) && is_file(DIR_IMAGE . html_entity_decode($manufacturer['image'], ENT_QUOTES, 'UTF-8'))) {
+						$image = $this->model_tool_image->resize(html_entity_decode($manufacturer['image'], ENT_QUOTES, 'UTF-8'), $image_width, $image_height);
+					} else {
+						$image = $placeholder;
 					}
 
-					$manufacturers[] = [
-						'manufacturer_id'	=> (int)$manufacturer['manufacturer_id'],
-						'mt_filter_id'		=> 'mt-filter-manufacturers-' . (int)$manufacturer['manufacturer_id'],
-						'name'				=> $manufacturer['name'],
-						'image'				=> !empty($filters['manufacturers']['image']) ? $image : false
+					if ($config_product_count) {
+						$filter_data = [
+							'category_id'			=> (int)$product_category,
+							'manufacturer_filter'	=> (array)$manufacturer['manufacturer_id'],
+						];
+
+						$product_count = $this->model_extension_mt_materialize_module_mt_filter->getTotalProducts($filter_data);
+					} else {
+						$product_count = false;
+					}
+
+					$manufacturers[$filters['manufacturers']['description'][$this->config->get('config_language_id')]['name']][] = [
+						'mt_filter_id'				=> 'mt-filter-manufacturer-' . (int)$manufacturer['manufacturer_id'],
+						'input_name'				=> 'manufacturer_filter[]',
+						'preselected'				=> !empty($preselected) ? in_array((int)$manufacturer['manufacturer_id'], $preselected) : false,
+						'filter_value'				=> (int)$manufacturer['manufacturer_id'],
+						'name'						=> $manufacturer['name'],
+						'product_count'				=> $product_count,
+						'product_count_disabled'	=> $product_count ? false : true,
+						'image'						=> !empty($filters['manufacturers']['image']) ? $image : false
 					];
 				}
 
 				if (!empty($manufacturers)) {
 					$data['mt_filters'][] = [
-						'name'			=> $filters['manufacturers']['description'][$this->config->get('config_language_id')]['name'],
-						'type'			=> 'manufacturers',
+						'type'			=> 'manufacturer',
 						'sort'			=> (int)$filters['manufacturers']['sort'],
 						'collapsible'	=> !empty($filters['manufacturers']['collapsible']) ? true : false,
 						'image'			=> !empty($filters['manufacturers']['image']) ? true : false,
 						'input_type'	=> $filters['manufacturers']['type'],
-						'preselected'	=> $preselected,
 						'value'			=> $manufacturers
 					];
 				}
@@ -308,7 +332,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			if (isset($this->request->get['attribute_filter'])) {
 				foreach ($this->request->get['attribute_filter'] as $key => $value) {
 					foreach ($value as $text) {
-						$preselected[$key][] = (string)$text;
+						$preselected[$key][] = strip_tags(html_entity_decode(trim((string)$text), ENT_QUOTES, 'UTF-8'));
 					}
 				}
 			} else {
@@ -321,22 +345,55 @@ class ControllerExtensionModuleMTFilter extends Controller {
 
 			if (!empty($attributes_data)) {
 				foreach ($attributes_data as $attribute) {
+					$attribute_filter = [];
+					$attribute_text = strip_tags(html_entity_decode(trim($attribute['text']), ENT_QUOTES, 'UTF-8'));
+
+					$attribute_filter[(int)$attribute['attribute_id']] = $attribute_text;
+
+					if ($config_product_count) {
+						$filter_data = [
+							'category_id'		=> (int)$product_category,
+							'attribute_filter'	=> $attribute_filter,
+						];
+
+						$product_count = $this->model_extension_mt_materialize_module_mt_filter->getTotalProducts($filter_data);
+					} else {
+						$product_count = false;
+					}
+					/*
+					foreach ($this->request->get['attribute_filter'] as $key => $value) {
+						$implode = [];
+
+						foreach ($value as $text) {
+							$implode[] = trim((string)$text);
+
+							$attribute_filter_url .= '&attribute_filter[' . $key . '][]=' . trim((string)$text);
+						}
+
+						$attribute_filter[$key] = implode(',', $implode);
+					}
+					*/
+
 					$attributes[$attribute['name']][] = [
-						'attribute_id'	=> (int)$attribute['attribute_id'],
-						'mt_filter_id'	=> 'mt-filter-attribute-' . strip_tags(html_entity_decode((int)$attribute['attribute_id'] . '-' . trim($attribute['text']), ENT_QUOTES, 'UTF-8')),
-						'text'			=> trim($attribute['text'])
+						'mt_filter_id'				=> 'mt-filter-attribute-' . (int)$attribute['attribute_id'] . '-' . strval($attribute_text),
+						'input_name'				=> 'attribute_filter[' . (int)$attribute['attribute_id'] . '][]',
+						'preselected'				=> !empty($preselected[(int)$attribute['attribute_id']]) ? in_array($attribute_text, $preselected[(int)$attribute['attribute_id']]) : false,
+						'filter_value'				=> $attribute_text,
+						'name'						=> $attribute_text,
+						'product_count'				=> $product_count,
+						'product_count_disabled'	=> isset($product_count) ? false : true,
+						'filter_data'				=> $filter_data
 					];
 				}
 			}
 
 			if (!empty($attributes)) {
 				$data['mt_filters'][] = [
-					'type'			=> 'attributes',
+					'type'			=> 'attribute',
 					'sort'			=> (int)$filters['attributes']['sort'],
 					'collapsible'	=> !empty($filters['attributes']['collapsible']) ? true : false,
 					'input_type'	=> $filters['attributes']['type'],
 					'explanation'	=> !empty($filters['attributes']['explanation']) ? true : false,
-					'preselected'	=> $preselected,
 					'value'			=> $attributes
 				];
 			}
@@ -877,14 +934,14 @@ class ControllerExtensionModuleMTFilter extends Controller {
 
 				$manufacturer_filters[] = [
 					'manufacturer_id'	=> $result['manufacturer_id'],
-					'mt_filter_id'		=> 'mt-filter-manufacturers-' . (int)$result['manufacturer_id'],
+					'mt_filter_id'		=> 'mt-filter-manufacturer-' . (int)$result['manufacturer_id'],
 					'name'				=> $result['name'],
 					'image'				=> !empty($filters['manufacturers']['image']) ? $image : false
 				];
 			}
 
 			$data['mt_filters'][] = [
-				'type'	=> 'manufacturers',
+				'type'	=> 'manufacturer',
 				'sort'	=> (int)$filters['manufacturers']['sort'],
 				'value'	=> $manufacturer_filters
 			];
@@ -926,7 +983,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 			foreach ($attributes_data as $result) {
 				$attributes[] = [
 					'attribute_id'	=> (int)$result['attribute_id'],
-					'mt_filter_id'	=> 'mt-filter-attribute-' . strip_tags(html_entity_decode((int)$result['attribute_id'] . '-' . trim($result['text']), ENT_QUOTES, 'UTF-8')),
+					'mt_filter_id'	=> 'mt-filter-attribute-' . (int)$result['attribute_id'] . '-' . utf8_encode(strip_tags(html_entity_decode(trim((string)$result['text']), ENT_QUOTES, 'UTF-8'))),
 					'name'			=> (string)$result['name'] . ": " . (string)$result['text']
 				];
 			}
