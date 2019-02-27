@@ -75,7 +75,6 @@ class ControllerExtensionModuleMTFilter extends Controller {
 		$placeholder = $this->model_tool_image->resize('placeholder.png', 25, 25);
 
 		$data['mt_filters'] = [];
-		$data['mt_filters2'] = [];
 
 		$url = '';
 
@@ -195,7 +194,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 
 				$sub_categories[$filters['sub_categories']['description'][$this->config->get('config_language_id')]['name']][] = [
 					'mt_filter_id'				=> 'mt-filter-sub-category-' . (int)$result['category_id'],
-					'input_name'				=> 'sub_category_filter[]',
+					'input_names'				=> false,
 					'filter_value'				=> (int)$result['category_id'],
 					'preselected'				=> !empty($preselected) ? in_array((int)$result['category_id'], $preselected) : false,
 					'name'						=> $result['name'],
@@ -212,6 +211,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 					'collapsible'	=> !empty($filters['sub_categories']['collapsible']) ? true : false,
 					'image'			=> !empty($filters['sub_categories']['image']) ? true : false,
 					'input_type'	=> $filters['sub_categories']['type'],
+					'input_name'	=> 'sub_category_filter[]',
 					'value'			=> $sub_categories
 				];
 			}
@@ -305,7 +305,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 
 					$manufacturers[$filters['manufacturers']['description'][$this->config->get('config_language_id')]['name']][] = [
 						'mt_filter_id'				=> 'mt-filter-manufacturer-' . (int)$manufacturer['manufacturer_id'],
-						'input_name'				=> 'manufacturer_filter[]',
+						'input_names'				=> false,
 						'preselected'				=> !empty($preselected) ? in_array((int)$manufacturer['manufacturer_id'], $preselected) : false,
 						'filter_value'				=> (int)$manufacturer['manufacturer_id'],
 						'name'						=> $manufacturer['name'],
@@ -322,6 +322,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 						'collapsible'	=> !empty($filters['manufacturers']['collapsible']) ? true : false,
 						'image'			=> !empty($filters['manufacturers']['image']) ? true : false,
 						'input_type'	=> $filters['manufacturers']['type'],
+						'input_name'	=> 'manufacturer_filter[]',
 						'value'			=> $manufacturers
 					];
 				}
@@ -360,6 +361,7 @@ class ControllerExtensionModuleMTFilter extends Controller {
 					} else {
 						$product_count = false;
 					}
+
 					/*
 					foreach ($this->request->get['attribute_filter'] as $key => $value) {
 						$implode = [];
@@ -373,16 +375,34 @@ class ControllerExtensionModuleMTFilter extends Controller {
 						$attribute_filter[$key] = implode(',', $implode);
 					}
 					*/
-
-					$attributes[$attribute['name']][] = [
-						'mt_filter_id'				=> 'mt-filter-attribute-' . (int)$attribute['attribute_id'] . '-' . strval($attribute_text),
-						'input_name'				=> 'attribute_filter[' . (int)$attribute['attribute_id'] . '][]',
+					$input_values[(int)$attribute['attribute_id']][] = [
+						'mt_filter_id'				=> 'mt-filter-attribute-' . (int)$attribute['attribute_id'] . '-' . (string)$attribute_text,
+						'name'						=> $attribute_text,
+						'value'						=> $attribute_text,
 						'preselected'				=> !empty($preselected[(int)$attribute['attribute_id']]) ? in_array($attribute_text, $preselected[(int)$attribute['attribute_id']]) : false,
+						'product_count'				=> (int)$product_count,
+						'product_count_disabled'	=> isset($product_count) ? false : true
+					];
+
+					/*$input_values[] = [
+						'mt_filter_id'				=> 'mt-filter-attribute-' . (int)$attribute['attribute_id'] . '-' . (string)$attribute_text,
+						'name'						=> $attribute_text,
+						'value'						=> $attribute_text,
+						'preselected'				=> !empty($preselected[(int)$attribute['attribute_id']]) ? in_array($attribute_text, $preselected[(int)$attribute['attribute_id']]) : false,
+						'product_count'				=> (int)$product_count,
+						'product_count_disabled'	=> isset($product_count) ? false : true
+					];*/
+
+					$attributes[$attribute['name']] = [
+						/*'value_id'					=> (int)$attribute['attribute_id'],
+						'mt_filter_id'				=> 'mt-filter-attribute-' . (int)$attribute['attribute_id'] . '-' . strval($attribute_text),*/
+						'input_name'				=> 'attribute_filter[' . (int)$attribute['attribute_id'] . '][]',
+						/*'preselected'				=> !empty($preselected[(int)$attribute['attribute_id']]) ? in_array($attribute_text, $preselected[(int)$attribute['attribute_id']]) : false,
 						'filter_value'				=> $attribute_text,
 						'name'						=> $attribute_text,
 						'product_count'				=> $product_count,
-						'product_count_disabled'	=> isset($product_count) ? false : true,
-						'filter_data'				=> $filter_data
+						'product_count_disabled'	=> isset($product_count) ? false : true,*/
+						'input_values'				=> $input_values[(int)$attribute['attribute_id']]
 					];
 				}
 			}
@@ -393,8 +413,9 @@ class ControllerExtensionModuleMTFilter extends Controller {
 					'sort'			=> (int)$filters['attributes']['sort'],
 					'collapsible'	=> !empty($filters['attributes']['collapsible']) ? true : false,
 					'input_type'	=> $filters['attributes']['type'],
+					'input_name'	=> false,
 					'explanation'	=> !empty($filters['attributes']['explanation']) ? true : false,
-					'value'			=> $attributes
+					'value'			=> $attributes,
 				];
 			}
 		}

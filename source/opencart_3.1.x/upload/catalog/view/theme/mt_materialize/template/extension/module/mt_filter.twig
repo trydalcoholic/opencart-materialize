@@ -4,8 +4,56 @@
 		<ul class="collection with-header mt-filter{{ horizontal ? ' horizontal' : ' collapsible expandable' }} z-depth-1 {{ color.common.background.name }} {{ color.common.text.name }}">
 			<li class="collection-header mt-filters-item {{ color.header.background.name }} {{ color.header.text.name }}"><h4>{{ module_name }}</h4></li>
 			{% for mt_filter in mt_filters %}
-				{% if mt_filter.type == 'price' and mt_filter.value %}
-					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}"> {# todo-materiliaze Set color from color scheme #}
+				{% for name, inputs_data in mt_filter.value %}
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
+						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ name }}</b></div>
+						<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
+							{% if mt_filter.input_type == 'select_single' or mt_filter.type == 'select_multiple' %}
+								<div class="input-field">
+									<select name="{{ inputs_data.input_name }}"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
+										<option value=""{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
+										{% for input_value in inputs_data.input_values %}
+											<option value="{{ input_value.value }}" id="{{ input_value.mt_filter_id }}"{% if input_value.image %} data-icon="{{ input_value.image }}"{% endif %}{{ input_value.preselected ? ' checked="checked"' }}{{ input_value.product_count_disabled ? ' disabled' }}>{{ input_value.name }}{% if input_value.product_count is not null %} ({{ input_value.product_count }}){% endif %}</option>
+										{% endfor %}
+									</select>
+								</div>
+							{% else %}
+								<ul>
+									{% for input_value in inputs_data.input_values %}
+										<li class="mt-filter-item">
+											{% if mt_filter.input_type == 'checkbox' %}
+												<label class="mt-filter-item--checkbox">
+													{% if input_value.image %}<img src="{{ input_value.image }}" alt="{{ input_value.name }}">{% endif %}
+													<input type="checkbox" name="{{ inputs_data.input_name }}" value="{{ input_value.value }}" id="{{ input_value.mt_filter_id }}" class="filled-in"{{ input_value.preselected ? ' checked="checked"' }}{{ input_value.product_count_disabled ? ' disabled' }}>
+													<span>{{ input_value.name }}{% if input_value.product_count is not null %} ({{ input_value.product_count }}){% endif %}</span>
+												</label>
+											{% endif %}
+											{#{% if mt_filter.input_type == 'radio' %}
+												<label class="mt-filter-item--radio">
+													{% if value.image %}<img src="{{ value.image }}" alt="{{ value.name }}">{% endif %}
+													<input type="radio" name="{{ value.input_name }}" value="{{ value.filter_value }}" id="{{ value.mt_filter_id }}" class="with-gap"{{ value.preselected ? ' checked="checked"' }}>
+													<span>{{ value.name }}</span>
+												</label>
+											{% endif %}
+											{% if mt_filter.input_type == 'switches' %}
+												<div class="switch">
+													<label class="mt-filter-item--switch">
+														{% if value.image %}<img src="{{ value.image }}" alt="{{ value.name }}">{% endif %} #}{# todo-materialize To set styles for images #}{#
+														{{ value.name }} #}{# todo-materialize Set styles for all "switches" so that they are on the right #}{#
+														<input type="checkbox" name="{{ value.input_name }}" value="{{ value.filter_value }}" id="{{ value.mt_filter_id }}"{{ value.preselected ? ' checked="checked"' }}>
+														<span class="lever"></span>
+													</label>
+												</div>
+											{% endif %}#}
+										</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+						</div>
+					</li>
+				{% endfor %}
+				{#{% if mt_filter.type == 'price' and mt_filter.value %}
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}"> #}{# todo-materiliaze Set color from color scheme #}{#
 						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><span><b>{{ mt_filter.name }} <span id="span-price-range-min">{{ prices.min_price }}</span> — <span id="span-price-range-max">{{ prices.max_price }}</span></b></span></div>
 						<div class="mt-filter-content collapsible-body">
 							<div id="slider-prices" class="mt-filters-item--filter-sliders {{ color.slider.secondary_background.name }}"></div>
@@ -15,7 +63,7 @@
 					</li>
 				{% endif %}
 				{% if mt_filter.type == 'keyword' %}
-					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}"> {# todo-materiliaze Set color from color scheme #}
+					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}"> #}{# todo-materiliaze Set color from color scheme #}{#
 						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><span><b>{{ mt_filter.name }}</b></span></div>
 						<div class="mt-filter-content collapsible-body">
 							<div class="input-field">
@@ -25,7 +73,7 @@
 						</div>
 					</li>
 				{% endif %}
-				{#{% if mt_filter.type == 'sub_categories' %}
+				{% if mt_filter.type == 'sub_categories' %}
 					<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
 						<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}">
 							<span><b>{{ mt_filter.name }}</b></span>
@@ -87,14 +135,14 @@
 													<label class="mt-filter-item--switch">
 														{% if sub_category.category_id in mt_filter.preselected %}
 															{% if sub_category.image %}
-																<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}"> #}{# todo-materialize To set styles for images #}{#
+																<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">  todo-materialize To set styles for images
 															{% endif %}
-															{{ sub_category.name }} #}{# todo-materialize Set styles for all "switches" so that they are on the right #}{#
+															{{ sub_category.name }}  todo-materialize Set styles for all "switches" so that they are on the right
 															<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}" checked="checked">
 															<span class="lever"></span>
 														{% else %}
 															{% if sub_category.image %}
-																<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}"> #}{# todo-materialize To set styles for images #}{#
+																<img src="{{ sub_category.image }}" alt="{{ sub_category.name }}">  todo-materialize To set styles for images
 															{% endif %}
 															{{ sub_category.name }}
 															<input type="checkbox" name="sub_category_filter[]" value="{{ sub_category.category_id }}" id="{{ sub_category.mt_filter_id }}">
@@ -109,7 +157,7 @@
 							{% endif %}
 						</div>
 					</li>
-				{% endif %}#}
+				{% endif %}
 				{% if mt_filter.type == 'default_filters' %}
 					{% for filter_group in mt_filter.value %}
 						<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
@@ -178,67 +226,15 @@
 						</li>
 					{% endfor %}
 				{% endif %}
-					{% for name, values in mt_filter.value %}
-						<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-							<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ name }}</b></div>
-							<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
-								{% if mt_filter.input_type == 'select_single' or mt_filter.type == 'select_multiple' %}
-									<div class="input-field">
-										<select name="manufacturer_filter[]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>
-											<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
-											{% for manufacturer in mt_filter.value %}
-												{% if manufacturer.manufacturer_id in mt_filter.preselected %}
-													<option value="{{ manufacturer.manufacturer_id }}" id="{{ manufacturer.mt_filter_id }}" selected{% if manufacturer.image %} data-icon="{{ manufacturer.image }}"{% endif %}>{{ manufacturer.name }}</option>
-												{% else %}
-													<option value="{{ manufacturer.manufacturer_id }}" id="{{ manufacturer.mt_filter_id }}"{% if manufacturer.image %} data-icon="{{ manufacturer.image }}"{% endif %}>{{ manufacturer.name }}</option>
-												{% endif %}
-											{% endfor %}
-										</select>
-									</div>
-								{% else %}
-									<ul>
-										{% for value in values %}
-											<li class="mt-filter-item">
-												{% if mt_filter.input_type == 'checkbox' %}
-													<label class="mt-filter-item--checkbox">
-														{% if value.image %}<img src="{{ value.image }}" alt="{{ value.name }}">{% endif %}
-														<input type="checkbox" name="{{ value.input_name }}" value="{{ value.filter_value }}" id="{{ value.mt_filter_id }}" class="filled-in"{{ value.preselected ? ' checked="checked"' }}{{ value.product_count_disabled ? ' disabled' }}>
-														<span>{{ value.name }}{% if value.product_count is not null %} ({{ value.product_count }}){% endif %}</span>
-													</label>
-												{% endif %}
-												{% if mt_filter.input_type == 'radio' %}
-													<label class="mt-filter-item--radio">
-														{% if value.image %}<img src="{{ value.image }}" alt="{{ value.name }}">{% endif %}
-														<input type="radio" name="{{ value.input_name }}" value="{{ value.filter_value }}" id="{{ value.mt_filter_id }}" class="with-gap"{{ value.preselected ? ' checked="checked"' }}>
-														<span>{{ value.name }}</span>
-													</label>
-												{% endif %}
-												{% if mt_filter.input_type == 'switches' %}
-													<div class="switch">
-														<label class="mt-filter-item--switch">
-															{% if value.image %}<img src="{{ value.image }}" alt="{{ value.name }}">{% endif %} {# todo-materialize To set styles for images #}
-															{{ value.name }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
-															<input type="checkbox" name="{{ value.input_name }}" value="{{ value.filter_value }}" id="{{ value.mt_filter_id }}"{{ value.preselected ? ' checked="checked"' }}>
-															<span class="lever"></span>
-														</label>
-													</div>
-												{% endif %}
-											</li>
-										{% endfor %}
-									</ul>
-								{% endif %}
-							</div>
-						</li>
-					{% endfor %}
-				{#{% if mt_filter.type == 'attributes' %}
+				{% if mt_filter.type == 'attributes' %}
 					<pre>{{ dump(mt_filter) }}</pre>
 					{% for name, attribute in mt_filter.value %}
 						<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
-							<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ name }}</b>{% if mt_filter.explanation %}<span class="material-icons mt-filters-item--tooltiped tooltipped-html grey-text" data-position="right" data-tooltip="<b>I am a tooltip</b><br>Hello!">help_outline</span>{% endif %} #}{# todo-materiliaze Set color from color scheme #}{#</div>
+							<div class="mt-filter-title collapsible-header waves-effect {{ color.header.background.name }} {{ color.header.text.name }}"><b>{{ name }}</b>{% if mt_filter.explanation %}<span class="material-icons mt-filters-item--tooltiped tooltipped-html grey-text" data-position="right" data-tooltip="<b>I am a tooltip</b><br>Hello!">help_outline</span>{% endif %}  todo-materiliaze Set color from color scheme </div>
 							<div class="mt-filter-content collapsible-body"{% if mt_filter.type != 'select_single' and mt_filter.type != 'select_multiple' %} data-simplebar{% endif %}>
 								{% if mt_filter.input_type == 'select_single' or mt_filter.type == 'select_multiple' %}
 									<div class="input-field">
-										<select name="attribute_filter[{{ value.attribute_id }}][]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}> #}{# todo-materialize It's stupid and it works wrong! #}{#
+										<select name="attribute_filter[{{ value.attribute_id }}][]"{% if mt_filter.type == 'select_multiple' %} multiple{% endif %}>  todo-materialize It's stupid and it works wrong!
 											<option value="0"{% if mt_filter.type == 'select_multiple' %} disabled{% endif %}>{{ text_select }}</option>
 											{% for value in attribute %}
 												{% if value.text in mt_filter.preselected[value.attribute_id] %}
@@ -279,7 +275,7 @@
 													<div class="switch">
 														<label class="mt-filter-item--switch">
 															{% if value.attribute_id in mt_filter.preselected[value.attribute_id] %}
-																{{ value.text }} #}{# todo-materialize Set styles for all "switches" so that they are on the right #}{#
+																{{ value.text }}  todo-materialize Set styles for all "switches" so that they are on the right
 																<input type="checkbox" name="attribute_filter[]" value="{{ value.attribute_id }}" id="{{ value.mt_filter_id }}" checked="checked">
 																<span class="lever"></span>
 															{% else %}
@@ -297,7 +293,7 @@
 							</div>
 						</li>
 					{% endfor %}
-				{% endif %}#}
+				{% endif %}
 				{% if mt_filter.type == 'options' %}
 					{% for option in mt_filter.value %}
 						<li class="collection-item mt-filters-item arrow-rotate{{ mt_filter.collapsible ? ' active' }}">
@@ -355,7 +351,7 @@
 																<img src="{{ option_value.image }}" alt="{{ option_value.name }}">
 															{% endif %}
 															{% if option_value.option_value_id in mt_filter.preselected %}
-																{{ option_value.name }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
+																{{ option_value.name }} #}{# todo-materialize Set styles for all "switches" so that they are on the right #}{#
 																<input type="checkbox" name="option_filter[{{ option.option_id }}][]" value="{{ option_value.option_value_id }}" id="{{ option_value.mt_filter_id }}" checked="checked">
 																<span class="lever"></span>
 															{% else %}
@@ -409,7 +405,7 @@
 											</label>
 										{% endif %}
 										{% if mt_filter.input_type == 'radio' %}
-											<label class="mt-filter-item--radio"> {# todo-materialize Customize radio button rating styles #}
+											<label class="mt-filter-item--radio"> #}{# todo-materialize Customize radio button rating styles #}{#
 												{% if rating.rating_id in mt_filter.preselected %}
 													<input type="radio" name="rating_filter[]" value="{{ rating.rating_id }}" id="{{ rating.mt_filter_id }}" class="with-gap" checked="checked">
 													<span class="rating rating-filter">
@@ -446,7 +442,7 @@
 																{% else %}
 																	<i class="material-icons yellow-text text-accent-4">star</i>
 																{% endif %}
-															{% endfor %} {# todo-materialize Set styles for all "switches" so that they are on the right #}
+															{% endfor %} #}{# todo-materialize Set styles for all "switches" so that they are on the right #}{#
 														</span>
 														<input type="checkbox" name="rating_filter[]" value="{{ rating.rating_id }}" id="{{ rating.mt_filter_id }}" checked="checked">
 														<span class="lever"></span>
@@ -519,7 +515,7 @@
 												<div class="switch">
 													<label class="mt-filter-item--switch">
 														{% if stock_status.stock_status_id in mt_filter.preselected %}
-															{{ stock_status.name }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
+															{{ stock_status.name }} #}{# todo-materialize Set styles for all "switches" so that they are on the right #}{#
 															<input type="checkbox" name="stock_status_filter[]" value="{{ stock_status.stock_status_id }}" id="{{ stock_status.mt_filter_id }}" checked="checked">
 															<span class="lever"></span>
 														{% else %}
@@ -561,7 +557,7 @@
 											<label class="mt-filter-item--switch">
 												{% for product_special in mt_filter.value %}
 													{% if product_special.discount_id in mt_filter.preselected %}
-														{{ text_yes }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
+														{{ text_yes }} #}{# todo-materialize Set styles for all "switches" so that they are on the right #}{#
 														<input type="checkbox" name="product_special_filter" value="1" id="{{ product_special.mt_filter_id }}" checked="checked">
 														<span class="lever"></span>
 													{% else %}
@@ -602,7 +598,7 @@
 											<label class="mt-filter-item--switch">
 												{% for review in mt_filter.value %}
 													{% if review.review_id in mt_filter.preselected %}
-														{{ text_yes }} {# todo-materialize Set styles for all "switches" so that they are on the right #}
+														{{ text_yes }} #}{# todo-materialize Set styles for all "switches" so that they are on the right #}{#
 														<input type="checkbox" name="review_filter" value="1" id="{{ review.mt_filter_id }}" checked="checked">
 														<span class="lever"></span>
 													{% else %}
@@ -618,7 +614,7 @@
 							</ul>
 						</div>
 					</li>
-				{% endif %}
+				{% endif %}#}
 			{% endfor %}
 			<li class="collection-item mt-filters-item mt-filters-item--button flex-reverse">
 				<button type="button" id="button-materialize-filter" class="btn waves-effect {{ color.apply_button.background.name }} {{ color.apply_button.text.name }}">{{ button_filter }}</button>
@@ -687,6 +683,7 @@
 	</script>
 	<style>
 		.mt-filter-content.collapsible-body {
+			min-height: 200px;
 			height: auto; {# todo-materiliaze Set color from color scheme #}
 		}
 
