@@ -1,0 +1,116 @@
+/**
+ * @package     Materialize Template
+ * @author      Anton Semenov
+ * @copyright   Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
+ * @license     https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
+ * @link        https://github.com/trydalcoholic/opencart-materialize
+ */
+
+.sidenav .mt-filter {
+	margin: 0;
+}
+
+.mt-filter {
+	border: none;
+}
+
+.mt-filters-item {
+	padding-left: 20px !important;
+	background-color: inherit !important;
+}
+
+.noUi-handle-touch-area {
+	z-index: 5; /* todo-materiliaze Correction of work of sliders for touchscreen devices. It is necessary to check the performance! */
+}
+
+.rating.rating-filter {
+	height: 25px !important;
+}
+
+.rating-filter .material-icons {
+	letter-spacing: -5px;
+}
+
+.mt-filter.horizontal .mt-filters-item {
+	display: flex;
+	align-items: center;
+}
+
+.mt-filter-content {
+	width: 100%;
+	padding-left: 10px;
+}
+
+.collapsible.collection .collection-item.mt-filters-item {
+	padding: 0;
+	padding-left: 0 !important;
+	color: inherit;
+}
+
+.mt-filter-title > span {
+	padding-right: calc(1rem + 24px);
+}
+
+.mt-filter-title.collapsible-header {
+	border-bottom: none;
+}
+
+.mt-filter-content.collapsible-body {
+	padding: 10px 20px;
+	border-bottom: none;
+}
+
+.mt-filters-item--filter-sliders {
+	margin: 30px 0;
+}
+
+.mt-filter-title.arrow-rotate {
+	margin-right: 20px;
+}
+
+.mt-filters-item--button {
+	padding: 10px !important;
+}
+
+.mt-filters-item--tooltiped {
+	font-size: 1em !important;
+	line-height: 1em !important;
+	margin: 0 5px;
+}
+
+.sidenav .mt-filter-title.collapsible-header {
+	padding: 15px;
+}
+
+.mt-filter-item {
+	min-height: 2.2em;
+}
+
+.mt-filter-item img {
+	margin-right: 10px;
+	height: 25px;
+}
+
+.mt-filter-item label {
+	font-size: 1rem;
+}
+
+.mt-filter-item--checkbox, .mt-filter-item--radio {
+	display: flex;
+}
+
+.mt-filter-item--checkbox span, .mt-filter-item--radio span {
+	height: auto !important;
+}
+
+.mt-filter-item--switch {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.mt-filter-item--switch span.lever {
+	min-width: 36px;
+	margin-left: auto;
+	margin-right: 0;
+}

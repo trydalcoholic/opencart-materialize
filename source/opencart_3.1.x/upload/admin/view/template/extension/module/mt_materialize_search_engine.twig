@@ -1,0 +1,99 @@
+{{ header }}{{ column_left }}
+<div id="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>{{ module_title }}</h1>
+			<ol class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ol>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module">
+			{% if error_warning %}
+				<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> {{ error_warning }}
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				</div>
+			{% endif %}
+			<div class="row">
+				<div class="col-sm-12 col-md-9">
+					<div class="card">
+					<div class="card-header">
+						<ul class="nav nav-tabs card-header-tabs" style="margin-bottom: -0.75rem;">
+							<li class="nav-item"><a href="#tab-settings" data-toggle="tab" class="nav-link active">Настройки</a></li> <!-- todo-materialize Must be placed in a language variable -->
+							<li class="nav-item"><a href="#tab-live-search" data-toggle="tab" class="nav-link">Живой поиск</a></li> <!-- todo-materialize Must be placed in a language variable -->
+							<li class="nav-item"><a href="#tab-searching" data-toggle="tab" class="nav-link">Что искать</a></li> <!-- todo-materialize Must be placed in a language variable -->
+							<li class="nav-item"><a href="#tab-change-keyboard" data-toggle="tab" class="nav-link">Смена раскладки</a></li> <!-- todo-materialize Must be placed in a language variable -->
+							<li class="nav-item"><a href="#tab-relevance" data-toggle="tab" class="nav-link">Релевантность</a></li> <!-- todo-materialize Must be placed in a language variable -->
+							<li class="nav-item"><a href="#tab-morphology" data-toggle="tab" class="nav-link">Морфология</a></li> <!-- todo-materialize Must be placed in a language variable -->
+						</ul>
+					</div>
+					<div class="card-body">
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab-settings">
+								<ul class="list-group">
+									<li class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h5 class="font-weight-bold mt-0 mb-1">Замена поискового движка</h5> <!-- todo-materialize Must be placed in a language variable -->
+												<p>Заменить стандартный поисковик OpenCart на поисковик "Materialize Search Engine" для стандарного поиска по сайту. Данная настройка не обязательна для работы "Живого поиска" или сбора статистики.</p> <!-- todo-materialize Must be placed in a language variable -->
+											</div>
+											<div class="pure-css-switch align-self-center">
+												<label>
+													<input class="simple-switch-input" type="checkbox" checked="checked"><span class="simple-switch dark"></span>
+												</label>
+											</div>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="media">
+											<div class="media-body">
+												<h5 class="font-weight-bold mt-0 mb-1">Сбор статистики</h5> <!-- todo-materialize Must be placed in a language variable -->
+												<p>Materialize Search Engine начнёт вести статистику поисковых запросов. Задержка перед началом поиска будет иметь минимальное значение 600 мс.</p> <!-- todo-materialize Must be placed in a language variable -->
+											</div>
+											<div class="pure-css-switch align-self-center">
+												<label>
+													<input class="simple-switch-input" type="checkbox" checked="checked"><span class="simple-switch dark"></span>
+												</label>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="tab-pane" id="tab-live-search"></div>
+							<div class="tab-pane" id="tab-searching"></div>
+							<div class="tab-pane" id="tab-change-keyboard"></div>
+							<div class="tab-pane" id="tab-relevance"></div>
+							<div class="tab-pane" id="tab-morphology"></div>
+						</div>
+					</div>
+					<div class="card-footer text-center">Materialize 2017 - 2018</div>
+				</div>
+				</div>
+				<div class="col-sm-12 col-md-3">
+					<div class="card">
+						<div class="card-header">{{ entry_status }}</div>
+						<div class="card-body">
+							<select name="module_mt_materialize_search_engine_status" id="input-status" class="form-control">
+								{% if module_mt_materialize_search_engine_status %}
+									<option value="1" selected="selected">{{ text_enabled }}</option>
+									<option value="0">{{ text_disabled }}</option>
+								{% else %}
+									<option value="1">{{ text_enabled }}</option>
+									<option value="0" selected="selected">{{ text_disabled }}</option>
+								{% endif %}
+							</select>
+						</div>
+						<div class="card-footer d-flex">
+							<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-light"><i class="fas fa-reply"></i> {{ button_cancel }}</a>
+							<button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary ml-auto"><i class="fas fa-save"></i> {{ button_save }}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{{ footer }}

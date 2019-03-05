@@ -1,0 +1,124 @@
+.materialize-content {
+	font-family: 'Roboto', sans-serif;
+}
+
+.materialize-list {
+	font-size: 1rem;
+	font-weight: 400;
+	color: rgba(0,0,0,.87);
+	margin: 0;
+	padding: 8px 0;
+	line-height: 1.5rem;
+	list-style-type: none;
+	border: 1px solid rgba(0,0,0,.1);
+	cursor: default;
+
+	.materialize-list-item {
+		display: flex;
+		position: relative;
+		align-items: center;
+		justify-content: flex-start;
+		padding: 0 16px 16px;
+		flex-wrap: wrap;
+
+		.materialize-list-item__icon {
+			position: relative;
+			margin-left: 0;
+			margin-right: 16px;
+			width: 1.7em;
+			height: 1.7em;
+			font-size: 1.7em;
+			line-height: 1.7em;
+			display: inline-flex;
+			flex-shrink: 0;
+			align-items: center;
+			justify-content: center;
+			color: rgba(0,0,0,.38);
+		}
+
+		.materialize-list-item__text {
+			align-self: flex-start;
+			overflow: hidden;
+			width: calc(100% - 9em);
+		}
+
+		.materialize-list-item__primary-text {
+			margin-top: 0;
+			line-height: normal;
+			margin-bottom: -20px;
+			display: block;
+			font-weight: 500;
+		}
+
+		.materialize-list-item__primary-text:before {
+			display: inline-block;
+			width: 0;
+			height: 32px;
+			content: "";
+			vertical-align: 0;
+		}
+
+		.materialize-list-item__primary-text:after {
+			display: inline-block;
+			width: 0;
+			height: 20px;
+			content: "";
+			vertical-align: -20px;
+		}
+
+		.materialize-list-item__secondary-text {
+			font-size: .875rem;
+			font-weight: 400;
+			letter-spacing: .01786em;
+			line-height: normal;
+			display: block;
+			color: rgba(0,0,0,.54);
+		}
+
+		.materialize-list-item__secondary-text:before {
+			display: inline-block;
+			width: 0;
+			height: 20px;
+			content: "";
+			vertical-align: 0;
+		}
+
+		.materialize-list-item__data {
+			margin-left: auto;
+			margin-right: 0;
+			display: inline-block;
+			position: relative;
+			flex: 0 0 18px;
+		}
+	}
+
+	.materialize-list-item:hover {
+		background-color: #f5f5f5;
+	}
+
+	.materialize-list-item.non-hover:hover {
+		background-color: #ffffff;
+	}
+
+	.materialize-list-divider {
+		height: 0;
+		margin: 0;
+		border: none;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		border-bottom-color: rgba(0,0,0,.12);
+	}
+}
+
+.required:after {
+	font-family: "Font Awesome 5 Free";
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	content: '\f069';
+	color: #F00;
+	font-weight: bold;
+	position: absolute;
+	top: -12px;
+	right: 6px;
+	font-size: .5rem;
+}

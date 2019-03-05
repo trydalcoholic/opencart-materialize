@@ -1,0 +1,55 @@
+{# todo-materiliazeSpecify the maximum height of the drop-down list from the admin panel #}
+{# todo-materiliazeAdd simplebar plugin https://github.com/Grsmto/simplebar #}
+<div class="materialize-menu-wrapper hide-on-small-only">
+	<button type="button" id="category" class="btn waves-effect transparent z-depth-0">
+		<span id="category-icon" class="animated-icon menu-cross">
+			<span class="ani white"></span> {# todo-materiliazeSet color from color scheme #}
+		</span>
+		<span>{{ text_category }}</span>
+	</button>
+	<nav id="menu-wrapper" class="materialize-menu transparent z-depth-0">
+		{% if categories %}
+			<ul id="menu" class="materialize-menu-content z-depth-2 white"> {# todo-materiliazeSet color from color scheme #}
+				{% for category in categories %}
+					{% if category.children %}
+						<li class="materialize-menu-content__item materialize-submenu-content__item">
+							<a href="{{ category.href }}" class="materialize-menu-content__item--link black-text waves-effect">{{ category.name }}<div class="category-right-arrow"></div></a> {# todo-materiliazeSet color from color scheme #}
+							<div class="materialize-menu-content materialize-menu-submenu z-depth-2 white"> {# todo-materiliaze Set color from color scheme #}
+								{% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+									<ul>
+										{% for child in children %}
+											<li class="materialize-menu-content__item">
+												<a href="{{ child.href }}" class="materialize-menu-content__item--link materialize-submenu-content__item--link black-text waves-effect">{{ child.name }}</a> {# todo-materiliazeSet color from color scheme #}
+											</li>
+										{% endfor %}
+									</ul>
+								{% endfor %}
+							</div>
+						</li>
+					{% else %}
+						<li class="materialize-menu-content__item">
+							<a href="{{ category.href }}" class="materialize-menu-content__item--link black-text waves-effect">{{ category.name }}</a> {# todo-materiliazeSet color from color scheme #}
+						</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		{% endif %}
+	</nav>
+</div>
+<script>
+	$('#menu').superfish({/*
+		popUpSelector: 'ul',
+		hoverClass: 'materialize-menu-content__item--hover',*/
+		popUpSelector: 'div.materialize-menu-submenu',
+		hoverClass: 'materialize-menu-content__item--hover',
+		delay: 800,
+		speed: 150,
+		speedOut: 150,
+		animation: {
+			opacity: 'show'
+		},
+		animationOut: {
+			opacity: 'hide'
+		}
+	}).mtMenu();
+</script>

@@ -1,0 +1,419 @@
+{% if mt_filters %}
+	{% for mt_filter in mt_filters %}
+		{% if mt_filter.type == 'price' %}
+			<div class="chip mt-chip-input waves-effect">
+				<span class="mt-chip__text">{{ mt_filter.value }}</span>
+				<i class="material-icons waves-effect waves-circle mt-chip__close" data-mt-filter-id="mt-filter-price">cancel</i>
+			</div>
+		{% endif %}
+		{% if mt_filter.type == 'keyword' %}
+			<div class="chip mt-chip-input waves-effect">
+				<span class="mt-chip__text">{{ mt_filter.value }}</span>
+				<i class="material-icons waves-effect waves-circle mt-chip__close" data-mt-filter-id="mt-filter-keyword">cancel</i>
+			</div>
+		{% endif %}
+		{% for filter in mt_filter.value %}
+			<div class="chip mt-chip-input waves-effect">
+				{% if filter.image %}
+					<img class="mt-chip__img" src="{{ filter.image }}" alt="{{ filter.name }}" title="{{ filter.name }}">
+				{% endif %}
+				<span class="mt-chip__text">{{ filter.name }}</span>
+				<i class="material-icons waves-effect waves-circle mt-chip__close" data-mt-filter-id="{{ filter.mt_filter_id }}">cancel</i>
+			</div>
+		{% endfor %}
+	{% endfor %}
+	<div class="clearfix"></div>
+{% endif %}
+{#<pre style="white-space: normal;">{{ dump(check_sql) }}</pre>#}
+{% if products %}
+	<div class="left valign-wrapper">
+		<button type="button" id="grid-view" class="materialize-buttons__grid-view btn btn-floating waves-effect tooltipped transparent z-depth-0{{ product_display == 'grid' ? ' active' }}" data-position="top" data-tooltip="{{ button_grid }}" aria-label="{{ button_grid }}"><i class="material-icons grey-text">apps</i></button>
+		<button type="button" id="list-view" class="materialize-buttons__list-view btn btn-floating waves-effect tooltipped transparent z-depth-0{{ product_display == 'list' ? ' active' }}" data-position="top" data-tooltip="{{ button_list }}" aria-label="{{ button_list }}"><i class="material-icons grey-text">art_track</i></button>
+	</div>
+	<div class="right valign-wrapper">
+		<button type="button" id="btn-sort" class="btn btn-floating dropdown-trigger tooltipped waves-effect transparent z-depth-0" data-target="dropdown-sort" data-position="top" data-tooltip="{{ text_sort }}" aria-label="{{ text_sort }}"><i class="material-icons black-text">sort</i></button> {# todo-materiliaze Set color from color scheme #}
+		<ul id="dropdown-sort" class="dropdown-content">
+			{% for sorts in sorts %}
+				{% if sorts.value == '%s-%s'|format(sort, order) %}
+					<li class="active"><a href="{{ sorts.href }}">{{ sorts.text }}</a></li>
+				{% else %}
+					<li><a href="{{ sorts.href }}">{{ sorts.text }}</a></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+		<button type="button" id="btn-limit" class="btn btn-floating dropdown-trigger tooltipped waves-effect transparent z-depth-0" data-target="dropdown-limit" data-position="top" data-tooltip="{{ text_limit }}" aria-label="{{ text_limit }}"><i class="material-icons black-text">settings_ethernet</i></button> {# todo-materiliaze Set color from color scheme #}
+		<ul id="dropdown-limit" class="dropdown-content">
+			{% for limits in limits %}
+				{% if limits.value == limit %}
+					<li class="active"><a href="{{ limits.href }}">{{ limits.text }}</a></li>
+				{% else %}
+					<li><a href="{{ limits.href }}">{{ limits.text }}</a></li>
+				{% endif %}
+			{% endfor %}-
+		</ul>
+		<button type="button" id="btn-materialize-filters" class="btn sidenav-trigger tooltipped hide-on-large-only black-text waves-effect transparent z-depth-0" data-target="materialize-filters" data-position="top" data-tooltip="Filters"><i class="material-icons left">tune</i>Filters</button> {# todo-materialize If the module is enabled Materialize Filters #} {# todo-materialize The button must be hidden on large screens #} {# todo-materiliaze Multilingual text is filled in the admin panel #}
+	</div>
+	<div class="clearfix"></div>
+	<div class="row">
+	{% for product in products %}
+		<div class="col products-list {{ product_grid }}" data-product-id="{{ product.product_id }}">
+			<div class="card sticky-action materialize-cards hoverable waves-effect{{ product_display == 'list' ? ' horizontal' }}"> {# todo-materiliaze Set color from color scheme #}
+				<div class="card-stacked">
+					<div class="card-image">
+						<a href="{{ product.href }}" rel="nofollow"><img id="image-product{{ product.product_id }}" src="{{ product_display == 'grid' ? product.thumb : product.hor_image }}" data-thumb="{{ product.thumb }}" data-hor-image="{{ product.hor_image }}" title="{{ product.name }}" alt="{{ product.name }}"></a>
+						<button class="btn-floating halfway-fab tooltipped waves-effect red{{ product_display == 'grid' ? ' btn-large' }}" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" aria-label="{{ button_cart }}" data-position="top" data-tooltip="{{ button_cart }}"><i class="material-icons white-text">add_shopping_cart</i></button> {# todo-materialize In the admin panel, configure the alternative output button #}
+					</div>
+					<div class="card-content">
+						<a href="{{ product.href }}" title="{{ product.name }}" alt="{{ product.name }}"><strong class="card-title black-text">{{ product.name }}</strong></a> {# todo-materiliaze Set color from color scheme #}
+						{% if product.price %}
+							{% if not product.special %}
+								<span class="card-price">{{ product.price }}</span> {# todo-materiliaze Set color from color scheme #}
+							{% else %}
+								<div class="card-price">
+									<span class="red-text text-darken-2">{{ product.special }}</span> {# todo-materiliaze Set color from color scheme #}
+									<s class="old-price grey-text">{{ product.price }}</s> {# todo-materiliaze Set color from color scheme #}
+								</div>
+							{% endif %}
+							{% if product.tax %}
+								<small class="price-tax">{{ text_tax }} {{ product.tax }}</small> {# todo-materiliaze Set color from color scheme #}
+							{% endif %}
+						{% endif %}
+						{% if product.rating %}
+							<div class="rating">
+								<span class="grey-text">{{ product.rating }}</span> {# todo-materiliaze Set color from color scheme #}
+								{% for i in 1..5 %}
+									{% if product.rating > i %}
+										<i class="material-icons yellow-text text-accent-4">star</i> {# todo-materiliaze Set color from color scheme #}
+									{% else %}
+										{% set rest = product.rating|split('.') %}
+										{% if rest[0] < i and rest[1] > 3 and rest[1] <= 7 %}
+											<i class="material-icons yellow-text text-accent-4">star_half</i>  {# todo-materiliaze Set color from color scheme #}
+										{% elseif rest[0] < i %}
+											<i class="material-icons yellow-text text-accent-4">star_border</i> {# todo-materiliaze Set color from color scheme #}
+										{% else %}
+											<i class="material-icons yellow-text text-accent-4">star</i> {# todo-materiliaze Set color from color scheme #}
+										{% endif %}
+									{% endif %}
+								{% endfor %}
+								<span class="grey-text">({{ product.reviews }})</span> {# todo-materiliaze Set color from color scheme #}
+							</div>
+						{% endif %}
+						<p class="product-description" data-simplebar>{{ product.description }}</p> {# todo-materiliaze Set color from color scheme #} {# todo-materiliaze Simplebar can be disabled in the admin panel #} {# todo-materiliaze The maximum height of the description set in the admin panel #}
+					</div>
+				</div>
+				<div class="card-action">
+					<div class="row no-margin-bottom">
+						<div class="col s6">
+							<a href="{{ product.href }}" class="btn btn-flat waves-effect text-bold without-icons deep-orange-text" rel="nofollow" title="More detailed {{ product.name }}" alt="{{ text_more_detailed }} {{ product.name }}">More detailed</a> {# todo-materiliaze Set color from color scheme #} {# todo-materiliaze Multilingual text is filled in the admin panel #}
+						</div>
+						<div class="col s6">
+							<div class="card-action--buttons no-padding">
+								{% if product.options %}
+									<button class="btn-flat btn-floating tooltipped waves-effect transparent activator" data-position="top" data-tooltip="Product Option" aria-label="Product Option"><i class="material-icons black-text">more_vert</i></button>
+								{% endif %}
+								<button class="btn-flat btn-floating tooltipped waves-effect transparent" onclick="compare.add('{{ product.product_id }}');" data-position="top" data-tooltip="{{ button_compare }}" aria-label="{{ button_compare }}"><i class="material-icons black-text">compare_arrows</i></button>
+								<button class="btn-flat btn-floating tooltipped waves-effect transparent" onclick="wishlist.add('{{ product.product_id }}');" data-position="top" data-tooltip="{{ button_wishlist }}" aria-label="{{ button_wishlist }}"><i class="material-icons black-text">favorite_border</i></button> {# todo-materiliaze In the admin panel, you can choose as an option. Already added item in wishlist will be highlighted. #}
+								<button class="btn-flat btn-floating tooltipped waves-effect transparent" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');" data-position="top" data-tooltip="{{ button_cart }}" aria-label="{{ button_cart }}"><i class="material-icons black-text">add_shopping_cart</i></button>
+								{#{% if product.add_cart %} todo-materiliaze Need a modification to display button cart
+									<div class="tooltipped" data-position="top" data-tooltip="Добавить в корзину"> todo-materiliaze Multilingual text is filled in the admin panel
+										<button class="btn-flat btn-floating waves-effect transparent" title="{{ button_cart }}" onclick="cart.add('{{ product.product_id }}');"><i class="material-icons black-text">add_shopping_cart</i></button>
+									</div>
+								{% else %}
+									<div class="tooltipped" data-position="top" data-tooltip="Товара нет в наличии"> todo-materiliaze Multilingual text is filled in the admin panel
+										<button class="btn-flat btn-floating" disabled="disabled"><i class="material-icons grey-text text-lighten-1">add_shopping_cart</i></button>
+									</div>
+								{% endif %}#}
+							</div>
+						</div>
+					</div>
+				</div> {# todo-materiliaze Set color from color scheme #}
+				{% if product.options %}
+					<div class="card-reveal" data-simplebar>
+						<span class="card-title grey-text text-darken-4">Available Options<i class="material-icons right waves-effect waves-circle close-icon">close</i></span> {# todo-materiliaze Multilingual text is filled in the admin panel #}
+						{% for option in product.options %}
+							{% if option.type == 'select' %}
+								{# todo-materialize The "select" drop-down list is not visible inside the product snippet! #}
+								<div class="section">
+									<div class="input-field">
+										<select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}">
+											<option value="" disabled selected>{{ text_select }}</option>
+											{% for option_value in option.product_option_value %}
+												<option value="{{ option_value.product_option_value_id }}" {% if option_value.image %}data-icon="{{ option_value.image }}"{% endif %}>{{ option_value.name }} {% if option_value.price %}({{ option_value.price_prefix }}{{ option_value.price }}){% endif %}</option>
+											{% endfor %}
+										</select>
+										<label for="input-option{{ option.product_option_id }}" class="text-bold{{ option.required ? ' required' }}">{{ option.name }}</label> {# todo-materiliaze Set color from color scheme #}
+									</div>
+								</div>
+							{% endif %}
+							{% if option.type == 'radio' %}
+								<div class="section">
+									<label class="text-bold{{ option.required ? ' required' }}">{{ option.name }}</label> {# todo-materiliaze Set color from color scheme #}
+									<ul id="input-option{{ option.product_option_id }}" class="materialize-product-options">
+										{% for option_value in option.product_option_value %}
+											<li class="materialize-product-options__item">
+												<label class="materialize-product-options__item--radio">
+													{% if option_value.image %}
+														<img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">
+													{% endif %}
+													<input type="radio" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" class="with-gap">
+													<span>
+																		{{ option_value.name }}
+														{% if option_value.price %}
+															({{ option_value.price_prefix }}{{ option_value.price }})
+														{% endif %}
+																	</span>
+												</label> {# todo-materiliaze Set color from color scheme #}
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							{% endif %}
+							{% if option.type == 'checkbox' %}
+								<div class="section">
+									<label class="text-bold{{ option.required ? ' required' }}">{{ option.name }}</label> {# todo-materiliaze Set color from color scheme #}
+									<div id="input-option{{ option.product_option_id }}">
+										{% for option_value in option.product_option_value %}
+											<label class="materialize-product-options__item--checkbox">
+												{% if option_value.image %}
+													<img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">
+												{% endif %}
+												<input type="checkbox" name="option[{{ option.product_option_id }}][]" value="{{ option_value.product_option_value_id }}" class="filled-in">
+												<span>
+																	{{ option_value.name }}
+													{% if option_value.price %}
+														({{ option_value.price_prefix }}{{ option_value.price }})
+													{% endif %}
+																</span>
+											</label> {# todo-materiliaze Set color from color scheme #}
+										{% endfor %}
+									</div>
+								</div>
+							{% endif %}
+							{% if option.type == 'text' %}
+								<div class="section">
+									<div class="input-field">
+										<input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}" class="validate">
+										<label class="text-bold{{ option.required ? ' required' }}" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+									</div>
+								</div>
+							{% endif %}
+							{% if option.type == 'textarea' %}
+								<div class="section">
+									<div class="input-field">
+										<textarea name="option[{{ option.product_option_id }}]" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}" class="materialize-textarea">{{ option.value }}</textarea>
+										<label class="text-bold{{ option.required ? ' required' }}" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+									</div>
+								</div>
+							{% endif %}
+							{% if option.type == 'file' %}
+								{# todo-materialize It is necessary to complete the "file" type options #}
+								<div class="section">
+									<label class="text-bold{{ option.required ? ' required' }}">{{ option.name }}</label>
+									<div class="file-field input-field">
+										<button type="button" id="button-upload{{ option.product_option_id }}" class="btn">
+											<span>{{ button_upload }}</span>
+											<input type="file">
+										</button>
+										<div class="file-path-wrapper">
+											<input type="text" name="option[{{ option.product_option_id }}]" value="" id="input-option{{ option.product_option_id }}" class="file-path validate">
+										</div>
+									</div>
+								</div>
+							{% endif %}
+							{% if option.type == 'date' %}
+								{# todo-materialize It is necessary to complete the "date" type options #}
+								<div class="section">
+									<div class="input-field">
+										<input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" id="input-option{{ option.product_option_id }}" class="datepicker">
+										{#<input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" id="input-option{{ option.product_option_id }}" class="form-control"/>
+										<div class="input-group-append">
+											<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+										</div>#}
+										<label class="text-bold{{ option.required ? ' required' }}" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+									</div>
+								</div>
+							{% endif %}
+							{% if option.type == 'datetime' %}
+								{#<div class="form-group{% if option.required %} required {% endif %}">
+									<label class="col-form-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+									<div class="input-group datetime">
+										<input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" id="input-option{{ option.product_option_id }}" class="form-control"/>
+										<div class="input-group-append">
+											<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
+								</div>#}
+							{% endif %}
+							{% if option.type == 'time' %}
+								{# todo-materialize It is necessary to complete the "time" type options #}
+								<div class="section">
+									<div class="input-field">
+										<input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" id="input-option{{ option.product_option_id }}" class="timepicker">
+										{#<div class="input-group datetime">
+											<input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" id="input-option{{ option.product_option_id }}" class="form-control"/>
+											<div class="input-group-append">
+												<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+											</div>
+										</div>#}
+										<label class="text-bold{{ option.required ? ' required' }}" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+									</div>
+								</div>
+								{#<div class="form-group{% if option.required %} required {% endif %}">
+									<label class="col-form-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+									<div class="input-group time">
+										<input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" id="input-option{{ option.product_option_id }}" class="form-control"/>
+										<div class="input-group-append">
+											<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
+								</div>#}
+							{% endif %}
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+	{% if pagination %}
+		<div class="col s12 center">{{ pagination }}</div>
+		<div class="col s12 center">{{ results }}</div>
+	{% endif %}
+{% endif %}
+
+<script>
+	var tooltipped = $('.tooltipped'),
+		btnFilter = $('#btn-sort'),
+		btnLimit = $('#btn-limit'),
+		select = $('select'),
+		datepicker = $('.datepicker'),
+		timepicker = $('.timepicker');
+
+	tooltipped.tooltip();
+	btnFilter.dropdown({
+		alignment: 'right',
+		coverTrigger: false,
+		constrainWidth: false
+	});
+	btnLimit.dropdown({
+		alignment: 'right',
+		coverTrigger: false,
+		constrainWidth: false
+	});
+	select.formSelect();
+	datepicker.datepicker({
+		container: 'body'
+	});
+	timepicker.timepicker({
+		container: 'body'
+	});
+
+	M.updateTextFields();
+
+	/*$('button[id^=\'button-custom-field\']').on('click', function() {
+		var element = this;
+
+		$('#form-upload').remove();
+
+		$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+
+		$('#form-upload input[name=\'file\']').trigger('click');
+
+		if (typeof timer != 'undefined') {
+			clearInterval(timer);
+		}
+
+		timer = setInterval(function() {
+			if ($('#form-upload input[name=\'file\']').val() != '') {
+				clearInterval(timer);
+
+				$.ajax({
+					url: 'index.php?route=tool/upload',
+					type: 'post',
+					dataType: 'json',
+					data: new FormData($('#form-upload')[0]),
+					cache: false,
+					contentType: false,
+					processData: false,
+					beforeSend: function() {
+						$(element).button('loading');
+					},
+					complete: function() {
+						$(element).button('reset');
+					},
+					success: function(json) {
+						$(element).parent().find('.text-danger').remove();
+
+						if (json['error']) {
+							$(element).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+						}
+
+						if (json['success']) {
+							alert(json['success']);
+
+							$(element).parent().find('input').val(json['code']);
+						}
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+					}
+				});
+			}
+		}, 500);
+	});*/
+
+	// Product List
+	var	btnListView = $('#list-view'),
+		btnGridView = $('#grid-view');
+
+	btnListView.click(function() {
+		var productsList = $('.products-list'),
+			contentCard = $('#content .col > .card'),
+			btnHalfwayFab = contentCard.find('.halfway-fab');
+
+		productsList.each(function() {
+			var productId = $(this).data('product-id'),
+				imageId = $('#image-product' + productId),
+				imageThumb = imageId.data('hor-image');
+
+			imageId.attr('src', imageThumb);
+		});
+
+		contentCard.addClass('horizontal');
+		btnHalfwayFab.removeClass('btn-large');
+
+		$('#grid-view').removeClass('active');
+		$('#list-view').addClass('active');
+
+		localStorage.setItem('display', 'list');
+	});
+
+	// Product Grid
+	btnGridView.click(function() {
+		var productsList = $('.products-list'),
+			contentCard = $('#content .col > .card'),
+			btnHalfwayFab = contentCard.find('.halfway-fab');
+
+		productsList.each(function() {
+			var productId = $(this).data('product-id'),
+				imageId = $('#image-product' + productId),
+				imageSrc = imageId.data('thumb');
+
+			imageId.attr('src', imageSrc);
+		});
+
+		contentCard.removeClass('horizontal');
+		btnHalfwayFab.addClass('btn-large');
+
+		$('#list-view').removeClass('active');
+		$('#grid-view').addClass('active');
+
+		localStorage.setItem('display', 'grid');
+	});
+
+	/*if (localStorage.getItem('display') === 'list') {
+		btnListView.trigger('click');
+	} else {
+		btnGridView.trigger('click');
+	}*/
+</script>
