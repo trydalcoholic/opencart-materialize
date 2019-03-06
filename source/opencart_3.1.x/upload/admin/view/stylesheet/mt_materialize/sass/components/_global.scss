@@ -163,7 +163,7 @@ video.responsive-video {
 
 // Pagination
 
-.pagination {
+.materialize-pagination {
 
   li {
     display: inline-block;
@@ -201,7 +201,7 @@ video.responsive-video {
   }
 }
 @media #{$medium-and-down} {
-  .pagination {
+  .materialize-pagination {
     width: 100%;
 
     li.prev,
@@ -218,7 +218,7 @@ video.responsive-video {
 }
 
 // Breadcrumbs
-.breadcrumb {
+.materialize-breadcrumb {
   display: inline-block;
   font-size: 18px;
   color: rgba(255,255,255, .7);

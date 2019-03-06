@@ -84,14 +84,31 @@
     border-bottom-style: solid;
     border-bottom-color: rgba(0, 0, 0, 0.12); }
 
+table.materialize-table table.highlight > tbody > tr:hover, table.materialize-table table > tbody > tr.active {
+  background-color: #e1f5fe; }
+table.materialize-table th label, table.materialize-table td label {
+  height: 20px !important;
+  margin-bottom: 0;
+  margin-left: 10px;
+  margin-top: 4px; }
+table.materialize-table th label input[type="checkbox"] + span, table.materialize-table td label input[type="checkbox"] + span {
+  height: 20px !important;
+  width: 20px !important;
+  padding-left: 0 !important; }
+table.materialize-table td a.title {
+  font-size: 1rem; }
+table.materialize-table td span.materialize-badge {
+  font-size: .7rem;
+  color: #fff;
+  float: left; }
+table.materialize-table td a, table.materialize-table td span {
+  display: block; }
+
 .required:after {
-  font-family: "Font Awesome 5 Free";
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  content: '\f069';
+  content: '*';
   color: #F00;
   font-weight: bold;
   position: absolute;
-  top: -12px;
-  right: 6px;
-  font-size: .5rem; }
+  top: -9px;
+  right: 8px;
+  font-size: .8rem; }

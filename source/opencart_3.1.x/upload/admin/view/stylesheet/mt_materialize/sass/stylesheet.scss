@@ -110,15 +110,45 @@
 	}
 }
 
+table.materialize-table {
+	table.highlight > tbody > tr:hover, table > tbody > tr.active {
+		background-color: #e1f5fe;
+	}
+
+	th label, td label {
+		height: 20px !important;
+		margin-bottom: 0;
+		margin-left: 10px;
+		margin-top: 4px;
+	}
+
+	th label input[type="checkbox"] + span, td label input[type="checkbox"] + span {
+		height: 20px !important;
+		width: 20px !important;
+		padding-left: 0 !important;
+	}
+
+	td a.title {
+		font-size: 1rem;
+	}
+
+	td span.materialize-badge {
+		font-size: .7rem;
+		color: #fff;
+		float: left;
+	}
+
+	td a, td span {
+		display: block;
+	}
+}
+
 .required:after {
-	font-family: "Font Awesome 5 Free";
-	text-rendering: auto;
-	-webkit-font-smoothing: antialiased;
-	content: '\f069';
+	content: '*';
 	color: #F00;
 	font-weight: bold;
 	position: absolute;
-	top: -12px;
-	right: 6px;
-	font-size: .5rem;
+	top: -9px;
+	right: 8px;
+	font-size: .8rem;
 }

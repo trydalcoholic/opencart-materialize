@@ -2,7 +2,7 @@
 <div id="content" class="materialize-content">
 	<nav class="materialize-nav nav-extended white pl-4">
 		<div class="nav-wrapper">
-			<h1 class="left light-blue-text text-accent-4 mt-2">{{ module_title }}</h1>
+			<h1 class="left blue-text text-accent-1 mt-2">{{ module_title }}</h1>
 			<ul class="right hide-on-med-and-down">
 				<li>
 					<a class="black-text waves-effect waves-default dropdown-trigger" {#href="#!"#} data-target="dropdown1"><i class="material-icons">settings</i></a>
@@ -18,19 +18,20 @@
 			</ul>
 		</div>
 		<div class="nav-content">
-			<ul class="tabs tabs-transparent no-padding">
-				<li class="tab"><a class="font-weight-normal light-blue-text text-accent-4 waves-effect waves-default" href="#test1">{{ tab_dashboard }}</a></li>
-				<li class="tab"><a class="font-weight-normal light-blue-text text-accent-4 waves-effect waves-default" href="#test2">{{ tab_post }}</a></li>
-				<li class="tab"><a class="font-weight-normal light-blue-text text-accent-4 waves-effect waves-default" href="#test3">{{ tab_category }}</a></li>
-				<li class="tab"><a class="font-weight-normal light-blue-text text-accent-4 waves-effect waves-default" href="#test4">{{ tab_comment }}</a></li>
+			<ul class="tabs no-padding">
+				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#test1">{{ tab_dashboard }}</a></li>
+				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#test2">{{ tab_post }}</a></li>
+				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#test3">{{ tab_category }}</a></li>
+				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#test4">{{ tab_comment }}</a></li>
 			</ul>
 		</div>
 	</nav>
 	<div class="mt-4 ml-4 mr-4">
 		<div id="test1">
+			<h5>Общие настройки</h5>
 			<ul class="materialize-list white z-depth-1">
-				<li class="materialize-list-item waves-effect">
-					<span class="materialize-list-item__icon required"><i class="material-icons">power_settings_new</i></span>
+				<li class="materialize-list-item">
+					<span class="materialize-list-item__icon waves-effect waves-circle required"><i class="material-icons">power_settings_new</i></span>
 					<span class="materialize-list-item__text">
 						<span class="materialize-list-item__primary-text">{{ entry_status }}</span>
 						<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
@@ -44,8 +45,9 @@
 						</div>
 					</div>
 				</li>
-				<li class="materialize-list-item waves-effect">
-					<span class="materialize-list-item__icon"><i class="material-icons">comment</i></span>
+				{#<li class="materialize-list-divider" role="separator"></li>#}
+				<li class="materialize-list-item">
+					<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">comment</i></span>
 					<span class="materialize-list-item__text">
 						<span class="materialize-list-item__primary-text">{{ entry_status }}</span>
 						<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
@@ -59,8 +61,8 @@
 						</div>
 					</div>
 				</li>
-				<li class="materialize-list-item waves-effect">
-					<span class="materialize-list-item__icon"><i class="material-icons">remove_red_eye</i></span>
+				<li class="materialize-list-item">
+					<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">remove_red_eye</i></span>
 					<span class="materialize-list-item__text">
 						<span class="materialize-list-item__primary-text">{{ entry_status }}</span>
 						<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
@@ -79,45 +81,45 @@
 		<div id="test2">
 			<div class="materialize-card">
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores atque consequuntur esse excepturi, harum in, inventore ipsum minima obcaecati pariatur, possimus quis quo rerum saepe sint suscipit ullam voluptates.</p>
-				<table class="highlight">
+				<table class="materialize-table highlight">
 					<thead>
-					<tr>
-						<th style="width: 50px;">
-							<label>
-								<input type="checkbox" id="main-table-checkbox" class="filled-in">
-								<span></span>
-							</label>
-						</th>
-						<th class="center" style="width: 80px;">{{ column_image }}</th>
-						<th style="width: 300px;">{{ column_post }}</th>
-						<th>{{ column_author }}</th>
-						<th>{{ column_category }}</th>
-						<th>{{ column_comment }}</th>
-						<th>{{ column_data }}</th>
-						<th></th>
-					</tr>
+						<tr>
+							<th style="width: 50px;">
+								<label>
+									<input type="checkbox" id="main-table-checkbox" class="filled-in">
+									<span></span>
+								</label>
+							</th>
+							<th class="center" style="width: 80px;">{{ column_image }}</th>
+							<th style="width: 300px;">{{ column_post }}</th>
+							<th>{{ column_author }}</th>
+							<th>{{ column_category }}</th>
+							<th>{{ column_comment }}</th>
+							<th>{{ column_data }}</th>
+							<th></th>
+						</tr>
 					</thead>
 					<tbody>
-					<tr>
-						<td>
-							<label>
-								<input type="checkbox" name="selected[]" class="filled-in">
-								<span></span>
-							</label>
-						</td>
-						<td class="center"><img src="{{ placeholder }}" alt="" class="img-thumbnail"></td>
-						<td>
-							<a href="#!" class="grey-text text-darken-4 title">Example post name</a>
-							<span class="materialize-badge green mt-2">{{ text_published }}</span>
-						</td>
-						<td>Admin</td>
-						<td>Category</td>
-						<td>3</td>
-						<td>20.01.2021</td>
-						<td>
-							<a class="btn-floating btn-flat waves-effect"><i class="material-icons grey-text text-darken-4">mode_edit</i></a>
-						</td>
-					</tr>
+						<tr>
+							<td>
+								<label>
+									<input type="checkbox" name="selected[]" class="filled-in">
+									<span></span>
+								</label>
+							</td>
+							<td class="center"><img src="{{ placeholder }}" alt="" class="img-thumbnail"></td>
+							<td>
+								<a href="#!" class="grey-text text-darken-4 title">Example post name</a>
+								<span class="materialize-badge green mt-2">{{ text_published }}</span>
+							</td>
+							<td>Admin</td>
+							<td>Category</td>
+							<td>3</td>
+							<td>20.01.2021</td>
+							<td>
+								<a class="btn-floating btn-flat waves-effect"><i class="material-icons grey-text text-darken-4">mode_edit</i></a>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 				<div class="materialize-card-action">
@@ -185,68 +187,11 @@
 	</div>
 </div>
 <style>
-	ul:not(.browser-default) {
-		padding-left: 0;
-		list-style-type: none;
-	}
-	ul:not(.browser-default) > li {
-		list-style-type: none;
-	}
 	#content a {
 		text-decoration: none;
 	}
 	h1 {
 		margin-top: 0;
-	}
-	.tabs li.indicator {
-		background-color: #0091ea !important;
-	}
-	.tabs .tab a:focus, .tabs .tab a:focus.active {
-		background-color: rgba(0, 0, 0, 0.1);
-	}
-	[type="checkbox"].filled-in:checked + span:not(.lever):after {
-		border: 2px solid #0091ea;
-		background-color: #0091ea;
-	}
-	[type="checkbox"]:indeterminate+span:not(.lever):before {
-		border-right: 2px solid #0091ea;
-	}
-	[type="checkbox"].filled-in.tabbed:checked:focus + span:not(.lever):after {
-		background-color: #0091ea;
-		border-color: #0091ea;
-	}
-	table.highlight > tbody > tr:hover, table > tbody > tr.active {
-		background-color: #e1f5fe;
-	}
-	th label, td label {
-		height: 20px !important;
-		margin-bottom: 0;
-		margin-left: 10px;
-		margin-top: 4px;
-	}
-	th label input[type="checkbox"] + span, td label input[type="checkbox"] + span {
-		height: 20px !important;
-		width: 20px !important;
-		padding-left: 0 !important;
-	}
-	td a.title {
-		font-size: 1rem;
-	}
-	td span.materialize-badge {
-		font-size: .7rem;
-		color: #fff;
-	}
-	td a, td span {
-		display: block;
-	}
-	.btn-floating:hover {
-		background-color: transparent;
-	}
-	.switch label input[type=checkbox]:checked + .lever {
-		background-color: #40c4ff;
-	}
-	.switch label input[type=checkbox]:checked + .lever:after {
-		background-color: #0091ea;
 	}
 </style>
 <script>
