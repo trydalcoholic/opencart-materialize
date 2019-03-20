@@ -102,7 +102,8 @@ textarea.materialize-textarea {
 
   // Full width label when using validate for error messages
   &.validate + label {
-    width: 100%;
+    width: auto;
+    /*width: 100%;*/
   }
 
   // Form Message Shared Styles
@@ -225,6 +226,14 @@ textarea.materialize-textarea {
     top: ($input-height - $input-icon-size) / 2;
 
     &.active { color: $input-focus-color; }
+  }
+
+  img.prefix {
+    position: absolute !important;
+    left: 1.5em !important;
+    top: 1.6em !important;
+    width: auto !important;
+    font-size: inherit !important;
   }
 
   .prefix ~ input,

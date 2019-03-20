@@ -1,9 +1,10 @@
 {{ header }}{{ column_left }}
 <div id="content" class="materialize-content">
-	<nav class="materialize-nav nav-extended white pl-4">
+	<nav class="materialize-nav nav-extended pl-3 pr-3 white">
 		<div class="nav-wrapper">
+			<a href="#" data-target="slide-out" class="sidenav-trigger black-text waves-effect"><i class="material-icons">menu</i></a>
 			<h1 class="left blue-text text-accent-1 mt-2">{{ module_title }}</h1>
-			<ul class="right hide-on-med-and-down">
+			<ul class="right">
 				<li>
 					<a class="black-text waves-effect waves-default dropdown-trigger" {#href="#!"#} data-target="dropdown1"><i class="material-icons">settings</i></a>
 					<ul id="dropdown1" class="dropdown-content">
@@ -14,20 +15,30 @@
 					</ul>
 				</li>
 				<li><a class="black-text waves-effect waves-default" href="{{ cancel }}"><i class="material-icons">arrow_back</i></a></li>
-				<li><a class="black-text waves-effect waves-default" href="{{ cancel }}"><i class="material-icons">save</i></a></li>
+				<li><a id="save-module-settings" class="black-text waves-effect waves-default"><i class="material-icons">save</i></a></li>
 			</ul>
 		</div>
 		<div class="nav-content">
-			<ul class="tabs no-padding">
-				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#test1">{{ tab_dashboard }}</a></li>
-				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#test2">{{ tab_post }}</a></li>
-				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#test3">{{ tab_category }}</a></li>
+			<ul id="tabs-navigation" class="tabs no-padding">
+				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#settings">{{ tab_dashboard }}</a></li>
+				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#post">{{ tab_post }}</a></li>
+				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#test2">{{ tab_category }}</a></li>
 				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#test4">{{ tab_comment }}</a></li>
 			</ul>
 		</div>
 	</nav>
-	<div class="mt-4 ml-4 mr-4">
-		<div id="test1">
+	<div class="container">
+		<nav class="materialize-nav breadcrumb-wrapper transparent z-depth-0">
+			<div class="nav-wrapper">
+				{% for breadcrumb in breadcrumbs %}
+					<a href="{{ breadcrumb.href }}" class="materialize-breadcrumb black-text"><span class="waves-effect">{{ breadcrumb.text }}</span></a>
+				{% endfor %}
+				<span class="materialize-breadcrumb grey-text"><span id="breadcrumb-current">Общие настройки</span></span>
+			</div>
+		</nav>
+	</div>
+	<div class="container">
+		<form id="settings">
 			<h5>Общие настройки</h5>
 			<ul class="materialize-list white z-depth-1">
 				<li class="materialize-list-item">
@@ -77,7 +88,18 @@
 					</div>
 				</li>
 			</ul>
-		</div>
+			<div id="add-new-buttons" class="fixed-action-btn">
+				<span class="btn-floating btn-large red">
+					<i class="large material-icons">mode_edit</i>
+				</span>
+				<ul>
+					<li><a class="btn-floating blue"><i class="material-icons">add_comment</i></a></li>
+					<li><a class="btn-floating green"><i class="material-icons">perm_media</i></a></li>
+					<li><a id="add-new-post" class="btn-floating orange"><i class="material-icons">art_track</i></a></li>
+				</ul>
+			</div>
+		</form>
+		<form id="post"></form>
 		<div id="test2">
 			<div class="materialize-card">
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores atque consequuntur esse excepturi, harum in, inventore ipsum minima obcaecati pariatur, possimus quis quo rerum saepe sint suscipit ullam voluptates.</p>
@@ -127,9 +149,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="test3">
-			<div class="materialize-card-panel">Test 3</div>
-		</div>
 		<div id="test4">
 			<div class="materialize-card-panel">Test 4</div>
 		</div>
@@ -175,16 +194,6 @@
 			</div>
 		</div>
 	</div>#}
-	<div class="fixed-action-btn">
-		<span class="btn-floating btn-large red">
-			<i class="large material-icons">mode_edit</i>
-		</span>
-		<ul>
-			<li><a class="btn-floating blue"><i class="material-icons">add_comment</i></a></li>
-			<li><a class="btn-floating green"><i class="material-icons">perm_media</i></a></li>
-			<li><a class="btn-floating orange"><i class="material-icons">art_track</i></a></li>
-		</ul>
-	</div>
 </div>
 <style>
 	#content a {
@@ -195,10 +204,55 @@
 	}
 </style>
 <script>
-	$(document).ready(function(){
-		$('.tabs').tabs();
+	$(document).ready(function() {
 		$(".dropdown-trigger").dropdown();
 		$('.fixed-action-btn').floatingActionButton();
+		$('.tabs').tabs();
+		$('select').formSelect();
+		$('.sidenav').sidenav();
+
+		let saveModuleSettings = $('#save-module-settings');
+
+		saveModuleSettings.on('click', function() {
+			$.ajax({
+				url: 'index.php?route=extension/module/mt_blog/saveModuleSettings&user_token={{ user_token }}',
+				type: 'post',
+				data: $('#settings').serialize(),
+				dataType: 'json',
+				beforeSend: function() {
+				},
+				complete: function() {
+				},
+				success: function(json) {
+					console.log(json);
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		});
+
+		$('#add-new-post').on('click', function() {
+			$.ajax({
+				url: 'index.php?route=extension/module/mt_blog/getPostForm&user_token={{ user_token }}',
+				type: 'get',
+				dataType: 'json',
+				beforeSend: function() {
+				},
+				complete: function() {
+				},
+				success: function(json) {
+					$('#post').html(json['post_form']);
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			}).done(function() {
+				$('.scale-out').removeClass('scale-out').addClass('scale-in');
+
+				$('#tabs-navigation').tabs('select', 'post');
+			});
+		});
 
 		let tableRows = $('table tbody tr'),
 			mainTableCheckbox = $('#main-table-checkbox'),

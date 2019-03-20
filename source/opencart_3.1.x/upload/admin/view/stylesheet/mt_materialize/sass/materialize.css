@@ -1655,7 +1655,7 @@ a {
   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2); }
 
 /* 24dp elevation */
-.z-depth-5, .modal {
+.z-depth-5, .materialize-modal {
   box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2); }
 
 .hoverable {
@@ -1732,8 +1732,9 @@ video.responsive-video {
       white-space: nowrap; } }
 .materialize-breadcrumb {
   display: inline-block;
-  font-size: 18px;
   color: rgba(255, 255, 255, 0.7); }
+  .materialize-breadcrumb span {
+    vertical-align: middle; }
   .materialize-breadcrumb i,
   .materialize-breadcrumb [class^="mdi-"], .materialize-breadcrumb [class*="mdi-"],
   .materialize-breadcrumb i.material-icons {
@@ -1742,7 +1743,7 @@ video.responsive-video {
     font-size: 24px; }
   .materialize-breadcrumb:before {
     content: '\E5CC';
-    color: rgba(255, 255, 255, 0.7);
+    color: inherit;
     vertical-align: top;
     display: inline-block;
     font-family: 'Material Icons';
@@ -2456,7 +2457,7 @@ small {
   transition: box-shadow .25s;
   padding: 24px;
   margin: 0.5rem 0 1rem 0;
-  border-radius: 2px;
+  border-radius: 4px;
   background-color: #fff; }
 
 .materialize-card {
@@ -3131,7 +3132,7 @@ body.keyboard-focused .dropdown-content li:focus {
 .waves-effect .waves-ripple {
   z-index: -1; }
 
-.modal {
+.materialize-modal {
   display: none;
   position: fixed;
   left: 0;
@@ -3144,28 +3145,28 @@ body.keyboard-focused .dropdown-content li:focus {
   overflow-y: auto;
   border-radius: 2px;
   will-change: top, opacity; }
-  .modal:focus {
+  .materialize-modal:focus {
     outline: none; }
   @media only screen and (max-width: 992px) {
-    .modal {
+    .materialize-modal {
       width: 80%; } }
-  .modal h1, .modal h2, .modal h3, .modal h4 {
+  .materialize-modal h1, .materialize-modal h2, .materialize-modal h3, .materialize-modal h4 {
     margin-top: 0; }
-  .modal .modal-content {
+  .materialize-modal .materialize-modal-content {
     padding: 24px; }
-  .modal .modal-close {
+  .materialize-modal .materialize-modal-close {
     cursor: pointer; }
-  .modal .modal-footer {
+  .materialize-modal .materialize-modal-footer {
     border-radius: 0 0 2px 2px;
     background-color: #fafafa;
     padding: 4px 6px;
     height: 56px;
     width: 100%;
     text-align: right; }
-    .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small, .modal .modal-footer .btn-flat {
+    .materialize-modal .materialize-modal-footer .btn, .materialize-modal .materialize-modal-footer .btn-large, .materialize-modal .materialize-modal-footer .btn-small, .materialize-modal .materialize-modal-footer .btn-flat {
       margin: 6px 0; }
 
-.modal-overlay {
+.materialize-modal-overlay {
   position: fixed;
   z-index: 999;
   top: -25%;
@@ -3178,21 +3179,21 @@ body.keyboard-focused .dropdown-content li:focus {
   display: none;
   will-change: opacity; }
 
-.modal.modal-fixed-footer {
+.materialize-modal.materialize-modal-fixed-footer {
   padding: 0;
   height: 70%; }
-  .modal.modal-fixed-footer .modal-content {
+  .materialize-modal.materialize-modal-fixed-footer .materialize-modal-content {
     position: absolute;
     height: calc(100% - 56px);
     max-height: 100%;
     width: 100%;
     overflow-y: auto; }
-  .modal.modal-fixed-footer .modal-footer {
+  .materialize-modal.materialize-modal-fixed-footer .materialize-modal-footer {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     position: absolute;
     bottom: 0; }
 
-.modal.bottom-sheet {
+.materialize-modal.bottom-sheet {
   top: auto;
   bottom: -100%;
   margin: 0;
@@ -3286,7 +3287,7 @@ body.keyboard-focused .dropdown-content li:focus {
   margin-right: 5px; }
   .chip:focus {
     outline: none;
-    background-color: #26a69a;
+    background-color: #2962FF;
     color: #fff; }
   .chip > img {
     float: left;
@@ -3310,8 +3311,8 @@ body.keyboard-focused .dropdown-content li:focus {
   outline: none;
   transition: all .3s; }
   .chips.focus {
-    border-bottom: 1px solid #26a69a;
-    box-shadow: 0 1px 0 0 #26a69a; }
+    border-bottom: 1px solid #2962FF;
+    box-shadow: 0 1px 0 0 #2962FF; }
   .chips:hover {
     cursor: text; }
   .chips .input {
@@ -3544,7 +3545,8 @@ textarea.materialize-textarea {
   input[type=number]:not(.browser-default).validate + label,
   input[type=search]:not(.browser-default).validate + label,
   textarea.materialize-textarea.validate + label {
-    width: 100%; }
+    width: auto;
+    /*width: 100%;*/ }
 
 /* Validation Sass Placeholders */
 input.valid:not([type]), input.valid:not([type]):focus,
@@ -3785,6 +3787,12 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
     top: 0.5rem; }
     .input-field .prefix.active {
       color: #2962FF; }
+  .input-field img.prefix {
+    position: absolute !important;
+    left: 1.5em !important;
+    top: 1.6em !important;
+    width: auto !important;
+    font-size: inherit !important; }
   .input-field .prefix ~ input,
   .input-field .prefix ~ textarea,
   .input-field .prefix ~ label,
@@ -4196,6 +4204,7 @@ select {
   position: absolute; }
 
 .select-wrapper {
+  height: 3rem;
   position: relative; }
   .select-wrapper.valid + label, .select-wrapper.invalid + label {
     width: 100%;

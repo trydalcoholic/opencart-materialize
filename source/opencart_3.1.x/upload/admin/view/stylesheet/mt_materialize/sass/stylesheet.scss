@@ -2,6 +2,11 @@
 	font-family: 'Roboto', sans-serif;
 }
 
+.breadcrumb-wrapper, .materialize-nav .nav-wrapper i {
+	height: 48px;
+	line-height: 48px;
+}
+
 .materialize-list {
 	font-size: 1rem;
 	font-weight: 400;
@@ -11,6 +16,7 @@
 	line-height: 1.5rem;
 	list-style-type: none;
 	border: 1px solid rgba(0,0,0,.1);
+	border-radius: 4px;
 	cursor: default;
 
 	.materialize-list-item {
@@ -143,6 +149,22 @@ table.materialize-table {
 	}
 }
 
+label.required:after {
+	content: '*' !important;
+	color: inherit;
+	font-weight: bold;
+	position: absolute;
+	top: -2px !important;
+	right: -8px !important;
+	left: auto !important;
+	font-size: .8em;
+	opacity: 1 !important;
+}
+
+label.active.required:after {
+	color: #F00;
+}
+
 .required:after {
 	content: '*';
 	color: #F00;
@@ -151,4 +173,23 @@ table.materialize-table {
 	top: -9px;
 	right: 8px;
 	font-size: .8rem;
+}
+
+.cke_chrome {
+	border: 1px solid #9e9e9e !important;
+	border-radius: 4px;
+}
+
+.cke_inner {
+	background: transparent !important;
+}
+
+.cke_top {
+	border-bottom: none !important;
+	background: transparent !important;
+}
+
+.cke_bottom {
+	border-top: none !important;
+	background: transparent !important;
 }

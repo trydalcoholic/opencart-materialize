@@ -17,6 +17,8 @@ select {
 }
 
 .select-wrapper {
+  height: 3rem;
+
   &.valid .helper-text[data-success],
   &.invalid ~ .helper-text[data-error] {
     @extend %hidden-text;

@@ -1,0 +1,241 @@
+<div id="post-form" class="scale-transition scale-out">
+	<h5>{{ text_common }}</h5>
+	<div class="materialize-card-panel mb-5">
+		<div class="row">
+			<div class="col-xs-12 col-md-8 col-lg-9">
+				<ul class="tabs">
+					{% for language in languages %}
+						<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#post-description-{{ language.language_id }}">{{ language.name }}</a></li>
+					{% endfor %}
+				</ul>
+				{% for language in languages %}
+					<div id="post-description-{{ language.language_id }}" class="pt-4">
+						<div class="input-field mb-5">
+							<input id="post-name-{{ language.language_id }}" type="text" name="post[description][{{ language.language_id }}][name]" value="{{ post_description[language.language_id] ? post_description[language.language_id].name }}" class="validate" data-length="255">
+							<label for="post-name-{{ language.language_id }}" class="required">{{ entry_post }}</label>
+							<span id="post-name-helper-{{ language.language_id }}" class="helper-text">{{ error_name }}</span>
+						</div>
+						<label class="w-100 mt-5">
+							<textarea id="post-description-{{ language.language_id }}" name="post[description][{{ language.language_id }}][description]" data-toggle="ckeditor" data-lang="{{ ckeditor }}">{{ post_description[language.language_id] ? post_description[language.language_id].description }}</textarea>
+						</label>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col-xs-12 col-md-4 col-lg-3">
+				<img src="{{ placeholder }}" class="img-fluid mx-auto d-block" alt="">
+				<div class="input-field">
+					<i class="material-icons prefix">toggle_on</i>
+					<select id="post-status" name="post[status]">
+						<option value="0"{{ status == '0' ? ' selected="selected"' }}>{{ text_draft }}</option>
+						<option value="1"{{ status == '1' ? ' selected="selected"' }}>{{ text_published }}</option>
+						<option value="2"{{ status == '2' ? ' selected="selected"' }}>{{ text_pending_review }}</option>
+					</select>
+					<label for="post-status">{{ entry_status }}</label>
+				</div>
+				<div class="input-field mt-4">
+					<i class="material-icons prefix">person</i>
+					<select id="post-author" name="post[author_id]">
+						<option value="{{ user.user_id }}"{% if user.image %} data-icon="{{ user.image }}"{% endif %}>{{ user.name }}</option>
+					</select>
+					<label for="post-author">{{ entry_author }}</label>
+				</div>
+				{% if blog_categories %}
+					<div class="input-field mt-4">
+						<i class="material-icons">developer_board</i>
+						<select id="post-main-category" name="post[main_category_id]">
+							<option value="{{ main_category.blog_category_id }}"{% if main_category.image %} data-icon="{{ main_category.image }}"{% endif %}>{{ main_category.name }}</option>
+						</select>
+						<label for="post-main-category">{{ entry_main_category }}</label>
+					</div>
+				{% endif %}
+				<div class="input-field mt-4">
+					<i class="material-icons prefix">sort</i>
+					<input id="post-sort-order" type="text" name="post[sort_order]" value="{{ sort_order }}">
+					<label for="post-sort-order">{{ entry_sort_order }}</label>
+				</div>
+				<div class="input-field mt-4">
+					<i class="material-icons prefix">visibility</i>
+					<input id="post-viewed" type="text" name="post[viewed]" value="{{ viewed }}">
+					<label for="post-viewed">{{ entry_views }}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<h5>Дополнительные настройки</h5> {# todo-materialize Must be placed in a language variable #}
+	<ul class="materialize-list white z-depth-1 mb-5">
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">lock</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Зафиксировать пост</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][fixed]"{{ post.settings.fixed ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		{#<li class="materialize-list-divider" role="separator"></li>#}
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">stars</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Разрешить рейтинг</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][enable_rating]"{{ post.settings.enable_rating ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">record_voice_over</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Разрешить комментарии</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][enable_comment]"{{ post.settings.enable_comment ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">explore_off</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Запретить индексацию</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][disable_indexing]"{{ post.settings.disable_indexing ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">search</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Исключить из поиска</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][exclude_search]"{{ post.settings.exclude_search ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<h5>{{ text_seo }}</h5>
+	<div class="materialize-card-panel">
+		<table class="mb-5">
+			<thead>
+				<tr>
+					<th>{{ entry_store }}</th>
+					<th>{{ entry_seo_url }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for store in stores %}
+					<tr>
+						<td>{{ store.name }}</td>
+						<td>
+							{% for language in languages %}
+								<div class="input-field">
+									<img src="language/{{ language.code }}/{{ language.code }}.png" class="prefix" title="{{ language.name }}">
+									<input id="seo-url-{{ store.store_id }}-{{ language.language_id }}" type="text" name="post[seo][url][{{ store.store_id }}][{{ language.language_id }}]">
+									<label for="seo-url-{{ store.store_id }}-{{ language.language_id }}">{{ entry_seo_url }}</label>
+								</div>
+							{% endfor %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<ul class="tabs">
+			{% for language in languages %}
+				<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#post-seo-{{ language.language_id }}">{{ language.name }}</a></li>
+			{% endfor %}
+		</ul>
+		{% for language in languages %}
+			<div id="post-seo-{{ language.language_id }}" class="pt-4">
+				<div class="input-field">
+					<input id="post-meta-title" type="text" name="post[seo][meta][{{ language.language_id }}][title]" value="" data-length="255">
+					<label for="post-meta-title">{{ entry_meta_title }}</label>
+				</div>
+				<div class="input-field mt-5">
+					<input id="post-meta-h1" type="text" name="post[seo][meta][{{ language.language_id }}][h1]" value="" data-length="255">
+					<label for="post-meta-h1">{{ entry_meta_h1 }}</label>
+				</div>
+				<div class="input-field mt-5">
+					<textarea id="post-meta-description" class="materialize-textarea" name="post[seo][meta][{{ language.language_id }}][description]"></textarea>
+					<label for="post-meta-description">{{ entry_meta_description }}</label>
+				</div>
+				<div class="input-field mt-5">
+					<textarea id="post-meta-keyword" class="materialize-textarea" name="post[seo][meta][{{ language.language_id }}][keyword]"></textarea>
+					<label for="post-meta-keyword">{{ entry_meta_keyword }}</label>
+				</div>
+				<div class="input-field mt-5">
+					<input id="post-meta-tag" type="text" name="post[seo][meta][{{ language.language_id }}][tag]" value="">
+					<label for="post-meta-tag">{{ entry_tag }}</label>
+					<span class="helper-text">{{ help_tag }}</span>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+<div class="fixed-action-btn">
+	<span id="save-post-button" class="btn-floating btn-large pulse waves-effect waves-circle waves-light blue accent-2"><i class="large material-icons">save</i></span>
+</div>
+<script>
+	$('select').formSelect();
+	$('.input-field input[data-length]').characterCounter();
+	$('textarea[data-toggle=\'ckeditor\']').ckeditor();
+
+	setTimeout(function() {
+		$('#post .tabs').tabs().tabs('updateTabIndicator');
+	}, 300);
+
+	let savePostButton = $('#save-post-button'),
+		postForm = $('#post');
+
+	savePostButton.on('click', function() {
+		console.log(postForm.serializeArray());
+		$.ajax({
+			url: 'index.php?route=extension/module/mt_blog/savePostForm&user_token={{ user_token }}&post_id={{ post_id }}',
+			data: postForm.serializeArray(),
+			type: 'post',
+			dataType: 'json',
+			beforeSend: function() {
+			},
+			complete: function() {
+			},
+			success: function(json) {
+				console.log(json);
+				if (json['error']) {
+					$.each(json['error']['name'], function(index) {
+						$('#post-name-' + index).addClass('invalid');
+						$('#post-name-helper-' + index).attr('data-error', json['error']['name'][index]);
+					});
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
+</script>

@@ -220,8 +220,11 @@ video.responsive-video {
 // Breadcrumbs
 .materialize-breadcrumb {
   display: inline-block;
-  font-size: 18px;
   color: rgba(255,255,255, .7);
+
+  span {
+    vertical-align: middle;
+  }
 
   i,
   [class^="mdi-"], [class*="mdi-"],
@@ -233,7 +236,7 @@ video.responsive-video {
 
   &:before {
     content: '\E5CC';
-    color: rgba(255,255,255, .7);
+    color: inherit;
     vertical-align: top;
     display: inline-block;
     font-family: 'Material Icons';
