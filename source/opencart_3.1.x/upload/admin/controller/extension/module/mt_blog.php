@@ -35,11 +35,11 @@ class ControllerExtensionModuleMTBlog extends Controller {
 		$this->document->setTitle($this->language->get('module_title'));
 
 		$this->document->addScript('view/javascript/mt_materialize/materialize.js');
+		$this->document->addScript('view/javascript/mt_materialize/js/materialize.js');
 		$this->document->addScript('view/javascript/ckeditor/ckeditor.js');
 		$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
 
 		$this->document->addStyle('view/stylesheet/mt_materialize/sass/materialize.css');
-		$this->document->addStyle('view/stylesheet/mt_materialize/sass/stylesheet.css');
 		$this->document->addStyle('//fonts.googleapis.com/css?family=Roboto');
 		$this->document->addStyle('//fonts.googleapis.com/icon?family=Material+Icons');
 
@@ -152,8 +152,54 @@ class ControllerExtensionModuleMTBlog extends Controller {
 		} else {
 			$data['post'] = array();
 		}*/
+		$data['post'] = [];
+
+		$data['post']['settings'] = [
+			'enable_rating'		=> true,
+			'enable_comment'	=> true
+		];
 
 		$json['post_form'] = $this->load->view('extension/mt_materialize/mt_blog/post_form', $data);
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function getPostList() {
+		$json = [];
+
+		$this->load->model('extension/mt_materialize/module/mt_blog/post');
+		$this->load->model('tool/image');
+		$this->load->model('user/user');
+
+		$this->load->language('extension/module/mt_blog');
+
+		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 60, 60);
+
+		$data['posts'] = [];
+
+		$results = $this->model_extension_mt_materialize_module_mt_blog_post->getPosts();
+
+		foreach ($results as $result) {
+			if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+				$image = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 60, 60);
+			} else {
+				$image = $data['placeholder'];
+			}
+
+			$user_info = $this->model_user_user->getUser($result['author_id']);
+
+			$data['posts'][] = [
+				'post_id'		=> $result['post_id'],
+				'image'			=> $image,
+				'name'			=> $result['name'],
+				'author'		=> $user_info['firstname'] . ' ' . $user_info['lastname'],
+				'status'		=> $result['status'],
+				'date_added'	=> date($this->language->get('date_format_short'), strtotime($result['date_added']))
+			];
+		}
+
+		$json['post_list'] = $this->load->view('extension/mt_materialize/mt_blog/post_list', $data);
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));

@@ -71,4 +71,52 @@ class ModelExtensionMTMaterializeModuleMTBlogPost extends Model {
 
 		return $post_id;
 	}
+
+	public function getPosts($data = []) {
+		$sql = "SELECT * FROM " . DB_PREFIX . "mt_post p LEFT JOIN " . DB_PREFIX . "mt_post_description pd ON (p.post_id = pd.post_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+		if (!empty($data['filter_name'])) {
+			$sql .= " AND pd.name LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
+		}
+
+		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
+			$sql .= " AND p.status = '" . (int)$data['filter_status'] . "'";
+		}
+
+		$sql .= " GROUP BY p.post_id";
+
+		$sort_data = array(
+			'pd.name',
+			'p.status',
+			'p.sort_order'
+		);
+
+		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+			$sql .= " ORDER BY " . $data['sort'];
+		} else {
+			$sql .= " ORDER BY pd.name";
+		}
+
+		if (isset($data['order']) && ($data['order'] == 'DESC')) {
+			$sql .= " DESC";
+		} else {
+			$sql .= " ASC";
+		}
+
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
+			}
+
+			if ($data['limit'] < 1) {
+				$data['limit'] = 20;
+			}
+
+			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+		}
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
+	}
 }

@@ -82,7 +82,7 @@ class ModelExtensionMTMaterializeModuleMTBlog extends Model {
 				`author_id` INT(11) NOT NULL,
 				`status` TINYINT(1) NOT NULL DEFAULT '0',
 				`viewed` INT(5) NOT NULL DEFAULT '0',
-				`settings` JSON NOT NULL,
+				`settings` JSON DEFAULT NULL,
 				`date_added` DATETIME NOT NULL,
 				`date_modified` DATETIME NOT NULL,
 				PRIMARY KEY (`post_id`)

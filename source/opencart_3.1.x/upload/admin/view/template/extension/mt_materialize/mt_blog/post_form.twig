@@ -61,87 +61,8 @@
 			</div>
 		</div>
 	</div>
-	<h5>Дополнительные настройки</h5> {# todo-materialize Must be placed in a language variable #}
-	<ul class="materialize-list white z-depth-1 mb-5">
-		<li class="materialize-list-item">
-			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">lock</i></span>
-			<span class="materialize-list-item__text">
-				<span class="materialize-list-item__primary-text">Зафиксировать пост</span> {# todo-materialize Must be placed in a language variable #}
-				<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
-			</span>
-			<div class="materialize-list-item__data">
-				<div class="switch">
-					<label>
-						<input type="checkbox" name="post[settings][fixed]"{{ post.settings.fixed ? ' checked' }}>
-						<span class="lever"></span>
-					</label>
-				</div>
-			</div>
-		</li>
-		{#<li class="materialize-list-divider" role="separator"></li>#}
-		<li class="materialize-list-item">
-			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">stars</i></span>
-			<span class="materialize-list-item__text">
-				<span class="materialize-list-item__primary-text">Разрешить рейтинг</span> {# todo-materialize Must be placed in a language variable #}
-				<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
-			</span>
-			<div class="materialize-list-item__data">
-				<div class="switch">
-					<label>
-						<input type="checkbox" name="post[settings][enable_rating]"{{ post.settings.enable_rating ? ' checked' }}>
-						<span class="lever"></span>
-					</label>
-				</div>
-			</div>
-		</li>
-		<li class="materialize-list-item">
-			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">record_voice_over</i></span>
-			<span class="materialize-list-item__text">
-				<span class="materialize-list-item__primary-text">Разрешить комментарии</span> {# todo-materialize Must be placed in a language variable #}
-				<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
-			</span>
-			<div class="materialize-list-item__data">
-				<div class="switch">
-					<label>
-						<input type="checkbox" name="post[settings][enable_comment]"{{ post.settings.enable_comment ? ' checked' }}>
-						<span class="lever"></span>
-					</label>
-				</div>
-			</div>
-		</li>
-		<li class="materialize-list-item">
-			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">explore_off</i></span>
-			<span class="materialize-list-item__text">
-				<span class="materialize-list-item__primary-text">Запретить индексацию</span> {# todo-materialize Must be placed in a language variable #}
-				<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
-			</span>
-			<div class="materialize-list-item__data">
-				<div class="switch">
-					<label>
-						<input type="checkbox" name="post[settings][disable_indexing]"{{ post.settings.disable_indexing ? ' checked' }}>
-						<span class="lever"></span>
-					</label>
-				</div>
-			</div>
-		</li>
-		<li class="materialize-list-item">
-			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">search</i></span>
-			<span class="materialize-list-item__text">
-				<span class="materialize-list-item__primary-text">Исключить из поиска</span> {# todo-materialize Must be placed in a language variable #}
-				<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
-			</span>
-			<div class="materialize-list-item__data">
-				<div class="switch">
-					<label>
-						<input type="checkbox" name="post[settings][exclude_search]"{{ post.settings.exclude_search ? ' checked' }}>
-						<span class="lever"></span>
-					</label>
-				</div>
-			</div>
-		</li>
-	</ul>
 	<h5>{{ text_seo }}</h5>
-	<div class="materialize-card-panel">
+	<div class="materialize-card-panel mb-5">
 		<table class="mb-5">
 			<thead>
 				<tr>
@@ -197,18 +118,176 @@
 			</div>
 		{% endfor %}
 	</div>
+	<h5>Дополнительные настройки</h5> {# todo-materialize Must be placed in a language variable #}
+	<ul class="materialize-list">
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle" data-enable="record_voice_over" data-disable="voice_over_off"><i class="material-icons" id="lever-post-enable-comment">{{ post.settings.enable_comment ? 'record_voice_over' : 'voice_over_off' }}</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Разрешить комментарии</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][enable_comment]" data-lever="lever-post-enable-comment"{{ post.settings.enable_comment ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">stars</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Разрешить рейтинг</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][enable_rating]"{{ post.settings.enable_rating ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle" data-enable="lock" data-disable="lock_open"><i class="material-icons" id="lever-post-fixed">{{ post.settings.fixed ? 'lock' : 'lock_open' }}</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Зафиксировать пост</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][fixed]" data-lever="lever-post-fixed"{{ post.settings.fixed ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-divider" role="separator"></li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle" data-enable="how_to_reg" data-disable="person"><i class="material-icons" id="lever-post-show-logged">{{ post.settings.show_logged ? 'how_to_reg' : 'person' }}</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Показывать только залогиненым</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][show_logged]" data-lever="lever-post-show-logged"{{ post.settings.show_logged ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon"><i class="material-icons">people</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Показывать только группам пользователей</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__inputs">
+				<div class="input-field"> {# todo-materialize Add selection of user group list #}
+					<select multiple>
+						<option value="" disabled selected>Choose your option</option>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+					<label>Materialize Multiple Select</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle" data-enable="explore_off" data-disable="explore"><i class="material-icons" id="lever-post-disable-indexing">{{ post.settings.disable_indexing ? 'explore_off' : 'explore' }}</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Запретить индексацию</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][disable_indexing]" data-lever="lever-post-disable-indexing"{{ post.settings.disable_indexing ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">search</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Исключить из поиска</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Enter the name of the module</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][exclude_search]"{{ post.settings.exclude_search ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon"><i class="material-icons">visibility_off</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Исключить IP для счётчика просмотров</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Укажите IP адреса, которые будут добавлены в исключения для счётчика просмотров данной публикации</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			{#<div class="materialize-list-item__data">
+				<i class="material-icons tooltipped" data-position="top" data-tooltip="">info</i> #}{# todo-materialize Must be placed in a language variable #}{#
+			</div>#}
+			<div class="materialize-list-item__inputs">
+				<div class="input-field">
+					<textarea id="" class="materialize-textarea" name="post[settings][exclude_ip_views]">{{ post.settings.exclude_ip_views }}</textarea>
+					<label for=""></label> {# todo-materialize Must be placed in a language variable #}
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-divider" role="separator"></li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">add_comment</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Уведомления на e-mail автора публикации о новых комментариях</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Уведомления на e-mail автора публикации о новых комментариях</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__data">
+				<div class="switch">
+					<label>
+						<input type="checkbox" name="post[settings][notification_email]"{{ post.settings.notification_email ? ' checked' }}>
+						<span class="lever"></span>
+					</label>
+				</div>
+			</div>
+		</li>
+		<li class="materialize-list-item">
+			<span class="materialize-list-item__icon"><i class="material-icons">drafts</i></span>
+			<span class="materialize-list-item__text">
+				<span class="materialize-list-item__primary-text">Дополнительные e-mail адреса для уведомления о новых комментариях</span> {# todo-materialize Must be placed in a language variable #}
+				<span class="materialize-list-item__secondary-text">Дополнительные e-mail адреса для уведомления о новых комментариях</span> {# todo-materialize Must be placed in a language variable #}
+			</span>
+			<div class="materialize-list-item__inputs">
+				<div class="input-field">
+					<textarea id="" class="materialize-textarea" name="post[settings][additional_notification_email]">{{ post.settings.additional_notification_email }}</textarea>
+					<label for=""></label> {# todo-materialize Must be placed in a language variable #}
+				</div>
+			</div>
+		</li>
+	</ul>
 </div>
 <div class="fixed-action-btn">
 	<span id="save-post-button" class="btn-floating btn-large pulse waves-effect waves-circle waves-light blue accent-2"><i class="large material-icons">save</i></span>
 </div>
 <script>
 	$('select').formSelect();
+	$('.tooltipped').tooltip();
 	$('.input-field input[data-length]').characterCounter();
 	$('textarea[data-toggle=\'ckeditor\']').ckeditor();
 
-	setTimeout(function() {
+	/*setTimeout(function() {
 		$('#post .tabs').tabs().tabs('updateTabIndicator');
-	}, 300);
+	}, 300);*/
 
 	let savePostButton = $('#save-post-button'),
 		postForm = $('#post');
