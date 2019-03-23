@@ -1,11 +1,11 @@
-/* Modal */
-.datepicker-modal {
+/* materialize-modal */
+.datepicker-materialize-modal {
   max-width: 325px;
   min-width: 300px;
   max-height: none;
 }
 
-.datepicker-container.modal-content {
+.datepicker-container.materialize-modal-content {
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -167,11 +167,11 @@
 
 /* Media Queries */
 @media #{$medium-and-up} {
-  .datepicker-modal {
+  .datepicker-materialize-modal {
     max-width: 625px;
   }
 
-  .datepicker-container.modal-content {
+  .datepicker-container.materialize-modal-content {
     flex-direction: row;
   }
 

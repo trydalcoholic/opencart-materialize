@@ -5205,13 +5205,13 @@ input[type=range]::-ms-thumb {
   100% {
     opacity: 0;
     transform: scale(1.5); } }
-/* Modal */
-.datepicker-modal {
+/* materialize-modal */
+.datepicker-materialize-modal {
   max-width: 325px;
   min-width: 300px;
   max-height: none; }
 
-.datepicker-container.modal-content {
+.datepicker-container.materialize-modal-content {
   display: flex;
   flex-direction: column;
   padding: 0; }
@@ -5323,10 +5323,10 @@ input[type=range]::-ms-thumb {
 
 /* Media Queries */
 @media only screen and (min-width: 601px) {
-  .datepicker-modal {
+  .datepicker-materialize-modal {
     max-width: 625px; }
 
-  .datepicker-container.modal-content {
+  .datepicker-container.materialize-modal-content {
     flex-direction: row; }
 
   .datepicker-date-display {
@@ -5340,11 +5340,11 @@ input[type=range]::-ms-thumb {
   .datepicker-day-button {
     line-height: 44px; } }
 /* Timepicker Containers */
-.timepicker-modal {
+.timepicker-materialize-modal {
   max-width: 325px;
   max-height: none; }
 
-.timepicker-container.modal-content {
+.timepicker-container.materialize-modal-content {
   display: flex;
   flex-direction: column;
   padding: 0; }
@@ -5475,10 +5475,10 @@ input[type=range]::-ms-thumb {
 
 /* Media Queries */
 @media only screen and (min-width: 601px) {
-  .timepicker-modal {
+  .timepicker-materialize-modal {
     max-width: 600px; }
 
-  .timepicker-container.modal-content {
+  .timepicker-container.materialize-modal-content {
     flex-direction: row; }
 
   .timepicker-text-container {

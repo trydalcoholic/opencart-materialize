@@ -1175,7 +1175,7 @@ M.AutoInit = function (context) {
     Datepicker: root.querySelectorAll('.datepicker:not(.no-autoinit)'),
     Dropdown: root.querySelectorAll('.dropdown-trigger:not(.no-autoinit)'),
     Materialbox: root.querySelectorAll('.materialboxed:not(.no-autoinit)'),
-    Modal: root.querySelectorAll('.modal:not(.no-autoinit)'),
+    Modal: root.querySelectorAll('.materialize-modal:not(.no-autoinit)'),
     Parallax: root.querySelectorAll('.parallax:not(.no-autoinit)'),
     Pushpin: root.querySelectorAll('.pushpin:not(.no-autoinit)'),
     ScrollSpy: root.querySelectorAll('.scrollspy:not(.no-autoinit)'),
@@ -2921,7 +2921,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 
       _this13.id = _this13.$el.attr('id');
       _this13._openingTrigger = undefined;
-      _this13.$overlay = $('<div class="modal-overlay"></div>');
+      _this13.$overlay = $('<div class="materialize-modal-overlay"></div>');
       _this13.el.tabIndex = 0;
       _this13._nthModalOpened = 0;
 
@@ -2984,7 +2984,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     }, {
       key: "_handleTriggerClick",
       value: function _handleTriggerClick(e) {
-        var $trigger = $(e.target).closest('.modal-trigger');
+        var $trigger = $(e.target).closest('.materialize-modal-trigger');
         if ($trigger.length) {
           var modalId = M.getIdFromTrigger($trigger[0]);
           var modalInstance = document.getElementById(modalId).M_Modal;
@@ -3015,7 +3015,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     }, {
       key: "_handleModalCloseClick",
       value: function _handleModalCloseClick(e) {
-        var $closeTrigger = $(e.target).closest('.modal-close');
+        var $closeTrigger = $(e.target).closest('.materialize-modal-close');
         if ($closeTrigger.length) {
           this.close();
         }
@@ -9640,7 +9640,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     return Datepicker;
   }(Component);
 
-  Datepicker._template = ['<div class= "modal datepicker-modal">', '<div class="modal-content datepicker-container">', '<div class="datepicker-date-display">', '<span class="year-text"></span>', '<span class="date-text"></span>', '</div>', '<div class="datepicker-calendar-container">', '<div class="datepicker-calendar"></div>', '<div class="datepicker-footer">', '<button class="btn-flat datepicker-clear waves-effect" style="visibility: hidden;" type="button"></button>', '<div class="confirmation-btns">', '<button class="btn-flat datepicker-cancel waves-effect" type="button"></button>', '<button class="btn-flat datepicker-done waves-effect" type="button"></button>', '</div>', '</div>', '</div>', '</div>', '</div>'].join('');
+  Datepicker._template = ['<div class= "materialize-modal datepicker-materialize-modal">', '<div class="materialize-modal-content datepicker-container">', '<div class="datepicker-date-display">', '<span class="year-text"></span>', '<span class="date-text"></span>', '</div>', '<div class="datepicker-calendar-container">', '<div class="datepicker-calendar"></div>', '<div class="datepicker-footer">', '<button class="btn-flat datepicker-clear waves-effect" style="visibility: hidden;" type="button"></button>', '<div class="confirmation-btns">', '<button class="btn-flat datepicker-cancel waves-effect" type="button"></button>', '<button class="btn-flat datepicker-done waves-effect" type="button"></button>', '</div>', '</div>', '</div>', '</div>', '</div>'].join('');
 
   M.Datepicker = Datepicker;
 
@@ -10277,7 +10277,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     return Timepicker;
   }(Component);
 
-  Timepicker._template = ['<div class= "modal timepicker-modal">', '<div class="modal-content timepicker-container">', '<div class="timepicker-digital-display">', '<div class="timepicker-text-container">', '<div class="timepicker-display-column">', '<span class="timepicker-span-hours text-primary"></span>', ':', '<span class="timepicker-span-minutes"></span>', '</div>', '<div class="timepicker-display-column timepicker-display-am-pm">', '<div class="timepicker-span-am-pm"></div>', '</div>', '</div>', '</div>', '<div class="timepicker-analog-display">', '<div class="timepicker-plate">', '<div class="timepicker-canvas"></div>', '<div class="timepicker-dial timepicker-hours"></div>', '<div class="timepicker-dial timepicker-minutes timepicker-dial-out"></div>', '</div>', '<div class="timepicker-footer"></div>', '</div>', '</div>', '</div>'].join('');
+  Timepicker._template = ['<div class= "materialize-modal timepicker-materialize-modal">', '<div class="materialize-modal-content timepicker-container">', '<div class="timepicker-digital-display">', '<div class="timepicker-text-container">', '<div class="timepicker-display-column">', '<span class="timepicker-span-hours text-primary"></span>', ':', '<span class="timepicker-span-minutes"></span>', '</div>', '<div class="timepicker-display-column timepicker-display-am-pm">', '<div class="timepicker-span-am-pm"></div>', '</div>', '</div>', '</div>', '<div class="timepicker-analog-display">', '<div class="timepicker-plate">', '<div class="timepicker-canvas"></div>', '<div class="timepicker-dial timepicker-hours"></div>', '<div class="timepicker-dial timepicker-minutes timepicker-dial-out"></div>', '</div>', '<div class="timepicker-footer"></div>', '</div>', '</div>', '</div>'].join('');
 
   M.Timepicker = Timepicker;
 

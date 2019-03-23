@@ -58,6 +58,16 @@
 					<input id="post-viewed" type="text" name="post[viewed]" value="{{ viewed }}">
 					<label for="post-viewed">{{ entry_views }}</label>
 				</div>
+				<div class="input-field mt-4">
+					<i class="material-icons prefix">event_available</i>
+					<input id="post-date-published-start" type="text" name="post[date_published_start]" class="datepicker" value="">
+					<label for="post-date-published-start">Дата начала публикации</label> {# todo-materialize Must be placed in a language variable #}
+				</div>
+				<div class="input-field mt-4">
+					<i class="material-icons prefix">event_busy</i>
+					<input id="post-date-published-end" type="text" name="post[date_published_end]" class="timepicker" value="">
+					<label for="post-date-published-end">Дата окончания публикации</label> {# todo-materialize Must be placed in a language variable #}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -282,6 +292,12 @@
 <script>
 	$('select').formSelect();
 	$('.tooltipped').tooltip();
+	$('.datepicker').datepicker({
+		'container': 'body'
+	});
+	$('.timepicker').timepicker({
+		'container': 'body'
+	});
 	$('.input-field input[data-length]').characterCounter();
 	$('textarea[data-toggle=\'ckeditor\']').ckeditor();
 

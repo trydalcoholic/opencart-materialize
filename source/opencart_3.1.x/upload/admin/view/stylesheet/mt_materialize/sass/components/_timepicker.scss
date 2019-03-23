@@ -1,10 +1,10 @@
 /* Timepicker Containers */
-.timepicker-modal {
+.timepicker-materialize-modal {
   max-width: 325px;
   max-height: none;
 }
 
-.timepicker-container.modal-content {
+.timepicker-container.materialize-modal-content {
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -161,11 +161,11 @@
 
 /* Media Queries */
 @media #{$medium-and-up} {
-  .timepicker-modal {
+  .timepicker-materialize-modal {
     max-width: 600px;
   }
 
-  .timepicker-container.modal-content {
+  .timepicker-container.materialize-modal-content {
     flex-direction: row;
   }
 
