@@ -9,7 +9,7 @@
 
 class ModelExtensionMTMaterializeModuleMTBlogPost extends Model {
 	public function addPost($data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "mt_post SET sort_order = '" . (int)$data['sort_order'] . "', author_id = '" . (int)$data['author_id'] . "', status = '" . (int)$data['status'] . "', viewed = '" . (int)$data['viewed'] . "', settings = '" . $this->db->escape(json_encode($data['settings'])) . "', date_added = NOW(), date_modified = NOW()");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "mt_post SET sort_order = '" . (int)$data['sort_order'] . "', author_id = '" . (int)$data['author_id'] . "', status = '" . (int)$data['status'] . "', viewed = '" . (int)$data['viewed'] . "', settings = '" . $this->db->escape(json_encode($data['settings'])) . "', date_published_start = '" . $this->db->escape((string)$data['date_published_start']) . "', date_published_end = '" . $this->db->escape((string)$data['date_published_end']) . "', date_added = NOW(), date_modified = NOW()");
 
 		$post_id = $this->db->getLastId();
 

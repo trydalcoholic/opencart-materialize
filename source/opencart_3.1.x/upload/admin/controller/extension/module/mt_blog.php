@@ -11,7 +11,7 @@ class ControllerExtensionModuleMTBlog extends Controller {
 	private $error = [];
 
 	public function install() {
-		$this->load->model('extension/mt_materialize/module/mt_blog');
+		$this->load->model('extension/mt_materialize/module/mt_blog/module');
 
 		$this->model_extension_mt_materialize_module_mt_blog->install();
 
@@ -19,7 +19,7 @@ class ControllerExtensionModuleMTBlog extends Controller {
 	}
 
 	public function uninstall() {
-		$this->load->model('extension/mt_materialize/module/mt_blog');
+		$this->load->model('extension/mt_materialize/module/mt_blog/module');
 
 		$this->model_extension_mt_materialize_module_mt_blog->uninstall();
 
@@ -34,8 +34,8 @@ class ControllerExtensionModuleMTBlog extends Controller {
 
 		$this->document->setTitle($this->language->get('module_title'));
 
-		$this->document->addScript('view/javascript/mt_materialize/materialize.js');
 		$this->document->addScript('view/javascript/mt_materialize/js/materialize.js');
+		$this->document->addScript('view/javascript/mt_materialize/js/common.js');
 		$this->document->addScript('view/javascript/ckeditor/ckeditor.js');
 		$this->document->addScript('view/javascript/ckeditor/adapters/jquery.js');
 
@@ -217,6 +217,28 @@ class ControllerExtensionModuleMTBlog extends Controller {
 				$json['post_id'] = $this->request->get['post_id'];
 				/*$this->extension_mt_materialize_module_mt_blog_post->editPost($this->request->post, $this->request->get['post_id']);*/
 			} else {
+				if (!empty($this->request->post['post']['date_published_start']['date'])) {
+					$date_published_start = $this->request->post['post']['date_published_start']['date'] . ' ' . (isset($this->request->post['post']['date_published_start']['time']) ? $this->request->post['post']['date_published_start']['time'] : '00:00');
+				} else {
+					$date_published_start = '';
+				}
+
+				unset($this->request->post['post']['date_published_start']['date']);
+				unset($this->request->post['post']['date_published_start']['time']);
+
+				$this->request->post['post']['date_published_start'] = $date_published_start;
+
+				if (!empty($this->request->post['post']['date_published_end']['date'])) {
+					$date_published_end = $this->request->post['post']['date_published_end']['date'] . ' ' . (isset($this->request->post['post']['date_published_end']['time']) ? $this->request->post['post']['date_published_end']['time'] : '00:00');
+				} else {
+					$date_published_end = '';
+				}
+
+				unset($this->request->post['post']['date_published_end']['date']);
+				unset($this->request->post['post']['date_published_end']['time']);
+
+				$this->request->post['post']['date_published_end'] = $date_published_end;
+
 				$json['post_id'] = $this->model_extension_mt_materialize_module_mt_blog_post->addPost($this->request->post['post']);
 			}
 
@@ -267,6 +289,10 @@ class ControllerExtensionModuleMTBlog extends Controller {
 			foreach ($post['description'] as $language_id => $value) {
 				if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 255)) {
 					$this->error['name'][$language_id] = $this->language->get('error_name');
+				}
+
+				if (utf8_strlen($value['announcement']) > 255) {
+					$this->error['announcement'][$language_id] = $this->language->get('error_announcement');
 				}
 			}
 

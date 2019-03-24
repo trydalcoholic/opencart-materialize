@@ -7,7 +7,7 @@
  * @link        https://github.com/trydalcoholic/opencart-materialize
  */
 
-class ModelExtensionMTMaterializeModuleMTBlog extends Model {
+class ModelExtensionMTMaterializeModuleMTBlogModule extends Model {
 	public function install() {
 		$this->load->model('setting/store');
 
@@ -94,6 +94,7 @@ class ModelExtensionMTMaterializeModuleMTBlog extends Model {
 				`post_id` INT(11) NOT NULL,
 				`language_id` INT(11) NOT NULL,
 				`name` VARCHAR(255) NOT NULL,
+				`announcement` VARCHAR(255) NOT NULL,
 				`description` TEXT NOT NULL,
 				`tag` TEXT NOT NULL,
 				`meta_title` VARCHAR(255) NOT NULL,

@@ -1,5 +1,6 @@
 {{ header }}{{ column_left }}
 <div id="content" class="materialize-content">
+	<div id="preloader" class="materialize-progress white" style="display: none;"><div class="indeterminate"></div></div>
 	<nav class="materialize-nav nav-extended pl-3 pr-3 white">
 		<div class="nav-wrapper">
 			<a href="#" data-target="slide-out" class="sidenav-trigger black-text waves-effect"><i class="material-icons">menu</i></a>
@@ -198,7 +199,8 @@
 </style>
 <script>
 	$(document).ready(function() {
-		let tabsNavigation = $('#tabs-navigation'),
+		let preloader = $('#preloader'),
+			tabsNavigation = $('#tabs-navigation'),
 			post = $('#post');
 
 		$(".dropdown-trigger").dropdown();
@@ -234,15 +236,15 @@
 				type: 'get',
 				dataType: 'json',
 				beforeSend: function() {
-					tabsNavigation.tabs('select', 'post');
+					preloader.show();
 				},
 				complete: function() {
-					$('.tabs').tabs().tabs('updateTabIndicator')
+					preloader.hide();
+					tabsNavigation.tabs('select', 'post');
+					$('#post-form .tabs').tabs().tabs('updateTabIndicator');
 				},
 				success: function(json) {
 					post.html(json['post_form']);
-
-					$('.scale-out').removeClass('scale-out').addClass('scale-in');
 				},
 				error: function(xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

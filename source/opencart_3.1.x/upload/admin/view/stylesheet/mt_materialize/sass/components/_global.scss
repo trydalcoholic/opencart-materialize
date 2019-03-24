@@ -645,14 +645,13 @@ td, th{
 }
 
 // Progress Bar
-.progress {
-    position: relative;
+.materialize-progress {
+    position: absolute;
     height: 4px;
     display: block;
     width: 100%;
     background-color: lighten($progress-bar-color, 40%);
     border-radius: 2px;
-    margin: $element-top-margin 0 $element-bottom-margin 0;
     overflow: hidden;
   .determinate {
     position: absolute;

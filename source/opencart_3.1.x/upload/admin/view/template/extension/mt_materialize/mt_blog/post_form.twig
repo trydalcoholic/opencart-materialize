@@ -1,8 +1,8 @@
-<div id="post-form" class="scale-transition scale-out">
+<div id="post-form">
 	<h5>{{ text_common }}</h5>
 	<div class="materialize-card-panel mb-5">
 		<div class="row">
-			<div class="col-xs-12 col-md-8 col-lg-9">
+			<div class="col-sm-12 col-md-8 col-lg-9">
 				<ul class="tabs">
 					{% for language in languages %}
 						<li class="tab"><a class="font-weight-normal waves-effect waves-default" href="#post-description-{{ language.language_id }}">{{ language.name }}</a></li>
@@ -12,8 +12,13 @@
 					<div id="post-description-{{ language.language_id }}" class="pt-4">
 						<div class="input-field mb-5">
 							<input id="post-name-{{ language.language_id }}" type="text" name="post[description][{{ language.language_id }}][name]" value="{{ post_description[language.language_id] ? post_description[language.language_id].name }}" class="validate" data-length="255">
-							<label for="post-name-{{ language.language_id }}" class="required">{{ entry_post }}</label>
+							<label for="post-name-{{ language.language_id }}" class="required">{{ entry_name }}</label>
 							<span id="post-name-helper-{{ language.language_id }}" class="helper-text">{{ error_name }}</span>
+						</div>
+						<div class="input-field mb-5">
+							<textarea id="post-announcement" class="materialize-textarea" name="post[description][{{ language.language_id }}][announcement]" data-length="255">{{ post_description[language.language_id] ? post_description[language.language_id].announcement }}</textarea>
+							<label for="post-announcement">{{ entry_announcement }}</label>
+							<span id="post-announcement-helper-{{ language.language_id }}" class="helper-text">{{ error_announcement }}</span>
 						</div>
 						<label class="w-100 mt-5">
 							<textarea id="post-description-{{ language.language_id }}" name="post[description][{{ language.language_id }}][description]" data-toggle="ckeditor" data-lang="{{ ckeditor }}">{{ post_description[language.language_id] ? post_description[language.language_id].description }}</textarea>
@@ -21,7 +26,7 @@
 					</div>
 				{% endfor %}
 			</div>
-			<div class="col-xs-12 col-md-4 col-lg-3">
+			<div class="col-sm-12 col-md-4 col-lg-3">
 				<img src="{{ placeholder }}" class="img-fluid mx-auto d-block" alt="">
 				<div class="input-field">
 					<i class="material-icons prefix">toggle_on</i>
@@ -58,15 +63,39 @@
 					<input id="post-viewed" type="text" name="post[viewed]" value="{{ viewed }}">
 					<label for="post-viewed">{{ entry_views }}</label>
 				</div>
-				<div class="input-field mt-4">
-					<i class="material-icons prefix">event_available</i>
-					<input id="post-date-published-start" type="text" name="post[date_published_start]" class="datepicker" value="">
-					<label for="post-date-published-start">Дата начала публикации</label> {# todo-materialize Must be placed in a language variable #}
+			</div>
+			<div class="col-sm-12 mt-4">
+				<div class="row">
+					<div class="col-sm-12"><h6>Дата начала публикации</h6></div>
+					<div class="col-sm-12 col-md-6">
+						<div class="input-field">
+							<i class="material-icons prefix">event_available</i>
+							<input id="post-date-published-start" type="text" name="post[date_published_start][date]" class="datepicker" value="">
+							<label for="post-date-published-start">Дата</label> {# todo-materialize Must be placed in a language variable #}
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-6">
+						<div class="input-field">
+							<input id="post-date-published-end" type="text" name="post[date_published_start][time]" class="timepicker" value="">
+							<label for="post-date-published-end">Время</label> {# todo-materialize Must be placed in a language variable #}
+						</div>
+					</div>
 				</div>
-				<div class="input-field mt-4">
-					<i class="material-icons prefix">event_busy</i>
-					<input id="post-date-published-end" type="text" name="post[date_published_end]" class="timepicker" value="">
-					<label for="post-date-published-end">Дата окончания публикации</label> {# todo-materialize Must be placed in a language variable #}
+				<div class="row">
+					<div class="col-sm-12"><h6>Дата окончания публикации</h6></div>
+					<div class="col-sm-12 col-md-6">
+						<div class="input-field">
+							<i class="material-icons prefix">event_busy</i>
+							<input id="post-date-published-start" type="text" name="post[date_published_end][date]" class="datepicker" value="">
+							<label for="post-date-published-start">Дата</label> {# todo-materialize Must be placed in a language variable #}
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-6">
+						<div class="input-field">
+							<input id="post-date-published-end" type="text" name="post[date_published_end][time]" class="timepicker" value="">
+							<label for="post-date-published-end">Время</label> {# todo-materialize Must be placed in a language variable #}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -293,17 +322,16 @@
 	$('select').formSelect();
 	$('.tooltipped').tooltip();
 	$('.datepicker').datepicker({
-		'container': 'body'
+		'container': 'body',
+		'format': 'yyyy-mm-dd'
 	});
 	$('.timepicker').timepicker({
-		'container': 'body'
+		'container': 'body',
+		'format': 'yyyy-mm-dd',
+		'twelveHour': false
 	});
-	$('.input-field input[data-length]').characterCounter();
+	$('.input-field input[data-length], .input-field textarea[data-length]').characterCounter();
 	$('textarea[data-toggle=\'ckeditor\']').ckeditor();
-
-	/*setTimeout(function() {
-		$('#post .tabs').tabs().tabs('updateTabIndicator');
-	}, 300);*/
 
 	let savePostButton = $('#save-post-button'),
 		postForm = $('#post');
@@ -325,6 +353,11 @@
 					$.each(json['error']['name'], function(index) {
 						$('#post-name-' + index).addClass('invalid');
 						$('#post-name-helper-' + index).attr('data-error', json['error']['name'][index]);
+					});
+
+					$.each(json['error']['announcement'], function(index) {
+						$('#post-announcement-' + index).addClass('invalid');
+						$('#post-announcement-helper-' + index).attr('data-error', json['error']['announcement'][index]);
 					});
 				}
 			},

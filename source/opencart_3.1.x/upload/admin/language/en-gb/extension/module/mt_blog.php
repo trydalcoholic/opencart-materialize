@@ -37,7 +37,8 @@ $_['text_seo']					= 'SEO';
 $_['text_image']				= 'Image';
 
 // Entry
-$_['entry_post']				= 'Post Name';
+$_['entry_name']				= 'Post Name';
+$_['entry_announcement']		= 'Post Announcement';
 $_['entry_description']			= 'Post Description';
 $_['entry_meta_title']			= 'Meta Tag Title';
 $_['entry_meta_h1']				= 'Meta Tag H1';
@@ -59,5 +60,6 @@ $_['help_tag']					= 'Comma separated';
 // Error
 $_['error_permission']			= 'Warning: You do not have permission to modify Materialize Blog!';
 $_['error_name']				= 'Post Name must be greater than 1 and less than 255 characters!';
+$_['error_announcement']		= 'Post Announcement must be greater than 1 and less than 255 characters!';
 $_['error_meta_title']			= 'Meta Title must be less than 255 characters!';
 $_['error_meta_h1']				= 'Meta H1 must be than 255 characters!';
