@@ -1,21 +1,24 @@
-<div class="materialize-card">
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores atque consequuntur esse excepturi, harum in, inventore ipsum minima obcaecati pariatur, possimus quis quo rerum saepe sint suscipit ullam voluptates.</p>
-	<table class="materialize-table highlight">
+<h5>Посты</h5>
+<div class="mt-card">
+	<div class="mt-card__header">
+	</div>
+	<table class="mt-table highlight">
 		<thead>
 			<tr>
-				<th style="width: 50px;">
-					<label>
-						<input type="checkbox" id="main-table-checkbox" class="filled-in">
-						<span></span>
-					</label>
+				<th>
+					<div class="test">
+						<label>
+							<input type="checkbox" id="main-table-checkbox" class="filled-in">
+							<span></span>
+						</label>
+					</div>
 				</th>
-				<th class="center" style="width: 80px;">{{ column_image }}</th>
-				<th style="width: 300px;">{{ column_post }}</th>
+				{#<th class="center" style="width: 80px;">{{ column_image }}</th>#}
+				<th>{{ column_post }}</th>
 				<th>{{ column_author }}</th>
 				<th>{{ column_category }}</th>
 				<th>{{ column_comment }}</th>
 				<th>{{ column_data }}</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,35 +26,37 @@
 				{% for post in posts %}
 					<tr>
 						<td>
-							<label>
-								<input type="checkbox" name="selected[]" value="{{ post.post_id }}" class="filled-in">
-								<span></span>
-							</label>
+							<div class="test">
+								<label>
+									<input type="checkbox" name="selected[]" value="{{ post.post_id }}" class="filled-in">
+									<span></span>
+								</label>
+							</div>
 						</td>
-						<td class="center"><img src="{{ placeholder }}" alt="{{ post.name }}" class="img-thumbnail"></td>
+						{#<td class="center"><img src="{{ placeholder }}" alt="{{ post.name }}" class="img-thumbnail"></td>#}
 						<td>
-							<a href="#!" class="grey-text text-darken-4 title">{{ post.name }}</a>
-							{% if post.status == 0 %}
-								<span class="materialize-badge blue-grey lighten-1 mt-2">{{ text_draft }}</span>
+							<div class="row valign-wrapper">
+								<div class="col-2"><img src="{{ placeholder }}" alt="{{ post.name }}"></div>
+								<div class="col-10"><a href="#!" class="grey-text text-darken-4 title">{{ post.name }}</a></div>
+							</div>
+							{#{% if post.status == 0 %}
+								<span class="nt-badge blue-grey lighten-1 mt-2">{{ text_draft }}</span>
 							{% elseif post.status == 1 %}
-								<span class="materialize-badge green mt-2">{{ text_published }}</span>
+								<span class="nt-badge green mt-2">{{ text_published }}</span>
 							{% else %}
-								<span class="materialize-badge orange mt-2">{{ text_pending_review }}</span>
-							{% endif %}
+								<span class="nt-badge orange mt-2">{{ text_pending_review }}</span>
+							{% endif %}#}
 						</td>
 						<td>{{ post.author }}</td>
 						<td>Category</td>
 						<td>3</td>
 						<td>{{ post.date_added }}</td>
-						<td>
-							<a class="btn-floating btn-flat waves-effect"><i class="material-icons grey-text text-darken-4">mode_edit</i></a>
-						</td>
 					</tr>
 				{% endfor %}
 			{% endif %}
 		</tbody>
 	</table>
-	<div class="materialize-card-action">
+	<div class="mt-card-action">
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, nulla, sequi. Enim facilis ipsum molestias nulla odio qui velit voluptas, voluptate! A blanditiis magnam nesciunt odio repudiandae sint veniam voluptatum.</p>
 	</div>
 </div>
@@ -81,6 +86,7 @@
 				oneCheckboxChecked = true;
 				allCheckboxChecked.push(true);
 				$(element).parent().parent().parent().addClass('active');
+				$('table thead tr').addClass('active');
 			} else {
 				$(element).parent().parent().parent().removeClass('active');
 			}
@@ -101,6 +107,7 @@
 				'checked': false,
 				'indeterminate': false
 			});
+			$('table thead tr').removeClass('active');
 		} else {
 			mainTableCheckbox.addClass('filled-in').prop({
 				'checked': true,

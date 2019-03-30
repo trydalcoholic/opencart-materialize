@@ -1,24 +1,24 @@
 
 
-.materialize-card-panel {
+.mt-card-panel {
   transition: box-shadow .25s;
   padding: $card-padding;
   margin: $element-top-margin 0 $element-bottom-margin 0;
-  border-radius: 4px;
+  border-radius: 8px;
   @extend .z-depth-1;
   background-color: $card-bg-color;
 }
 
-.materialize-card {
+.mt-card {
   position: relative;
   margin: $element-top-margin 0 $element-bottom-margin 0;
   background-color: $card-bg-color;
   transition: box-shadow .25s;
-  border-radius: 2px;
+  border-radius: 8px;
   @extend .z-depth-1;
 
 
-  .materialize-card-title {
+  .mt-card-title {
     font-size: 24px;
     font-weight: 300;
     &.activator {
@@ -30,18 +30,18 @@
   &.small, &.medium, &.large {
     position: relative;
 
-    .materialize-card-image {
+    .mt-card-image {
       max-height: 60%;
       overflow: hidden;
     }
-    .materialize-card-image + .materialize-card-content {
+    .mt-card-image + .mt-card-content {
       max-height: 40%;
     }
-    .materialize-card-content {
+    .mt-card-content {
       max-height: 100%;
       overflow: hidden;
     }
-    .materialize-card-action {
+    .mt-card-action {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -64,7 +64,7 @@
   // Horizontal Cards
   &.horizontal {
     &.small, &.medium, &.large {
-      .materialize-card-image {
+      .mt-card-image {
         height: 100%;
         max-height: none;
         overflow: visible;
@@ -77,7 +77,7 @@
 
     display: flex;
 
-    .materialize-card-image {
+    .mt-card-image {
       max-width: 50%;
       img {
         border-radius: 2px 0 0 2px;
@@ -86,13 +86,13 @@
       }
     }
 
-    .materialize-card-stacked {
+    .mt-card-stacked {
       display: flex;
       flex-direction: column;
       flex: 1;
       position: relative;
 
-      .materialize-card-content {
+      .mt-card-content {
         flex-grow: 1;
       }
     }
@@ -100,11 +100,11 @@
 
   // Sticky Action Section
   &.sticky-action {
-    .materialize-card-action {
+    .mt-card-action {
       z-index: 2;
     }
 
-    .materialize-card-reveal {
+    .mt-card-reveal {
       z-index: 1;
       padding-bottom: 64px;
     }
@@ -113,7 +113,7 @@
 
 
 
-  .materialize-card-image {
+  .mt-card-image {
     position: relative;
 
     // Image background for content
@@ -128,7 +128,7 @@
       width: 100%;
     }
 
-    .materialize-card-title {
+    .mt-card-title {
       color: $card-bg-color;
       position: absolute;
       bottom: 0;
@@ -138,14 +138,14 @@
     }
   }
 
-  .materialize-card-content {
+  .mt-card-content {
     padding: $card-padding;
-    border-radius: 0 0 2px 2px;
+    border-radius: 0 0 8px 8px;
 
     p {
       margin: 0;
     }
-    .materialize-card-title {
+    .mt-card-title {
       display: block;
       line-height: 32px;
       margin-bottom: 8px;
@@ -156,16 +156,16 @@
     }
   }
 
-  .materialize-card-action {
+  .mt-card-action {
     &:last-child {
-      border-radius: 0 0 2px 2px;
+      border-radius: 0 0 8px 8px;
     }
     background-color: inherit; // Use inherit to inherit color classes
     border-top: 1px solid rgba(160,160,160,.2);
     position: relative;
     padding: 16px $card-padding;
 
-    a:not(.btn):not(.btn-large):not(.btn-floating) {
+    a:not(.mt-btn):not(.mt-btn-large):not(.mt-btn-floating) {
       color: $card-link-color;
       margin-right: $card-padding;
       transition: color .3s ease;
@@ -175,7 +175,7 @@
     }
   }
 
-  .materialize-card-reveal {
+  .mt-card-reveal {
     padding: $card-padding;
     position: absolute;
     background-color: $card-bg-color;
@@ -187,7 +187,7 @@
     z-index: 3;
     display: none;
 
-    .materialize-card-title {
+    .mt-card-title {
       cursor: pointer;
       display: block;
     }

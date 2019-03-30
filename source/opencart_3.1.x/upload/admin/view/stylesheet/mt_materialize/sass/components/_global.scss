@@ -163,7 +163,7 @@ video.responsive-video {
 
 // Pagination
 
-.materialize-pagination {
+.mt-pagination {
 
   li {
     display: inline-block;
@@ -201,7 +201,7 @@ video.responsive-video {
   }
 }
 @media #{$medium-and-down} {
-  .materialize-pagination {
+  .mt-pagination {
     width: 100%;
 
     li.prev,
@@ -218,7 +218,7 @@ video.responsive-video {
 }
 
 // Breadcrumbs
-.materialize-breadcrumb {
+.mt-breadcrumb {
   display: inline-block;
   color: rgba(255,255,255, .7);
 
@@ -442,7 +442,7 @@ tr {
 }
 
 td, th{
-  padding: 15px 5px;
+  padding: 4px;
   display: table-cell;
   text-align: left;
   vertical-align: middle;
@@ -645,7 +645,7 @@ td, th{
 }
 
 // Progress Bar
-.materialize-progress {
+.mt-progress {
     position: absolute;
     height: 4px;
     display: block;

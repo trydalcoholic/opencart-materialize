@@ -1,5 +1,5 @@
 // Badges
-span.materialize-badge {
+span.mt-badge {
   min-width: 3rem;
   padding: 0 6px;
   margin-left: 14px;
@@ -28,7 +28,7 @@ span.materialize-badge {
 }
 
 // Special cases
-.materialize-nav ul a span.materialize-badge {
+.mt-nav ul a span.mt-badge {
   display: inline-block;
   float: none;
   margin-left: 4px;
@@ -38,17 +38,17 @@ span.materialize-badge {
 }
 
 // Line height centering
-.collection-item span.materialize-badge {
+.collection-item span.mt-badge {
   margin-top: calc(#{$collection-line-height / 2} - #{$badge-height / 2});
 }
-.collapsible span.materialize-badge {
+.collapsible span.mt-badge {
   margin-left: auto;
 }
-.sidenav span.materialize-badge {
+.sidenav span.mt-badge {
   margin-top: calc(#{$sidenav-line-height / 2} - #{$badge-height / 2});
 }
 
-table span.materialize-badge {
+table span.mt-badge {
   display: inline-block;
   float: none;
   margin-left: auto;

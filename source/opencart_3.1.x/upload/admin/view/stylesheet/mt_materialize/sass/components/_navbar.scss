@@ -1,4 +1,4 @@
-.materialize-nav {
+.mt-nav {
   &.nav-extended {
     height: auto;
 
@@ -190,15 +190,15 @@
   height: $navbar-height-mobile;
   z-index: 997;
 
-  .materialize-nav {
+  .mt-nav {
     position: fixed;
   }
 }
 @media #{$medium-and-up} {
-  .materialize-nav.nav-extended .nav-wrapper {
+  .mt-nav.nav-extended .nav-wrapper {
     min-height: $navbar-height;
   }
-  .materialize-nav, .materialize-nav .nav-wrapper i, .materialize-nav a.sidenav-trigger, .materialize-nav a.sidenav-trigger i {
+  .mt-nav, .mt-nav .nav-wrapper i, .mt-nav a.sidenav-trigger, .mt-nav a.sidenav-trigger i {
     height: $navbar-height;
     line-height: $navbar-line-height;
   }

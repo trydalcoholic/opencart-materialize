@@ -174,7 +174,7 @@ class ControllerExtensionModuleMTBlog extends Controller {
 
 		$this->load->language('extension/module/mt_blog');
 
-		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 60, 60);
+		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 30, 30);
 
 		$data['posts'] = [];
 
@@ -182,7 +182,7 @@ class ControllerExtensionModuleMTBlog extends Controller {
 
 		foreach ($results as $result) {
 			if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
-				$image = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 60, 60);
+				$image = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 30, 30);
 			} else {
 				$image = $data['placeholder'];
 			}

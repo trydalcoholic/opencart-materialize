@@ -1,4 +1,4 @@
-.materialize-modal {
+.mt-modal {
   &:focus {
     outline: none;
   }
@@ -27,14 +27,14 @@
     margin-top: 0;
   }
 
-  .materialize-modal-content {
+  .mt-modal-content {
     padding: 24px;
   }
-  .materialize-modal-close {
+  .mt-modal-close {
     cursor: pointer;
   }
 
-  .materialize-modal-footer {
+  .mt-modal-footer {
     border-radius: 0 0 2px 2px;
     background-color: #fafafa;
     padding: 4px 6px;
@@ -47,7 +47,7 @@
     }
   }
 }
-.materialize-modal-overlay {
+.mt-modal-overlay {
   position: fixed;
   z-index: 999;
   top: -25%;
@@ -63,11 +63,11 @@
 }
 
 // Modal with fixed action footer
-.materialize-modal.materialize-modal-fixed-footer {
+.mt-modal.mt-modal-fixed-footer {
   padding: 0;
   height: 70%;
 
-  .materialize-modal-content {
+  .mt-modal-content {
     position: absolute;
     height: calc(100% - 56px);
     max-height: 100%;
@@ -75,7 +75,7 @@
     overflow-y: auto;
   }
 
-  .materialize-modal-footer {
+  .mt-modal-footer {
     border-top: 1px solid rgba(0,0,0,.1);
     position: absolute;
     bottom: 0;
@@ -83,7 +83,7 @@
 }
 
 // Modal Bottom Sheet Style
-.materialize-modal.bottom-sheet {
+.mt-modal.bottom-sheet {
   top: auto;
   bottom: -100%;
   margin: 0;

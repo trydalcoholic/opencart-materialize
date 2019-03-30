@@ -1,7 +1,7 @@
 {{ header }}{{ column_left }}
-<div id="content" class="materialize-content">
-	<div id="preloader" class="materialize-progress white" style="display: none;"><div class="indeterminate"></div></div>
-	<nav class="materialize-nav nav-extended pl-3 pr-3 white">
+<div id="content" class="mt-content">
+	<div id="preloader" class="mt-progress white" style="display: none;"><div class="indeterminate"></div></div>
+	<nav class="mt-nav nav-extended pl-3 pr-3 white">
 		<div class="nav-wrapper">
 			<a href="#" data-target="slide-out" class="sidenav-trigger black-text waves-effect"><i class="material-icons">menu</i></a>
 			<h1 class="left blue-text text-accent-1 mt-2">{{ module_title }}</h1>
@@ -29,26 +29,26 @@
 		</div>
 	</nav>
 	<div class="container">
-		<nav class="materialize-nav breadcrumb-wrapper transparent z-depth-0">
+		<nav class="mt-nav breadcrumb-wrapper transparent z-depth-0">
 			<div class="nav-wrapper">
 				{% for breadcrumb in breadcrumbs %}
-					<a href="{{ breadcrumb.href }}" class="materialize-breadcrumb black-text"><span class="waves-effect">{{ breadcrumb.text }}</span></a>
+					<a href="{{ breadcrumb.href }}" class="mt-breadcrumb black-text"><span class="waves-effect">{{ breadcrumb.text }}</span></a>
 				{% endfor %}
-				<span class="materialize-breadcrumb grey-text"><span id="breadcrumb-current">Общие настройки</span></span>
+				<span class="mt-breadcrumb grey-text"><span id="breadcrumb-current">Общие настройки</span></span>
 			</div>
 		</nav>
 	</div>
 	<div class="container">
 		<form id="settings">
 			<h5>Общие настройки</h5>
-			<ul class="materialize-list">
-				<li class="materialize-list-item">
-					<span class="materialize-list-item__icon waves-effect waves-circle required"><i class="material-icons">power_settings_new</i></span>
-					<span class="materialize-list-item__text">
-						<span class="materialize-list-item__primary-text">{{ entry_status }}</span>
-						<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
+			<ul class="mt-list">
+				<li class="mt-list-item">
+					<span class="mt-list-item__icon waves-effect waves-circle required"><i class="material-icons">power_settings_new</i></span>
+					<span class="mt-list-item__text">
+						<span class="mt-list-item__primary-text">{{ entry_status }}</span>
+						<span class="mt-list-item__secondary-text">Enter the name of the module</span>
 					</span>
-					<div class="materialize-list-item__data">
+					<div class="mt-list-item__data">
 						<div class="switch">
 							<label>
 								<input name="module_mt_blog_status" type="checkbox"{{ module_mt_blog_status ? ' checked' }}>
@@ -57,14 +57,14 @@
 						</div>
 					</div>
 				</li>
-				{#<li class="materialize-list-divider" role="separator"></li>#}
-				<li class="materialize-list-item">
-					<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">comment</i></span>
-					<span class="materialize-list-item__text">
-						<span class="materialize-list-item__primary-text">{{ entry_status }}</span>
-						<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
+				{#<li class="mt-list-divider" role="separator"></li>#}
+				<li class="mt-list-item">
+					<span class="mt-list-item__icon waves-effect waves-circle"><i class="material-icons">comment</i></span>
+					<span class="mt-list-item__text">
+						<span class="mt-list-item__primary-text">{{ entry_status }}</span>
+						<span class="mt-list-item__secondary-text">Enter the name of the module</span>
 					</span>
-					<div class="materialize-list-item__data">
+					<div class="mt-list-item__data">
 						<div class="switch">
 							<label>
 								<input type="checkbox">
@@ -73,13 +73,13 @@
 						</div>
 					</div>
 				</li>
-				<li class="materialize-list-item">
-					<span class="materialize-list-item__icon waves-effect waves-circle"><i class="material-icons">remove_red_eye</i></span>
-					<span class="materialize-list-item__text">
-						<span class="materialize-list-item__primary-text">{{ entry_status }}</span>
-						<span class="materialize-list-item__secondary-text">Enter the name of the module</span>
+				<li class="mt-list-item">
+					<span class="mt-list-item__icon waves-effect waves-circle"><i class="material-icons">remove_red_eye</i></span>
+					<span class="mt-list-item__text">
+						<span class="mt-list-item__primary-text">{{ entry_status }}</span>
+						<span class="mt-list-item__secondary-text">Enter the name of the module</span>
 					</span>
-					<div class="materialize-list-item__data">
+					<div class="mt-list-item__data">
 						<div class="switch">
 							<label>
 								<input type="checkbox">
@@ -89,53 +89,61 @@
 					</div>
 				</li>
 			</ul>
-			<div id="add-new-buttons" class="fixed-action-btn">
-				<span class="btn-floating btn-large red">
+			<div id="add-new-buttons" class="fixed-action-mt-btn">
+				<span class="mt-btn-floating mt-btn-large red">
 					<i class="large material-icons">mode_edit</i>
 				</span>
 				<ul>
-					<li><a class="btn-floating blue"><i class="material-icons">add_comment</i></a></li>
-					<li><a class="btn-floating green"><i class="material-icons">perm_media</i></a></li>
-					<li><a id="add-new-post" class="btn-floating orange"><i class="material-icons">art_track</i></a></li>
+					<li><a class="mt-btn-floating blue"><i class="material-icons">add_comment</i></a></li>
+					<li><a class="mt-btn-floating green"><i class="material-icons">perm_media</i></a></li>
+					<li><a id="add-new-post" class="mt-btn-floating orange"><i class="material-icons">art_track</i></a></li>
 				</ul>
 			</div>
 		</form>
 		<form id="post">
-			<div class="center">
+			<div class="mt-card center pt-5 pb-5">
 				<div class="preloader-wrapper big active">
 					<div class="spinner-layer spinner-blue">
 						<div class="circle-clipper left">
 							<div class="circle"></div>
-						</div><div class="gap-patch">
+						</div>
+						<div class="gap-patch">
 							<div class="circle"></div>
-						</div><div class="circle-clipper right">
+						</div>
+						<div class="circle-clipper right">
 							<div class="circle"></div>
 						</div>
 					</div>
 					<div class="spinner-layer spinner-red">
 						<div class="circle-clipper left">
 							<div class="circle"></div>
-						</div><div class="gap-patch">
+						</div>
+						<div class="gap-patch">
 							<div class="circle"></div>
-						</div><div class="circle-clipper right">
+						</div>
+						<div class="circle-clipper right">
 							<div class="circle"></div>
 						</div>
 					</div>
 					<div class="spinner-layer spinner-yellow">
 						<div class="circle-clipper left">
 							<div class="circle"></div>
-						</div><div class="gap-patch">
+						</div>
+						<div class="gap-patch">
 							<div class="circle"></div>
-						</div><div class="circle-clipper right">
+						</div>
+						<div class="circle-clipper right">
 							<div class="circle"></div>
 						</div>
 					</div>
 					<div class="spinner-layer spinner-green">
 						<div class="circle-clipper left">
 							<div class="circle"></div>
-						</div><div class="gap-patch">
+						</div>
+						<div class="gap-patch">
 							<div class="circle"></div>
-						</div><div class="circle-clipper right">
+						</div>
+						<div class="circle-clipper right">
 							<div class="circle"></div>
 						</div>
 					</div>
@@ -144,14 +152,14 @@
 		</form>
 		<div id="test2"></div>
 		<div id="test4">
-			<div class="materialize-card-panel">Test 4</div>
+			<div class="mt-card-panel">Test 4</div>
 		</div>
 	</div>
 	{#<div class="page-header">
 		<div class="container-fluid">
 			<div class="float-right">
-				<button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
-				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-light"><i class="fas fa-reply"></i></a></div>
+				<button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="mt-btn mt-btn-primary"><i class="fas fa-save"></i></button>
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="mt-btn mt-btn-light"><i class="fas fa-reply"></i></a></div>
 			<h1>{{ heading_title }}</h1>
 			<ol class="breadcrumb">
 				{% for breadcrumb in breadcrumbs %}
@@ -203,8 +211,11 @@
 			tabsNavigation = $('#tabs-navigation'),
 			post = $('#post');
 
+		let issetFormPost = false,
+			issetFormList = false;
+
 		$(".dropdown-trigger").dropdown();
-		$('.fixed-action-btn').floatingActionButton();
+		$('.fixed-action-mt-btn').floatingActionButton();
 		$('select').formSelect();
 		$('.sidenav').sidenav();
 
@@ -229,8 +240,10 @@
 			});
 		});
 
-
 		$('#add-new-post').on('click', function() {
+			issetFormPost = true;
+			issetFormList = false;
+
 			$.ajax({
 				url: 'index.php?route=extension/module/mt_blog/getPostForm&user_token={{ user_token }}',
 				type: 'get',
@@ -256,20 +269,25 @@
 			onShow: function(element) {
 				let tabId = $(element).attr('id');
 
-				/*if (tabId === 'post') {
+				if (tabId === 'post' && !issetFormPost && !issetFormList) {
 					getPosts();
-				}*/
+				}
 			}
 		});
 
 		function getPosts() {
+			issetFormList = true;
+
 			$.ajax({
 				url: 'index.php?route=extension/module/mt_blog/getPostList&user_token={{ user_token }}',
 				type: 'get',
 				dataType: 'json',
 				beforeSend: function() {
+					preloader.show();
 				},
 				complete: function() {
+					preloader.hide();
+					$('#tabs-navigation').tabs().tabs('updateTabIndicator');
 				},
 				success: function(json) {
 					post.html(json['post_list']);
