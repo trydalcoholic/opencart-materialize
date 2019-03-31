@@ -16,26 +16,18 @@
 .mt-card-panel {
 	.post-image {
 		position: relative;
-		width: 200px;
-		height: 200px;
+		margin: 0 auto;
+		width: 136px;
+		height: 136px;
 
 		img {
 			border-radius: 50%;
-			border: 1px solid red;
 		}
 
 		.post-image__control {
 			position: absolute;
-			right: 15px;
+			right: -25px;
 			padding: 0;
-
-			&.post-image__control--remove-image {
-				top: 10px;
-			}
-
-			&.post-image__control--add-image {
-				bottom: 10px;
-			}
 		}
 	}
 }
@@ -291,4 +283,43 @@ label.active.required:after {
 .cke_bottom {
 	border-top: none !important;
 	background: transparent !important;
+}
+
+// Fix file manager styles
+#filemanager {
+	h5.modal-title {
+		font-size: 1.015625rem;
+		margin: 0;
+	}
+
+	input[type=text]:not(.browser-default) {
+		width: 1%;
+		height: calc(2.2145rem + 2px);
+		margin: 0;
+		padding: 0.5385rem 0.7692rem;
+		font-size: 0.8125rem;
+		border: 1px solid #ced4da;
+		border-radius: 0.2308rem;
+		box-sizing: border-box;
+
+		&:focus:not([readonly]) {
+			box-shadow: 0 0 0 0.2rem rgba(30, 145, 207, 0.25);
+		}
+	}
+
+	label {
+		color: #545454;
+
+		[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+			position: relative;
+			opacity: 1;
+			pointer-events: auto;
+		}
+	}
+
+	button {
+		&:focus {
+			background-color: transparent;
+		}
+	}
 }

@@ -7,6 +7,33 @@
  */
 
 $(document).ready(function() {
+	// Image Manager
+	$(document).on('click', '[data-toggle=\'mt-image\']', function() {
+		$('#modal-image').remove();
+
+		$.ajax({
+			url: 'index.php?route=common/filemanager&user_token=' + getURLVar('user_token') + '&target=' + encodeURIComponent($(this).attr('data-target')) + '&thumb=' + encodeURIComponent($(this).attr('data-thumb')),
+			dataType: 'html',
+			beforeSend: function() {
+				$('#preloader').show();
+			},
+			complete: function() {
+				$('#preloader').hide();
+			},
+			success: function(html) {
+				$('body').append(html);
+
+				$('#modal-image').modal('show');
+			}
+		});
+	});
+
+	$(document).on('click', '[data-toggle=\'mt-clear\']', function() {
+		$($(this).attr('data-thumb')).attr('src', $($(this).attr('data-thumb')).attr('data-placeholder'));
+
+		$($(this).attr('data-target')).val('');
+	});
+
 	$('#container').on('click', '.materialize-list-item__icon, input[type=\'checkbox\']', function() {
 		let iconEnable = $(this).data('enable'),
 			iconDisable = $(this).data('disable'),

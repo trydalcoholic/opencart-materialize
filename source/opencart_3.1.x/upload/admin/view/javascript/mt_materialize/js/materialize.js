@@ -3295,7 +3295,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   M.Modal = Modal;
 
   if (M.jQueryLoaded) {
-    M.initializeJqueryWrapper(Modal, 'modal', 'M_Modal');
+    M.initializeJqueryWrapper(Modal, 'mt-modal', 'M_Modal');
   }
 })(cash, M.anime);
 ;(function ($, anim) {
@@ -4768,7 +4768,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   M.Tooltip = Tooltip;
 
   if (M.jQueryLoaded) {
-    M.initializeJqueryWrapper(Tooltip, 'tooltip', 'M_Tooltip');
+    M.initializeJqueryWrapper(Tooltip, 'mt-tooltip', 'M_Tooltip');
   }
 })(cash, M.anime);
 ; /*!

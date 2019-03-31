@@ -28,9 +28,13 @@
 			</div>
 			<div class="col-sm-12 col-md-4 col-lg-3">
 				<div class="post-image">
-					<button class="mt-btn waves-effect waves-circle post-image__control post-image__control--remove-image"><i class="material-icons">close</i></button>
-					<img src="{{ placeholder }}" class="img-fluid mx-auto d-block" alt="">
-					<button class="mt-btn waves-effect waves-circle post-image__control post-image__control--add-image"><i class="material-icons">photo_camera</i></button>
+					<button type="button" id="post-image-edit" class="post-image__control mt-btn-flat waves-effect waves-circle dropdown-trigger" data-target="post-image-dropdown"><i class="material-icons">more_vert</i></button>
+					<ul id="post-image-dropdown" class="dropdown-content">
+						<li class="waves-effect"><a data-toggle="mt-image" data-target="#input-post-image" data-thumb="#post-thumb"><i class="material-icons">add_a_photo</i> {{ button_edit }}</a></li>
+						<li class="waves-effect"><a data-toggle="mt-clear" data-target="#input-post-image" data-thumb="#post-thumb"><i class="material-icons left">close</i> {{ button_clear }}</a></li>
+					</ul>
+					<img id="post-thumb" src="{{ placeholder }}" data-placeholder="{{ placeholder }}" class="img-fluid mx-auto d-block" alt="">
+					<input type="hidden" name="post[image]" value="{{ image }}" id="input-post-image">
 				</div>
 				<div class="input-field">
 					<i class="material-icons prefix">toggle_on</i>
@@ -333,6 +337,9 @@
 		'container': 'body',
 		'format': 'yyyy-mm-dd',
 		'twelveHour': false
+	});
+	$('#post-image-edit').dropdown({
+		constrainWidth: false
 	});
 	$('.input-field input[data-length], .input-field textarea[data-length]').characterCounter();
 	$('textarea[data-toggle=\'ckeditor\']').ckeditor();
