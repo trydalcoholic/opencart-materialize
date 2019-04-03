@@ -1,7 +1,6 @@
 <h5>Посты</h5>
-<div class="mt-card">
-	<div class="mt-card__header">
-	</div>
+<div class="mt-card posts">
+	<div class="mt-card__header"></div>
 	<table class="mt-table highlight">
 		<thead>
 			<tr>
@@ -62,8 +61,10 @@
 </div>
 <script>
 	let tableRows = $('table tbody tr'),
+		theadRow = $('table thead tr'),
 		mainTableCheckbox = $('#main-table-checkbox'),
-		tableCheckboxes = $('tbody td input[type=\'checkbox\']');
+		tableCheckboxes = $('tbody td input[type=\'checkbox\']'),
+		cardHeader = $('.mt-card__header');
 
 	mainTableCheckbox.on('click', function() {
 		mainTableCheckbox.addClass('filled-in');
@@ -77,6 +78,20 @@
 		}
 	});
 
+	function controlButtons(status) {
+		if (status) {
+			if (!$(cardHeader).hasClass('mt-card__header-active')) {
+				$(cardHeader).addClass('mt-card__header-active');
+			}
+
+			if ($('#button-remove-post').length === 0) {
+				$(cardHeader).append('<button type="button" id="button-remove-post" class="mt-btn-flat waves-effect blue-text text-accent-2 font-weight-bold">Remove</button>');
+			}
+		} else {
+			$(cardHeader).removeClass('mt-card__header-active').find('#button-remove-post').remove();
+		}
+	}
+
 	tableCheckboxes.change(function() {
 		let allCheckboxChecked = [],
 			oneCheckboxChecked = false;
@@ -85,10 +100,10 @@
 			if ($(element).prop('checked')) {
 				oneCheckboxChecked = true;
 				allCheckboxChecked.push(true);
-				$(element).parent().parent().parent().addClass('active');
-				$('table thead tr').addClass('active');
+				$(element).parent().parent().parent().parent().addClass('active');
+				$(theadRow).addClass('active');
 			} else {
-				$(element).parent().parent().parent().removeClass('active');
+				$(element).parent().parent().parent().parent().removeClass('active');
 			}
 		});
 
@@ -97,22 +112,31 @@
 				'checked': true,
 				'indeterminate': false
 			});
+
+			controlButtons(true);
 		} else if (oneCheckboxChecked) {
 			mainTableCheckbox.prop({
 				'checked': false,
 				'indeterminate': true
 			}).removeClass('filled-in');
+
+			controlButtons(true);
 		} else if (allCheckboxChecked.length === 0) {
 			mainTableCheckbox.addClass('filled-in').prop({
 				'checked': false,
 				'indeterminate': false
 			});
-			$('table thead tr').removeClass('active');
+			$(theadRow).removeClass('active');
+			$(cardHeader).removeClass('mt-card__header-active');
+
+			controlButtons(false);
 		} else {
 			mainTableCheckbox.addClass('filled-in').prop({
 				'checked': true,
 				'indeterminate': false
 			});
+
+			controlButtons(true);
 		}
 	});
 </script>

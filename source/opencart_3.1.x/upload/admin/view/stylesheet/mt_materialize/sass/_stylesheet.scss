@@ -9,9 +9,34 @@
 
 .mt-card {
 	.mt-card__header {
-		padding: 16px 24px;
+		height: 52px;
+		padding: 16px;
+		border-radius: 8px 8px 0 0;
+
+		&.mt-card__header-active {
+			background-color: rgba(118, 154, 255, 0.2);
+		}
 	}
 }
+
+/*.posts {
+	.posts__control {
+		margin: 0 8px;
+		font-size: 1.2em;
+		font-weight: 700;
+		text-transform: uppercase;
+		color: rgba($tabs-text-color, .7);
+		cursor: pointer;
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}*/
 
 .mt-card-panel {
 	.post-image {
