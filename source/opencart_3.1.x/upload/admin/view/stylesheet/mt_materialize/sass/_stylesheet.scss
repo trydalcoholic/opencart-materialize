@@ -2,6 +2,12 @@
 	font-family: 'Roboto', sans-serif;
 }
 
+.waves-effect.waves-blue {
+	.waves-ripple {
+		background-color: transparentize($tabs-underline-color, .7);
+	}
+}
+
 .breadcrumb-wrapper, .mt-nav .nav-wrapper i {
 	height: 48px;
 	line-height: 48px;
