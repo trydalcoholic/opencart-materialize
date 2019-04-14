@@ -7,6 +7,10 @@
  */
 
 $(document).ready(function() {
+	$('.collapsible').collapsible();
+	$('.tooltipped').tooltip();
+	$('select').formSelect();
+
 	// Image Manager
 	$(document).on('click', '[data-toggle=\'mt-image\']', function() {
 		$('#modal-image').remove();

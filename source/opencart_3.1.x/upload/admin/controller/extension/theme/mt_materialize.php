@@ -31,7 +31,11 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 		$this->document->addScript('view/javascript/mt_materialize/js/materialize.js');
-		$this->document->addStyle('view/javascript/mt_materialize/css/materialize.css');
+		$this->document->addScript('view/javascript/mt_materialize/js/common.js');
+
+		$this->document->addStyle('view/stylesheet/mt_materialize/sass/materialize.css');
+		$this->document->addStyle('//fonts.googleapis.com/css?family=Roboto');
+		$this->document->addStyle('//fonts.googleapis.com/icon?family=Material+Icons');
 
 		$this->load->model('setting/setting');
 

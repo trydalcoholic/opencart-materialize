@@ -80,7 +80,6 @@
 // Floating button
 .mt-btn-floating {
   &:hover {
-    background-color: $button-floating-background-hover;
     @extend .z-depth-1-half;
   }
   &:before {

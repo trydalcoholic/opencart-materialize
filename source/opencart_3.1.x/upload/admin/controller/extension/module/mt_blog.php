@@ -88,6 +88,8 @@ class ControllerExtensionModuleMTBlog extends Controller {
 			$data['module_mt_blog_status'] = $this->config->get('module_mt_blog_status');
 		}
 
+		$data['post_form'] = $this->getPostForm();
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -161,8 +163,9 @@ class ControllerExtensionModuleMTBlog extends Controller {
 
 		$json['post_form'] = $this->load->view('extension/mt_materialize/mt_blog/post_form', $data);
 
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		/*$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));*/
+		return $json['post_form'];
 	}
 
 	public function getPostList() {

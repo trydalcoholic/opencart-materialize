@@ -3,56 +3,53 @@
 	<div class="mt-card__header"></div>
 	<table class="mt-table highlight">
 		<thead>
-			<tr>
-				<th>
-					<div class="test">
-						<label>
-							<input type="checkbox" id="main-table-checkbox" class="filled-in">
-							<span></span>
-						</label>
-					</div>
-				</th>
-				{#<th class="center" style="width: 80px;">{{ column_image }}</th>#}
-				<th>{{ column_post }}</th>
-				<th>{{ column_author }}</th>
-				<th>{{ column_category }}</th>
-				<th>{{ column_comment }}</th>
-				<th>{{ column_data }}</th>
-			</tr>
+		<tr>
+			<th>
+				<div class="test">
+					<label> <input type="checkbox" id="main-table-checkbox" class="filled-in"> <span></span> </label>
+				</div>
+			</th>
+			{#<th class="center" style="width: 80px;">{{ column_image }}</th>#}
+			<th>{{ column_post }}</th>
+			<th>{{ column_author }}</th>
+			<th>{{ column_category }}</th>
+			<th>{{ column_comment }}</th>
+			<th>{{ column_data }}</th>
+		</tr>
 		</thead>
 		<tbody>
-			{% if posts %}
-				{% for post in posts %}
-					<tr>
-						<td>
-							<div class="test">
-								<label>
-									<input type="checkbox" name="selected[]" value="{{ post.post_id }}" class="filled-in">
-									<span></span>
-								</label>
+		{% if posts %}
+			{% for post in posts %}
+				<tr>
+					<td>
+						<div class="test">
+							<label>
+								<input type="checkbox" name="selected[]" value="{{ post.post_id }}" class="filled-in">
+								<span></span> </label>
+						</div>
+					</td>
+					{#<td class="center"><img src="{{ placeholder }}" alt="{{ post.name }}" class="img-thumbnail"></td>#}
+					<td>
+						<div class="row valign-wrapper">
+							<div class="col-2"><img src="{{ placeholder }}" alt="{{ post.name }}"></div>
+							<div class="col-10"><a href="#!" class="grey-text text-darken-4 title">{{ post.name }}</a>
 							</div>
-						</td>
-						{#<td class="center"><img src="{{ placeholder }}" alt="{{ post.name }}" class="img-thumbnail"></td>#}
-						<td>
-							<div class="row valign-wrapper">
-								<div class="col-2"><img src="{{ placeholder }}" alt="{{ post.name }}"></div>
-								<div class="col-10"><a href="#!" class="grey-text text-darken-4 title">{{ post.name }}</a></div>
-							</div>
-							{#{% if post.status == 0 %}
-								<span class="nt-badge blue-grey lighten-1 mt-2">{{ text_draft }}</span>
-							{% elseif post.status == 1 %}
-								<span class="nt-badge green mt-2">{{ text_published }}</span>
-							{% else %}
-								<span class="nt-badge orange mt-2">{{ text_pending_review }}</span>
-							{% endif %}#}
-						</td>
-						<td>{{ post.author }}</td>
-						<td>Category</td>
-						<td>3</td>
-						<td>{{ post.date_added }}</td>
-					</tr>
-				{% endfor %}
-			{% endif %}
+						</div>
+						{#{% if post.status == 0 %}
+							<span class="nt-badge blue-grey lighten-1 mt-2">{{ text_draft }}</span>
+						{% elseif post.status == 1 %}
+							<span class="nt-badge green mt-2">{{ text_published }}</span>
+						{% else %}
+							<span class="nt-badge orange mt-2">{{ text_pending_review }}</span>
+						{% endif %}#}
+					</td>
+					<td>{{ post.author }}</td>
+					<td>Category</td>
+					<td>3</td>
+					<td>{{ post.date_added }}</td>
+				</tr>
+			{% endfor %}
+		{% endif %}
 		</tbody>
 	</table>
 	<div class="mt-card-action">
@@ -66,7 +63,7 @@
 		tableCheckboxes = $('tbody td input[type=\'checkbox\']'),
 		cardHeader = $('.mt-card__header');
 
-	mainTableCheckbox.on('click', function() {
+	mainTableCheckbox.on('click', function () {
 		mainTableCheckbox.addClass('filled-in');
 
 		if (mainTableCheckbox.prop('checked')) {
@@ -92,11 +89,11 @@
 		}
 	}
 
-	tableCheckboxes.change(function() {
+	tableCheckboxes.change(function () {
 		let allCheckboxChecked = [],
 			oneCheckboxChecked = false;
 
-		tableCheckboxes.each(function(index, element) {
+		tableCheckboxes.each(function (index, element) {
 			if ($(element).prop('checked')) {
 				oneCheckboxChecked = true;
 				allCheckboxChecked.push(true);

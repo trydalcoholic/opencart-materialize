@@ -1,5 +1,25 @@
 .mt-content {
 	font-family: 'Roboto', sans-serif;
+
+	main {
+		padding-right: 300px;
+	}
+
+	@media #{$medium-and-down} {
+		main {
+			padding-right: 0;
+		}
+	}
+
+	.sidenav {
+		&.sidenav-fixed {
+			top: 61px;
+		}
+
+		a:hover {
+			text-decoration: none;
+		}
+	}
 }
 
 .waves-effect.waves-blue {
@@ -9,8 +29,18 @@
 }
 
 .breadcrumb-wrapper, .mt-nav .nav-wrapper i {
-	height: 48px;
-	line-height: 48px;
+	height: 64px;
+	line-height: 64px;
+}
+
+.nav-wrapper {
+	span {
+		&.title {
+			padding: 0 10px;
+			font-weight: 500;
+			font-size: 1.5em;
+		}
+	}
 }
 
 .mt-card {

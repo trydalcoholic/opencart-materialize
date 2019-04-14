@@ -15,7 +15,7 @@
 
   color: $navbar-font-color;
   @extend .z-depth-1;
-  background-color: $primary-color;
+  background-color: color('shades', 'white');
   width: 100%;
   height: $navbar-height-mobile;
   line-height: $navbar-line-height-mobile;
@@ -115,6 +115,7 @@
       transition: background-color .3s;
       float: left;
       padding: 0;
+      max-height: 64px;
 
       &.active {
         background-color: rgba(0,0,0,.1);

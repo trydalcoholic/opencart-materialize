@@ -33,6 +33,7 @@
     .mt-card-image {
       max-height: 60%;
       overflow: hidden;
+      border-radius: 8px 8px 0 0;
     }
     .mt-card-image + .mt-card-content {
       max-height: 40%;
