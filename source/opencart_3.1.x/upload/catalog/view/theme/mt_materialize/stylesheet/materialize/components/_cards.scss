@@ -1,25 +1,24 @@
 
 
-.mt-card-panel {
+.card-panel {
   transition: box-shadow .25s;
   padding: $card-padding;
   margin: $element-top-margin 0 $element-bottom-margin 0;
-  border-radius: 8px;
+  border-radius: 2px;
   @extend .z-depth-1;
   background-color: $card-bg-color;
 }
 
-.mt-card {
+.card {
   position: relative;
   margin: $element-top-margin 0 $element-bottom-margin 0;
   background-color: $card-bg-color;
-  overflow: hidden;
   transition: box-shadow .25s;
-  border-radius: 8px;
+  border-radius: 2px;
   @extend .z-depth-1;
 
 
-  .mt-card-title {
+  .card-title {
     font-size: 24px;
     font-weight: 300;
     &.activator {
@@ -31,19 +30,18 @@
   &.small, &.medium, &.large {
     position: relative;
 
-    .mt-card-image {
+    .card-image {
       max-height: 60%;
       overflow: hidden;
-      border-radius: 8px 8px 0 0;
     }
-    .mt-card-image + .mt-card-content {
+    .card-image + .card-content {
       max-height: 40%;
     }
-    .mt-card-content {
+    .card-content {
       max-height: 100%;
       overflow: hidden;
     }
-    .mt-card-action {
+    .card-action {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -66,7 +64,7 @@
   // Horizontal Cards
   &.horizontal {
     &.small, &.medium, &.large {
-      .mt-card-image {
+      .card-image {
         height: 100%;
         max-height: none;
         overflow: visible;
@@ -79,21 +77,22 @@
 
     display: flex;
 
-    .mt-card-image {
+    .card-image {
       max-width: 50%;
       img {
+        border-radius: 2px 0 0 2px;
         max-width: 100%;
         width: auto;
       }
     }
 
-    .mt-card-stacked {
+    .card-stacked {
       display: flex;
       flex-direction: column;
       flex: 1;
       position: relative;
 
-      .mt-card-content {
+      .card-content {
         flex-grow: 1;
       }
     }
@@ -101,11 +100,11 @@
 
   // Sticky Action Section
   &.sticky-action {
-    .mt-card-action {
+    .card-action {
       z-index: 2;
     }
 
-    .mt-card-reveal {
+    .card-reveal {
       z-index: 1;
       padding-bottom: 64px;
     }
@@ -114,13 +113,13 @@
 
 
 
-  .mt-card-image {
+  .card-image {
     position: relative;
 
     // Image background for content
     img {
       display: block;
-      margin: 0 auto;
+      border-radius: 2px 2px 0 0;
       position: relative;
       left: 0;
       right: 0;
@@ -129,7 +128,7 @@
       width: 100%;
     }
 
-    .mt-card-title {
+    .card-title {
       color: $card-bg-color;
       position: absolute;
       bottom: 0;
@@ -139,14 +138,14 @@
     }
   }
 
-  .mt-card-content {
+  .card-content {
     padding: $card-padding;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 2px 2px;
 
     p {
       margin: 0;
     }
-    .mt-card-title {
+    .card-title {
       display: block;
       line-height: 32px;
       margin-bottom: 8px;
@@ -157,27 +156,26 @@
     }
   }
 
-  .mt-card-action {
+  .card-action {
     &:last-child {
-      border-radius: 0 0 8px 8px;
+      border-radius: 0 0 2px 2px;
     }
     background-color: inherit; // Use inherit to inherit color classes
     border-top: 1px solid rgba(160,160,160,.2);
     position: relative;
-    padding: 8px;
+    padding: 16px $card-padding;
 
-    a:not(.mt-btn):not(.mt-btn-large):not(.mt-btn-floating) {
+    a:not(.btn):not(.btn-large):not(.btn-floating) {
       color: $card-link-color;
       margin-right: $card-padding;
       transition: color .3s ease;
       text-transform: uppercase;
-      cursor: pointer;
 
       &:hover { color: $card-link-color-light; }
     }
   }
 
-  .mt-card-reveal {
+  .card-reveal {
     padding: $card-padding;
     position: absolute;
     background-color: $card-bg-color;
@@ -189,7 +187,7 @@
     z-index: 3;
     display: none;
 
-    .mt-card-title {
+    .card-title {
       cursor: pointer;
       display: block;
     }

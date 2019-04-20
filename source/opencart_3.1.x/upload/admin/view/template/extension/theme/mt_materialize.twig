@@ -5,7 +5,7 @@
 			<div class="nav-wrapper">
 				<a href="#!" class="brand-logo">Logo</a>
 				<ul class="right hide-on-med-and-down">
-					<li><a>A link</a></li>
+					<li><a id="test-sass">A link</a></li>
 					<li><a>A second link</a></li>
 					<li><a>A third link</a></li>
 				</ul>
@@ -19,13 +19,32 @@
 		</nav>
 		<div class="container">
 			<h5>Общие настройки</h5>
-			<ul class="collapsible">
-				<li class="active">
-					<div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-					<div class="collapsible-body white">
+			<div class="mt-card-panel">
+				<ul class="tabs">
+					<li class="tab"><a class="waves-effect waves-blue" href="#settings-card-default">Default</a></li> {# todo-materialize Must be placed in a language variable #}
+					<li class="tab"><a class="waves-effect waves-blue" href="#settings-card-horizintal">Horizontal</a></li> {# todo-materialize Must be placed in a language variable #}
+				</ul>
+				<div id="settings-card-default">
+					<div class="section">
 						<div class="row">
 							<div class="col-sm-12 col-lg-6">
 								<div class="row">
+									<div class="col-12">
+										<div class="row">
+											<div class="col-6">
+												<div class="input-field">
+													<input type="number" name="theme_mt_materialize_image_product_width" value="{{ theme_mt_materialize_image_product_width }}" placeholder="{{ entry_width }}" id="input-image-product-width" data-target="mt-card-default-image" data-css="width" data-mt-settings>
+													<label for="input-image-product-width">Image width</label> {# todo-materialize Must be placed in a language variable #}
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="input-field">
+													<input type="number" name="theme_mt_materialize_image_product_height" value="{{ theme_mt_materialize_image_product_height }}" placeholder="{{ entry_height }}" id="input-image-product-height" data-target="mt-card-default-image" data-css="height" data-mt-settings>
+													<label for="input-image-product-height">Image height</label> {# todo-materialize Must be placed in a language variable #}
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="col-12">
 										<div class="input-field">
 											<select>
@@ -33,7 +52,7 @@
 												<option value="text-over-media">Title over media</option> {# todo-materialize Must be placed in a language variable #}
 												<option value="text-header">Title header</option> {# todo-materialize Must be placed in a language variable #}
 											</select>
-											<label>Расположение заголовка</label> {# todo-materialize Must be placed in a language variable #}
+											<label>Title Position</label> {# todo-materialize Must be placed in a language variable #}
 										</div>
 									</div>
 									<div class="col-12">
@@ -43,7 +62,7 @@
 												<option value="only-buttons">Only Buttons</option> {# todo-materialize Must be placed in a language variable #}
 												<option value="only-icons">Only Icons</option> {# todo-materialize Must be placed in a language variable #}
 											</select>
-											<label>Кнопки</label> {# todo-materialize Must be placed in a language variable #}
+											<label>Buttons</label> {# todo-materialize Must be placed in a language variable #}
 										</div>
 									</div>
 									<div class="col-12">
@@ -56,37 +75,32 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-12 col-lg-6">
-								<div class="mt-card">
-									<div class="mt-card-image">
-										<img src="//material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg">
-										<span class="mt-card-title">Card Title</span>
-										<a class="mt-btn-floating mt-btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-									</div>
-									<div class="mt-card-content">
-										<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-									</div>
-									<div class="mt-card-action tooltipped" data-position="left" data-tooltip="I am a tooltip">
-										<a>This is a link</a>
+							<div class="col-sm-12 col-lg-6 grey lighten-3">
+								<div class="section">
+									<div class="mt-card">
+										<div class="mt-card-image">
+											<img src="{{ mt_placeholder }}" id="mt-card-default-image">
+											<span class="mt-card-title">Card Title</span>
+											<a class="mt-btn-floating mt-btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+										</div>
+										<div class="mt-card-content">
+											<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+										</div>
+										<div class="mt-card-action">
+											<a class="mt-btn-flat waves-effect waves-blue">This is a link</a>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</li>
-				<li>
-					<div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-					<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-				</li>
-				<li>
-					<div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-					<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-				</li>
-			</ul>
+				</div>
+				<div id="settings-card-horizintal"></div>
+			</div>
 		</div>
 	</main>
 	<aside>
-		<ul id="sidenav" class="sidenav sidenav-fixed">
+		<ul id="sidenav" class="sidenav">
 			<li>
 				<div class="user-view">
 					<div class="background цршеу"></div>
@@ -104,6 +118,23 @@
 	</aside>
 </div>
 <script>
+	$('#test-sass').on('click', function() {
+		$.ajax({
+			url: 'index.php?route=extension/theme/mt_materialize/sassVariables&user_token={{ user_token }}',
+			dataType: 'json',
+			beforeSend: function() {
+			},
+			complete: function() {
+			},
+			success: function(json) {
+				console.log(json);
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
+
 	$('#sidenav').sidenav({
 	  edge: 'right'
 	});

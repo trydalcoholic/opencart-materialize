@@ -31,6 +31,7 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 		$this->document->addScript('view/javascript/mt_materialize/js/materialize.js');
+		$this->document->addScript('view/javascript/mt_materialize/js/mt_settings.js');
 		$this->document->addScript('view/javascript/mt_materialize/js/common.js');
 
 		$this->document->addStyle('view/stylesheet/mt_materialize/sass/materialize.css');
@@ -38,8 +39,11 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 		$this->document->addStyle('//fonts.googleapis.com/icon?family=Material+Icons');
 
 		$this->load->model('setting/setting');
+		$this->load->model('tool/image');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+			$this->sassVariables();
+
 			$this->model_setting_setting->editSetting('theme_mt_materialize', $this->request->post, $this->request->get['store_id']);
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -125,26 +129,30 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 			$data['error_image_location'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text'	=> $this->language->get('text_home'),
 			'href'	=> $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text'	=> $this->language->get('text_extension'),
 			'href'	=> $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=theme')
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text'	=> $this->language->get('heading_title'),
 			'href'	=> $this->url->link('extension/theme/mt_materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'])
-		);
+		];
+
+		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['action'] = $this->url->link('extension/theme/mt_materialize', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id']);
 
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=theme');
+
+		$data['mt_placeholder'] = $this->model_tool_image->resize('mt_template/i_want_to_eat.png', 344, 194);
 
 		if (isset($this->request->get['store_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$setting_info = $this->model_setting_setting->getSetting('theme_mt_materialize', $this->request->get['store_id']);
@@ -339,82 +347,82 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 		} elseif (isset($setting_info['theme_mt_materialize_products'])) {
 			$data['theme_mt_materialize_products'] = $setting_info['theme_mt_materialize_products'];
 		} else {
-			$data['theme_mt_materialize_products'] = array(
+			$data['theme_mt_materialize_products'] = [
 				'fields'	=> array('tags')
-			);
+			];
 		}
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'Model', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'model',
 			'selected'	=> in_array('model', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'SKU', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'sku',
 			'selected'	=> in_array('sku', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'UPC', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'upc',
 			'selected'	=> in_array('upc', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'EAN', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'ean',
 			'selected'	=> in_array('ean', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'JAN', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'jan',
 			'selected'	=> in_array('jan', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'ISBN', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'isbn',
 			'selected'	=> in_array('isbn', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'MPN', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'mpn',
 			'selected'	=> in_array('mpn', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'Location', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'location',
 			'selected'	=> in_array('location', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'Dimension', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'dimension',
 			'selected'	=> in_array('dimension', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'Weight', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'weight',
 			'selected'	=> in_array('weight', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'Progressbar', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'progressbar',
 			'selected'	=> in_array('progressbar', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
-		$data['product_fields'][] = array(
+		$data['product_fields'][] = [
 			'text'		=> 'Tags', /* todo-materialize Must be placed in a language variable */
 			'value'		=> 'tags',
 			'selected'	=> in_array('tags', $data['theme_mt_materialize_products']['fields']) ? 'selected' : ''
-		);
+		];
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
@@ -518,6 +526,27 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 				'children'	=> $materialize
 			];
 		}
+	}
+
+	public function sassVariables() {
+		$json = [];
+
+		$file = DIR_CATALOG . "view/theme/mt_materialize/stylesheet/materialize/components/_mt-variables.scss";
+
+		if (file_exists($file)) {
+			unlink($file);
+		}
+
+		$sass = '$card_border_radius: 8px !default;' . "\n";
+
+		if (!file_exists($file)) {
+			$fp = fopen($file, "w");
+			fwrite($fp, ltrim($sass));
+			fclose($fp);
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 
 	protected function installEvents() {

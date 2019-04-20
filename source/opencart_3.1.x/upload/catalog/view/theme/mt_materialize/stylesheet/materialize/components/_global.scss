@@ -163,7 +163,7 @@ video.responsive-video {
 
 // Pagination
 
-.mt-pagination {
+.pagination {
 
   li {
     display: inline-block;
@@ -201,7 +201,7 @@ video.responsive-video {
   }
 }
 @media #{$medium-and-down} {
-  .mt-pagination {
+  .pagination {
     width: 100%;
 
     li.prev,
@@ -218,13 +218,9 @@ video.responsive-video {
 }
 
 // Breadcrumbs
-.mt-breadcrumb {
-  display: inline-block;
+.breadcrumb {
+  font-size: 18px;
   color: rgba(255,255,255, .7);
-
-  span {
-    vertical-align: middle;
-  }
 
   i,
   [class^="mdi-"], [class*="mdi-"],
@@ -236,7 +232,7 @@ video.responsive-video {
 
   &:before {
     content: '\E5CC';
-    color: inherit;
+    color: rgba(255,255,255, .7);
     vertical-align: top;
     display: inline-block;
     font-family: 'Material Icons';
@@ -245,7 +241,6 @@ video.responsive-video {
     font-size: 25px;
     margin: 0 10px 0 8px;
     -webkit-font-smoothing: antialiased;
-    float: left;
   }
 
   &:first-child:before {
@@ -442,7 +437,7 @@ tr {
 }
 
 td, th{
-  padding: 4px;
+  padding: 15px 5px;
   display: table-cell;
   text-align: left;
   vertical-align: middle;
@@ -645,13 +640,14 @@ td, th{
 }
 
 // Progress Bar
-.mt-progress {
-    position: absolute;
+.progress {
+    position: relative;
     height: 4px;
     display: block;
     width: 100%;
     background-color: lighten($progress-bar-color, 40%);
     border-radius: 2px;
+    margin: $element-top-margin 0 $element-bottom-margin 0;
     overflow: hidden;
   .determinate {
     position: absolute;
@@ -770,19 +766,4 @@ td, th{
 
 .no-padding {
   padding: 0 !important;
-}
-
-.section {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-
-  &.no-pad {
-    padding: 0;
-  }
-  &.no-pad-bot {
-    padding-bottom: 0;
-  }
-  &.no-pad-top {
-    padding-top: 0;
-  }
 }

@@ -1,6 +1,6 @@
 // shared styles
-.mt-btn,
-.mt-btn-flat {
+.btn,
+.btn-flat {
   border: $button-border;
   border-radius: $button-radius;
   display: inline-block;
@@ -13,21 +13,21 @@
 }
 
 // Disabled shared style
-.mt-btn.disabled,
-.mt-btn-floating.disabled,
-.mt-btn-large.disabled,
-.mt-btn-small.disabled,
-.mt-btn-flat.disabled,
-.mt-btn:disabled,
-.mt-btn-floating:disabled,
-.mt-btn-large:disabled,
-.mt-btn-small:disabled,
-.mt-btn-flat:disabled,
-.mt-btn[disabled],
-.mt-btn-floating[disabled],
-.mt-btn-large[disabled],
-.mt-btn-small[disabled],
-.mt-btn-flat[disabled] {
+.btn.disabled,
+.btn-floating.disabled,
+.btn-large.disabled,
+.btn-small.disabled,
+.btn-flat.disabled,
+.btn:disabled,
+.btn-floating:disabled,
+.btn-large:disabled,
+.btn-small:disabled,
+.btn-flat:disabled,
+.btn[disabled],
+.btn-floating[disabled],
+.btn-large[disabled],
+.btn-small[disabled],
+.btn-flat[disabled] {
   pointer-events: none;
   background-color: $button-disabled-background !important;
   box-shadow: none;
@@ -40,11 +40,11 @@
 }
 
 // Shared icon styles
-.mt-btn,
-.mt-btn-floating,
-.mt-btn-large,
-.mt-btn-small,
-.mt-btn-flat {
+.btn,
+.btn-floating,
+.btn-large,
+.btn-small,
+.btn-flat {
   font-size: $button-font-size;
   outline: 0;
   i {
@@ -54,17 +54,17 @@
 }
 
 // Shared focus button style
-.mt-btn,
-.mt-btn-floating {
+.btn,
+.btn-floating {
   &:focus {
     background-color: darken($button-raised-background, 10%);
   }
 }
 
 // Raised Button
-.mt-btn {
+.btn {
   text-decoration: none;
-  color: $button-raised-color !important; // Important than bootstrap rules
+  color: $button-raised-color;
   background-color: $button-raised-background;
   text-align: center;
   letter-spacing: .5px;
@@ -78,14 +78,15 @@
 }
 
 // Floating button
-.mt-btn-floating {
+.btn-floating {
   &:hover {
+    background-color: $button-floating-background-hover;
     @extend .z-depth-1-half;
   }
   &:before {
     border-radius: 0;
   }
-  &.mt-btn-large {
+  &.btn-large {
     &.halfway-fab {
       bottom: -$button-floating-large-size / 2;
     }
@@ -97,7 +98,7 @@
     }
   }
 
-  &.mt-btn-small {
+  &.btn-small {
     &.halfway-fab {
       bottom: -$button-floating-small-size / 2;
     }
@@ -143,12 +144,12 @@
 }
 
 // button fix
-button.mt-btn-floating {
+button.btn-floating {
   border: $button-border;
 }
 
 // Fixed Action Button
-.fixed-action-mt-btn {
+.fixed-action-btn {
   &.active {
     ul {
       visibility: visible;
@@ -252,7 +253,7 @@ button.mt-btn-floating {
     li {
       margin-bottom: 15px;
     }
-    a.mt-btn-floating {
+    a.btn-floating {
       opacity: 0;
     }
   }
@@ -270,7 +271,7 @@ button.mt-btn-floating {
 }
 
 // Flat button
-.mt-btn-flat {
+.btn-flat {
   box-shadow: none;
   background-color: transparent;
   color: $button-flat-color;
@@ -284,7 +285,7 @@ button.mt-btn-floating {
     background-color: rgba(0, 0, 0, .1);
   }
   &.disabled,
-  &.mt-btn-flat[disabled]  {
+  &.btn-flat[disabled]  {
     background-color: transparent !important;
     color: $button-flat-disabled-color !important;
     cursor: default;
@@ -292,8 +293,8 @@ button.mt-btn-floating {
 }
 
 // Large button
-.mt-btn-large {
-  @extend .mt-btn;
+.btn-large {
+  @extend .btn;
   height: $button-large-height;
   line-height: $button-large-height;
   font-size: $button-large-font-size;
@@ -305,8 +306,8 @@ button.mt-btn-floating {
 }
 
 // Small button
-.mt-btn-small {
-  @extend .mt-btn;
+.btn-small {
+  @extend .btn;
   height: $button-small-height;
   line-height: $button-small-height;
   font-size: $button-small-font-size;
@@ -316,6 +317,6 @@ button.mt-btn-floating {
 }
 
 // Block button
-.mt-btn-block {
+.btn-block {
   display: block;
 }

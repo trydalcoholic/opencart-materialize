@@ -1,25 +1,5 @@
 .mt-content {
 	font-family: 'Roboto', sans-serif;
-
-	main {
-		padding-right: 300px;
-	}
-
-	@media #{$medium-and-down} {
-		main {
-			padding-right: 0;
-		}
-	}
-
-	.sidenav {
-		&.sidenav-fixed {
-			top: 61px;
-		}
-
-		a:hover {
-			text-decoration: none;
-		}
-	}
 }
 
 .waves-effect.waves-blue {
