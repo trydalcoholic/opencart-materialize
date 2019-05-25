@@ -30,12 +30,16 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 		$this->load->language('extension/theme/mt_materialize');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->document->addScript('view/javascript/mt_materialize/js/materialize.js');
-		$this->document->addScript('view/javascript/mt_materialize/js/mt_settings.js');
-		$this->document->addScript('view/javascript/mt_materialize/js/common.js');
+		$this->document->addScript('view/javascript/mt_materialize/materialize.js');
+		$this->document->addScript('view/javascript/mt_materialize/wNumb.js');
+		$this->document->addScript('view/javascript/mt_materialize/nouislider.js');
+		$this->document->addScript('view/javascript/mt_materialize/mt_settings.js');
+		$this->document->addScript('view/javascript/mt_materialize/common.js');
 
+		$this->document->addStyle('view/stylesheet/mt_materialize/css/nouislider.css');
 		$this->document->addStyle('view/stylesheet/mt_materialize/sass/materialize.css');
-		$this->document->addStyle('//fonts.googleapis.com/css?family=Roboto');
+		$this->document->addStyle('view/stylesheet/mt_materialize/css/materializecolorpicker.css');
+		$this->document->addStyle('//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&amp;subset=cyrillic');
 		$this->document->addStyle('//fonts.googleapis.com/icon?family=Material+Icons');
 
 		$this->load->model('setting/setting');
@@ -342,13 +346,51 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 			$data['theme_mt_materialize_image_location_height'] = 50;
 		}
 
+		if (isset($this->request->post['theme_mt_materialize_scheme'])) {
+			$data['theme_mt_materialize_scheme'] = $this->request->post['theme_mt_materialize_scheme'];
+		} elseif (isset($setting_info['theme_mt_materialize_scheme'])) {
+			$data['theme_mt_materialize_scheme'] = $setting_info['theme_mt_materialize_scheme'];
+		} else {
+			$data['theme_mt_materialize_scheme'] = [
+				'default'	=> [
+					'card'	=> [
+						'default'	=> [
+							'border_radius'	=> '8',
+							'shadow'		=> 2
+						]
+					]
+				]
+			];
+		}
+
+		$lorem = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab at corporis dolores ducimus eaque esse eum, exercitationem labore laboriosam magni mollitia officia quam quasi recusandae sint sit unde velit. Aperiam!';
+
+		$lorem_length = strlen($lorem);
+
+		$i = floor($data['theme_mt_materialize_product_description_length'] / $lorem_length);
+
+		$text = '';
+
+		if ($i) {
+			while ($i > 0) {
+				$text .= $lorem . ' ';
+				$i--;
+			}
+		}
+
+		$text .= utf8_substr($lorem, 0, $data['theme_mt_materialize_product_description_length'] - strlen($text)) . '..';
+
+		$data['lorem'] = $text;
+		$data['price'] = $this->currency->format(99999.99, $this->config->get('config_currency'));
+		$data['review'] = $this->config->get('config_review_status');
+
 		if (isset($this->request->post['theme_mt_materialize_products'])) {
 			$data['theme_mt_materialize_products'] = $this->request->post['theme_mt_materialize_products'];
 		} elseif (isset($setting_info['theme_mt_materialize_products'])) {
 			$data['theme_mt_materialize_products'] = $setting_info['theme_mt_materialize_products'];
 		} else {
 			$data['theme_mt_materialize_products'] = [
-				'fields'	=> array('tags')
+				'fields'	=> ['tags']
 			];
 		}
 
@@ -437,7 +479,7 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if (!$this->request->post['theme_mt_materialize_product_limit']) {
+		/*if (!$this->request->post['theme_mt_materialize_product_limit']) {
 			$this->error['product_limit'] = $this->language->get('error_limit');
 		}
 
@@ -483,7 +525,7 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 
 		if (!$this->request->post['theme_mt_materialize_image_location_width'] || !$this->request->post['theme_mt_materialize_image_location_height']) {
 			$this->error['image_location'] = $this->language->get('error_image_location');
-		}
+		}*/
 
 		return !$this->error;
 	}
@@ -529,24 +571,48 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 	}
 
 	public function sassVariables() {
-		$json = [];
+		if (($this->request->server['REQUEST_METHOD'] === 'POST') && $this->validate()) {
+			$this->load->model('setting/setting');
 
-		$file = DIR_CATALOG . "view/theme/mt_materialize/stylesheet/materialize/components/_mt-variables.scss";
+			$json = [];
 
-		if (file_exists($file)) {
-			unlink($file);
+			$post = $this->request->post;
+
+			$file_admin = "view/stylesheet/mt_materialize/sass/components/_mt-variables.scss";
+			$file_catalog = DIR_CATALOG . "view/theme/mt_materialize/stylesheet/materialize/components/_mt-variables.scss";
+
+			if (file_exists($file_admin)) {
+				unlink($file_admin);
+			}
+
+			if (file_exists($file_catalog)) {
+				unlink($file_catalog);
+			}
+
+			$sass = '$card_default_border_radius: ' . $post['theme_mt_materialize_scheme']['default']['card']['default']['border_radius'] . 'px !default;' . "\n"; // Card Default Border-radius
+			$sass .= '$card_default_image_width: ' . $post['theme_mt_materialize_image_product_width'] . 'px !default;' . "\n"; // Card Default Image Width
+			$sass .= '$card_default_image_height: ' . $post['theme_mt_materialize_image_product_height'] . 'px !default;' . "\n"; // Card Default Image Height
+
+			if (!file_exists($file_admin)) {
+				$fp = fopen($file_admin, "w");
+				fwrite($fp, ltrim($sass));
+				fclose($fp);
+			}
+
+			if (!file_exists($file_catalog)) {
+				$fp = fopen($file_catalog, "w");
+				fwrite($fp, ltrim($sass));
+				fclose($fp);
+			}
+
+			/*$this->model_setting_setting->editSettingValue('theme_mt_materialize', 'theme_mt_materialize_scheme', $post, $this->request->get['store_id']);*/
+
+			$json['post'] = $post;
+			$json['config_get'] = $this->config->has('theme_mt_materialize_scheme');
+
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($json));
 		}
-
-		$sass = '$card_border_radius: 8px !default;' . "\n";
-
-		if (!file_exists($file)) {
-			$fp = fopen($file, "w");
-			fwrite($fp, ltrim($sass));
-			fclose($fp);
-		}
-
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
 	}
 
 	protected function installEvents() {

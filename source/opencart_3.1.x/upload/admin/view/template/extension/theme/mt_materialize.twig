@@ -1,93 +1,420 @@
 {{ header }}{{ column_left }}
 <div id="content" class="mt-content">
+	<div id="preloader" class="mt-progress white" style="display: none;"><div class="indeterminate"></div></div>
+	<nav class="mt-nav nav-extended">
+		<div class="nav-wrapper">
+			<a href="#!" class="brand-logo">Logo</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a id="test-sass">Save SASS</a></li>
+				<li><a>A second link</a></li>
+				<li><button type="submit" form="form-theme" title="{{ button_save }}" class="mt-btn"><i class="material-icons">add</i></button></li>
+			</ul>
+		</div>
+		<div class="nav-content">
+		</div>
+	</nav>
 	<main>
-		<nav class="mt-nav nav-extended">
-			<div class="nav-wrapper">
-				<a href="#!" class="brand-logo">Logo</a>
-				<ul class="right hide-on-med-and-down">
-					<li><a id="test-sass">A link</a></li>
-					<li><a>A second link</a></li>
-					<li><a>A third link</a></li>
-				</ul>
-			</div>
-			<div class="nav-content">
-				<span class="nav-title">Title</span>
-				<a class="mt-btn-floating mt-btn-large halfway-fab waves-effect left hide">
-					<i class="material-icons">add</i>
-				</a>
-			</div>
-		</nav>
-		<div class="container">
-			<h5>Общие настройки</h5>
-			<div class="mt-card-panel">
-				<ul class="tabs">
-					<li class="tab"><a class="waves-effect waves-blue" href="#settings-card-default">Default</a></li> {# todo-materialize Must be placed in a language variable #}
-					<li class="tab"><a class="waves-effect waves-blue" href="#settings-card-horizintal">Horizontal</a></li> {# todo-materialize Must be placed in a language variable #}
-				</ul>
-				<div id="settings-card-default">
-					<div class="section">
-						<div class="row">
-							<div class="col-sm-12 col-lg-6">
-								<div class="row">
-									<div class="col-12">
-										<div class="row">
-											<div class="col-6">
-												<div class="input-field">
-													<input type="number" name="theme_mt_materialize_image_product_width" value="{{ theme_mt_materialize_image_product_width }}" placeholder="{{ entry_width }}" id="input-image-product-width" data-target="mt-card-default-image" data-css="width" data-mt-settings>
-													<label for="input-image-product-width">Image width</label> {# todo-materialize Must be placed in a language variable #}
+		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-theme">
+			<div class="container">
+				<div class="mt-card-panel">
+					<div class="input-field">
+						<select name="theme_mt_materialize_status" id="input-status">
+							{% if theme_mt_materialize_status  %}
+								<option value="1" selected="selected">{{ text_enabled }}</option>
+								<option value="0">{{ text_disabled }}</option>
+							{% else %}
+								<option value="1">{{ text_enabled }}</option>
+								<option value="0" selected="selected">{{ text_disabled }}</option>
+							{% endif %}
+						</select>
+					</div>
+				</div>
+				<div class="mt-card-panel">
+					<div class="row">
+						<div class="col-sm-12 col-lg-6">
+							<ul class="tabs mb-4">
+								<li class="tab"><a class="font-weight-normal waves-effect waves-blue" href="#settings-card-common">Common</a></li> {# todo-materialize Must be placed in a language variable #}
+								<li class="tab"><a class="font-weight-normal waves-effect waves-blue" href="#settings-card-default">Default</a></li> {# todo-materialize Must be placed in a language variable #}
+								<li class="tab"><a class="font-weight-normal waves-effect waves-blue" href="#settings-card-horizontal">Horizontal</a></li> {# todo-materialize Must be placed in a language variable #}
+							</ul>
+							<div id="settings-card-common">
+								<ul class="mt-list z-depth-0">
+									<li class="mt-list-item">
+										<i class="material-icons mt-list-item__icon waves-effect waves-circle">palette</i>
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Color</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Color description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__inputs">
+										</div>
+									</li>
+									<li class="divider"></li>
+									<li class="mt-list-item">
+										<i class="material-icons mt-list-item__icon waves-effect waves-circle">control_point</i>
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Buttons</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Buttons description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__inputs">
+											<div class="input-field mb-5">
+												<select id="input-card-button-add-to-cart" data-target="mt-card-cart" data-mt-settings multiple>
+													<option value="floating-button">Floating Action Button</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="button">Button</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="icon">Icon</option> {# todo-materialize Must be placed in a language variable #}
+												</select>
+												<label for="input-card-button-add-to-cart">Add to Cart Button</label> {# todo-materialize Must be placed in a language variable #}
+											</div>
+											<div class="input-field">
+												<select id="input-card-button-additional" data-target="mt-card-additional-buttons" data-mt-settings multiple>
+													<option value="see-more">See More</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="wish-list">Wish List</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="compare">Compare</option> {# todo-materialize Must be placed in a language variable #}
+												</select>
+												<label for="input-card-button-additional">Additional Buttons</label> {# todo-materialize Must be placed in a language variable #}
+											</div>
+										</div>
+									</li>
+									<li class="divider"></li>
+									<li class="mt-list-item">
+										<i class="material-icons mt-list-item__icon waves-effect waves-circle">aspect_ratio</i>
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Snippet</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Snippet description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__inputs">
+											<div class="row align-items-center mb-5">
+												<div class="col-4">
+													<label for="input-card-border-radius">Border Radius</label> {# todo-materialize Must be placed in a language variable #}
+													<input type="hidden" name="theme_mt_materialize_scheme[default][card][default][border_radius]" value="{{ theme_mt_materialize_scheme.default.card.default.border_radius }}" id="input-card-border-radius" data-target="mt-card" data-css="border-radius" data-unit="px" data-mt-settings>
+												</div>
+												<div class="col-8">
+													<div id="slider-card-border-radius"></div>
 												</div>
 											</div>
-											<div class="col-6">
-												<div class="input-field">
-													<input type="number" name="theme_mt_materialize_image_product_height" value="{{ theme_mt_materialize_image_product_height }}" placeholder="{{ entry_height }}" id="input-image-product-height" data-target="mt-card-default-image" data-css="height" data-mt-settings>
-													<label for="input-image-product-height">Image height</label> {# todo-materialize Must be placed in a language variable #}
+											<div class="row align-items-center">
+												<div class="col-4">
+													<label for="input-card-shadow">Shadow</label> {# todo-materialize Must be placed in a language variable #}
+													<input type="hidden" name="theme_mt_materialize_scheme[default][card][default][shadow]" value="{{ theme_mt_materialize_scheme.default.card.default.shadow }}" id="input-card-shadow" data-target="mt-card" data-class="z-depth-" data-mt-settings>
+												</div>
+												<div class="col-8">
+													<div id="slider-card-shadow"></div>
+												</div>
+											</div>
+											<div class="input-field mt-5">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card" data-color-type="background" data-color="true" data-target="mt-card" data-mt-settings readonly>
+												<label for="input-color-mt-card" class="active">Card color</label>
+											</div>
+										</div>
+									</li>
+									<li class="divider"></li>
+									<li class="mt-list-item">
+										<i class="material-icons mt-list-item__icon waves-effect waves-circle">text_fields</i>
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Text</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Text description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__inputs">
+											<input type="number" min="0" max="1200" name="theme_mt_materialize_product_description_length" value="{{ theme_mt_materialize_product_description_length }}" id="input-card-text-description-limit" data-target="mt-card-description" data-text-limit="true" data-mt-settings>
+											<div class="input-field mt-5">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card-title" data-color="true" data-color-type="text" data-target="mt-card-title" data-mt-settings readonly>
+												<label for="input-color-mt-card-title" class="active">Title color</label>
+											</div>
+											<div class="input-field mt-5">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card-old-price" data-color="true" data-color-type="text" data-target="mt-card-old-price" data-mt-settings readonly>
+												<label for="input-color-mt-card-old-price" class="active">Old Price color</label>
+											</div>
+											<div class="input-field mt-5">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card-new-price" data-color="true" data-color-type="text" data-target="mt-card-new-price" data-mt-settings readonly>
+												<label for="input-color-mt-card-new-price" class="active">New Price color</label>
+											</div>
+											<div class="input-field mt-5">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card-current-price" data-color="true" data-color-type="text" data-target="mt-card-current-price" data-mt-settings readonly>
+												<label for="input-color-mt-card-current-price" class="active">Current Price color</label>
+											</div>
+											<div class="input-field mt-5">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card-description" data-color="true" data-color-type="text" data-target="mt-card-description" data-mt-settings readonly>
+												<label for="input-color-mt-card-description" class="active">Description color</label>
+											</div>
+										</div>
+									</li>
+									<li class="divider"></li>
+									<li class="mt-list-item">
+										<i class="material-icons mt-list-item__icon waves-effect waves-circle">remove</i>
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Divider</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Divider description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__inputs mt-list-item__inputs--full-width">
+											<div class="input-field">
+												<select data-target="mt-card-divider-position,mt-card-divider-color" data-target-value="true,false" data-mt-settings>
+													<option value="" selected>{{ text_none }}</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="after-title" data-value="after-title">After Title</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="after-price" data-value="after-price">After Price</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="after-description" data-value="after-description">After Description</option> {# todo-materialize Must be placed in a language variable #}
+												</select>
+												<label>Divider Position</label> {# todo-materialize Must be placed in a language variable #}
+											</div>
+											<div class="input-field mt-5 scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-color">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card-divider" data-color="true" data-color-type="background" data-target="mt-card-divider-position-after-title,mt-card-divider-position-after-price,mt-card-divider-position-after-description" data-mt-settings readonly>
+												<label for="input-color-mt-card-divider" class="active">Divider color</label>
+											</div>
+										</div>
+									</li>
+									<li class="divider"></li>
+									<li class="mt-list-item">
+										<i class="material-icons mt-list-item__icon waves-effect waves-circle">stars</i>
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Rating</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Rating description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__inputs">
+											<div class="input-field">
+												<select data-target="mt-card-rating-position" data-mt-settings>
+													<option value="after-price" selected>After Price</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="after-description">After Description</option> {# todo-materialize Must be placed in a language variable #}
+												</select>
+												<label>Rating Position</label> {# todo-materialize Must be placed in a language variable #}
+											</div>
+											<div class="input-field mt-5">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card-stars" data-color="true" data-color-type="text" data-target="mt-card-stars" data-mt-settings readonly>
+												<label for="input-color-mt-card-stars" class="active">Stars color</label>
+											</div>
+											<div class="input-field mt-5">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card-reviews" data-color="true" data-color-type="text" data-target="mt-card-reviews" data-mt-settings readonly>
+												<label for="input-color-mt-card-reviews" class="active">Reviews color</label>
+											</div>
+										</div>
+									</li>
+									<li class="divider"></li>
+									<li class="mt-list-item">
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Manufacturer</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Manufacturer description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__data">
+											<div class="switch">
+												<label>
+													<input type="checkbox" name="" data-target="mt-card-manufacturer" data-mt-settings>
+													<span class="lever"></span>
+												</label>
+											</div>
+										</div>
+										<div class="mt-list-item__inputs mt-list-item__inputs--full-width scale-transition scale-out" data-change="scale-in" data-element="mt-card-manufacturer">
+											<div class="input-field">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-color-mt-card-manufacturer" data-color="true" data-color-type="text" data-target="mt-card-manufacturer" data-mt-settings readonly>
+												<label for="input-color-mt-card-manufacturer" class="active">Manufacturer color</label>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div id="settings-card-default">
+								<ul class="mt-list z-depth-0">
+									<li class="mt-list-item">
+										<i class="material-icons mt-list-item__icon waves-effect waves-circle">image</i>
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Image</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Image description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__inputs">
+											<div class="row align-items-center mb-5">
+												<div class="col-4">
+													<label for="input-card-default-image-width">Image Width</label> {# todo-materialize Must be placed in a language variable #}
+													<input type="hidden" name="theme_mt_materialize_image_product_width" value="{{ theme_mt_materialize_image_product_width }}" id="input-card-default-image-width" data-target="mt-card-default-image" data-css="width" data-unit="px" data-mt-settings>
+												</div>
+												<div class="col-8">
+													<div id="slider-card-default-image-width"></div>
+												</div>
+											</div>
+											<div class="row align-items-center">
+												<div class="col-4">
+													<label for="input-card-default-image-height">Image Height</label> {# todo-materialize Must be placed in a language variable #}
+													<input type="hidden" name="theme_mt_materialize_image_product_height" value="{{ theme_mt_materialize_image_product_height }}" id="input-card-default-image-height" data-target="mt-card-default-image" data-css="height" data-unit="px" data-mt-settings>
+												</div>
+												<div class="col-8">
+													<div id="slider-card-default-image-height"></div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="col-12">
-										<div class="input-field">
-											<select>
-												<option value="default">Default</option> {# todo-materialize Must be placed in a language variable #}
-												<option value="text-over-media">Title over media</option> {# todo-materialize Must be placed in a language variable #}
-												<option value="text-header">Title header</option> {# todo-materialize Must be placed in a language variable #}
-											</select>
-											<label>Title Position</label> {# todo-materialize Must be placed in a language variable #}
+									</li>
+									<li class="divider"></li>
+									<li class="mt-list-item">
+										<i class="material-icons mt-list-item__icon waves-effect waves-circle">title</i>
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Title</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Title description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__inputs">
+											<div class="input-field">
+												<select data-target="mt-card-default-title-position" data-mt-settings>
+													<option value="default">Default</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="over-media">Title over media</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="header">Title header</option> {# todo-materialize Must be placed in a language variable #}
+												</select>
+												<label>Title Position</label> {# todo-materialize Must be placed in a language variable #}
+											</div>
+											<div class="input-field mt-5 scale-transition scale-out" data-change="scale-in" data-element="mt-card-default-title-position-over-media">
+												<i class="material-icons prefix">color_lens</i>
+												<input type="text" name="" value="" id="input-background-color-mt-card-title" data-color="true" data-color-type="background" data-target="mt-card-default-title-position-over-media" data-mt-settings readonly>
+												<label for="input-background-color-mt-card-title" class="active">Title Background color</label>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div id="settings-card-horizontal">
+								<ul class="mt-list z-depth-0">
+									<li class="mt-list-item">
+										<i class="material-icons mt-list-item__icon waves-effect waves-circle">art_track</i>
+										<div class="mt-list-item__text">
+											<span class="mt-list-item__primary-text">Image</span> {# todo-materialize Must be placed in a language variable #}
+											<span class="mt-list-item__secondary-text">Image description</span> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="mt-list-item__inputs">
+											<div class="input-field">
+												<select data-target="mt-card-horizontal-image-position" data-mt-settings>
+													<option value="left">Left</option> {# todo-materialize Must be placed in a language variable #}
+													<option value="right">Right</option> {# todo-materialize Must be placed in a language variable #}
+												</select>
+												<label>Image Position</label> {# todo-materialize Must be placed in a language variable #}
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-12 col-lg-6 pt-3 grey lighten-3">
+							<div id="mt-cards-demo" class="pushpin">
+								<h5>Default Card</h5>
+								<div class="mt-card mb-4" data-element="mt-card">
+									<div class="mt-card-content scale-transition scale-out" data-change="scale-in" data-element="mt-card-default-title-position-header">
+										<div class="mt-card-title__wrapper">
+											<span class="mt-card__title grey-text text-darken-4" data-old-class="grey-text text-darken-4" data-element="mt-card-title">Lorem ipsum dolor sit amet</span>
+											<span class="mt-card__subtitle grey-text scale-transition scale-out" data-old-class="grey-text" data-change="scale-in" data-element="mt-card-manufacturer">McDonald’s</span>
+											<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-title"></div>
 										</div>
 									</div>
-									<div class="col-12">
-										<div class="input-field">
-											<select>
-												<option value="default">Default</option> {# todo-materialize Must be placed in a language variable #}
-												<option value="only-buttons">Only Buttons</option> {# todo-materialize Must be placed in a language variable #}
-												<option value="only-icons">Only Icons</option> {# todo-materialize Must be placed in a language variable #}
-											</select>
-											<label>Buttons</label> {# todo-materialize Must be placed in a language variable #}
+									<div class="mt-card-image">
+										<img src="{{ mt_placeholder }}" alt="I want to eat" title="I want to eat" data-element="mt-card-default-image">
+										<div class="mt-card-title__wrapper scale-transition scale-out" data-change="scale-in" data-element="mt-card-default-title-position-over-media">
+											<span class="mt-card__title black-text" data-old-class="black-text" data-element="mt-card-title">Lorem ipsum dolor sit amet</span>
+											<span class="mt-card__subtitle grey-text scale-transition scale-out" data-old-class="grey-text" data-change="scale-in" data-element="mt-card-manufacturer">McDonald’s</span>
+											<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-title"></div>
 										</div>
+										<button class="mt-btn-floating mt-btn-large halfway-fab waves-effect waves-light red scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-floating-button"><i class="material-icons">add_shopping_cart</i></button>
 									</div>
-									<div class="col-12">
-										<div class="switch">
-											<label>
-												<input type="checkbox">
-												<span class="lever"></span>
-											</label>
+									<div class="mt-card-content">
+										<div class="mt-card-title__wrapper scale-transition scale-out scale-in" data-change="scale-in" data-element="mt-card-default-title-position-default">
+											<span class="mt-card__title grey-text text-darken-4" data-old-class="grey-text text-darken-4" data-element="mt-card-title">Lorem ipsum dolor sit amet</span>
+											<span class="mt-card__subtitle grey-text scale-transition scale-out" data-old-class="grey-text" data-change="scale-in" data-element="mt-card-manufacturer">McDonald’s</span>
+											<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-title"></div>
+										</div>
+										<div class="mt-card-price">
+											<span class="mt-card-price__item mt-card-price__item--old-price grey-text" data-element="mt-card-old-price">{{ price }}</span>
+											<span class="mt-card-price__item mt-card-price__item--new-price red-text text-darken-2" data-element="mt-card-new-price">{{ price }}</span>
+										</div>
+										{% if review %}
+											<div class="mt-card-rating scale-transition scale-out scale-in" data-change="scale-in" data-element="mt-card-rating-position-after-price">
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star_half</i>
+												<span class="mt-card-rating__rating" data-element="mt-card-reviews">4.5</span>
+												<span class="mt-card-rating__review" data-element="mt-card-reviews">(4)</span>
+											</div>
+										{% endif %}
+										<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-price"></div>
+										<p data-element="mt-card-description" data-element="mt-card-description">{{ lorem }}</p>
+										<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-description"></div>
+										{% if review %}
+											<div class="mt-card-rating scale-transition scale-out" data-change="scale-in" data-element="mt-card-rating-position-after-description">
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star_half</i>
+												<span class="mt-card-rating__rating" data-element="mt-card-reviews">4.5</span>
+												<span class="mt-card-rating__review" data-element="mt-card-reviews">(4)</span>
+											</div>
+										{% endif %}
+									</div>
+									<div class="mt-card-action">
+										<div class="mt-card__action-buttons">
+											<button type="button" class="mt-btn-flat waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-button">Add to Cart</button>
+											<a class="mt-btn-flat waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-element="mt-card-additional-buttons-see-more">See More</a>
+										</div>
+										<div class="mt-card__action-icons">
+											<button type="button" class="mt-btn-flat no-padding waves-effect waves-circle scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-icon"><i class="material-icons">add_shopping_cart</i></button>
+											<button type="button" class="mt-btn-flat no-padding waves-effect waves-circle scale-transition scale-out" data-change="scale-in" data-element="mt-card-additional-buttons-wish-list"><i class="material-icons">favorite_border</i></button>
+											<button type="button" class="mt-btn-flat no-padding waves-effect waves-circle scale-transition scale-out" data-change="scale-in" data-element="mt-card-additional-buttons-compare"><i class="material-icons">compare_arrows</i></button>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-12 col-lg-6 grey lighten-3">
-								<div class="section">
-									<div class="mt-card">
-										<div class="mt-card-image">
-											<img src="{{ mt_placeholder }}" id="mt-card-default-image">
-											<span class="mt-card-title">Card Title</span>
-											<a class="mt-btn-floating mt-btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+								<h5>Horizontal Card</h5>
+								<div class="mt-card horizontal" data-element="mt-card">
+									<div class="mt-card-image scale-transition scale-out scale-in order-1" data-change="scale-in" data-element="mt-card-horizontal-image-position-left">
+										<img src="{{ mt_placeholder }}" alt="I want to eat" title="I want to eat" data-element="mt-card-horizontal-image">
+										<button class="mt-btn-floating halfway-fab waves-effect waves-light red scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-floating-button"><i class="material-icons">add_shopping_cart</i></button>
+									</div>
+									<div class="mt-card-content order-2">
+										<div class="mt-card-title__wrapper">
+											<span class="mt-card__title grey-text text-darken-4" data-old-class="grey-text text-darken-4" data-element="mt-card-title">Lorem ipsum dolor sit amet</span>
+											<span class="mt-card__subtitle grey-text scale-transition scale-out" data-old-class="grey-text" data-change="scale-in" data-element="mt-card-manufacturer">McDonald’s</span>
 										</div>
-										<div class="mt-card-content">
-											<p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+										<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-title"></div>
+										<div class="mt-card-price">
+											<span class="mt-card-price__item mt-card-price__item--current-price" data-element="mt-card-current-price">{{ price }}</span>
 										</div>
-										<div class="mt-card-action">
-											<a class="mt-btn-flat waves-effect waves-blue">This is a link</a>
+										{% if review %}
+											<div class="mt-card-rating scale-transition scale-out scale-in" data-change="scale-in" data-element="mt-card-rating-position-after-price">
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star_half</i>
+												<span class="mt-card-rating__rating" data-element="mt-card-reviews">4.5</span>
+												<span class="mt-card-rating__review" data-element="mt-card-reviews">(4)</span>
+											</div>
+										{% endif %}
+										<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-price"></div>
+										<p data-element="mt-card-description" data-element="mt-card-description">{{ lorem }}</p>
+										<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-description"></div>
+										{% if review %}
+											<div class="mt-card-rating scale-transition scale-out" data-change="scale-in" data-element="mt-card-rating-position-after-description">
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star</i>
+												<i class="mt-card-rating__star material-icons" data-element="mt-card-stars">star_half</i>
+												<span class="mt-card-rating__rating" data-element="mt-card-reviews">4.5</span>
+												<span class="mt-card-rating__review" data-element="mt-card-reviews">(4)</span>
+											</div>
+										{% endif %}
+									</div>
+									<div class="mt-card-image scale-transition scale-out order-3" data-change="scale-in" data-element="mt-card-horizontal-image-position-right">
+										<img src="{{ mt_placeholder }}" alt="I want to eat" title="I want to eat" data-element="mt-card-horizontal-image">
+										<button class="mt-btn-floating halfway-fab waves-effect waves-light red scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-floating-button"><i class="material-icons">add_shopping_cart</i></button>
+									</div>
+									<div class="mt-card-action order-4">
+										<div class="mt-card__action-buttons">
+											<button type="button" class="mt-btn-flat waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-button">Add to Cart</button>
+											<a class="mt-btn-flat waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-element="mt-card-additional-buttons-see-more">See More</a>
+										</div>
+										<div class="mt-card__action-icons">
+											<button type="button" class="mt-btn-flat no-padding waves-effect waves-circle scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-icon"><i class="material-icons">add_shopping_cart</i></button>
+											<button type="button" class="mt-btn-flat no-padding waves-effect waves-circle scale-transition scale-out" data-change="scale-in" data-element="mt-card-additional-buttons-wish-list"><i class="material-icons">favorite_border</i></button>
+											<button type="button" class="mt-btn-flat no-padding waves-effect waves-circle scale-transition scale-out" data-change="scale-in" data-element="mt-card-additional-buttons-compare"><i class="material-icons">compare_arrows</i></button>
 										</div>
 									</div>
 								</div>
@@ -95,15 +422,14 @@
 						</div>
 					</div>
 				</div>
-				<div id="settings-card-horizintal"></div>
 			</div>
-		</div>
+		</form>
 	</main>
 	<aside>
 		<ul id="sidenav" class="sidenav">
 			<li>
 				<div class="user-view">
-					<div class="background цршеу"></div>
+					<div class="background white"></div>
 					<a href="#user"><img class="circle" src="//gatalsv2.beget.tech/image/cache/catalog/20430159-45x45.jpg"></a>
 					<a href="#name"><span class="black-text name font-weight-bold">John Doe</span></a>
 					<a href="#email"><span class="black-text email">jdandturk@gmail.com</span></a>
@@ -118,25 +444,110 @@
 	</aside>
 </div>
 <script>
-	$('#test-sass').on('click', function() {
-		$.ajax({
-			url: 'index.php?route=extension/theme/mt_materialize/sassVariables&user_token={{ user_token }}',
-			dataType: 'json',
-			beforeSend: function() {
-			},
-			complete: function() {
-			},
-			success: function(json) {
-				console.log(json);
-			},
-			error: function(xhr, ajaxOptions, thrownError) {
-				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-			}
-		});
-	});
+	$(document).ready(function() {
+		let preloader = $('#preloader');
 
-	$('#sidenav').sidenav({
-	  edge: 'right'
-	});
+		var elems  = document.querySelectorAll("input[type=range]");
+		M.Range.init(elems);
+
+		let sliderImageWidth = document.getElementById('slider-card-default-image-width');
+		noUiSlider.create(sliderImageWidth, {
+			start: {{ theme_mt_materialize_image_product_width }},
+			step: 1,
+			connect: [true, false],
+			range: {
+				'min': 0,
+				'max': 400
+			},
+			format: wNumb({
+				decimals: 0
+			}),
+		});
+
+		sliderImageWidth.noUiSlider.on('change', function (values) {
+			$('#input-card-default-image-width').val(values[0]).change();
+		});
+
+		let sliderImageHeight = document.getElementById('slider-card-default-image-height');
+		noUiSlider.create(sliderImageHeight, {
+			start: {{ theme_mt_materialize_image_product_height }},
+			step: 1,
+			connect: [true, false],
+			range: {
+				'min': 0,
+				'max': 400
+			},
+			format: wNumb({
+				decimals: 0
+			}),
+		});
+
+		sliderImageHeight.noUiSlider.on('change', function (values) {
+			$('#input-card-default-image-height').val(values[0]).change();
+		});
+
+		let sliderBorderRadius = document.getElementById('slider-card-border-radius');
+		noUiSlider.create(sliderBorderRadius, {
+			start: {{ theme_mt_materialize_scheme.default.card.default.border_radius }},
+			step: 1,
+			connect: [true, false],
+			range: {
+				'min': 0,
+				'max': 32
+			},
+			format: wNumb({
+				decimals: 0
+			}),
+		});
+
+	  sliderBorderRadius.noUiSlider.on('change', function (values) {
+			$('#input-card-border-radius').val(values[0]).change();
+		});
+
+		let sliderShadow = document.getElementById('slider-card-shadow');
+		noUiSlider.create(sliderShadow, {
+			start: 1 {#{{ theme_mt_materialize_scheme.default.card.default.shadow }}#},
+			step: 1,
+			connect: [true, false],
+			range: {
+				'min': 0,
+				'max': 5
+			},
+			format: wNumb({
+				decimals: 0
+			}),
+		});
+
+	  sliderShadow.noUiSlider.on('change', function (values) {
+			$('#input-card-shadow').val(values[0]).change();
+		});
+
+		$('#test-sass').on('click', function() {
+			$.ajax({
+				url: 'index.php?route=extension/theme/mt_materialize/sassVariables&user_token={{ user_token }}',
+				type: 'post',
+				data: $('#form-theme').serialize(),
+				dataType: 'json',
+				beforeSend: function() {
+					preloader.show();
+				},
+				complete: function() {
+					preloader.hide();
+				},
+				success: function(json) {
+					console.log(json);
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		});
+
+		$('#sidenav').sidenav({
+			edge: 'right'
+		});
+  });
+
+	$('[data-mt-settings]').mtSettings();
 </script>
 {{ footer }}

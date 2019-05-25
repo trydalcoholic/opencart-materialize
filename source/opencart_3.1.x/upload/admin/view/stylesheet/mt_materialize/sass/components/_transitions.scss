@@ -1,13 +1,18 @@
 // Scale transition
 .scale-transition {
   &.scale-out {
+    position: absolute;
+    opacity: 0;
     transform: scale(0);
     transition: transform .2s !important;
   }
 
   &.scale-in {
+    position: relative;
+    opacity: 1;
     transform: scale(1);
   }
 
+  z-index: 2;
   transition: transform .3s cubic-bezier(0.53, 0.01, 0.36, 1.63) !important;
 }

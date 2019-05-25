@@ -9,21 +9,40 @@
   background-color: $card-bg-color;
 }
 
+.row {
+  .mt-card {
+    width: 100%;
+  }
+}
+
 .mt-card {
   position: relative;
   margin: $element-top-margin 0 $element-bottom-margin 0;
   background-color: $card-bg-color;
   overflow: hidden;
-  transition: box-shadow .25s;
-  border-radius: 8px;
+  transition: box-shadow .25s, border-radius .3s;
+  border-radius: $card_default_border_radius;
   @extend .z-depth-1;
 
 
-  .mt-card-title {
-    font-size: 24px;
-    font-weight: 300;
-    &.activator {
-      cursor: pointer;
+  .mt-card-title__wrapper {
+    display: flex;
+    flex-direction: column;
+
+
+    .mt-card__title {
+      font-size: 1.25rem;
+      line-height: 2rem;
+      font-weight: 500;
+      &.activator {
+        cursor: pointer;
+      }
+    }
+
+    .mt-card__subtitle {
+      font-size: .875rem;
+      line-height: 1.375rem;
+      font-weight: 500;
     }
   }
 
@@ -34,7 +53,6 @@
     .mt-card-image {
       max-height: 60%;
       overflow: hidden;
-      border-radius: 8px 8px 0 0;
     }
     .mt-card-image + .mt-card-content {
       max-height: 40%;
@@ -78,13 +96,30 @@
     }
 
     display: flex;
+    flex-wrap: wrap;
 
     .mt-card-image {
-      max-width: 50%;
+      max-width: 180px;
+      height: 100%;
+      margin-bottom: 5em;
+
       img {
         max-width: 100%;
         width: auto;
+        height: auto;
       }
+
+      &.scale-transition.scale-out:not(.scale-in) {
+        position: absolute;
+      }
+    }
+
+    .mt-card-content {
+      width: calc(100% - 180px);
+    }
+
+    .mt-card-action {
+      width: 100%;
     }
 
     .mt-card-stacked {
@@ -111,9 +146,6 @@
     }
   }
 
-
-
-
   .mt-card-image {
     position: relative;
 
@@ -126,11 +158,12 @@
       right: 0;
       top: 0;
       bottom: 0;
-      width: 100%;
+      width: $card_default_image_width;
+      height: $card_default_image_height;
+      transition: width .3s, height .3s;
     }
 
-    .mt-card-title {
-      color: $card-bg-color;
+    .mt-card-title__wrapper {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -140,31 +173,35 @@
   }
 
   .mt-card-content {
-    padding: $card-padding;
-    border-radius: 0 0 8px 8px;
+    padding: 24px 24px 8px 24px;
 
     p {
-      margin: 0;
+      margin: 8px 0 0 0;
     }
     .mt-card-title {
       display: block;
-      line-height: 32px;
-      margin-bottom: 8px;
 
       i {
         line-height: 32px;
       }
     }
+
+    .divider {
+      margin: 16px 0;
+    }
   }
 
   .mt-card-action {
     &:last-child {
-      border-radius: 0 0 8px 8px;
+      border-radius: 0 0 $card_default_border_radius $card_default_border_radius;
+      transition: border-radius .3s;
     }
-    background-color: inherit; // Use inherit to inherit color classes
-    border-top: 1px solid rgba(160,160,160,.2);
+    background-color: transparent; // Use inherit to inherit color classes
     position: relative;
+    height: auto/*52px*/;
     padding: 8px;
+    display: flex;
+    align-items: center;
 
     a:not(.mt-btn):not(.mt-btn-large):not(.mt-btn-floating) {
       color: $card-link-color;
@@ -174,6 +211,34 @@
       cursor: pointer;
 
       &:hover { color: $card-link-color-light; }
+    }
+
+    .mt-card__action-buttons, .mt-card__action-icons {
+      flex-grow: 1;
+    }
+
+    .mt-card__action-buttons {
+      button {
+        font-family: Roboto, sans-serif;
+        color: $card-link-color;
+
+        &:hover { color: $card-link-color-light; }
+      }
+    }
+
+    .mt-card__action-icons {
+      display: flex;
+      justify-content: flex-end;
+
+      .mt-btn-flat {
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+
+        i {
+          font-size: 24px;
+        }
+      }
     }
   }
 
@@ -192,6 +257,42 @@
     .mt-card-title {
       cursor: pointer;
       display: block;
+    }
+  }
+
+  .mt-card-price {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 8px 0;
+    font-weight: 500;
+    font-size: 1.5rem;
+
+    .mt-card-price__item {
+      flex: 1 1 auto;
+
+      &.mt-card-price__item--old-price {
+        font-size: 1rem;
+        text-decoration: line-through;
+      }
+    }
+  }
+
+  .mt-card-rating {
+    display: flex;
+    margin: 8px 0;
+    align-items: center;
+    font-size: 14px;
+    line-height: 14px;
+
+    .mt-card-rating__star {
+      font-size: 14px;
+      line-height: 14px;
+      color: #FC0;
+    }
+
+    .mt-card-rating__rating {
+      margin: 0 4px;
     }
   }
 }

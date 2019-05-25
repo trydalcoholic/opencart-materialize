@@ -262,6 +262,17 @@ textarea.materialize-textarea {
       width: calc(100% - 3rem);
     }
   }
+
+  &.range-field {
+    margin-top: 3rem;
+
+    & > label {
+      &:not(.label-icon) {
+        transform: translateY(-44px) scale(.8);
+        transform-origin: 0 0;
+      }
+    }
+  }
 }
 
 

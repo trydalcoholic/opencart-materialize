@@ -759,7 +759,6 @@ span.breadcrumb {
 
 .card {
 	width: 100%;
-	border-radius: 4px;
 	line-height: 1.4 !important;
 	font-size: 15px !important;
 }
@@ -833,7 +832,6 @@ span.breadcrumb {
 .card .card-action {
 	padding: 8px;
 	border-top: none !important;
-	border-radius: 0 !important;
 	background-color: inherit;
 }
 
@@ -903,7 +901,6 @@ span.breadcrumb {
 
 .card.horizontal .card-action {
 	border-top: none !important;
-	border-radius: 0 !important;
 }
 
 .card.horizontal .card-title {

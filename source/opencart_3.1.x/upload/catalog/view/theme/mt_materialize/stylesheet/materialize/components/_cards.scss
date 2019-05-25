@@ -1,195 +1,202 @@
-
-
 .card-panel {
-  transition: box-shadow .25s;
-  padding: $card-padding;
-  margin: $element-top-margin 0 $element-bottom-margin 0;
-  border-radius: 2px;
-  @extend .z-depth-1;
-  background-color: $card-bg-color;
+	transition: box-shadow .25s;
+	padding: $card-padding;
+	margin: $element-top-margin 0 $element-bottom-margin 0;
+	border-radius: 2px;
+	@extend .z-depth-1;
+	background-color: $card-bg-color;
 }
 
 .card {
-  position: relative;
-  margin: $element-top-margin 0 $element-bottom-margin 0;
-  background-color: $card-bg-color;
-  transition: box-shadow .25s;
-  border-radius: 2px;
-  @extend .z-depth-1;
+	position: relative;
+	margin: $element-top-margin 0 $element-bottom-margin 0;
+	overflow: hidden;
+	background-color: $card-bg-color;
+	transition: box-shadow .25s;
+	@extend .z-depth-1;
 
+	&:not(.horizontal) {
+		border-radius: $card_default_border_radius;
+	}
 
-  .card-title {
-    font-size: 24px;
-    font-weight: 300;
-    &.activator {
-      cursor: pointer;
-    }
-  }
+	.card-title {
+		font-size: 24px;
+		font-weight: 300;
 
-  // Card Sizes
-  &.small, &.medium, &.large {
-    position: relative;
+		&.activator {
+			cursor: pointer;
+		}
+	}
 
-    .card-image {
-      max-height: 60%;
-      overflow: hidden;
-    }
-    .card-image + .card-content {
-      max-height: 40%;
-    }
-    .card-content {
-      max-height: 100%;
-      overflow: hidden;
-    }
-    .card-action {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-  }
+	// Card Sizes
+	&.small, &.medium, &.large {
+		position: relative;
 
-  &.small {
-    height: 300px;
-  }
+		.card-image {
+			max-height: 60%;
+			overflow: hidden;
+		}
 
-  &.medium {
-    height: 400px;
-  }
+		.card-image + .card-content {
+			max-height: 40%;
+		}
 
-  &.large {
-    height: 500px;
-  }
+		.card-content {
+			max-height: 100%;
+			overflow: hidden;
+		}
 
-  // Horizontal Cards
-  &.horizontal {
-    &.small, &.medium, &.large {
-      .card-image {
-        height: 100%;
-        max-height: none;
-        overflow: visible;
+		.card-action {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
 
-        img {
-          height: 100%;
-        }
-      }
-    }
+	&.small {
+		height: 300px;
+	}
 
-    display: flex;
+	&.medium {
+		height: 400px;
+	}
 
-    .card-image {
-      max-width: 50%;
-      img {
-        border-radius: 2px 0 0 2px;
-        max-width: 100%;
-        width: auto;
-      }
-    }
+	&.large {
+		height: 500px;
+	}
 
-    .card-stacked {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      position: relative;
+	// Horizontal Cards
+	&.horizontal {
+		/*border-radius: $card_horizontal_border_radius;*/
 
-      .card-content {
-        flex-grow: 1;
-      }
-    }
-  }
+		&.small, &.medium, &.large {
+			.card-image {
+				height: 100%;
+				max-height: none;
+				overflow: visible;
 
-  // Sticky Action Section
-  &.sticky-action {
-    .card-action {
-      z-index: 2;
-    }
+				img {
+					height: 100%;
+				}
+			}
+		}
 
-    .card-reveal {
-      z-index: 1;
-      padding-bottom: 64px;
-    }
-  }
+		display: flex;
 
+		.card-image {
+			max-width: 50%;
 
+			img {
+				max-width: 100%;
+				width: auto;
+			}
+		}
 
+		.card-stacked {
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			position: relative;
 
-  .card-image {
-    position: relative;
+			.card-content {
+				flex-grow: 1;
+			}
+		}
+	}
 
-    // Image background for content
-    img {
-      display: block;
-      border-radius: 2px 2px 0 0;
-      position: relative;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-    }
+	// Sticky Action Section
+	&.sticky-action {
+		.card-action {
+			z-index: 2;
+		}
 
-    .card-title {
-      color: $card-bg-color;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      max-width: 100%;
-      padding: $card-padding;
-    }
-  }
+		.card-reveal {
+			z-index: 1;
+			padding-bottom: 64px;
+		}
+	}
 
-  .card-content {
-    padding: $card-padding;
-    border-radius: 0 0 2px 2px;
+	.card-image {
+		position: relative;
 
-    p {
-      margin: 0;
-    }
-    .card-title {
-      display: block;
-      line-height: 32px;
-      margin-bottom: 8px;
+		// Image background for content
+		img {
+			display: block;
+			position: relative;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			width: $card_default_image_width;
+			height: $card_default_image_height;
+		}
 
-      i {
-        line-height: 32px;
-      }
-    }
-  }
+		.card-title {
+			color: $card-bg-color;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			max-width: 100%;
+			padding: $card-padding;
+		}
+	}
 
-  .card-action {
-    &:last-child {
-      border-radius: 0 0 2px 2px;
-    }
-    background-color: inherit; // Use inherit to inherit color classes
-    border-top: 1px solid rgba(160,160,160,.2);
-    position: relative;
-    padding: 16px $card-padding;
+	.card-content {
+		padding: $card-padding;
 
-    a:not(.btn):not(.btn-large):not(.btn-floating) {
-      color: $card-link-color;
-      margin-right: $card-padding;
-      transition: color .3s ease;
-      text-transform: uppercase;
+		p {
+			margin: 0;
+		}
 
-      &:hover { color: $card-link-color-light; }
-    }
-  }
+		.card-title {
+			display: block;
+			line-height: 32px;
+			margin-bottom: 8px;
 
-  .card-reveal {
-    padding: $card-padding;
-    position: absolute;
-    background-color: $card-bg-color;
-    width: 100%;
-    overflow-y: auto;
-    left: 0;
-    top: 100%;
-    height: 100%;
-    z-index: 3;
-    display: none;
+			i {
+				line-height: 32px;
+			}
+		}
+	}
 
-    .card-title {
-      cursor: pointer;
-      display: block;
-    }
-  }
+	.card-action {
+		&:last-child:not(.horizontal) {
+			border-radius: 0 0 $card_default_border_radius $card_default_border_radius;
+		}
+
+		background-color: inherit; // Use inherit to inherit color classes
+		border-top: 1px solid rgba(160, 160, 160, .2);
+		position: relative;
+		padding: 16px $card-padding;
+
+		a:not(.btn):not(.btn-large):not(.btn-floating) {
+			color: $card-link-color;
+			margin-right: $card-padding;
+			transition: color .3s ease;
+			text-transform: uppercase;
+
+			&:hover {
+				color: $card-link-color-light;
+			}
+		}
+	}
+
+	.card-reveal {
+		padding: $card-padding;
+		position: absolute;
+		background-color: $card-bg-color;
+		width: 100%;
+		overflow-y: auto;
+		left: 0;
+		top: 100%;
+		height: 100%;
+		z-index: 3;
+		display: none;
+
+		.card-title {
+			cursor: pointer;
+			display: block;
+		}
+	}
 }

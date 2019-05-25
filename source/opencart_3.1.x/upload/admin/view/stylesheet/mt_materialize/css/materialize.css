@@ -1,0 +1,340 @@
+/**
+ * @package     Materialize Template
+ * @author      Anton Semenov
+ * @copyright   Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
+ * @license     https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
+ * @link        https://github.com/trydalcoholic/opencart-materialize
+ */
+
+.material-select-item {
+	width: 100% !important;
+	z-index: auto;
+}
+
+.materialize-body {
+	font-family: Roboto,sans-serif;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
+
+.arrow-rotate {
+	position: relative;
+}
+
+.arrow-rotate:after {
+	font-family: "Font Awesome 5 Free";
+	content: '\f106';
+	font-size: 1.1rem;
+	line-height: 3.6rem;
+	font-weight: 600;
+	position: absolute;
+	top: 0;
+	right: 1rem;
+	pointer-events: none;
+	z-index: 1;
+	-webkit-transition: -webkit-transform 0.3s ease-in-out;
+	transition: -webkit-transform 0.3s ease-in-out;
+	-o-transition: -o-transform 0.3s ease-in-out;
+	-moz-transition: transform 0.3s ease-in-out, -moz-transform 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out, -moz-transform 0.3s ease-in-out, -o-transform 0.3s ease-in-out;
+}
+
+.arrow-rotate.collapsed:after {
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+a.dotted {
+	border-bottom: 1px dashed #1e91cf;
+}
+
+a.dotted:hover {
+	text-decoration: none;
+	border-bottom: 1px dashed #14628c;
+}
+
+.materialize-list {
+	font-size: 1rem;
+	font-weight: 400;
+	color: rgba(0,0,0,.87);
+	margin: 0;
+	padding: 8px 0;
+	line-height: 1.5rem;
+	list-style-type: none;
+	border: 1px solid rgba(0,0,0,.1);
+	cursor: default;
+}
+
+.materialize-list-item {
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 0 16px 16px;
+	flex-wrap: wrap;
+}
+
+.materialize-list-item:hover {
+	background-color: #f5f5f5;
+}
+
+.materialize-list-item.non-hover:hover {
+	background-color: #ffffff;
+}
+
+.materialize-list-item__icon {
+	margin-left: 0;
+	margin-right: 32px;
+	margin-right: 16px;
+	width: 1.7em;
+	height: 1.7em;
+	font-size: 1.7em;
+	line-height: 1.7em;
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	color: rgba(0,0,0,.38);
+}
+
+.materialize-list-item__text {
+	align-self: flex-start;
+	overflow: hidden;
+	width: calc(100% - 9em);
+}
+
+.materialize-list-item__primary-text {
+	margin-top: 0;
+	line-height: normal;
+	margin-bottom: -20px;
+	display: block;
+	font-weight: 500;
+}
+
+.materialize-list-item__primary-text:before {
+	display: inline-block;
+	width: 0;
+	height: 32px;
+	content: "";
+	vertical-align: 0;
+}
+
+.materialize-list-item__primary-text:after {
+	display: inline-block;
+	width: 0;
+	height: 20px;
+	content: "";
+	vertical-align: -20px;
+}
+
+.materialize-list-item__secondary-text {
+	font-size: .875rem;
+	font-weight: 400;
+	letter-spacing: .01786em;
+	line-height: normal;
+	display: block;
+	color: rgba(0,0,0,.54);
+}
+
+.materialize-list-item__secondary-text:before {
+	display: inline-block;
+	width: 0;
+	height: 20px;
+	content: "";
+	vertical-align: 0;
+}
+
+.materialize-list-item__data {
+	margin-left: auto;
+	margin-right: 0;
+	display: inline-block;
+	position: relative;
+	flex: 0 0 18px;
+}
+
+.materialize-list-divider {
+	height: 0;
+	margin: 0;
+	border: none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: rgba(0,0,0,.12);
+}
+
+.materialize-list-item__inputs {
+	width: 100%;
+	margin-top: 2em;
+}
+
+.required:after {
+	font-family: "Font Awesome 5 Free";
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	content: '\f069';
+	color: #F00;
+	font-weight: bold;
+	position: absolute;
+	top: -12px;
+	right: 6px;
+	font-size: .5rem;
+}
+
+.btn-material {
+	text-decoration: none !important;
+	text-align: center;
+	letter-spacing: .5px;
+	font-size: 14px;
+	outline: 0;
+	height: 36px;
+	line-height: 36px;
+	padding: 0 16px;
+	height: 36px;
+	border: none;
+	border-radius: 2px;
+	text-transform: uppercase;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+.btn-material-flat {
+	text-decoration: none !important;
+	height: 36px;
+	line-height: 36px;
+	padding: 0 8px;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: normal;
+	color: rgba(0,0,0,.54);
+	text-transform: uppercase;
+	background-color: transparent;
+	border: none;
+	border-radius: 2px !important;
+}
+
+i.plug {
+	width: 13px;
+	height: 13px;
+}
+
+/* Filter layout */
+
+.materialize-filter {
+	position: relative;
+	padding-left: 0;
+	list-style-type: none;
+	overflow: hidden;
+	border-radius: 2px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+.materialize-filter-item {
+	border-bottom: 1px solid #e0e0e0;
+	padding: 0;
+	font-size: 15px;
+}
+
+.materialize-filter-item.with-header {
+	padding: 10px 20px;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.materialize-filter-item h4 {
+	font-size: 1.1em;
+	font-weight: 600;
+	line-height: 110%;
+	margin: 1.52rem 0 .912rem 0;
+}
+
+.materialize-filter-item--title {
+	line-height: 1.5;
+	padding: 1rem;
+	-webkit-tap-highlight-color: transparent;
+	width: 100%;
+}
+
+.materialize-filter-item--title span {
+	padding-right: calc(1rem + 24px);
+	font-weight: 500;
+}
+
+.materialize-filter-item--body {
+	padding: 10px 20px;
+}
+
+.materialize-filter--slider {
+	margin: 40px 0;
+	height: 3px;
+}
+
+.materialize-filter--slider-base {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+.materialize-filter--slider-base__left {
+	position: absolute;
+	left: 15%;
+	height: 0;
+	width: 0;
+}
+
+.materialize-filter--slider-base__center {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 15%;
+	right: 15%;
+}
+
+.materialize-filter--slider-base__right {
+	position: absolute;
+	left: 85%;
+	height: 0;
+	width: 0;
+}
+
+.materialize-filter--slider-base-bubble {
+	position: relative;
+	width: 15px;
+	height: 15px;
+	left: -5px;
+	top: -6px;
+	border-radius: 50%;
+}
+
+.materialize-filter--slider-base-bubble.active {
+	width: 3px;
+	height: 3px;
+	left: 0;
+	top: 0;
+}
+
+.materialize-filter--slider-base-bubble--tooltip {
+	position: absolute;
+	height: 30px;
+	width: 30px;
+	top: -17px;
+	left: -2px;
+	border-radius: 15px 15px 15px 0;
+	transform-origin: 50% 100%;
+	transform: rotate(-45deg) translate(23px, -25px);
+}
+
+.materialize-filter--slider-base-bubble--tooltip span {
+	position: absolute;
+	top: 6px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+	transform: rotate(45deg);
+	cursor: default;
+}
+
+[class*="icheck-material"] > label {
+	min-height: 25px;
+	line-height: 25px;
+}

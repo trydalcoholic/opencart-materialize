@@ -1,3 +1,11 @@
+/**
+ * @package     Materialize Template
+ * @author      Anton Semenov
+ * @copyright   Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
+ * @license     https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
+ * @link        https://github.com/trydalcoholic/opencart-materialize
+ */
+
 .mt-content {
 	font-family: 'Roboto', sans-serif;
 }
@@ -119,7 +127,10 @@
 		.mt-list-item__text {
 			align-self: flex-start;
 			overflow: hidden;
-			width: calc(100% - 9em);
+
+			&.mt-list-item__text--with-data {
+				width: calc(100% - 9rem);
+			}
 
 			.mt-list-item__primary-text {
 				margin-top: 0;
@@ -173,9 +184,17 @@
 		}
 
 		.mt-list-item__inputs {
-			width: calc(100% - 9em);
+			width: 100%;
 			margin-top: 2em;
 			padding-left: 4rem;
+
+			&.mt-list-item__inputs--with-data {
+				width: calc(100% - 9rem);
+			}
+
+			&.mt-list-item__inputs--full-width {
+				padding-left: 0;
+			}
 		}
 	}
 
@@ -363,4 +382,8 @@ label.active.required:after {
 			background-color: transparent;
 		}
 	}
+}
+
+[data-color] {
+	margin-bottom: 0 !important;
 }

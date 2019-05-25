@@ -10,6 +10,7 @@ select {
   border: $select-border;
   border-radius: $select-radius;
   height: $input-height;
+  display: none;
 }
 
 .select-label {

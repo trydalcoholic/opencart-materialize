@@ -12,6 +12,23 @@
 			{{ column_left }}
 			<div id="content" class="col {{ col_main }}">
 				{{ content_top }}
+				<div class="row">
+					<div class="col s4">
+						<div class="card">
+							<div class="card-image">
+								<img src="image/mt_template/i_want_to_eat.png">
+								<span class="card-title">Card Title</span>
+							</div>
+							<div class="card-content">
+								<p>I am a very simple card. I am good at containing small bits of information.
+									 I am convenient because I require little markup to use effectively.</p>
+							</div>
+							<div class="card-action">
+								<a href="#">This is a link</a>
+							</div>
+						</div>
+					</div>
+				</div>
 				{% if products or mt_filters %}
 					<div id="content-mt-filter" data-product-grid="{{ product_grid }}">
 						{% if mt_filters %}

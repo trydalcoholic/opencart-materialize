@@ -38,6 +38,7 @@ input[type=range] + .thumb {
 
   transform-origin: 50% 50%;
   transform: rotate(-45deg);
+  z-index: 2;
 
   .value {
     display: block;

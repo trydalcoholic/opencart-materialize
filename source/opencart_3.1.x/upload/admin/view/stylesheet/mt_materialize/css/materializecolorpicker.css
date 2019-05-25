@@ -1,0 +1,82 @@
+/**
+ * @package     Materialize Template
+ * @author      Anton Semenov
+ * @copyright   Copyright (c) 2017 - 2018, Materialize Template. https://github.com/trydalcoholic/opencart-materialize
+ * @license     https://github.com/trydalcoholic/opencart-materialize/blob/master/LICENSE
+ * @link        https://github.com/trydalcoholic/opencart-materialize
+ */
+
+.material-palette {
+	display: none;
+	position: absolute;
+	width: 400px;
+	opacity: 0;
+	transform-origin: 0 0 0;
+	transform: scaleX(0.8) scaleY(0.8);
+	font-family: 'Roboto', sans-serif;
+	font-size: 12px;
+	color: #616161;
+	overflow: hidden;
+	padding: 0;
+	z-index: 1001;
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 8px 17px 2px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+	-webkit-transition: all 100ms cubic-bezier(0.645, 0.045, 0.355, 1);
+	-o-transition: all 100ms cubic-bezier(0.645, 0.045, 0.355, 1);
+	transition: all 100ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.material-color-labels {
+	padding-top: 1px;
+	border-right: 1px solid #E0E0E0;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+.material-color-label {
+	display: flex;
+	align-items: center;
+	min-width: 0;
+	padding-left: 8px;
+	position: relative;
+	height: 23px;
+}
+
+.material-palettes-list {
+	display: flex;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+.material-palettes-list-item {
+	position: relative;
+	color: #fff;
+	cursor: pointer;
+	margin: .5px;
+	outline: 0;
+	padding-top: 22px;
+	height: 22px;
+	width: 22px;
+	transition: all .4s cubic-bezier(.25,.8,.25,1);
+}
+
+.material-palettes-list-item:hover {
+	border-radius: 30%;
+}
+
+.material-palettes-list-item:active {
+	border-radius: 45%;
+}
+
+.material-palettes-list-item.selected {
+	border-radius: 50% !important;
+}
+
+.material-palettes-list-item.transparent {
+	background-image: url('data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABkAAD/4QMvaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzE0NSA3OS4xNjM0OTksIDIwMTgvMDgvMTMtMTY6NDA6MjIgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE5IChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoyNUJGNTAwRkYzMUUxMUU4ODk1Nzg2OUI3MTlGODY2NSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoyNUJGNTAxMEYzMUUxMUU4ODk1Nzg2OUI3MTlGODY2NSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjI1QkY1MDBERjMxRTExRTg4OTU3ODY5QjcxOUY4NjY1IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjI1QkY1MDBFRjMxRTExRTg4OTU3ODY5QjcxOUY4NjY1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/+4AJkFkb2JlAGTAAAAAAQMAFQQDBgoNAAAE8AAABREAAAVOAAAFb//bAIQAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQICAgICAgICAgICAwMDAwMDAwMDAwEBAQEBAQECAQECAgIBAgIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMD/8IAEQgALAAsAwERAAIRAQMRAf/EAHAAAQEBAAAAAAAAAAAAAAAAAAgACQEBAAAAAAAAAAAAAAAAAAAAABABAAAAAAAAAAAAAAAAAAAAUBEBAAAAAAAAAAAAAAAAAAAAUBIBAAAAAAAAAAAAAAAAAAAAUBMBAAAAAAAAAAAAAAAAAAAAUP/aAAwDAQACEQMRAAAB38BuMgG4yAbkMgG4yAbjIIG4yAbjIBuQyAbjIBuMggbjIBuMgG5DIBuMgG4yD//aAAgBAQABBQIT/9oACAECAAEFAhP/2gAIAQMAAQUCE//aAAgBAgIGPwIT/9oACAEDAgY/AhP/2gAIAQEBBj8CE//aAAgBAQMBPyET/9oACAECAwE/IRP/2gAIAQMDAT8hE//aAAwDAQACEQMRAAAQAAAAAAAAAAAAAAAAAA//2gAIAQEDAT8QE//aAAgBAgMBPxAT/9oACAEDAwE/EBP/2Q==');
+}
+
+.color-wrapper {
+	margin-left: 3em;
+}

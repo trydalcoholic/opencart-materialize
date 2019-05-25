@@ -61,7 +61,7 @@ $button-font-size: 14px !default;
 $button-icon-font-size: 1.3rem !default;
 $button-height: 36px !default;
 $button-padding: 0 16px !default;
-$button-radius: 2px !default;
+$button-radius: 4px !default;
 
 // Disabled styles
 $button-disabled-background: #DFDFDF !default;
@@ -99,7 +99,7 @@ $button-floating-radius: 50% !default;
 // 4. Cards
 // ==========================================================================
 
-$card-padding: 24px !default;
+$card-padding: 8px 24px !default;
 $card-bg-color: #fff !default;
 $card-link-color: $link-color !default;
 $card-link-color-light: lighten($card-link-color, 20%) !default;
@@ -169,7 +169,7 @@ $input-border: 1px solid $input-border-color !default;
 $input-background: #fff !default;
 $input-error-color: $error-color !default;
 $input-success-color: $success-color !default;
-$input-focus-color: $secondary-color !default;
+$input-focus-color: $primary-color !default;
 $input-font-size: 16px !default;
 $input-margin-bottom: 8px;
 $input-margin: 0 0 $input-margin-bottom 0 !default;
@@ -183,7 +183,7 @@ $input-icon-size: 2rem;
 $placeholder-text-color: lighten($input-border-color, 20%) !default;
 
 // Radio Buttons
-$radio-fill-color: $secondary-color !default;
+$radio-fill-color: $primary-color !default;
 $radio-empty-color: #5a5a5a !default;
 $radio-border: 2px solid $radio-fill-color !default;
 
@@ -346,4 +346,4 @@ $collection-line-height: 1.5rem !default;
 // 24. Progress Bar
 // ==========================================================================
 
-$progress-bar-color: $secondary-color !default;
+$progress-bar-color: $primary-color !default;
