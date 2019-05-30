@@ -530,6 +530,139 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 		return !$this->error;
 	}
 
+	public function editColorScheme() {
+		$this->load->language('extension/theme/mt_materialize');
+
+		$this->document->setTitle($this->language->get('heading_title'));
+		$this->document->addScript('//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js');
+		$this->document->addScript('view/javascript/mt_materialize/materialize.js');
+		$this->document->addScript('view/javascript/mt_materialize/wNumb.js');
+		$this->document->addScript('view/javascript/mt_materialize/nouislider.js');
+		$this->document->addScript('view/javascript/mt_materialize/mt_settings.js');
+		$this->document->addScript('view/javascript/mt_materialize/common.js');
+
+		$this->document->addStyle(HTTP_CATALOG . 'catalog/view/theme/default/stylesheet/bootstrap.css');
+		$this->document->addStyle('view/stylesheet/mt_materialize/css/nouislider.css');
+		$this->document->addStyle('view/stylesheet/mt_materialize/sass/materialize.css');
+		$this->document->addStyle('view/stylesheet/mt_materialize/css/materializecolorpicker.css');
+		$this->document->addStyle('view/stylesheet/mt_materialize/sass/color-scheme.css');
+		$this->document->addStyle('//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&amp;subset=cyrillic');
+		$this->document->addStyle('//fonts.googleapis.com/icon?family=Material+Icons');
+
+		$this->load->model('setting/setting');
+		$this->load->model('tool/image');
+
+		$data['title'] = $this->document->getTitle();
+		$data['base'] = HTTP_SERVER;
+		$data['description'] = $this->document->getDescription();
+		$data['keywords'] = $this->document->getKeywords();
+		$data['links'] = $this->document->getLinks();
+		$data['styles'] = $this->document->getStyles();
+		$data['scripts'] = $this->document->getScripts();
+		$data['lang'] = $this->language->get('code');
+		$data['direction'] = $this->language->get('direction');
+
+		if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
+			$data['logo'] = HTTP_CATALOG . 'image/' . $this->config->get('config_logo');
+		} else {
+			$data['logo'] = '';
+		}
+
+		$data['mt_placeholder'] = $this->model_tool_image->resize('mt_template/i_want_to_eat.png', 344, 194);
+
+		if (isset($this->request->get['store_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+			$setting_info = $this->model_setting_setting->getSetting('theme_mt_materialize', $this->request->get['store_id']);
+		}
+
+		if (isset($this->request->post['theme_mt_materialize_scheme'])) {
+			$data['theme_mt_materialize_scheme'] = $this->request->post['theme_mt_materialize_scheme'];
+		} elseif (isset($setting_info['theme_mt_materialize_scheme'])) {
+			$data['theme_mt_materialize_scheme'] = $setting_info['theme_mt_materialize_scheme'];
+		} else {
+			$data['theme_mt_materialize_scheme'] = [
+				'default'	=> [
+					'card'	=> [
+						'default'	=> [
+							'border_radius'	=> '8',
+							'shadow'		=> 2
+						]
+					]
+				]
+			];
+		}
+
+		$data['waves_effects'] = [];
+
+		$data['waves_effects'][] = [
+			'name'	=> 'Default', /* todo-materialize Must be placed in a language variable */
+			'value'	=> 'waves-effect waves-default'
+		];
+
+		$data['waves_effects'][] = [
+			'name'	=> 'Light', /* todo-materialize Must be placed in a language variable */
+			'value'	=> 'waves-effect waves-light'
+		];
+
+		$data['waves_effects'][] = [
+			'name'	=> 'Red', /* todo-materialize Must be placed in a language variable */
+			'value'	=> 'waves-effect waves-red'
+		];
+
+		$data['waves_effects'][] = [
+			'name'	=> 'Yellow', /* todo-materialize Must be placed in a language variable */
+			'value'	=> 'waves-effect waves-yellow'
+		];
+
+		$data['waves_effects'][] = [
+			'name'	=> 'Orange', /* todo-materialize Must be placed in a language variable */
+			'value'	=> 'waves-effect waves-orange'
+		];
+
+		$data['waves_effects'][] = [
+			'name'	=> 'Purple', /* todo-materialize Must be placed in a language variable */
+			'value'	=> 'waves-effect waves-purple'
+		];
+
+		$data['waves_effects'][] = [
+			'name'	=> 'Green', /* todo-materialize Must be placed in a language variable */
+			'value'	=> 'waves-effect waves-green'
+		];
+
+		$data['waves_effects'][] = [
+			'name'	=> 'Teal', /* todo-materialize Must be placed in a language variable */
+			'value'	=> 'waves-effect waves-teal'
+		];
+
+		$data['theme_mt_materialize_image_product_width'] = $this->config->get('theme_mt_materialize_image_product_width');
+		$data['theme_mt_materialize_image_product_height'] = $this->config->get('theme_mt_materialize_image_product_height');
+		$data['theme_mt_materialize_product_description_length'] = $this->config->get('theme_mt_materialize_product_description_length');
+
+		$lorem = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab at corporis dolores ducimus eaque esse eum, exercitationem labore laboriosam magni mollitia officia quam quasi recusandae sint sit unde velit. Aperiam!';
+
+		$lorem_length = strlen($lorem);
+
+		$i = floor($data['theme_mt_materialize_product_description_length'] / $lorem_length);
+
+		$text = '';
+
+		if ($i) {
+			while ($i > 0) {
+				$text .= $lorem . ' ';
+				$i--;
+			}
+		}
+
+		$text .= utf8_substr($lorem, 0, $data['theme_mt_materialize_product_description_length'] - strlen($text)) . '..';
+
+		$data['lorem'] = $text;
+		$data['price'] = $this->currency->format(99999.99, $this->config->get('config_currency'));
+		$data['review'] = $this->config->get('config_review_status');
+
+		$this->load->model('setting/setting');
+		$this->load->model('tool/image');
+		$this->response->setOutput($this->load->view('extension/mt_materialize/theme/color_scheme', $data));
+	}
+
 	public function adminMaterializeMenuItem($route, &$data) {
 		if (isset($this->request->get['user_token']) && isset($this->session->data['user_token']) && ((string)$this->request->get['user_token'] == $this->session->data['user_token'])) {
 			$this->load->language('extension/mt_materialize/common/column_left');

@@ -9,18 +9,18 @@
 $(document).ready(function() {
 	$('.tabs').tabs();
 	$('.collapsible').collapsible();
-	$('.tooltipped').tooltip();
+	$('.tooltipped').mt_tooltip();
 	$('select').formSelect();
 
 	let mtCardDemo = $('#mt-cards-demo'),
 			mtCardDemoParent = $(mtCardDemo.parent());
 
-	mtCardDemo.pushpin({
+	/*mtCardDemo.pushpin({
 		top: mtCardDemoParent.offset().top,
 		onPositionChange: function() {
 			mtCardDemo.find('.mt-card').css('width', mtCardDemoParent.width());
 		}
-	});
+	});*/
 
 	// Image Manager
 	$(document).on('click', '[data-toggle=\'mt-image\']', function() {

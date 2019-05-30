@@ -12,6 +12,7 @@
 .row {
   .mt-card {
     width: 100%;
+    height: calc(100% - 1rem);
   }
 }
 
@@ -153,13 +154,8 @@
     img {
       display: block;
       margin: 0 auto;
-      position: relative;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: $card_default_image_width;
-      height: $card_default_image_height;
+      max-width: 100%;
+      height: auto;
       transition: width .3s, height .3s;
     }
 

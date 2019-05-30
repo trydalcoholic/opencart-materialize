@@ -1161,6 +1161,7 @@
 					inputType: $(event.target).prop('tagName'),
 					target: $(event.target).data('target'),
 					targetValue: $(event.target).data('targetValue'),
+					targetChangeValue: $(event.target).data('targetChangeValue'),
 					css: $(event.target).data('css'),
 					cssClass: $(event.target).data('class'),
 					unit: $(event.target).data('unit'),
@@ -1201,10 +1202,8 @@
 
 				target['input'].val(colorValue);
 
-				/* element: $('[data-element=\'' + $(event.target).data('target') + '\']') */
 				$.each(target['target'], function(index, value) {
 					let element = $('[data-element=\'' + value + '\']');
-					console.log(element);
 
 					element.removeClass(element.attr('data-old-class-color-' + target['colorType']));
 
@@ -1234,54 +1233,97 @@
 			allValues.join(',');
 
 			$.each(allValues, function(index, value) {
-				$.each(target['target'], function(targetIndex, targetValue) {
+				if (target['target'].length > 1) {
+					$.each(target['target'], function(targetIndex, targetValue) {
+						let element;
+
+						if (target['targetValue'] && target['targetValue'][targetIndex] === 'true' && target['targetChangeValue']) {
+							element = $('[data-element=\'' + targetValue + '-' + value + '\']');
+
+							element.removeClass(element.data('change'));
+						} else {
+							element = $('[data-element=\'' + targetValue + '\']');
+
+							element.removeClass(target['value']);
+						}
+					});
+				} else {
 					let element;
 
-					if (target['targetValue'][targetIndex] === 'true') {
-						element = $('[data-element=\'' + targetValue + '-' + value + '\']');
-					} else {
-						element = $('[data-element=\'' + targetValue + '\']');
-					}
+					if (target['targetChangeValue']) {
+						element = $('[data-element=\'' + target['target'] + '-' + value + '\']');
 
-					element.removeClass(element.data('change'));
-				});
+						element.removeClass(element.data('change'));
+					} else {
+						element = $('[data-element=\'' + target['target'] + '\']');
+
+						element.removeClass(target['value']);
+					}
+				}
 			});
 
 			if (target['value']) {
 				if (target['input'].prop('type') === 'select-one') {
-					$.each(target['target'], function(index, value) {
+					if (target['target'].length > 1) {
+						$.each(target['target'], function(index, value) {
+							let element;
+
+							if (target['targetValue'] && target['targetValue'][index] === 'true' && target['targetChangeValue']) {
+								element = $('[data-element=\'' + value + '-' + target['value'] + '\']');
+
+								element.addClass(element.data('change'));
+							} else {
+								element = $('[data-element=\'' + value + '\']');
+
+								element.addClass(target['value']);
+							}
+						});
+					} else {
 						let element;
 
-						if (target['targetValue'][index] === 'true') {
-							element = $('[data-element=\'' + value + '-' + target['value'] + '\']');
-						} else {
-							element = $('[data-element=\'' + value + '\']');
-						}
+						if (target['targetChangeValue']) {
+							element = $('[data-element=\'' + target['target'] + '-' + target['value'] + '\']');
 
-						element.addClass(element.data('change'));
-					});
+							element.addClass(element.data('change'));
+						} else {
+							element = $('[data-element=\'' + target['target'] + '\']');
+
+							element.addClass(target['value']);
+						}
+					}
 				} else {
 					$.each(target['value'], function(index, value) {
 						$.each(target['target'], function(targetIndex, targetValue) {
 								let element;
 
-								if (target['targetValue'][targetIndex] === 'true') {
+								if (target['targetValue'][targetIndex] === 'true' && target['targetChangeValue']) {
 									element = $('[data-element=\'' + targetValue + '-' + value + '\']');
+
+									element.addClass(element.data('change'));
 								} else {
 									element = $('[data-element=\'' + targetValue + '\']');
+
+									element.addClass(target['value']);
 								}
-								element.addClass(element.data('change'));
 						});
 					});
 				}
 			}
 		},
 		_targetCss: function(target) {
-			target['element'].css(target['css'], target['value'] + target['unit']);
+			$.each(target['target'], function(index, value) {
+				let element = $('[data-element=\'' + value + '\']');
+
+				element.css(target['css'], target['value'] + target['unit']);
+			});
 		},
 		_targetCssClass: function(target) {
-			target['element'].removeClass(target['element'].attr('data-old-class'));
-			target['element'].attr('data-old-class', target['cssClass'] + target['value']).addClass(target['cssClass'] + target['value']);
+			$.each(target['target'], function(index, value) {
+				let element = $('[data-element=\'' + value + '\']');
+
+				element.removeClass(element.attr('data-old-class'));
+				element.attr('data-old-class', target['cssClass'] + target['value']).addClass(target['cssClass'] + target['value']);
+			});
 		},
 		_targetTextLimit: function(target) {
 			let i = Math.floor(target['value']/loremLength),
@@ -1296,14 +1338,22 @@
 
 			text += lorem.substr(0, target['value'] - text.length) + '..';
 
-			target['element'].text(text);
+			$.each(target['target'], function(index, value) {
+				let element = $('[data-element=\'' + value + '\']');
+
+				element.text(text);
+			});
 		},
 		_targetInputCheckbox: function(target) {
-			if (target['input'].prop('checked')) {
-				target['element'].addClass(target['element'].data('change'));
-			} else {
-				target['element'].removeClass(target['element'].data('change'));
-			}
+			$.each(target['target'], function(index, value) {
+				let element = $('[data-element=\'' + value + '\']');
+
+				if (target['input'].prop('checked')) {
+					element.addClass(element.data('change'));
+				} else {
+					element.removeClass(element.data('change'));
+				}
+			});
 		},
 		_targetColor: function(target) {
 			if ($('#material-palette').length) {
