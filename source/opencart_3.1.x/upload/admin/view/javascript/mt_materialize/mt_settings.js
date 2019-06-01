@@ -1205,24 +1205,46 @@
 				$.each(target['target'], function(index, value) {
 					let element = $('[data-element=\'' + value + '\']');
 
-					element.removeClass(element.attr('data-old-class-color-' + target['colorType']));
+					if (element.length > 1) {
+						$.each(element, function(indexElement, valueElement) {
+							if (!$(valueElement).find(target['input']).length) {
+								$(valueElement).removeClass($(valueElement).attr('data-old-class-color-' + target['colorType']));
 
-					if (target['colorType'] === 'background') {
-						element.attr('data-old-class-color-' + target['colorType'], colorValue).addClass(colorValue);
+								if (target['colorType'] === 'background') {
+									$(valueElement).attr('data-old-class-color-' + target['colorType'], colorValue).addClass(colorValue);
+								} else {
+									let textSplit = colorValue.split(' ');
+
+									if (!textSplit[1]) {
+										$(valueElement).attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text').addClass(textSplit[0] + '-text');
+									} else {
+										$(valueElement).attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text text-' + textSplit[1]).addClass(textSplit[0] + '-text text-' + textSplit[1]);
+									}
+								}
+							}
+						});
 					} else {
-						let textSplit = colorValue.split(' ');
+						element.removeClass(element.attr('data-old-class-color-' + target['colorType']));
 
-						if (!textSplit[1]) {
-							element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text').addClass(textSplit[0] + '-text');
+						if (target['colorType'] === 'background') {
+							element.attr('data-old-class-color-' + target['colorType'], colorValue).addClass(colorValue);
 						} else {
-							element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text text-' + textSplit[1]).addClass(textSplit[0] + '-text text-' + textSplit[1]);
+							let textSplit = colorValue.split(' ');
+
+							if (!textSplit[1]) {
+								element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text').addClass(textSplit[0] + '-text');
+							} else {
+								element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text text-' + textSplit[1]).addClass(textSplit[0] + '-text text-' + textSplit[1]);
+							}
 						}
 					}
 				});
 			});
 
 			$(document).mouseup(function (e) {
-				if (!colorWrapper.is(e.target) && colorWrapper.has(e.target).length === 0 && methods._palette_show) {
+				let materialPalette = $('#material-palette');
+
+				if (!colorWrapper.is(e.target) && colorWrapper.has(e.target).length === 0 && !materialPalette.is(e.target) && materialPalette.has(e.target).length === 0 && methods._palette_show) {
 					methods._hideMaterialPalette();
 				}
 			});
@@ -1417,12 +1439,12 @@
 		_showMaterialPalette: function(target, html = false) {
 			let top, distanceBottom = $(window).height() - target['input'].offset().top - target['input'].height() + $(window).scrollTop();
 
-			top = (distanceBottom >= 460) ? '' : 'calc(-100% - 410px)';
+			top = (distanceBottom >= 460) ? target['input'].offset().top + target['input'].height() : target['input'].offset().top - target['input'].height() - 410;
 
 			if (html) {
-				target['input'].after($('<div class="material-palette" id="material-palette">').html(html));
+				$('#content').append($('<div class="material-palette color-wrapper" id="material-palette">').html(html));
 			} else {
-				target['input'].after($('#material-palette'));
+				$('#content').append($('#material-palette'));
 			}
 
 			if (methods._palette_show) {
@@ -1438,11 +1460,12 @@
 				}
 
 				$('#material-palette').css({
+					'position': 'fixed',
 					'display': 'flex',
 					'opacity': '1',
 					'width': '400px',
 					'height': 'auto',
-					'left': target['input'].position().left,
+					'left': target['input'].offset().left,
 					'top': top,
 					'margin-top': '1px',
 					'transform-origin': '0 0 0',
