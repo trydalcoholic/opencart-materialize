@@ -82,7 +82,7 @@
 							</ul>
 							<ul class="collapsible collapsible-accordion">
 								<li class="arrow-rotate arrow-rotate--arrow-drop-down">
-									<a class="collapsible-header waves-effect" style="padding-left: 48px; font-weight: 400;">Top Section</a> {# todo-materialize Must be placed in a language variable #}
+									<a class="collapsible-header waves-effect" style="padding-left: 48px; font-weight: 400;">Top Section</a> {# todo-materialize Must be placed in a language variable #} {# todo-materialize Move to Styles #}
 									<div class="collapsible-body">
 										<ul class="mt-list z-depth-0">
 											<li class="divider"></li>
@@ -139,7 +139,7 @@
 									</div>
 								</li>
 								<li class="arrow-rotate arrow-rotate--arrow-drop-down">
-									<a class="collapsible-header waves-effect" style="padding-left: 48px; font-weight: 400;">Main Section</a> {# todo-materialize Must be placed in a language variable #}
+									<a class="collapsible-header waves-effect" style="padding-left: 48px; font-weight: 400;">Main Section</a> {# todo-materialize Must be placed in a language variable #} {# todo-materialize Move to Styles #}
 									<div class="collapsible-body">
 										<ul class="mt-list z-depth-0">
 											<li class="divider"></li>
@@ -213,13 +213,88 @@
 							<ul class="mt-list z-depth-0">
 								<li class="divider"></li>
 								<li class="mt-list-item">
+									<i class="material-icons mt-list-item__icon waves-effect waves-circle">control_point</i>
 									<div class="mt-list-item__text">
-										<span class="mt-list-item__primary-text">Header Shadow</span> {# todo-materialize Must be placed in a language variable #}
-										<span class="mt-list-item__secondary-text">Header Shadow description</span> {# todo-materialize Must be placed in a language variable #}
+										<span class="mt-list-item__primary-text">Buttons</span> {# todo-materialize Must be placed in a language variable #}
+										<span class="mt-list-item__secondary-text">Buttons description</span> {# todo-materialize Must be placed in a language variable #}
 									</div>
 									<div class="mt-list-item__inputs mt-list-item__inputs--full-width">
-										<div id="slider-header-shadow"></div>
-										<input type="hidden" name="" value="1" id="input-header-shadow" data-target="header" data-class="z-depth-" data-mt-settings>
+										<div class="input-field mb-5">
+											<select id="input-card-button-add-to-cart" data-target="mt-card-cart" data-target-change-value="true,true,true" data-mt-settings multiple>
+												<option value="floating-button" data-target="mt-card-floating-button-settings">Floating Action Button</option> {# todo-materialize Must be placed in a language variable #}
+												<option value="button" data-target="mt-card-button-settings">Button</option> {# todo-materialize Must be placed in a language variable #}
+												<option value="icon">Icon</option> {# todo-materialize Must be placed in a language variable #}
+											</select>
+											<label for="input-card-button-add-to-cart">Add to Cart Button</label> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="input-field">
+											<select id="input-card-button-additional" data-target="mt-card-additional-buttons" data-target-change-value="true,true,true" data-mt-settings multiple>
+												<option value="see-more">See More</option> {# todo-materialize Must be placed in a language variable #}
+												<option value="wish-list">Wish List</option> {# todo-materialize Must be placed in a language variable #}
+												<option value="compare">Compare</option> {# todo-materialize Must be placed in a language variable #}
+											</select>
+											<label for="input-card-button-additional">Additional Buttons</label> {# todo-materialize Must be placed in a language variable #}
+										</div>
+										<div class="scale-transition scale-out" data-change="scale-in" data-element="mt-card-floating-button-settings">
+											<span style="font-weight: 600;">Floating Action Button Cart</span> {# todo-materialize Must be placed in a language variable #} {# todo-materialize Move to Styles #}
+											<div class="input-field">
+												<input type="text" name="" value="red" id="input-color-background-mt-card-floating-button" data-color="true" data-color-type="background" data-target="mt-card-cart-floating-button" data-mt-settings readonly>
+												<label for="input-color-background-mt-card-floating-button" class="active">Background color</label>
+											</div>
+											<div class="input-field mt-5">
+												<input type="text" name="" value="white-text" id="input-color-text-mt-card-floating-button" data-color="true" data-color-type="text" data-target="mt-card-cart-floating-button-text" data-mt-settings readonly>
+												<label for="input-color-text-mt-card-floating-button" class="active">Text color</label>
+											</div>
+											<div class="input-field mt-5">
+												<select id="input-waves-effect-mt-card-floating-button" data-target="mt-card-cart-floating-button" data-target-change-value="false" data-mt-settings>
+													<option value="" selected>{{ text_none }}</option> {# todo-materialize Must be placed in a language variable #}
+													{% for waves_effect in waves_effects %}
+														<option value="{{ waves_effect.value }}">{{ waves_effect.name }}</option>
+													{% endfor %}
+												</select>
+												<label for="input-waves-effect-mt-card-floating-button" class="active">Waves Effect</label>
+											</div>
+										</div>
+										<div class="scale-transition scale-out" data-change="scale-in" data-element="mt-card-button-settings">
+											<span style="font-weight: 600;">Button Cart</span> {# todo-materialize Must be placed in a language variable #} {# todo-materialize Move to Styles #}
+											<div class="input-field">
+												<input type="text" name="" value="transition" id="input-color-background-mt-card-button" data-color="true" data-color-type="background" data-target="mt-card-cart-button" data-mt-settings readonly>
+												<label for="input-color-background-mt-card-button" class="active">Background color</label>
+											</div>
+											<div class="input-field mt-5">
+												<input type="text" name="" value="light-blue-text text-darken-1" id="input-color-text-mt-card-button" data-color="true" data-color-type="text" data-target="mt-card-cart-button" data-mt-settings readonly>
+												<label for="input-color-text-mt-card-button" class="active">Text color</label>
+											</div>
+											<div class="input-field mt-5">
+												<select id="input-waves-effect-mt-card-button" data-target="mt-card-cart-button" data-target-change-value="false" data-mt-settings>
+													<option value="" selected>{{ text_none }}</option> {# todo-materialize Must be placed in a language variable #}
+													{% for waves_effect in waves_effects %}
+														<option value="{{ waves_effect.value }}">{{ waves_effect.name }}</option>
+													{% endfor %}
+												</select>
+												<label for="input-waves-effect-mt-card-button" class="active">Waves Effect</label>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="divider"></li>
+								<li class="mt-list-item">
+									<i class="material-icons mt-list-item__icon waves-effect waves-circle">aspect_ratio</i>
+									<div class="mt-list-item__text">
+										<span class="mt-list-item__primary-text">Snippet</span> {# todo-materialize Must be placed in a language variable #}
+										<span class="mt-list-item__secondary-text">Snippet description</span> {# todo-materialize Must be placed in a language variable #}
+									</div>
+									<div class="mt-list-item__inputs mt-list-item__inputs--full-width">
+										<label for="input-card-border-radius">Border Radius</label> {# todo-materialize Must be placed in a language variable #}
+										<div id="slider-card-border-radius"></div>
+										<input type="hidden" name="theme_mt_materialize_scheme[default][card][default][border_radius]" value="{{ theme_mt_materialize_scheme.default.card.default.border_radius }}" id="input-card-border-radius" data-target="mt-card" data-css="border-radius" data-unit="px" data-mt-settings>
+										<label for="input-card-shadow">Shadow</label> {# todo-materialize Must be placed in a language variable #}
+										<div id="slider-card-shadow"></div>
+										<input type="hidden" name="theme_mt_materialize_scheme[default][card][default][shadow]" value="{{ theme_mt_materialize_scheme.default.card.default.shadow }}" id="input-card-shadow" data-target="mt-card" data-class="z-depth-" data-mt-settings>
+										<div class="input-field mt-5">
+											<input type="text" name="" value="" id="input-color-mt-card" data-color-type="background" data-color="true" data-target="mt-card" data-mt-settings readonly>
+											<label for="input-color-mt-card" class="active">Card color</label>
+										</div>
 									</div>
 								</li>
 								<li class="divider"></li>
@@ -254,7 +329,7 @@
 												</div>
 												<div class="mt-list-item__inputs mt-list-item__inputs--full-width">
 													<div class="input-field">
-														<select data-target="mt-card-default-title-position" data-target-change-value="true" data-mt-settings>
+														<select data-target="mt-card-default-title-position" data-target-change-value="true,true,true" data-mt-settings>
 															<option value="default">Default</option> {# todo-materialize Must be placed in a language variable #}
 															<option value="over-media">Title over media</option> {# todo-materialize Must be placed in a language variable #}
 															<option value="header">Title header</option> {# todo-materialize Must be placed in a language variable #}
@@ -268,7 +343,7 @@
 														</div>
 														<div class="input-field mt-5">
 															<input type="text" name="" value="" id="input-color-text-mt-card-title" data-color="true" data-color-type="text" data-target="mt-card-title" data-mt-settings readonly>
-															<label for="input-color-text-mt-card-title" class="active">Title Background color</label>
+															<label for="input-color-text-mt-card-title" class="active">Title Text color</label>
 														</div>
 													</div>
 												</div>
@@ -362,8 +437,8 @@
 		<div class="container" id="mt-cards-demo">
 			<h5>Default Card</h5>
 			<div class="row">
-				{% for i in 1..4 %}
-					<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+				{% for i in 1..3 %}
+					<div class="col-12 col-sm-6 col-xl-4">
 						<div class="mt-card" data-element="mt-card">
 							<div class="mt-card-content scale-transition scale-out" data-change="scale-in" data-element="mt-card-default-title-position-header">
 								<div class="mt-card-title__wrapper">
@@ -372,14 +447,14 @@
 									<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-title"></div>
 								</div>
 							</div>
-							<div class="mt-card-image">
+							<div class="mt-card-image grey lighten-4">
 								<img src="{{ mt_placeholder }}" alt="I want to eat" title="I want to eat" data-element="mt-card-default-image">
 								<div class="mt-card-title__wrapper scale-transition scale-out" data-change="scale-in" data-element="mt-card-default-title-position-over-media">
 									<span class="mt-card__title black-text" data-old-class="black-text" data-element="mt-card-title">Lorem ipsum dolor sit amet</span>
 									<span class="mt-card__subtitle grey-text scale-transition scale-out" data-old-class="grey-text" data-change="scale-in" data-element="mt-card-manufacturer">McDonald’s</span>
 									<div class="divider scale-transition scale-out" data-change="scale-in" data-element="mt-card-divider-position-after-title"></div>
 								</div>
-								<button class="mt-btn-floating mt-btn-large halfway-fab waves-effect waves-light red scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-floating-button"><i class="material-icons">add_shopping_cart</i></button>
+								<button class="mt-btn-floating mt-btn-large halfway-fab waves-effect waves-light red scale-transition scale-out" data-change="scale-in" data-old-class-color-background="red" data-element="mt-card-cart-floating-button"><i class="material-icons white-text" data-old-class-color-text="white-text" data-element="mt-card-cart-floating-button-text">add_shopping_cart</i></button>
 							</div>
 							<div class="mt-card-content">
 								<div class="mt-card-title__wrapper scale-transition scale-out scale-in" data-change="scale-in" data-element="mt-card-default-title-position-default">
@@ -423,7 +498,7 @@
 							</div>
 							<div class="mt-card-action">
 								<div class="mt-card__action-buttons">
-									<button type="button" class="mt-btn-flat waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-button">Add to Cart</button>
+									<button type="button" class="mt-btn-flat transition light-blue-text text-darken-1 waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-old-class-color-background="transition"  data-old-class-color-text="light-blue-text text-darken-1" data-element="mt-card-cart-button">Add to Cart</button>
 									<a class="mt-btn-flat waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-element="mt-card-additional-buttons-see-more">See More</a>
 								</div>
 								<div class="mt-card__action-icons">
@@ -441,9 +516,9 @@
 				{% for i in 1..4 %}
 					<div class="col-12 col-md-6">
 						<div class="mt-card horizontal" data-element="mt-card">
-							<div class="mt-card-image scale-transition scale-out scale-in order-1" data-change="scale-in" data-element="mt-card-horizontal-image-position-left">
+							<div class="mt-card-image scale-transition scale-out scale-in order-1 grey lighten-4" data-change="scale-in" data-element="mt-card-horizontal-image-position-left">
 								<img src="{{ mt_placeholder }}" alt="I want to eat" title="I want to eat" data-element="mt-card-horizontal-image">
-								<button class="mt-btn-floating halfway-fab waves-effect waves-light red scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-floating-button"><i class="material-icons">add_shopping_cart</i></button>
+								<button class="mt-btn-floating halfway-fab waves-effect waves-light red scale-transition scale-out" data-change="scale-in" data-old-class-color-background="red"  data-element="mt-card-cart-floating-button"><i class="material-icons white-text" data-old-class-color-text="white-text"  data-element="mt-card-cart-floating-button-text">add_shopping_cart</i></button>
 							</div>
 							<div class="mt-card-content order-2">
 								<div class="mt-card-title__wrapper">
@@ -482,11 +557,11 @@
 							</div>
 							<div class="mt-card-image scale-transition scale-out order-3" data-change="scale-in" data-element="mt-card-horizontal-image-position-right">
 								<img src="{{ mt_placeholder }}" alt="I want to eat" title="I want to eat" data-element="mt-card-horizontal-image">
-								<button class="mt-btn-floating halfway-fab waves-effect waves-light red scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-floating-button"><i class="material-icons">add_shopping_cart</i></button>
+								<button class="mt-btn-floating halfway-fab waves-effect waves-light red scale-transition scale-out" data-change="scale-in" data-old-class-color-background="red"  data-element="mt-card-cart-floating-button"><i class="material-icons white-text" data-old-class-color-text="white-text"  data-element="mt-card-cart-floating-button-text">add_shopping_cart</i></button>
 							</div>
 							<div class="mt-card-action order-4">
 								<div class="mt-card__action-buttons">
-									<button type="button" class="mt-btn-flat waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-element="mt-card-cart-button">Add to Cart</button>
+									<button type="button" class="mt-btn-flat transition light-blue-text text-darken-1 waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-old-class-color-background="transition" data-old-class-color-text="light-blue-text text-darken-1" data-element="mt-card-cart-button">Add to Cart</button>
 									<a class="mt-btn-flat waves-effect waves-blue scale-transition scale-out" data-change="scale-in" data-element="mt-card-additional-buttons-see-more">See More</a>
 								</div>
 								<div class="mt-card__action-icons">
@@ -582,6 +657,42 @@
 
 		sliderImageHeight.noUiSlider.on('change', function (values) {
 			$('#input-card-default-image-height').val(values[0]).change();
+		});
+
+		let sliderBorderRadius = document.getElementById('slider-card-border-radius');
+		noUiSlider.create(sliderBorderRadius, {
+			start: {{ theme_mt_materialize_scheme.default.card.default.border_radius }},
+			step: 1,
+			connect: [true, false],
+			range: {
+				'min': 0,
+				'max': 32
+			},
+			format: wNumb({
+				decimals: 0
+			}),
+		});
+
+		sliderBorderRadius.noUiSlider.on('change', function (values) {
+			$('#input-card-border-radius').val(values[0]).change();
+		});
+
+		let sliderShadow = document.getElementById('slider-card-shadow');
+		noUiSlider.create(sliderShadow, {
+			start: 1 {#{{ theme_mt_materialize_scheme.default.card.default.shadow }}#},
+			step: 1,
+			connect: [true, false],
+			range: {
+				'min': 0,
+				'max': 5
+			},
+			format: wNumb({
+				decimals: 0
+			}),
+		});
+
+		sliderShadow.noUiSlider.on('change', function (values) {
+			$('#input-card-shadow').val(values[0]).change();
 		});
 
 		$('[data-mt-settings]').mtSettings();

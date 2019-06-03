@@ -1179,6 +1179,10 @@
 					target['targetValue'] = target['targetValue'].split(',')
 				}
 
+				if (target['targetChangeValue']) {
+					target['targetChangeValue'] = target['targetChangeValue'].split(',')
+				}
+
 				if (target['inputType'] === 'SELECT') {
 					methods._inputSelect(target);
 				} else if (target['css']) {
@@ -1259,7 +1263,7 @@
 					$.each(target['target'], function(targetIndex, targetValue) {
 						let element;
 
-						if (target['targetValue'] && target['targetValue'][targetIndex] === 'true' && target['targetChangeValue']) {
+						if (target['targetValue'] && target['targetValue'][targetIndex] === 'true' && target['targetChangeValue'][targetIndex]) {
 							element = $('[data-element=\'' + targetValue + '-' + value + '\']');
 
 							element.removeClass(element.data('change'));
@@ -1270,16 +1274,37 @@
 						}
 					});
 				} else {
-					let element;
+					let element, additionalChange;
 
-					if (target['targetChangeValue']) {
-						element = $('[data-element=\'' + target['target'] + '-' + value + '\']');
+					if (target['targetChangeValue'].length > 1) {
+						$.each(target['targetChangeValue'], function(targetChangeIndex) {
+							if (target['targetChangeValue'][targetChangeIndex] === 'true') {
+								element = $('[data-element=\'' + target['target'] + '-' + value + '\']');
+								additionalChange = target['input'].find('option[value=\'' + value + '\']');
 
-						element.removeClass(element.data('change'));
+								if (additionalChange.data('target')) {
+									let additionalElement = $('[data-element=\'' + additionalChange.data('target') + '\']');
+
+									additionalElement.removeClass(additionalElement.data('change'));
+								}
+
+								element.removeClass(element.data('change'));
+							} else {
+								element = $('[data-element=\'' + target['target'] + '\']');
+
+								element.removeClass(target['value']);
+							}
+						});
 					} else {
-						element = $('[data-element=\'' + target['target'] + '\']');
+						if (target['targetChangeValue'] === 'true') {
+							element = $('[data-element=\'' + target['target'] + '-' + value + '\']');
 
-						element.removeClass(target['value']);
+							element.removeClass(element.data('change'));
+						} else {
+							element = $('[data-element=\'' + target['target'] + '\']');
+
+							element.removeClass(value);
+						}
 					}
 				}
 			});
@@ -1290,32 +1315,59 @@
 						$.each(target['target'], function(index, value) {
 							let element;
 
-							if (target['targetValue'] && target['targetValue'][index] === 'true' && target['targetChangeValue']) {
-								element = $('[data-element=\'' + value + '-' + target['value'] + '\']');
+							if (target['targetChangeValue'].length > 1) {
+								if (target['targetValue'] && target['targetValue'][index] === 'true' && target['targetChangeValue'][index] === 'true') {
+									element = $('[data-element=\'' + value + '-' + target['value'] + '\']');
 
-								element.addClass(element.data('change'));
+									element.addClass(element.data('change'));
+								} else {
+									element = $('[data-element=\'' + value + '\']');
+
+									element.addClass(target['value']);
+								}
 							} else {
-								element = $('[data-element=\'' + value + '\']');
+								if (target['targetValue'] && target['targetValue'][index] === 'true' && target['targetChangeValue'] === 'true') {
+									element = $('[data-element=\'' + value + '-' + target['value'] + '\']');
 
-								element.addClass(target['value']);
+									element.addClass(element.data('change'));
+								} else {
+									element = $('[data-element=\'' + value + '\']');
+
+									element.addClass(target['value']);
+								}
 							}
 						});
 					} else {
 						let element;
 
-						if (target['targetChangeValue']) {
-							element = $('[data-element=\'' + target['target'] + '-' + target['value'] + '\']');
+						if (target['targetChangeValue'].length > 1) {
+							$.each(target['targetChangeValue'], function(index) {
+								if (target['targetChangeValue'][index] === 'true') {
+									element = $('[data-element=\'' + target['target'] + '-' + target['value'] + '\']');
 
-							element.addClass(element.data('change'));
+									element.addClass(element.data('change'));
+								} else {
+									element = $('[data-element=\'' + target['target'] + '\']');
+
+									element.addClass(target['value']);
+								}
+							});
 						} else {
-							element = $('[data-element=\'' + target['target'] + '\']');
+							if (target['targetChangeValue'] === 'true') {
+								element = $('[data-element=\'' + target['target'] + '-' + target['value'] + '\']');
 
-							element.addClass(target['value']);
+								element.addClass(element.data('change'));
+							} else {
+								element = $('[data-element=\'' + target['target'] + '\']');
+
+								element.addClass(target['value']);
+							}
 						}
 					}
 				} else {
-					$.each(target['value'], function(index, value) {
-						$.each(target['target'], function(targetIndex, targetValue) {
+					if (target['target'].length > 1) {
+						$.each(target['value'], function(index, value) {
+							$.each(target['target'], function(targetIndex, targetValue) {
 								let element;
 
 								if (target['targetValue'][targetIndex] === 'true' && target['targetChangeValue']) {
@@ -1327,8 +1379,22 @@
 
 									element.addClass(target['value']);
 								}
+							});
 						});
-					});
+					} else {
+						$.each(target['value'], function(index, value) {
+							let element = $('[data-element=\'' + target['target'] + '-' + value + '\']'),
+									additionalChange = target['input'].find('option[value=\'' + value + '\']');
+
+							if (additionalChange.data('target')) {
+								let additionalElement = $('[data-element=\'' + additionalChange.data('target') + '\']');
+
+								additionalElement.addClass(additionalElement.data('change'));
+							}
+
+							element.addClass(element.data('change'));
+						});
+					}
 				}
 			}
 		},

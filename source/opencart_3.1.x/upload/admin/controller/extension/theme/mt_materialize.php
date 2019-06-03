@@ -633,6 +633,11 @@ class ControllerExtensionThemeMTMaterialize extends Controller {
 			'value'	=> 'waves-effect waves-teal'
 		];
 
+		$data['waves_effects'][] = [
+			'name'	=> 'Blue', /* todo-materialize Must be placed in a language variable */
+			'value'	=> 'waves-effect waves-blue'
+		];
+
 		$data['theme_mt_materialize_image_product_width'] = $this->config->get('theme_mt_materialize_image_product_width');
 		$data['theme_mt_materialize_image_product_height'] = $this->config->get('theme_mt_materialize_image_product_height');
 		$data['theme_mt_materialize_product_description_length'] = $this->config->get('theme_mt_materialize_product_description_length');

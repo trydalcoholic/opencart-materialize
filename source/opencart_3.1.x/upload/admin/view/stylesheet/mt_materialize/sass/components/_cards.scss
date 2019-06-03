@@ -25,6 +25,14 @@
   border-radius: $card_default_border_radius;
   @extend .z-depth-1;
 
+  &:not(.horizontal) {
+    display: flex;
+    flex-direction: column;
+
+    .mt-card-content {
+      flex: 1 0 auto;
+    }
+  }
 
   .mt-card-title__wrapper {
     display: flex;
@@ -84,6 +92,9 @@
 
   // Horizontal Cards
   &.horizontal {
+    display: flex;
+    flex-wrap: wrap;
+
     &.small, &.medium, &.large {
       .mt-card-image {
         height: 100%;
@@ -96,18 +107,23 @@
       }
     }
 
-    display: flex;
-    flex-wrap: wrap;
-
     .mt-card-image {
+      display: flex;
+      flex-direction: column;
+      align-self: flex-start;
       max-width: 180px;
-      height: 100%;
-      margin-bottom: 5em;
 
       img {
         max-width: 100%;
         width: auto;
         height: auto;
+      }
+
+      .mt-btn-floating.halfway-fab {
+        justify-self: flex-end;
+        align-self: flex-end;
+        top: calc(100% - 20px);
+        right: 24px;
       }
 
       &.scale-transition.scale-out:not(.scale-in) {
@@ -165,6 +181,7 @@
       left: 0;
       max-width: 100%;
       padding: $card-padding;
+      z-index: 1;
     }
   }
 
