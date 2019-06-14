@@ -1206,43 +1206,64 @@
 
 				target['input'].val(colorValue);
 
-				$.each(target['target'], function(index, value) {
-					let element = $('[data-element=\'' + value + '\']');
+				if (target['target'].length > 1) {
+					$.each(target['target'], function(index, value) {
+						let element = $('[data-element=\'' + value + '\']');
 
-					if (element.length > 1) {
-						$.each(element, function(indexElement, valueElement) {
-							if (!$(valueElement).find(target['input']).length) {
-								$(valueElement).removeClass($(valueElement).attr('data-old-class-color-' + target['colorType']));
+						if (element.length > 1) {
+							$.each(element, function(indexElement, valueElement) {
+								if (!$(valueElement).find(target['input']).length) {
+									$(valueElement).removeClass($(valueElement).attr('data-old-class-color-' + target['colorType']));
 
-								if (target['colorType'] === 'background') {
-									$(valueElement).attr('data-old-class-color-' + target['colorType'], colorValue).addClass(colorValue);
-								} else {
-									let textSplit = colorValue.split(' ');
-
-									if (!textSplit[1]) {
-										$(valueElement).attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text').addClass(textSplit[0] + '-text');
+									if (target['colorType'] === 'background') {
+										$(valueElement).attr('data-old-class-color-' + target['colorType'], colorValue).addClass(colorValue);
 									} else {
-										$(valueElement).attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text text-' + textSplit[1]).addClass(textSplit[0] + '-text text-' + textSplit[1]);
+										let textSplit = colorValue.split(' ');
+
+										if (!textSplit[1]) {
+											$(valueElement).attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text').addClass(textSplit[0] + '-text');
+										} else {
+											$(valueElement).attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text text-' + textSplit[1]).addClass(textSplit[0] + '-text text-' + textSplit[1]);
+										}
 									}
 								}
-							}
-						});
-					} else {
-						element.removeClass(element.attr('data-old-class-color-' + target['colorType']));
-
-						if (target['colorType'] === 'background') {
-							element.attr('data-old-class-color-' + target['colorType'], colorValue).addClass(colorValue);
+							});
 						} else {
-							let textSplit = colorValue.split(' ');
+							element.removeClass(element.attr('data-old-class-color-' + target['colorType']));
 
-							if (!textSplit[1]) {
-								element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text').addClass(textSplit[0] + '-text');
+							if (target['colorType'] === 'background') {
+								element.attr('data-old-class-color-' + target['colorType'], colorValue).addClass(colorValue);
 							} else {
-								element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text text-' + textSplit[1]).addClass(textSplit[0] + '-text text-' + textSplit[1]);
+								let textSplit = colorValue.split(' ');
+
+								if (!textSplit[1]) {
+									element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text').addClass(textSplit[0] + '-text');
+								} else {
+									element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text text-' + textSplit[1]).addClass(textSplit[0] + '-text text-' + textSplit[1]);
+								}
 							}
 						}
+					});
+				} else {
+					let element = $('[data-element=\'' + target['target'][0] + '\']');
+					console.log(element);
+					console.log(target['colorType']);
+					console.log(element.attr('data-old-class-color-' + target['colorType']));
+
+					element.removeClass(element.attr('data-old-class-color-' + target['colorType']));
+
+					if (target['colorType'] === 'background') {
+						element.attr('data-old-class-color-' + target['colorType'], colorValue).addClass(colorValue);
+					} else {
+						let textSplit = colorValue.split(' ');
+
+						if (!textSplit[1]) {
+							element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text').addClass(textSplit[0] + '-text');
+						} else {
+							element.attr('data-old-class-color-' + target['colorType'], textSplit[0] + '-text text-' + textSplit[1]).addClass(textSplit[0] + '-text text-' + textSplit[1]);
+						}
 					}
-				});
+				}
 			});
 
 			$(document).mouseup(function (e) {
