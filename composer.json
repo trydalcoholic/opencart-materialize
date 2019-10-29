@@ -1,0 +1,21 @@
+{
+    "name": "trydalcoholic/opencart-materialize",
+    "description": "Free template for OpenCart.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Semenov Anton",
+            "email": "gatalsky94@yandex.ru",
+            "homepage": "https://github.com/trydalcoholic",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "opencart/opencart": "dev-master",
+        "vlucas/phpdotenv": "^3.3",
+        "consolidation/robo": "^1.4",
+        "henrikbjorn/lurker": "^1.2"
+    }
+}
