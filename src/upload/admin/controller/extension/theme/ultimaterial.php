@@ -2,6 +2,32 @@
 
 class ControllerExtensionThemeUltimaterial extends Controller {
 	private $error = [];
+	private static $default_settings = [
+		'theme_ultimaterial_directory'                  => 'ultimaterial',
+		'theme_ultimaterial_product_limit'              => 15,
+		'theme_ultimaterial_status'                     => '',
+		'theme_ultimaterial_product_description_length' => 100,
+		'theme_ultimaterial_image_category_width'       => 80,
+		'theme_ultimaterial_image_category_height'      => 80,
+		'theme_ultimaterial_image_thumb_width'          => 228,
+		'theme_ultimaterial_image_thumb_height'         => 228,
+		'theme_ultimaterial_image_popup_width'          => 500,
+		'theme_ultimaterial_image_popup_height'         => 500,
+		'theme_ultimaterial_image_product_width'        => 228,
+		'theme_ultimaterial_image_product_height'       => 228,
+		'theme_ultimaterial_image_additional_width'     => 74,
+		'theme_ultimaterial_image_additional_height'    => 74,
+		'theme_ultimaterial_image_related_width'        => 80,
+		'theme_ultimaterial_image_related_height'       => 80,
+		'theme_ultimaterial_image_compare_width'        => 90,
+		'theme_ultimaterial_image_compare_height'       => 90,
+		'theme_ultimaterial_image_wishlist_width'       => 47,
+		'theme_ultimaterial_image_wishlist_height'      => 47,
+		'theme_ultimaterial_image_cart_width'           => 47,
+		'theme_ultimaterial_image_cart_height'          => 47,
+		'theme_ultimaterial_image_location_width'       => 268,
+		'theme_ultimaterial_image_location_height'      => 50
+	];
 
 	public function index() {
 		$this->load->language('extension/theme/ultimaterial');
@@ -123,33 +149,12 @@ class ControllerExtensionThemeUltimaterial extends Controller {
 			}
 		} elseif (isset($this->request->get['store_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$data = $this->model_setting_setting->getSetting('theme_ultimaterial', $this->request->get['store_id']);
+
+			if (empty($data)) {
+				$data = self::$default_settings;
+			}
 		} else {
-			$data = [
-				'theme_ultimaterial_directory'                  => 'ultimaterial',
-				'theme_ultimaterial_product_limit'              => 15,
-				'theme_ultimaterial_status'                     => '',
-				'theme_ultimaterial_product_description_length' => 100,
-				'theme_ultimaterial_image_category_width'       => 80,
-				'theme_ultimaterial_image_category_height'      => 80,
-				'theme_ultimaterial_image_thumb_width'          => 228,
-				'theme_ultimaterial_image_thumb_height'         => 228,
-				'theme_ultimaterial_image_popup_width'          => 500,
-				'theme_ultimaterial_image_popup_height'         => 500,
-				'theme_ultimaterial_image_product_width'        => 228,
-				'theme_ultimaterial_image_product_height'       => 228,
-				'theme_ultimaterial_image_additional_width'     => 74,
-				'theme_ultimaterial_image_additional_height'    => 74,
-				'theme_ultimaterial_image_related_width'        => 80,
-				'theme_ultimaterial_image_related_height'       => 80,
-				'theme_ultimaterial_image_compare_width'        => 90,
-				'theme_ultimaterial_image_compare_height'       => 90,
-				'theme_ultimaterial_image_wishlist_width'       => 47,
-				'theme_ultimaterial_image_wishlist_height'      => 47,
-				'theme_ultimaterial_image_cart_width'           => 47,
-				'theme_ultimaterial_image_cart_height'          => 47,
-				'theme_ultimaterial_image_location_width'       => 268,
-				'theme_ultimaterial_image_location_height'      => 50
-			];
+			$data = self::$default_settings;
 		}
 
 		if (!empty($this->error)) {
