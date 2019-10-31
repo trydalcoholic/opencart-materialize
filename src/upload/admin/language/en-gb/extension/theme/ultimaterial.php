@@ -8,7 +8,13 @@ $_['text_success']                     = 'Success: You have modified the Ultimat
 $_['text_edit']                        = 'Edit Ultimaterial Template';
 $_['text_general']                     = 'General';
 $_['text_product']                     = 'Products';
+$_['text_product_list']                = 'Product List';
+$_['text_product_page']                = 'Product Page';
+$_['text_product_comparison']          = 'Product Comparison';
+$_['text_product_wishlist']            = 'Product Wishlist';
 $_['text_image']                       = 'Images';
+$_['text_cart']                        = 'Cart';
+$_['text_contact']                     = 'Contact';
 
 // Entry
 $_['entry_directory']                  = 'Theme Directory';

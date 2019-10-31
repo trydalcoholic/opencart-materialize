@@ -33,10 +33,7 @@ class ControllerExtensionThemeUltimaterial extends Controller {
 		$this->load->language('extension/theme/ultimaterial');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->document->addStyle('https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css');
-		$this->document->addStyle('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap&subset=cyrillic');
-		$this->document->addStyle('https://fonts.googleapis.com/icon?family=Material+Icons');
-		$this->document->addScript('https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js');
+		$this->document->addStyle('view/stylesheet/ultimaterial/template/common.min.css');
 
 		$this->load->model('setting/setting');
 
