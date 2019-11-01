@@ -1,0 +1,64 @@
+.ultimaterial {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
+}
+.ultimaterial__main {
+  flex: 1 0 auto;
+}
+
+.header__main {
+  padding: 15px 0;
+}
+
+.navigation-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.navigation-top__list {
+  flex-direction: row;
+}
+.navigation-top__item {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  font-size: 1rem;
+  color: #fff;
+  padding: 0 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.navigation-top__link {
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+.navigation-top__link:hover {
+  text-decoration: none;
+  color: #fff;
+}
+.navigation-top .material-icons {
+  margin-right: 5px;
+  font-size: 1rem;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+[data-ultimaterial=setting] {
+  outline: 1px dashed rgba(170, 170, 170, 0.7);
+  outline-offset: -2px;
+}
+
+.setting--selected {
+  outline: 3px solid #0091ea !important;
+}
+
+.setting--hover {
+  outline: 1px solid #0091ea;
+}

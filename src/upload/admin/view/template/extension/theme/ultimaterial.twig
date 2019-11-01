@@ -26,13 +26,58 @@
 			<div class="card-body">
 				<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-theme">
 					<ul class="nav nav-tabs">
-						<li class="nav-item"><a href="#tab-general" data-toggle="tab" class="nav-link active">{{ tab_general }}</a></li>
+						<li class="nav-item"><a href="#tab-template" data-toggle="tab" class="nav-link active">{{ text_template }}</a></li>
+						<li class="nav-item"><a href="#tab-general" data-toggle="tab" class="nav-link">{{ tab_general }}</a></li>
 						<li class="nav-item"><a href="#tab-product" data-toggle="tab" class="nav-link">{{ text_product }}</a></li>
 						<li class="nav-item"><a href="#tab-cart" data-toggle="tab" class="nav-link">{{ text_cart }}</a></li>
 						<li class="nav-item"><a href="#tab-contact" data-toggle="tab" class="nav-link">{{ text_contact }}</a></li>
 					</ul>
 					<div class="tab-content">
-						<div class="tab-pane active" id="tab-general">
+						<div class="tab-pane active" id="tab-template">
+							<div class="row">
+								<div class="col-3">
+									<div class="nav flex-column nav-pills" id="template-pills-tab" role="tablist" aria-orientation="vertical">
+										<a class="nav-link active" id="template-pills-setting-tab" data-toggle="pill" href="#template-pills-setting" role="tab" aria-controls="template-pills-setting" aria-selected="true">{{ text_setting }}</a>
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="tab-content" id="template-pills-tab-content">
+										<div class="tab-pane active" id="template-pills-setting" role="tabpanel" aria-labelledby="template-pills-setting-tab">
+											<div class="list-group">
+												<div class="list-group-item list-group-item-action">
+													<div class="d-flex w-100 justify-content-between">
+														<h5 class="mb-1">List group item heading</h5>
+														<div class="custom-control custom-switch">
+															<input type="checkbox" class="custom-control-input" id="customSwitch1">
+															<label class="custom-control-label" for="customSwitch1"></label>
+														</div>
+													</div>
+													<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+													<small>Donec id elit non mi porta.</small>
+												</div>
+												<div class="list-group-item list-group-item-action">
+													<div class="d-flex w-100 justify-content-between">
+														<a href="{{ color_scheme }}"><h5 class="mb-1">Create Color Scheme</h5></a>
+														<small class="text-muted">3 days ago</small>
+													</div>
+													<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+													<small class="text-muted">Donec id elit non mi porta.</small>
+												</div>
+												<div class="list-group-item list-group-item-action">
+													<div class="d-flex w-100 justify-content-between">
+														<h5 class="mb-1">List group item heading</h5>
+														<small class="text-muted">3 days ago</small>
+													</div>
+													<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+													<small class="text-muted">Donec id elit non mi porta.</small>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab-general">
 							<div class="form-group row">
 								<label for="input-directory" class="col-sm-2 col-form-label">{{ entry_directory }}</label>
 								<div class="col-sm-10">

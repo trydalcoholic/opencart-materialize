@@ -40,7 +40,7 @@ class RoboFile extends \Robo\Tasks
         }
     }
 
-    public function setup()
+    public function opencartSetup()
     {
         $this->taskDeleteDir('www')->run();
         $this->taskFileSystemStack()
@@ -84,20 +84,20 @@ class RoboFile extends \Robo\Tasks
         $this->taskDeleteDir('www/install')->run();
     }
 
-    public function watch()
+    public function ultimaterialWatch()
     {
-        $this->deploy();
+        $this->ultimaterialDeploy();
 
         $this->taskWatch()
             ->monitor('composer.json', function () {
                 $this->taskComposerUpdate()->run();
-                $this->deploy();
+                $this->ultimaterialDeploy();
             })->monitor('src/', function () {
-                $this->deploy();
+                $this->ultimaterialDeploy();
             }, \Lurker\Event\FilesystemEvent::ALL)->run();
     }
 
-    public function deploy()
+    public function ultimaterialDeploy()
     {
         $this->taskFileSystemStack()->mirror('src/upload', 'www')->run();
     }

@@ -1,0 +1,82 @@
+{{ header }}
+<nav id="column-left">
+	<div id="navigation"><span class="fas fa-bars"></span> Navigation</div>
+	<ul id="menu">
+		<li id="ultimaterial-common"><a href="#collapse-ultimaterial-common" data-toggle="collapse" class="parent collapsed"><i class="fas fa-cogs"></i> Common</a>
+			<ul id="collapse-ultimaterial-common" class="collapse">
+				<li><a href="{{ children_1.href }}">Header</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+<div id="content" class="ultimaterial">
+	<div class="ultimaterial__header header grid">
+		<div class="header__top-panel blue-grey darken-4" data-ultimaterial="setting">
+			<div class="grid__container">
+				<nav class="navigation-top">
+					<ul class="navigation-top__list" id="navigation-top-list-left" data-ultimaterial="setting">
+						<li class="navigation-top__item waves-effect waves-effect waves-light"><i class="material-icons">language</i></li>
+						<li class="navigation-top__item waves-effect waves-effect waves-light"><i class="material-icons">monetization_on</i></li>
+					</ul>
+					<ul class="navigation-top__list" id="navigation-top-list-right" data-ultimaterial="setting">
+						<li class="navigation-top__item waves-effect waves-orange"><i class="material-icons">phone_in_talk</i>+7 800 555-35-35</li>
+						<li class="navigation-top__item waves-effect waves-green"><a href="#" class="navigation-top__link"><i class="material-icons">person</i>My Account</a></li>
+						<li class="navigation-top__item waves-effect waves-green"><a href="#" class="navigation-top__link"><i class="material-icons">favorite</i>Wish List (0)</a></li>
+						<li class="navigation-top__item waves-effect waves-green"><a href="#" class="navigation-top__link"><i class="material-icons">shopping_cart</i>Shopping Cart</a></li>
+						<li class="navigation-top__item waves-effect waves-green"><a href="#" class="navigation-top__link"><i class="material-icons">reply</i>Checkout</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="header__main blue-grey darken-3" data-ultimaterial="setting">
+			<div class="grid__container">
+				<img src="{{ logo }}" alt="{{ name }}" title="{{ name }}">
+			</div>
+		</div>
+	</div>
+	<div class="ultimaterial__main"></div>
+	<div class="ultimaterial__footer"></div>
+</div>
+<script>
+	$('.ultimaterial a').on('click', function(event) {
+		event.preventDefault();
+
+		return false;
+	});
+
+	$('[data-ultimaterial=\'setting\']').on('click', function(event) {
+		event.stopPropagation();
+
+		$(this).addClass('setting--selected');
+	});
+
+	$(document).mouseup(function (event) {
+		let element = $('[data-ultimaterial=\'setting\'].setting--selected');
+
+		if (!element.is(event.target)/* && element.has(event.target).length === 0*/) {
+			element.removeClass('setting--selected');
+		}
+	});
+
+	$('[data-ultimaterial=\'setting\']').hover(function(event) {
+		event.stopPropagation();
+
+		$(this).addClass('setting--hover');
+	}, function() {
+		$(this).removeClass('setting--hover');
+	});
+
+	let navigationTopListLeft = document.getElementById('navigation-top-list-left'),
+			navigationTopListRight = document.getElementById('navigation-top-list-right');
+
+	new Sortable(navigationTopListLeft, {
+		group: 'shared',
+		animation: 150
+	});
+
+	new Sortable(navigationTopListRight, {
+		group: 'shared',
+		animation: 150
+	});
+</script>
+{{ footer }}
