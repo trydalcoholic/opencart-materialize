@@ -141,7 +141,9 @@ $ultimaterial-header-top-side-indent: 15px;
     align-items: center;
 
     &:hover {
-      background-color: rgba(0,0,0,0.1);
+      .menu__link {
+        background-color: rgba(0,0,0,0.1);
+      }
 
       .menu__sub-menu {
         height: auto;
@@ -189,6 +191,7 @@ $ultimaterial-header-top-side-indent: 15px;
     position: absolute;
     top: 100%;
     background-color: white;
+    z-index: 997;
   }
 }
 

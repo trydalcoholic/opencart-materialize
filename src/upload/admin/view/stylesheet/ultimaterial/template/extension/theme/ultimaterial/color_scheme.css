@@ -112,7 +112,7 @@
   display: inline-flex;
   align-items: center;
 }
-.menu__item:hover {
+.menu__item:hover .menu__link {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .menu__item:hover .menu__sub-menu {
@@ -149,6 +149,7 @@
   position: absolute;
   top: 100%;
   background-color: white;
+  z-index: 997;
 }
 
 .sub-menu {
