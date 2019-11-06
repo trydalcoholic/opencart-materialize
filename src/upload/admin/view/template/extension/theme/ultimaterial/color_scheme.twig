@@ -114,25 +114,44 @@
 	});
 
 	function subMenuPosition() {
-		let elements = $('.menu__item--with-child');
+		let elements = $('.menu__item--with-child'),
+				bodyWidth = $('body').innerWidth();
+		console.log('Body Width: ' + bodyWidth);
 
 		$.each(elements, function(index, value) {
 			let element = $(value),
-					elementOffset = parseInt(element.offset().left, 10),
-					bodyWidth = $('body').innerWidth(),
-					subMenu = element.find('.sub-menu');
+					elementWidth = parseInt(element.outerWidth()),
+					elementOffsetLeft = parseInt(element.offset().left),
+					elementOffsetRight = parseInt(bodyWidth - elementOffsetLeft - elementWidth),
+					subMenu = element.find('.sub-menu'),
+					subMenuWidth = parseInt(subMenu.width());
 
-			if (bodyWidth - elementOffset < bodyWidth / 2) {
+			let neededDistanceLeft = bodyWidth - elementOffsetLeft - 15,
+					neededDistanceRight = bodyWidth - elementOffsetRight - 15;
+
+			if (neededDistanceLeft >= subMenuWidth) {
+				subMenu.css({
+					'transform-origin': '0 0 0',
+					'left': 0,
+					'right': 'auto'
+				});
+			} else if (neededDistanceRight >= subMenuWidth) {
 				subMenu.css({
 					'transform-origin': '100% 0 0',
 					'left': 'auto',
 					'right': 0
 				});
-			} else {
+			} /*else if (subMenuWidth - neededDistanceLeft < subMenuWidth - neededDistanceRight) {
 				subMenu.css({
 					'transform-origin': '0 0 0',
-					'left': 0,
+					'left': '-' + parseInt(subMenuWidth - neededDistanceLeft) + 'px',
 					'right': 'auto'
+				});
+			}*/ else {
+				subMenu.css({
+					'transform-origin': '100% 0 0',
+					'left': 'auto',
+					'right': '-' + (elementOffsetRight - 15) + 'px',
 				});
 			}
 		});
