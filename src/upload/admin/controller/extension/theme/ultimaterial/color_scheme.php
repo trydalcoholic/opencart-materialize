@@ -9,7 +9,6 @@ class ControllerExtensionThemeUltimaterialColorScheme extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 		$this->document->addStyle('https://fonts.googleapis.com/icon?family=Material+Icons');
 		$this->document->addStyle('view/stylesheet/ultimaterial/template/vendor/materialize/materialize.css');
-		$this->document->addStyle('view/stylesheet/ultimaterial/template/vendor/bootstrap/bootstrap-grid.css');
 		$this->document->addStyle('view/stylesheet/ultimaterial/template/extension/theme/ultimaterial/color_scheme.css');
 		$this->document->addScript('view/stylesheet/ultimaterial/vendor/materialize-1.0.0/dist/js/materialize.min.js');
 		$this->document->addScript('view/stylesheet/ultimaterial/vendor/sortable-1.10.1/Sortable.min.js');
