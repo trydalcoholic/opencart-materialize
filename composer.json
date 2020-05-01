@@ -14,8 +14,8 @@
     "minimum-stability": "dev",
     "require-dev": {
         "opencart/opencart": "dev-master",
-        "vlucas/phpdotenv": "^3.3",
-        "consolidation/robo": "^1.4",
+        "vlucas/phpdotenv": "^4.1",
+        "consolidation/robo": "^2.0.3",
         "henrikbjorn/lurker": "^1.2"
     }
 }

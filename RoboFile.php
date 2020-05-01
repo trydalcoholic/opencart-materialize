@@ -40,16 +40,16 @@ class RoboFile extends \Robo\Tasks
         }
     }
 
-    public function opencartSetup()
+    public function opencartInstall()
     {
         $this->taskDeleteDir('www')->run();
         $this->taskFileSystemStack()
-            ->mirror('vendor/opencart/opencart/upload', 'www')
-            ->copy('www/config-dist.php','www/config.php')
-            ->copy('www/admin/config-dist.php','www/admin/config.php')
-            ->remove('www/config-dist.php')
-            ->remove('www/admin/config-dist.php')
-            ->chmod('www', 0777, 0000, true)
+            ->mirror('vendor/opencart/opencart/upload', 'www/public_html')
+            ->copy('www/public_html/config-dist.php','www/public_html/config.php')
+            ->copy('www/public_html/admin/config-dist.php','www/public_html/admin/config.php')
+            ->remove('www/public_html/config-dist.php')
+            ->remove('www/public_html/admin/config-dist.php')
+            ->chmod('www/public_html', 0777, 0000, true)
             ->run();
 
         try {
@@ -63,7 +63,7 @@ class RoboFile extends \Robo\Tasks
             $this->printTaskError("<error> Could not connect ot database...");
         }
 
-        $cli_install = 'www/install/cli_install.php';
+        $cli_install = 'www/public_html/install/cli_install.php';
 
         $search = '$db->query("SET @@session.sql_mode = \'MYSQL40\'");';
         $add = '$db->query("SET @@session.sql_mode = \'\'");';
@@ -81,7 +81,7 @@ class RoboFile extends \Robo\Tasks
 
         $install->run();
 
-        $this->taskDeleteDir('www/install')->run();
+        $this->taskDeleteDir('www/public_html/install')->run();
     }
 
     public function ultimaterialWatch()
@@ -99,6 +99,6 @@ class RoboFile extends \Robo\Tasks
 
     public function ultimaterialDeploy()
     {
-        $this->taskFileSystemStack()->mirror('src/upload', 'www')->run();
+        $this->taskFileSystemStack()->mirror('src/upload', 'www/public_html')->run();
     }
 }

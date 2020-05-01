@@ -1,7 +1,7 @@
 /.idea/
-/archive/
-/source/
-/storage/
+/.vscode/
+/db/
+/node_modules/
 /vendor/
 /www/
 .env
