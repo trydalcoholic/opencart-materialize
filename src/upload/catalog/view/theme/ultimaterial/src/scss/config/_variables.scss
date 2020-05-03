@@ -1,0 +1,44 @@
+:root {
+  // Shadow
+  --shadow-0: none !important;
+  --shadow-1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  --shadow-2: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-3: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  --shadow-4: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -7px rgba(0, 0, 0, 0.2);
+  --shadow-5: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.2);
+
+  // Animation
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --linear: cubic-bezier(0, 0, 1, 1);
+
+  // Dialog
+  --dialog-backdrop-background-color: rgba(0, 0, 0, 0.4);
+  --dialog-border-radius: 0.25rem;
+  --dialog-padding: 0.875rem;
+
+  --dialog-header-border-width: 1px;
+  --dialog-header-border-style: solid;
+  --dialog-header-border-color: #ececec;
+  --dialog-header-text-align: start;
+  --dialog-header-font-size: 1.25rem;
+  --dialog-header-background-color: #fff;
+  --dialog-header-color: #000;
+
+  --dialog-main-text-align: start;
+  --dialog-main-font-size: 1em;
+  --dialog-main-background-color: #fff;
+  --dialog-main-color: #000;
+
+  --dialog-footer-border-width: 1px;
+  --dialog-footer-border-style: solid;
+  --dialog-footer-border-color: #ececec;
+  --dialog-footer-font-size: 1.25rem;
+  --dialog-footer-background-color: #fff;
+  --dialog-footer-color: #000;
+
+  --dialog-close-size: 0.825em;
+  --dialog-close-color: inherit; /* todo This variable has not yet been assigned!*/
+}

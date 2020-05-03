@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Ultimaterial Webpack config",
   "scripts": {
-    "build": "webpack --mode production --display-error-details",
-    "watch": "webpack --watch --mode development --display-error-details",
+    "build": "webpack --mode production --display-error-details --config ./webpack/webpack.catalog.config.js",
+    "watch": "webpack --watch --mode development --display-error-details --config ./webpack/webpack.catalog.config.js",
+    "watchAdmin": "webpack --watch --mode development --display-error-details --config ./webpack/webpack.admin.config.js",
     "update": "npm update --save"
   },
   "browserslist": [

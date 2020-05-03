@@ -1,0 +1,75 @@
+<!doctype html>
+<html dir="{{ direction }}" lang="{{ lang }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="view/dist/stylesheet/stylesheet.css">
+    <link rel="stylesheet" href="view/dist/stylesheet/template/extension/theme/ultimaterial/framework.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
+  </head>
+  <body class="iframe">
+    <header class="iframe__header">
+      <details class="iframe__details" open>
+        <summary class="iframe__summary">Dialog</summary>
+        <div class="iframe__details-content">
+          <details class="iframe__details" open>
+            <summary class="iframe__summary">Common</summary>
+            <div class="iframe__details-content">
+              {#<label class="slider">
+                <input class="slider__input" style="--slider-percent: calc(100% * 0.25 / 9.5)" value="0.25" type="range" min="0" max="9.5" step="0.125" data-target="framework-dialog" data-set="--dialog-border-radius">
+                <output class="slider__output" name="">0.25rem</output>
+                <span class="slider__text">Border Radius</span>
+              </label>#}
+              <label class="slider">
+                <input class="slider__input" style="--slider-percent: calc(100% * 0.25 / 4)" type="range" value="0.25" min="0" max="4" step="0.125" data-target="framework-dialog" data-set="--dialog-border-radius">
+                <output class="slider__output" name="">0.25rem</output>
+                <span class="slider__text">Border Radius</span>
+              </label>
+            </div>
+          </details>
+          <details class="iframe__details" open>
+            <summary class="iframe__summary">Header</summary>
+            <div class="iframe__details-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dolore dolorem magni natus obcaecati, quis reprehenderit. Dolorem est ipsam modi, nam optio quas sit tempora totam? Et ex natus ratione?</div>
+          </details>
+          <details class="iframe__details" open>
+            <summary class="iframe__summary">Main</summary>
+            <div class="iframe__details-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dolore dolorem magni natus obcaecati, quis reprehenderit. Dolorem est ipsam modi, nam optio quas sit tempora totam? Et ex natus ratione?</div>
+          </details>
+          <details class="iframe__details" open>
+            <summary class="iframe__summary">Footer</summary>
+            <div class="iframe__details-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dolore dolorem magni natus obcaecati, quis reprehenderit. Dolorem est ipsam modi, nam optio quas sit tempora totam? Et ex natus ratione?</div>
+          </details>
+          <details class="iframe__details" open>
+            <summary class="iframe__summary">Close</summary>
+            <div class="iframe__details-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dolore dolorem magni natus obcaecati, quis reprehenderit. Dolorem est ipsam modi, nam optio quas sit tempora totam? Et ex natus ratione?</div>
+          </details>
+        </div>
+      </details>
+    </header>
+    <main class="iframe__main">
+      <div class="iframe__card">
+        <dialog class="dialog" id="framework-dialog" open>
+          <div class="dialog__wrapper">
+            <div class="dialog__content">
+              <header class="dialog__header">
+                Dialog Header
+                <button type="button" class="dialog__close dialog__close--button waves-effect waves-circle">
+                  <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-icon"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg>
+                </button>
+              </header>
+              <div class="dialog__main">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, doloremque dolores doloribus illum ipsam itaque labore, laborum mollitia quam quia quo repellat repudiandae ut. Error facere mollitia nam qui ut.</p>
+              </div>
+              <footer class="dialog__footer">
+                Dialog Footer
+              </footer>
+            </div>
+          </div>
+        </dialog>
+      </div>
+    </main>
+  </body>
+  <script src="view/dist/javascript/template/extension/theme/ultimaterial/framework.js" defer></script>
+</html>

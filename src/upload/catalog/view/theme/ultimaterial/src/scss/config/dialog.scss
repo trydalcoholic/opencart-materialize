@@ -1,0 +1,105 @@
+// @import "../vendor/flashgrid/breakpoints";
+@import "./mixins";
+
+.dialog {
+  /*@include breakpoint-up(sm) {
+    &__content {
+      max-inline-size: 560px;
+    }
+  }*/
+  &__content {
+    max-inline-size: 560px;
+  }
+
+  &::backdrop {
+    background-color: var(--dialog-backdrop-background-color);
+  }
+
+  & + .backdrop {
+    background-color: var(--dialog-backdrop-background-color);
+  }
+
+  &[open] {
+    .dialog__wrapper {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    block-size: 100%;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.15s var(--ease), opacity 0.15s var(--ease);
+    pointer-events: none;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+    // max-inline-size: calc(100vw - 32px);
+    min-inline-size: 280px;
+    max-block-size: calc(100% - 32px);
+    pointer-events: auto;
+    overflow-y: auto;
+    border-radius: var(--dialog-border-radius);
+    box-shadow: var(--shadow-4);
+  }
+
+  &__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: var(--dialog-padding);
+    font-size: var(--dialog-header-font-size);
+    text-align: var(--dialog-header-text-align);
+    border-block-end: var(--dialog-header-border-width) var(--dialog-header-border-style) var(--dialog-header-border-color);
+    background-color: var(--dialog-header-background-color);
+  }
+
+  &__main {
+    padding: var(--dialog-padding);
+    font-size: var(--dialog-main-font-size);
+    text-align: var(--dialog-main-text-align);
+    overflow-y: auto;
+    background-color: var(--dialog-main-background-color);
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    padding: var(--dialog-padding);
+    font-size: var(--dialog-footer-font-size);
+    border-block-start: var(--dialog-footer-border-width) var(--dialog-footer-border-style) var(--dialog-footer-border-color);
+    background: var(--dialog-footer-background-color);
+  }
+
+  &__close {
+    &--button {
+      @include button-reset;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      block-size: var(--dialog-close-button);
+      inline-size: var(--dialog-close-button);
+      line-height: var(--dialog-close-button);
+      margin-inline-start: auto;
+
+      > .svg-icon {
+        block-size: var(--dialog-close-size);
+        margin-block-start: 0;
+      }
+    }
+  }
+
+  :matches(h2, h3, h4, h5, h6) {
+    margin: 0;
+  }
+}

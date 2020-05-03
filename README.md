@@ -10,3 +10,4 @@
 7. Run the `docker-compose exec php bash` command.
 8. Run the `composer install` command and wait for the installation to complete.
 9. Run the `composer exec robo opencart:install` command and wait for the installation to complete.
+10. Run the `composer exec robo ultimaterial:watch`.

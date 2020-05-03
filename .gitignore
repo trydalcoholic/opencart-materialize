@@ -5,3 +5,5 @@
 /vendor/
 /www/
 .env
+/src/upload/admin/view/dist/
+/src/upload/catalog/view/theme/ultimaterial/dist/

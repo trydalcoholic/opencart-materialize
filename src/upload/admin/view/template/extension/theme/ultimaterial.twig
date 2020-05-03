@@ -1,305 +1,312 @@
 {{ header }}{{ column_left }}
 <div id="content">
-	<div class="page-header">
-		<div class="container-fluid">
-			<div class="float-right">
-				<button type="submit" form="form-theme" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
-				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-light"><i class="fas fa-reply"></i></a>
-			</div>
-			<h1>{{ heading_title }}</h1>
-			<ol class="breadcrumb">
-				{% for breadcrumb in breadcrumbs %}
-					<li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
-				{% endfor %}
-			</ol>
-		</div>
-	</div>
-	<div class="container-fluid">
-		{% if error.warning %}
-			<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i>
-				{{ error.warning }}
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-			</div>
-		{% endif %}
-		<div class="card">
-			<div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_edit }}</div>
-			<div class="card-body">
-				<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-theme">
-					<ul class="nav nav-tabs">
-						<li class="nav-item"><a href="#tab-template" data-toggle="tab" class="nav-link active">{{ text_template }}</a></li>
-						<li class="nav-item"><a href="#tab-general" data-toggle="tab" class="nav-link">{{ tab_general }}</a></li>
-						<li class="nav-item"><a href="#tab-product" data-toggle="tab" class="nav-link">{{ text_product }}</a></li>
-						<li class="nav-item"><a href="#tab-cart" data-toggle="tab" class="nav-link">{{ text_cart }}</a></li>
-						<li class="nav-item"><a href="#tab-contact" data-toggle="tab" class="nav-link">{{ text_contact }}</a></li>
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="tab-template">
-							<div class="row">
-								<div class="col-3">
-									<div class="nav flex-column nav-pills" id="template-pills-tab" role="tablist" aria-orientation="vertical">
-										<a class="nav-link active" id="template-pills-setting-tab" data-toggle="pill" href="#template-pills-setting" role="tab" aria-controls="template-pills-setting" aria-selected="true">{{ text_setting }}</a>
-									</div>
-								</div>
-								<div class="col-9">
-									<div class="tab-content" id="template-pills-tab-content">
-										<div class="tab-pane active" id="template-pills-setting" role="tabpanel" aria-labelledby="template-pills-setting-tab">
-											<div class="list-group">
-												<div class="list-group-item list-group-item-action">
-													<div class="d-flex w-100 justify-content-between">
-														<h5 class="mb-1">List group item heading</h5>
-														<div class="custom-control custom-switch">
-															<input type="checkbox" class="custom-control-input" id="customSwitch1">
-															<label class="custom-control-label" for="customSwitch1"></label>
-														</div>
-													</div>
-													<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-													<small>Donec id elit non mi porta.</small>
-												</div>
-												<div class="list-group-item list-group-item-action">
-													<div class="d-flex w-100 justify-content-between">
-														<a href="{{ color_scheme }}"><h5 class="mb-1">Create Color Scheme</h5></a>
-														<small class="text-muted">3 days ago</small>
-													</div>
-													<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-													<small class="text-muted">Donec id elit non mi porta.</small>
-												</div>
-												<div class="list-group-item list-group-item-action">
-													<div class="d-flex w-100 justify-content-between">
-														<h5 class="mb-1">List group item heading</h5>
-														<small class="text-muted">3 days ago</small>
-													</div>
-													<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-													<small class="text-muted">Donec id elit non mi porta.</small>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="tab-general">
-							<div class="form-group row">
-								<label for="input-directory" class="col-sm-2 col-form-label">{{ entry_directory }}</label>
-								<div class="col-sm-10">
-									<select name="theme_ultimaterial_directory" id="input-directory" class="form-control">
-										{% for directory in directories %}
-											{% if directory == theme_ultimaterial_directory %}
-												<option value="{{ directory }}" selected="selected">{{ directory }}</option>
-											{% else %}
-												<option value="{{ directory }}">{{ directory }}</option>
-											{% endif %}
-										{% endfor %}
-									</select>
-									<small class="form-text text-muted">{{ help_directory }}</small>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="input-status" class="col-sm-2 col-form-label">{{ entry_status }}</label>
-								<div class="col-sm-10">
-									<select name="theme_ultimaterial_status" id="input-status" class="form-control">
-										{% if theme_ultimaterial_status %}
-											<option value="1" selected="selected">{{ text_enabled }}</option>
-											<option value="0">{{ text_disabled }}</option>
-										{% else %}
-											<option value="1">{{ text_enabled }}</option>
-											<option value="0" selected="selected">{{ text_disabled }}</option>
-										{% endif %}
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="tab-product">
-							<div class="row">
-								<div class="col-3">
-									<div class="nav flex-column nav-pills" id="product-pills-tab" role="tablist" aria-orientation="vertical">
-										<a class="nav-link active" id="product-pills-product-list-tab" data-toggle="pill" href="#product-pills-product-list" role="tab" aria-controls="product-pills-product-list" aria-selected="true">{{ text_product_list }}</a>
-										<a class="nav-link" id="product-pills-product-page-tab" data-toggle="pill" href="#product-pills-product-page" role="tab" aria-controls="product-pills-product-page" aria-selected="false">{{ text_product_page }}</a>
-										<a class="nav-link" id="product-pills-product-comparison-tab" data-toggle="pill" href="#product-pills-product-comparison" role="tab" aria-controls="product-pills-product-comparison" aria-selected="false">{{ text_product_comparison }}</a>
-										<a class="nav-link" id="product-pills-product-wishlist-tab" data-toggle="pill" href="#product-pills-product-wishlist" role="tab" aria-controls="product-pills-product-wishlist" aria-selected="false">{{ text_product_wishlist }}</a>
-									</div>
-								</div>
-								<div class="col-9">
-									<div class="tab-content" id="product-pills-tab-content">
-										<div class="tab-pane active" id="product-pills-product-list" role="tabpanel" aria-labelledby="product-pills-product-list-tab">
-											<div class="form-label-group required">
-												<input type="text" name="theme_ultimaterial_product_limit" value="{{ theme_ultimaterial_product_limit }}" placeholder="{{ entry_product_limit }}" id="input-catalog-limit" class="form-control" required>
-												<label for="input-catalog-limit">{{ entry_product_limit }}</label>
-												<small class="form-text text-muted">{{ help_product_limit }}</small>
-												{% if error.product_limit %}
-													<div class="invalid-tooltip">{{ error.product_limit }}</div>
-												{% endif %}
-											</div>
-											<div class="form-label-group required">
-												<input type="text" name="theme_ultimaterial_product_description_length" value="{{ theme_ultimaterial_product_description_length }}" placeholder="{{ entry_product_description_length }}" id="input-description-limit" class="form-control" required>
-												<label for="input-description-limit">{{ entry_product_description_length }}</label>
-												<small class="form-text text-muted">{{ help_product_description_length }}</small>
-												{% if error.product_description_length %}
-													<div class="invalid-tooltip">{{ error.product_description_length }}</div>
-												{% endif %}
-											</div>
-											<div class="form-group required">
-												<label for="input-image-product-width" class="col-form-label">{{ entry_image_product }}</label>
-												<div class="row">
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_product_width" value="{{ theme_ultimaterial_image_product_width }}" placeholder="{{ entry_width }}" id="input-image-product-width" class="form-control" required>
-													</div>
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_product_height" value="{{ theme_ultimaterial_image_product_height }}" placeholder="{{ entry_height }}" class="form-control" required>
-													</div>
-												</div>
-												{% if error.image_product %}
-													<div class="invalid-tooltip">{{ error.image_product }}</div>
-												{% endif %}
-											</div>
-											<div class="form-group required">
-												<label for="input-image-category-width" class="col-form-label">{{ entry_image_category }}</label>
-												<div class="row">
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_category_width" value="{{ theme_ultimaterial_image_category_width }}" placeholder="{{ entry_width }}" id="input-image-category-width" class="form-control" required>
-													</div>
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_category_height" value="{{ theme_ultimaterial_image_category_height }}" placeholder="{{ entry_height }}" class="form-control" required>
-													</div>
-												</div>
-												{% if error.image_category %}
-													<div class="invalid-tooltip">{{ error.image_category }}</div>
-												{% endif %}
-											</div>
-										</div>
-										<div class="tab-pane" id="product-pills-product-page" role="tabpanel" aria-labelledby="product-pills-product-page-tab">
-											<div class="form-group required">
-												<label for="input-image-thumb-width" class="col-form-label">{{ entry_image_thumb }}</label>
-												<div class="row">
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_thumb_width" value="{{ theme_ultimaterial_image_thumb_width }}" placeholder="{{ entry_width }}" id="input-image-thumb-width" class="form-control"/>
-													</div>
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_thumb_height" value="{{ theme_ultimaterial_image_thumb_height }}" placeholder="{{ entry_height }}" class="form-control"/>
-													</div>
-												</div>
-												{% if error.image_thumb %}
-													<div class="invalid-tooltip">{{ error.image_thumb }}</div>
-												{% endif %}
-											</div>
-											<div class="form-group required">
-												<label for="input-image-popup-width" class="col-form-label">{{ entry_image_popup }}</label>
-												<div class="row">
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_popup_width" value="{{ theme_ultimaterial_image_popup_width }}" placeholder="{{ entry_width }}" id="input-image-popup-width" class="form-control"/>
-													</div>
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_popup_height" value="{{ theme_ultimaterial_image_popup_height }}" placeholder="{{ entry_height }}" class="form-control"/>
-													</div>
-												</div>
-												{% if error.image_popup %}
-													<div class="invalid-tooltip">{{ error.image_popup }}</div>
-												{% endif %}
-											</div>
-											<div class="form-group required">
-												<label for="input-image-product-width" class="col-form-label">{{ entry_image_product }}</label>
-												<div class="row">
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_product_width" value="{{ theme_ultimaterial_image_product_width }}" placeholder="{{ entry_width }}" id="input-image-product-width" class="form-control"/>
-													</div>
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_product_height" value="{{ theme_ultimaterial_image_product_height }}" placeholder="{{ entry_height }}" class="form-control"/>
-													</div>
-												</div>
-												{% if error.image_product %}
-													<div class="invalid-tooltip">{{ error.image_product }}</div>
-												{% endif %}
-											</div>
-											<div class="form-group required">
-												<label for="input-image-additional-width" class="col-form-label">{{ entry_image_additional }}</label>
-												<div class="row">
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_additional_width" value="{{ theme_ultimaterial_image_additional_width }}" placeholder="{{ entry_width }}" id="input-image-additional-width" class="form-control"/>
-													</div>
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_additional_height" value="{{ theme_ultimaterial_image_additional_height }}" placeholder="{{ entry_height }}" class="form-control"/>
-													</div>
-												</div>
-												{% if error.image_additional %}
-													<div class="invalid-tooltip">{{ error.image_additional }}</div>
-												{% endif %}
-											</div>
-										</div>
-										<div class="tab-pane" id="product-pills-product-comparison" role="tabpanel" aria-labelledby="product-pills-product-comparison-tab">
-											<div class="form-group required">
-												<label for="input-image-compare" class="col-form-label">{{ entry_image_compare }}</label>
-												<div class="row">
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_compare_width" value="{{ theme_ultimaterial_image_compare_width }}" placeholder="{{ entry_width }}" id="input-image-compare" class="form-control"/>
-													</div>
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_compare_height" value="{{ theme_ultimaterial_image_compare_height }}" placeholder="{{ entry_height }}" class="form-control"/>
-													</div>
-												</div>
-												{% if error.image_compare %}
-													<div class="invalid-tooltip">{{ error.image_compare }}</div>
-												{% endif %}
-											</div>
-										</div>
-										<div class="tab-pane" id="product-pills-product-wishlist" role="tabpanel" aria-labelledby="product-pills-product-wishlist-tab">
-											<div class="form-group required">
-												<label for="input-image-wishlist" class="col-form-label">{{ entry_image_wishlist }}</label>
-												<div class="row">
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_wishlist_width" value="{{ theme_ultimaterial_image_wishlist_width }}" placeholder="{{ entry_width }}" id="input-image-wishlist" class="form-control"/>
-													</div>
-													<div class="col-sm-6">
-														<input type="text" name="theme_ultimaterial_image_wishlist_height" value="{{ theme_ultimaterial_image_wishlist_height }}" placeholder="{{ entry_height }}" class="form-control"/>
-													</div>
-												</div>
-												{% if error.image_wishlist %}
-													<div class="invalid-tooltip">{{ error.image_wishlist }}</div>
-												{% endif %}
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="tab-cart">
-							<div class="form-group row required">
-								<label for="input-image-cart" class="col-sm-2 col-form-label">{{ entry_image_cart }}</label>
-								<div class="col-sm-10">
-									<div class="row">
-										<div class="col-sm-6">
-											<input type="text" name="theme_ultimaterial_image_cart_width" value="{{ theme_ultimaterial_image_cart_width }}" placeholder="{{ entry_width }}" id="input-image-cart" class="form-control"/>
-										</div>
-										<div class="col-sm-6">
-											<input type="text" name="theme_ultimaterial_image_cart_height" value="{{ theme_ultimaterial_image_cart_height }}" placeholder="{{ entry_height }}" class="form-control"/>
-										</div>
-									</div>
-									{% if error.image_cart %}
-										<div class="invalid-tooltip">{{ error.image_cart }}</div>
-									{% endif %}
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="tab-contact">
-							<div class="form-group row required">
-								<label for="input-image-location" class="col-sm-2 col-form-label">{{ entry_image_location }}</label>
-								<div class="col-sm-10">
-									<div class="row">
-										<div class="col-sm-6">
-											<input type="text" name="theme_ultimaterial_image_location_width" value="{{ theme_ultimaterial_image_location_width }}" placeholder="{{ entry_width }}" id="input-image-location" class="form-control"/>
-										</div>
-										<div class="col-sm-6">
-											<input type="text" name="theme_ultimaterial_image_location_height" value="{{ theme_ultimaterial_image_location_height }}" placeholder="{{ entry_height }}" class="form-control"/>
-										</div>
-									</div>
-									{% if error.image_location %}
-										<div class="invalid-tooltip">{{ error.image_location }}</div>
-									{% endif %}
-								</div>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-right">
+        <button type="submit" form="form-theme" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-light"><i class="fas fa-reply"></i></a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error.warning %}
+      <div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i>
+        {{ error.warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+    <div class="card">
+      <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_edit }}</div>
+      <div class="card-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-theme">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a href="#tab-framework" data-toggle="tab" class="nav-link active">{{ text_framework }}</a>
+            </li>
+            <li class="nav-item">
+              <a href="#tab-template" data-toggle="tab" class="nav-link">{{ text_template }}</a>
+            </li>
+            <li class="nav-item"><a href="#tab-general" data-toggle="tab" class="nav-link">{{ tab_general }}</a></li>
+            <li class="nav-item"><a href="#tab-product" data-toggle="tab" class="nav-link">{{ text_product }}</a></li>
+            <li class="nav-item"><a href="#tab-cart" data-toggle="tab" class="nav-link">{{ text_cart }}</a></li>
+            <li class="nav-item"><a href="#tab-contact" data-toggle="tab" class="nav-link">{{ text_contact }}</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-framework">
+              <iframe class="ultimaterial__iframe lazyload" src="" data-src="{{ iframe.framework }}"></iframe>
+            </div>
+            <div class="tab-pane" id="tab-template">
+              <div class="row">
+                <div class="col-3">
+                  <div class="nav flex-column nav-pills" id="template-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="template-pills-setting-tab" data-toggle="pill" href="#template-pills-setting" role="tab" aria-controls="template-pills-setting" aria-selected="true">{{ text_setting }}</a>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <div class="tab-content" id="template-pills-tab-content">
+                    <div class="tab-pane active" id="template-pills-setting" role="tabpanel" aria-labelledby="template-pills-setting-tab">
+                      <div class="list-group">
+                        <div class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                              <label class="custom-control-label" for="customSwitch1"></label>
+                            </div>
+                          </div>
+                          <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                          <small>Donec id elit non mi porta.</small>
+                        </div>
+                        <div class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <a href="{{ color_scheme }}"><h5 class="mb-1">Create Color Scheme</h5></a>
+                            <small class="text-muted">3 days ago</small>
+                          </div>
+                          <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                          <small class="text-muted">Donec id elit non mi porta.</small>
+                        </div>
+                        <div class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">List group item heading</h5>
+                            <small class="text-muted">3 days ago</small>
+                          </div>
+                          <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                          <small class="text-muted">Donec id elit non mi porta.</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab-general">
+              <div class="form-group row">
+                <label for="input-directory" class="col-sm-2 col-form-label">{{ entry_directory }}</label>
+                <div class="col-sm-10">
+                  <select name="theme_ultimaterial_directory" id="input-directory" class="form-control">
+                    {% for directory in directories %}
+                      {% if directory == theme_ultimaterial_directory %}
+                        <option value="{{ directory }}" selected="selected">{{ directory }}</option>
+                      {% else %}
+                        <option value="{{ directory }}">{{ directory }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select> <small class="form-text text-muted">{{ help_directory }}</small>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="input-status" class="col-sm-2 col-form-label">{{ entry_status }}</label>
+                <div class="col-sm-10">
+                  <select name="theme_ultimaterial_status" id="input-status" class="form-control">
+                    {% if theme_ultimaterial_status %}
+                      <option value="1" selected="selected">{{ text_enabled }}</option>
+                      <option value="0">{{ text_disabled }}</option>
+                    {% else %}
+                      <option value="1">{{ text_enabled }}</option>
+                      <option value="0" selected="selected">{{ text_disabled }}</option>
+                    {% endif %}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab-product">
+              <div class="row">
+                <div class="col-3">
+                  <div class="nav flex-column nav-pills" id="product-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="product-pills-product-list-tab" data-toggle="pill" href="#product-pills-product-list" role="tab" aria-controls="product-pills-product-list" aria-selected="true">{{ text_product_list }}</a>
+                    <a class="nav-link" id="product-pills-product-page-tab" data-toggle="pill" href="#product-pills-product-page" role="tab" aria-controls="product-pills-product-page" aria-selected="false">{{ text_product_page }}</a>
+                    <a class="nav-link" id="product-pills-product-comparison-tab" data-toggle="pill" href="#product-pills-product-comparison" role="tab" aria-controls="product-pills-product-comparison" aria-selected="false">{{ text_product_comparison }}</a>
+                    <a class="nav-link" id="product-pills-product-wishlist-tab" data-toggle="pill" href="#product-pills-product-wishlist" role="tab" aria-controls="product-pills-product-wishlist" aria-selected="false">{{ text_product_wishlist }}</a>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <div class="tab-content" id="product-pills-tab-content">
+                    <div class="tab-pane active" id="product-pills-product-list" role="tabpanel" aria-labelledby="product-pills-product-list-tab">
+                      <div class="form-label-group required">
+                        <input type="text" name="theme_ultimaterial_product_limit" value="{{ theme_ultimaterial_product_limit }}" placeholder="{{ entry_product_limit }}" id="input-catalog-limit" class="form-control" required>
+                        <label for="input-catalog-limit">{{ entry_product_limit }}</label>
+                        <small class="form-text text-muted">{{ help_product_limit }}</small>
+                        {% if error.product_limit %}
+                          <div class="invalid-tooltip">{{ error.product_limit }}</div>
+                        {% endif %}
+                      </div>
+                      <div class="form-label-group required">
+                        <input type="text" name="theme_ultimaterial_product_description_length" value="{{ theme_ultimaterial_product_description_length }}" placeholder="{{ entry_product_description_length }}" id="input-description-limit" class="form-control" required>
+                        <label for="input-description-limit">{{ entry_product_description_length }}</label>
+                        <small class="form-text text-muted">{{ help_product_description_length }}</small>
+                        {% if error.product_description_length %}
+                          <div class="invalid-tooltip">{{ error.product_description_length }}</div>
+                        {% endif %}
+                      </div>
+                      <div class="form-group required">
+                        <label for="input-image-product-width" class="col-form-label">{{ entry_image_product }}</label>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_product_width" value="{{ theme_ultimaterial_image_product_width }}" placeholder="{{ entry_width }}" id="input-image-product-width" class="form-control" required>
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_product_height" value="{{ theme_ultimaterial_image_product_height }}" placeholder="{{ entry_height }}" class="form-control" required>
+                          </div>
+                        </div>
+                        {% if error.image_product %}
+                          <div class="invalid-tooltip">{{ error.image_product }}</div>
+                        {% endif %}
+                      </div>
+                      <div class="form-group required">
+                        <label for="input-image-category-width" class="col-form-label">{{ entry_image_category }}</label>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_category_width" value="{{ theme_ultimaterial_image_category_width }}" placeholder="{{ entry_width }}" id="input-image-category-width" class="form-control" required>
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_category_height" value="{{ theme_ultimaterial_image_category_height }}" placeholder="{{ entry_height }}" class="form-control" required>
+                          </div>
+                        </div>
+                        {% if error.image_category %}
+                          <div class="invalid-tooltip">{{ error.image_category }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="product-pills-product-page" role="tabpanel" aria-labelledby="product-pills-product-page-tab">
+                      <div class="form-group required">
+                        <label for="input-image-thumb-width" class="col-form-label">{{ entry_image_thumb }}</label>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_thumb_width" value="{{ theme_ultimaterial_image_thumb_width }}" placeholder="{{ entry_width }}" id="input-image-thumb-width" class="form-control"/>
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_thumb_height" value="{{ theme_ultimaterial_image_thumb_height }}" placeholder="{{ entry_height }}" class="form-control"/>
+                          </div>
+                        </div>
+                        {% if error.image_thumb %}
+                          <div class="invalid-tooltip">{{ error.image_thumb }}</div>
+                        {% endif %}
+                      </div>
+                      <div class="form-group required">
+                        <label for="input-image-popup-width" class="col-form-label">{{ entry_image_popup }}</label>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_popup_width" value="{{ theme_ultimaterial_image_popup_width }}" placeholder="{{ entry_width }}" id="input-image-popup-width" class="form-control"/>
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_popup_height" value="{{ theme_ultimaterial_image_popup_height }}" placeholder="{{ entry_height }}" class="form-control"/>
+                          </div>
+                        </div>
+                        {% if error.image_popup %}
+                          <div class="invalid-tooltip">{{ error.image_popup }}</div>
+                        {% endif %}
+                      </div>
+                      <div class="form-group required">
+                        <label for="input-image-product-width" class="col-form-label">{{ entry_image_product }}</label>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_product_width" value="{{ theme_ultimaterial_image_product_width }}" placeholder="{{ entry_width }}" id="input-image-product-width" class="form-control"/>
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_product_height" value="{{ theme_ultimaterial_image_product_height }}" placeholder="{{ entry_height }}" class="form-control"/>
+                          </div>
+                        </div>
+                        {% if error.image_product %}
+                          <div class="invalid-tooltip">{{ error.image_product }}</div>
+                        {% endif %}
+                      </div>
+                      <div class="form-group required">
+                        <label for="input-image-additional-width" class="col-form-label">{{ entry_image_additional }}</label>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_additional_width" value="{{ theme_ultimaterial_image_additional_width }}" placeholder="{{ entry_width }}" id="input-image-additional-width" class="form-control"/>
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_additional_height" value="{{ theme_ultimaterial_image_additional_height }}" placeholder="{{ entry_height }}" class="form-control"/>
+                          </div>
+                        </div>
+                        {% if error.image_additional %}
+                          <div class="invalid-tooltip">{{ error.image_additional }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="product-pills-product-comparison" role="tabpanel" aria-labelledby="product-pills-product-comparison-tab">
+                      <div class="form-group required">
+                        <label for="input-image-compare" class="col-form-label">{{ entry_image_compare }}</label>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_compare_width" value="{{ theme_ultimaterial_image_compare_width }}" placeholder="{{ entry_width }}" id="input-image-compare" class="form-control"/>
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_compare_height" value="{{ theme_ultimaterial_image_compare_height }}" placeholder="{{ entry_height }}" class="form-control"/>
+                          </div>
+                        </div>
+                        {% if error.image_compare %}
+                          <div class="invalid-tooltip">{{ error.image_compare }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="product-pills-product-wishlist" role="tabpanel" aria-labelledby="product-pills-product-wishlist-tab">
+                      <div class="form-group required">
+                        <label for="input-image-wishlist" class="col-form-label">{{ entry_image_wishlist }}</label>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_wishlist_width" value="{{ theme_ultimaterial_image_wishlist_width }}" placeholder="{{ entry_width }}" id="input-image-wishlist" class="form-control"/>
+                          </div>
+                          <div class="col-sm-6">
+                            <input type="text" name="theme_ultimaterial_image_wishlist_height" value="{{ theme_ultimaterial_image_wishlist_height }}" placeholder="{{ entry_height }}" class="form-control"/>
+                          </div>
+                        </div>
+                        {% if error.image_wishlist %}
+                          <div class="invalid-tooltip">{{ error.image_wishlist }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab-cart">
+              <div class="form-group row required">
+                <label for="input-image-cart" class="col-sm-2 col-form-label">{{ entry_image_cart }}</label>
+                <div class="col-sm-10">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <input type="text" name="theme_ultimaterial_image_cart_width" value="{{ theme_ultimaterial_image_cart_width }}" placeholder="{{ entry_width }}" id="input-image-cart" class="form-control"/>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="text" name="theme_ultimaterial_image_cart_height" value="{{ theme_ultimaterial_image_cart_height }}" placeholder="{{ entry_height }}" class="form-control"/>
+                    </div>
+                  </div>
+                  {% if error.image_cart %}
+                    <div class="invalid-tooltip">{{ error.image_cart }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="tab-contact">
+              <div class="form-group row required">
+                <label for="input-image-location" class="col-sm-2 col-form-label">{{ entry_image_location }}</label>
+                <div class="col-sm-10">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <input type="text" name="theme_ultimaterial_image_location_width" value="{{ theme_ultimaterial_image_location_width }}" placeholder="{{ entry_width }}" id="input-image-location" class="form-control"/>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="text" name="theme_ultimaterial_image_location_height" value="{{ theme_ultimaterial_image_location_height }}" placeholder="{{ entry_height }}" class="form-control"/>
+                    </div>
+                  </div>
+                  {% if error.image_location %}
+                    <div class="invalid-tooltip">{{ error.image_location }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 {{ footer }}

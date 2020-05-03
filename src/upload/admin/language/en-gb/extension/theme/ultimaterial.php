@@ -6,6 +6,7 @@ $_['heading_title']                    = 'Ultimaterial Template';
 $_['text_extension']                   = 'Extensions';
 $_['text_success']                     = 'Success: You have modified the Ultimaterial Template!';
 $_['text_edit']                        = 'Edit Ultimaterial Template';
+$_['text_framework']                   = 'Framework';
 $_['text_template']                    = 'Template';
 $_['text_general']                     = 'General';
 $_['text_product']                     = 'Products';

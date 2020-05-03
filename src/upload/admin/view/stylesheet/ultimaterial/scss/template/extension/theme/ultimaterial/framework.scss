@@ -1,0 +1,85 @@
+@import "../../../../config/reset";
+@import "../../../../config/mixins";
+@import "../../../../config/input/range";
+
+@import "../../../../../../../../../catalog/view/theme/ultimaterial/src/scss/config/variables";
+@import "../../../../../../../../../catalog/view/theme/ultimaterial/src/scss/config/dialog";
+
+html, body {
+  block-size: 100%;
+  min-block-size: 100%;
+  position: relative;
+  font-family: "Roboto", sans-serif;
+  line-height: calc(1.5vw + 0.875rem);
+  background-color: #f3f3f3;
+}
+
+.iframe {
+  display: grid;
+  grid-gap: 1.25rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+
+  &__header {
+    display: grid;
+    grid-area: 1 / 10 / -1 / span 3;
+    grid-gap: 1.25rem;
+    grid-template-rows: max-content;
+    max-block-size: 100%;
+    padding: 1rem;
+    overflow-y: auto;
+    color: #fff;
+    background-color: var(--ultimaterial-color-primary);
+  }
+
+  &__main {
+    display: grid;
+    grid-area: 1 / 1 / 2 / span 9;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: max-content;
+    grid-gap: 1.25rem;
+    padding: 1rem;
+  }
+
+  &__summary {
+    @include summary-reset;
+  }
+
+  &__details-content {
+    color: var(--ultimaterial-color-primary-text);
+    overflow: hidden;
+    background-color: var(--ultimaterial-color-primary-light);
+    border-radius: 0.25rem;
+
+    > .iframe__details {
+      .iframe__summary {
+        padding: 1rem;
+        background-color: var(--ultimaterial-color-primary-dark);
+      }
+
+      &:not(:last-child) {
+        .iframe__summary {
+          border-block-end: 1px solid var(--ultimaterial-color-primary);
+        }
+      }
+
+      .iframe__details-content {
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+
+  &__card {
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: var(--shadow-2);
+  }
+
+  .dialog {
+    position: relative;
+    block-size: auto;
+
+    &__content {
+      inline-size: 100%;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@mixin button-reset {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@mixin button-reset-radio {
+  position: absolute;
+  block-size: 0;
+  inline-size: 0;
+  margin: 0;
+  padding: 0;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+  border: 0;
+  overflow: hidden;
+}
+
+@mixin summary-reset {
+  position: relative;
+  list-style: none;
+  cursor: pointer;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}

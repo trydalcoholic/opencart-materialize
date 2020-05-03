@@ -33,7 +33,9 @@ class ControllerExtensionThemeUltimaterial extends Controller {
 		$this->load->language('extension/theme/ultimaterial');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->document->addStyle('view/stylesheet/ultimaterial/template/common.min.css');
+		$this->document->addStyle('view/dist/stylesheet.css');
+		$this->document->addStyle('view/dist/stylesheet/template/extension/theme/ultimaterial.css');
+		$this->document->addScript('//cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/lazysizes.min.js');
 
 		$this->load->model('setting/setting');
 
@@ -187,7 +189,9 @@ class ControllerExtensionThemeUltimaterial extends Controller {
 			$data['directories'][] = basename($directory);
 		}
 
-		$data['color_scheme'] = $this->url->link('extension/theme/ultimaterial/color_scheme', 'user_token=' . $this->session->data['user_token']);
+		$data['iframe'] = [
+			'framework' => $this->url->link('extension/theme/ultimaterial/framework', 'user_token=' . $this->session->data['user_token'])
+		];
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
