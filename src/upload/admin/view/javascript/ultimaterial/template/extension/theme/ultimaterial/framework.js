@@ -14,9 +14,9 @@ class UFramework {
     this.range = new URange({
       onChange: (element) => {
         let target = document.getElementById(element.dataset.target),
-            dataSet = element.dataset.set;
+            dataProperty = element.dataset.property;
 
-        target.style.setProperty(dataSet, element.nextElementSibling.innerText);
+        target.style.setProperty(dataProperty, element.nextElementSibling.innerText);
       }
     });
   }
@@ -31,7 +31,7 @@ class UFramework {
   }
 
   _colorPicker() {
-    this.colorPickers = document.querySelectorAll('.iframe__color-picker');
+    this.colorPickers = document.querySelectorAll('.color-picker__input');
     this.colorElements = [];
 
     this.colorPickers.forEach(element => {
@@ -85,7 +85,7 @@ class UFramework {
         element.style.setProperty('--color-picker', value);
 
         let target = document.getElementById(element.dataset.target),
-            dataSet = element.dataset.set;
+            dataSet = element.dataset.property;
 
         target.style.setProperty(dataSet, value);
 

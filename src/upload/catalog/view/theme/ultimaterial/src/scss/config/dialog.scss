@@ -13,10 +13,12 @@
 
   &::backdrop {
     background-color: var(--dialog-backdrop-background-color);
+    backdrop-filter: var(--dialog-backdrop-filter);
   }
 
   & + .backdrop {
     background-color: var(--dialog-backdrop-background-color);
+    backdrop-filter: var(--dialog-backdrop-filter);
   }
 
   &[open] {

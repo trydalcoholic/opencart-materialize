@@ -20,22 +20,22 @@
               <ul class="iframe__details-list">
                 <li class="iframe__details-item">
                   <label class="slider">
-                    <input class="slider__input" style="--slider-percent: calc(100% * 0.5 / 4)" type="range" value="0.5" min="0" max="4" step="0.125" data-target="framework-dialog" data-set="--dialog-border-radius">
-                    <output class="slider__output" name="">0.5rem</output>
+                    <input class="slider__input" style="--slider-percent: calc(100% * 0.5 / 4)" type="range" value="0.5" min="0" max="4" step="0.125" data-target="framework-dialog" data-property="--dialog-border-radius" data-property-value="${value}rem">
+                    <output class="slider__output">0.5rem</output>
                     <span class="slider__text">Border Radius</span>
                   </label>
                 </li>
                 <li class="iframe__details-item">
-                  <label>
-                    <input type="hidden">
-                    <span>Backdrop Color</span>
+                  <label class="color-picker">
+                    <input type="text" class="color-picker__input" style="--color-picker: #fff" value="#fff" role="button" aria-label="Toggle color picker dialog" data-target="framework-dialog" data-property="--dialog-backdrop-background-color">
+                    <span class="color-picker__text">Backdrop Color</span>
                   </label>
-                  <input type="text" class="iframe__color-picker" style="--color-picker: #fff" value="#fff" role="button" aria-label="Toggle color picker dialog" data-target="framework-dialog" data-set="--dialog-backdrop-background-color">
                 </li>
                 <li class="iframe__details-item">
-                  <label>
-                    <input type="hidden">
-                    <span>Backdrop Filter</span>
+                  <label class="slider">
+                    <input class="slider__input" style="--slider-percent: calc(100% * 1 / 5)" type="range" value="1" min="0" max="5" step="1" data-target="framework-dialog" data-property="--dialog-backdrop-filter" data-property-value="blur(${value}px)">
+                    <output class="slider__output">blur(1px)</output>
+                    <span class="slider__text">Backdrop Filter</span>
                   </label>
                 </li>
               </ul>

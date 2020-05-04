@@ -16,10 +16,11 @@ export default class URange {
 
   _handleRange(event) {
     let target = event.target,
-        output = target.nextElementSibling;
+        output = target.nextElementSibling,
+        value = target.value;
 
-    target.style.setProperty('--slider-percent', 'calc(100% * ' + target.value + ' / ' + target.getAttribute('max') + ')');
-    output.innerText = target.value + 'rem';
+    target.style.setProperty('--slider-percent', 'calc(100% * ' + value + ' / ' + target.getAttribute('max') + ')');
+    output.innerText = target.dataset.propertyValue.replace(/\$\{value\}/i, target.value);
 
     if (typeof this.option.onChange === 'function') {
       this.option.onChange.call(this, target);

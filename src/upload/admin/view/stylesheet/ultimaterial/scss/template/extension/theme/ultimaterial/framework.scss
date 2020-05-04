@@ -77,19 +77,6 @@ html, body {
     }
   }
 
-  &__color-picker {
-    display: inline-flex;
-    align-self: center;
-    block-size: 1.5em;
-    inline-size: 1.5em;
-    margin-inline-start: auto;
-    text-indent: -999rem;
-    cursor: pointer;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, .8);
-    background-color: var(--color-picker);
-  }
-
   &__card {
     position: relative;
     padding: 2rem;
@@ -99,10 +86,35 @@ html, body {
     > .dialog {
       position: absolute;
       background-color: var(--dialog-backdrop-background-color);
+      backdrop-filter: var(--dialog-backdrop-filter);
 
       .dialog__content {
         max-inline-size: calc(100% - 2.5rem);
       }
+    }
+  }
+
+  .color-picker {
+    display: grid;
+    grid-template-columns: 1fr .5825fr;
+    inline-size: 100%;
+
+    &__input {
+      display: inline-flex;
+      align-self: center;
+      block-size: 1.5em;
+      inline-size: 1.5em;
+      margin-inline-start: auto;
+      text-indent: -999rem;
+      cursor: pointer;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, .8);
+      background-color: var(--color-picker);
+      order: 1;
+    }
+
+    &__text {
+      order: 0;
     }
   }
 }
