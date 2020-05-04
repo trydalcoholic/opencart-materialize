@@ -24,6 +24,7 @@
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: 1fr 0.5825fr;
+  inline-size: 100%;
   color: var(--ultimaterial-color-primary-text);
 
   &:hover {
@@ -238,7 +239,7 @@
   &__output {
     grid-row: 2;
     order: 1;
-    color: #fff;
+    color: var(--ultimaterial-color-primary-text);
     padding: 0;
     text-align: center;
     border: 1px solid var(--ultimaterial-color-primary-dark);

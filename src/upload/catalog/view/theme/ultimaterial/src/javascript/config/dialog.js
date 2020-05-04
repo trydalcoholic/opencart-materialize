@@ -1,10 +1,11 @@
 import dialogPolyfill from 'dialog-polyfill';
 
-export default class Dialog {
+export default class UDialog {
   static _default = {
     dismissBackdrop: true,
     dismissClose: true,
     dismissEscape: true,
+    moveToBody: true,
     onOpenStart: null,
     onOpenEnd: null,
     onCloseStart: null,
@@ -13,11 +14,13 @@ export default class Dialog {
 
   constructor(element, option) {
     this.element = element;
-    this.option = Object.assign(Dialog._default, option);
+    this.option = Object.assign(UDialog._default, option);
 
     this.dialogClose = this.element.querySelectorAll('.dialog__close');
 
-    document.body.append(this.element);
+    if (this.option.moveToBody) {
+      document.body.append(this.element);
+    }
 
     dialogPolyfill.registerDialog(this.element);
 

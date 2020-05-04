@@ -17,5 +17,8 @@
         "vlucas/phpdotenv": "^4.1",
         "consolidation/robo": "^2.0.3",
         "henrikbjorn/lurker": "^1.2"
+    },
+    "config": {
+        "process-timeout": 0
     }
 }

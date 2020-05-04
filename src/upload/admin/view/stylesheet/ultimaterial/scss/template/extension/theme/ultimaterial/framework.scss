@@ -5,6 +5,8 @@
 @import "../../../../../../../../../catalog/view/theme/ultimaterial/src/scss/config/variables";
 @import "../../../../../../../../../catalog/view/theme/ultimaterial/src/scss/config/dialog";
 
+@import '~@simonwep/pickr/src/scss/themes/classic';
+
 html, body {
   block-size: 100%;
   min-block-size: 100%;
@@ -62,24 +64,45 @@ html, body {
         }
       }
 
-      .iframe__details-content {
-        padding: 0.5rem 1rem;
+      .iframe__details-list {
+        .iframe__details-item {
+          display: flex;
+          padding: 0.5rem 1rem;
+
+          &:not(:first-child) {
+            border-block-start: 1px solid var(--ultimaterial-color-primary-dark);
+          }
+        }
       }
     }
   }
 
+  &__color-picker {
+    display: inline-flex;
+    align-self: center;
+    block-size: 1.5em;
+    inline-size: 1.5em;
+    margin-inline-start: auto;
+    text-indent: -999rem;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .8);
+    background-color: var(--color-picker);
+  }
+
   &__card {
+    position: relative;
     padding: 2rem;
     background-color: #fff;
     box-shadow: var(--shadow-2);
-  }
 
-  .dialog {
-    position: relative;
-    block-size: auto;
+    > .dialog {
+      position: absolute;
+      background-color: var(--dialog-backdrop-background-color);
 
-    &__content {
-      inline-size: 100%;
+      .dialog__content {
+        max-inline-size: calc(100% - 2.5rem);
+      }
     }
   }
 }

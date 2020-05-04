@@ -17,16 +17,28 @@
           <details class="iframe__details" open>
             <summary class="iframe__summary">Common</summary>
             <div class="iframe__details-content">
-              {#<label class="slider">
-                <input class="slider__input" style="--slider-percent: calc(100% * 0.25 / 9.5)" value="0.25" type="range" min="0" max="9.5" step="0.125" data-target="framework-dialog" data-set="--dialog-border-radius">
-                <output class="slider__output" name="">0.25rem</output>
-                <span class="slider__text">Border Radius</span>
-              </label>#}
-              <label class="slider">
-                <input class="slider__input" style="--slider-percent: calc(100% * 0.25 / 4)" type="range" value="0.25" min="0" max="4" step="0.125" data-target="framework-dialog" data-set="--dialog-border-radius">
-                <output class="slider__output" name="">0.25rem</output>
-                <span class="slider__text">Border Radius</span>
-              </label>
+              <ul class="iframe__details-list">
+                <li class="iframe__details-item">
+                  <label class="slider">
+                    <input class="slider__input" style="--slider-percent: calc(100% * 0.5 / 4)" type="range" value="0.5" min="0" max="4" step="0.125" data-target="framework-dialog" data-set="--dialog-border-radius">
+                    <output class="slider__output" name="">0.5rem</output>
+                    <span class="slider__text">Border Radius</span>
+                  </label>
+                </li>
+                <li class="iframe__details-item">
+                  <label>
+                    <input type="hidden">
+                    <span>Backdrop Color</span>
+                  </label>
+                  <input type="text" class="iframe__color-picker" style="--color-picker: #fff" value="#fff" role="button" aria-label="Toggle color picker dialog" data-target="framework-dialog" data-set="--dialog-backdrop-background-color">
+                </li>
+                <li class="iframe__details-item">
+                  <label>
+                    <input type="hidden">
+                    <span>Backdrop Filter</span>
+                  </label>
+                </li>
+              </ul>
             </div>
           </details>
           <details class="iframe__details" open>
@@ -50,6 +62,10 @@
     </header>
     <main class="iframe__main">
       <div class="iframe__card">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus aliquam beatae cum dolores est excepturi laudantium libero magni odit, quam quasi sapiente, sunt tempora voluptatum! Dicta ducimus praesentium ullam.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus aliquam beatae cum dolores est excepturi laudantium libero magni odit, quam quasi sapiente, sunt tempora voluptatum! Dicta ducimus praesentium ullam.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus aliquam beatae cum dolores est excepturi laudantium libero magni odit, quam quasi sapiente, sunt tempora voluptatum! Dicta ducimus praesentium ullam.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus aliquam beatae cum dolores est excepturi laudantium libero magni odit, quam quasi sapiente, sunt tempora voluptatum! Dicta ducimus praesentium ullam.</p>
         <dialog class="dialog" id="framework-dialog" open>
           <div class="dialog__wrapper">
             <div class="dialog__content">
