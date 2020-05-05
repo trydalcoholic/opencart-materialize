@@ -27,14 +27,14 @@
                 </li>
                 <li class="iframe__details-item">
                   <label class="color-picker">
-                    <input type="text" class="color-picker__input" style="--color-picker: #fff" value="#fff" role="button" aria-label="Toggle color picker dialog" data-target="framework-dialog" data-property="--dialog-backdrop-background-color">
+                    <input type="text" class="color-picker__input" style="--color-picker: rgba(0, 0, 0, 0.4)" value="rgba(0, 0, 0, 0.4)" role="button" aria-label="Toggle color picker dialog" data-target="framework-dialog" data-property="--dialog-backdrop-background-color">
                     <span class="color-picker__text">Backdrop Color</span>
                   </label>
                 </li>
                 <li class="iframe__details-item">
                   <label class="slider">
-                    <input class="slider__input" style="--slider-percent: calc(100% * 1 / 5)" type="range" value="1" min="0" max="5" step="1" data-target="framework-dialog" data-property="--dialog-backdrop-filter" data-property-value="blur(${value}px)">
-                    <output class="slider__output">blur(1px)</output>
+                    <input class="slider__input" style="--slider-percent: calc(100% * 0 / 5)" type="range" value="0" min="0" max="5" step="1" data-target="framework-dialog" data-property="--dialog-backdrop-filter" data-property-value="blur(${value}px)">
+                    <output class="slider__output">blur(0px)</output>
                     <span class="slider__text">Backdrop Filter</span>
                   </label>
                 </li>
