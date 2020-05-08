@@ -32,17 +32,16 @@ class UFramework {
 
   _colorPicker() {
     this.colorPickers = document.querySelectorAll('.color-picker__input');
-    this.colorElements = [];
 
     this.colorPickers.forEach(element => {
-      this.colorElements.push(element);
+      var trigger = element;
 
-      this.colorElements[element] = new Pickr({
+      element = new Pickr({
         el: element,
         useAsButton: true,
-        default: element.value,
+        default: trigger.value,
         theme: 'nano',
-
+        lockOpacity: 'lockOpacity' in trigger.dataset ? (trigger.dataset.lockOpacity === 'true') : false,
         swatches: [
           'rgba(0, 0, 0, 0.4)',
           'rgba(244, 67, 54, 0.4)',
@@ -59,12 +58,10 @@ class UFramework {
           'rgba(205, 220, 57, 0.4)',
           'rgba(255, 235, 59, 0.4)'
         ],
-
         components: {
           preview: true,
           opacity: true,
           hue: true,
-
           interaction: {
             input: true,
             cancel: true,
@@ -72,51 +69,44 @@ class UFramework {
           }
         }
       }).on('show', () => {
-        this.initColor = element.value;
+        this.initColor = trigger.value;
       }).on('change', color => {
         let value = color.toRGBA().toString(0);
 
-        element.value = value;
-        element.style.setProperty('--color-picker', value);
+        trigger.value = value;
+        trigger.style.setProperty('--color-picker', value);
 
-        let target = document.getElementById(element.dataset.target),
-            dataSet = element.dataset.property;
+        let target = document.getElementById(trigger.dataset.target),
+            dataSet = trigger.dataset.property;
 
         target.style.setProperty(dataSet, value);
       }).on('cancel', () => {
-        let value = this.initColor;
+        trigger.value = this.initColor;
+        trigger.style.setProperty('--color-picker', this.initColor);
 
-        element.value = value;
-        element.style.setProperty('--color-picker', value);
+        let target = document.getElementById(trigger.dataset.target),
+            dataSet = trigger.dataset.property;
 
-        let target = document.getElementById(element.dataset.target),
-            dataSet = element.dataset.property;
-
-        target.style.setProperty(dataSet, value);
+        target.style.setProperty(dataSet, this.initColor);
       }).on('save', color => {
-        let value = color.toRGBA().toString(0);
+        this.initColor = color.toRGBA().toString(0);
 
-        this.initColor = value;
+        trigger.value = this.initColor;
+        trigger.style.setProperty('--color-picker', this.initColor);
 
-        element.value = value;
-        element.style.setProperty('--color-picker', value);
+        let target = document.getElementById(trigger.dataset.target),
+            dataSet = trigger.dataset.property;
 
-        let target = document.getElementById(element.dataset.target),
-            dataSet = element.dataset.property;
-
-        target.style.setProperty(dataSet, value);
-
-        this.colorElements[element].hide();
+        target.style.setProperty(dataSet, this.initColor);
+        element.hide();
       }).on('hide', () => {
-        let value = this.initColor;
+        trigger.value = this.initColor;
+        trigger.style.setProperty('--color-picker', this.initColor);
 
-        element.value = value;
-        element.style.setProperty('--color-picker', value);
+        let target = document.getElementById(trigger.dataset.target),
+            dataSet = trigger.dataset.property;
 
-        let target = document.getElementById(element.dataset.target),
-          dataSet = element.dataset.property;
-
-        target.style.setProperty(dataSet, value);
+        target.style.setProperty(dataSet, this.initColor);
 
         this.initColor = undefined;
       });

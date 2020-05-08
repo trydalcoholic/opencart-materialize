@@ -53,15 +53,19 @@ html, body {
     border-radius: 0.25rem;
 
     > .iframe__details {
+      + .iframe__details {
+        .iframe__summary {
+          border-block-start: 1px solid var(--ultimaterial-color-primary);
+        }
+      }
+
       .iframe__summary {
         padding: 1rem;
         background-color: var(--ultimaterial-color-primary-dark);
       }
 
-      &:not(:last-child) {
-        .iframe__summary {
-          border-block-end: 1px solid var(--ultimaterial-color-primary);
-        }
+      .iframe__summary {
+        border-block-end: 1px solid var(--ultimaterial-color-primary);
       }
 
       .iframe__details-list {

@@ -19,13 +19,6 @@
             <div class="iframe__details-content">
               <ul class="iframe__details-list">
                 <li class="iframe__details-item">
-                  <label class="slider">
-                    <input class="slider__input" style="--slider-percent: calc(100% * 0.5 / 4)" type="range" value="0.5" min="0" max="4" step="0.125" data-target="framework-dialog" data-property="--dialog-border-radius" data-property-value="${value}rem">
-                    <output class="slider__output">0.5rem</output>
-                    <span class="slider__text">Border Radius</span>
-                  </label>
-                </li>
-                <li class="iframe__details-item">
                   <label class="color-picker">
                     <input type="text" class="color-picker__input" style="--color-picker: rgba(0, 0, 0, 0.4)" value="rgba(0, 0, 0, 0.4)" role="button" aria-label="Toggle color picker dialog" data-target="framework-dialog" data-property="--dialog-backdrop-background-color">
                     <span class="color-picker__text">Backdrop Color</span>
@@ -38,12 +31,41 @@
                     <span class="slider__text">Backdrop Filter</span>
                   </label>
                 </li>
+                <li class="iframe__details-item">
+                  <label class="slider">
+                    <input class="slider__input" style="--slider-percent: calc(100% * 0.5 / 4)" type="range" value="0.5" min="0" max="4" step="0.125" data-target="framework-dialog" data-property="--dialog-border-radius" data-property-value="${value}rem">
+                    <output class="slider__output">0.5rem</output>
+                    <span class="slider__text">Border Radius</span>
+                  </label>
+                </li>
+                <li class="iframe__details-item">
+                  <label class="slider">
+                    <input class="slider__input" style="--slider-percent: calc(100% * 0.875 / 4)" type="range" value="0.875" min="0" max="4" step="0.125" data-target="framework-dialog" data-property="--dialog-padding" data-property-value="${value}rem">
+                    <output class="slider__output">0.875rem</output>
+                    <span class="slider__text">Padding</span>
+                  </label>
+                </li>
               </ul>
             </div>
           </details>
           <details class="iframe__details" open>
             <summary class="iframe__summary">Header</summary>
-            <div class="iframe__details-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dolore dolorem magni natus obcaecati, quis reprehenderit. Dolorem est ipsam modi, nam optio quas sit tempora totam? Et ex natus ratione?</div>
+            <div class="iframe__details-content">
+              <ul class="iframe__details-list">
+                <li class="iframe__details-item">
+                  <label class="color-picker">
+                    <input type="text" class="color-picker__input" style="--color-picker: #fff" value="#fff" role="button" aria-label="Toggle color picker dialog" data-target="framework-dialog" data-property="--dialog-header-background-color">
+                    <span class="color-picker__text">Background Color</span>
+                  </label>
+                </li>
+                <li class="iframe__details-item">
+                  <label class="color-picker">
+                    <input type="text" class="color-picker__input" style="--color-picker: #000" value="#000" role="button" aria-label="Toggle color picker dialog" data-target="framework-dialog" data-property="--dialog-header-color">
+                    <span class="color-picker__text">Text Color</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
           </details>
           <details class="iframe__details" open>
             <summary class="iframe__summary">Main</summary>
